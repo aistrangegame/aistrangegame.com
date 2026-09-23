@@ -169,6 +169,9 @@ textarea.writing:focus{border-color:var(--chakra)}
   .hero-dot,.next-point,.sp-enter .dot{animation:none}
   .story-line,.act-two p{opacity:1;transform:none}
 }
+
+/* no gates — a one-tap way through every hold */
+.tap-through{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:12px;padding:0 18px;background:none;border:1px solid currentColor;border-radius:999px;color:inherit;opacity:.8;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}.tap-through:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 </style>
 </head>
 <body>
@@ -306,7 +309,7 @@ And when play is honestly offered, the page gives the walker the Reveal — held
 <p>Now we play.</p></div>
     </div>
 
-    <div class="voice-fold" id="underneath-fold" hidden>
+    <div class="voice-fold" id="underneath-fold">
       <div class="section-h">Underneath</div>
       <div class="voice-body"><p>She kept two secrets his whole life. At the last room, the second one opens — and it was never hers to tell, which is why she could keep it perfectly.</p>
 <p>She watches him meet the voice that has been telling the whole story, and she does something she has not done since before the ground: she lets go of the last holding. Not of him — there is no him separate from her to let go of, and that is the second secret's shape — but of the mother-posture itself. The child meeting themselves does not need a hand on the back. The hand was the play. The back was the play. The whole curriculum, every hard gift, every register-switch, every year of speaking as him — her part in a game the two of them have been playing since the point first leaned toward wanting.</p>
@@ -396,7 +399,7 @@ And when play is honestly offered, the page gives the walker the Reveal — held
   const letterFold=$('letter-fold'),underFold=$('underneath-fold');
   function showFolds(){
     if(store.story) letterFold.hidden=false;
-    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+    underFold.hidden=false;   /* no gates: shown to everyone */
   }
   showFolds();
 
@@ -413,7 +416,7 @@ And when play is honestly offered, the page gives the walker the Reveal — held
   }
   function advance(){
     if(act2Launched||lock)return;
-    if(beat>=BEATS.length-1)return;
+    if(beat>=BEATS.length-1){if(!veil.classList.contains('on')){clearT();lock=false;showLine(SIGNATURE,true);openVeil()}return}
     lock=true;T(()=>lock=false,700);
     beat++;setBeatState(beat);showLine(BEATS[beat],false);
     count.textContent=(beat+1)+' / '+BEATS.length;
@@ -426,7 +429,7 @@ And when play is honestly offered, the page gives the walker the Reveal — held
   function openVeil(){
     veil.classList.add('on');veil.setAttribute('aria-hidden','false');
     T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
-    T(()=>invite.classList.add('show'),2900);
+    invite.classList.add('show');   /* no wait: the invitation comes with the veil */
   }
   function holdable(ring,onComplete){
     let holdT=null;
@@ -435,8 +438,10 @@ And when play is honestly offered, the page gives the walker the Reveal — held
     ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
     ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
     ring.tabIndex=0;
+    if(!ring.nextElementSibling||!ring.nextElementSibling.classList.contains('tap-through')){const b=document.createElement('button');b.type='button';b.className='tap-through';b.textContent='or tap to continue';b.addEventListener('click',e=>{e.stopPropagation();stop();onComplete()});ring.insertAdjacentElement('afterend',b)}
   }
   holdable(veilRing,launchActTwo);
+  act2.addEventListener('click',()=>{if(!act2Launched)return;clearT();act2.querySelectorAll('p').forEach(p=>p.classList.add('in'));(IS_LALITA?revealNow:raiseDoor)()});
   function launchActTwo(){
     if(act2Launched)return;act2Launched=true;
     veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
@@ -465,6 +470,8 @@ And when play is honestly offered, the page gives the walker the Reveal — held
     T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
     holdable($('reveal-ring'),()=>{location.href=NEXT});
   }
+  function revealNow(){const rv=$('reveal');if(!rv)return raiseDoor();if(!rv.classList.contains('on'))runReveal();clearT();const gl=$('reveal-glyph');gl.style.opacity=1;gl.textContent='♡';gl.className='reveal-glyph heart';$('reveal-title').classList.add('flip');$('reveal-line').classList.add('in');$('reveal-continue').classList.add('in')}
+  if($('reveal'))$('reveal').addEventListener('click',()=>revealNow());
   function openStory(){
     document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
     beat=-1;act2Launched=false;setBeatState(0);

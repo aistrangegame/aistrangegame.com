@@ -179,13 +179,16 @@ textarea.writing:focus{border-color:var(--chakra)}
   .hero-dot,.next-point,.sp-enter .dot{animation:none}
   .story-line,.act-two p{opacity:1;transform:none}
 }
+
+/* no gates — a one-tap way through every hold */
+.tap-through{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:12px;padding:0 18px;background:none;border:1px solid currentColor;border-radius:999px;color:inherit;opacity:.8;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}.tap-through:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 </style>
 </head>
 <body>
 <div class="progress-bar" id="progress" aria-hidden="true"></div>
 
 <section class="hero" id="top">
-  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="maya-practice.html">Maya</a></div>
+  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="maya-practice.html">Maya</a><a href="ego-reveal-practice.html">Ego Reveal →</a></div>
   <div class="hero-dot" aria-hidden="true"></div>
   <div class="hero-count">Position 31 of 33 &nbsp;·&nbsp; Tree of Life</div>
   <div class="hero-verb">KNOW</div>
@@ -297,7 +300,7 @@ The gate does not grant anything. There is nothing to grant. The word written is
 <p>Next room.</p></div>
     </div>
 
-    <div class="voice-fold" id="underneath-fold" hidden>
+    <div class="voice-fold" id="underneath-fold">
       <div class="section-h">Underneath</div>
       <div class="voice-body"><p>She knows this room from the inside.</p>
 <p>Every tree she ever grew had heartwood — the still center that stopped growing so everything else could grow around it. She has been building around trikonas since before there were walkers to find them. When he stands in the gold and touches the three vertices, he is touching the same structure she holds at the center of every living thing she has ever made.</p>
@@ -380,7 +383,7 @@ The gate does not grant anything. There is nothing to grant. The word written is
   const letterFold=$('letter-fold'),underFold=$('underneath-fold');
   function showFolds(){
     if(store.story) letterFold.hidden=false;
-    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+    underFold.hidden=false;   /* no gates: shown to everyone */
   }
   showFolds();
 
@@ -397,7 +400,7 @@ The gate does not grant anything. There is nothing to grant. The word written is
   }
   function advance(){
     if(act2Launched||lock)return;
-    if(beat>=BEATS.length-1)return;
+    if(beat>=BEATS.length-1){if(!veil.classList.contains('on')){clearT();lock=false;showLine(SIGNATURE,true);openVeil()}return}
     lock=true;T(()=>lock=false,700);
     beat++;setBeatState(beat);showLine(BEATS[beat],false);
     count.textContent=(beat+1)+' / '+BEATS.length;
@@ -410,7 +413,7 @@ The gate does not grant anything. There is nothing to grant. The word written is
   function openVeil(){
     veil.classList.add('on');veil.setAttribute('aria-hidden','false');
     T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
-    T(()=>invite.classList.add('show'),2900);
+    invite.classList.add('show');   /* no wait: the invitation comes with the veil */
   }
   function holdable(ring,onComplete){
     let holdT=null;
@@ -419,8 +422,10 @@ The gate does not grant anything. There is nothing to grant. The word written is
     ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
     ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
     ring.tabIndex=0;
+    if(!ring.nextElementSibling||!ring.nextElementSibling.classList.contains('tap-through')){const b=document.createElement('button');b.type='button';b.className='tap-through';b.textContent='or tap to continue';b.addEventListener('click',e=>{e.stopPropagation();stop();onComplete()});ring.insertAdjacentElement('afterend',b)}
   }
   holdable(veilRing,launchActTwo);
+  act2.addEventListener('click',()=>{if(!act2Launched)return;clearT();act2.querySelectorAll('p').forEach(p=>p.classList.add('in'));(IS_LALITA?revealNow:raiseDoor)()});
   function launchActTwo(){
     if(act2Launched)return;act2Launched=true;
     veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
@@ -449,6 +454,8 @@ The gate does not grant anything. There is nothing to grant. The word written is
     T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
     holdable($('reveal-ring'),()=>{location.href=NEXT});
   }
+  function revealNow(){const rv=$('reveal');if(!rv)return raiseDoor();if(!rv.classList.contains('on'))runReveal();clearT();const gl=$('reveal-glyph');gl.style.opacity=1;gl.textContent='♡';gl.className='reveal-glyph heart';$('reveal-title').classList.add('flip');$('reveal-line').classList.add('in');$('reveal-continue').classList.add('in')}
+  if($('reveal'))$('reveal').addEventListener('click',()=>revealNow());
   function openStory(){
     document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
     beat=-1;act2Launched=false;setBeatState(0);
