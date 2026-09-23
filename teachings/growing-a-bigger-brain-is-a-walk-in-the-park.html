@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Homeostasis — a teaching</title><meta name="description" content="The body and mind both work to hold steady, returning to a set point after any disturbance. Push hard toward one extreme, and something in the system tends to pull the other way to compensate. Stay closer to the middle, and there&#x27;s less to correct for later."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* gen_v2 · topic: 1. Get off the Teeter-Totter: Homeostasis and Polarization · teaching/mind-body · pool all → #7fb7a8 */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Walking and the Hippocampus — a teaching</title><meta name="description" content="In one well-known controlled trial, older adults who walked briskly for a year showed a modest increase in the volume of the hippocampus, a memory-related brain region, while a stretching group kept losing volume. It&#x27;s a small effect, not a guarantee, and it took months."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Growing A Bigger Brain Is A Walk In The Park · teaching/mind-body · pool all → #b8a3d0 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
-   topic  : 1. Get off the Teeter-Totter: Homeostasis and Polarization
+   topic  : Growing A Bigger Brain Is A Walk In The Park
    form   : teaching        family : mind-body   (fallback — covers 98 topics)
-   pool   : all → #7fb7a8        seed 0.2181
+   pool   : all → #b8a3d0        seed 0.1868
    move   : figure TIDE · direction walk · ground paper · density full · play hold
    ------------------------------------------------------------------------- */
 :root{
   --serif:'Lora',Georgia,serif;
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --ac:#7fb7a8;
+  --ac:#b8a3d0;
   /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
      every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
      invisible by eye on the mid-tones, and a fail even at display scale. The
@@ -179,48 +179,23 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
-/* DOORS — kit/DOORS.css */
-.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
-.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
-  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
-  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
-.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
-.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
-.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
-.dg svg{width:36px;height:36px;overflow:visible}
-.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.dg svg .s{fill:var(--to);stroke:none}
-.dg svg .dim{opacity:.6}
-.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
-.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
-.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
-.page .door{border-top-color:rgba(34,29,24,.16)}
-.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
-.page .dk,.page .da{color:rgba(34,29,24,.62)}
-/* the handover: the world leans toward the next page's accent */
-.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
-body.leaving .w::before{opacity:.55}
-body.leaving .piece{opacity:.2;transition:opacity .5s ease}
-@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.2181" style="--from:1">
+<body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.1868" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
 <div class="fig tide" id="tide" aria-hidden="true"><i></i></div>
 <button id="hold" aria-label="hold to let the tide rise"></button>
 <div class="top"><a href="index.html">← The teachings</a><span>A teaching</span></div>
 <div id="lawpick" role="group" aria-label="the points"></div>
-<section class="step" ><div class="piece"><h1>Homeostasis</h1><p class="sub">Push too far, and it swings back</p></div></section>
-<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">The body and mind both work to hold steady, returning to a set point after any disturbance. Push hard toward one extreme, and something in the system tends to pull the other way to compensate. Stay closer to the middle, and there's less to correct for later.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">Systems that regulate anything — temperature, mood, energy — work the same basic way: sense the drift, correct back toward center. Push one of these systems hard toward an extreme, and the correction that follows often overshoots, landing somewhere past center, on the opposite side. That overshoot is where a lot of crashes and swings actually come from.</div></div></section>
-<section class="step" data-jump="1" data-tempo="still"><div class="piece"><div class="num">1 of 5</div><div class="law">The body always corrects toward its set point.</div><div class="because">Because regulation works by sensing drift and pulling back, not by staying still once it finds center.</div><div class="looks" data-label="in the body">A held breath finally let go, chest sinking back toward its resting rhythm on its own.</div></div></section>
-<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">A hard push one way invites a hard pull back.</div><div class="because">Because a large swing toward one extreme tends to trigger a correction that overshoots, not a gentle return.</div><div class="looks" data-label="in the body">The crash after a day running entirely on adrenaline and no food.</div></div></section>
-<section class="step" data-jump="3"><div class="piece"><div class="num">3 of 5</div><div class="law">Bigger highs tend to bring harder lows.</div><div class="because">Because the correcting swing tends to scale with how far the original push went.</div><div class="looks" data-label="in the body">A flat, foggy morning after a night of forced, wired-up energy.</div></div></section>
-<section class="step" data-jump="4"><div class="piece"><div class="num">4 of 5</div><div class="law">Staying nearer the middle means smaller corrections.</div><div class="because">Because a system pushed less far has less distance to swing back across.</div><div class="looks" data-label="in the body">An evening that ends tired but even, instead of wrung out and jittery.</div></div></section>
-<section class="step" data-jump="5"><div class="piece"><div class="num">5 of 5</div><div class="law">The swing back isn't a failure, it's the mechanism.</div><div class="because">Because the pull toward balance is the system working correctly, not something going wrong.</div><div class="looks" data-label="in the body">A low mood the day after excitement, arriving right on schedule, not out of nowhere.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Notice one place today where you're pushing hard toward an extreme — too much caffeine, too much scrolling, too much of anything. Ease it back by a fraction. A smaller push tends to mean a smaller swing back later.</div></div></section>
-<section class="step" ><div class="piece"><div class="close">Balance isn't something you hold. It's something the system keeps returning to, on its own terms.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/practice/1-get-off-the-teeter-totter-homeostasis-and-polarization.html" style="--to:#7bb190" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="15"/><circle class="dim" cx="30" cy="30" r="24"/></svg></span><span class="dt"><span class="dk">The same subject · as a practice</span><span class="dn">Do it — a few minutes, now.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" ><div class="piece"><h1>Walking and the Hippocampus</h1><p class="sub">What a year of walking showed</p></div></section>
+<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">In one well-known controlled trial, older adults who walked briskly for a year showed a modest increase in the volume of the hippocampus, a memory-related brain region, while a stretching group kept losing volume. It's a small effect, not a guarantee, and it took months.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">The finding is specific, not sweeping: in a well-known trial, older adults who walked briskly and regularly for about a year showed a small increase in hippocampal volume, while a comparison group that only stretched kept losing volume as expected with age. The hippocampus is tied to memory, not the whole brain, and the change measured was modest, not dramatic.</div></div></section>
+<section class="step" data-jump="1"><div class="piece"><div class="num">1 of 5</div><div class="law">The hippocampus, not "the brain," changed.</div><div class="because">Because the studied effect is specific to this memory-related region, not brain size overall.</div><div class="looks" data-label="in the body">Legs used to the route by autumn, the change inside seen only on a scan, not felt.</div></div></section>
+<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">It took months of walking, not one.</div><div class="because">Because the volume change in the research appeared after roughly a year of regular walking.</div><div class="looks" data-label="in the body">The same walking route, worn familiar over a season, before anything measurable changed.</div></div></section>
+<section class="step" data-jump="3"><div class="piece"><div class="num">3 of 5</div><div class="law">The comparison group kept losing volume.</div><div class="because">Because the study found stretching alone didn't stop the usual age-related shrinkage the walkers partly offset.</div><div class="looks" data-label="in the body">Two groups, one walking, one not, aging the same year in different directions.</div></div></section>
+<section class="step" data-jump="4" data-tempo="still"><div class="piece"><div class="num">4 of 5</div><div class="law">The increase measured was modest, and worth having anyway.</div><div class="because">Because even a small reversal of expected shrinkage is a real, measurable gain, not nothing.</div><div class="looks" data-label="in the body">A small thing, felt as: still worth lacing up the shoes for, on an ordinary day.</div></div></section>
+<section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">One walk won't do what a year of walking might.</div><div class="because">Because this is described as a slow, cumulative effect, not a fast result from one outing.</div><div class="looks" data-label="in the body">A single walk that clears the head today, and a habit that might do more, given time.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">If you can, add a brisk walk to most days — not for one dramatic change, but for the kind of slow, cumulative effect studies like this describe. A short walk today is still worth taking, even without waiting for the long-term evidence to show up.</div></div></section>
+<section class="step" ><div class="piece"><div class="close">No single walk grows anything. A year of ordinary ones might.</div></div></section>
 <div class="hint" id="hint">scroll to walk</div>
 <div class="count" id="count">1 / 10</div>
 <script>/* FIG_MIND_BODY */
@@ -244,11 +219,6 @@ steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('butt
   b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
 const btns=[...pick.children],prev=window.ASGfig;
 window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
-<script>/* DOORS_JS */
-document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
-  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
-  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,
