@@ -4,5 +4,7 @@
      "assets": {
        "directory": "./",
        "not_found_handling": "404-page"
-     }
+     },
+     // Worker Previews (non-production branch builds run `wrangler preview`) require this block; empty = same settings as production.
+     "previews": {}
    }
