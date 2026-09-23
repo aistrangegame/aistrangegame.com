@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Acting on Your Values, Not Their Outcomes — a teaching</title><meta name="description" content="A value points to a direction you keep choosing — honesty, courage, care — not a result you can finish and check off. Outcomes can be blocked by circumstance; a value can still be acted on today, in some small way, regardless of what the world hands back."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* gen_v2 · topic: 11. Acting on Your Values, Not Their Outcomes · teaching/mind-body · pool all → #c9963f */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Hawaiian Ho'oponopono - Cleaning the Lineage — a teaching</title><meta name="description" content="In traditional Hawaiian practice, ho&#x27;oponopono is a family gathering, often led by an elder, where a conflict is named and made right between the people actually involved. In the 1970s, one kahuna adapted it into a solo, inward practice — the popular self-help version most people now know by that name."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Hawaiian Ho'oponopono - Cleaning the Lineage · teaching/other · pool all → #88a483 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
-   topic  : 11. Acting on Your Values, Not Their Outcomes
-   form   : teaching        family : mind-body   (fallback — covers 98 topics)
-   pool   : all → #c9963f        seed 0.1118
-   move   : figure TIDE · direction walk · ground paper · density full · play hold
+   topic  : Hawaiian Ho'oponopono - Cleaning the Lineage
+   form   : teaching        family : other   (fallback — covers 75 topics)
+   pool   : all → #88a483        seed 0.7569
+   move   : figure FIELD · direction walk · ground paper · density full · play none
    ------------------------------------------------------------------------- */
 :root{
   --serif:'Lora',Georgia,serif;
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --ac:#c9963f;
+  --ac:#88a483;
   /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
      every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
      invisible by eye on the mid-tones, and a fail even at display scale. The
@@ -135,30 +135,12 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 .close{font-size:clamp(20px,5.2vw,26px);line-height:1.45;font-style:italic}
 @media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(50px,5vw,70px)}.law{font-size:clamp(38px,3.8vw,52px)}#lawpick button{width:36px;height:36px}}
 @media (max-height:720px){.law{font-size:25px;margin-bottom:12px}.because{font-size:16px;margin-bottom:14px}.looks{font-size:15px}.one{font-size:19px}}
-/* @FIG:TIDE — NOTE top:auto. The base .fig rule sets inset:0; without it,
-   top:0 wins over bottom and the waterline sits at the top of the screen.
-   The ground breathes at six breaths a minute (5s in, 5s out),
-   the pace of a settled body. It does not assert a model; it only keeps time.
-   TEMPO IS A PER-STEP SLOT, default rest. The generator may set quick or
-   still ONLY where the step's own words describe alarm or shutdown —
-   never as decoration. Play: hold. While held the tide rises and waits; let
-   go and it falls over eight seconds — a long exhale, untaught. */
-.w{background:#F7F3EC}
-.tide{position:fixed;top:auto;left:-6%;right:-6%;bottom:-2svh;height:50svh;display:block;z-index:1;pointer-events:none;
-  transform:translateY(var(--tl,30svh));transition:transform var(--tt,5s) cubic-bezier(.45,0,.55,1);will-change:transform}
-/* FELT PASS — a ruler-straight line read as a divider, not as water. The
-   surface is now a slow swell: scallops in the water's own colour, drifting,
-   with the accent kept as a faint line just under the crest. */
-.tide::before{content:"";position:absolute;left:0;right:0;top:-11px;height:12px;
-  background:radial-gradient(34px 11px at 50% 100%, color-mix(in oklab, var(--ac) 16%, #F7F3EC) 97%, transparent 100%) repeat-x 0 0/68px 12px;
-  animation:swell 9s linear infinite}
-.tide>i{position:absolute;left:0;right:0;top:0;height:1.5px;background:color-mix(in oklab, var(--ac) 45%, transparent)}
-@keyframes swell{to{background-position:-68px 0}}
-@media (prefers-reduced-motion: reduce){.tide::before{animation:none}}
-.tide::after{content:"";position:absolute;left:0;right:0;top:1.5px;bottom:0;
-  background:linear-gradient(180deg,color-mix(in oklab, var(--ac) 16%, #F7F3EC) 0%,color-mix(in oklab, var(--ac) 6%, #F7F3EC) 55%,#F7F3EC 100%)}
-#hold{position:fixed;inset:0;z-index:1;border:0;background:transparent;cursor:pointer;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
-@media (prefers-reduced-motion: reduce){.tide{transition:none}}
+/* @FIG:FIELD */
+.w{background:radial-gradient(120% 90% at 50% calc(94% - var(--p,0) * 56%),color-mix(in oklab, var(--ac) 11%, #F7F3EC) 0%,#F7F3EC 46%);transition:background 2.4s ease}
+.w::after{content:"";position:absolute;left:50%;top:calc(94% - var(--p,0) * 56%);width:min(150vmin,900px);height:min(150vmin,900px);
+  transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle, color-mix(in oklab, var(--ac) 15%, transparent), transparent 62%);
+  transition:top 2.4s ease;animation:fieldbreath 9s ease-in-out infinite}
+@keyframes fieldbreath{0%,100%{opacity:.65}50%{opacity:1}}
 /* @END */
 
 /* HIT AREA ≥44px, visual dot unchanged. The button is the 44px target; the
@@ -179,76 +161,31 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
-/* DOORS — kit/DOORS.css */
-.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
-.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
-  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
-  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
-.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
-.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
-.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
-.dg svg{width:36px;height:36px;overflow:visible}
-.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.dg svg .s{fill:var(--to);stroke:none}
-.dg svg .dim{opacity:.6}
-.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
-.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
-.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
-.page .door{border-top-color:rgba(34,29,24,.16)}
-.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
-.page .dk,.page .da{color:rgba(34,29,24,.62)}
-/* the handover: the world leans toward the next page's accent */
-.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
-body.leaving .w::before{opacity:.55}
-body.leaving .piece{opacity:.2;transition:opacity .5s ease}
-@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.1118" style="--from:1">
+<body class="dark" data-variant="other" data-form="teaching" data-seed="0.7569" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
-<div class="fig tide" id="tide" aria-hidden="true"><i></i></div>
-<button id="hold" aria-label="hold to let the tide rise"></button>
+
 <div class="top"><a href="index.html">← The teachings</a><span>A teaching</span></div>
 <div id="lawpick" role="group" aria-label="the points"></div>
-<section class="step" ><div class="piece"><h1>Acting on Your Values, Not Their Outcomes</h1><p class="sub">Living by what matters, not by results</p></div></section>
-<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">A value points to a direction you keep choosing — honesty, courage, care — not a result you can finish and check off. Outcomes can be blocked by circumstance; a value can still be acted on today, in some small way, regardless of what the world hands back.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">Outcomes are only partly yours — effort, luck, and other people all have a hand in what actually happens. A value doesn't work that way. It's a direction, not a destination, and it's available to act on today whether or not the result you wanted ever arrives.</div></div></section>
-<section class="step" data-jump="1"><div class="piece"><div class="num">1 of 5</div><div class="law">A value is a direction, not a finish line.</div><div class="because">Because a direction can be walked in today, while a result can only be waited for.</div><div class="looks" data-label="in the body">Choosing honesty in one hard sentence, with no idea how it will land.</div></div></section>
-<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">You can act on a value even if it fails.</div><div class="because">Because the outcome depends on more than you, but the choice to act rarely does.</div><div class="looks" data-label="in the body">Showing up with courage to a conversation that still goes badly anyway.</div></div></section>
-<section class="step" data-jump="3" data-tempo="quick"><div class="piece"><div class="num">3 of 5</div><div class="law">Chasing outcomes alone tends to breed anxiety.</div><div class="because">Because a result you can't control makes a shaky foundation to build your effort on.</div><div class="looks" data-label="in the body">A tight stomach that eases once the goal is set down for the action instead.</div></div></section>
-<section class="step" data-jump="4" data-tempo="still"><div class="piece"><div class="num">4 of 5</div><div class="law">Ask "what matters here," not just "will this work."</div><div class="because">Because the first question can be answered by you alone; the second one can't.</div><div class="looks" data-label="in the body">A steadier breath after choosing care over the certainty of a good result.</div></div></section>
-<section class="step" data-jump="5"><div class="piece"><div class="num">5 of 5</div><div class="law">A value acted on today counts, whatever happens tomorrow.</div><div class="because">Because living by a value is measured in the acting, not in the score at the end.</div><div class="looks" data-label="in the body">One kind, honest moment that stands on its own, regardless of what follows.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Pick one value that matters to you — honesty, courage, patience. Find one small way to act on it today, without waiting to see if it "works." The value gets kept the moment it's acted on, not the moment it pays off.</div></div></section>
-<section class="step" ><div class="piece"><div class="close">You don't get to choose what happens next. You get to choose what you did.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/practice/11-acting-on-your-values-not-their-outcomes.html" style="--to:#65a4d0" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="15"/><circle class="dim" cx="30" cy="30" r="24"/></svg></span><span class="dt"><span class="dk">The same subject · as a practice</span><span class="dn">Do it — a few minutes, now.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" ><div class="piece"><h1>Hawaiian Ho'oponopono - Cleaning the Lineage</h1><p class="sub">One practice, told two ways</p></div></section>
+<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">In traditional Hawaiian practice, ho'oponopono is a family gathering, often led by an elder, where a conflict is named and made right between the people actually involved. In the 1970s, one kahuna adapted it into a solo, inward practice — the popular self-help version most people now know by that name.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">Why this is hard</div><div class="tues">Ho'oponopono means, roughly, to make right. In its older form, it's communal: family members sit together, name what went wrong, and work it through, usually guided by an elder. Morrnah Simeona reshaped it in the 1970s into something a single person could do alone, aimed inward rather than at a room of relatives.</div></div></section>
+<section class="step" data-jump="1"><div class="piece"><div class="num">1 of 5</div><div class="law">The traditional form gathers the family, not one person.</div><div class="because">Because ho'oponopono began as a group practice, done with the people the conflict actually involved.</div><div class="looks" data-label="sounds like">A room of relatives, not a person alone, doing the work of making something right.</div></div></section>
+<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">An elder often guided the process.</div><div class="because">Because the traditional practice was commonly led by a respected family member or healer, not done solo.</div><div class="looks" data-label="sounds like">A calm, older voice keeping the conversation from tipping into blame.</div></div></section>
+<section class="step" data-jump="3" data-tempo="still"><div class="piece"><div class="num">3 of 5</div><div class="law">One woman adapted it into a solo practice.</div><div class="because">Because Morrnah Simeona reshaped the family ritual in the 1970s into something one person does alone.</div><div class="looks" data-label="sounds like">A private repetition of a phrase, done with no one else in the room.</div></div></section>
+<section class="step" data-jump="4" data-tempo="still"><div class="piece"><div class="num">4 of 5</div><div class="law">The popular version turns inward, not outward.</div><div class="because">Because the modern self-help form asks you to clear your own reaction, not resolve things with the other person.</div><div class="looks" data-label="sounds like">A held breath, released by words said only to yourself.</div></div></section>
+<section class="step" data-jump="5"><div class="piece"><div class="num">5 of 5</div><div class="law">Both versions are real; they aren't the same thing.</div><div class="because">Because the family ritual and the solo self-help practice share a name and a root, not one identical form.</div><div class="looks" data-label="sounds like">Two different rooms, filled by the same few words, used for different work.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">If you try the popular phrases — I'm sorry, please forgive me, thank you, I love you — notice which version you're actually doing: something aimed at another person, or something aimed only at yourself. Both are real; they aren't interchangeable.</div></div></section>
+<section class="step" ><div class="piece"><div class="close">One name holds two practices now. Knowing which one you're doing is worth something.</div><div class="src" style="margin-top:24px;line-height:1.9">Traditional Hawaiian family practice, and Morrnah Nalamaku Simeona's Self Identity through Ho'oponopono</div></div></section>
 <div class="hint" id="hint">scroll to walk</div>
 <div class="count" id="count">1 / 10</div>
-<script>/* FIG_MIND_BODY */
-(function(){
-const t=document.getElementById('tide');let tempo='rest',held=false,up=false,tm=0;
-const T={rest:{h:5000,hi:22,lo:34},quick:{h:1700,hi:20,lo:30},still:{h:8000,hi:36,lo:38}};
-const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function set(v,ms){t.style.setProperty('--tt',ms+'ms');t.style.setProperty('--tl',v+'svh')}
-function beat(){clearTimeout(tm);if(held)return;const c=T[tempo];
-  if(document.hidden||rm){set(c.lo,600);tm=setTimeout(beat,1500);return}
-  up=!up;set(up?c.hi:c.lo,c.h);tm=setTimeout(beat,c.h)}
-window.ASGfig=function(d){const nt=d.tempo||'rest';if(nt!==tempo){tempo=nt;up=false;beat()}};
-const h=document.getElementById('hold');
-h.addEventListener('pointerdown',()=>{held=true;clearTimeout(tm);set(18,2600)});
-function rel(){if(!held)return;held=false;up=false;set(T[tempo].lo,8000);tm=setTimeout(beat,8000)}
-addEventListener('pointerup',rel);addEventListener('pointercancel',rel);
-beat();})();
+<script>/* FIG_OTHER */
 (function(){const pick=document.getElementById('lawpick'),steps=[...document.querySelectorAll('.step')];
 steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('button');b.type='button';b.textContent=s.dataset.jump;
   b.dataset.law=s.dataset.jump;b.setAttribute('aria-label','point '+s.dataset.jump);
   b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
 const btns=[...pick.children],prev=window.ASGfig;
 window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
-<script>/* DOORS_JS */
-document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
-  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
-  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,
