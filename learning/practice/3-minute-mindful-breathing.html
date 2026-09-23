@@ -89,6 +89,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body data-seed="0.5704" class="dark" data-variant="breath" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -109,8 +110,9 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <section class="step" data-fig="quiet"><div class="piece"><div class="k">How</div><div class="steps"><div>Notice what's here right now — thoughts, feelings, any tension in the body — without trying to change it.</div><div>Narrow your attention down to the breath alone. Follow one full breath, in and out.</div><div>Widen out again, letting your awareness spread to the whole body as you keep breathing.</div></div></div></section>
 <section class="step" data-fig="now"><div class="piece"><div class="k">Now</div><div class="phase" id="phase"></div><div class="trow"><span class="tbtn" id="tstart">begin</span><div class="timer" id="timer">3:00</div></div><p class="because" style="text-align:center;margin-top:16px">Notice. Narrow to the breath. Widen back out. Repeat.</p></div></section>
 <section class="step" data-fig="grace"><div class="piece"><div class="k">After</div><div class="because" style="font-size:clamp(19px,4.8vw,22px);color:var(--ink)">You don't need three uninterrupted minutes to feel a shift — even one quick round can loosen a tight moment. Use it before a hard conversation, or any time you notice you've been running on autopilot.</div></div></section>
+<section class="step" data-fig="grace" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to begin</div>
-<div class="count" id="count">1 / 5</div>
+<div class="count" id="count">1 / 6</div>
 
 <script>/* CORRIDOR — scroll-driven activation. Deterministic: picks the step whose
    centre is nearest the viewport centre, so it cannot silently fail. */

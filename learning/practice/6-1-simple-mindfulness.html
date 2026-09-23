@@ -152,6 +152,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-variant="stillness" data-form="practice" data-seed="0.7809" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -163,8 +164,9 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <section class="step" data-calm=".7" data-leaf="1"><div class="piece"><div class="k">Try it</div><label class="own"><span>Something ordinary, here now</span><input id="thought" type="text" maxlength="60" placeholder="a sound, a feeling" autocomplete="off"></label><button type="button" class="tbtn" id="set">Rest attention there</button><div class="priv">Nothing you type is kept. It floats off the page.</div></div></section>
 <section class="step" data-calm="0.85"><div class="piece"><div class="k">Wandering is expected</div><div class="lead">Noticing that your mind has wandered, and returning, is the practice itself — not a sign you're doing it wrong.</div></div></section>
 <section class="step" data-calm="1"><div class="piece"><div class="aff">One thing, noticed again and again.</div></div></section>
+<section class="step" data-calm="1" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 6</div>
+<div class="count" id="count">1 / 7</div>
 <script>/* FIG_STILLNESS */
 (function(){const W=document.getElementById('water'),inp=document.getElementById('thought');
 window.ASGfig=function(d){document.body.style.setProperty('--calm',d.calm||0)};

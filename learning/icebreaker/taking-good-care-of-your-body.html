@@ -96,6 +96,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 .asklist li.handed::after{opacity:1}
 .term{padding-left:14px;border-left:1px solid var(--faint)}
 .term b{color:var(--actext)}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body data-seed="0.9008" class="light" data-variant="any" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -113,8 +114,9 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <section class="step" ><div class="piece"><div class="k">More words</div><div class="term" style="margin:0"><b>Sleep hygiene</b>The everyday habits — light, timing, noise, screens — that make good sleep more or less likely on an ordinary night.</div></div></section>
 <section class="step" ><div class="piece"><div class="k">A line to leave them with</div><div class="aff" style="font-size:clamp(24px,6vw,32px)">The basics aren't exciting. They're just the ones holding everything up.</div></div></section>
 <section class="step" ><div class="piece"><div class="q">If they want more:</div><div class="links"><a href="../index.html">All topics</a></div></div></section>
+<section class="step"  data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 11</div>
+<div class="count" id="count">1 / 12</div>
 
 <script>/* CORRIDOR_JS */
 (function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),

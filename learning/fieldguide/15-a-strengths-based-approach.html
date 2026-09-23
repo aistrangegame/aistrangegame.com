@@ -170,6 +170,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-variant="conversation" data-form="fieldguide" data-seed="0.6951" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -181,8 +182,9 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><p class="when">When</p><div class="do">They just did something hard and you want to name it</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“That call was hard, and you made it anyway.”</button><button type="button" data-copy>“That's the same thing that helped last time, isn't it?”</button></div><p class="when">Instead of</p><div class="not">Rushing past it to what's still wrong.</div><p class="when">Because</p><div class="because">A strength you hand someone lands weaker than one they notice themselves; naming it plainly still helps it land.</div></div></section>
 <section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><p class="when">When</p><div class="do">You want them to name their own strengths, not yours</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“What's one thing you did today that you're glad you did?”</button><button type="button" data-copy>“What's helped before, even once?”</button></div><p class="when">Instead of</p><div class="not">Filling their silence with your own list of their strengths.</div><p class="when">Because</p><div class="because">A strength found by them, even a small one, tends to stick better than one that's simply handed over.</div></div></section>
 <section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">What's still standing counts too.</div><div class="because">This isn't about ignoring what's hard. It's asking a second question the first one usually crowds out.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/15-a-strengths-based-approach.html" style="--to:#3AADA8" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" data-here="grace" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll, or pick</div>
-<div class="count" id="count">1 / 5</div>
+<div class="count" id="count">1 / 6</div>
 <script>/* FIG_CONVERSATION */
 (function(){
 document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));
