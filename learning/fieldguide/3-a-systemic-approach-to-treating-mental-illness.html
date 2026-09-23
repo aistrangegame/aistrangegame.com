@@ -1,0 +1,334 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Seeing the Whole System — a field guide</title><meta name="description" content="The illness doesn&#x27;t sit inside one person alone — it moves through the family, the routines, the care team around them. Treat the system, not just the person."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: 3. A Systemic Approach to Treating Mental Illness · fieldguide/for-someone-else · pool calm → #4A7A5A */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : 3. A Systemic Approach to Treating Mental Illness
+   form   : fieldguide        family : for-someone-else   (27 topics)
+   pool   : calm → #4A7A5A        seed 0.9049
+   move   : figure STANCE · direction walk · ground paper · density full · play drag
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#4A7A5A;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+/* CHROME over a figure ground: solid ink */
+.top,.count,.hint{color:#5A5249}
+/* ============ EXTRA_FIELDGUIDE — family: for-someone-else ============ */
+/* @FIG:STANCE — the reader is the helper. The lessons in this family keep
+   returning to one thing: where you stand. Too close (enmeshment), too far
+   (detachment), facing them (arguing with them about it), or beside them
+   facing it. Three marks — you, them, the illness — and each situation moves
+   you. SLOT: data-pos on a step ∈ all · against · merged · apart · beside.
+   Every page in the family ENDS on beside. The illness is drawn as a ring,
+   never as a face: it is a thing, not a person.
+   Play: drag "you". Wherever you drop yourself, the band names where you are
+   standing. It resets on the next step and is never stored. */
+.w{background:linear-gradient(180deg,#FAF7F1 0%,#F7F3EC 60%,#F2ECE2 100%)}
+.band{top:0;left:0;right:0;bottom:auto;height:30svh;min-height:210px;padding:calc(40px + env(safe-area-inset-top,0px)) 12px 0;display:flex;align-items:flex-end;justify-content:center;
+  background:linear-gradient(180deg,#F9F6F0 82%,rgba(249,246,240,0))}
+.band svg{height:100%;width:auto;max-width:96vw;overflow:visible}
+.floor{stroke:rgba(31,27,22,.16);stroke-width:1}
+.m{transition:transform 1.4s cubic-bezier(.22,1,.36,1)}
+.m.dragging{transition:none}
+.m .body{transition:r 1s ease}
+.you .body{fill:var(--actext)}
+.them .body{fill:#3A332C}
+.it .body{fill:none;stroke:#5A5249;stroke-width:1.4;stroke-dasharray:3 4;animation:turn 30s linear infinite;transform-box:fill-box;transform-origin:center}
+@keyframes turn{to{transform:rotate(360deg)}}
+.gaze{stroke:#1F1B16;stroke-width:1.6;stroke-linecap:round;transform:rotate(var(--g,0deg));transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.it .gaze{display:none}
+.ml{font-family:var(--sans);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;fill:#5A5249;text-anchor:middle}
+.you .ml{fill:var(--actext)}
+/* labels move out of each other's way: the illness label goes ABOVE its ring
+   whenever the ring sits over them or between you; too close, the two names
+   split left and right */
+#st[data-pos="against"] #m-it .ml,#st[data-pos="apart"] #m-it .ml,#st[data-pos="beside"] #m-it .ml{transform:translateY(-86px)}
+#st[data-pos="merged"] #m-you .ml{text-anchor:end;transform:translateX(-6px)}
+#st[data-pos="merged"] #m-them .ml{text-anchor:start;transform:translateX(6px)}
+#st[data-pos="against"] #m-them .ml,#st[data-pos="apart"] #m-them .ml{transform:translateY(18px)}
+.ml{transition:transform 1s cubic-bezier(.22,1,.36,1)}
+.verdict{font-family:var(--serif);font-style:italic;font-size:14px;fill:var(--actext);text-anchor:middle;opacity:0;transition:opacity .6s ease}
+.verdict.on{opacity:1}
+#youhit{fill:transparent;pointer-events:auto;cursor:grab;touch-action:none}
+.step{align-items:flex-start;padding-top:calc(max(30svh,210px) + 14px)}
+.pick{display:grid;gap:10px}
+.pick a{display:block;padding:15px 16px;border:1px solid var(--faint);border-radius:12px;background:rgba(255,255,255,.72);font-size:16.5px;line-height:1.45}
+.pick a:hover{border-color:var(--actext)}
+.pick a::after{content:"→";float:right;color:var(--actext)}
+.of{font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--actext);margin-bottom:12px}
+.when{font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:#5A5249;margin:0 0 5px}
+.do{font-size:clamp(18.5px,4.8vw,23px);line-height:1.3;font-weight:500;margin:0 0 12px}
+.steps{margin:0 0 12px}
+.steps div{position:relative;padding:7px 0 7px 18px;font-size:15.5px;line-height:1.45;border-bottom:1px solid var(--faint)}
+.steps div:last-child{border-bottom:0}
+.steps div::before{content:"";position:absolute;left:2px;top:15px;width:6px;height:6px;border-radius:50%;background:var(--ac)}
+.their{font-style:italic;font-size:15.5px;line-height:1.5;margin:0 0 12px;color:var(--ink)}
+.because{font-size:15.5px}
+@media (min-width:900px){.piece{max-width:620px}.band{height:34svh}.step{padding-top:calc(34svh + 20px)}h1{font-size:clamp(46px,4.6vw,64px)}}
+@media (max-height:720px){.steps div{font-size:14.5px;padding:5px 0 5px 18px}.their,.because{font-size:14.5px;margin-bottom:8px}.do{font-size:17.5px;margin-bottom:8px}}
+/* @END */
+
+/* NARROW PHONES — the figure takes a third of the height, so at 389px the
+   text column must be as dense as a short screen's. */
+@media (max-width:430px){.band{height:26svh;min-height:190px}.step{padding-top:calc(max(26svh,190px) + 8px);padding-bottom:56px}
+  .of{margin-bottom:8px}.when{margin:0 0 3px}.do{font-size:17.5px;margin-bottom:8px}
+  .steps{margin-bottom:8px}.steps div{font-size:14.5px;line-height:1.42;padding:5px 0 5px 18px}.steps div::before{top:12px}
+  .their,.because{font-size:14.5px;line-height:1.45;margin-bottom:8px}
+  h1{font-size:32px}.sub{font-size:17px}.sum{font-size:16px!important;margin:10px 0 14px!important;line-height:1.5}
+  .pick{gap:7px}.pick a{padding:10px 13px;font-size:15px;line-height:1.38}.k{margin-bottom:8px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body class="dark" data-variant="for-someone-else" data-form="fieldguide" data-seed="0.9049" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig band" id="fig"><svg viewBox="0 -14 360 164" id="st" data-pos="all"><line class="floor" x1="10" y1="149" x2="350" y2="149"/>
+<g class="m it" id="m-it"><circle class="body" r="30"/><line class="gaze" x1="18" y1="0" x2="30" y2="0"/><text class="ml" y="48">the illness</text></g><g class="m them" id="m-them"><circle class="body" r="14"/><line class="gaze" x1="18" y1="0" x2="30" y2="0"/><text class="ml" y="32">them</text></g><g class="m you" id="m-you"><circle class="body" r="14"/><line class="gaze" x1="18" y1="0" x2="30" y2="0"/><text class="ml" y="32">you</text></g><circle class="hit" id="youhit" r="26"/>
+<text class="verdict" id="verdict" x="180" y="2"></text></svg></div>
+<div class="top"><a href="/learning/">← Learning</a><span>Field guide</span></div>
+<section class="step" data-here="open" data-pos="all"><div class="piece"><h1>Seeing the Whole System</h1><p class="sub">A field guide, for the one helping</p><p class="sum" style="margin:16px 0 22px">The illness doesn't sit inside one person alone — it moves through the family, the routines, the care team around them. Treat the system, not just the person.</p><div class="k">What’s happening?</div><div class="pick"><a href="#s1">You're the only one who knows the whole care plan</a><a href="#s2">The family tiptoes around it without saying so</a><a href="#s3">You and their doctor have never actually spoken</a></div></div></section>
+<section class="step" id="s1" data-here="situation" data-pos="merged"><div class="piece"><div class="of">1 of 3 · carrying it</div><p class="when">When</p><div class="do">You're the only one who knows the whole care plan</div><p class="when">Do</p><div class="steps"><div>Ask one other family member to take on a single task.</div><div>Write the plan down so it isn't only in your head.</div><div>Loop the care team in on who's doing what.</div></div><p class="when">To them it may feel</p><div class="their">Cared for, though watched over by only one person for everything.</div><p class="when">Because</p><div class="because">One person quietly holding the whole system becomes the weak point the moment they're not there.</div></div></section>
+<section class="step" id="s2" data-here="situation" data-pos="apart"><div class="piece"><div class="of">2 of 3 · the unspoken</div><p class="when">When</p><div class="do">The family tiptoes around it without saying so</div><p class="when">Do</p><div class="steps"><div>Name the pattern once, gently, at a calm moment.</div><div>Invite one relative into an actual conversation about it.</div><div>Keep one routine — a meal, a call — that doesn't bend around it.</div></div><p class="when">To them it may feel</p><div class="their">Like a secret is being kept, even though everyone already knows.</div><p class="when">Because</p><div class="because">Quiet adjusting around a struggle can end up making it the only thing organizing the room.</div></div></section>
+<section class="step" id="s3" data-here="situation" data-pos="beside"><div class="piece"><div class="of">3 of 3 · closing the gap</div><p class="when">When</p><div class="do">You and their doctor have never actually spoken</div><p class="when">Do</p><div class="steps"><div>Ask to join one appointment, with their permission.</div><div>Write down what you notice between visits.</div><div>Ask the doctor what the household can do at home.</div></div><p class="when">To them it may feel</p><div class="their">Supported by more than one person paying attention, not just watched.</div><p class="when">Because</p><div class="because">A care team that only sees them alone misses what the people around them see every day.</div></div></section>
+<section class="step" data-here="grace" data-pos="beside"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The web holds them. Strengthen the web.</div><div class="because">A struggle held by more than one person is easier to hold for longer.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/3-a-systemic-approach-to-treating-mental-illness.html" style="--to:#4A7A5A" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="hint" id="hint">scroll, or pick</div>
+<div class="count" id="count">1 / 5</div>
+<script>/* FIG_STANCE */
+(function(){
+const POS={"all":[[70,92],[200,92],[292,62]],"against":[[82,92],[272,92],[272,92]],"merged":[[176,92],[196,92],[296,70]],"apart":[[36,110],[236,92],[236,92]],"beside":[[146,112],[214,112],[180,40]]},M={you:document.getElementById('m-you'),them:document.getElementById('m-them'),it:document.getElementById('m-it')},
+ hit=document.getElementById('youhit'),verdict=document.getElementById('verdict'),svg=document.getElementById('st');
+let cur='all',youAt=null;
+function ang(a,b){return Math.atan2(b[1]-a[1],b[0]-a[0])*180/Math.PI}
+function place(p){const P=POS[p]||POS.all,y=youAt||P[0],t=P[1],i=P[2];
+  M.you.style.transform='translate('+y[0]+'px,'+y[1]+'px)';M.them.style.transform='translate('+t[0]+'px,'+t[1]+'px)';M.it.style.transform='translate('+i[0]+'px,'+i[1]+'px)';
+  hit.setAttribute('cx',y[0]);hit.setAttribute('cy',y[1]);
+  /* who faces what: beside → both face it; against → you face them; otherwise you face them, they face it */
+  const gy=p==='beside'?ang(y,i):ang(y,t),gt=p==='beside'?ang(t,i):(p==='against'||p==='apart'?ang(t,y):ang(t,i));
+  M.you.querySelector('.gaze').style.setProperty('--g',gy.toFixed(1)+'deg');M.them.querySelector('.gaze').style.setProperty('--g',gt.toFixed(1)+'deg');
+  /* the illness ring grows over them when it is "inside" them */
+  M.it.querySelector('.body').setAttribute('r',(p==='against'||p==='apart')?30:24)}
+window.ASGfig=function(d){cur=d.pos||'all';svg.dataset.pos=cur;youAt=null;verdict.classList.remove('on');place(cur)};
+/* play: drag yourself; the band names where you are standing */
+function toSvg(e){const pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse())}
+let drag=false;
+hit.addEventListener('pointerdown',e=>{drag=true;M.you.classList.add('dragging');try{hit.setPointerCapture(e.pointerId)}catch(_){}});
+hit.addEventListener('pointermove',e=>{if(!drag)return;const p=toSvg(e);youAt=[Math.max(20,Math.min(340,p.x)),Math.max(30,Math.min(128,p.y))];if(cur==='merged')svg.dataset.pos='free';place(cur)});
+function up(){if(!drag)return;drag=false;M.you.classList.remove('dragging');if(!youAt)return;
+  const t=(POS[cur]||POS.all)[1],d=Math.hypot(youAt[0]-t[0],youAt[1]-t[1]);
+  verdict.textContent=d<34?'too close to see it':d>140?'too far to help':'near enough to stand beside';verdict.classList.add('on')}
+hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
+document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();window.ASGjump&&window.ASGjump(t)}));
+place('all');})();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>
