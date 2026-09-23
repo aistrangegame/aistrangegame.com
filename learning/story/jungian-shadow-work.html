@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Jungian Shadow Work — a storybook</title><meta name="description" content="Carl Jung named the shadow: the parts of a person pushed out of awareness because they don&#x27;t fit who we think we are. What began as clinical theory is now a self-help practice online, and the two don&#x27;t always agree."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Jungian Shadow Work · storybook/passage · pool deep → #b99bcd */
+
+/* ============ BASE_CSS ============ */
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#b99bcd;--acp:#4A4238;--acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);--actext:var(--acp);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(58px + env(safe-area-inset-top,0px)) 18px calc(58px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:540px;width:100%;opacity:0;transform:scale(var(--from,.86)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}
+.step.on .piece{opacity:1;transform:none}
+/* HIT-TEST CONTRACT: .step is a full-viewport positioned box, so it would cover
+   every fixed play surface beneath it. The step itself takes no pointer events;
+   the text does. Play surfaces at z-index 1 then receive everything around it. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--acp);margin-bottom:12px}
+h1{font-weight:500;font-size:clamp(32px,8.4vw,52px);line-height:1.1;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:19px;margin:0}
+.sum{font-size:clamp(16.5px,4.3vw,19px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(16px,4.2vw,18px);line-height:1.72}
+.txt p{margin:0}
+.q{font-size:clamp(18px,4.7vw,22px);line-height:1.4;font-weight:500;margin:0 0 14px}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.links a{padding:11px 15px;border:1px solid var(--acp);border-radius:999px;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.7);--faint:rgba(245,239,230,.18);--bg:#0B0910;--actext:var(--ac)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}
+ html{scroll-behavior:auto}.page{transform:none!important}}
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_STORYBOOK — variant: parable ============ */
+/* A book, not a scroll. Each screen is a real page on a warm stock, with a
+   stack of pages you can see behind it and a corner you can lift. The dark
+   ground is the room you are reading in; the paper carries its own ink, so the
+   accent gets a paper-weight variant (--acp) that holds contrast on cream. */
+.w{background:radial-gradient(90% 60% at 50% 12%, #1D1726 0%, #0E0A12 56%, #08060B 100%)}
+.w::after{content:"";position:absolute;left:50%;top:0;width:90vmax;height:50vmax;transform:translateX(-50%);
+  background:radial-gradient(50% 50% at 50% 30%, rgba(169,163,208,.11), transparent 68%)}
+body{--paper:#F2EADB;--paperink:#221D18}
+.page{position:relative;background:
+   linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 30%), var(--paper);
+  color:var(--paperink);border-radius:4px 10px 10px 4px;padding:34px 26px 40px;
+  box-shadow:0 26px 60px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.2);
+  transform:perspective(1400px) rotateY(var(--turn,0deg));transform-origin:left center;
+  transition:transform 1.2s cubic-bezier(.22,1,.36,1);will-change:transform}
+.step.on .page{--turn:0deg}
+.page{--turn:-7deg}
+/* the spine edge, and the stack of pages still to come on the fore-edge */
+.page::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;border-radius:4px 0 0 4px;
+  background:linear-gradient(90deg, rgba(0,0,0,.22), rgba(0,0,0,.04))}
+.page::after{content:"";position:absolute;right:-5px;top:8px;bottom:8px;width:5px;border-radius:0 4px 4px 0;
+  background:repeating-linear-gradient(180deg, var(--paper) 0 2px, rgba(0,0,0,.16) 2px 3px);
+  opacity:var(--edge,1);transition:opacity 1.4s ease}
+.page .k{color:var(--acp)}
+.page h1{color:var(--paperink)}
+.page .aff{font-style:italic;font-size:clamp(18px,4.8vw,22px);line-height:1.45;color:var(--acp);
+  margin:0 0 16px;padding-bottom:14px;border-bottom:1px solid rgba(34,29,24,.16)}
+.page .txt{color:rgba(34,29,24,.9)}
+.page .q{color:var(--paperink)}
+.page ul{margin:0 0 4px;padding-left:20px;font-size:16px;line-height:1.6;color:rgba(34,29,24,.88)}
+.page ul li{margin-bottom:9px}
+.folio{position:absolute;right:20px;bottom:14px;font-family:var(--sans);font-size:10.5px;
+  letter-spacing:.2em;color:rgba(34,29,24,.65)}
+/* play: the corner lifts under your thumb */
+.corner{position:absolute;right:0;bottom:0;width:62px;height:62px;border:0;padding:0;background:transparent;
+  cursor:pointer;-webkit-tap-highlight-color:transparent}
+.corner::after{content:"";position:absolute;right:0;bottom:0;width:0;height:0;
+  border-style:solid;border-width:0 0 var(--lift,14px) var(--lift,14px);
+  border-color:transparent transparent rgba(34,29,24,.13) rgba(0,0,0,.001);
+  border-bottom-right-radius:10px;transition:border-width .5s cubic-bezier(.22,1,.36,1)}
+.corner:hover::after,.corner:active::after,.corner:focus-visible::after{--lift:46px}
+.corner:focus-visible{outline:1px solid var(--acp);outline-offset:-4px}
+@media (min-width:900px){.piece{max-width:600px}.page{padding:44px 40px 50px}
+ h1{font-size:clamp(44px,4.4vw,60px)}.page .txt{font-size:18.5px}}
+
+/* FIT — a padded page in a narrow column: long parables overflowed by up to 51px
+   at 390×800. Tighter stock margins and one type step down, narrow only. */
+@media (max-width:430px){.step{padding:50px 12px 56px}.page{padding:24px 20px 32px}
+ .page h1{font-size:24px!important;margin-bottom:6px}.page .aff{font-size:17px;margin-bottom:10px;padding-bottom:10px}
+ .page .txt{font-size:15.5px;line-height:1.6}.page .k{margin-bottom:8px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body data-seed="0.5781" class="light" data-variant="parable" style="--from:.86">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig" id="fig" aria-hidden="true"></div>
+<div class="top"><a href="../index.html">← Learning</a><span>Storybook</span></div>
+
+<section class="step" data-l="0"><div class="piece"><div class="page"><h1>Jungian Shadow Work</h1><p class="sub">A storybook in 7 pages</p><p class="sum" style="margin-top:18px">Carl Jung named the shadow: the parts of a person pushed out of awareness because they don't fit who we think we are. What began as clinical theory is now a self-help practice online, and the two don't always agree.</p><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="1"><div class="piece"><div class="page"><div class="k">1 of 7</div><h2 class="ph">The Part You Don't Claim</h2><div class="aff">Jung named it after the shape it casts.</div><div class="txt"><p>In his 1951 book Aion, the psychiatrist Carl Jung described the shadow as the unconscious, disowned side of a person's personality: not evil by nature, just unacknowledged. He wrote that becoming aware of it takes real moral effort, since most of what's in there was pushed out precisely because it was too uncomfortable to look at directly.</p></div><div class="folio">1</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="2"><div class="piece"><div class="page"><div class="k">2 of 7</div><h2 class="ph">Seeing It in Someone Else</h2><div class="aff">What we can't own, we hand to others.</div><div class="txt"><p>Jung described projection as the mechanism by which the shadow usually shows itself: a trait we can't stand in ourselves gets unconsciously placed onto someone else, who then seems to deserve all our irritation. The people who annoy us most, in this account, are often carrying something we haven't yet recognized as our own.</p></div><div class="folio">2</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="3"><div class="piece"><div class="page"><div class="k">3 of 7</div><h2 class="ph">Integration, Not Defeat</h2><div class="aff">The goal was never to erase it.</div><div class="txt"><p>For Jung, the point of facing the shadow wasn't to destroy it but to integrate it: to become a more whole person by owning the parts once disowned, under the guidance of trained analysis. He didn't describe this as quick or comfortable. It was slow work, done with a professional, over years.</p></div><div class="folio">3</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="4"><div class="piece"><div class="page"><div class="k">4 of 7</div><h2 class="ph">Sixty-Five Essays</h2><div class="aff">A 1991 book carried the idea further.</div><div class="txt"><p>In 1991, Jungian therapists Connie Zweig and Jeremiah Abrams edited 'Meeting the Shadow,' a collection of essays applying the concept to relationships, work, and creativity. It sold widely and helped move the term out of clinical rooms and into general conversation: the first big step toward what would later become 'shadow work.'</p></div><div class="folio">4</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="5"><div class="piece"><div class="page"><div class="k">5 of 7</div><h2 class="ph">A Prompt on a Screen</h2><div class="aff">Now it fits in a short video.</div><div class="txt"><p>On social media today, shadow work usually means a journaling prompt: what do you avoid, resent, or deny in yourself? It's framed as approachable self-help, no analyst, no years, no trained guide required. Many of the people posting it have no clinical training in what they're describing.</p></div><div class="folio">5</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="6"><div class="piece"><div class="page"><div class="k">6 of 7</div><h2 class="ph">Not a Substitute</h2><div class="aff">If something heavy comes up, say so out loud.</div><div class="txt"><p>A therapist trained in Jung's work, Imi Lo, has said she welcomes the wider interest but worries the online version gets distorted through repetition. This isn't therapy, and a journaling prompt isn't a diagnosis or a treatment. If facing something in yourself brings up more than you can carry alone, that's worth telling a real, trained person, not just a page.</p></div><div class="folio">6</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="7"><div class="piece"><div class="page"><div class="k">7 of 7</div><h2 class="ph">The Part You Meet</h2><div class="aff">What's disowned doesn't need an audience.</div><div class="txt"><p>A prompt can start something a page can't finish. What Jung asked of his patients, over years, with someone trained to hold it, a video can only gesture toward. The part of you pushed into shadow doesn't need to perform. It needs attention, and sometimes it needs more than you alone.</p></div><div class="folio">7</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="talk"><div class="piece"><div class="page"><div class="k">Before you go</div><div class="q">If you want to talk about this with someone:</div><ul><li>Who in your life bothers you in a way that feels bigger than they deserve?</li><li>Is there a part of yourself you've never let anyone see?</li><li>Would you want a guide for this, or is doing it alone enough?</li></ul><div class="links"><a href="../index.html">All topics</a></div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/jungian-shadow-work.html" style="--to:#3AADA8" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></div></section>
+<div class="hint" id="hint">scroll to go inward</div>
+<div class="count" id="count">1 / 9</div>
+
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* CORRIDOR_JS — the page turns as it becomes the live one */
+(function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+function activate(i){const e=steps[i];e.classList.add('on');count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  steps.forEach((s,k)=>{const pg=s.querySelector('.page');if(!pg)return;
+    pg.style.setProperty('--turn',k===i?'0deg':(k<i?'6deg':'-7deg'));
+    pg.style.setProperty('--edge',Math.max(0,1-(k/(N-1))).toFixed(2))});
+  if(i>0)hint.classList.add('gone')}
+let cur=-1,last=0,tm=0;
+function sync(){const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}}
+function tick(){const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}else tm=setTimeout(()=>{last=Date.now();sync()},80)}
+addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);
+addEventListener('load',sync);sync();
+addEventListener('visibilitychange',()=>{document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync()});
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});
+if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+if(e.key==='ArrowUp'){e.preventDefault();const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}});
+/* the lifted corner turns the page if you follow it through */
+document.querySelectorAll('.corner').forEach(c=>c.addEventListener('click',()=>{
+  const s=c.closest('.step'),all=[...document.querySelectorAll('.step')];
+  const t=all[all.indexOf(s)+1];if(t){scrollTo({top:t.offsetTop,behavior:'instant'});sync()}}));})();</script>
+</body></html>

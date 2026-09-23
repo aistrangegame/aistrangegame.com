@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>A Course in Miracles — a teaching</title><meta name="description" content="Seeing past the error"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: A Course in Miracles · teaching/laws · pool all → #3AADA8 */
+
+/* ============ BASE_CSS ============ */
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#3AADA8;--acp:#4A4238;--acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);--actext:var(--acp);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.top span{text-align:right}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(104px + env(safe-area-inset-top,0px)) 24px calc(66px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,1)) translateY(10px);transition:opacity 1s ease,transform 1.2s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}
+.step.on .piece{opacity:1;transform:none}
+/* HIT-TEST CONTRACT: .step is a full-viewport positioned box, so it would cover
+   every fixed play surface beneath it. The step itself takes no pointer events;
+   the text does. Play surfaces at z-index 1 then receive everything around it. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.one{font-size:clamp(20px,5.2vw,27px);line-height:1.42;font-weight:500}
+.tues{font-style:italic;font-size:clamp(18px,4.6vw,21px);line-height:1.6}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:24px;line-height:1.9}
+.src a{color:var(--actext)}
+.nav{display:flex;justify-content:space-between;gap:14px;margin-top:32px;padding-top:18px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.nav a{white-space:nowrap}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.68);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.62);--bg:#F7F3EC}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}
+ html{scroll-behavior:auto}}
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_TEACHING — variant: laws ============ */
+/* Three registers at once: the law at full voice, the because directly beneath
+   it, the looks-like as a lived line at the foot. A picker of the eight laws
+   sits at the top and is the spine of the page — NEW HOOK: #lawpick, one
+   [data-law] per law, and data-jump on each law step. */
+.w{background:linear-gradient(180deg,#FAF8F3 0%,#F7F3EC 54%,#F0ECE2 100%)}
+.w::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60%;
+  background:radial-gradient(70% 100% at 50% 130%, rgba(74,122,90,.09), transparent 70%);
+  opacity:calc(.35 + var(--p,0) * .65);transition:opacity 2s ease}
+#lawpick{position:fixed;left:0;right:0;top:calc(44px + env(safe-area-inset-top,0px));z-index:6;
+  display:flex;justify-content:center;gap:6px;padding:6px 16px}
+#lawpick button{width:30px;height:30px;padding:0;border-radius:50%;border:1px solid var(--faint);
+  background:transparent;color:var(--muted);font-family:var(--sans);font-size:12px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;transition:border-color .4s ease,color .4s ease,background .4s ease}
+#lawpick button:hover{border-color:var(--ac);color:var(--actext)}
+#lawpick button[aria-current="true"]{border-color:var(--actext);background:var(--actext);color:#FBFAF7}
+#lawpick button.held::before{box-shadow:inset 0 0 0 3px color-mix(in oklab, var(--ac) 30%, transparent)}
+#lawpick button.held::after{content:"";position:absolute}
+.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:18px}
+.law{font-size:clamp(28px,7.6vw,44px);line-height:1.14;font-weight:500;margin:0 0 20px;
+  letter-spacing:-.005em;text-wrap:balance}
+.because{font-style:italic;font-size:clamp(17px,4.4vw,20px);line-height:1.58;color:var(--ink);
+  margin:0 0 26px;padding-left:18px;border-left:2px solid var(--ac)}
+.looks{position:relative;font-size:clamp(15.5px,4vw,17px);line-height:1.6;color:var(--muted);
+  padding-top:16px;border-top:1px solid var(--faint)}
+.looks::before{content:"looks like";display:block;font-family:var(--sans);font-size:10px;
+  letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin-bottom:7px}
+.practice{font-size:clamp(17px,4.4vw,20px);line-height:1.65;background:var(--card);
+  border:1px solid var(--faint);border-radius:14px;padding:22px 20px}
+.close{font-size:clamp(20px,5.2vw,26px);line-height:1.45;font-style:italic}
+@media (min-width:900px){.piece{max-width:660px}h1{font-size:clamp(52px,5vw,74px)}
+ .law{font-size:clamp(40px,4vw,54px)}#lawpick button{width:34px;height:34px;font-size:13px}}
+
+/* HIT AREA ≥44px, visual dot unchanged. The button is the 44px target; the
+   dot is a ::before, so the picker does not look heavier than it did.
+   Same class of defect as the tree hit circles — size the target, not the mark. */
+#lawpick{gap:0}
+#lawpick button{position:relative;width:44px;height:44px;border:0;background:transparent;color:#5A5249;z-index:0}
+#lawpick button::before{content:"";position:absolute;left:50%;top:50%;width:32px;height:32px;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;z-index:-1;transition:border-color .4s ease,background .4s ease}
+#lawpick button:hover::before{border-color:var(--actext)}
+#lawpick button[aria-current="true"]{background:transparent;color:#FBFAF7}
+#lawpick button[aria-current="true"]::before{border-color:var(--actext);background:var(--actext)}
+#lawpick button:focus-visible{outline:none}
+#lawpick button:focus-visible::before{box-shadow:0 0 0 2px #F7F3EC,0 0 0 4px var(--actext)}
+@media (min-width:900px){#lawpick button{width:48px;height:48px}#lawpick button::before{width:36px;height:36px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+#lawpick{padding:0 4px}#lawpick button{flex:none}
+</style></head>
+<body data-seed="0.4043" class="dark" data-variant="laws" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig" id="fig" aria-hidden="true"></div>
+<div class="top"><a href="index.html">← The teachings</a><span>Seeing past the error</span></div>
+<div id="lawpick" role="group" aria-label="the eight laws"></div>
+
+<section class="step" data-ph="1"><div class="piece"><h1>A Course in Miracles</h1><p class="sub">Seeing past the error</p></div></section>
+<section class="step" data-ph="1"><div class="piece"><div class="k">The teaching</div><div class="one">A Course in Miracles is a 1976 book of spiritual instruction that presents itself as scribed, not authored. Psychologist Helen Schucman wrote it down over seven years, with William Thetford's support, describing an inner voice she identified as Jesus.</div></div></section>
+<section class="step" data-ph="1"><div class="piece"><div class="k">Before the rules</div><div class="tues">Schucman, a research psychologist at Columbia, began hearing an inner voice in 1965 and, with colleague William Thetford's encouragement, wrote down what it dictated until 1972. The Foundation for Inner Peace published the result in 1976, in three parts: a Text, a Workbook, and a Manual for Teachers. Whether the voice was what she said it was, no one can check. What follows is the Course's own teaching.</div></div></section>
+<section class="step" data-jump="1" data-ph="0.8"><div class="piece"><div class="num">1 of 5</div><div class="law">Forgiveness looks past the error.</div><div class="because">Because the Course holds that what looks like attack is a fearful mistake, not a person's true nature.</div><div class="looks">Someone snaps at you; you picture the fear under the words, not just the words.</div></div></section>
+<section class="step" data-jump="2" data-ph="0.6"><div class="piece"><div class="num">2 of 5</div><div class="law">Every act comes from fear or love.</div><div class="because">Because the Course teaches these are the only two feelings there really are, and all else reduces to one.</div><div class="looks">Notice, next time you're irritated, whether you're actually afraid of something underneath it.</div></div></section>
+<section class="step" data-jump="3" data-ph="0.4"><div class="piece"><div class="num">3 of 5</div><div class="law">A miracle shifts perception, not events.</div><div class="because">Because the Course holds that healing happens in how a mind sees, not in what changes outside it.</div><div class="looks">You don't fix the situation; you look at it differently, and something in you eases.</div></div></section>
+<section class="step" data-jump="4" data-ph="0.2"><div class="piece"><div class="num">4 of 5</div><div class="law">Attack is a call for help.</div><div class="because">Because the Course teaches every attack is fear asking to be answered, however it sounds.</div><div class="looks">Someone lashes out at you online; you read it as fear, not as truth about you.</div></div></section>
+<section class="step" data-jump="5" data-ph="0.0"><div class="piece"><div class="num">5 of 5</div><div class="law">Choose again, in this instant.</div><div class="because">Because the Course teaches the mind can trade a grievance for peace at any moment, not only once.</div><div class="looks">Mid-argument, you feel the old grip loosen the instant you're willing to see it differently.</div></div></section>
+<section class="step" data-ph="0" data-end="1"><div class="piece"><div class="k">The practice</div><div class="practice">For one moment today, when you feel wronged, try the Course's move: instead of asking what someone did to you, ask what they might be afraid of. You don't have to excuse them. Just look for the fear.</div></div></section>
+<section class="step" data-ph="0" data-end="1"><div class="piece"><div class="close">The Course promises nothing about the world changing. Only that how you see it can.</div><div class="src" style="margin-top:22px;line-height:1.9">A Course in Miracles (1976), scribed by Helen Schucman with William Thetford</div><div class="nav"><a href="index.html">the teachings</a></div></div></section>
+<div class="hint" id="hint">scroll to walk</div>
+<div class="count" id="count">1 / 10</div>
+
+<script>/* CORRIDOR_JS + the law picker */
+(function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
+count=document.getElementById('count'),hint=document.getElementById('hint'),pick=document.getElementById('lawpick');
+const laws=steps.map((s,i)=>({n:s.dataset.jump,i})).filter(o=>o.n);
+const HELD='asg.teaching.mirror.held';
+laws.forEach(o=>{const b=document.createElement('button');b.type='button';b.textContent=o.n;
+  b.dataset.law=o.n;b.setAttribute('aria-label','law '+o.n);pick.appendChild(b)});
+const btns=[...pick.children];
+function activate(i){const e=steps[i];e.classList.add('on');count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===e.dataset.jump?'true':'false'));
+  if(i>0)hint.classList.add('gone')}
+let cur=-1,last=0,tm=0;
+function sync(){const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}}
+function tick(){const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}else tm=setTimeout(()=>{last=Date.now();sync()},80)}
+addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);
+addEventListener('load',sync);sync();
+addEventListener('visibilitychange',()=>{document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync()});
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});
+if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+if(e.key==='ArrowUp'){e.preventDefault();const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}});
+/* the picker jumps; play: the law you hold longest stays lit, and keeps staying lit */
+let held={};try{held=JSON.parse(localStorage.getItem(HELD)||'{}')}catch(e){}
+function paintHeld(){let top=null,best=0;
+  for(const k in held){if(held[k]>best){best=held[k];top=k}}
+  btns.forEach(b=>b.classList.toggle('held',b.dataset.law===top&&best>600))}
+btns.forEach(b=>{let t0=0;
+  const down=()=>{t0=Date.now()};
+  const up=()=>{if(!t0)return;const d=Date.now()-t0;t0=0;
+    const k=b.dataset.law;if(d>(held[k]||0)){held[k]=d;
+      try{localStorage.setItem(HELD,JSON.stringify(held))}catch(e){}paintHeld()}
+    const s=steps[laws.find(o=>o.n===k).i];
+    if(s){scrollTo({top:s.offsetTop,behavior:'instant'});sync()}};
+  b.addEventListener('pointerdown',down);b.addEventListener('pointerup',up);
+  b.addEventListener('pointercancel',()=>{t0=0});
+  b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();down()}});
+  b.addEventListener('keyup',e=>{if(e.key==='Enter'||e.key===' ')up()})});
+paintHeld();})();</script>
+</body></html>

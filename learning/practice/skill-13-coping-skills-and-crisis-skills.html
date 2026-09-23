@@ -175,6 +175,31 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body class="dark" data-variant="lesson" data-form="practice" data-seed="0.2556" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -194,7 +219,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <text class="zone" x="94" y="72">start here</text>
 <g class="dot" data-i="0" transform="translate(50 203)"><circle class="halo" r="26"/><circle class="disc" r="16"/><text y="5">1</text><circle class="hit" r="24" tabindex="0" role="button" aria-label="Name what&#x27;s needed"/></g><g class="dot" data-i="1" transform="translate(50 152)"><circle class="halo" r="26"/><circle class="disc" r="16"/><text y="5">2</text><circle class="hit" r="24" tabindex="0" role="button" aria-label="Ground in the senses"/></g><g class="dot" data-i="2" transform="translate(92 111)"><circle class="halo" r="26"/><circle class="disc" r="16"/><text y="5">3</text><circle class="hit" r="24" tabindex="0" role="button" aria-label="Add distance from harm"/></g><g class="dot" data-i="3" transform="translate(99 214)"><circle class="halo" r="26"/><circle class="disc" r="16"/><text y="5">4</text><circle class="hit" r="24" tabindex="0" role="button" aria-label="Keep a coping list"/></g><g class="dot" data-i="4" transform="translate(99 163)"><circle class="halo" r="26"/><circle class="disc" r="16"/><text y="5">5</text><circle class="hit" r="24" tabindex="0" role="button" aria-label="Keep a number ready"/></g>
 </svg></div><p class="note">roughly placed · naming which one you need comes first</p><div class="detail" id="detail"><div class="dk">Pick one</div><div class="dt">Five at once is how these lists fail. Tap a number — the ones up and to the left give the most for the least.</div></div></div></section>
-<section class="step" ><div class="piece"><div class="k">What to expect</div><div class="because" style="font-size:clamp(19px,4.8vw,22px);color:var(--ink)">If you're in danger right now, or thinking about harming yourself, call your local emergency number or a crisis line. Otherwise, pick one coping habit from your everyday list and use it on purpose for two weeks, separate from anything you'd reach for in a crisis.</div><div class="fort" id="fort" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="fline" id="fline">choose one, and the fortnight starts</div></div></section>
+<section class="step" ><div class="piece"><div class="k">What to expect</div><div class="because" style="font-size:clamp(19px,4.8vw,22px);color:var(--ink)">If you're in danger right now, or thinking about harming yourself, call your local emergency number or a crisis line. Otherwise, pick one coping habit from your everyday list and use it on purpose for two weeks, separate from anything you'd reach for in a crisis.</div><div class="fort" id="fort" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="fline" id="fline">choose one, and the fortnight starts</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/skill-13-coping-skills-and-crisis-skills.html" style="--to:#dd8297" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to walk</div>
 <div class="count" id="count">1 / 6</div>
 
@@ -230,6 +255,11 @@ dots.forEach((g,i)=>{const h=g.querySelector('.hit');h.addEventListener('click',
 paint();
 window.ASGfig=function(){};
 })();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,
