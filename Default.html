@@ -1906,6 +1906,8 @@ body {
   margin: 0 auto 56px;
   padding: 0 16px;
 }
+.road-doorways--wander { margin-top: 18px; }
+.road-doorways-second + .road-doorways--wander { margin-top: -30px; }
 .road-doorway {
   display: flex;
   flex-direction: column;
@@ -3442,6 +3444,40 @@ body.dark-world-active .cursor-presence { opacity: 1; }
         <div class="road-doorway-arrow">Form →</div>
       </a>
     </div>
+    <div class="road-doorways road-doorways--wander" data-reveal>
+      <a class="road-doorway" href="https://aistrangegame.com/door/" data-door="the-door">
+        <div class="road-doorway-glyph">⚄</div>
+        <div class="road-doorway-label">The Wander Door</div>
+        <div class="road-doorway-name">The Door</div>
+        <div class="road-doorway-line">Everything on this site. A die, if you'd rather not choose.</div>
+        <div class="road-doorway-arrow">Roll →</div>
+      </a>
+      <a class="road-doorway" href="https://aistrangegame.com/guide/" data-door="guidebook">
+        <div class="road-doorway-glyph">❖</div>
+        <div class="road-doorway-label">The Guidebook</div>
+        <div class="road-doorway-name">What Each Thing Is</div>
+        <div class="road-doorway-line">One page per structure. What it is, why, how, where, how to enter.</div>
+        <div class="road-doorway-arrow">Read →</div>
+      </a>
+      <a class="road-doorway" href="https://aistrangegame.com/bindu/read/" data-door="reading-space">
+        <div class="road-doorway-glyph">♫</div>
+        <div class="road-doorway-label">The Reading Space</div>
+        <div class="road-doorway-name">What the Songs Knew</div>
+        <div class="road-doorway-line">Forty-two songs and breaths, read four ways.</div>
+        <div class="road-doorway-arrow">Listen →</div>
+      </a>
+    </div>
+    <div class="road-doorways-second" data-reveal>
+      <a class="road-doorway road-doorway--temple" href="https://aistrangegame.com/tree-of-life/inception-practice.html" data-door="mind-chakras">
+        <div class="road-doorway-glyph">◎</div>
+        <div class="road-doorway-text">
+          <div class="road-doorway-label">The Walk Continues · Positions 21–33</div>
+          <div class="road-doorway-name">Inception → Lalita</div>
+          <div class="road-doorway-line">The nine Mind chakras, Maya, Aatma, the Ego Reveal, and the Play. Witnessed September 22, 2026.</div>
+        </div>
+        <div class="road-doorway-arrow">Begin →</div>
+      </a>
+    </div>
 
     <div class="road-carousel-frame" data-reveal>
       <button class="road-carousel-arrow road-carousel-arrow--prev" id="roadPrev" aria-label="Previous chakra">←</button>
@@ -4409,7 +4445,7 @@ var ROAD_CHAKRAS = [
   { id:'shadow',       name:'Shadow',       sub:'The Corridor',     pos:9,  color:'#2A2420', threshold:true,
     links:{ practice:'https://aistrangegame.com/tree-of-life/shadow-practice.html',       wakeup:null, dance:null, field:null } },
   { id:'maya',         name:'Maya',         sub:'The Veil',         pos:31, color:'#C0392B', maya:true,
-    links:{ practice:null,                                                                wakeup:null, dance:'https://aistrangegame.com/tree-of-life/maya-dance.html', field:null, sleep:'https://aistrangegame.com/tree-of-life/maya-sleep.html' } }
+    links:{ practice:'https://aistrangegame.com/tree-of-life/maya-practice.html',         wakeup:null, dance:'https://aistrangegame.com/tree-of-life/maya-dance.html', field:null, sleep:'https://aistrangegame.com/tree-of-life/maya-sleep.html' } }
 ];
 
 function readRoadWalked() {
@@ -5152,8 +5188,5 @@ function buildRoadCard(c, walked) {
   </div>
   <div class="tree-viewer-hint" id="treeViewerHint">scroll to zoom · drag to pan · esc to close</div>
 </div>
-
-<!-- Tab Menu -->
-<a href="/tab-menu.html" style="position:fixed;bottom:28px;right:24px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(8,8,8,0.9);border:1px solid rgba(201,168,76,0.3);border-radius:50%;text-decoration:none;color:#C9A84C;font-size:16px;z-index:9999;transition:border-color 0.3s,box-shadow 0.3s;" onmouseover="this.style.borderColor='#C9A84C';this.style.boxShadow='0 0 16px rgba(201,168,76,0.3)'" onmouseout="this.style.borderColor='rgba(201,168,76,0.3)';this.style.boxShadow='none'" title="All Experiences">◈</a>
 </body>
 </html>
