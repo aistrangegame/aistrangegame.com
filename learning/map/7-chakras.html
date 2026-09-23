@@ -1,0 +1,332 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>7 Chakras — a map</title><meta name="description" content="Seven centres along the spine, as they are most often taught today — read from the ground up, the way the tradition says the energy climbs."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: 7 Chakras · map/spine · pool deep → #65a4d0 */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : 7 Chakras
+   form   : map        family : spine
+   pool   : deep → #65a4d0        seed 0.2360
+   move   : figure SPINE · direction in (ascending) · ground night · density full · play drag
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#65a4d0;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+/* ============ TYPE_MAP — shared by the map family ============ */
+.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.nm{font-weight:500;font-size:clamp(28px,7.4vw,42px);line-height:1.08;margin:0}
+.skt{font-style:italic;color:var(--muted);font-size:17px;margin:4px 0 12px}
+.aff{font-size:clamp(18px,4.8vw,22px);margin:0 0 10px}
+.txt{font-size:clamp(16px,4.2vw,18px);line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--sans);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+.meta b{font-weight:500;color:var(--ink)}
+/* CHROME OVER A FIGURE GROUND: solid ink, never alpha (gate.js checkChrome) */
+.top,.count,.hint{color:#BDB5AA}
+.top{background:linear-gradient(#0B0910 58%,rgba(11,9,16,0))}
+/* the hint sits with the text column, never on the rail */
+.hint{left:calc(13.2svh + 22px)}
+@media (min-width:900px){.hint{left:calc(13.2svh + 12vw)}}
+.meta span{white-space:nowrap}
+.w{background:radial-gradient(110% 90% at 50% 50%, #15111C 0%, #0B0910 60%, #080610 100%)}
+
+/* ============ EXTRA_MAP — variant: spine ============ */
+/* @FIG:SPINE — a column you climb. Night ground; the three channels are drawn
+   as the tradition describes them (sushumna straight, ida and pingala crossing
+   at each centre, ending at the brow). The column travels so the live centre
+   holds the optical middle; at the end it steps back to show the whole spine.
+   Node colours are SHAPES ONLY — text never takes them (gate: --actext). */
+#fig.rail{inset:auto;left:4px;top:50%;width:13.2svh;height:154svh;display:block;
+  transform-origin:50% 0;transform:translateY(var(--ty,-120svh)) scale(var(--rsc,1));
+  transition:transform 1.9s cubic-bezier(.22,1,.36,1);will-change:transform}
+#fig.rail svg{width:100%;height:100%;overflow:visible}
+.chan{fill:none;stroke:rgba(245,239,230,.16);stroke-width:1.4}
+.braid{fill:none;stroke:rgba(245,239,230,.12);stroke-width:1.1}
+.lit{fill:none;stroke-width:2.2;stroke-dasharray:1;stroke-dashoffset:var(--off,1);
+  transition:stroke-dashoffset 2s cubic-bezier(.22,1,.36,1)}
+.braidlit{stroke:var(--ac);stroke-width:1.5;opacity:.85}
+.cn{fill:#0B0910;stroke:var(--c);stroke-opacity:.45;stroke-width:1.4;transition:fill .9s ease,stroke-opacity .9s ease,r .9s ease}
+.cn.done{fill:color-mix(in oklab, var(--c) 55%, #0B0910);stroke-opacity:1}
+.cn.live{fill:var(--c);stroke-opacity:1;r:13}
+.halo{fill:none;stroke:var(--c);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center;
+  transform:scale(.6);transition:opacity 1.2s ease,transform 1.6s cubic-bezier(.22,1,.36,1)}
+.halo.live{opacity:.55;transform:scale(1)}
+.bija{font-family:var(--sans);font-size:11px;letter-spacing:.16em;fill:#F5EFE6;text-anchor:middle;opacity:0;transition:opacity 1s ease}
+/* each centre blooms with its traditional petal count: 4 · 6 · 10 · 12 · 16 · 2,
+   and the crown as three rings of fine petals for the thousand. The Ajna step's
+   text says "drawn with two petals" — the figure must agree with the words. */
+.lotus ellipse{fill:color-mix(in oklab, var(--c) 20%, transparent);stroke:var(--c);stroke-width:1}
+.lotus{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.25) rotate(-50deg);
+  transition:opacity 1.3s ease,transform 2.2s cubic-bezier(.16,1,.3,1)}
+.lotus.live{opacity:1;transform:none}
+body[data-grace="1"] .lotus{opacity:.72;transform:none;transition-delay:calc(var(--d,0) * 1s)}
+.bija.live{opacity:.9}
+
+.w::after{content:"";position:absolute;left:-30vw;top:50%;width:120vw;height:120vw;max-width:1100px;max-height:1100px;
+  transform:translateY(-50%);border-radius:50%;
+  background:radial-gradient(circle, color-mix(in oklab, var(--cc,#5E4A7A) 22%, transparent), transparent 62%);
+  transition:background 2s ease}
+#grip{position:fixed;left:0;top:0;bottom:0;width:calc(13.2svh + 14px);z-index:1;border:0;background:transparent;
+  cursor:ns-resize;touch-action:none;-webkit-tap-highlight-color:transparent}
+.step{justify-content:flex-start;padding-left:calc(13.2svh + 22px);padding-right:22px}
+.piece{max-width:480px}
+@media (min-width:900px){.step{padding-left:calc(13.2svh + 12vw)}.piece{max-width:540px}#fig.rail{left:6vw}#grip{left:6vw}}
+@media (prefers-reduced-motion: reduce){#fig.rail{transition:none}}
+/* @END */
+
+/* SHORT PHONES (667px class): one type step down so the longest step still
+   fits under the band without scrolling inside a snap page */
+@media (max-height:720px){.nm{font-size:25px}.skt{font-size:15.5px;margin:2px 0 8px}
+  .aff{font-size:17px;margin-bottom:6px}.txt{font-size:15.5px;line-height:1.55}.meta{margin-top:8px}
+  h1{font-size:clamp(30px,8vw,44px)}.sum{font-size:16.5px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+</style></head>
+<body class="light" data-variant="spine" data-form="map" data-seed="0.2360" style="--from:.9">
+<div class="w" id="w" aria-hidden="true"></div>
+<button id="grip" aria-label="drag the spine to climb"></button>
+<div class="fig rail" id="fig" aria-hidden="true"><svg viewBox="0 0 120 1400" preserveAspectRatio="xMidYMid meet">
+<defs><linearGradient id="rainbow" gradientUnits="userSpaceOnUse" x1="0" y1="1360" x2="0" y2="40"><stop offset="0" stop-color="#C8453A"/><stop offset="0.2" stop-color="#D9803A"/><stop offset="0.3" stop-color="#D8B43C"/><stop offset="0.5" stop-color="#5E9E6A"/><stop offset="0.7" stop-color="#4E8FC0"/><stop offset="0.8" stop-color="#6A6FC0"/><stop offset="1" stop-color="#9A72C0"/></linearGradient></defs>
+<path class="chan" d="M60 1360 L60 40"/>
+<path class="braid ida" d="M60 1300 C14 1240 14 1160 60 1100 C106 1040 106 960 60 900 C14 840 14 760 60 700 C106 640 106 560 60 500 C14 440 14 360 60 300"/><path class="braid pin" d="M60 1300 C106 1240 106 1160 60 1100 C14 1040 14 960 60 900 C106 840 106 760 60 700 C14 640 14 560 60 500 C106 440 106 360 60 300"/>
+<path id="sush" class="lit" d="M60 1360 L60 40" pathLength="1" stroke="url(#rainbow)"/>
+<path id="idaL" class="lit braidlit" d="M60 1300 C14 1240 14 1160 60 1100 C106 1040 106 960 60 900 C14 840 14 760 60 700 C106 640 106 560 60 500 C14 440 14 360 60 300" pathLength="1"/><path id="pinL" class="lit braidlit" d="M60 1300 C106 1240 106 1160 60 1100 C14 1040 14 960 60 900 C106 840 106 760 60 700 C14 640 14 560 60 500 C106 440 106 360 60 300" pathLength="1"/>
+
+<g class="lotus" style="--c:#C8453A" data-n="1"><ellipse cx="60" cy="1279" rx="7" ry="10" transform="rotate(0 60 1300)"/><ellipse cx="60" cy="1279" rx="7" ry="10" transform="rotate(90 60 1300)"/><ellipse cx="60" cy="1279" rx="7" ry="10" transform="rotate(180 60 1300)"/><ellipse cx="60" cy="1279" rx="7" ry="10" transform="rotate(270 60 1300)"/></g><circle class="cn" data-n="1" cx="60" cy="1300" r="9" style="--c:#C8453A"/><text class="bija" data-n="1" x="60" y="1352">LAM</text><g class="lotus" style="--c:#D9803A" data-n="2"><ellipse cx="60" cy="1079" rx="7" ry="9.5" transform="rotate(0 60 1100)"/><ellipse cx="60" cy="1079" rx="7" ry="9.5" transform="rotate(60 60 1100)"/><ellipse cx="60" cy="1079" rx="7" ry="9.5" transform="rotate(120 60 1100)"/><ellipse cx="60" cy="1079" rx="7" ry="9.5" transform="rotate(180 60 1100)"/><ellipse cx="60" cy="1079" rx="7" ry="9.5" transform="rotate(240 60 1100)"/><ellipse cx="60" cy="1079" rx="7" ry="9.5" transform="rotate(300 60 1100)"/></g><circle class="cn" data-n="2" cx="60" cy="1100" r="9" style="--c:#D9803A"/><text class="bija" data-n="2" x="60" y="1152">VAM</text><g class="lotus" style="--c:#D8B43C" data-n="3"><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(0 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(36 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(72 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(108 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(144 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(180 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(216 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(252 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(288 60 900)"/><ellipse cx="60" cy="879" rx="4.8" ry="8.5" transform="rotate(324 60 900)"/></g><circle class="cn" data-n="3" cx="60" cy="900" r="9" style="--c:#D8B43C"/><text class="bija" data-n="3" x="60" y="952">RAM</text><g class="lotus" style="--c:#5E9E6A" data-n="4"><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(0 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(30 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(60 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(90 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(120 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(150 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(180 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(210 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(240 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(270 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(300 60 700)"/><ellipse cx="60" cy="679" rx="4" ry="8" transform="rotate(330 60 700)"/></g><circle class="cn" data-n="4" cx="60" cy="700" r="9" style="--c:#5E9E6A"/><text class="bija" data-n="4" x="60" y="752">YAM</text><g class="lotus" style="--c:#4E8FC0" data-n="5"><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(0 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(22.5 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(45 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(67.5 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(90 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(112.5 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(135 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(157.5 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(180 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(202.5 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(225 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(247.5 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(270 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(292.5 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(315 60 500)"/><ellipse cx="60" cy="479" rx="3" ry="7" transform="rotate(337.5 60 500)"/></g><circle class="cn" data-n="5" cx="60" cy="500" r="9" style="--c:#4E8FC0"/><text class="bija" data-n="5" x="60" y="552">HAM</text><g class="lotus" style="--c:#6A6FC0" data-n="6"><ellipse cx="60" cy="276" rx="9" ry="15" transform="rotate(90 60 300)"/><ellipse cx="60" cy="276" rx="9" ry="15" transform="rotate(270 60 300)"/></g><circle class="cn" data-n="6" cx="60" cy="300" r="9" style="--c:#6A6FC0"/><text class="bija" data-n="6" x="60" y="352">OM</text><g class="lotus" style="--c:#9A72C0" data-n="7"><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(0 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(10 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(20 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(30 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(40 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(50 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(60 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(70 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(80 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(90 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(100 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(110 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(120 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(130 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(140 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(150 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(160 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(170 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(180 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(190 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(200 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(210 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(220 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(230 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(240 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(250 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(260 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(270 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(280 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(290 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(300 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(310 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(320 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(330 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(340 60 100)"/><ellipse cx="60" cy="80" rx="1.5" ry="6.5" transform="rotate(350 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(3.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(11.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(18.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(26.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(33.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(41.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(48.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(56.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(63.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(71.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(78.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(86.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(93.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(101.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(108.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(116.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(123.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(131.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(138.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(146.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(153.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(161.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(168.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(176.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(183.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(191.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(198.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(206.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(213.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(221.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(228.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(236.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(243.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(251.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(258.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(266.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(273.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(281.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(288.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(296.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(303.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(311.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(318.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(326.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(333.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(341.3 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(348.8 60 100)"/><ellipse cx="60" cy="70" rx="1.6" ry="8" transform="rotate(356.3 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(0 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(6 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(12 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(18 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(24 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(30 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(36 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(42 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(48 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(54 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(60 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(66 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(72 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(78 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(84 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(90 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(96 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(102 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(108 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(114 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(120 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(126 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(132 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(138 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(144 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(150 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(156 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(162 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(168 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(174 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(180 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(186 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(192 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(198 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(204 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(210 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(216 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(222 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(228 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(234 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(240 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(246 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(252 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(258 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(264 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(270 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(276 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(282 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(288 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(294 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(300 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(306 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(312 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(318 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(324 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(330 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(336 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(342 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(348 60 100)"/><ellipse cx="60" cy="59" rx="1.7" ry="9.5" transform="rotate(354 60 100)"/></g><circle class="cn" data-n="7" cx="60" cy="100" r="9" style="--c:#9A72C0"/><text class="bija" data-n="7" x="60" y="152">silence</text>
+</svg></div>
+<div class="top"><a href="/learning/">← Learning</a><span>Map</span></div>
+<section class="step" data-n="0" data-cc="#5E4A7A"><div class="piece"><h1>7 Chakras</h1><p class="sub">A map</p><p class="sum" style="margin-top:20px">Seven centres along the spine, as they are most often taught today — read from the ground up, the way the tradition says the energy climbs.</p></div></section>
+<section class="step" data-n="0.5" data-cc="#5E4A7A"><div class="piece"><div class="k">How to read it</div><div class="txt">One channel runs straight up the spine: sushumna. Two more wind around it and cross at every centre — ida, cool and lunar, and pingala, warm and solar. They meet for the last time at the brow.</div><div class="meta">drag the spine to climb</div></div></section>
+<section class="step" data-n="1" data-cc="#C8453A"><div class="piece"><div class="num">1 of 7</div><h2 class="nm">Root</h2><p class="skt">Muladhara · “root support”</p><div class="aff">I am here.</div><div class="txt">The ground floor: safety, the body, the right to exist at all. When it is steady you stop bracing. Everything above is built on whether this one feels held.</div><div class="meta"><span><b>base of the spine</b></span><span>earth</span><span>LAM</span></div></div></section>
+<section class="step" data-n="2" data-cc="#D9803A"><div class="piece"><div class="num">2 of 7</div><h2 class="nm">Sacral</h2><p class="skt">Svadhisthana · “one’s own seat”</p><div class="aff">I feel.</div><div class="txt">Pleasure, desire, the capacity to be moved. Water takes the shape of what holds it — this is the centre of flow rather than force.</div><div class="meta"><span><b>below the navel</b></span><span>water</span><span>VAM</span></div></div></section>
+<section class="step" data-n="3" data-cc="#D8B43C"><div class="piece"><div class="num">3 of 7</div><h2 class="nm">Solar plexus</h2><p class="skt">Manipura · “city of jewels”</p><div class="aff">I can.</div><div class="txt">Will, digestion, the fire that turns intention into action. Where you decide — and where you feel it in your stomach when you don’t.</div><div class="meta"><span><b>solar plexus</b></span><span>fire</span><span>RAM</span></div></div></section>
+<section class="step" data-n="4" data-cc="#5E9E6A"><div class="piece"><div class="num">4 of 7</div><h2 class="nm">Heart</h2><p class="skt">Anahata · “unstruck”</p><div class="aff">I love.</div><div class="txt">Named for a sound made without anything striking anything. Three centres below it, three above: where the personal and the more-than-personal meet.</div><div class="meta"><span><b>heart</b></span><span>air</span><span>YAM</span></div></div></section>
+<section class="step" data-n="5" data-cc="#4E8FC0"><div class="piece"><div class="num">5 of 7</div><h2 class="nm">Throat</h2><p class="skt">Vishuddha · “purification”</p><div class="aff">I speak.</div><div class="txt">Expression, and the listening that comes before it. Its element is space — the room a true sentence needs around it.</div><div class="meta"><span><b>throat</b></span><span>space</span><span>HAM</span></div></div></section>
+<section class="step" data-n="6" data-cc="#6A6FC0"><div class="piece"><div class="num">6 of 7</div><h2 class="nm">Brow</h2><p class="skt">Ajna · “command”</p><div class="aff">I see.</div><div class="txt">Perception past the eyes. Ida and pingala end here, two currents resolved into one — which is why it is drawn with two petals.</div><div class="meta"><span><b>between the brows</b></span><span>mind</span><span>OM</span></div></div></section>
+<section class="step" data-n="7" data-cc="#9A72C0"><div class="piece"><div class="num">7 of 7</div><h2 class="nm">Crown</h2><p class="skt">Sahasrara · “thousand-petalled”</p><div class="aff">I am.</div><div class="txt">In the older texts not one of the six but what all six open into. It has no seed sound. It is what is left when the sound stops.</div><div class="meta"><span><b>crown</b></span><span>beyond element</span><span>silence</span></div></div></section>
+<section class="step" data-n="8" data-cc="#9A72C0"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">It was never a ladder. It is one spine, lit all the way.</div><div class="src" style="margin-top:18px;line-height:1.9">The seven-centre system and its rainbow are a modern synthesis — older tantric texts give other counts and other colours.</div></div></section>
+<div class="hint" id="hint">scroll to climb</div>
+<div class="count" id="count">1 / 10</div>
+<script>/* FIG_SPINE — defines ASGfig before the corridor calls it */
+(function(){
+const fig=document.getElementById('fig'),Y=[1300,1100,900,700,500,300,100],
+ nodes=[...fig.querySelectorAll('.cn')],halos=[...fig.querySelectorAll('.lotus')],bija=[...fig.querySelectorAll('.bija')],
+ sush=document.getElementById('sush'),ida=document.getElementById('idaL'),pin=document.getElementById('pinL');
+let cur=0;
+halos.forEach((g,i)=>g.style.setProperty('--d',(i*.28).toFixed(2)));
+function railH(){return fig.offsetHeight}
+function place(n){
+  const H=railH();
+  if(n>=8){const s=Math.min(1,(innerHeight*.8)/H);fig.style.setProperty('--rsc',s.toFixed(3));
+    fig.style.setProperty('--ty',(-H*s*.5)+'px');return}
+  fig.style.setProperty('--rsc',1);
+  const y=n<1?Y[0]:Y[Math.round(n)-1];
+  fig.style.setProperty('--ty',(-(y/1400)*H)+'px')}
+function light(n){
+  const k=Math.min(7,Math.floor(n));
+  nodes.forEach((c,i)=>{c.classList.toggle('live',i+1===k&&n<8);c.classList.toggle('done',i+1<k||n>=8)});
+  halos.forEach((c,i)=>c.classList.toggle('live',i+1===k&&n<8));
+  bija.forEach((t,i)=>t.classList.toggle('live',i+1===k&&n<8));
+  sush.style.setProperty('--off',n>=8?0:(k<1?(n>0?.97:1):1-(k-1)/6*.93-.04).toFixed(3));
+  const b=n>=8?0:(k<1?1:Math.max(0,1-(k-1)/5));
+  ida.style.setProperty('--off',b.toFixed(3));pin.style.setProperty('--off',b.toFixed(3));
+  document.body.dataset.crown=k===7&&n<8?'1':'0';document.body.dataset.grace=n>=8?'1':'0'}
+window.ASGfig=function(d){const n=parseFloat(d.n);cur=n;place(n);light(n);
+  document.body.style.setProperty('--cc',d.cc)};
+addEventListener('resize',()=>place(cur));
+/* play: drag. Pull the spine down to climb, up to descend; release to arrive.
+   A tap without a drag goes to the nearest centre. */
+const grip=document.getElementById('grip');let y0=null,n0=0,moved=false,tgt=0;
+const stepFor=n=>document.querySelector('.step[data-n="'+n+'"]');
+grip.addEventListener('pointerdown',e=>{y0=e.clientY;n0=Math.max(1,Math.min(7,Math.round(cur)||1));tgt=n0;moved=false;
+  grip.setPointerCapture&&grip.setPointerCapture(e.pointerId)});
+grip.addEventListener('pointermove',e=>{if(y0===null)return;const dy=e.clientY-y0;if(!moved&&Math.abs(dy)<8)return;moved=true;
+  const sp=railH()*200/1400;tgt=Math.max(1,Math.min(7,n0+Math.round(dy/sp)));place(tgt);light(tgt)});
+function up(e){if(y0===null)return;
+  if(!moved){const H=railH(),r=fig.getBoundingClientRect(),s=r.height/H;let best=1,bd=1/0;
+    Y.forEach((y,i)=>{const sy=r.top+(y/1400)*r.height;const d=Math.abs(sy-e.clientY);if(d<bd){bd=d;best=i+1}});tgt=best}
+  y0=null;window.ASGjump&&window.ASGjump(stepFor(tgt))}
+grip.addEventListener('pointerup',up);grip.addEventListener('pointercancel',()=>{y0=null;place(cur);light(cur)});
+})();</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>

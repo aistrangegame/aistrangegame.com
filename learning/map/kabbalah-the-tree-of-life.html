@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Kabbalah — The Tree of Life — a map</title><meta name="description" content="Ten ways the infinite shows itself, on three pillars, joined by twenty-two paths. Read from the top, the way the light is said to come down."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Kabbalah - The Tree of Life · map/tree · pool deep → #d8867d */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : Kabbalah - The Tree of Life
+   form   : map        family : tree
+   pool   : deep → #d8867d        seed 0.5063
+   move   : figure TREE · direction in (descending) · ground night · density full · play light
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#d8867d;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+/* ============ TYPE_MAP — shared by the map family ============ */
+.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.nm{font-weight:500;font-size:clamp(28px,7.4vw,42px);line-height:1.08;margin:0}
+.skt{font-style:italic;color:var(--muted);font-size:17px;margin:4px 0 12px}
+.aff{font-size:clamp(18px,4.8vw,22px);margin:0 0 10px}
+.txt{font-size:clamp(16px,4.2vw,18px);line-height:1.6}
+.meta{display:flex;flex-wrap:wrap;gap:6px 16px;font-family:var(--sans);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:14px}
+.meta b{font-weight:500;color:var(--ink)}
+/* CHROME OVER A FIGURE GROUND: solid ink, never alpha (gate.js checkChrome) */
+.top,.count,.hint{color:#BDB5AA}
+.w{background:radial-gradient(110% 90% at 50% 50%, #15111C 0%, #0B0910 60%, #080610 100%)}
+
+/* @FIG:BAND — phone band is 46svh, not 54: measured at 390x800 the longest
+   steps need ~310px of text and 54svh left 288. 46svh leaves ~350. */
+.band{top:0;left:0;right:0;bottom:auto;height:46svh;padding:calc(46px + env(safe-area-inset-top,0px)) 16px 8px;
+  background:radial-gradient(70% 70% at 50% 60%, color-mix(in oklab, var(--cc,var(--ac)) 13%, #0B0910) 0%, #0B0910 72%);transition:background 2.2s ease}
+.band::after{content:"";position:absolute;left:0;right:0;bottom:-30px;height:30px;background:linear-gradient(#0B0910,rgba(11,9,16,0))}
+.band svg{height:100%;width:auto;max-width:100%;overflow:visible}
+.band .hit{pointer-events:auto;cursor:pointer;fill:transparent}
+#spin{position:fixed;left:0;right:0;top:0;height:46svh;z-index:1;border:0;background:transparent;cursor:grab;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.step{align-items:flex-start;padding-top:calc(46svh + 16px);padding-bottom:calc(60px + env(safe-area-inset-bottom,0px))}
+@media (min-width:900px){
+  .band{right:auto;width:50vw;height:100svh;padding:84px 40px}
+  .band::after{display:none}
+  #spin{right:auto;width:50vw;height:100svh}
+  .step{align-items:center;justify-content:flex-start;padding:80px 6vw 80px calc(50vw + 4vw)}
+  .piece{max-width:500px}
+}
+/* @END */
+/* ============ BAND_FIX ============ */
+/* the world under a band is flat: the band carries the glow itself, so there
+   is no seam where an opaque band meets a gradient world */
+.fig-band .w{background:#0B0910}
+@media (min-width:900px){.band{background:radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--cc,var(--ac)) 13%, transparent) 0%, transparent 72%)}}
+.meta span{white-space:nowrap}
+/* ============ EXTRA_MAP — variant: tree ============ */
+/* @FIG:TREE — hit circles are r=44 units: at the 46svh phone band the SVG is
+   ~0.5px/unit, so r=34 measured 34px. r=44 reaches 44px, and the closest pair
+   of centres (Yesod–Malkhut, 90 units) keeps 88-unit hit areas separate.
+   Nodes and edges where position means something in two axes.
+   The lightning flash is a separate stroke from the 22 paths: it crosses the
+   abyss (Binah→Chesed) where no path runs, which is the point of it. It draws
+   down edge by edge as you read; the ending lights every path from the
+   bottom up — the return. */
+.path{stroke:rgba(245,239,230,.14);stroke-width:1.4;transition:stroke 1.4s ease,stroke-width 1.4s ease}
+.path.lit{stroke:color-mix(in oklab, var(--ac) 70%, transparent);stroke-width:1.8}
+.daat{fill:none;stroke:rgba(245,239,230,.28);stroke-width:1;stroke-dasharray:3 4}
+.flash{stroke:var(--ac);stroke-width:2.6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;
+  transition:stroke-dashoffset 1.3s cubic-bezier(.22,1,.36,1),opacity 1.4s ease}
+.flash.drawn{stroke-dashoffset:0}
+body[data-grace="1"] .flash{opacity:.25}
+.sef{fill:#0B0910;stroke:rgba(245,239,230,.4);stroke-width:1.4;transition:fill 1s ease,stroke 1s ease}
+.sef.done{fill:color-mix(in oklab, var(--ac) 38%, #0B0910);stroke:var(--ac)}
+.sef.live{fill:var(--ac);stroke:var(--ac)}
+.ring2{fill:none;stroke:var(--ac);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.6);
+  transition:opacity 1.2s ease,transform 1.6s cubic-bezier(.22,1,.36,1)}
+.ring2.live{opacity:.6;transform:none}
+/* names only where there is room for them to be read: at the phone band the
+   SVG is ~0.5px/unit and 13-unit type would be 6.5px, so they stay hidden */
+.tlab{display:none;font-family:var(--sans);font-size:13px;letter-spacing:.12em;fill:#F5EFE6;opacity:.55;transition:opacity 1s ease,fill 1s ease}
+.tlab.live{opacity:1;fill:var(--ac)}
+@media (min-width:900px){.tlab{display:inline}}
+/* @END */
+
+/* SHORT PHONES (667px class): one type step down so the longest step still
+   fits under the band without scrolling inside a snap page */
+@media (max-height:720px){.nm{font-size:25px}.skt{font-size:15.5px;margin:2px 0 8px}
+  .aff{font-size:17px;margin-bottom:6px}.txt{font-size:15.5px;line-height:1.55}.meta{margin-top:8px}
+  h1{font-size:clamp(30px,8vw,44px)}.sum{font-size:16.5px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body class="light fig-band" data-variant="tree" data-form="map" data-seed="0.5063" style="--from:.9">
+<div class="w" id="w" aria-hidden="true"></div>
+
+<div class="fig band" id="fig" aria-hidden="true"><svg viewBox="0 0 300 620">
+<line class="path" data-y="90" x1="150" y1="50" x2="240" y2="130"/><line class="path" data-y="90" x1="150" y1="50" x2="60" y2="130"/><line class="path" data-y="190" x1="150" y1="50" x2="150" y2="340"/><line class="path" data-y="130" x1="240" y1="130" x2="60" y2="130"/><line class="path" data-y="230" x1="240" y1="130" x2="150" y2="340"/><line class="path" data-y="200" x1="240" y1="130" x2="240" y2="270"/><line class="path" data-y="230" x1="60" y1="130" x2="150" y2="340"/><line class="path" data-y="200" x1="60" y1="130" x2="60" y2="270"/><line class="path" data-y="270" x1="240" y1="270" x2="60" y2="270"/><line class="path" data-y="300" x1="240" y1="270" x2="150" y2="340"/><line class="path" data-y="340" x1="240" y1="270" x2="240" y2="410"/><line class="path" data-y="300" x1="60" y1="270" x2="150" y2="340"/><line class="path" data-y="340" x1="60" y1="270" x2="60" y2="410"/><line class="path" data-y="370" x1="150" y1="340" x2="240" y2="410"/><line class="path" data-y="405" x1="150" y1="340" x2="150" y2="480"/><line class="path" data-y="370" x1="150" y1="340" x2="60" y2="410"/><line class="path" data-y="410" x1="240" y1="410" x2="60" y2="410"/><line class="path" data-y="445" x1="240" y1="410" x2="150" y2="480"/><line class="path" data-y="490" x1="240" y1="410" x2="150" y2="570"/><line class="path" data-y="445" x1="60" y1="410" x2="150" y2="480"/><line class="path" data-y="490" x1="60" y1="410" x2="150" y2="570"/><line class="path" data-y="525" x1="150" y1="480" x2="150" y2="570"/>
+<circle class="daat" cx="150" cy="200" r="12"/>
+<line class="flash" data-k="2" x1="150" y1="50" x2="240" y2="130" pathLength="1"/><line class="flash" data-k="3" x1="240" y1="130" x2="60" y2="130" pathLength="1"/><line class="flash" data-k="4" x1="60" y1="130" x2="240" y2="270" pathLength="1"/><line class="flash" data-k="5" x1="240" y1="270" x2="60" y2="270" pathLength="1"/><line class="flash" data-k="6" x1="60" y1="270" x2="150" y2="340" pathLength="1"/><line class="flash" data-k="7" x1="150" y1="340" x2="240" y2="410" pathLength="1"/><line class="flash" data-k="8" x1="240" y1="410" x2="60" y2="410" pathLength="1"/><line class="flash" data-k="9" x1="60" y1="410" x2="150" y2="480" pathLength="1"/><line class="flash" data-k="10" x1="150" y1="480" x2="150" y2="570" pathLength="1"/>
+<circle class="sef" data-s="1" cx="150" cy="50" r="15"/><circle class="ring2" data-s="1" cx="150" cy="50" r="24"/><circle class="sef" data-s="2" cx="240" cy="130" r="15"/><circle class="ring2" data-s="2" cx="240" cy="130" r="24"/><circle class="sef" data-s="3" cx="60" cy="130" r="15"/><circle class="ring2" data-s="3" cx="60" cy="130" r="24"/><circle class="sef" data-s="4" cx="240" cy="270" r="15"/><circle class="ring2" data-s="4" cx="240" cy="270" r="24"/><circle class="sef" data-s="5" cx="60" cy="270" r="15"/><circle class="ring2" data-s="5" cx="60" cy="270" r="24"/><circle class="sef" data-s="6" cx="150" cy="340" r="15"/><circle class="ring2" data-s="6" cx="150" cy="340" r="24"/><circle class="sef" data-s="7" cx="240" cy="410" r="15"/><circle class="ring2" data-s="7" cx="240" cy="410" r="24"/><circle class="sef" data-s="8" cx="60" cy="410" r="15"/><circle class="ring2" data-s="8" cx="60" cy="410" r="24"/><circle class="sef" data-s="9" cx="150" cy="480" r="15"/><circle class="ring2" data-s="9" cx="150" cy="480" r="24"/><circle class="sef" data-s="10" cx="150" cy="570" r="15"/><circle class="ring2" data-s="10" cx="150" cy="570" r="24"/>
+<text class="tlab" data-s="1" x="178" y="54.5" text-anchor="start">Keter</text><text class="tlab" data-s="2" x="268" y="134.5" text-anchor="start">Chokhmah</text><text class="tlab" data-s="3" x="32" y="134.5" text-anchor="end">Binah</text><text class="tlab" data-s="4" x="268" y="274.5" text-anchor="start">Chesed</text><text class="tlab" data-s="5" x="32" y="274.5" text-anchor="end">Gevurah</text><text class="tlab" data-s="6" x="178" y="344.5" text-anchor="start">Tiferet</text><text class="tlab" data-s="7" x="268" y="414.5" text-anchor="start">Netzach</text><text class="tlab" data-s="8" x="32" y="414.5" text-anchor="end">Hod</text><text class="tlab" data-s="9" x="178" y="484.5" text-anchor="start">Yesod</text><text class="tlab" data-s="10" x="178" y="574.5" text-anchor="start">Malkhut</text>
+<circle class="hit" data-s="1" cx="150" cy="50" r="44"/><circle class="hit" data-s="2" cx="240" cy="130" r="44"/><circle class="hit" data-s="3" cx="60" cy="130" r="44"/><circle class="hit" data-s="4" cx="240" cy="270" r="44"/><circle class="hit" data-s="5" cx="60" cy="270" r="44"/><circle class="hit" data-s="6" cx="150" cy="340" r="44"/><circle class="hit" data-s="7" cx="240" cy="410" r="44"/><circle class="hit" data-s="8" cx="60" cy="410" r="44"/><circle class="hit" data-s="9" cx="150" cy="480" r="44"/><circle class="hit" data-s="10" cx="150" cy="570" r="44"/>
+</svg></div>
+<div class="top"><a href="/learning/">← Learning</a><span>Map</span></div>
+<section class="step" data-s="0"><div class="piece"><h1 style="font-size:clamp(34px,8.6vw,54px)">Kabbalah — The Tree of Life</h1><p class="sub">A map</p><p class="sum" style="margin-top:18px">Ten ways the infinite shows itself, on three pillars, joined by twenty-two paths. Read from the top, the way the light is said to come down.</p></div></section>
+<section class="step" data-s="0.5"><div class="piece"><div class="k">How to read it</div><div class="txt">On the right, expansion — mercy. On the left, contraction — judgement. Down the middle, the balance that holds them. The spheres are <i>sefirot</i>; the zigzag through them in order is the <i>lightning flash</i>. The dotted gap is Da’at, knowledge — present, and not counted.</div><div class="meta">tap a sphere to go to it</div></div></section>
+<section class="step" data-s="1"><div class="piece"><div class="num">1 of 10</div><h2 class="nm">Keter</h2><p class="skt">Crown · middle pillar</p><div class="aff">Before anything wants anything.</div><div class="txt">The first will, so far above form it is sometimes called nothing. Not where the light comes from — where it has not yet begun to be light.</div></div></section>
+<section class="step" data-s="2"><div class="piece"><div class="num">2 of 10</div><h2 class="nm">Chokhmah</h2><p class="skt">Wisdom · right pillar</p><div class="aff">A single point.</div><div class="txt">The first flash: pure potential, no edges. Everything that will ever be is in it, and none of it is told apart yet.</div></div></section>
+<section class="step" data-s="3"><div class="piece"><div class="num">3 of 10</div><h2 class="nm">Binah</h2><p class="skt">Understanding · left pillar</p><div class="aff">The point given room.</div><div class="txt">Wisdom received and shaped — the womb of the tree. The first time anything has a boundary, and so the first time it can be known.</div></div></section>
+<section class="step" data-s="4"><div class="piece"><div class="num">4 of 10</div><h2 class="nm">Chesed</h2><p class="skt">Loving-kindness · right pillar</p><div class="aff">Giving without measure.</div><div class="txt">Grace that pours without asking whether it is deserved. Beautiful — and, on its own, too much.</div></div></section>
+<section class="step" data-s="5"><div class="piece"><div class="num">5 of 10</div><h2 class="nm">Gevurah</h2><p class="skt">Strength · left pillar</p><div class="aff">The limit that makes the gift bearable.</div><div class="txt">Judgement, restraint, the no. Not the opposite of love: the shape that lets love be received.</div></div></section>
+<section class="step" data-s="6"><div class="piece"><div class="num">6 of 10</div><h2 class="nm">Tiferet</h2><p class="skt">Beauty · middle pillar</p><div class="aff">Where they meet.</div><div class="txt">The heart of the tree, holding the giving and the limit in balance. Every sefirah is joined to it by a path — except the last.</div></div></section>
+<section class="step" data-s="7"><div class="piece"><div class="num">7 of 10</div><h2 class="nm">Netzach</h2><p class="skt">Endurance · right pillar</p><div class="aff">Keep going.</div><div class="txt">Victory by persistence: the part of you that comes back. Desire that lasts long enough to become devotion.</div></div></section>
+<section class="step" data-s="8"><div class="piece"><div class="num">8 of 10</div><h2 class="nm">Hod</h2><p class="skt">Splendour · left pillar</p><div class="aff">Name it rightly.</div><div class="txt">Form, language, acknowledgement. Where Netzach keeps moving, Hod gives the movement words — and says thank you.</div></div></section>
+<section class="step" data-s="9"><div class="piece"><div class="num">9 of 10</div><h2 class="nm">Yesod</h2><p class="skt">Foundation · middle pillar</p><div class="aff">Everything gathers here.</div><div class="txt">The channel that collects the whole tree above and passes it on into the world. Dream, image, the covenant.</div></div></section>
+<section class="step" data-s="10"><div class="piece"><div class="num">10 of 10</div><h2 class="nm">Malkhut</h2><p class="skt">Kingdom · middle pillar</p><div class="aff">This, here.</div><div class="txt">The world as it is, and the presence dwelling in it — the Shekhinah. The foot of the tree is not the lowest place. It is where the light arrives.</div></div></section>
+<section class="step" data-s="grace"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">The light came down to arrive. The paths are how you walk back up.</div><div class="src" style="margin-top:18px;line-height:1.9">Jewish mystical tradition. This arrangement of the paths is the one most printed since the seventeenth century; traditional sources draw it more than one way.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/kabbalah-the-tree-of-life.html" style="--to:#92a0b1" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="hint" id="hint">scroll to descend</div>
+<div class="count" id="count">1 / 13</div>
+<script>/* FIG_TREE — defines ASGfig before the corridor calls it */
+(function(){
+const sef=[...document.querySelectorAll('.sef')],rings=[...document.querySelectorAll('.ring2')],
+ flash=[...document.querySelectorAll('.flash')],paths=[...document.querySelectorAll('.path')];
+paths.forEach(p=>p.style.transitionDelay=((620-(+p.dataset.y))/620*1.6).toFixed(2)+'s');
+window.ASGfig=function(d){const g=d.s==='grace',n=g?11:parseFloat(d.s);
+  sef.forEach(c=>{const k=+c.dataset.s;c.classList.toggle('live',k===n);c.classList.toggle('done',k<n)});
+  rings.forEach(c=>c.classList.toggle('live',+c.dataset.s===n));
+  document.querySelectorAll('.tlab').forEach(t=>t.classList.toggle('live',+t.dataset.s===n));
+  flash.forEach(l=>l.classList.toggle('drawn',+l.dataset.k<=n));
+  paths.forEach(p=>p.classList.toggle('lit',g));
+  document.body.dataset.grace=g?'1':'0'};
+/* play: light — touch a sphere and go to it */
+document.querySelectorAll('.hit').forEach(h=>h.addEventListener('click',()=>{
+  window.ASGjump&&window.ASGjump(document.querySelector('.step[data-s="'+h.dataset.s+'"]'))}));
+})();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>
