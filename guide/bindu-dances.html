@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The dances — what it is</title><meta name="description" content="A dance is a single web page built around one song: you type one word before it starts, and the page moves with the music while your word comes back t"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#ee9587;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;height:100%;overflow-y:auto;overflow-x:hidden;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:1;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,.92)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.one{font-size:clamp(23px,5.8vw,30px);line-height:1.4;font-weight:500}
+.tues{font-style:italic;font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.why{font-size:clamp(19px,4.8vw,22px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.list{display:grid;gap:16px}
+.list div{padding:16px 18px;border:1px solid var(--faint);border-radius:10px;background:var(--card);font-size:17.5px;line-height:1.55}
+.refuses div{font-style:italic;border-color:var(--ac)}
+.enter{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.links a{padding:12px 16px;border:1px solid var(--ac);border-radius:999px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.nav{display:flex;justify-content:space-between;gap:14px;margin-top:40px;padding-top:18px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.62);--faint:rgba(245,239,230,.16);--card:rgba(255,255,255,.05);--bg:#0B0910}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.55);--bg:#F7F3EC}
+.mixed{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.75);--bg:#F7F3EC}
+.mixed .piece{background:rgba(247,243,236,.92);padding:26px 24px;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}}
+.w{background:#0B0910}
+.w::before,.w::after{content:"";position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(229,83,60,.55);transform:translate(-50%,-50%);animation:pulse 3.6s ease-out infinite}
+.w::after{animation-delay:1.8s}
+@keyframes pulse{0%{width:14px;height:14px;opacity:.9}100%{width:120vmax;height:120vmax;opacity:0}}</style></head><body class="light" style="--from:.86">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="top"><a href="index.html">← The guidebook</a><span>The walk</span></div>
+<section class="step "><div class="piece"><h1>The dances</h1><p class="sub">One song, one word from you</p></div></section><section class="step "><div class="piece"><div class=k>In one sentence</div><div class="one">A dance is a single web page built around one song: you type one word before it starts, and the page moves with the music while your word comes back to you in new shapes.</div></div></section><section class="step "><div class="piece"><div class=k>A Tuesday</div><div class="tues">Headphones on. The page asks for one word. You type 'enough'. The song starts and the screen begins to move — not a video, a living pattern tuned to the music — and every so often your word surfaces, changed. Four minutes later you take the headphones off and the word means more than when you typed it.</div></div></section><section class="step "><div class="piece"><div class=k>Why I made it</div><div class="why">Some things can't be read into a body. They have to be moved into it. I wanted a way to give someone a song and have the song give them something back. The word is theirs; the music does the rest.</div></div></section><section class="step "><div class="piece"><div class=k>What's inside</div><div class="list"><div>Twenty-seven dances. Nine belong to the body's centres; the rest to songs that asked for one.</div><div>Under every song there's a low tone you can't quite hear, tuned to the song itself, that moves your attention slowly from busy to still.</div><div>Each dance has its own visual world. None of them borrow from each other.</div></div></div></section><section class="step "><div class="piece"><div class=k>What it refuses to do</div><div class="list refuses"><div>It won't start any sound until you touch it.</div><div>It won't rush the song.</div></div></div></section><section class="step "><div class="piece"><div class=k>If you want to try it</div><div class="enter">Pick a word that sounds like your day. Headphones matter — without them the low tone disappears.</div><div class="links"><a href='/b/return'>return</a><a href='/b/light'>light</a><a href='/bindu/read/'>The readings</a></div><div class="nav"><a href="tree-of-life.html">← previous</a><a href="index.html">the guidebook</a><a href="reading-space.html">next →</a></div></div></section>
+<div class="hint" id="hint">scroll to go inward</div>
+<div class="count" id="count">1 / 7</div>
+<script>
+(function(){
+  const steps=[...document.querySelectorAll('.step')],w=document.getElementById('w'),count=document.getElementById('count'),hint=document.getElementById('hint');
+  const DIR="in",N=steps.length;
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=0.12){const i=steps.indexOf(e.target);e.target.classList.add('on');count.textContent=(i+1)+' / '+N;const p=N>1?i/(N-1):1;
+    /* the world moves with you: in = converge (scale up), out = open (scale down), walk = travel (position) */
+    const z=DIR==='in'?(1+p*1.6):DIR==='out'?(1.8-p*1.2):1;w.style.setProperty('--z',z.toFixed(3));w.style.setProperty('--p',p.toFixed(3));document.documentElement.style.setProperty('--p',p.toFixed(3));if(i>0)hint.classList.add('gone')}})},{threshold:.55});
+  steps.forEach(s=>io.observe(s));
+  addEventListener('keydown',e=>{const i=steps.findIndex(s=>s.classList.contains('on')&&s.getBoundingClientRect().top>-10&&s.getBoundingClientRect().top<innerHeight/2);if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();(steps[i+1]||steps[N-1]).scrollIntoView({behavior:'smooth'})}if(e.key==='ArrowUp'){e.preventDefault();(steps[i-1]||steps[0]).scrollIntoView({behavior:'smooth'})}});
+})();
+</script></body></html>

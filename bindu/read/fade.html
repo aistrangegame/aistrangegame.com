@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>fade — Fade Away — The Reading Space</title><meta name="description" content="Fade Away is a body asking permission to stop holding itself together — to loosen, to thin out, to slip below its own vigilance — while a 110 Hz carri"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#9B6BD6;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 47</div>
+  <h1 class="verb">fade</h1>
+  <div class="song">Fade Away · Ash &amp; Paradise</div>
+  <div class="strip"><span><b>Dissolution</b> element</span><span><b>alpha</b> state</span><span>carrier <b>110 Hz</b></span><span>beat <b>8 Hz</b></span></div>
+  <div class="seed">What remains when everything else fades?</div>
+  <div class="recog">Fade Away is a body asking permission to stop holding itself together — to loosen, to thin out, to slip below its own vigilance — while a 110 Hz carrier and an unbroken pulse refuse to leave and the whole track saves its loudest swell for the last breath before silence, so the song about vanishing turns out to be the discovery of the one thing that cannot vanish: the awareness still here, still listening, once everything it was watching has faded.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Beneath the wish to fade away is not a wish to be gone but a wish to stop holding on so hard. The one singing has been carrying the weight of staying intact for a long time, and the longing to disappear is really the body's plea to be allowed to rest — to loosen a grip it has forgotten it was even making. This is what the ache underneath dissolution actually is: not despair reaching for an ending, but exhaustion reaching for release, the nervous system asking whether it can finally set itself down. And here is what the fading itself keeps quietly proving. Every time something in the song slips away, someone is still there to feel it go. The losing requires a witness, and the witness is never the thing that is lost. So the fade is not an approach to nothing — it is a slow uncovering of the one who cannot fade, the awareness that was underneath the whole time, watching the parts of the self it thought it was thin out and drift. You are not what is disappearing. You are what remains to notice the disappearing, and that has been true all along. The song's question answers itself in the act of asking: what is left when everything else fades is precisely the you that stayed to ask.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The carrier holds at 110 Hz — a low, steady tone that sits under the whole song and never moves, the sonic equivalent of the floor that stays while the room empties. Against it the two channels beat at 8 Hz, and that difference is the entire reason this song is scored for alpha. Alpha is the drowsy threshold — the state right at the border of waking and sleep where the body has let its grip go slack but consciousness has not yet gone out. It is the only state from which you can actually watch yourself dissolve: any looser and you would be asleep and see nothing, any tighter and you would still be bracing. Eight cycles a second sits at the very edge of that threshold, the border where release begins and awareness still lingers — exactly where a song about fading needs to put the listener so that the fading can be witnessed rather than fallen into. The 110 Hz drone gives the body something unmoving to dissolve against; the 8 Hz beat keeps it at the doorway of letting go without letting it slip all the way under. The frequency is the answer disguised as an atmosphere: it holds you awake at the precise depth where you can feel everything thin out and still be there, present, when the thinning is done.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>A voice sings about fading away — the light going, the self coming apart, everything loosening its hold and drifting off. The sounds behave the way the words do: notes are let go rather than stopped, reverb tails stretch and open, the top end leaves the room first. It moves at a steady walking pace, and then, against everything a fade is supposed to do, it saves its biggest wave for the very last breath before silence.</p>
+<p>Listen to what is actually leaving and what is not. Everything in the mix is engineered to depart — the melody, the shimmer, the air around each sound. But one low tone never bends and one pulse never quits, and when the whole thing finally thins to almost nothing, someone is still there hearing the little that is left. The song is losing everything except the one who is listening to it lose everything.</p>
+<p>That's the play. It pretends to be about disappearing. It is actually about the thing that cannot disappear — the awareness underneath, the witness the fade keeps uncovering by removing everything it is not. You thought the song was singing itself away. It was singing you toward the part of you that stays.</p>
+<p>And the peak at the very end is the wink. The vanishing point is where it gets loudest, because arriving at nothing is where you finally meet what was always there.</p>
+<p>Enjoy watching everything fade. Notice who's still watching.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Presence. The song names only what is leaving — the light going, the shape thinning, the day letting go — and never once names the thing all that leaving happens to. Every image points at a departure; the word it orbits is the one that stays behind to watch the departing. It sings the fade and never says the watcher.</p>
+<p>GAIA
+Read the wish to fade as the exhausted nervous system asking to set the weight down — not to be gone, to rest. The body has braced and held and stayed alert for so long that dissolving starts to sound like mercy. The need underneath "fade away" is not oblivion; it is release from vigilance, permission to stop gripping. When a body longs to disappear, what it is actually asking is to be allowed to soften without being abandoned — to loosen its hold and still be held. The song is that request made audible.</p>
+<p>SID
+Underneath everything that thins and vanishes, one pulse keeps time and one low tone never bends. The heartbeat of the track holds a steady walking pace and does not slow to match the fading — it stays even, indifferent to the dissolving happening on top of it. The 110 Hz carrier sits beneath the whole song like a floor that will not give way. Whatever is dissolving, it is dissolving against something that refuses to dissolve with it.</p>
+<p>ARCH
+The song reaches the body not through meaning but through decay. Every sound is let go rather than cut — tails lengthening, reverb opening, the high frequencies leaving the room first the way warmth leaves a room. You don't hear the idea of fading; you feel it at the level of the ear, a receding sound read by the skin the way the skin reads a receding person. Something is moving away, and the body knows before the mind assembles the word for it.</p>
+<p>SAKSHI
+From outside, the shape is a sleight of hand. A fade should taper — softer, softer, gone. This one saves its largest swell for the final breath, the peak arriving right at the lip of silence. It does not fade evenly; it intensifies into its own vanishing. The loudest the song ever becomes is the last thing before it is gone — as though the vanishing point is exactly where it was trying to arrive all along.</p>
+<p>KARISHMA
+The grace is in the few seconds after the peak breaks — when the swell collapses and almost nothing is left, and you notice you are still here, still listening to the little that remains. That thin aftermath, so easy to miss, is the whole answer arriving without announcement: the song faded, and you did not. The remainder is the gift. What is left when everything else fades turns out to be the one who was doing the hearing.</p>
+<p>ASHREY
+The song asks what remains when everything fades, and spends itself demonstrating the answer it never says in words. Everything in the mix is built to leave — the tails, the thinning top end, the melody coming apart — everything except a 110 Hz carrier, a pulse that will not quit, and a listener still there at the silence. The song about disappearing is actually the discovery of the witness that cannot disappear. The 8 Hz alpha binaural holds the body precisely at the threshold where it can watch itself dissolve without going under: awake enough to see, loose enough to let go. What remains when everything else fades is the one who noticed it fading. The music is that one — kept company all the way to the edge.</p></section>
+  <div class="doors"><a class="door" href="/b/fade"><b>Dance it</b>the Bindu dance · fade</a></div>
+  <div class="foot"><a href="dissolve.html">← previous</a><a href="search.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>remember — Wut — The Reading Space</title><meta name="description" content="Wut is a body drifting down to the 4 Hz threshold-gate where forgotten things surface on their own, opening onto a memory it had already grieved as go"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#C46A3A;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 41</div>
+  <h1 class="verb">remember</h1>
+  <div class="song">Wut · BIICLA</div>
+  <div class="strip"><span><b>Earth</b> element</span><span><b>theta</b> state</span><span>carrier <b>98 Hz</b></span><span>beat <b>4 Hz</b></span></div>
+  <div class="seed">What moment do you carry that you thought was gone?</div>
+  <div class="recog">Wut is a body drifting down to the 4 Hz threshold-gate where forgotten things surface on their own, opening onto a memory it had already grieved as gone and finding it still warm, still lit at the edges — while a 98 Hz floor holds low and unmoving beneath the whole drift, a tone that never once stopped sounding under the forgetting, so a song that seems to be about a memory coming back turns out to be the ground quietly revealing it had kept that memory the entire time: Earth remembering that nothing set down inside the body is ever actually lost, only mislaid above the hearing.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Strip the projection away and this is not a song about the past. It's a song about the body as a keeper of things the mind reported missing. Somewhere you decided a moment was gone — grief closed the file, time was supposed to have carried it off — and here it is again, surfacing on its own, not as a faded photograph but warm, still carrying its old charge, still alive enough to move you. That warmth is the tell: a truly lost thing comes back cold, if it comes back at all. This one comes back holding heat, because it was never actually somewhere else. It was held low and quiet inside you, beneath the level you knew to listen at, kept by the ground of the body while the thinking part grieved. What feels like remembering is really noticing — noticing the thing you never put down, that waited under your days the whole time for you to drop deep enough to see it. Nothing set down in a body is ever truly lost. It is only mislaid above the hearing, and the song is the moment you finally listen low enough to find it.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The carrier sits at 98 Hz — a low G2, a warm continuous tone that lies like a floor under the entire piece and does not move. The binaural beat is 4 Hz: theta. Theta is the threshold state, the frequency the brain runs at in the last moments before sleep and the first after — the hypnagogic gate where buried things float up without being reached for, where memory stops being effortful retrieval and becomes something that simply surfaces. That is precisely this song's motion: not straining to recall, but a warm thing rising through the floor and hanging in the air. The two frequencies do two jobs at once. The 4 Hz beat opens the gate and lowers you toward the edge of sleep where the forgotten lives; the 98 Hz carrier grounds you — Earth — so you don't fall all the way in. You hover: awake enough to see the memory, deep enough for it to come. Theta belongs to this song because theta is the only state in which the forgotten arrives on its own — and this song is not about searching. It is about being met.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>A warm tone rises early and, instead of passing through, it hangs — lit at the edges, suspended. A memory lifting off the floor of the song and simply staying there. Nothing hurries it. Nothing resolves it. It hovers, held.</p>
+<p>Most songs climb toward the thing they mean to show you. This one hands it over almost at once and then refuses to let it fade — the rest is the memory being turned slowly in the air, still warm. And underneath all of it, a low tone at 98 Hz never moves. A floor that was there before the memory surfaced and is still there after.</p>
+<p>That's the play. The song pretends the memory is coming back — returning from wherever it went. But listen to the low tone that never stopped. Nothing came back, because nothing left. It was here the whole time, playing under the threshold of your hearing, kept by the ground while your mind filed it under lost. You're not remembering. You're noticing what you never put down.</p>
+<p>The 4 Hz underneath is the gate to the edge of sleep, where forgotten things float up on their own — and it opens onto a room you never left. The seed question asks what moment you carry that you thought was gone. Sit with the shimmer; it answers by not fading. You were carrying it the whole way.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Still. The song hovers and refuses to let a warm thing fall. Every tone is suspended, unhurried, motionless — and every tone is also persisting, not-yet-gone, here. That double meaning is the word it circles and never says: still, as in unmoving, and still, as in yet. The memory does not move and the memory does not leave. The whole song is one long still.</p>
+<p>GAIA
+The body isn't asking to retrieve something. It's asking for permission to have never let it go. Underneath the ache is a more frightened need — to be told that what you loved and buried was not destroyed, that the grief was a misfiling and not a death. The chest tightens around the word gone, and what it wants is to feel the thing is still warm to the touch. Earth is the body as archive: the need is to trust that the ground kept what the mind gave up on.</p>
+<p>SID
+The 98 Hz carrier — a low G2, continuous — is the floor that never forgot. While everything above it lifts and hangs, this tone does not move, does not brighten, does not resolve. It was sounding before the memory surfaced and it goes on sounding after. That unbroken low hum is what held the thing the whole time the mind believed it lost. The substrate never lost the file. The substrate never even looked away.</p>
+<p>ARCH
+The reach is the high shimmer — a brightness at the top of the register that keeps the sound aloft so it can't drop out of the room and vanish. And the mechanism is exactly 4 Hz: theta, the hypnagogic gate, the frequency the nervous system runs at on the edge of sleep, where buried things un-bury themselves unbidden. The song doesn't ask you to recall. It walks the body down to the threshold where the forgotten simply floats up.</p>
+<p>SAKSHI
+Seen from outside: the peak comes early, and then the song spends everything after it not developing — just holding. Most songs climb toward the thing they mean to show you. This one hands it over almost at once and then refuses to let it fade, turning the memory slowly in the air for the whole remaining stretch. The shape is not a climb and not an arc — it is a surfacing, then a hover. The form itself says: it was already here; there was nothing to build toward.</p>
+<p>KARISHMA
+The grace is not in the memory's return — it's in the seconds just after, where nothing progresses and the body is simply left in the presence of the thing instead of watching it recede again. That is the overlooked mercy: time to keep looking. Most songs show you the treasure and then take it back. This one holds it out and lets you go on holding your gaze on it. You are allowed to keep it in view.</p>
+<p>ASHREY
+The song about a lost memory returning is actually about a memory that was never lost — the surfacing is a recognition, not a resurrection. And the music is the proof: the 98 Hz carrier never left the room, and the 4 Hz gate opens onto something that was already present, just under the threshold of hearing. You thought it was gone; the ground was playing it the whole time, below where you knew to listen. The theta beat is the pulse of the gate swinging open — and what waits on the other side is not the past. It is the present, still holding, unspilled, exactly what you set down.</p></section>
+  <div class="doors"><a class="door" href="/b/remember"><b>Dance it</b>the Bindu dance · remember</a></div>
+  <div class="foot"><a href="press.html">← previous</a><a href="release.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

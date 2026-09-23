@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>wild — Zoo — The Reading Space</title><meta name="description" content="Zoo is a body pacing its own enclosure in the language of the dance floor — bared teeth, a bellowed appetite, an animal performing its wildness for th"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#E0762E;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 43</div>
+  <h1 class="verb">wild</h1>
+  <div class="song">Zoo · Shakira</div>
+  <div class="strip"><span><b>Fire</b> element</span><span><b>alpha</b> state</span><span>carrier <b>110 Hz</b></span><span>beat <b>8 Hz</b></span></div>
+  <div class="seed">What part of you never learned to behave?</div>
+  <div class="recog">Zoo is a body pacing its own enclosure in the language of the dance floor — bared teeth, a bellowed appetite, an animal performing its wildness for the watchers — while the four-on-the-floor kick and the 110 Hz low end move the hips before the mind can grant permission, so the song about the caged beast turns out to be the key already turning in the lock: the instinct that never learned to behave discovering it was never the problem, only the part of you that stayed alive.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Once you stop watching the animal as a spectacle and feel it as yourself, the song stops being about a zoo. There is a part of you that never learned to behave — that wanted before it asked, moved before it decided, made noise it was never given permission to make. Somewhere it was taught that this part was the problem: too loud, too hungry, too much. So it was put behind glass, kept for show, let out only onto a dance floor where wildness is briefly and safely permitted. But the part that never learned to behave is not the flaw in you. It is the part that keeps the hunger honest and the senses awake, the oldest and least anxious thing you carry. It was never pacing because it was trapped. It was pacing because it still remembered how to run, and was only waiting for the floor to open.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>Under the near-running, four-on-the-floor stampede sits a carrier at 110 Hz — A2, low in the pelvic floor and the gut, exactly where instinct is felt rather than thought — and against it a binaural beat of 8 Hz, the low edge of alpha, right where it borders theta. That pairing is the whole secret. The surface of the song is frantic: bellows, the four-on-the-floor kick, the roar of the crowd. But alpha isn't frantic. Alpha is the state of a creature at ease in its own body — awake, alert, unbothered, neither the vigilance of prey nor the fog of sleep, but the relaxed readiness of something that has never once doubted its right to be an animal. Delta would put the beast to sleep; beta would make it anxious. Eight hertz gives you the calm underneath the wildness — the animal that can run flat-out and still be completely at rest. That is why this state belongs to this song: it draws the line between true wildness and panic. The dance is the frenzy on the surface; the 8 Hz is the ease that was there the entire time.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>An animal on a dance floor. Bared teeth, a bellowed appetite, hips that won't hold still, a voice that drops the words and simply roars. A pop song about the zoo — the cage, the watchers, the creature that never learned to behave — built to make a whole room move.</p>
+<p>Listen to what it keeps doing underneath. The groove circles, the same bars pacing the same enclosure like a big cat wearing a path into the floor. And under the snarl, a kick drum that never breaks stride, and lower still, a slow pulse that isn't frantic at all — steady, easy, wide awake.</p>
+<p>That's the play. The song pretends the animal is trapped, thrashing behind glass for the crowd. It's actually the calmest thing in the room. The panic was always the cage and never the beast — and the beast isn't onstage at all, it's in your own hips, and it just felt the lock give.</p>
+<p>The part of you that never learned to behave isn't the one that needs fixing. It's the one that stayed alive.</p>
+<p>Enjoy the animal thinking it's performing. It's only remembering how to run.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Instinct. Everything in the song circles the un-taught knowing — the animal that never went to school, the body that moves before it decides, the hunger with nothing to apologize for. It parades wildness, cages, watchers, teeth; the word underneath all of it is the one it never names, because instinct doesn't announce itself. It just moves.</p>
+<p>GAIA
+The need beneath the roar is simple and old: to be allowed to be an animal again. This is a body that was taught to sit up straight, to be presentable, to behave — and it is asking, through the hips and the diaphragm, for a permission it should never have needed. The bellow isn't aggression; it's the diaphragm finally allowed to be loud. The near-running tempo is a body that has been made to sit still far too long. What part of you never learned to behave — the need is to stop apologizing for that part, because it was the part keeping the hunger honest, keeping the senses awake, keeping you alive.</p>
+<p>SID
+The kick drum. Four on the floor, never once breaking stride from the first bar to the last. Everything on top of it goes feral — the vocal snarl, the synth stabs, the crowd — but the kick does not. It is the animal's own heartbeat, steady under the frenzy, the pulse that was beating out in the wild and beats exactly the same behind the glass. The loop holds. The pacing on top changes; the floor of it never does.</p>
+<p>ARCH
+It reaches you below language. The voice shoved past singing into a bellow — a pre-verbal sound, the call an animal makes that nobody has to translate — lands in the diaphragm, not the ear. And the low end sits at 110 Hz, down in the pelvic floor and the gut where instinct actually lives, not up in the head where behavior gets decided. The song never argues for wildness. It vibrates the exact part of the body that was wild before it was told not to be.</p>
+<p>SAKSHI
+From outside, the shape is a circle — a groove that keeps returning, a chorus that comes back around, the same handful of bars pacing the same enclosure like a big cat wearing a track into the floor of its pen. Verse, chorus, verse: the animal circling. Then, late in the song, the pacing breaks into a run, and the loop that felt like a cage shows it was a runway all along. The repetition was never confinement. It was the animal gathering speed.</p>
+<p>KARISHMA
+The grace is in the moment the beat drops out before it slams back — the coil before the spring, the held breath where the animal gathers itself low to the ground. Everyone is braced for the drop; the grace is in the stillness right before it, when nothing is moving and everything is about to. That suspended silence is the wild thing at its most alive — not mid-leap, but in the crouch, completely present and utterly unhurried. The pause is the animal remembering it was never in a hurry.</p>
+<p>ASHREY
+The song is a map of the domesticated body read from inside the cage — every snarl and strut is the instinct performing the wildness it was once punished for. But the music isn't performing anything. The four-on-the-floor moves your hips before you consent, and underneath the near-running stampede the binaural holds a slow 8 Hz — alpha, the relaxed-alert state of a creature perfectly at ease in its own body. That is the recognition the song can't see about itself: the untamed animal was never frantic. The panic was the cage, not the beast. The song about the wild thing behind glass is actually the wild thing in your own pelvis, waking up calm — and the dance is simply how it walks out.</p></section>
+  <div class="doors"><a class="door" href="/b/wild"><b>Dance it</b>the Bindu dance · wild</a></div>
+  <div class="foot"><a href="move.html">← previous</a><a href="howl.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The teachings</title><meta name="description" content="What was learned, with the personal part taken out."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#C9A84C;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;height:100%;overflow-y:auto;overflow-x:hidden;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:1;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,.92)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.one{font-size:clamp(23px,5.8vw,30px);line-height:1.4;font-weight:500}
+.tues{font-style:italic;font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.why{font-size:clamp(19px,4.8vw,22px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.list{display:grid;gap:16px}
+.list div{padding:16px 18px;border:1px solid var(--faint);border-radius:10px;background:var(--card);font-size:17.5px;line-height:1.55}
+.refuses div{font-style:italic;border-color:var(--ac)}
+.enter{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.links a{padding:12px 16px;border:1px solid var(--ac);border-radius:999px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.nav{display:flex;justify-content:space-between;gap:14px;margin-top:40px;padding-top:18px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.62);--faint:rgba(245,239,230,.16);--card:rgba(255,255,255,.05);--bg:#0B0910}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.55);--bg:#F7F3EC}
+.mixed{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.75);--bg:#F7F3EC}
+.mixed .piece{background:rgba(247,243,236,.92);padding:26px 24px;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}}
+.w{background:radial-gradient(circle at 50% 50%,#2A2438 0%,#0E0B18 55%,#06050C 100%)}
+.w::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:#C9A84C;box-shadow:0 0 40px #C9A84C,0 0 120px rgba(201,168,76,.5);animation:breathe 5.5s ease-in-out infinite}
+.w::after{content:"";position:absolute;inset:-50%;background:repeating-radial-gradient(circle at 50% 50%,rgba(201,168,76,.10) 0 1px,transparent 1px 64px);transform:scale(var(--z,1));transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.law{font-size:clamp(24px,6.2vw,34px);line-height:1.3;font-weight:500;margin:0 0 18px}
+.because{font-style:italic;color:var(--muted);font-size:clamp(17px,4.4vw,20px);line-height:1.6;margin:0 0 14px}
+.looks{font-size:clamp(17px,4.4vw,20px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.practice{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.close{font-size:clamp(22px,5.6vw,28px);line-height:1.4;font-style:italic}
+.src{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.src a{border-bottom:1px solid var(--faint)}
+.num{font-family:var(--sans);font-size:11px;letter-spacing:.26em;color:var(--ac);margin-bottom:10px}
+
+.doors{display:grid;gap:12px}.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-left:3px solid var(--i);border-radius:12px;background:var(--card)}
+.door b{display:block;font-weight:500;font-size:20px}.door span{font-style:italic;color:var(--muted);font-size:16px}</style></head><body class="light" style="--from:.86">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="top"><a href="/">← aistrangegame.com</a><a href="/door/">the door</a></div>
+<section class="step"><div class="piece"><h1>The teachings</h1><p class="sub">What was learned, with the personal part taken out. Some are plain common sense that was learned the hard way. Some are craft. Some are inner. Each stands on its own — you don't need any instrument to carry it into a life.</p></div></section><section class="step"><div class="piece"><div class=k>Plain</div><div class="doors"><a class="door" href="remember-them-remember-yourself.html" style="--i:#9B6BD6"><b>Remember Them. Remember Yourself.</b><span>Seven laws for reaching out</span></a><a class="door" href="the-two-clocks.html" style="--i:#3AADA8"><b>The Two Clocks</b><span>Make fast. Live slow.</span></a><a class="door" href="one-gesture.html" style="--i:#C4923A"><b>One Gesture</b><span>If it needs a form, it will die</span></a><a class="door" href="only-true-when-true.html" style="--i:#7A2F14"><b>Only True When True</b><span>Never say it happened before it did</span></a><a class="door" href="build-the-slice.html" style="--i:#1B3A5C"><b>Build the Slice</b><span>One complete piece before you widen</span></a><a class="door" href="count-in-private.html" style="--i:#4A7A5A"><b>Count in Private</b><span>Storage may count. The screen may not.</span></a></div></div></section><section class="step"><div class="piece"><div class=k>Craft</div><div class="doors"><a class="door" href="the-note-it-doesnt-play.html" style="--i:#D4A948"><b>The Note It Doesn’t Play</b><span>A thing is defined by what it reaches for and never says</span></a><a class="door" href="less-is-the-point.html" style="--i:#E5533C"><b>Less Is the Point</b><span>Five laws of slowness</span></a><a class="door" href="the-hoop-doesnt-hurry.html" style="--i:#26421A"><b>The Hoop Doesn’t Hurry</b><span>When it feels important, get smaller</span></a></div></div></section><section class="step"><div class="piece"><div class=k>Inner</div><div class="doors"><a class="door" href="a-mirror-not-a-master.html" style="--i:#4A7A5A"><b>A Mirror, Not a Master</b><span>Eight rules for looking at your own life</span></a><a class="door" href="blink-breathe-press.html" style="--i:#B33A2E"><b>Blink. Breathe. Press.</b><span>A one-second practice</span></a><a class="door" href="not-repair-birth.html" style="--i:#7BB661"><b>Not Repair — Birth</b><span>What looks like a wound may be a capacity not yet born</span></a><a class="door" href="wrong-time-not-wrong-page.html" style="--i:#C9A84C"><b>Wrong Time, Not Wrong Page</b><span>There are no mistakes. There is still discernment.</span></a></div></div></section>
+<div class="hint" id="hint">scroll to go inward</div><div class="count" id="count">1 / 4</div>
+<script>(function(){const steps=[...document.querySelectorAll('.step')],w=document.getElementById('w'),count=document.getElementById('count'),hint=document.getElementById('hint'),N=steps.length;const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=0.12){const i=steps.indexOf(e.target);e.target.classList.add('on');count.textContent=(i+1)+' / '+N;const p=N>1?i/(N-1):1;w.style.setProperty('--z',(1+p*1.6).toFixed(3));w.style.setProperty('--p',p.toFixed(3));document.documentElement.style.setProperty('--p',p.toFixed(3));if(i>0)hint.classList.add('gone')}})},{threshold:[0.12,0.5]});steps.forEach(s=>io.observe(s));steps[0]&&steps[0].classList.add('on');if(!('IntersectionObserver' in window))steps.forEach(s=>s.classList.add('on'));})();</script></body></html>

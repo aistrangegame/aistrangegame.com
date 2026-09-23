@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>melt — Gooey — The Reading Space</title><meta name="description" content="Gooey is a body so worn out from holding its own hard edges that it dreams of melting into warm sweetness — sticky, spread, boundaryless — while a low"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#3A8BC4;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 44</div>
+  <h1 class="verb">melt</h1>
+  <div class="song">Gooey · Glass Animals</div>
+  <div class="strip"><span><b>Water</b> element</span><span><b>theta</b> state</span><span>carrier <b>110 Hz</b></span><span>beat <b>4 Hz</b></span></div>
+  <div class="seed">What would you be if you stopped holding your shape?</div>
+  <div class="recog">Gooey is a body so worn out from holding its own hard edges that it dreams of melting into warm sweetness — sticky, spread, boundaryless — while a low 110 Hz hum and an 8 Hz alpha pulse ease the nervous system down into genuine rest, so the song about dissolving away turns out to be the softest homecoming in the room: the sacral body learning that when it finally stops bracing it doesn't vanish, it arrives.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Stripped of the sweetheart it sings to, this is a body confessing how tired it is of being hard. It has kept its edges sharp for so long that softness now feels like a place it can only reach by pretending — so it invents a warmth to melt into, a sweetness to sink through, and calls the wanting by a lover's name. But the wanting was never really about another person, and never really about the candy haze. It was the body asking permission to stop bracing. To be held closely enough that it could put the armor down and not vanish. What sounds like a craving to disappear is, underneath, a craving to rest right here — the exhaustion of holding a shape, finally allowed to lay itself down in something warm.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The carrier sits at 110 Hz — a low, warm A, more felt in the chest than heard, a hum with no sharp attack, the sonic equivalent of body heat. Against it the two ears are tuned a hair apart so the brain manufactures an 8 Hz beat: alpha, the drowsy hinge between waking and dreaming where the muscles let go and the mind stops standing guard. That state belongs to this song exactly. Gooey is not a sleep track and it is not a dance track — it lives in the hypnagogic middle, the syrupy just-before-sleep warmth where edges blur on their own. Water is the element because water is what a held shape becomes once it is finally allowed to flow. The 8 Hz alpha does not push the body anywhere; it just lowers the threshold until softening happens by itself — which is the only way real softening ever happens, not forced, only permitted.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>A voice pitched low and slow sings to something sweet — sticky, warm, spread thin, gone in a moment. Peanut butter, candy, a face to sink into. The whole thing pours like syrup, blooming and receding, never in a hurry to arrive.</p>
+<p>Listen to what every image is doing. Dissolving. Nothing in this song keeps its shape — the words slur, the sounds smear, the beat refuses to sharpen. It is warm dissolution top to bottom.</p>
+<p>And underneath the sweetness is something plainer: a body that has been hard for a long time, dreaming out loud about going soft. It is easier to sing about craving candy than to say how tired you are of holding your edges.</p>
+<p>Here is the play. The song pretends melting means leaving — dissolving away, disappearing into someone else. It is the opposite. That low 110 Hz hum and the 8 Hz alpha drift are not carrying you off; they are setting you down into your own body and keeping you there. You thought this was a song about losing yourself. It is a song about being safe enough to stop holding yourself.</p>
+<p>So let it turn you gooey. What melts was only ever the armor.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Surrender. The song circles it through every sticky, spreading, warm-blurred image and never once names it — it dresses surrender up as a sweetheart, as candy, as a slow sinking, so the body can want the thing it is too guarded to ask for directly. The word it never says is the whole reason it is singing.</p>
+<p>GAIA
+The body here has been holding a shape too long — braced, edges kept sharp, jaw set. What it calls a craving for sweetness is the older ache underneath: to be warm enough, safe enough, to stop bracing. Not the sugar. The unclenching. The shoulders finally dropping. The question living in the muscle is whether it can set the armor down and still be here afterward.</p>
+<p>SID
+The syrupy groove that never hurries — the pulse holding dead steady while everything above it smears and blooms. It does not speed up, does not spike, does not panic. It keeps the tempo of a heart rate slowing on purpose. That steadiness is what makes the melting safe: something unmoving underneath, so the body can lose its edges without falling through the floor.</p>
+<p>ARCH
+The production is the message. Vocals pitched down and slurred until the consonants blur, reverb smearing the edge off every sound, a mix so wet that nothing keeps a hard boundary. The song does not instruct the body to soften — it softens in front of the body, and the ear, unable to find a single sharp edge to grip, lets the listener's own edges go in sympathy. Melting by contagion, not by command.</p>
+<p>SAKSHI
+From outside: not a climb but a tide. It swells and recedes and swells again and never resolves into a peak, because melting has no peak — it has no destination at all. The whole shape is a spreading. The song is not going anywhere. It is the sound of something warm losing its outline and being completely fine about it.</p>
+<p>KARISHMA
+The grace is in the slur. In the moment the words themselves go soft-mouthed and half-dissolved, meaning smeared like everything else — "peanut butter" arriving as texture more than sense. That is the tell: the permission to stop holding shape reaches all the way down into language. Even the words get to melt. Even meaning gets to lay itself down and rest.</p>
+<p>ASHREY
+So the song about dissolving into someone — into sweetness, into haze — is the sacral body's oldest request to be safe enough to stop holding itself rigid. The warmth counterfeits it as escape: dissolve away, leave, go under. But the music is the true version of the same move — a low 110 Hz hum and an 8 Hz alpha drift walking the nervous system down into rest while the body stays fully present. The song pretends melting means disappearing. The sound proves melting means returning. You do not lose your shape. You find out you were never only your shape — you were the warmth it was made of.</p></section>
+  <div class="doors"><a class="door" href="/b/melt"><b>Dance it</b>the Bindu dance · melt</a></div>
+  <div class="foot"><a href="enough.html">← previous</a><a href="trace.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

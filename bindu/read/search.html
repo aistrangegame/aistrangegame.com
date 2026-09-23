@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>search — Faded — The Reading Space</title><meta name="description" content="Faded is a body calling one question across a landscape emptied of the one it loved — where has the beloved gone — the voice soaked in so much reverb "><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#8A8FA8;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 0</div>
+  <h1 class="verb">search</h1>
+  <div class="song">Faded · Alan Walker</div>
+  <div class="strip"><span><b>Meditate</b> element</span><span><b>theta</b> state</span><span>carrier <b>138.6 Hz</b></span><span>beat <b>5.5 Hz</b></span></div>
+  <div class="seed">Where are you now?</div>
+  <div class="recog">Faded is a body calling one question across a landscape emptied of the one it loved — where has the beloved gone — the voice soaked in so much reverb the emptiness itself becomes audible, while the four-on-the-floor kick never once breaks and the drop near 186 seconds floods the whole hollow space with light, so the song about searching for someone who dissolved into the distance turns out to be standing inside its own answer: the one who faded didn't leave, they thinned into the atmosphere the searcher is breathing, and the theta pulse underneath dissolves the gap between the seeker and the sought until calling out and being answered become the same motion.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Once personal projection falls away, the song stops being about a specific missing person and becomes the sound of any consciousness that has confused absence with distance. A voice stands in a place that used to be full and calls out to what it can no longer see, certain the beloved is somewhere else — somewhere findable, if only the searching went far enough. But nothing in the song is actually far away. The emptiness it moves through is not empty; it is saturated — with echo, with pulse, with the atmosphere the lost one dissolved into. The search is real and the ache is real, but the premise is a gentle error: the calling assumes a gap that the calling itself is filling. What faded did not go anywhere. It lost its edges and became the surround. And the one still calling is not stranded on the far side of a loss — it is standing, has been standing the whole time, inside the very presence it believes it is reaching for.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The carrier holds at 138.6 Hz — low and close to the chest, near the C-sharp below middle C — and beneath it two tones separated by 5.5 Hz set up a beat deep in the theta band. Theta is the border state: the frequency of the threshold between waking and dream, the hypnagogic edge where memory and present tense stop being separate rooms and the people you have lost feel, for a moment, almost reachable. That is exactly the country this song lives in — a half-real, half-remembered landscape, a "you" that might be present and might be a ghost, a place emptied of everyone but still full of them. Meditate is the element because the work here is not to search harder; it is to drop below the searching into the state where the distance the search depends on can no longer hold its shape. EDM's long build and its release feed this directly: the steady beat entrains the body toward the theta threshold, and the drop near 186 seconds is the moment the border finally thins, when the reaching gives way and the whole emptied space floods in — and the body, resting at 5.5 Hz, stops calling across the room long enough to feel that it was already inside it.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>A voice stands in a place that once meant everything and calls out to someone who isn't there, asking again and again where the beloved has gone. It asks under dimmed lights, across ruins, feeling like a stranger in a spot it used to know by heart. The synths shimmer cold and blue, the beat keeps its steady four, and the whole song aches toward a single question it never gets to put down.</p>
+<p>Listen to what is underneath the asking. The kick never stops — steady as a pulse the whole way through. The voice is soaked in so much reverb it sounds like it is calling across a canyon, and that echo is the emptiness itself, the size of the missing turned into sound. The searcher never finds anyone. The song just circles back to the question, again and again, and keeps the beat going under it.</p>
+<p>Here is the game. The song thinks it is searching an empty place for someone who is gone. But look at the word it keeps using — faded. Not vanished. Faded. Spread thin, edges gone, dissolved into the air. The one it is looking for didn't leave the landscape. They became the landscape — the blue dusk, the atmosphere, the echo handing the question back. The voice is calling across a fullness it keeps mistaking for empty. It is standing inside the answer, asking where the answer went.</p>
+<p>Enjoy the voice calling into the distance. The distance is where the beloved has been the whole time — everywhere, breathed in, unfindable only because it is too close to see.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+The song is built entirely of "where." Every line points outward across the emptied ground, asking after someone who isn't there. It asks its one question dozens of times and never once speaks the word that would end the search — here. Present tense. The place the voice is calling from. The whole song orbits "here" and never lands on it.</p>
+<p>GAIA
+The body isn't asking to find a person. It's asking to still be in contact with what it loved. Underneath the searching is a simpler need: don't let me be alone in this emptied place, don't let the connection close. As long as the body is still calling out, the other hasn't fully gone — the question is the last living thread between them. This is not a body that wants an answer. It's a body that wants to keep reaching, because reaching is the only way it still gets to touch what it lost. The searching is grief keeping love warm past the ending.</p>
+<p>SID
+The kick. Four on the floor, and it never stops. The landscape empties, the voice frays into reverb, the searched-for one fades out of reach — and the pulse holds under all of it, steady as a heartbeat that doesn't know how to grieve. It was beating before the search began. It'll be beating after. Everything in the song is disappearing except the beat, which is the one thing that was never looking for anyone.</p>
+<p>ARCH
+This reaches the body through space, not words. The voice is drowned in reverb until it sounds like it's calling across a canyon — and that reverb IS the emptied landscape, the distance made audible, the size of the missing rendered as echo. Then the drop near 186 seconds: language gives out, the synth lead takes the melody, and the search stops being a sentence and becomes a flood of pure feeling through the chest. The song doesn't describe the emptiness. It puts you inside it and then fills it with sound.</p>
+<p>SAKSHI
+From outside, the song is a question that refuses to resolve — verse, build, drop, and back to the same question, circling. There is no second person anywhere in it. Only the one voice and the echo the reverb hands back. The searcher never finds anyone and never stops looking, and the not-finding isn't failure — it's the shape of devotion, one figure standing in one place, turning in a slow circle, calling. And the echo returning is the closest thing to an answer the song contains: the question, come back around, in the searcher's own voice.</p>
+<p>KARISHMA
+The grace hides inside the word the song keeps using for what happened — faded. To fade is not to vanish. To fade is to spread out, to thin, to lose your edges into everything around you. The one the searcher lost didn't disappear from the landscape — they became it. They're the dusk-blue air, the atmosphere the voice is moving through, the medium every call travels across. Which means the searcher is already surrounded, already breathing what they're looking for. The overlooked moment is the whole premise, read the other way: the missing didn't leave the room. They became the room.</p>
+<p>ASHREY
+The six converge on one recognition: the song about searching for someone gone is actually about the presence doing the searching. The reverb that sounds like empty distance is a room completely full of sound. The one who faded became the atmosphere — and atmosphere is what you breathe, what holds you up, what you are standing inside of. The voice calling out after the vanished one is calling from within the answer. And the binaural at 138.6 Hz, pulsing at 5.5 Hz in the theta border — the state between waking and dream, where memory and present stop being separate places — thins the distance the search depends on until the question answers itself. The music doesn't help you find them. It dissolves the space that made them lost. You were never calling across an emptiness. You were calling across a fullness you mistook for empty.</p></section>
+  <div class="doors"><a class="door" href="/b/search"><b>Dance it</b>the Bindu dance · search</a></div>
+  <div class="foot"><a href="fade.html">← previous</a><a href="ember.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

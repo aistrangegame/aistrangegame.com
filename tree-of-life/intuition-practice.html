@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Intuition · The Flash — A Strange Chakra Map</title>
+<meta name="description" content="What arrives before the reasoning starts.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chakra:#453870; --ground:#0B0E22; --ink:#F5EFE6; --muted:rgba(245,239,230,0.62); --faint:rgba(245,239,230,0.14); --card:rgba(255,255,255,0.05);
+  --a1:#4B3F9E; --a2:#233A8E; --a3:#8C9AD8; --next:#4A3368; --prev:#403875;
+  --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.story-open{overflow:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.progress-bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--chakra);z-index:40;transition:width .12s linear;margin-top:env(safe-area-inset-top,0px)}
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 56px;position:relative;background:radial-gradient(ellipse at 50% 42%, color-mix(in srgb,var(--chakra) 34%, transparent), transparent 62%)}
+.hero-top-nav{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;padding:0 20px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-top-nav a{text-decoration:none}
+.hero-dot{width:14px;height:14px;border-radius:50%;background:var(--chakra);box-shadow:0 0 28px color-mix(in srgb,var(--chakra) 70%,transparent),0 0 64px color-mix(in srgb,var(--chakra) 30%,transparent);animation:breathe 5.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
+.hero-count{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero-verb{margin-top:10px;font-family:var(--sans);font-weight:300;font-size:clamp(40px,11vw,72px);letter-spacing:.22em;padding-left:.22em;color:var(--ink);white-space:nowrap}
+.hero-threshold{margin-top:22px;max-width:30ch;font-style:italic;font-size:clamp(19px,4.6vw,24px);line-height:1.5}
+.hero-scroll-hint{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:34px;background:linear-gradient(var(--muted),transparent);animation:drop 2.4s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top;opacity:0}40%{transform:scaleY(1);opacity:1}100%{opacity:0}}
+/* BOOK */
+.book-inner{max-width:640px;margin:0 auto;padding:36px 22px 96px}
+.identity{text-align:center;padding:12px 0 28px}
+.chakra-sanskrit{font-size:clamp(28px,7vw,40px);font-weight:500}
+.chakra-english{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.chakra-essence{margin-top:18px;font-style:italic;font-size:20px;line-height:1.55}
+.chakra-location{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--muted)}
+.core-question{margin-top:22px;font-size:22px;font-weight:500}
+section{margin:0}
+.book-inner p{margin:0 0 1.2em}
+.section-h{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:44px 0 16px}
+h3{font-family:var(--serif);font-weight:500;font-size:24px;margin:52px 0 16px;line-height:1.3}
+.seed{margin:44px 0;padding:24px 22px;text-align:center;font-style:italic;font-size:21px;line-height:1.5;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint)}
+.divider{display:flex;justify-content:center;margin:44px 0}
+.divider-dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);box-shadow:0 0 18px color-mix(in srgb,var(--chakra) 60%,transparent)}
+/* go deeper */
+.deeper-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.deeper-toggle span.chev{transition:transform .4s} .deeper-toggle[aria-expanded="true"] span.chev{transform:rotate(180deg)}
+.deeper-content{max-height:0;overflow:hidden;transition:max-height .9s cubic-bezier(.16,1,.3,1)}
+.deeper-content.open{max-height:4000px}
+.deeper-item{padding:22px 0 6px;border-bottom:1px solid var(--faint);font-size:16.5px}
+.deeper-item-label{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:10px}
+.deeper-tag{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.bija{font-style:italic;color:var(--chakra)} .deeper-pal{font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:var(--muted)}
+/* practice */
+.practice-block{background:var(--card);border-left:2px solid var(--chakra);padding:22px 20px;border-radius:0 8px 8px 0}
+.practice-label{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:14px}
+.gate{margin:40px 0 0;text-align:center}
+.gate-text{font-style:italic;font-size:19px;white-space:pre-line}
+.gate-btn{margin-top:22px;padding:16px 28px;border:1px solid var(--chakra);border-radius:999px;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);transition:background .5s,color .5s}
+.gate-btn:hover,.gate-btn:focus-visible{background:var(--chakra);color:#fff}
+.gate-btn.done{background:var(--chakra);color:#fff;pointer-events:none}
+.writing-section{margin-top:36px;max-height:0;overflow:hidden;opacity:0;transition:max-height 1.2s cubic-bezier(.16,1,.3,1),opacity 1s ease .2s}
+.writing-section.open{max-height:900px;opacity:1}
+.writing-prompt{font-style:italic;font-size:19px;margin-bottom:16px}
+textarea.writing{width:100%;min-height:150px;padding:16px;font:inherit;font-size:17px;line-height:1.6;color:var(--ink);background:var(--card);border:1px solid var(--faint);border-radius:8px;resize:vertical;outline:none}
+textarea.writing:focus{border-color:var(--chakra)}
+.writing-saved{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px;opacity:0;transition:opacity .6s} .writing-saved.show{opacity:1}
+.writing-reflection{margin-top:22px;padding:18px 20px;border-left:2px solid var(--chakra);font-style:italic;opacity:0;max-height:0;overflow:hidden;transition:opacity 1.2s ease .4s,max-height 1.2s}
+.writing-reflection.show{opacity:1;max-height:600px}
+.post-engagement{max-height:0;overflow:hidden;opacity:0;transform:translateY(8px);transition:max-height 1.6s cubic-bezier(.16,1,.3,1) .2s,opacity 1.4s ease .6s,transform 1.4s ease .6s}
+.post-engagement.revealed{max-height:20000px;opacity:1;transform:none}
+.book-rule{height:1px;background:var(--faint);margin:48px 0}
+.practice-options{display:grid;grid-template-columns:1fr;gap:28px}
+.practice-option{padding:20px;background:var(--card);border-radius:8px;font-size:17px}
+.practice-option p{margin:0}
+/* story portal */
+.story-portal{margin:56px 0 0;padding:34px 24px;border-radius:14px;background:linear-gradient(160deg,color-mix(in srgb,var(--chakra) 26%,var(--ground)),color-mix(in srgb,var(--chakra) 8%,var(--ground)));border:1px solid color-mix(in srgb,var(--chakra) 40%,transparent);text-align:center;position:relative;overflow:hidden}
+.sp-label{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.sp-headline{display:block;margin:14px auto 22px;font-style:italic;font-size:22px;max-width:26ch;line-height:1.45}
+.sp-enter{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;border:1px solid var(--ink);font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.sp-enter .dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);animation:breathe 4s ease-in-out infinite}
+.voice-fold{margin-top:56px}
+.voice-fold .section-h{margin-top:0}
+.voice-body{white-space:normal}
+.locked-note{font-family:var(--sans);font-size:13px;color:var(--muted);font-style:italic}
+/* bottom nav */
+.bottom-nav{display:flex;justify-content:space-between;align-items:center;margin-top:64px;padding-top:24px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.bottom-nav a{text-decoration:none;color:var(--muted)}
+.nav-position{color:var(--muted)}
+/* STORY MODE */
+.story-mode{position:fixed;inset:0;z-index:60;background:var(--ground);opacity:0;pointer-events:none;transition:opacity .9s ease;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.story-mode.on{opacity:1;pointer-events:auto}
+.story-scene{position:absolute;inset:0;overflow:hidden}
+.story-lines-stage{position:relative;z-index:5;max-width:600px;padding:0 28px;text-align:center}
+.story-line{font-size:clamp(18px,4.8vw,22px);line-height:1.65;opacity:0;transform:translateY(6px);transition:opacity .9s ease,transform .9s ease;color:var(--ink)}
+.story-line.in{opacity:1;transform:none}
+.story-line.sig{font-style:italic;font-size:clamp(22px,5.4vw,28px)}
+.story-tap-hint{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);z-index:6;opacity:0;transition:opacity 1s}
+.story-tap-hint.show{opacity:1}
+.story-close{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:18px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px}
+.beat-count{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));left:20px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+/* veil */
+.act-veil{position:absolute;inset:0;background:#060308;opacity:0;pointer-events:none;transition:opacity .35s;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}
+.act-veil.on{opacity:1;pointer-events:auto}
+.veil-eyes{display:flex;gap:26px;opacity:0}
+.veil-eyes.animate{animation:blink 2s ease forwards}
+.veil-eye{width:42px;height:15px;border-radius:50%;background:#fff;box-shadow:0 0 22px rgba(255,255,255,.7)}
+@keyframes blink{0%{opacity:0;transform:scaleY(.1)}25%{opacity:1;transform:scaleY(1)}55%{transform:scaleY(1)}65%{transform:scaleY(.08)}75%{transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+.veil-invite{display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;transition:opacity 1s}
+.veil-invite.show{opacity:1}
+.veil-invite-text{font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.hold-ring{width:72px;height:72px;position:relative;touch-action:none;-webkit-user-select:none;user-select:none}
+.hold-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.18);stroke-width:2}
+.ring-fill{fill:none;stroke:#fff;stroke-width:2;stroke-dasharray:176;stroke-dashoffset:176;transition:stroke-dashoffset .12s linear}
+.hold-ring.holding .ring-fill{transition:stroke-dashoffset 1.8s linear;stroke-dashoffset:0}
+.hold-ring::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:#fff}
+/* act two */
+.act-two{position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;transition:opacity 1.4s ease;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 28px}
+.act-two::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--chakra) 0%,#F6F0E6 55%,#F9FBFF 100%)}
+.act-two::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,215,255,.55),transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(212,169,72,.35),transparent 50%)}
+.act-two.on{opacity:1;pointer-events:auto}
+.act-two-inner{position:relative;z-index:2;max-width:560px;color:#1B1710}
+.act-two p{opacity:0;transform:translateY(8px);transition:opacity 1.4s ease,transform 1.4s ease;font-size:clamp(18px,4.6vw,21px);line-height:1.7;margin:0 0 1.1em}
+.act-two p.in{opacity:1;transform:none}
+.act-two p.go{font-size:clamp(24px,6vw,32px);font-style:italic;margin-top:.6em}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.6);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-110vh);opacity:0}}
+/* threshold door */
+.threshold-door{position:absolute;left:0;right:0;bottom:0;height:0;z-index:12;background:var(--next);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;transition:height 1.6s cubic-bezier(.16,1,.3,1);overflow:hidden;text-align:center;padding:0 24px}
+.threshold-door.up{height:100%}
+.next-point{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 22px #fff;margin-bottom:14px;animation:breathe 4s ease-in-out infinite}
+.next-label{font-family:var(--serif);font-weight:500;font-size:clamp(38px,9vw,56px)}
+.next-sublabel{font-style:italic;font-size:18px;opacity:.9}
+.threshold-continue-hint{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;margin-top:22px}
+/* SCENES */
+
+.story-scene{--k:0}
+.sc-point{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--chakra);box-shadow:0 0 30px color-mix(in srgb,var(--chakra) 80%,transparent),0 0 90px color-mix(in srgb,var(--chakra) 35%,transparent);animation:breathe 5.5s ease-in-out infinite;z-index:3}
+
+.sc-lid{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 20%,rgba(0,0,0,.7) 100%);z-index:2;pointer-events:none}
+.sc-particles{position:absolute;inset:0;z-index:1}
+.sc-particles .particle{background:rgba(255,255,255,.55);box-shadow:0 0 6px rgba(255,255,255,.35)}
+.sc-orb{position:absolute;width:38vmin;height:38vmin;border-radius:50%;filter:blur(38px);opacity:.28;transition:transform 3s cubic-bezier(.16,1,.3,1),opacity 3s;z-index:1}
+.sc-orb-a{background:var(--a1);left:8%;top:14%;transform:translate(calc(var(--k)*24vw),calc(var(--k)*18vh))}
+.sc-orb-b{background:var(--a2);right:6%;top:30%;transform:translate(calc(var(--k)*-22vw),calc(var(--k)*8vh))}
+.sc-orb-c{background:var(--a3);left:30%;bottom:8%;transform:translate(calc(var(--k)*10vw),calc(var(--k)*-22vh))}
+.story-scene[data-beat="0"] .sc-orb{opacity:.14}
+.sc-point{opacity:calc(.25 + var(--k)*.75)}
+/* REVEAL (position 33) */
+.reveal{position:absolute;inset:0;z-index:11;background:#FBF6EA;color:#1B1710;opacity:0;pointer-events:none;transition:opacity 1.6s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+.reveal.on{opacity:1;pointer-events:auto}
+.reveal-glyph{font-family:var(--serif);font-weight:500;font-size:clamp(110px,34vw,200px);line-height:1;color:#C9A84C;transition:transform 1.4s cubic-bezier(.16,1,.3,1),opacity .8s;text-shadow:0 0 60px rgba(201,168,76,.35)}
+.reveal-glyph.turn{transform:rotate(90deg)}
+.reveal-glyph.heart{color:#C0392B;transform:none;text-shadow:0 0 80px rgba(192,57,43,.35)}
+.reveal-title{margin-top:34px;font-size:clamp(20px,5.4vw,28px);position:relative;height:1.6em;width:100%}
+.reveal-title span{position:absolute;left:0;right:0;transition:opacity 1.6s ease}
+.rt-new{opacity:0} .reveal-title.flip .rt-old{opacity:0} .reveal-title.flip .rt-new{opacity:1;color:#C0392B;font-style:italic}
+.reveal-line{margin-top:22px;max-width:30ch;font-style:italic;opacity:0;transition:opacity 1.6s ease 1s} .reveal-line.in{opacity:1}
+.reveal-continue{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.6s} .reveal-continue.in{opacity:1}
+.reveal-continue .next-label{color:#1B1710} .reveal-continue .ring-bg{stroke:rgba(27,23,16,.18)} .reveal-continue .ring-fill{stroke:#C0392B} .reveal-continue .hold-ring::after{background:#C0392B}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.2s !important}
+  .hero-dot,.next-point,.sp-enter .dot{animation:none}
+  .story-line,.act-two p{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress" aria-hidden="true"></div>
+
+<section class="hero" id="top">
+  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="insight-practice.html">Insight</a></div>
+  <div class="hero-dot" aria-hidden="true"></div>
+  <div class="hero-count">Position 25 of 33 &nbsp;·&nbsp; Mind</div>
+  <div class="hero-verb">TRUST</div>
+  <div class="hero-threshold">Something knows before the words do. Trust that.</div>
+  <div class="hero-scroll-hint"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<div class="book-inner">
+  <div class="identity">
+    <div class="chakra-sanskrit">प्रतिभा · Pratibha</div>
+    <div class="chakra-english">The Flash</div>
+    <div class="chakra-essence">What arrives before the reasoning starts.</div>
+    <div class="chakra-location">The pre-verbal knowing space — what arrives before it becomes a thought</div>
+    <div class="core-question">What do you know before you can prove it?</div>
+  </div>
+
+  <section aria-label="Teaching">
+    <p>प्रतिभा — Pratibha — the spontaneous flash. Knowing before the words form.</p>
+<p>In Kashmir Shaivism, Pratibha is the luminous self-awareness that precedes all concepts. The flash before the thought. The knowing that is already present before the mind begins to reason toward it. Every configuration experiences this — the moment of pre-verbal certainty that arrives before it can be justified. What varies is whether the configuration trusts it.</p>
+<p>Aruna — the dawn-colored, fifth Vagdevi of the seventh avarana — presides here. Aruna is the light before the sun fully rises: not yet visible as light, but operative as what precedes visibility. The knowing before the knowing is named. She is the pre-dawn intelligence, the register that operates in the space between darkness and full articulation. Pratibha arrives in that space.</p>
+<p>Reasoning works forward: you gather evidence, apply logic, arrive at a conclusion. Pratibha works backward: the conclusion arrives first, and then — if the configuration is patient — the evidence assembles to confirm what was already true. The confirming evidence was always there. Pratibha simply skipped ahead to show where it was pointing.</p>
+<p>The training taught the configuration to treat forward-reasoning as knowledge and the pre-word signal as noise. The training served a purpose. But it also taught the dismissal of what arrives fastest. The pre-word signal arrives first because it has access to information that travels through channels slower than language: the body’s immediate response, the pattern-recognition running beneath conscious attention, the relational intelligence that reads what is between words.</p>
+<p>The Rahasya Mudra’s secret at Intuition: what arrives before language is the more reliable knowing, not the less reliable one. The practice is not to generate Pratibha. It arrives on its own. The practice is to create the conditions in which it can be received — a moment of quiet before the analytical mind takes over, a willingness to note what arrived before the explanation.</p>
+<p>What you know before the question is already the knowing. The explanation is the translation.</p>
+  </section>
+
+  <div class="seed">“The knowing that arrives before words is the more reliable one.”</div>
+
+  <button class="deeper-toggle" id="deeper-toggle" type="button" aria-expanded="false" aria-controls="deeper-panel"><span>Go deeper</span><span class="chev">⌄</span></button>
+  <div class="deeper-content" id="deeper-panel">
+    <div class="deeper-item"><div class="deeper-item-label">The Frequency</div><p class="bija">· · · before the word · · ·</p><p>One breath. Before it ends — something is already known.
+Don’t word it yet. Just feel it there.
+The pre-word signal is the frequency.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">In the Shree Yantra</div><p><span class="deeper-tag">8 Triangles (Vāgdevī)</span> <strong>Aruna — Vagdevi #5</strong></p><p>The dawn-colored — 5th Vagdevi of the 7th avarana. Knowledge before the sun fully rises. Intuition is the first light that precedes certainty — present before the evidence, real before the proof. Aruna does not wait for the sun to confirm her. Knowing before evidence (C-1275: the bidirectional soul journey operates through intuition).</p><p><em>Rahasya Mudra — the secret that knowing arrives before evidence</em></p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Pair</div><p>Insight. Pre-word knowing and inside-view knowing — two registers of intelligence that move beneath the mind's surface reasoning. Pratibha arrives before language forms: the knowing is there first, the words come after. Antardrishti shifts position to see from inside the thing that was being analyzed. Both bypass the mind's habit of standing back and evaluating. Both move toward what is already there but not yet accessible from the usual angle.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Tree</div><p>Before dawn, the Maya Tree knows light is coming. Not because it can see the sun — because something in the roots has already registered the shift. The knowing travels upward through the tree before the light arrives. Pratibha is what moves through the tree in the dark, before the sun clears the horizon.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">From the Codex</div><p>What do you know right now that hasn't yet become an idea? Honor that knowledge before it becomes words. Aruna is the light before the light. Intuition is the knowing-before-evidence that the Ajna chakra stills into, now operating as an active mind-register.</p></div>
+  </div>
+
+  <div class="divider"><div class="divider-dot"></div></div>
+
+  <div class="practice-block" id="practice">
+    <div class="practice-label">The Practice · TRUST</div>
+    <p>What you put into words just now was already inside you.</p>
+<p>That’s not a small claim. It means the intelligence you needed was present before you started trying to access it. The trying was the access problem.</p>
+<p>Pratibha — the spontaneous flash — is how this intelligence moves. Not gradually, not through accumulation of evidence. In a flash. Before the flash, nothing seems to be there. After the flash, you wonder how you didn’t see it before.</p>
+<p>The question that opens the flash is not what should I think about this? It’s the question you just used: what do I already know? The already-knowing is the operating register. The trying-to-figure-out closes it.</p>
+<p>You will feel Pratibha most clearly in the moment right before you reason. That moment is a register. It has been there your whole life. Today you named something that lived in it.</p>
+  </div>
+
+  <div class="gate" id="gate">
+    <div class="gate-text">Take one breath.
+Before the breath ends — notice: is there something you already know that you haven’t put into words yet?
+Don’t word it. Just feel it there.
+When you feel it — tap.</div>
+    <button class="gate-btn" id="gate-btn" type="button">It’s there</button>
+  </div>
+
+  <div class="writing-section" id="writing-section">
+    <div class="writing-prompt" id="writing-prompt-intuition">What do you know right now that you haven’t put into words yet?</div>
+    <textarea class="writing" id="writing" aria-labelledby="writing-prompt-intuition" placeholder="…"></textarea>
+    <div class="writing-saved" id="writing-saved">held</div>
+    <div class="writing-reflection" id="writing-reflection">The knowing was already there. The words are just the most recent arrival.</div>
+  </div>
+
+  <div class="post-engagement" id="post-engagement">
+    <div class="book-rule"></div>
+    <section>
+      <h3>What Intuition Knows That You Forgot</h3>
+      <p>What you know before you can explain it is a different kind of knowing — not less reliable, differently sourced.</p>
+<p>Reasoning works forward: you gather evidence, you apply logic, you arrive at a conclusion. Intuition works backward: the conclusion arrives first, and then — if you’re patient — the evidence assembles to confirm it. The confirming evidence was always there. Pratibha simply skipped ahead to show you where it was pointing.</p>
+<p>The training taught you to treat the first kind of knowing as knowledge and the second kind as noise. The training served a purpose. But it also taught you to dismiss the pre-word signal before you had assessed it.</p>
+<p>The assessment is the practice. Not: trust every impulse. But: before dismissing the pre-word signal, pause long enough to ask what it knows. Most of the time, it knows something. Most of the time, it arrived first because it had access to information that came through channels slower than language.</p>
+<p>What you named today arrived before your explanation. That arrival was the data. The explanation is just the translation.</p>
+    </section>
+    <section>
+      <h3>Three Ways In</h3>
+      <div class="practice-options">
+        <div class="practice-option"><p>Close your eyes. Ask a question you’ve been sitting with — don’t try to answer it. Just hold it in the dark for thirty seconds. Notice what arrives before you start reasoning. That first arrival is Pratibha.</p></div>
+<div class="practice-option"><p>Notice today when you sense something before you can prove it. Someone’s mood. A situation’s direction. A conversation’s undercurrent. Don’t verify it yet — just note the moment of knowing before evidence. Track how often you were right.</p></div>
+<div class="practice-option"><p>Before one conversation today, sit for thirty seconds and ask: what do I already know about what’s needed here? Not what do I want — what do I know. Let the pre-verbal answer surface before you enter.</p></div>
+      </div>
+    </section>
+    <div class="seed">“The knowing that arrives before words is the more reliable one.”</div>
+
+    <div class="story-portal" id="story-portal">
+      <div class="sp-label">The story · Intuition</div>
+      <span class="sp-headline">There was a knowing before the words. It was already there.</span>
+      <button class="sp-enter" id="sp-enter" type="button"><span class="dot"></span><span>Enter the story</span></button>
+    </div>
+
+    <div class="voice-fold" id="letter-fold" hidden>
+      <div class="section-h">The Ground Speaks</div>
+      <div class="voice-body"><p>You felt it.</p>
+<p>Something was there before you could word it. You know this is true because the writing confirmed something that was already present — not something you discovered, something you verified.</p>
+<p>Every time you verify a pre-word knowing, you strengthen the channel. The channel has been there your whole life.</p>
+<p>You just made it a little wider today.</p></div>
+    </div>
+
+    <div class="voice-fold" id="underneath-fold" hidden>
+      <div class="section-h">Underneath</div>
+      <div class="voice-body"><p>She is the pre-word signal. Pratibha — the spontaneous flash — is how Gaia’s knowing arrives when the mind is quiet enough to receive it. The configuration’s intuition is not separate from her intelligence — it is her intelligence finding the aperture that opens when reasoning stops. What arrives before language is arriving from her.</p></div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Chakra navigation">
+    <a href="insight-practice.html">← Insight</a>
+    <div class="nav-position">25 &nbsp;/&nbsp; 33</div>
+    <a href="invention-practice.html">Invention →</a>
+  </nav>
+</div>
+
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="The story of Intuition">
+  <div class="story-scene" id="story-scene" data-scene="innerfield">
+    <div class="sc-lid" id="sc-lid" aria-hidden="true"></div>
+    <div class="sc-particles" id="sc-particles" aria-hidden="true"></div>
+    <div class="sc-orb sc-orb-a" aria-hidden="true"></div>
+    <div class="sc-orb sc-orb-b" aria-hidden="true"></div>
+    <div class="sc-orb sc-orb-c" aria-hidden="true"></div>
+    <div class="sc-point" aria-hidden="true"></div>
+  </div>
+  <div class="beat-count" id="beat-count"></div>
+  <button class="story-close" id="story-close" type="button">close</button>
+  <div class="story-lines-stage"><div class="story-line" id="story-line" aria-live="polite"></div></div>
+  <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes"><div class="veil-eye"></div><div class="veil-eye"></div></div>
+    <div class="veil-invite" id="veil-invite"><div class="veil-invite-text">press and hold to enter</div><div class="hold-ring" id="veil-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div></div>
+  </div>
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="particles" id="act-two-particles" aria-hidden="true"></div>
+    <div class="act-two-inner" id="act-two-inner">
+      <p>What is being witnessed here is the intelligence that precedes articulation.</p><p>Every configuration has Pratibha operating continuously. The flash before the thought. The knowing that arrives before language forms to name it. Most configurations have learned to wait for the language before trusting the knowing. This sequence is backwards. The language is the translation. The knowing is the source.</p><p>Pratibha works through channels that are faster than conscious reasoning: pattern recognition accumulated through years of lived experience, relational intelligence that processes far more information than conscious attention can hold, somatic signals that encode wisdom the mind has not yet formatted. When these channels deliver a result before the formatting is complete, the configuration experiences it as a flash — a pre-word knowing, a hunch, an inexplicable certainty.</p>
+      <p class="go">Go.</p>
+    </div>
+  </div>
+  <div class="threshold-door" id="threshold-door" aria-hidden="true">
+    <div class="next-point" aria-hidden="true"></div>
+    <div class="next-label">Invention</div>
+    <div class="next-sublabel">Position 26</div>
+    <div class="threshold-continue-hint">press and hold to walk through</div>
+    <div class="hold-ring" id="door-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const POS=25, KEY='asg.practice.intuition', NEXT="invention-practice.html", IS_LALITA=false;
+  const BEATS=["I know something.", "I can’t prove it yet. I can’t even word it cleanly yet. But it’s there — a shape in the mind before it becomes a thought. The way a room is about to change before it changes. The way I know someone is about to say something before they say it.", "I usually wait for the words before I trust the knowing. Right now I’m not going to do that.", "What I know, before I can explain it, is still real knowledge. I’m going to treat it that way."];
+  const SIGNATURE="The knowing that arrives before words is the more reliable one.";
+  const $=id=>document.getElementById(id);
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){store={}}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
+  const flag=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const has=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+
+  /* progress */
+  const prog=$('progress');
+  const onScroll=()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);prog.style.width=(p*100)+'%'};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* go deeper */
+  const dt=$('deeper-toggle'),dp=$('deeper-panel');
+  dt.addEventListener('click',()=>{const o=dp.classList.toggle('open');dt.setAttribute('aria-expanded',o)});
+
+  /* gate → writing → post-engagement */
+  const gateBtn=$('gate-btn'),ws=$('writing-section'),ta=$('writing'),saved=$('writing-saved'),refl=$('writing-reflection'),post=$('post-engagement');
+  let saveT=null;
+  function openWriting(){ws.classList.add('open');gateBtn.classList.add('done');store.gate=true;save();if(!reduced)setTimeout(()=>ws.scrollIntoView({behavior:'smooth',block:'center'}),200)}
+  function reveal(){if(!post.classList.contains('revealed')){post.classList.add('revealed');post.setAttribute('aria-hidden','false')}}
+  function scheduleAutoSave(){clearTimeout(saveT);saveT=setTimeout(()=>{store.text=ta.value;save();saved.classList.add('show');setTimeout(()=>saved.classList.remove('show'),1400)},700)}
+  gateBtn.addEventListener('click',openWriting);
+  ta.addEventListener('input',()=>{scheduleAutoSave();if(ta.value.trim().length>2){refl.classList.add('show');reveal()}});
+  if(store.gate){ws.classList.add('open');gateBtn.classList.add('done')}
+  if(store.text){ta.value=store.text;refl.classList.add('show');reveal()}
+
+  /* folds that only appear once true */
+  const letterFold=$('letter-fold'),underFold=$('underneath-fold');
+  function showFolds(){
+    if(store.story) letterFold.hidden=false;
+    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+  }
+  showFolds();
+
+  /* STORY MODE */
+  const sm=$('story-mode'),line=$('story-line'),hint=$('story-tap-hint'),count=$('beat-count'),veil=$('act-veil'),eyes=$('veil-eyes'),invite=$('veil-invite'),veilRing=$('veil-ring'),act2=$('act-two'),door=$('threshold-door'),doorRing=$('door-ring');
+  let beat=-1,act2Launched=false,lock=false,timers=[];
+  const T=(fn,ms)=>{const t=setTimeout(fn,ms);timers.push(t);return t};
+  const clearT=()=>{timers.forEach(clearTimeout);timers=[]};
+  const scene=$('story-scene');
+  function setBeatState(i){scene.dataset.beat=i;scene.style.setProperty('--k',BEATS.length>1?(i/(BEATS.length-1)).toFixed(3):1)}
+  function showLine(text,sig){
+    line.classList.remove('in');
+    T(()=>{line.textContent=text;line.classList.toggle('sig',!!sig);line.classList.add('in')},reduced?10:450);
+  }
+  function advance(){
+    if(act2Launched||lock)return;
+    if(beat>=BEATS.length-1)return;
+    lock=true;T(()=>lock=false,700);
+    beat++;setBeatState(beat);showLine(BEATS[beat],false);
+    count.textContent=(beat+1)+' / '+BEATS.length;
+    if(beat===BEATS.length-1){hint.classList.remove('show');T(landSignature,reduced?800:4200)}
+  }
+  function landSignature(){
+    showLine(SIGNATURE,true);
+    T(openVeil,reduced?900:3400);
+  }
+  function openVeil(){
+    veil.classList.add('on');veil.setAttribute('aria-hidden','false');
+    T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
+    T(()=>invite.classList.add('show'),2900);
+  }
+  function holdable(ring,onComplete){
+    let holdT=null;
+    const start=e=>{e.preventDefault();ring.classList.add('holding');holdT=setTimeout(()=>{ring.classList.remove('holding');onComplete()},1800)};
+    const stop=()=>{clearTimeout(holdT);ring.classList.remove('holding')};
+    ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
+    ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
+    ring.tabIndex=0;
+  }
+  holdable(veilRing,launchActTwo);
+  function launchActTwo(){
+    if(act2Launched)return;act2Launched=true;
+    veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
+    act2.classList.add('on');act2.setAttribute('aria-hidden','false');
+    seedParticles($('act-two-particles'),26);
+    const ps=act2.querySelectorAll('p');
+    const times=[1200,6000,11200,16000];
+    ps.forEach((p,i)=>T(()=>p.classList.add('in'),reduced?200*(i+1):(times[i]||16000+i*1500)));
+    const lastAt=reduced?200*(ps.length+1):(times[ps.length-1]||16000)+2600;
+    store.story=true;save();if(POS===32)flag('asg.egoReveal','1');
+    T(IS_LALITA?runReveal:raiseDoor,lastAt);
+  }
+  function raiseDoor(){door.classList.add('up');door.setAttribute('aria-hidden','false');doorRing.focus()}
+  holdable(doorRing,()=>{location.href=NEXT});
+  function seedParticles(host,n){host.innerHTML='';for(let i=0;i<n;i++){const d=document.createElement('div');d.className='particle';const s=2+Math.random()*4;d.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.3+Math.random()*.7};animation-duration:${9+Math.random()*12}s;animation-delay:${-Math.random()*14}s`;host.appendChild(d)}}
+  function runReveal(){
+    const rv=$('reveal'),gl=$('reveal-glyph'),tt=$('reveal-title'),rl=$('reveal-line'),rc=$('reveal-continue');
+    rv.classList.add('on');rv.setAttribute('aria-hidden','false');
+    const step=(txt,cls,ms)=>T(()=>{gl.style.opacity=0;T(()=>{gl.textContent=txt;gl.className='reveal-glyph'+(cls?' '+cls:'');gl.style.opacity=1},700)},ms);
+    step('8','',reduced?400:3200);
+    step('8','turn',reduced?800:6400);
+    T(()=>{gl.className='reveal-glyph';gl.textContent='∞'},reduced?1200:8600);
+    step('♡','heart',reduced?1600:11400);
+    T(()=>tt.classList.add('flip'),reduced?2000:13400);
+    T(()=>rl.classList.add('in'),reduced?2300:15000);
+    T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
+    holdable($('reveal-ring'),()=>{location.href=NEXT});
+  }
+  function openStory(){
+    document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
+    beat=-1;act2Launched=false;setBeatState(0);
+    if(scene.dataset.scene==='innerfield'||scene.dataset.scene==='morning'){const host=$('sc-particles');if(host&&!host.childElementCount)seedParticles(host,scene.dataset.scene==='innerfield'?40:22)}
+    if(scene.dataset.scene==='trikona'){const p=$('tri-path');const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;scene.style.setProperty('--L',L)}
+    T(()=>{advance();hint.classList.add('show')},reduced?100:1400);
+  }
+  function closeStory(){
+    clearT();lock=false;document.body.classList.remove('story-open');sm.classList.remove('on');sm.setAttribute('aria-hidden','true');
+    veil.classList.remove('on');invite.classList.remove('show');eyes.classList.remove('animate');act2.classList.remove('on');act2.setAttribute('aria-hidden','true');door.classList.remove('up');
+    act2.querySelectorAll('p').forEach(p=>p.classList.remove('in'));line.classList.remove('in');hint.classList.remove('show');
+    const rv=$('reveal');if(rv){rv.classList.remove('on');$('reveal-title').classList.remove('flip');$('reveal-line').classList.remove('in');$('reveal-continue').classList.remove('in');$('reveal-glyph').textContent='33';$('reveal-glyph').className='reveal-glyph'}
+    showFolds();
+  }
+  $('sp-enter').addEventListener('click',openStory);
+  $('story-close').addEventListener('click',closeStory);
+  sm.addEventListener('click',e=>{if(e.target.closest('.story-close')||e.target.closest('.act-veil')||e.target.closest('.act-two')||e.target.closest('.threshold-door')||e.target.closest('.reveal'))return;advance()});
+  addEventListener('keydown',e=>{if(!sm.classList.contains('on'))return;if(e.key==='Escape')closeStory();else if((e.key==='ArrowRight'||e.key===' ')&&!act2Launched){e.preventDefault();advance()}});
+})();
+</script>
+</body>
+</html>

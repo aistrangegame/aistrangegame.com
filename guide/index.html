@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The guidebook — what each thing is</title><meta name="description" content="One page per thing, written for a friend reading once: what it does, and why he made it."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#C9A84C;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;height:100%;overflow-y:auto;overflow-x:hidden;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:1;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,.92)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.one{font-size:clamp(23px,5.8vw,30px);line-height:1.4;font-weight:500}
+.tues{font-style:italic;font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.why{font-size:clamp(19px,4.8vw,22px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.list{display:grid;gap:16px}
+.list div{padding:16px 18px;border:1px solid var(--faint);border-radius:10px;background:var(--card);font-size:17.5px;line-height:1.55}
+.refuses div{font-style:italic;border-color:var(--ac)}
+.enter{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.links a{padding:12px 16px;border:1px solid var(--ac);border-radius:999px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.nav{display:flex;justify-content:space-between;gap:14px;margin-top:40px;padding-top:18px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.62);--faint:rgba(245,239,230,.16);--card:rgba(255,255,255,.05);--bg:#0B0910}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.55);--bg:#F7F3EC}
+.mixed{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.75);--bg:#F7F3EC}
+.mixed .piece{background:rgba(247,243,236,.92);padding:26px 24px;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}}
+.w{background:radial-gradient(circle at 50% 50%,#2A2438 0%,#0E0B18 55%,#06050C 100%)}
+.w::before{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:#C9A84C;box-shadow:0 0 40px #C9A84C,0 0 120px rgba(201,168,76,.5);animation:breathe 5.5s ease-in-out infinite}
+.w::after{content:"";position:absolute;inset:-50%;background:repeating-radial-gradient(circle at 50% 50%,rgba(201,168,76,.10) 0 1px,transparent 1px 64px);transform:scale(var(--z,1));transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.doors{display:grid;gap:12px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-left:3px solid var(--i);border-radius:12px;background:var(--card)}
+.door b{display:block;font-weight:500;font-size:20px}.door span{font-style:italic;color:var(--muted);font-size:16px}
+.door:hover{border-color:var(--i)}</style></head><body class="light" style="--from:.86">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="top"><a href="/">← aistrangegame.com</a><a href="/door/">the door</a></div>
+<section class="step "><div class="piece"><h1>What each thing is</h1><p class="sub">One page per thing, for someone I'm showing this to for the first time. Each page says what it does, what an ordinary day with it looks like, and why I made it — one piece at a time. Then the app can speak for itself.</p></div></section><section class="step "><div class="piece"><div class=k>Start here</div><div class="doors"><a class="door" href="the-field.html" style="--i:#4A4238"><b>What all of this is</b><span>One idea, many doors</span></a></div></div></section><section class="step "><div class="piece"><div class=k>The walk</div><div class="doors"><a class="door" href="chakra-map.html" style="--i:#C9A84C"><b>The thirty-three pages</b><span>A walk you take one page at a time</span></a><a class="door" href="tree-of-life.html" style="--i:#26421A"><b>The Tree of Life</b><span>Nine panels in a room, one word each</span></a><a class="door" href="bindu-dances.html" style="--i:#E5533C"><b>The dances</b><span>One song, one word from you</span></a><a class="door" href="reading-space.html" style="--i:#D4A948"><b>The readings</b><span>What the songs already knew</span></a></div></div></section><section class="step "><div class="piece"><div class=k>The voices</div><div class="doors"><a class="door" href="a-strange-story.html" style="--i:#7A2F14"><b>A Strange Story</b><span>The long one</span></a><a class="door" href="a-strange-voice.html" style="--i:#26421A"><b>A Strange Voice</b><span>The answer to the story</span></a></div></div></section><section class="step "><div class="piece"><div class=k>The apps</div><div class="doors"><a class="door" href="bindu-feed.html" style="--i:#E5533C"><b>Bindu Feed</b><span>My voice memos, read back to me as stories</span></a><a class="door" href="bindu-learning.html" style="--i:#3AADA8"><b>Bindu Learning</b><span>One teacher at a time, slowly</span></a><a class="door" href="bindu-field.html" style="--i:#D4A948"><b>Bindu Field</b><span>Music with a second layer under it</span></a><a class="door" href="bindu-mandala.html" style="--i:#C9963F"><b>Bindu Mandala</b><span>A way to love what has been living you</span></a><a class="door" href="bindu-being.html" style="--i:#4A7A5A"><b>Bindu Being</b><span>A mirror, not a master</span></a><a class="door" href="lalita-family.html" style="--i:#9B6BD6"><b>Lalita Family</b><span>Remember them. Remember yourself.</span></a></div></div></section><section class="step "><div class="piece"><div class=k>The family</div><div class="doors"><a class="door" href="it-was-always-lucky.html" style="--i:#1B3A5C"><b>It Was Always Lucky</b><span>Dad's seventieth, in two acts</span></a><a class="door" href="the-family.html" style="--i:#7A2F14"><b>The Family</b><span>Where all of this came from</span></a></div></div></section>
+<div class="hint" id="hint">scroll to go inward</div>
+<div class="count" id="count">1 / 6</div>
+<script>
+(function(){const steps=[...document.querySelectorAll('.step')],w=document.getElementById('w'),count=document.getElementById('count'),hint=document.getElementById('hint'),N=steps.length;
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=0.12){const i=steps.indexOf(e.target);e.target.classList.add('on');count.textContent=(i+1)+' / '+N;const p=N>1?i/(N-1):1;w.style.setProperty('--z',(1+p*1.6).toFixed(3));w.style.setProperty('--p',p.toFixed(3));document.documentElement.style.setProperty('--p',p.toFixed(3));if(i>0)hint.classList.add('gone')}})},{threshold:[0.12,0.5]});steps.forEach(s=>io.observe(s));steps[0]&&steps[0].classList.add('on');if(!('IntersectionObserver' in window))steps.forEach(s=>s.classList.add('on'));})();
+</script></body></html>

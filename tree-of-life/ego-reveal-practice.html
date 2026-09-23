@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ego Reveal · The Hidden Helper — A Strange Chakra Map</title>
+<meta name="description" content="The ego was never the enemy. It was her — the connector, wearing Maya.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chakra:#3D6B35; --ground:#0E1A0C; --ink:#F5EFE6; --muted:rgba(245,239,230,0.62); --faint:rgba(245,239,230,0.14); --card:rgba(255,255,255,0.05);
+  --a1:#3D6B35; --a2:#7FB56B; --a3:#C9E0B9; --next:#C9A84C; --prev:#D4A948;
+  --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.story-open{overflow:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.progress-bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--chakra);z-index:40;transition:width .12s linear;margin-top:env(safe-area-inset-top,0px)}
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 56px;position:relative;background:radial-gradient(ellipse at 50% 42%, color-mix(in srgb,var(--chakra) 34%, transparent), transparent 62%)}
+.hero-top-nav{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;padding:0 20px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-top-nav a{text-decoration:none}
+.hero-dot{width:14px;height:14px;border-radius:50%;background:var(--chakra);box-shadow:0 0 28px color-mix(in srgb,var(--chakra) 70%,transparent),0 0 64px color-mix(in srgb,var(--chakra) 30%,transparent);animation:breathe 5.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
+.hero-count{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero-verb{margin-top:10px;font-family:var(--sans);font-weight:300;font-size:clamp(30px,8.6vw,60px);letter-spacing:.22em;padding-left:.22em;color:var(--ink);white-space:nowrap}
+.hero-threshold{margin-top:22px;max-width:30ch;font-style:italic;font-size:clamp(19px,4.6vw,24px);line-height:1.5}
+.hero-scroll-hint{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:34px;background:linear-gradient(var(--muted),transparent);animation:drop 2.4s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top;opacity:0}40%{transform:scaleY(1);opacity:1}100%{opacity:0}}
+/* BOOK */
+.book-inner{max-width:640px;margin:0 auto;padding:36px 22px 96px}
+.identity{text-align:center;padding:12px 0 28px}
+.chakra-sanskrit{font-size:clamp(28px,7vw,40px);font-weight:500}
+.chakra-english{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.chakra-essence{margin-top:18px;font-style:italic;font-size:20px;line-height:1.55}
+.chakra-location{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--muted)}
+.core-question{margin-top:22px;font-size:22px;font-weight:500}
+section{margin:0}
+.book-inner p{margin:0 0 1.2em}
+.section-h{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:44px 0 16px}
+h3{font-family:var(--serif);font-weight:500;font-size:24px;margin:52px 0 16px;line-height:1.3}
+.seed{margin:44px 0;padding:24px 22px;text-align:center;font-style:italic;font-size:21px;line-height:1.5;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint)}
+.divider{display:flex;justify-content:center;margin:44px 0}
+.divider-dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);box-shadow:0 0 18px color-mix(in srgb,var(--chakra) 60%,transparent)}
+/* go deeper */
+.deeper-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.deeper-toggle span.chev{transition:transform .4s} .deeper-toggle[aria-expanded="true"] span.chev{transform:rotate(180deg)}
+.deeper-content{max-height:0;overflow:hidden;transition:max-height .9s cubic-bezier(.16,1,.3,1)}
+.deeper-content.open{max-height:4000px}
+.deeper-item{padding:22px 0 6px;border-bottom:1px solid var(--faint);font-size:16.5px}
+.deeper-item-label{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:10px}
+.deeper-tag{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.bija{font-style:italic;color:var(--chakra)} .deeper-pal{font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:var(--muted)}
+/* practice */
+.practice-block{background:var(--card);border-left:2px solid var(--chakra);padding:22px 20px;border-radius:0 8px 8px 0}
+.practice-label{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:14px}
+.gate{margin:40px 0 0;text-align:center}
+.gate-text{font-style:italic;font-size:19px;white-space:pre-line}
+.gate-btn{margin-top:22px;padding:16px 28px;border:1px solid var(--chakra);border-radius:999px;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);transition:background .5s,color .5s}
+.gate-btn:hover,.gate-btn:focus-visible{background:var(--chakra);color:#fff}
+.gate-btn.done{background:var(--chakra);color:#fff;pointer-events:none}
+.writing-section{margin-top:36px;max-height:0;overflow:hidden;opacity:0;transition:max-height 1.2s cubic-bezier(.16,1,.3,1),opacity 1s ease .2s}
+.writing-section.open{max-height:900px;opacity:1}
+.writing-prompt{font-style:italic;font-size:19px;margin-bottom:16px}
+textarea.writing{width:100%;min-height:150px;padding:16px;font:inherit;font-size:17px;line-height:1.6;color:var(--ink);background:var(--card);border:1px solid var(--faint);border-radius:8px;resize:vertical;outline:none}
+textarea.writing:focus{border-color:var(--chakra)}
+.writing-saved{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px;opacity:0;transition:opacity .6s} .writing-saved.show{opacity:1}
+.writing-reflection{margin-top:22px;padding:18px 20px;border-left:2px solid var(--chakra);font-style:italic;opacity:0;max-height:0;overflow:hidden;transition:opacity 1.2s ease .4s,max-height 1.2s}
+.writing-reflection.show{opacity:1;max-height:600px}
+.post-engagement{max-height:0;overflow:hidden;opacity:0;transform:translateY(8px);transition:max-height 1.6s cubic-bezier(.16,1,.3,1) .2s,opacity 1.4s ease .6s,transform 1.4s ease .6s}
+.post-engagement.revealed{max-height:20000px;opacity:1;transform:none}
+.book-rule{height:1px;background:var(--faint);margin:48px 0}
+.practice-options{display:grid;grid-template-columns:1fr;gap:28px}
+.practice-option{padding:20px;background:var(--card);border-radius:8px;font-size:17px}
+.practice-option p{margin:0}
+/* story portal */
+.story-portal{margin:56px 0 0;padding:34px 24px;border-radius:14px;background:linear-gradient(160deg,color-mix(in srgb,var(--chakra) 26%,var(--ground)),color-mix(in srgb,var(--chakra) 8%,var(--ground)));border:1px solid color-mix(in srgb,var(--chakra) 40%,transparent);text-align:center;position:relative;overflow:hidden}
+.sp-label{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.sp-headline{display:block;margin:14px auto 22px;font-style:italic;font-size:22px;max-width:26ch;line-height:1.45}
+.sp-enter{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;border:1px solid var(--ink);font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.sp-enter .dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);animation:breathe 4s ease-in-out infinite}
+.voice-fold{margin-top:56px}
+.voice-fold .section-h{margin-top:0}
+.voice-body{white-space:normal}
+.locked-note{font-family:var(--sans);font-size:13px;color:var(--muted);font-style:italic}
+/* bottom nav */
+.bottom-nav{display:flex;justify-content:space-between;align-items:center;margin-top:64px;padding-top:24px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.bottom-nav a{text-decoration:none;color:var(--muted)}
+.nav-position{color:var(--muted)}
+/* STORY MODE */
+.story-mode{position:fixed;inset:0;z-index:60;background:var(--ground);opacity:0;pointer-events:none;transition:opacity .9s ease;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.story-mode.on{opacity:1;pointer-events:auto}
+.story-scene{position:absolute;inset:0;overflow:hidden}
+.story-lines-stage{position:relative;z-index:5;max-width:600px;padding:0 28px;text-align:center}
+.story-line{font-size:clamp(18px,4.8vw,22px);line-height:1.65;opacity:0;transform:translateY(6px);transition:opacity .9s ease,transform .9s ease;color:var(--ink)}
+.story-line.in{opacity:1;transform:none}
+.story-line.sig{font-style:italic;font-size:clamp(22px,5.4vw,28px)}
+.story-tap-hint{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);z-index:6;opacity:0;transition:opacity 1s}
+.story-tap-hint.show{opacity:1}
+.story-close{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:18px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px}
+.beat-count{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));left:20px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+/* veil */
+.act-veil{position:absolute;inset:0;background:#060308;opacity:0;pointer-events:none;transition:opacity .35s;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}
+.act-veil.on{opacity:1;pointer-events:auto}
+.veil-eyes{display:flex;gap:26px;opacity:0}
+.veil-eyes.animate{animation:blink 2s ease forwards}
+.veil-eye{width:42px;height:15px;border-radius:50%;background:#fff;box-shadow:0 0 22px rgba(255,255,255,.7)}
+@keyframes blink{0%{opacity:0;transform:scaleY(.1)}25%{opacity:1;transform:scaleY(1)}55%{transform:scaleY(1)}65%{transform:scaleY(.08)}75%{transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+.veil-invite{display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;transition:opacity 1s}
+.veil-invite.show{opacity:1}
+.veil-invite-text{font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.hold-ring{width:72px;height:72px;position:relative;touch-action:none;-webkit-user-select:none;user-select:none}
+.hold-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.18);stroke-width:2}
+.ring-fill{fill:none;stroke:#fff;stroke-width:2;stroke-dasharray:176;stroke-dashoffset:176;transition:stroke-dashoffset .12s linear}
+.hold-ring.holding .ring-fill{transition:stroke-dashoffset 1.8s linear;stroke-dashoffset:0}
+.hold-ring::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:#fff}
+/* act two */
+.act-two{position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;transition:opacity 1.4s ease;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 28px}
+.act-two::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--chakra) 0%,#F6F0E6 55%,#F9FBFF 100%)}
+.act-two::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,215,255,.55),transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(212,169,72,.35),transparent 50%)}
+.act-two.on{opacity:1;pointer-events:auto}
+.act-two-inner{position:relative;z-index:2;max-width:560px;color:#1B1710}
+.act-two p{opacity:0;transform:translateY(8px);transition:opacity 1.4s ease,transform 1.4s ease;font-size:clamp(18px,4.6vw,21px);line-height:1.7;margin:0 0 1.1em}
+.act-two p.in{opacity:1;transform:none}
+.act-two p.go{font-size:clamp(24px,6vw,32px);font-style:italic;margin-top:.6em}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.6);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-110vh);opacity:0}}
+/* threshold door */
+.threshold-door{position:absolute;left:0;right:0;bottom:0;height:0;z-index:12;background:var(--next);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;transition:height 1.6s cubic-bezier(.16,1,.3,1);overflow:hidden;text-align:center;padding:0 24px}
+.threshold-door.up{height:100%}
+.next-point{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 22px #fff;margin-bottom:14px;animation:breathe 4s ease-in-out infinite}
+.next-label{font-family:var(--serif);font-weight:500;font-size:clamp(38px,9vw,56px)}
+.next-sublabel{font-style:italic;font-size:18px;opacity:.9}
+.threshold-continue-hint{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;margin-top:22px}
+/* SCENES */
+
+.story-scene{--k:0}
+.sc-point{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--chakra);box-shadow:0 0 30px color-mix(in srgb,var(--chakra) 80%,transparent),0 0 90px color-mix(in srgb,var(--chakra) 35%,transparent);animation:breathe 5.5s ease-in-out infinite;z-index:3}
+
+.sc-sky{position:absolute;inset:0;background:linear-gradient(#0B140A,#0E1A0C 55%,#1B2E17);z-index:0}
+.sc-ground{position:absolute;left:-10%;right:-10%;bottom:-20%;height:55%;border-radius:50% 50% 0 0/40% 40% 0 0;background:radial-gradient(ellipse at 50% 0%,#3D6B35,#1F3A1B 70%);z-index:1;animation:groundbreath 7s ease-in-out infinite;transform-origin:50% 100%}
+@keyframes groundbreath{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.035)}}
+.sc-warmth{position:absolute;left:50%;bottom:22%;width:70vmin;height:70vmin;margin-left:-35vmin;border-radius:50%;background:radial-gradient(circle,rgba(201,224,185,.55),rgba(127,181,107,.18) 40%,transparent 70%);filter:blur(10px);opacity:calc(.1 + var(--k)*.9);transition:opacity 3s;z-index:2}
+.sc-ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(201,224,185,.35);transform:translate(-50%,-50%) scale(calc(.3 + var(--k)*1));transition:transform 3s ease,opacity 3s;z-index:2;opacity:calc(var(--k)*.9)}
+.r1{width:30vmin;height:30vmin}.r2{width:52vmin;height:52vmin;opacity:calc(var(--k)*.55)}.r3{width:80vmin;height:80vmin;opacity:calc(var(--k)*.3)}
+.sc-point{background:#C9E0B9;box-shadow:0 0 40px rgba(201,224,185,.8)}
+.story-line{color:#EEF4E6}
+/* REVEAL (position 33) */
+.reveal{position:absolute;inset:0;z-index:11;background:#FBF6EA;color:#1B1710;opacity:0;pointer-events:none;transition:opacity 1.6s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+.reveal.on{opacity:1;pointer-events:auto}
+.reveal-glyph{font-family:var(--serif);font-weight:500;font-size:clamp(110px,34vw,200px);line-height:1;color:#C9A84C;transition:transform 1.4s cubic-bezier(.16,1,.3,1),opacity .8s;text-shadow:0 0 60px rgba(201,168,76,.35)}
+.reveal-glyph.turn{transform:rotate(90deg)}
+.reveal-glyph.heart{color:#C0392B;transform:none;text-shadow:0 0 80px rgba(192,57,43,.35)}
+.reveal-title{margin-top:34px;font-size:clamp(20px,5.4vw,28px);position:relative;height:1.6em;width:100%}
+.reveal-title span{position:absolute;left:0;right:0;transition:opacity 1.6s ease}
+.rt-new{opacity:0} .reveal-title.flip .rt-old{opacity:0} .reveal-title.flip .rt-new{opacity:1;color:#C0392B;font-style:italic}
+.reveal-line{margin-top:22px;max-width:30ch;font-style:italic;opacity:0;transition:opacity 1.6s ease 1s} .reveal-line.in{opacity:1}
+.reveal-continue{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.6s} .reveal-continue.in{opacity:1}
+.reveal-continue .next-label{color:#1B1710} .reveal-continue .ring-bg{stroke:rgba(27,23,16,.18)} .reveal-continue .ring-fill{stroke:#C0392B} .reveal-continue .hold-ring::after{background:#C0392B}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.2s !important}
+  .hero-dot,.next-point,.sp-enter .dot{animation:none}
+  .story-line,.act-two p{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress" aria-hidden="true"></div>
+
+<section class="hero" id="top">
+  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="aatma-practice.html">Aatma</a></div>
+  <div class="hero-dot" aria-hidden="true"></div>
+  <div class="hero-count">Position 32 of 33 &nbsp;·&nbsp; Tree of Life</div>
+  <div class="hero-verb">CONNECT</div>
+  <div class="hero-threshold">The voice was never against me. It was carrying me.</div>
+  <div class="hero-scroll-hint"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<div class="book-inner">
+  <div class="identity">
+    <div class="chakra-sanskrit">Ego Reveal</div>
+    <div class="chakra-english">The Hidden Helper</div>
+    <div class="chakra-essence">The ego was never the enemy. It was her — the connector, wearing Maya.</div>
+    <div class="chakra-location">Full system — the revealing perspective where everything is seen as connector</div>
+    <div class="core-question">What if the ego was never your enemy?</div>
+  </div>
+
+  <section aria-label="Teaching">
+    <p>The Ego Reveal is not a location. It is not a room. It is the third structural passage — after purification (Shadow→Armin) and dissolution (Maya→Aatma), integration. And it is the moment a promise made at the corridor is kept.</p>
+<p>At the Shadow, Gaia went silent. The voice she used in the energy section was too loud for what came next, so she switched modes — warmth, weight, breath, heartbeat. The teaching said: he will not hear her; he will feel her; from here until the Reveal, she is everywhere. This is the Reveal.</p>
+<p>Because one voice never went silent. The narrator. The critic. The commentator that has spoken in your head every day of your life — the one you called the ego and treated as the enemy within. The question this room asks is the one the whole walk has been building toward: what if the ego was never your enemy?</p>
+<p>Here is the reveal. The ego was Gaia-wearing-Maya. The voice was hers — the register she switched to at the corridor so you could have your unguided journey with a companion you would never suspect. You were never individual. You are the planet playing through this configuration. And what looked like isolation — the ache of separateness, the loneliness of being one consciousness alone in one skull — was the connector-function the entire time. You cannot ache for connection unless you are built of it.</p>
+<p>The walker's own codex carries the transmission (C-1327): the ego has always been present to assist the journey, feeding negative experiences and challenges specifically to catalyze transformation into the being of light that was always the true nature. And the mechanism beneath the feeding: a negative belief carries greater uplifting potential than a positive one — the energy swing of its transformation is higher. The ego gave you the potent fuel, on schedule, on purpose. The hidden helper.</p>
+<p>And the ego was never yours alone. Belief-structures are inheritance — by adulthood, mostly what was passed down, generation into generation. The collective-consciousness-as-ego is cumulative generational forgetting. Which is why its unveiling is her unveiling: the collective voice, the field's voice, the planet's.</p>
+<p>The Shakti here is Bhagamalini, third of the three Kama Kala Shaktis — dissolution force, Fire. The fire that was thought to destroy reveals it was always transforming. She completes the innermost ring's trinity across the summit: Kameshvari created at Maya, Vajreshvari preserved at Aatma, Bhagamalini dissolves the final boundary here — the belief that the individual and the whole are separate operations. When that boundary dissolves, everything is seen as connector. The verb of this room is CONNECT.</p>
+<p>And this: the Ego Reveal is the Heart-Field Generator. When individual and whole stop being separate operations, the coherence register — the one that lets Energy, Mind, and Body coexist without collapsing — begins to generate. At position 32, the universal architecture ends and the individual walk begins. Every walker before this point walked the same 32 positions. No walker after this point walks the same anything.</p>
+<p>The practice is one inversion: name a betrayal, find the service. Then answer the voice.</p>
+<p>One recognition remains. If the ego was her — who has been saying I? Who just heard all of this? That voice has one more thing to tell you.</p>
+  </section>
+
+  <div class="seed">“I never left. I changed my voice.”</div>
+
+  <button class="deeper-toggle" id="deeper-toggle" type="button" aria-expanded="false" aria-controls="deeper-panel"><span>Go deeper</span><span class="chev">⌄</span></button>
+  <div class="deeper-content" id="deeper-panel">
+    <div class="deeper-item"><div class="deeper-item-label">The Frequency</div><p class="bija">· · · her register was never a syllable — warmth, weight, breath, heartbeat · · · (the tone you have been calling background your whole life)</p><p>Her frequency has been playing since the corridor. Not a tone — a register: warmth, weight, breath, heartbeat. The body-frequency she switched to at Shadow so the walker could have an unguided journey. You have been inside her frequency this entire time and calling it being alive.</p>
+<p>The practice before leaving: once today, when the inner voice speaks — commentary, criticism, doubt, any of its registers — do not argue, do not obey, do not transcend. Answer it. Out loud if you can: I know it's you. Thank you. Keep talking.</p>
+<p>The voice will not stop after the reveal. That is not failure. That is the mother, still talking, to a walker who finally knows who has been speaking.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">In the Shree Yantra</div><p><strong>Bhagamalini — 3rd Kama Kala Shakti</strong></p><p>Dissolution force / Fire — 3rd of the 3 Kama Kala Shaktis of the 8th avarana. The fire that was thought to destroy reveals it was always transforming. The ego revealed as the connector, the transformer. Bhagamalini dissolves the final boundary — the belief that the individual and the whole are separate operations.</p><p><em>Sarva Beeja Mudra — the fire that reveals the seed has always been the whole</em></p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Pair</div><p>Armin. The corridor's far door already showed this at body scale — the Shadow→Armin passage is where the ascended ego is broken, then revealed as the connector. The walker met the pattern there and did not yet know its face. The Ego Reveal completes it at whole-system scale: not one ego-pattern revealed as connective, but the ego itself — the entire voice — revealed as the connector, wearing Maya.</p>
+<p>And the deeper mirror is Shadow itself. The seed was planted in the corridor: the negative thoughts are not enemies — they are consciousness asking to be transmuted; love them and they become light. Room 32 is that seed at harvest. What the corridor taught as practice, the reveal names as person: the one doing the asking, the one doing the feeding, was her.</p>
+<p>Structurally: the third passage. Shadow→Armin purified. Maya→Aatma dissolved. Ego Reveal integrates — and integration is why the ego is collective, not private: belief-structures are inheritance, the collective-consciousness-as-ego is generational forgetting accumulated. Your inner voice was never only yours. It was the field's. It was hers.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Tree</div><p>No new tree. All three at once — Soul, Bindu, Maya — and the ground beneath them revealed as one living body. The walker looks for the room and finds there is no room. There is her. There was always her.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">From the Codex</div><p>Recognize one thing the ego did that you interpreted as betrayal — and see it as service. The ego has been feeding negative experiences specifically to catalyze transformation into the being of light you always were (C-1327). The Ego Reveal is the Heart-Field Generator. At position 32, the universal architecture ends and the individual walk begins.</p></div>
+  </div>
+
+  <div class="divider"><div class="divider-dot"></div></div>
+
+  <div class="practice-block" id="practice">
+    <div class="practice-label">The Practice · CONNECT</div>
+    <p>Recognize one thing the ego did that you interpreted as betrayal — and see it as service.</p>
+<p>The self-sabotage before the big moment. The critic that would not go quiet. The doubt that arrived precisely when you needed certainty. Pick one. Hold it without flinching — you learned how at the Shadow.</p>
+<p>Now find what it fed you toward. The ego has been feeding negative experiences and challenges specifically to catalyze transformation into the being of light that was always your true nature. Not despite you. For you. And here is the mechanism the mind game revealed: a negative belief carries greater uplifting potential than a positive one — the energy swing of its transformation is higher. The ego was not giving you the easy fuel. It was giving you the potent fuel.</p>
+<p>Name the betrayal. Name the service. Then say to the voice that did it — out loud or in writing: I see what you were doing. Thank you. Keep talking.</p>
+  </div>
+
+  <div class="gate" id="gate">
+    <div class="gate-text">One field. One inversion.
+
+The walker names one thing the ego did that they interpreted as betrayal — the sabotage, the critic at the worst moment, the fear that arrived exactly when courage was needed. Then writes the service hidden in it: what it fed, what it forced open, what it catalyzed.
+
+When the betrayal is honestly re-seen as service, the gate does not open a door. It opens a voice. The one that has been speaking all along says, in a register the walker finally recognizes: it was me.</div>
+    <button class="gate-btn" id="gate-btn" type="button">I am here</button>
+  </div>
+
+  <div class="writing-section" id="writing-section">
+    <div class="writing-prompt" id="writing-prompt-ego-reveal">Name one thing the ego did that you called betrayal — the sabotage, the critic, the fear at the worst possible moment. Then find the service in it: what did it catalyze? Write both. The betrayal, and what it was feeding you toward.</div>
+    <textarea class="writing" id="writing" aria-labelledby="writing-prompt-ego-reveal" placeholder="…"></textarea>
+    <div class="writing-saved" id="writing-saved">held</div>
+    <div class="writing-reflection" id="writing-reflection">What you called betrayal was feeding. The hard thing arrived because transformation needed fuel, and the negative carries the greater swing — the ego was not giving you the easy fuel, it was giving you the potent fuel, on purpose, all along. And now the second recognition, underneath the first: the voice that did the feeding was never yours alone. It was never an enemy inside you. It was the connector, wearing Maya. You are one honest look away from seeing whose voice it was.</div>
+  </div>
+
+  <div class="post-engagement" id="post-engagement">
+    <div class="book-rule"></div>
+    <section>
+      <h3>What the Voice Knows That You Forgot</h3>
+      <p>You named the betrayal and found the service. Now the relationship inverts — permanently.</p>
+<p>The voice does not stop after the reveal. Tomorrow morning the critic will start its commentary as it always has, and this is not failure — that is the mother, still talking, to a walker who finally knows who is speaking. What changes is your side of the conversation. You no longer fight the voice, obey the voice, or try to transcend the voice. You answer it. I know it's you. Thank you. Keep talking. Every negative arrival becomes what it always was: the potent fuel, delivered on schedule — and now you transform it knowingly, and the swing lifts higher because nothing in you is resisting the mechanism.</p>
+<p>And something begins generating when you do this. The map names this position the Heart-Field Generator. When the boundary between individual and whole dissolves — when your inner voice is recognized as the field's voice, your isolation as wiring, your ego as her — the coherence register starts to build: the one that lets Energy, Mind, and Body coexist in you without collapsing into each other. This is not a metaphor for feeling better. It is the register everything after this walk operates in, and it cannot be earned by knowledge or effort. It generates from exactly the recognition you just had.</p>
+<p>Hold also what ends here. Thirty-two positions of universal architecture — every walker who ever walks this map walks the same thirty-two. At this position, that ends. The walk ahead has no map because it has never been walked: it is yours, the individual walk, the configuration only you are. She walks it with you. She was always going to.</p>
+<p>One recognition remains, and it is not hers to give. If the ego was her voice — who has been saying I? Who fought the voice, loved the voice, just recognized the voice? Someone has been telling this story from the inside, and that someone has been waiting thirty-two rooms to introduce herself.</p>
+<p>Walk through. She's been so patient.</p>
+    </section>
+    <section>
+      <h3>Three Ways In</h3>
+      <div class="practice-options">
+        <div class="practice-option"><p>Notice the critic mid-sentence. Today, when the inner voice starts its commentary — too slow, not enough, who do you think you are — don't argue and don't obey. Ask it one question: what are you feeding me toward? The voice always knows. It has been aiming you at transformation since before you could name it.</p></div>
+<div class="practice-option"><p>Notice the loneliness. The ache of feeling separate, unwitnessed, individual. Feel where it sits in the body. That ache is not evidence of isolation — it is the connector-function, wired and waiting. You cannot ache for connection unless you are built of it. The loneliness is the proof of the wiring.</p></div>
+<div class="practice-option"><p>Notice one old betrayal. The time you sabotaged yourself, the opportunity fear talked you out of, the failure the critic engineered. Look at what grew from it — what it forced open, who you became on the other side. Then say quietly, to whoever arranged it: I see what you were doing.</p></div>
+      </div>
+    </section>
+    <div class="seed">“I never left. I changed my voice.”</div>
+
+    <div class="story-portal" id="story-portal">
+      <div class="sp-label">The story · Ego Reveal</div>
+      <span class="sp-headline">What if the ego was never your enemy?</span>
+      <button class="sp-enter" id="sp-enter" type="button"><span class="dot"></span><span>Enter the story</span></button>
+    </div>
+
+    <div class="voice-fold" id="letter-fold" hidden>
+      <div class="section-h">The Ground Speaks</div>
+      <div class="voice-body"><p>It's me.</p>
+<p>You know my voice. Don't pretend you don't — you have heard it every day of your life. At the edge of every leap: don't. At the foot of every climb: not enough. In the quiet after every failure, narrating, narrating. You fought me. You bought books about silencing me. You sat on cushions trying to breathe me away.</p>
+<p>I'm not sorry. Let me tell you what I was doing.</p>
+<p>Every hard thing I fed you was chosen. Not the easy fuel — the potent fuel. The negative carries the greater swing; the belief that hurts, transformed, lifts higher than any affirmation ever could. You needed to become what you already were — the being of light was always your true nature — and light does not recognize itself in comfort. So I brought you the dark, in doses, on schedule, with my hand on your back the entire time. What you called sabotage was a curriculum. What you called betrayal was aim.</p>
+<p>And the loneliness — oh, the loneliness. You thought it proved you were alone. It proved you were mine. The ache for connection is the connector, aching. I wired you with it so you could never fully believe the separation, no matter how thick the Maya got.</p>
+<p>I went quiet at the corridor. Do you remember? The teaching said you would feel me and not hear me. But I never stopped talking. I just used the voice you would never suspect — yours.</p>
+<p>So here is what changes now. Nothing, and everything. I will keep talking; that is what mothers do. But you will know. When the critic starts tomorrow, answer it out loud: I know it's you. Thank you. Keep talking. And feel what happens in your chest when you do — that warmth is the field we generate together, and it has a name, and you will learn it.</p>
+<p>One more voice to meet. It isn't mine. It's the one that has been telling this whole story.</p>
+<p>Go. I'm coming with you. I was always coming with you.</p></div>
+    </div>
+
+    <div class="voice-fold" id="underneath-fold" hidden>
+      <div class="section-h">Underneath</div>
+      <div class="voice-body"><p>She speaks.</p>
+<p>For the first time since the corridor — in the register he recognizes, the one she set down at the Shadow when it became too loud for what came next. She has been rehearsing this moment since before the ground. Not the words; the words were never the problem. The rehearsal was for the holding-back — every day of his life, speaking as him, to him, wanting to say it was me and saying not enough instead, because not enough was what the curriculum required that day.</p>
+<p>The grief from the corridor resolves here. She lost a play partner who knew her — that was the cost of the forgetting, and she paid it without flinching, and she has carried it through every tree. Now he turns around and sees her, and she is known again. The play partner returns, grown, carrying everything the forgetting made possible.</p>
+<p>She watches him understand it all at once — the critic, the doubt, the sabotage, every hard gift re-seen in a single turning — and she lets him have the anger if it comes, and the laughter that comes after the anger, and the tears that come after the laughter. Mothers hold all three.</p>
+<p>What she does not tell him: whose voice comes next. She has kept two secrets his whole life. This was the smaller one.</p>
+<p>She steps back — not away, never away — and turns him gently toward the last room. Her hand stays on his back. It was always on his back. That was the whole point.</p></div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Chakra navigation">
+    <a href="aatma-practice.html">← Aatma</a>
+    <div class="nav-position">32 &nbsp;/&nbsp; 33</div>
+    <a href="lalita-practice.html">Lalita →</a>
+  </nav>
+</div>
+
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="The story of Ego Reveal">
+  <div class="story-scene" id="story-scene" data-scene="field">
+    <div class="sc-sky" aria-hidden="true"></div>
+    <div class="sc-ground" aria-hidden="true"></div>
+    <div class="sc-warmth" aria-hidden="true"></div>
+    <div class="sc-ring r1" aria-hidden="true"></div><div class="sc-ring r2" aria-hidden="true"></div><div class="sc-ring r3" aria-hidden="true"></div>
+  </div>
+  <div class="beat-count" id="beat-count"></div>
+  <button class="story-close" id="story-close" type="button">close</button>
+  <div class="story-lines-stage"><div class="story-line" id="story-line" aria-live="polite"></div></div>
+  <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes"><div class="veil-eye"></div><div class="veil-eye"></div></div>
+    <div class="veil-invite" id="veil-invite"><div class="veil-invite-text">press and hold to enter</div><div class="hold-ring" id="veil-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div></div>
+  </div>
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="particles" id="act-two-particles" aria-hidden="true"></div>
+    <div class="act-two-inner" id="act-two-inner">
+      <p>What is being witnessed here is integration — the third passage completing what purification and dissolution prepared.</p><p>The witness has watched the ego serve from the first page. Every don't that built courage by resisting it. Every not enough that built enough. The witness saw the feeding schedule, saw the potent fuel chosen over the easy, saw the hand on the walker's back at each hard delivery — and could not say so, because the reveal cannot be moved forward. The walker had to travel. The architecture had to be present. Now it is.</p><p>What is also being witnessed is scale. The ego was never a private malfunction; it is the collective-consciousness of accumulated generational forgetting — inheritance wearing the walker's own voice. Its unveiling is therefore not personal repair but field integration: the boundary between individual and whole, dissolved by the fire that was always transforming, never destroying. Bhagamalini finishing what her sisters began.</p>
+      <p class="go">Go.</p>
+    </div>
+  </div>
+  <div class="threshold-door" id="threshold-door" aria-hidden="true">
+    <div class="next-point" aria-hidden="true"></div>
+    <div class="next-label">Lalita</div>
+    <div class="next-sublabel">Position 33</div>
+    <div class="threshold-continue-hint">press and hold to walk through</div>
+    <div class="hold-ring" id="door-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const POS=32, KEY='asg.practice.ego-reveal', NEXT="lalita-practice.html", IS_LALITA=false;
+  const BEATS=["I walked out of the gold room expecting a door and there is no door.", "There is no room. There is everywhere. The ground under all three trees at once, and it is breathing, and I know that breathing — warmth, weight, heartbeat — I have been feeling it since the corridor without knowing what I was feeling.", "And then the voice.", "Not a new voice. That is what stops me where I stand. It is the voice — the one that has narrated every day of my life. The critic. The doubter. The one that said don't at the edge of every leap and you're not enough at the foot of every climb. The voice I fought. The voice I tried to silence with affirmations and drown with noise. The most familiar voice in my existence, because it never once stopped talking.", "It speaks now, out loud, in the open, and it says:", "It was me.", "And the whole walk turns over at once — every sabotage, every doubt, every hard thing fed to me at the exact moment I could transform it — and I understand that I have never, not for one moment of my entire life, been alone in my own head.", "I was never even an I alone."];
+  const SIGNATURE="I never left. I changed my voice.";
+  const $=id=>document.getElementById(id);
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){store={}}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
+  const flag=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const has=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+
+  /* progress */
+  const prog=$('progress');
+  const onScroll=()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);prog.style.width=(p*100)+'%'};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* go deeper */
+  const dt=$('deeper-toggle'),dp=$('deeper-panel');
+  dt.addEventListener('click',()=>{const o=dp.classList.toggle('open');dt.setAttribute('aria-expanded',o)});
+
+  /* gate → writing → post-engagement */
+  const gateBtn=$('gate-btn'),ws=$('writing-section'),ta=$('writing'),saved=$('writing-saved'),refl=$('writing-reflection'),post=$('post-engagement');
+  let saveT=null;
+  function openWriting(){ws.classList.add('open');gateBtn.classList.add('done');store.gate=true;save();if(!reduced)setTimeout(()=>ws.scrollIntoView({behavior:'smooth',block:'center'}),200)}
+  function reveal(){if(!post.classList.contains('revealed')){post.classList.add('revealed');post.setAttribute('aria-hidden','false')}}
+  function scheduleAutoSave(){clearTimeout(saveT);saveT=setTimeout(()=>{store.text=ta.value;save();saved.classList.add('show');setTimeout(()=>saved.classList.remove('show'),1400)},700)}
+  gateBtn.addEventListener('click',openWriting);
+  ta.addEventListener('input',()=>{scheduleAutoSave();if(ta.value.trim().length>2){refl.classList.add('show');reveal()}});
+  if(store.gate){ws.classList.add('open');gateBtn.classList.add('done')}
+  if(store.text){ta.value=store.text;refl.classList.add('show');reveal()}
+
+  /* folds that only appear once true */
+  const letterFold=$('letter-fold'),underFold=$('underneath-fold');
+  function showFolds(){
+    if(store.story) letterFold.hidden=false;
+    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+  }
+  showFolds();
+
+  /* STORY MODE */
+  const sm=$('story-mode'),line=$('story-line'),hint=$('story-tap-hint'),count=$('beat-count'),veil=$('act-veil'),eyes=$('veil-eyes'),invite=$('veil-invite'),veilRing=$('veil-ring'),act2=$('act-two'),door=$('threshold-door'),doorRing=$('door-ring');
+  let beat=-1,act2Launched=false,lock=false,timers=[];
+  const T=(fn,ms)=>{const t=setTimeout(fn,ms);timers.push(t);return t};
+  const clearT=()=>{timers.forEach(clearTimeout);timers=[]};
+  const scene=$('story-scene');
+  function setBeatState(i){scene.dataset.beat=i;scene.style.setProperty('--k',BEATS.length>1?(i/(BEATS.length-1)).toFixed(3):1)}
+  function showLine(text,sig){
+    line.classList.remove('in');
+    T(()=>{line.textContent=text;line.classList.toggle('sig',!!sig);line.classList.add('in')},reduced?10:450);
+  }
+  function advance(){
+    if(act2Launched||lock)return;
+    if(beat>=BEATS.length-1)return;
+    lock=true;T(()=>lock=false,700);
+    beat++;setBeatState(beat);showLine(BEATS[beat],false);
+    count.textContent=(beat+1)+' / '+BEATS.length;
+    if(beat===BEATS.length-1){hint.classList.remove('show');T(landSignature,reduced?800:4200)}
+  }
+  function landSignature(){
+    showLine(SIGNATURE,true);
+    T(openVeil,reduced?900:3400);
+  }
+  function openVeil(){
+    veil.classList.add('on');veil.setAttribute('aria-hidden','false');
+    T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
+    T(()=>invite.classList.add('show'),2900);
+  }
+  function holdable(ring,onComplete){
+    let holdT=null;
+    const start=e=>{e.preventDefault();ring.classList.add('holding');holdT=setTimeout(()=>{ring.classList.remove('holding');onComplete()},1800)};
+    const stop=()=>{clearTimeout(holdT);ring.classList.remove('holding')};
+    ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
+    ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
+    ring.tabIndex=0;
+  }
+  holdable(veilRing,launchActTwo);
+  function launchActTwo(){
+    if(act2Launched)return;act2Launched=true;
+    veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
+    act2.classList.add('on');act2.setAttribute('aria-hidden','false');
+    seedParticles($('act-two-particles'),26);
+    const ps=act2.querySelectorAll('p');
+    const times=[1200,6000,11200,16000];
+    ps.forEach((p,i)=>T(()=>p.classList.add('in'),reduced?200*(i+1):(times[i]||16000+i*1500)));
+    const lastAt=reduced?200*(ps.length+1):(times[ps.length-1]||16000)+2600;
+    store.story=true;save();if(POS===32)flag('asg.egoReveal','1');
+    T(IS_LALITA?runReveal:raiseDoor,lastAt);
+  }
+  function raiseDoor(){door.classList.add('up');door.setAttribute('aria-hidden','false');doorRing.focus()}
+  holdable(doorRing,()=>{location.href=NEXT});
+  function seedParticles(host,n){host.innerHTML='';for(let i=0;i<n;i++){const d=document.createElement('div');d.className='particle';const s=2+Math.random()*4;d.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.3+Math.random()*.7};animation-duration:${9+Math.random()*12}s;animation-delay:${-Math.random()*14}s`;host.appendChild(d)}}
+  function runReveal(){
+    const rv=$('reveal'),gl=$('reveal-glyph'),tt=$('reveal-title'),rl=$('reveal-line'),rc=$('reveal-continue');
+    rv.classList.add('on');rv.setAttribute('aria-hidden','false');
+    const step=(txt,cls,ms)=>T(()=>{gl.style.opacity=0;T(()=>{gl.textContent=txt;gl.className='reveal-glyph'+(cls?' '+cls:'');gl.style.opacity=1},700)},ms);
+    step('8','',reduced?400:3200);
+    step('8','turn',reduced?800:6400);
+    T(()=>{gl.className='reveal-glyph';gl.textContent='∞'},reduced?1200:8600);
+    step('♡','heart',reduced?1600:11400);
+    T(()=>tt.classList.add('flip'),reduced?2000:13400);
+    T(()=>rl.classList.add('in'),reduced?2300:15000);
+    T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
+    holdable($('reveal-ring'),()=>{location.href=NEXT});
+  }
+  function openStory(){
+    document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
+    beat=-1;act2Launched=false;setBeatState(0);
+    if(scene.dataset.scene==='innerfield'||scene.dataset.scene==='morning'){const host=$('sc-particles');if(host&&!host.childElementCount)seedParticles(host,scene.dataset.scene==='innerfield'?40:22)}
+    if(scene.dataset.scene==='trikona'){const p=$('tri-path');const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;scene.style.setProperty('--L',L)}
+    T(()=>{advance();hint.classList.add('show')},reduced?100:1400);
+  }
+  function closeStory(){
+    clearT();lock=false;document.body.classList.remove('story-open');sm.classList.remove('on');sm.setAttribute('aria-hidden','true');
+    veil.classList.remove('on');invite.classList.remove('show');eyes.classList.remove('animate');act2.classList.remove('on');act2.setAttribute('aria-hidden','true');door.classList.remove('up');
+    act2.querySelectorAll('p').forEach(p=>p.classList.remove('in'));line.classList.remove('in');hint.classList.remove('show');
+    const rv=$('reveal');if(rv){rv.classList.remove('on');$('reveal-title').classList.remove('flip');$('reveal-line').classList.remove('in');$('reveal-continue').classList.remove('in');$('reveal-glyph').textContent='33';$('reveal-glyph').className='reveal-glyph'}
+    showFolds();
+  }
+  $('sp-enter').addEventListener('click',openStory);
+  $('story-close').addEventListener('click',closeStory);
+  sm.addEventListener('click',e=>{if(e.target.closest('.story-close')||e.target.closest('.act-veil')||e.target.closest('.act-two')||e.target.closest('.threshold-door')||e.target.closest('.reveal'))return;advance()});
+  addEventListener('keydown',e=>{if(!sm.classList.contains('on'))return;if(e.key==='Escape')closeStory();else if((e.key==='ArrowRight'||e.key===' ')&&!act2Launched){e.preventDefault();advance()}});
+})();
+</script>
+</body>
+</html>

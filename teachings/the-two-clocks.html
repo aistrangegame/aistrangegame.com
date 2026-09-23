@@ -1,0 +1,56 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The Two Clocks — a teaching</title><meta name="description" content="Making something and living with it run on two different clocks, and the mistake is letting the fast one set the pace for the slow one."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#3AADA8;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;height:100%;overflow-y:auto;overflow-x:hidden;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:1;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,.92)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.one{font-size:clamp(23px,5.8vw,30px);line-height:1.4;font-weight:500}
+.tues{font-style:italic;font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.why{font-size:clamp(19px,4.8vw,22px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.list{display:grid;gap:16px}
+.list div{padding:16px 18px;border:1px solid var(--faint);border-radius:10px;background:var(--card);font-size:17.5px;line-height:1.55}
+.refuses div{font-style:italic;border-color:var(--ac)}
+.enter{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.links a{padding:12px 16px;border:1px solid var(--ac);border-radius:999px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.nav{display:flex;justify-content:space-between;gap:14px;margin-top:40px;padding-top:18px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.62);--faint:rgba(245,239,230,.16);--card:rgba(255,255,255,.05);--bg:#0B0910}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.55);--bg:#F7F3EC}
+.mixed{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.75);--bg:#F7F3EC}
+.mixed .piece{background:rgba(247,243,236,.92);padding:26px 24px;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}}
+.w{background:linear-gradient(180deg,#F7F3EC 0%,#E8DFC8 40%,#5A4A38 75%,#14100C 100%);background-size:100% 400%;background-position:0 calc(var(--p,0)*100%);transition:background-position 1.2s ease}
+.w::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(180deg,transparent 0 46px,rgba(0,0,0,.05) 46px 47px)}
+body.dark{--ink:color-mix(in srgb,#F5EFE6 calc(var(--p,0)*100%),#1F1B16);--muted:color-mix(in srgb,rgba(245,239,230,.66) calc(var(--p,0)*100%),rgba(31,27,22,.62));--faint:color-mix(in srgb,rgba(245,239,230,.18) calc(var(--p,0)*100%),rgba(31,27,22,.14));--card:color-mix(in srgb,rgba(255,255,255,.06) calc(var(--p,0)*100%),rgba(255,255,255,.55));transition:color 1.2s ease}
+body.dark .piece,body.dark .top,body.dark .count,body.dark .hint{transition:color 1.2s ease}
+.law{font-size:clamp(24px,6.2vw,34px);line-height:1.3;font-weight:500;margin:0 0 18px}
+.because{font-style:italic;color:var(--muted);font-size:clamp(17px,4.4vw,20px);line-height:1.6;margin:0 0 14px}
+.looks{font-size:clamp(17px,4.4vw,20px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.practice{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.close{font-size:clamp(22px,5.6vw,28px);line-height:1.4;font-style:italic}
+.src{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.src a{border-bottom:1px solid var(--faint)}
+.num{font-family:var(--sans);font-size:11px;letter-spacing:.26em;color:var(--ac);margin-bottom:10px}
+</style></head><body class="dark" style="--from:1.12">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="top"><a href="index.html">← The teachings</a><span>Make fast. Live slow.</span></div>
+<section class="step"><div class="piece"><h1>The Two Clocks</h1><p class="sub">Make fast. Live slow.</p></div></section><section class="step"><div class="piece"><div class=k>The teaching</div><div class="one">Making something and living with it run on two different clocks, and the mistake is letting the fast one set the pace for the slow one.</div></div></section><section class="step"><div class="piece"><div class=k>Before the laws</div><div class="tues">You can write three chapters in an afternoon. You cannot live three chapters in an afternoon. The first clock is bursts — dense, quick, done in one sitting. The second is slow and gated — one piece every few days, with ordinary life in between. Neither is wrong. The trouble starts when the pace of making leaks into the pace of living, and you consume in a week what was meant to be inhabited over a season.</div></div></section><section class="step"><div class="piece"><div class="num">1 of 3</div><div class="law">Author in bursts. Inhabit on a gate.</div><div class="because">Because intensity is right for making and wrong for absorbing. A teaching has to meet a life that keeps happening in between.</div><div class="looks">Read one chapter. Then don't read the next one for three days, on purpose. Watch what shows up on Thursday.</div></div></section><section class="step"><div class="piece"><div class="num">2 of 3</div><div class="law">The gap is the mechanism, not the friction.</div><div class="because">Because spaced against a real week, a teaching has a chance to arrive in the middle of an argument or a commute — which is where it's actually needed.</div><div class="looks">When something is locked until later, don't look for a way around the lock. The lock is doing the work.</div></div></section><section class="step"><div class="piece"><div class="num">3 of 3</div><div class="law">Tend several things at different speeds.</div><div class="because">Because one thing on a slow clock feels like waiting. Three things on independent clocks feels like a garden.</div><div class="looks">Keep two or three slow things going. Plant a new one whenever you like. Planting never disturbs what's growing.</div></div></section><section class="step"><div class="piece"><div class=k>The practice</div><div class="practice">Pick one thing you're learning. Read a piece of it today. Set a date three days out for the next piece, and keep it. Notice what the three days do.</div></div></section><section class="step"><div class="piece"><div class="close">The clock you make on and the clock you live on are not the same instrument. Let each keep its own time.</div><div class="src">Learned building an instrument for studying one teacher at a time. <a href="/guide/bindu-learning.html">Read what it is →</a></div><div class="nav"><a href="remember-them-remember-yourself.html">← previous</a><a href="index.html">the teachings</a><a href="one-gesture.html">next →</a></div></div></section>
+<div class="hint" id="hint">scroll to open outward</div>
+<div class="count" id="count">1 / 8</div>
+<script>
+(function(){const steps=[...document.querySelectorAll('.step')],w=document.getElementById('w'),count=document.getElementById('count'),hint=document.getElementById('hint'),N=steps.length,DIR="out";
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=0.12){const i=steps.indexOf(e.target);e.target.classList.add('on');count.textContent=(i+1)+' / '+N;const p=N>1?i/(N-1):1;const z=DIR==='in'?(1+p*1.6):DIR==='out'?(1.8-p*1.2):1;w.style.setProperty('--z',z.toFixed(3));w.style.setProperty('--p',p.toFixed(3));document.documentElement.style.setProperty('--p',p.toFixed(3));if(i>0)hint.classList.add('gone')}})},{threshold:[0.12,0.5]});steps.forEach(s=>io.observe(s));steps[0]&&steps[0].classList.add('on');if(!('IntersectionObserver' in window))steps.forEach(s=>s.classList.add('on'));
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();(steps[i+1]||steps[N-1]).scrollIntoView({behavior:'smooth'})}if(e.key==='ArrowUp'){e.preventDefault();(steps[i-1]||steps[0]).scrollIntoView({behavior:'smooth'})}});})();
+</script></body></html>
