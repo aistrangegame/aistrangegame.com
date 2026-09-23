@@ -171,13 +171,16 @@ textarea.writing:focus{border-color:var(--chakra)}
   .hero-dot,.next-point,.sp-enter .dot{animation:none}
   .story-line,.act-two p{opacity:1;transform:none}
 }
+
+/* no gates — a one-tap way through every hold */
+.tap-through{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:12px;padding:0 18px;background:none;border:1px solid currentColor;border-radius:999px;color:inherit;opacity:.8;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}.tap-through:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 </style>
 </head>
 <body>
 <div class="progress-bar" id="progress" aria-hidden="true"></div>
 
 <section class="hero" id="top">
-  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="aatma-practice.html">Aatma</a></div>
+  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="aatma-practice.html">Aatma</a><a href="lalita-practice.html">Lalita →</a></div>
   <div class="hero-dot" aria-hidden="true"></div>
   <div class="hero-count">Position 32 of 33 &nbsp;·&nbsp; Tree of Life</div>
   <div class="hero-verb">CONNECT</div>
@@ -288,7 +291,7 @@ When the betrayal is honestly re-seen as service, the gate does not open a door.
 <p>Go. I'm coming with you. I was always coming with you.</p></div>
     </div>
 
-    <div class="voice-fold" id="underneath-fold" hidden>
+    <div class="voice-fold" id="underneath-fold">
       <div class="section-h">Underneath</div>
       <div class="voice-body"><p>She speaks.</p>
 <p>For the first time since the corridor — in the register he recognizes, the one she set down at the Shadow when it became too loud for what came next. She has been rehearsing this moment since before the ground. Not the words; the words were never the problem. The rehearsal was for the holding-back — every day of his life, speaking as him, to him, wanting to say it was me and saying not enough instead, because not enough was what the curriculum required that day.</p>
@@ -373,7 +376,7 @@ When the betrayal is honestly re-seen as service, the gate does not open a door.
   const letterFold=$('letter-fold'),underFold=$('underneath-fold');
   function showFolds(){
     if(store.story) letterFold.hidden=false;
-    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+    underFold.hidden=false;   /* no gates: shown to everyone */
   }
   showFolds();
 
@@ -390,7 +393,7 @@ When the betrayal is honestly re-seen as service, the gate does not open a door.
   }
   function advance(){
     if(act2Launched||lock)return;
-    if(beat>=BEATS.length-1)return;
+    if(beat>=BEATS.length-1){if(!veil.classList.contains('on')){clearT();lock=false;showLine(SIGNATURE,true);openVeil()}return}
     lock=true;T(()=>lock=false,700);
     beat++;setBeatState(beat);showLine(BEATS[beat],false);
     count.textContent=(beat+1)+' / '+BEATS.length;
@@ -403,7 +406,7 @@ When the betrayal is honestly re-seen as service, the gate does not open a door.
   function openVeil(){
     veil.classList.add('on');veil.setAttribute('aria-hidden','false');
     T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
-    T(()=>invite.classList.add('show'),2900);
+    invite.classList.add('show');   /* no wait: the invitation comes with the veil */
   }
   function holdable(ring,onComplete){
     let holdT=null;
@@ -412,8 +415,10 @@ When the betrayal is honestly re-seen as service, the gate does not open a door.
     ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
     ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
     ring.tabIndex=0;
+    if(!ring.nextElementSibling||!ring.nextElementSibling.classList.contains('tap-through')){const b=document.createElement('button');b.type='button';b.className='tap-through';b.textContent='or tap to continue';b.addEventListener('click',e=>{e.stopPropagation();stop();onComplete()});ring.insertAdjacentElement('afterend',b)}
   }
   holdable(veilRing,launchActTwo);
+  act2.addEventListener('click',()=>{if(!act2Launched)return;clearT();act2.querySelectorAll('p').forEach(p=>p.classList.add('in'));(IS_LALITA?revealNow:raiseDoor)()});
   function launchActTwo(){
     if(act2Launched)return;act2Launched=true;
     veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
@@ -442,6 +447,8 @@ When the betrayal is honestly re-seen as service, the gate does not open a door.
     T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
     holdable($('reveal-ring'),()=>{location.href=NEXT});
   }
+  function revealNow(){const rv=$('reveal');if(!rv)return raiseDoor();if(!rv.classList.contains('on'))runReveal();clearT();const gl=$('reveal-glyph');gl.style.opacity=1;gl.textContent='♡';gl.className='reveal-glyph heart';$('reveal-title').classList.add('flip');$('reveal-line').classList.add('in');$('reveal-continue').classList.add('in')}
+  if($('reveal'))$('reveal').addEventListener('click',()=>revealNow());
   function openStory(){
     document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
     beat=-1;act2Launched=false;setBeatState(0);
