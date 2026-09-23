@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Holding a Boundary — a field guide</title><meta name="description" content="The sentence gets said once. Holding it through weeks of testing — the same words, calmly repeated — is the harder, quieter part."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: 9. Boundaries Part 2 · fieldguide/boundaries · pool calm → #97a491 */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : 9. Boundaries Part 2
+   form   : fieldguide        family : conversation   (fallback — covers fieldguide/other, 7 topics)
+   pool   : calm → #97a491        seed 0.6492
+   move   : figure HORIZON · direction walk · ground paper · density full · play copy
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#97a491;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_FIELDGUIDE — family: conversation ============
+   The fallback for the non-crisis field guides — listening, asking, repairing.
+   Same lookup shape as crisis (picker on the title screen, one glance per
+   situation) but calm pool, and the scripts are the point: each "try saying"
+   line is a button that copies itself, because these get pasted into
+   messages far more often than they get said aloud.
+   The horizon sits at 10%, not the crisis guide's 22%: these steps are longer,
+   and a line through the "because" text reads as a strike-through. */
+.top,.count,.hint{color:#5A5249}
+.w{background:linear-gradient(180deg,#FAF7F1 0%,#F7F3EC 60%,#F2ECE2 100%)}
+.w::before{content:"";position:absolute;left:0;right:0;bottom:10%;height:1px;background:rgba(31,27,22,.16)}
+.w::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10%;background:linear-gradient(180deg,color-mix(in oklab, var(--ac) 10%, transparent),transparent 70%)}
+.pick{display:grid;gap:10px}
+.pick a{display:block;padding:15px 16px;border:1px solid var(--faint);border-radius:12px;background:rgba(255,255,255,.72);font-size:16.5px;line-height:1.45;transition:border-color .3s ease,transform .3s ease}
+.pick a:hover{border-color:var(--actext);transform:translateX(3px)}
+.pick a::after{content:"→";float:right;color:var(--actext)}
+.of{font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.when{font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin:0 0 6px}
+.do{font-size:clamp(19px,5vw,24px);line-height:1.3;font-weight:500;margin:0 0 16px}
+.say{display:grid;gap:8px;margin:0 0 16px}
+.say button{position:relative;text-align:left;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.45;
+  padding:12px 58px 12px 16px;border:1px solid var(--faint);border-radius:12px;background:rgba(255,255,255,.8);color:var(--ink);cursor:pointer;
+  transition:border-color .3s ease,background .3s ease}
+.say button:hover{border-color:var(--actext)}
+.say button::after{content:"copy";position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:var(--sans);font-style:normal;
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#5A5249}
+.say button.copied{border-color:var(--actext);background:color-mix(in oklab, var(--ac) 10%, #FFFFFF)}
+.say button.copied::after{content:"copied";color:var(--actext)}
+.not{font-size:15.5px;line-height:1.5;color:var(--muted);margin:0 0 16px}
+.because{font-size:clamp(15.5px,4vw,17px)}
+@media (min-width:900px){.piece{max-width:620px}}
+@media (max-height:720px){.do{font-size:18px;margin-bottom:10px}.say button{font-size:15.5px;padding:10px 54px 10px 14px}.say,.not{margin-bottom:10px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+</style></head>
+<body class="dark" data-variant="conversation" data-form="fieldguide" data-seed="0.6492" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+
+<div class="top"><a href="/learning/">← Learning</a><span>Field guide</span></div>
+
+<section class="step" data-here="open"><div class="piece"><h1>Holding a Boundary</h1><p class="sub">A field guide</p><p class="sum" style="margin:18px 0 24px">The sentence gets said once. Holding it through weeks of testing — the same words, calmly repeated — is the harder, quieter part.</p><div class="k">What’s happening?</div><div class="pick"><a href="#s1">They push back hard the first week</a><a href="#s2">You're tempted to make an exception just this once</a><a href="#s3">Holding the line might provoke something unsafe</a></div></div></section>
+<section class="step" id="s1" data-here="situation"><div class="piece"><div class="of">1 of 3</div><p class="when">When</p><div class="do">They push back hard the first week</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“I hear you. It's still the same for me.”</button><button type="button" data-copy>“This isn't up for debate tonight.”</button></div><p class="when">Instead of</p><div class="not">Re-arguing the whole case again from scratch.</div><p class="when">Because</p><div class="because">The first pushback usually tests whether the new line holds, not whether it's fair.</div></div></section>
+<section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><p class="when">When</p><div class="do">You're tempted to make an exception just this once</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“Not this time, either.”</button><button type="button" data-copy>“The answer's the same as it was.”</button></div><p class="when">Instead of</p><div class="not">Bending it quietly and hoping no one notices the reset.</div><p class="when">Because</p><div class="because">One exception tends to reset what the other person expects from every time after.</div></div></section>
+<section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><p class="when">When</p><div class="do">Holding the line might provoke something unsafe</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“I need someone with me for this.”</button><button type="button" data-copy>“Can you check in with me after I say it?”</button></div><p class="when">Instead of</p><div class="not">Holding it alone if you're not sure it's safe to.</div><p class="when">Because</p><div class="because">If holding this could put you in danger, get support first — your local emergency number or a crisis line if it comes to that.</div></div></section>
+<section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">Held quietly does more than defended loudly.</div><div class="because">Setting it was the easy part. Holding it — the same words, calmly, every time — is what actually makes it real.</div></div></section>
+<div class="hint" id="hint">scroll, or pick</div>
+<div class="count" id="count">1 / 5</div>
+<script>/* FIG_CONVERSATION */
+(function(){
+document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));
+  if(!t)return;e.preventDefault();window.ASGjump&&window.ASGjump(t)}));
+/* play: a line copies itself */
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const s=b.textContent.replace(/^“|”$/g,'');
+  let ok=false;try{await navigator.clipboard.writeText(s);ok=true}catch(e){const t=document.createElement('textarea');t.value=s;
+  t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{ok=document.execCommand('copy')}catch(_){}t.remove()}
+  if(ok){b.classList.add('copied');setTimeout(()=>b.classList.remove('copied'),2200)}}));})();</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>

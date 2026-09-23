@@ -197,7 +197,7 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <div class="count" id="count">1 / 7</div>
 <script>/* FIG_MIND-AND-MACHINE — defines ASGfig before the corridor runs */
 (function(){
-const lines={left:'You chose the chair that trusts the test. Keep the fish in mind — it is what stops a good test from becoming a proof.',right:'You chose the chair that doubts it. Keep the chimpanzee in mind — it reached for its own face, and that is not nothing.',floor:'Still looking is an honest place to be. It is where the question actually lives.'};
+const lines={"left": "You chose the chair that says pattern is enough. Keep the other chair in the room — it is what keeps a good case honest.", "right": "You chose the chair that says biology matters. Keep the other chair in the room — it is what keeps a good doubt fair.", "floor": "Still listening is an honest place to be. It is where the question actually lives."};
 const seats=[...document.querySelectorAll('.seat')],marks=[...document.querySelectorAll('.mark')];
 window.ASGfig=function(d){document.body.dataset.here=d.here||'open'};
 document.querySelectorAll('[data-sit]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();

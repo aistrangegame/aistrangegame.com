@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Daniel Ingram — a storybook</title><meta name="description" content="An emergency physician who argues Buddhist awakening is a specific, attainable skill rather than a rare exception, mapped stage by stage from a Burmese meditation lineage — and who writes as openly about how hard the path there can get."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Daniel Ingram - Empirical Buddhism · storybook/tradition · pool deep → #65a4d0 */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : Daniel Ingram - Empirical Buddhism
+   form   : storybook        family : tradition
+   pool   : deep → #65a4d0        seed 0.3170
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#65a4d0;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+/* ============ EXTRA_STORYBOOK — variant: tradition ============ */
+/* @FIG:SILSILA — the chain. One lamp per page plus one unlit at the end.
+   It is a thin strip under the chrome (40px), not a band, so it costs the
+   page almost nothing. Each page lights the next lamp FROM the previous one:
+   the lit thread runs to it before its flame appears. The ending's last lamp
+   is the reader's; touching it lights it. Night room, paper pages. */
+.w{background:radial-gradient(90% 60% at 50% 10%, color-mix(in oklab, var(--ac) 16%, #0E0A12) 0%, #0E0A12 58%, #08060B 100%)}
+.silsila{inset:auto;left:0;right:0;top:calc(40px + env(safe-area-inset-top,0px));height:44px;padding:0 18px}
+.silsila svg{width:100%;height:100%;overflow:visible}
+.thread{stroke:rgba(245,239,230,.18);stroke-width:1}
+.threadlit{stroke:var(--ac);stroke-width:1.4;stroke-dasharray:1;stroke-dashoffset:var(--off,1);transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1)}
+.bowl{fill:#2A2230;stroke:rgba(245,239,230,.4);stroke-width:1}
+.lamp.lit .bowl{fill:color-mix(in oklab, var(--ac) 45%, #2A2230);stroke:var(--ac)}
+.flame{fill:#F2D98A;opacity:0;transform-box:fill-box;transform-origin:50% 100%;transform:scale(.3);transition:opacity .8s ease,transform 1s cubic-bezier(.22,1,.36,1)}
+.lamp.lit .flame{opacity:1;transform:none;animation:flick 2.8s ease-in-out infinite}
+.glow{fill:#F2D98A;opacity:0;transition:opacity 1.2s ease}
+.lamp.lit .glow{opacity:.1}
+.lamp.yours .bowl{stroke-dasharray:2 2}
+.lamp.yours.lit .bowl{stroke-dasharray:none}
+.lamp.yours.lit .glow{opacity:.28}
+@keyframes flick{0%,100%{transform:scaleY(1)}35%{transform:scaleY(1.14) scaleX(.92)}65%{transform:scaleY(.95) scaleX(1.05)}}
+#spark{fill:#F2D98A;opacity:0}
+#spark.run{animation:run var(--rt,1.4s) cubic-bezier(.45,0,.3,1) forwards}
+@keyframes run{0%{opacity:0;transform:translateX(0)}10%{opacity:1}90%{opacity:1}100%{opacity:0;transform:translateX(var(--rx,0px))}}
+#pass{position:fixed;left:0;right:0;top:calc(34px + env(safe-area-inset-top,0px));height:56px;z-index:1;border:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* paper pages */
+body{--paper:#F2EADB;--paperink:#221D18}
+.step{padding:calc(96px + env(safe-area-inset-top,0px)) 16px calc(60px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:540px}
+.page{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.5),rgba(255,255,255,0) 30%),var(--paper);color:var(--paperink);
+  border-radius:4px 10px 10px 4px;padding:30px 24px 36px;box-shadow:0 26px 60px rgba(0,0,0,.55),0 2px 0 rgba(0,0,0,.2);
+  transform:perspective(1400px) rotateY(var(--turn,-7deg));transform-origin:left center;transition:transform 1.2s cubic-bezier(.22,1,.36,1)}
+.page::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;border-radius:4px 0 0 4px;background:linear-gradient(90deg,rgba(0,0,0,.22),rgba(0,0,0,.04))}
+.page .k,.page .aff{color:var(--acp)}
+.page h1,.page .ph,.page .q{color:var(--paperink)}
+.page .sub{color:rgba(34,29,24,.66)}
+.page .sum,.page .txt{color:rgba(34,29,24,.9)}
+.ph{font-weight:500;font-size:clamp(25px,6.6vw,38px);line-height:1.1;margin:0 0 10px}
+.page .aff{font-size:clamp(18px,4.8vw,22px);margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(34,29,24,.16)}
+.page .txt{font-size:clamp(16px,4.2vw,18px);line-height:1.68}
+.q{font-size:clamp(18px,4.7vw,22px);line-height:1.4;font-weight:500;margin:0 0 12px}
+.page ul{margin:0;padding-left:20px;font-size:16px;line-height:1.58;color:rgba(34,29,24,.88)}
+.page ul li{margin-bottom:8px}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.links a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--acp);border-radius:999px;font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--acp)}
+.folio{position:absolute;right:20px;bottom:14px;font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;color:rgba(34,29,24,.7)}
+.corner{position:absolute;right:0;bottom:0;width:56px;height:56px;border:0;padding:0;background:transparent;cursor:pointer}
+.corner::after{content:"";position:absolute;right:0;bottom:0;border-style:solid;border-width:0 0 var(--lift,14px) var(--lift,14px);border-color:transparent transparent rgba(34,29,24,.14) transparent;border-bottom-right-radius:10px;transition:border-width .5s cubic-bezier(.22,1,.36,1)}
+.corner:hover::after,.corner:focus-visible::after{--lift:40px}
+.top,.count,.hint{color:#BDB5AA}
+.top{background:linear-gradient(#0E0A12 60%,rgba(14,10,18,0))}
+@media (max-width:430px){.page{padding:24px 20px 32px}.ph{font-size:24px}.page .aff{font-size:17px;margin-bottom:10px;padding-bottom:10px}.page .txt{font-size:15.5px;line-height:1.6}}
+@media (max-height:720px){.page .txt{font-size:15px;line-height:1.55}.page{padding:20px 18px 28px}}
+@media (min-width:900px){.piece{max-width:600px}.page{padding:42px 40px 48px}.page .txt{font-size:18.5px}.silsila{left:50%;right:auto;width:560px;transform:translateX(-50%)}#pass{left:50%;right:auto;width:600px;transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.page{transform:none!important}}
+/* @END */
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* ============ DOORS — kit/DOORS.css ============ */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body class="light" data-form="storybook" data-variant="tradition" data-seed="0.3170" style="--from:0.86">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig silsila" id="fig" aria-hidden="true"><svg viewBox="-18 -20 306 40" preserveAspectRatio="xMidYMid meet"><line class="thread" x1="-18" y1="0" x2="288" y2="0"/><line class="threadlit" id="threadlit" x1="-18" y1="0" x2="288" y2="0" pathLength="1"/><g class="lamp" data-i="0" transform="translate(10,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><g class="lamp" data-i="1" transform="translate(46,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><g class="lamp" data-i="2" transform="translate(82,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><g class="lamp" data-i="3" transform="translate(118,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><g class="lamp" data-i="4" transform="translate(154,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><g class="lamp" data-i="5" transform="translate(190,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><g class="lamp" data-i="6" transform="translate(226,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><g class="lamp yours" data-i="7" transform="translate(262,0)"><circle class="glow" r="11"/><circle class="bowl" r="4.2"/><path class="flame" d="M0 -12 C3.6 -7 3.6 -4 0 -2.4 C-3.6 -4 -3.6 -7 0 -12Z"/></g><circle id="spark" r="2.6" cx="-18" cy="0"/></svg></div>
+<button id="pass" aria-label="touch the chain to send the light along it"></button>
+<div class="top"><a href="../index.html">← Learning</a><span>Storybook</span></div>
+<section class="step" data-l="0"><div class="piece"><div class="page"><h1>Daniel Ingram</h1><p class="sub">A storybook in 7 pages</p><p class="sum" style="margin-top:18px">An emergency physician who argues Buddhist awakening is a specific, attainable skill rather than a rare exception, mapped stage by stage from a Burmese meditation lineage — and who writes as openly about how hard the path there can get.</p><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="1"><div class="piece"><div class="page"><div class="k">1 of 7</div><h2 class="ph">The Physician</h2><div class="aff">An ER doctor mapped enlightenment like a chart.</div><div class="txt"><p>Daniel Ingram holds a medical degree and worked for years as a board-certified emergency medicine physician in the United States. Alongside that career he pursued intensive Buddhist meditation, and became convinced the states described in ancient texts were as concrete and repeatable as anything he saw in a hospital.</p></div><div class="folio">1</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="2"><div class="piece"><div class="page"><div class="k">2 of 7</div><h2 class="ph">The Book</h2><div class="aff">A map for a path called mystical.</div><div class="txt"><p>In 2008, Ingram published Mastering the Core Teachings of the Buddha, revised and expanded in 2018. It argues that the classical stages of Buddhist insight are not vague metaphor but a specific, mappable sequence anyone can go through, deliberately, without becoming a monk.</p></div><div class="folio">2</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="3"><div class="piece"><div class="page"><div class="k">3 of 7</div><h2 class="ph">The Burmese Map</h2><div class="aff">He built on a teacher he never met.</div><div class="txt"><p>Ingram's stage-by-stage map, the progress of insight, comes from the Theravada vipassana lineage of the Burmese teacher Mahasi Sayadaw, who taught a noting technique for tracking each shift in experience. Ingram calls his own contribution empirical: testing an old map against his own meditation, one stage at a time.</p></div><div class="folio">3</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="4"><div class="piece"><div class="page"><div class="k">4 of 7</div><h2 class="ph">Pragmatic Dharma</h2><div class="aff">He treats awakening as a skill, not a mystery.</div><div class="txt"><p>With teacher Kenneth Folk, Ingram became associated with 'pragmatic dharma': the idea that awakening is trainable and worth naming plainly rather than talking around. In 2003, on retreat, Ingram says he reached what Buddhist texts call arahantship — full awakening — and says so openly, a claim few teachers make.</p></div><div class="folio">4</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="5"><div class="piece"><div class="page"><div class="k">5 of 7</div><h2 class="ph">The Dark Night</h2><div class="aff">Intensive practice can crack something open.</div><div class="txt"><p>Ingram writes candidly about a stage he calls the Dark Night: old emotional material surfacing fast, alongside real disorientation about who you are. He describes it as sometimes overwhelming, and advises steady, moderate practice and real inquiry through it, not escalating and not looking away.</p></div><div class="folio">5</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="6"><div class="piece"><div class="page"><div class="k">6 of 7</div><h2 class="ph">What Critics Say</h2><div class="aff">Not everyone accepts the claim, or the map.</div><div class="txt"><p>Ingram’s arahant claim has drawn real criticism inside Buddhist and meditation circles, including skepticism about how any such claim could be confirmed. Scholar-monk Bhikkhu Analayo has publicly critiqued Ingram’s framework. The disagreement is public and unresolved.</p></div><div class="folio">6</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="7"><div class="piece"><div class="page"><div class="k">7 of 7</div><h2 class="ph">If It Gets Hard</h2><div class="aff">Support for this exists now, and is real.</div><div class="txt"><p>Researchers including clinical psychologist Willoughby Britton at Brown University study the difficulties intensive meditation can bring on, and she founded Cheetah House to support people going through them. A hard stretch of practice is a reason to slow down and reach out, not to push harder alone.</p></div><div class="folio">7</div><button class="corner" aria-label="turn the page"></button></div></div></section>
+<section class="step" data-l="talk"><div class="piece"><div class="page"><div class="k">Before you go</div><div class="q">If you want to talk about this with someone:</div><ul><li>Would naming a hard experience as 'awakening' change how you handled it?</li><li>Do you trust a map more, or less, when the mapmaker admits where it got hard?</li><li>Who would you tell if something you were doing for growth started to hurt?</li></ul><div class="links"><a href="../index.html">All topics</a></div></div></div></section>
+<section class="step" data-l="grace"><div class="piece"><div class="page last"><div class="aff" style="font-size:clamp(21px,5.6vw,27px);border:0;padding:0;margin:0 0 14px">The last lamp on the chain is not lit.</div><div class="txt"><p>It is yours. Touch the chain.</p></div><div class="src" style="margin-top:16px;line-height:1.9;color:rgba(34,29,24,.7)">Ingram's book, biography and arahant claim drawn from published interviews and his own writing; the Analayo dispute and Cheetah House verified against independent reporting.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/daniel-ingram-empirical-buddhism.html" style="--to:#97a491" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></div></section>
+<div class="hint" id="hint">scroll to go inward</div>
+<div class="count" id="count">1 / 10</div>
+<script>/* FIG_TRADITION — defines ASGfig before the corridor runs */
+(function(){
+const lamps=[...document.querySelectorAll('.lamp')],L=lamps.length,thr=document.getElementById('threadlit'),
+ spark=document.getElementById('spark'),steps=[...document.querySelectorAll('.step')];
+let reached=0,mine=false;
+function light(n){
+  lamps.forEach((l,i)=>{if(i===L-1){l.classList.toggle('lit',mine);return}
+    l.style.setProperty('transition-delay','0s');l.classList.toggle('lit',i<n)});
+  thr.style.setProperty('--off',(1-Math.min(n,L-1)/L).toFixed(3))}
+window.ASGfig=function(d,i,N){
+  const k=d.l==='grace'||d.l==='talk'?L-1:(+d.l||0)+1;reached=Math.max(reached,k);light(k);
+  steps.forEach((s,j)=>{const pg=s.querySelector('.page');if(pg)pg.style.setProperty('--turn',j===i?'0deg':(j<i?'6deg':'-7deg'))})};
+function run(to){const a=lamps[0].getBBox?0:0;const x0=10,x1=10+36*to;spark.setAttribute('cx',x0);
+  spark.style.setProperty('--rx',((x1-x0)*(document.querySelector('.silsila svg').getBoundingClientRect().width/(306)))+'px');
+  spark.style.setProperty('--rt',(0.5+to*.18)+'s');spark.classList.remove('run');void spark.getBBox();spark.classList.add('run')}
+/* play: touch the chain and a spark runs the lit length of it, first lamp to
+   the newest — the transmission, replayed. At the end, the touch lights yours. */
+document.getElementById('pass').addEventListener('click',()=>{
+  const atEnd=document.body.dataset.cur==String(steps.length-1);
+  if(atEnd&&!mine){run(L-1);setTimeout(()=>{mine=true;light(L-1)},(0.5+(L-1)*.18)*1000)}
+  else run(Math.max(1,Math.min(reached,L-1)-1))});
+document.querySelectorAll('.corner').forEach(c=>c.addEventListener('click',()=>{
+  const s=c.closest('.step'),t=steps[steps.indexOf(s)+1];if(t)window.ASGjump(t)}));
+})();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>
