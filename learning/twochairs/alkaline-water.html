@@ -1,0 +1,166 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>The Alkaline Water Question — two chairs</title><meta name="description" content="Bottled water marketed as &#x27;alkaline&#x27; claims to shift your body&#x27;s pH toward health. One chair holds that promise. The other holds what your kidneys and lungs already do, every minute, without any help."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Alkaline Water · twochairs/science-and-claim · pool all → #97a491 */
+
+/* ============ BASE_CSS ============ */
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#97a491;--acp:#4A4238;--acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);--actext:var(--acp);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;display:flex;align-items:center;justify-content:center}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,1)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}
+.step.on .piece{opacity:1;transform:none}
+/* HIT-TEST CONTRACT: .step is a full-viewport positioned box, so it would cover
+   every fixed play surface beneath it. The step itself takes no pointer events;
+   the text does. Play surfaces at z-index 1 then receive everything around it. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);--card:rgba(255,255,255,.05);--bg:#0B0910;--actext:var(--ac)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}
+ html{scroll-behavior:auto}}
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_TWOCHAIRS — variant: debate ============ */
+/* Two chairs, facing, on one floor. The speaking chair leans in on its round.
+   The reader's chosen chair gets a seat that is warm and stays warm. */
+.w{background:radial-gradient(120% 80% at 50% 88%, #1A1520 0%, #0B0910 62%, #080610 100%)}
+.w::after{content:"";position:absolute;left:0;right:0;bottom:0;height:46%;
+  background:radial-gradient(60% 100% at 50% 100%, rgba(212,169,72,.1), transparent 72%);
+  opacity:var(--warm,.5);transition:opacity 2.4s ease}
+body[data-here="held"] .w::after{--warm:1}
+#fig svg{width:min(150vmin,1080px);height:auto;overflow:visible}
+#floor{stroke:rgba(245,239,230,.22);stroke-width:1}
+.chairfig{fill:none;stroke:rgba(245,239,230,.4);stroke-width:2;stroke-linecap:round;
+  transition:transform 1.6s cubic-bezier(.22,1,.36,1),stroke 1.2s ease,opacity 1.2s ease;transform-box:fill-box;transform-origin:50% 100%}
+.chairfig.lean{stroke:var(--ac);transform:rotate(var(--tilt,0deg)) translateY(-4px)}
+.chairfig.back{opacity:.4}
+.seat{fill:var(--ac);opacity:0;transition:opacity 1.6s ease}
+.seat.taken{opacity:.5}
+#swap{position:fixed;inset:0;z-index:1;background:transparent;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* the two bodies */
+.chair{padding:18px 20px;border-radius:12px;border:1px solid var(--faint);margin:0 0 14px;
+  font-size:16.5px;line-height:1.55;background:rgba(245,239,230,.03);
+  transition:border-color 1s ease,transform 1s cubic-bezier(.22,1,.36,1)}
+.chair b{display:block;font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  margin-bottom:8px;color:var(--actext);font-weight:500}
+.chair.left{border-left:3px solid var(--ac);margin-right:16%}
+.chair.right{border-right:3px solid var(--ac);text-align:right;margin-left:16%}
+/* play: the chairs can be swapped — they trade sides, arguments and all */
+body[data-swap="1"] .chair.left{border-left:0;border-right:3px solid var(--ac);text-align:right;margin-right:0;margin-left:16%}
+body[data-swap="1"] .chair.right{border-right:0;border-left:3px solid var(--ac);text-align:left;margin-left:0;margin-right:16%}
+body[data-swap="1"] .rounds{flex-direction:column-reverse}
+.rounds{display:flex;flex-direction:column}
+.pick{display:grid;gap:10px}
+.pick a{padding:14px 16px;border:1px solid var(--faint);border-radius:10px;font-size:16.5px;
+  background:rgba(245,239,230,.03);transition:border-color .3s ease}
+.pick a:hover{border-color:var(--ac)}
+.pick a[aria-pressed="true"]{border-color:var(--ac);background:rgba(212,169,72,.1)}
+.step.on .piece::before{content:"";position:absolute;inset:-32px -26px;z-index:-1;border-radius:24px;
+  background:radial-gradient(ellipse at 50% 46%, rgba(11,9,16,.9) 0%, rgba(11,9,16,.72) 56%, rgba(11,9,16,0) 100%)}
+#sitline{margin-top:14px}
+@media (min-width:760px){
+  .rounds{flex-direction:row;gap:22px;align-items:stretch}
+  body[data-swap="1"] .rounds{flex-direction:row-reverse}
+  .chair{flex:1;margin:0}.chair.left{margin-right:0}.chair.right{margin-left:0}
+  .piece{max-width:680px}
+}
+@media (min-width:1100px){h1{font-size:clamp(52px,5vw,74px)}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+</style></head>
+<body data-seed="0.8062" class="light" data-variant="science-and-claim" data-here="open" data-swap="0" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig" id="fig" aria-hidden="true">
+  <svg viewBox="0 0 520 300">
+    <line id="floor" x1="30" y1="252" x2="490" y2="252"/>
+    <g id="chairL" class="chairfig" style="--tilt:3deg">
+      <path d="M120 252 L120 150 L172 150 L172 252"/><path d="M120 196 L172 196"/>
+      <path d="M112 150 L112 92 L120 92"/>
+      <ellipse class="seat" id="seatL" cx="146" cy="193" rx="26" ry="7"/>
+    </g>
+    <g id="chairR" class="chairfig" style="--tilt:-3deg">
+      <path d="M400 252 L400 150 L348 150 L348 252"/><path d="M400 196 L348 196"/>
+      <path d="M408 150 L408 92 L400 92"/>
+      <ellipse class="seat" id="seatR" cx="374" cy="193" rx="26" ry="7"/>
+    </g>
+  </svg>
+</div>
+<button id="swap" aria-label="tap to swap the chairs"></button>
+<div class="top"><a href="/learning/">← Learning</a><span>Two chairs</span></div>
+
+<section class="step" data-here="open"><div class="piece"><h1>The Alkaline Water Question</h1><p class="sub">Two chairs</p><p class="sum" style="margin-top:20px">Bottled water marketed as 'alkaline' claims to shift your body's pH toward health. One chair holds that promise. The other holds what your kidneys and lungs already do, every minute, without any help.</p></div></section>
+<section class="step" data-here="open"><div class="piece"><div class="k">The question</div><div class="txt"><p>Bottled water marketed as 'alkaline,' with a pH above 7, is sold with claims it can shift the body's overall acidity toward better health — more energy, slower aging, disease resistance. The body already regulates its own pH within a very narrow range, mainly through the kidneys and lungs. Does drinking alkaline water change anything that matters?</p></div></div></section>
+<section class="step" data-here="round" data-lean="both"><div class="piece"><div class="k">Round 1</div><div class="rounds"><div class="chair left"><b>The chair that holds the promise</b>Believers say alkaline water reduces the body's 'acid load,' leaving you less fatigued and less prone to the low-grade inflammation blamed on modern diets.</div><div class="chair right"><b>The chair that holds the body</b>Your blood pH is held between 7.35 and 7.45 by your kidneys and lungs, not your diet — drinking alkaline water can't move that number.</div></div></div></section>
+<section class="step" data-here="round" data-lean="both"><div class="piece"><div class="k">Round 2</div><div class="rounds"><div class="chair left"><b>The chair that holds the promise</b>Some athletes and wellness communities report feeling less bloated or less acidic after switching, a pattern they trust even without a lab explaining it.</div><div class="chair right"><b>The chair that holds the body</b>Your stomach responds to a higher pH by making more acid to restore its own balance — the body corrects the water, not the other way around.</div></div></div></section>
+<section class="step" data-here="round" data-lean="both"><div class="piece"><div class="k">Round 3</div><div class="rounds"><div class="chair left"><b>The chair that holds the promise</b>One lab study suggests alkaline water may deactivate pepsin, the enzyme linked to reflux irritation. That’s at least something measured.</div><div class="chair right"><b>The chair that holds the body</b>That finding is narrow and early — a long way from the broad anti-aging, disease-fighting claims sold on the label.</div></div></div></section>
+<section class="step" data-here="sit" data-lean="none"><div class="piece"><div class="k">Where are you sitting?</div><div class="pick"><a href="#held" data-sit="left">The chair that holds the promise</a><a href="#held" data-sit="right">The chair that holds the body</a><a href="#held" data-sit="floor">Neither — I’m still listening</a></div></div></section>
+<section class="step" data-here="held" data-lean="none" id="held"><div class="piece"><div class="k">Held open</div><div class="txt"><p>Your body holds blood pH in a tight range through your kidneys and lungs, not your diet, and restores stomach acidity on its own. If you have kidney disease or take medication, ask a doctor before changing what you drink.</p></div><div class="because" id="sitline"></div><div class="aff" style="margin-top:18px">Your body already knows its pH. Drink what you like.</div></div></section>
+<div class="hint" id="hint">scroll to hear both</div>
+<div class="count" id="count">1 / 7</div>
+
+<script>/* CORRIDOR_JS */
+(function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
+count=document.getElementById('count'),hint=document.getElementById('hint'),
+cl=document.getElementById('chairL'),cr=document.getElementById('chairR');
+function lean(mode,here){
+  const on=mode==='both';
+  cl.classList.toggle('lean',on);cr.classList.toggle('lean',on);
+  cl.classList.toggle('back',here==='held');cr.classList.toggle('back',here==='held')}
+function activate(i){const e=steps[i];e.classList.add('on');count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  document.body.dataset.here=e.dataset.here||'open';lean(e.dataset.lean,e.dataset.here);
+  if(i>0)hint.classList.add('gone')}
+let cur=-1,last=0,tm=0;
+function sync(){const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}}
+function tick(){const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}else tm=setTimeout(()=>{last=Date.now();sync()},80)}
+addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);
+addEventListener('load',sync);sync();
+addEventListener('visibilitychange',()=>{document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync()});
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});
+if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+if(e.key==='ArrowUp'){e.preventDefault();const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}});
+window.__sync=sync;})();</script>
+
+<script>/* the seat you choose, and the swap */
+(function(){const lines={"left": "You chose the chair that holds the promise. Keep the kidneys in the room — it is what stops a good feeling from becoming a health claim.", "right": "You chose the chair that holds the body. Keep the reflux finding in the room — it is what stops a fair fact from becoming a shrug.", "floor": "The floor is simple here: the body keeps its own balance. Ask a doctor if yours has reason not to."};
+const seatL=document.getElementById('seatL'),seatR=document.getElementById('seatR');
+document.querySelectorAll('[data-sit]').forEach(a=>a.addEventListener('click',e=>{
+  document.getElementById('sitline').textContent=lines[a.dataset.sit];
+  document.querySelectorAll('[data-sit]').forEach(o=>o.setAttribute('aria-pressed',o===a?'true':'false'));
+  const sw=document.body.dataset.swap==='1';
+  seatL.classList.toggle('taken',a.dataset.sit===(sw?'right':'left'));
+  seatR.classList.toggle('taken',a.dataset.sit===(sw?'left':'right'));
+  const t=document.getElementById('held');if(t){e.preventDefault();
+    scrollTo({top:t.closest('.step').offsetTop,behavior:'instant'});window.__sync&&window.__sync()}}));
+/* play: tap anywhere off the text and the two chairs trade sides */
+document.getElementById('swap').addEventListener('click',()=>{
+  const b=document.body;b.dataset.swap=b.dataset.swap==='1'?'0':'1';
+  const l=seatL.classList.contains('taken'),r=seatR.classList.contains('taken');
+  seatL.classList.toggle('taken',r);seatR.classList.toggle('taken',l)});})();</script>
+</body></html>
