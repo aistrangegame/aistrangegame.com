@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Feeling Unsettled When You Travel — a teaching</title><meta name="description" content="Travel strips away the routines and familiar cues your body reads as safe — same bed, same streets, same faces. A spike of disorientation, tiredness, or mild dread in a new place isn&#x27;t a flaw in you. It&#x27;s what a routine-tuned body does when the routine disappears."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* gen_v2 · topic: How do I fix my perception when I travel? · teaching/mind-body · pool all → #b8a3d0 */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Mental Illness Is Common and Treatable — a teaching</title><meta name="description" content="Mental illness is one of the most common health experiences there is — most people will face it themselves or watch someone close to them face it. It&#x27;s also often genuinely treatable: symptoms ease, function returns, and people build real lives around and beyond it."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: 2. Mental Illness Is Common and Treatable · teaching/other · pool all → #88a483 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
-   topic  : How do I fix my perception when I travel?
-   form   : teaching        family : mind-body   (fallback — covers 98 topics)
-   pool   : all → #b8a3d0        seed 0.8310
-   move   : figure TIDE · direction walk · ground paper · density full · play hold
+   topic  : 2. Mental Illness Is Common and Treatable
+   form   : teaching        family : other   (fallback — covers 75 topics)
+   pool   : all → #88a483        seed 0.5363
+   move   : figure FIELD · direction walk · ground paper · density full · play none
    ------------------------------------------------------------------------- */
 :root{
   --serif:'Lora',Georgia,serif;
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --ac:#b8a3d0;
+  --ac:#88a483;
   /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
      every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
      invisible by eye on the mid-tones, and a fail even at display scale. The
@@ -135,30 +135,12 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 .close{font-size:clamp(20px,5.2vw,26px);line-height:1.45;font-style:italic}
 @media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(50px,5vw,70px)}.law{font-size:clamp(38px,3.8vw,52px)}#lawpick button{width:36px;height:36px}}
 @media (max-height:720px){.law{font-size:25px;margin-bottom:12px}.because{font-size:16px;margin-bottom:14px}.looks{font-size:15px}.one{font-size:19px}}
-/* @FIG:TIDE — NOTE top:auto. The base .fig rule sets inset:0; without it,
-   top:0 wins over bottom and the waterline sits at the top of the screen.
-   The ground breathes at six breaths a minute (5s in, 5s out),
-   the pace of a settled body. It does not assert a model; it only keeps time.
-   TEMPO IS A PER-STEP SLOT, default rest. The generator may set quick or
-   still ONLY where the step's own words describe alarm or shutdown —
-   never as decoration. Play: hold. While held the tide rises and waits; let
-   go and it falls over eight seconds — a long exhale, untaught. */
-.w{background:#F7F3EC}
-.tide{position:fixed;top:auto;left:-6%;right:-6%;bottom:-2svh;height:50svh;display:block;z-index:1;pointer-events:none;
-  transform:translateY(var(--tl,30svh));transition:transform var(--tt,5s) cubic-bezier(.45,0,.55,1);will-change:transform}
-/* FELT PASS — a ruler-straight line read as a divider, not as water. The
-   surface is now a slow swell: scallops in the water's own colour, drifting,
-   with the accent kept as a faint line just under the crest. */
-.tide::before{content:"";position:absolute;left:0;right:0;top:-11px;height:12px;
-  background:radial-gradient(34px 11px at 50% 100%, color-mix(in oklab, var(--ac) 16%, #F7F3EC) 97%, transparent 100%) repeat-x 0 0/68px 12px;
-  animation:swell 9s linear infinite}
-.tide>i{position:absolute;left:0;right:0;top:0;height:1.5px;background:color-mix(in oklab, var(--ac) 45%, transparent)}
-@keyframes swell{to{background-position:-68px 0}}
-@media (prefers-reduced-motion: reduce){.tide::before{animation:none}}
-.tide::after{content:"";position:absolute;left:0;right:0;top:1.5px;bottom:0;
-  background:linear-gradient(180deg,color-mix(in oklab, var(--ac) 16%, #F7F3EC) 0%,color-mix(in oklab, var(--ac) 6%, #F7F3EC) 55%,#F7F3EC 100%)}
-#hold{position:fixed;inset:0;z-index:1;border:0;background:transparent;cursor:pointer;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
-@media (prefers-reduced-motion: reduce){.tide{transition:none}}
+/* @FIG:FIELD */
+.w{background:radial-gradient(120% 90% at 50% calc(94% - var(--p,0) * 56%),color-mix(in oklab, var(--ac) 11%, #F7F3EC) 0%,#F7F3EC 46%);transition:background 2.4s ease}
+.w::after{content:"";position:absolute;left:50%;top:calc(94% - var(--p,0) * 56%);width:min(150vmin,900px);height:min(150vmin,900px);
+  transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle, color-mix(in oklab, var(--ac) 15%, transparent), transparent 62%);
+  transition:top 2.4s ease;animation:fieldbreath 9s ease-in-out infinite}
+@keyframes fieldbreath{0%,100%{opacity:.65}50%{opacity:1}}
 /* @END */
 
 /* HIT AREA ≥44px, visual dot unchanged. The button is the 44px target; the
@@ -179,76 +161,31 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
-/* DOORS — kit/DOORS.css */
-.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
-.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
-  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
-  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
-.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
-.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
-.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
-.dg svg{width:36px;height:36px;overflow:visible}
-.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.dg svg .s{fill:var(--to);stroke:none}
-.dg svg .dim{opacity:.6}
-.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
-.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
-.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
-.page .door{border-top-color:rgba(34,29,24,.16)}
-.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
-.page .dk,.page .da{color:rgba(34,29,24,.62)}
-/* the handover: the world leans toward the next page's accent */
-.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
-body.leaving .w::before{opacity:.55}
-body.leaving .piece{opacity:.2;transition:opacity .5s ease}
-@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.8310" style="--from:1">
+<body class="dark" data-variant="other" data-form="teaching" data-seed="0.5363" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
-<div class="fig tide" id="tide" aria-hidden="true"><i></i></div>
-<button id="hold" aria-label="hold to let the tide rise"></button>
+
 <div class="top"><a href="index.html">← The teachings</a><span>A teaching</span></div>
 <div id="lawpick" role="group" aria-label="the points"></div>
-<section class="step" ><div class="piece"><h1>Feeling Unsettled When You Travel</h1><p class="sub">Why new places can feel unsettling</p></div></section>
-<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">Travel strips away the routines and familiar cues your body reads as safe — same bed, same streets, same faces. A spike of disorientation, tiredness, or mild dread in a new place isn't a flaw in you. It's what a routine-tuned body does when the routine disappears.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">A sense of safety is thought to be built partly from the familiar — the same route, the same bed, the same rhythm of a day. Remove all of it at once and the system that reads for safety has less to go on, so it runs a little more alert, and a little more tired, even where nothing is actually wrong.</div></div></section>
-<section class="step" data-jump="1"><div class="piece"><div class="num">1 of 5</div><div class="law">New places cost more energy than they show.</div><div class="because">Because the body spends effort reading an unfamiliar place that it wouldn't spend at home.</div><div class="looks" data-label="in the body">A tiredness that shows up by mid-afternoon, for no reason you can point to.</div></div></section>
-<section class="step" data-jump="2" data-tempo="quick"><div class="piece"><div class="num">2 of 5</div><div class="law">Familiar routine is part of what your body calls safe.</div><div class="because">Because a system used to the same streets and same bed can read their absence as a small alarm.</div><div class="looks" data-label="in the body">A restless first night in a new bed, sleep slow to arrive.</div></div></section>
-<section class="step" data-jump="3" data-tempo="still"><div class="piece"><div class="num">3 of 5</div><div class="law">Disorientation tends to ease as the place turns familiar.</div><div class="because">Because the alertness that spikes on day one tends to quiet as the unknown becomes known.</div><div class="looks" data-label="in the body">A street that felt foreign on Monday, barely noticed by Thursday.</div></div></section>
-<section class="step" data-jump="4" data-tempo="still"><div class="piece"><div class="num">4 of 5</div><div class="law">A small routine can travel with you.</div><div class="because">Because one repeated anchor — a tea, a stretch, a call home — gives the body something familiar to hold.</div><div class="looks" data-label="in the body">The same five minutes each morning, wherever the room around it is.</div></div></section>
-<section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">The unsettled feeling is usually about change.</div><div class="because">Because it's a common response to a lot changing at once, not by itself a verdict on the trip.</div><div class="looks" data-label="in the body">A held breath that eases once you remember this always happens for a few days.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">On your next trip, pick one small thing to keep the same every day — the same drink, the same stretch, the same five minutes before sleep. Let the rest of the unfamiliarity be what it is.</div></div></section>
-<section class="step" ><div class="piece"><div class="close">The ground doesn't actually move. It just takes your body a few days to believe that.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/practice/how-do-i-fix-my-perception-when-i-travel.html" style="--to:#65a4d0" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="15"/><circle class="dim" cx="30" cy="30" r="24"/></svg></span><span class="dt"><span class="dk">The same subject · as a practice</span><span class="dn">Do it — a few minutes, now.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" ><div class="piece"><h1>Mental Illness Is Common and Treatable</h1><p class="sub">Ordinary, widespread, and not a life sentence</p></div></section>
+<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">Mental illness is one of the most common health experiences there is — most people will face it themselves or watch someone close to them face it. It's also often genuinely treatable: symptoms ease, function returns, and people build real lives around and beyond it.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">Why this is hard</div><div class="tues">It can feel like a private, unusual thing to be struggling — like everyone else has this figured out. They don't. Mental illness runs across every background, age, and life that looks fine from outside. And unlike many private struggles, a lot of what makes it hard to live with actually responds to treatment, given time and the right support.</div></div></section>
+<section class="step" data-jump="1"><div class="piece"><div class="num">1 of 5</div><div class="law">It shows up in ordinary lives, not rare ones.</div><div class="because">Because mental illness reaches across every background, income, and life stage there is.</div><div class="looks" data-label="sounds like">A coworker who seems fine, quietly managing something no one at the office knows about.</div></div></section>
+<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">Struggling doesn't mean something is broken in you.</div><div class="because">Because a struggling mind is a common human experience, not evidence of a flaw.</div><div class="looks" data-label="sounds like">The same heaviness carried by people who look, from outside, entirely put together.</div></div></section>
+<section class="step" data-jump="3" data-tempo="still"><div class="piece"><div class="num">3 of 5</div><div class="law">Many people who get help see real improvement.</div><div class="because">Because many conditions respond to treatment, even when it takes time to find the right kind.</div><div class="looks" data-label="sounds like">A weight that was unmovable in January, noticeably lighter by the fall.</div></div></section>
+<section class="step" data-jump="4"><div class="piece"><div class="num">4 of 5</div><div class="law">Treatable doesn't mean instant, or the same for everyone.</div><div class="because">Because different people respond to different combinations of support, and finding it takes patience.</div><div class="looks" data-label="sounds like">One approach that didn't help, set aside for another one that finally did.</div></div></section>
+<section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">Asking for help is a common, ordinary move.</div><div class="because">Because reaching out is what most people eventually do, not a rare or drastic step.</div><div class="looks" data-label="sounds like">A first appointment made, feeling less like a crisis and more like an ordinary errand.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">If something in you has felt heavy for a while, that's worth telling someone — a doctor, a therapist, or a person you trust. Many people who reach out find real help. If you're in danger right now, call your local emergency number or a crisis line.</div></div></section>
+<section class="step" ><div class="piece"><div class="close">Common doesn't mean small. Treatable doesn't mean easy. It means help exists.</div></div></section>
 <div class="hint" id="hint">scroll to walk</div>
 <div class="count" id="count">1 / 10</div>
-<script>/* FIG_MIND_BODY */
-(function(){
-const t=document.getElementById('tide');let tempo='rest',held=false,up=false,tm=0;
-const T={rest:{h:5000,hi:22,lo:34},quick:{h:1700,hi:20,lo:30},still:{h:8000,hi:36,lo:38}};
-const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function set(v,ms){t.style.setProperty('--tt',ms+'ms');t.style.setProperty('--tl',v+'svh')}
-function beat(){clearTimeout(tm);if(held)return;const c=T[tempo];
-  if(document.hidden||rm){set(c.lo,600);tm=setTimeout(beat,1500);return}
-  up=!up;set(up?c.hi:c.lo,c.h);tm=setTimeout(beat,c.h)}
-window.ASGfig=function(d){const nt=d.tempo||'rest';if(nt!==tempo){tempo=nt;up=false;beat()}};
-const h=document.getElementById('hold');
-h.addEventListener('pointerdown',()=>{held=true;clearTimeout(tm);set(18,2600)});
-function rel(){if(!held)return;held=false;up=false;set(T[tempo].lo,8000);tm=setTimeout(beat,8000)}
-addEventListener('pointerup',rel);addEventListener('pointercancel',rel);
-beat();})();
+<script>/* FIG_OTHER */
 (function(){const pick=document.getElementById('lawpick'),steps=[...document.querySelectorAll('.step')];
 steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('button');b.type='button';b.textContent=s.dataset.jump;
   b.dataset.law=s.dataset.jump;b.setAttribute('aria-label','point '+s.dataset.jump);
   b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
 const btns=[...pick.children],prev=window.ASGfig;
 window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
-<script>/* DOORS_JS */
-document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
-  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
-  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,
