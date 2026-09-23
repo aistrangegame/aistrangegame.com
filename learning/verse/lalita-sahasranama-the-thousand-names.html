@@ -1,0 +1,125 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Lalitā Sahasranāma — a verse</title><meta name="description" content="A hymn of a thousand names for the goddess Lalitā, from the Brahmāṇḍa Purāṇa. Six of the thousand, in order, as they open the text."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Lalita Sahasranama - The Thousand Names · verse/mantra · pool all → #7bb190 */
+
+/* ============ BASE_CSS ============ */
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#7bb190;--acp:#4A4238;--acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);--actext:var(--acp);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(76px + env(safe-area-inset-top,0px)) 26px calc(76px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:600px;width:100%;opacity:0;transform:scale(var(--from,.86)) translateY(10px);transition:opacity 1.2s ease,transform 1.4s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}
+.step.on .piece{opacity:1;transform:none}
+/* HIT-TEST CONTRACT: .step is a full-viewport positioned box, so it would cover
+   every fixed play surface beneath it. The step itself takes no pointer events;
+   the text does. Play surfaces at z-index 1 then receive everything around it. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.16);--card:rgba(255,255,255,.6);--bg:#F7F3EC}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}
+ html{scroll-behavior:auto}.line{animation:none!important}}
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_VERSE — variant: mantra ============ */
+/* The line is meant to be said. It gets a head-rule above it — the shirorekhā
+   that runs across Devanagari — so the words read as one connected utterance,
+   and the syllable groups are spaced as breath, not as words. The gloss sits
+   under it at a whisper. One line per screen, nothing else. */
+.w{background:radial-gradient(120% 90% at 50% calc(96% - var(--p,0) * 62%), #FDF6E6 0%, #F7F3EC 42%, #EFE7D9 100%);
+  transition:background 2.4s ease}
+.w::after{content:"";position:absolute;left:50%;top:calc(96% - var(--p,0) * 62%);width:min(150vmin,900px);
+  height:min(150vmin,900px);transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle, rgba(201,168,76,.16), transparent 62%);
+  transition:top 2.4s ease;animation:glowbreath 9s ease-in-out infinite}
+@keyframes glowbreath{0%,100%{opacity:.7}50%{opacity:1}}
+.vline{position:relative;padding-top:20px;margin:0 0 22px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.vline::before{content:"";position:absolute;left:0;top:0;width:var(--rule,100%);height:1.5px;
+  background:var(--ac);opacity:.55;transition:width 1.6s cubic-bezier(.16,1,.3,1),opacity 1.2s ease}
+.step.on .vline::before{--rule:100%}
+.line{font-size:clamp(27px,7.4vw,42px);line-height:1.34;font-weight:500;margin:0;
+  letter-spacing:.012em;word-spacing:.22em;text-wrap:balance;
+  transition:letter-spacing 2.4s cubic-bezier(.4,0,.5,1),word-spacing 2.4s cubic-bezier(.4,0,.5,1)}
+.vline.breathing .line{letter-spacing:.07em;word-spacing:.5em}
+.vline.breathing::before{opacity:.9}
+.gloss{font-style:italic;color:var(--muted);font-size:clamp(15.5px,4vw,17.5px);line-height:1.66;
+  margin:0;padding-left:20px;border-left:1px solid var(--faint);max-width:44ch}
+.pada{font-family:var(--sans);font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:4px}
+@media (min-width:900px){.piece{max-width:680px}h1{font-size:clamp(52px,5vw,74px)}
+ .line{font-size:clamp(40px,4vw,54px)}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+
+/* GRACE · SOUND — the four lines, together, under one head-rule that draws
+   through them in order: the verse said once, whole. */
+.whole{position:relative;display:flex;flex-direction:column;gap:4px;padding-top:14px;margin:0 0 22px}
+.whole span{position:relative;font-size:clamp(17px,4.5vw,21px);line-height:1.4;font-weight:500;opacity:.35;transition:opacity .8s ease calc(var(--i) * .7s + .3s)}
+.whole span::before{content:"";position:absolute;left:0;top:-3px;height:1.5px;width:0;background:var(--ac);transition:width .7s cubic-bezier(.4,0,.2,1) calc(var(--i) * .7s)}
+.step.on .whole span{opacity:1}
+.step.on .whole span::before{width:100%}
+@media (prefers-reduced-motion:reduce){.whole span{opacity:1}.whole span::before{width:100%}}
+</style></head>
+<body data-seed="0.5351" class="dark" data-variant="mantra" style="--from:.86">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig" id="fig" aria-hidden="true"></div>
+<div class="top"><a href="/learning/">← Learning</a><span>Verse</span></div>
+
+<section class="step" ><div class="piece"><h1>Lalitā Sahasranāma</h1><p class="sub">Hymn</p><p class="sum" style="margin-top:22px">A hymn of a thousand names for the goddess Lalitā, from the Brahmāṇḍa Purāṇa. Six of the thousand, in order, as they open the text.</p></div></section>
+<section class="step" ><div class="piece"><div class="pada">Name 1</div><div class="vline" data-breathe><div class="line">śrīmātā</div></div><div class="gloss">The Mother — the first name, and the simplest: everything that follows describes what she already is.</div></div></section>
+<section class="step" ><div class="piece"><div class="pada">Name 2</div><div class="vline" data-breathe><div class="line">śrīmahārājñī</div></div><div class="gloss">The great queen. Not a ruler over territory, but sovereign over the whole of what is.</div></div></section>
+<section class="step" ><div class="piece"><div class="pada">Name 3</div><div class="vline" data-breathe><div class="line">śrīmatsiṃhāsaneśvarī</div></div><div class="gloss">She who is seated on the lion-throne — the seat itself signifying rule, unshaken.</div></div></section>
+<section class="step" ><div class="piece"><div class="pada">Name 4</div><div class="vline" data-breathe><div class="line">cidagnikuṇḍasambhūtā</div></div><div class="gloss">Born from the fire-pit of consciousness: the Purāṇa tells of her rising from the fire of the gods' sacrifice.</div></div></section>
+<section class="step" ><div class="piece"><div class="pada">Name 5</div><div class="vline" data-breathe><div class="line">devakāryasamudyatā</div></div><div class="gloss">Risen and ready to do the gods' own work: the text says she was invoked to end a threat they could not.</div></div></section>
+<section class="step" ><div class="piece"><div class="pada">Name 6</div><div class="vline" data-breathe><div class="line">caturbāhusamanvitā</div></div><div class="gloss">Four-armed, in the traditional image — each hand holding something the names that follow will name in turn.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">Whole</div><div class="whole" aria-label="the whole verse"><span style="--i:0">śrīmātā</span><span style="--i:1">śrīmahārājñī</span><span style="--i:2">śrīmatsiṃhāsaneśvarī</span><span style="--i:3">cidagnikuṇḍasambhūtā</span><span style="--i:4">devakāryasamudyatā</span><span style="--i:5">caturbāhusamanvitā</span></div><div class="txt"><p>Part of the Brahmāṇḍa Purāṇa: the god Hayagrīva, at the sage Agastya's request, is said to have taught him these thousand names of the goddess Lalitā. Devotees recite the whole hymn as worship; the names are addressed to her, not explained.</p></div><div class="aff" style="margin-top:20px">A thousand names. These are the first six.</div></div></section>
+<div class="hint" id="hint">scroll to sound it</div>
+<div class="count" id="count">1 / 8</div>
+
+<script>/* CORRIDOR_JS */
+(function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+function activate(i){const e=steps[i];e.classList.add('on');count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  if(i>0)hint.classList.add('gone')}
+let cur=-1,last=0,tm=0;
+function sync(){const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}}
+function tick(){const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}else tm=setTimeout(()=>{last=Date.now();sync()},80)}
+addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);
+addEventListener('load',sync);sync();
+addEventListener('visibilitychange',()=>{document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync()});
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});
+if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+if(e.key==='ArrowUp'){e.preventDefault();const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}});
+/* play: touch the line and it breathes — the syllables open, then close again */
+document.querySelectorAll('[data-breathe]').forEach(v=>{
+  const go=()=>{v.classList.add('breathing');clearTimeout(v._t);
+    v._t=setTimeout(()=>v.classList.remove('breathing'),2600)};
+  v.addEventListener('click',go);
+  v.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});
+  v.setAttribute('tabindex','0');v.setAttribute('role','button');
+  v.setAttribute('aria-label','let the line breathe')});})();</script>
+</body></html>

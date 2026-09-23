@@ -1,15 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Dolores Cannon — a portrait</title><meta name="description" content="A self-trained hypnotherapist ran forty-six years of sessions, mostly people describing past lives under hypnosis. From what they said, she built a method and a teaching: everything below is held as her claim."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* gen_v2 · topic: Dolores Cannon · portrait/seer · pool deep → #92a0b1 */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Robert Monroe — a portrait</title><meta name="description" content="A radio broadcasting executive said he began spontaneously leaving his body at night in 1958, then built a research institute and an audio technique meant to help others do the same."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Robert Monroe + Bashar — Cartography of Consciousness · portrait/scientist · pool deep → #dd8297 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
-   topic  : Dolores Cannon
-   form   : portrait        family : seer
-   pool   : deep → #92a0b1        seed 0.3441
+   topic  : Robert Monroe + Bashar — Cartography of Consciousness
+   form   : portrait        family : scientist   (43 topics)
+   pool   : deep → #dd8297        seed 0.9420
+   move   : figure RECEPTION · direction walk · ground night · density full · play drag
    ------------------------------------------------------------------------- */
 :root{
   --serif:'Lora',Georgia,serif;
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --ac:#92a0b1;
+  --ac:#dd8297;
   /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
      every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
      invisible by eye on the mid-tones, and a fail even at display scale. The
@@ -60,7 +61,6 @@ a:hover{color:var(--actext)}
   font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
   color:var(--muted);transition:opacity 1s}
 .hint{white-space:nowrap}
-.count{white-space:nowrap}
 .hint.gone{opacity:0}
 
 .step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
@@ -107,41 +107,54 @@ h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 
 }
 /* a page nobody is looking at genuinely idles */
 body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
-/* ============ EXTRA_PORTRAIT — variant: seer ============ */
-/* @FIG:BAND — figure above the text on phones, beside it on desktop. */
-.band{inset:auto;top:0;left:0;right:0;height:40svh;padding:calc(46px + env(safe-area-inset-top,0px)) 14px 6px;display:flex;align-items:center;justify-content:center;
-  background:radial-gradient(70% 70% at 50% 60%, color-mix(in oklab, var(--ac) 12%, #0B0910) 0%, #0B0910 74%)}
-.band::after{content:"";position:absolute;left:0;right:0;bottom:-28px;height:28px;background:linear-gradient(#0B0910,rgba(11,9,16,0))}
-.band svg{width:100%;height:100%;overflow:visible}
-.step{align-items:flex-start;padding:calc(40svh + 18px) 22px calc(62px + env(safe-area-inset-bottom,0px))}
-.w{background:#0B0910}
+/* CHROME over a figure ground: solid ink */
 .top,.count,.hint{color:#BDB5AA}
-@media (min-width:900px){.band{right:auto;width:50vw;height:100svh;padding:84px 36px;background:radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--ac) 12%, transparent) 0%, transparent 72%)}
- .band::after{display:none}.step{align-items:center;justify-content:flex-start;padding:80px 6vw 80px 54vw}.piece{max-width:500px}}
-/* @END */
-/* @FIG:AFTERLINE — a seer's life cannot be checked where it matters most, so
-   the figure does not try. It draws the life as a line that ENDS, and what
-   outlasted it as branches that keep going. The visions are never drawn. */
-.life{stroke:rgba(245,239,230,.2);stroke-width:1.4}
-.lifelit{stroke:var(--ac);stroke-width:2.2;stroke-dasharray:1;stroke-dashoffset:var(--off,1);transition:stroke-dashoffset 1.8s cubic-bezier(.22,1,.36,1)}
-.tick{stroke:rgba(245,239,230,.3);stroke-width:1.2;transition:stroke 1s ease}
-.tick.on{stroke:var(--ac)}
-.yr{font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;fill:#9C958B;text-anchor:middle;transition:fill 1s ease}
-.yr.on{fill:#F5EFE6}
-.death{fill:#0B0910;stroke:rgba(245,239,230,.5);stroke-width:1.4}
-.branch{fill:none;stroke:var(--ac);stroke-width:1.6;stroke-dasharray:1;stroke-dashoffset:1;opacity:.85;transition:stroke-dashoffset 1.8s cubic-bezier(.22,1,.36,1)}
-.branch.on{stroke-dashoffset:0}
-.bl{font-family:var(--sans);font-size:10.5px;letter-spacing:.04em;fill:#F5EFE6;text-anchor:end;opacity:0;transition:opacity 1.2s ease}
-.bl.on{opacity:.9}
-#pt{transform:translate(var(--x),96px);transition:transform 1.6s cubic-bezier(.22,1,.36,1)}
-#pt.drag{transition:none}
-.ptc{fill:var(--ac)}.pth{fill:none;stroke:var(--ac);stroke-width:1;opacity:.5}
-.hit{fill:transparent;pointer-events:auto;cursor:ew-resize;touch-action:pan-y}
-.band{pointer-events:auto}
-.mh{font-weight:500;font-size:clamp(26px,7vw,40px);line-height:1.1;margin:0 0 14px}
-body[data-grace="1"] .band{background:radial-gradient(80% 80% at 70% 55%, color-mix(in oklab, var(--ac) 20%, #0B0910) 0%, #0B0910 76%)}
-@media (max-width:430px){.txt{font-size:15.5px;line-height:1.58}.mh{font-size:25px;margin-bottom:10px}.k{margin-bottom:8px}h1{font-size:40px}.sum{font-size:17px}}
-@media (max-height:720px) and (max-width:899px){.band{height:34svh}.step{padding-top:calc(34svh + 12px)}.txt{font-size:15px}}
+.hint{white-space:nowrap}
+.k{margin-bottom:12px}
+.nm{font-weight:500;font-size:clamp(27px,7.2vw,40px);line-height:1.1;margin:0 0 12px}
+.moment{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.moment b{font-weight:500;color:var(--actext)}
+.meta{font-family:var(--sans);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+/* ============ EXTRA_PORTRAIT — family: scientist ============ */
+/* @FIG:RECEPTION — how a claim was received, over time. Future points are
+   INVISIBLE until reached: the figure must never tell the ending before the
+   words do. The years and the level grid give the structure in advance.
+   Rises from rejected to
+   accepted; the room brightens with it. SLOTS per moment step:
+     data-lv     0 rejected · 1 proposed · 2 contested · 3 tested · 4 supported · 5 accepted
+                 — the reception AMONG PEERS at that moment, from the text.
+                 Unknown → 2. Never higher than the text supports.
+     data-claim  (in the generator's data) a NEW claim starts a NEW line, drawn
+                 hollow — a person's claims do not share one fortune.
+   The "How to read it" step is REQUIRED on every scientist page: the line is
+   reception, not truth. This family runs from textbook biology to remote
+   viewing, and the figure is what keeps them honestly apart. */
+.w{background:radial-gradient(120% 90% at 50% 18%, color-mix(in oklab, var(--ac) calc(var(--lift,.1) * 26%), #0B0910) 0%, #0B0910 64%);transition:background 2.6s ease}
+.w::after{content:"";position:absolute;left:0;right:0;top:0;height:60%;opacity:calc(var(--lift,.1) * .9);transition:opacity 2.6s ease;
+  background:radial-gradient(70% 60% at 50% 0%, rgba(245,239,230,.08), transparent 70%)}
+.fig{inset:auto;top:calc(44px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:center;z-index:1}
+.fig svg{width:min(94vw,520px);height:auto;overflow:visible}
+.grid{stroke:rgba(245,239,230,.12);stroke-width:1;stroke-dasharray:2 4}
+/* The viewBox starts at −14 so "CONTESTED", the widest level label, never
+   crosses the left edge. At 360 wide it measured −2px at 389px. */
+.lvl{font-family:var(--sans);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;fill:#BDB5AA;text-anchor:end}
+.yr{font-family:var(--sans);font-size:10.5px;letter-spacing:.06em;fill:#BDB5AA;text-anchor:middle;opacity:.7;transition:opacity .8s ease,fill .8s ease}
+.yr.live{opacity:1;fill:#F5EFE6}
+.rseg{stroke:var(--ac);stroke-width:2;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.3s cubic-bezier(.22,1,.36,1)}
+.rseg.drawn{stroke-dashoffset:0}
+.rp{opacity:0;transition:opacity .8s ease}
+.rp.done,.rp.live{opacity:1}
+.rpd{fill:var(--ac);stroke:var(--ac);stroke-width:1.5}
+.rp.fresh .rpd{fill:#0B0910}
+.rph{fill:none;stroke:var(--ac);stroke-width:1;opacity:0;transform:scale(.5);transform-box:fill-box;transform-origin:center;transition:opacity 1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.rp.live .rph{opacity:.7;transform:none}
+.rp.live .rpd{fill:color-mix(in oklab, var(--ac) 55%, #FFFFFF);stroke:color-mix(in oklab, var(--ac) 55%, #FFFFFF)}
+.rp.live.fresh .rpd{fill:#0B0910}
+#grip{position:fixed;left:0;right:0;top:calc(44px + env(safe-area-inset-top,0px));height:min(40vw,190px);z-index:1;border:0;background:transparent;cursor:ew-resize;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.step{padding-top:calc(min(40vw,190px) + 70px + env(safe-area-inset-top,0px))}
+@media (max-width:420px){.lvl{letter-spacing:.07em}.yr{letter-spacing:.02em}}
+@media (min-width:900px){.piece{max-width:620px}h1{font-size:clamp(52px,5vw,72px)}}
+@media (max-height:720px){.nm{font-size:25px;margin-bottom:8px}.txt{font-size:15.5px;line-height:1.55}.sum{font-size:16.5px}}
 /* @END */
 
 /* GATE 6c — the back link is the only way out; it gets a 44px target without
@@ -174,52 +187,40 @@ body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body class="light" data-form="portrait" data-variant="seer" data-seed="0.3441" style="--from:1">
+<body class="light" data-variant="scientist" data-form="portrait" data-seed="0.9420" style="--from:.92">
 <div class="w" id="w" aria-hidden="true"></div>
-<div class="fig band" id="fig" aria-hidden="true"><svg viewBox="0 0 460 200">
-<line class="life" x1="30" y1="96" x2="280" y2="96"/><line class="lifelit" id="lifelit" x1="30" y1="96" x2="280" y2="96" pathLength="1"/>
-<line class="tick" data-t="1" x1="141.4" y1="88" x2="141.4" y2="104"/><text class="yr" data-t="1" x="141.4" y="122">1968</text>
-<line class="tick" data-t="2" x1="213.7" y1="88" x2="213.7" y2="104"/><text class="yr" data-t="2" x="213.7" y="122">1992</text>
-<line class="tick" data-t="3" x1="271.0" y1="88" x2="271.0" y2="104"/><text class="yr" data-t="3" x="271.0" y="122">2011</text>
-<circle class="death" cx="280" cy="96" r="5"/><text class="yr" x="280" y="78" data-t="4">2014</text>
-<path class="branch" data-b="0" d="M285 96 C320 96 314 66 350 66 L454 66" pathLength="1"/><text class="bl" data-b="0" x="454" y="61">QHHT practitioners</text>
-<path class="branch" data-b="1" d="M285 96 C320 96 314 96 350 96 L454 96" pathLength="1"/><text class="bl" data-b="1" x="454" y="91">Ozark Mountain Publishing</text>
-<path class="branch" data-b="2" d="M285 96 C320 96 314 126 350 126 L454 126" pathLength="1"/><text class="bl" data-b="2" x="454" y="121">Three Waves books</text>
-<g id="pt" style="--x:30px"><circle r="7" class="ptc"/><circle r="15" class="pth"/></g><rect class="hit" x="0" y="56" width="460" height="88"/>
+<div class="fig" id="fig"><svg viewBox="-14 0 374 150" aria-hidden="true">
+<line class="grid" x1="72" y1="118" x2="346" y2="118"/><text class="lvl" x="66" y="121.5">rejected</text><line class="grid" x1="72" y1="82" x2="346" y2="82"/><text class="lvl" x="66" y="85.5">contested</text><line class="grid" x1="72" y1="28" x2="346" y2="28"/><text class="lvl" x="66" y="31.5">accepted</text>
+<line class="rseg" data-k="2" x1="78" y1="100" x2="142" y2="118" pathLength="1"/><line class="rseg" data-k="3" x1="142" y1="118" x2="207" y2="100" pathLength="1"/><line class="rseg" data-k="5" x1="272" y1="100" x2="336" y2="100" pathLength="1"/>
+<g class="rp" data-k="1" transform="translate(78 100)"><circle class="rpd" r="5"/><circle class="rph" r="11"/></g><text class="yr" data-k="1" x="78" y="142">1958</text><g class="rp" data-k="2" transform="translate(142 118)"><circle class="rpd" r="5"/><circle class="rph" r="11"/></g><text class="yr" data-k="2" x="142" y="142">1965–66</text><g class="rp" data-k="3" transform="translate(207 100)"><circle class="rpd" r="5"/><circle class="rph" r="11"/></g><text class="yr" data-k="3" x="207" y="142">1971</text><g class="rp fresh" data-k="4" transform="translate(272 100)"><circle class="rpd" r="5"/><circle class="rph" r="11"/></g><text class="yr" data-k="4" x="272" y="142">1970s</text><g class="rp" data-k="5" transform="translate(336 100)"><circle class="rpd" r="5"/><circle class="rph" r="11"/></g><text class="yr" data-k="5" x="336" y="142">1983</text>
 </svg></div>
+<button id="grip" aria-label="drag along the line to travel the life"></button>
 <div class="top"><a href="/learning/">← Learning</a><span>Portrait</span></div>
-<section class="step" data-t="0" data-yr="1931"><div class="piece"><h1>Dolores Cannon</h1><p class="sub">1931 – 2014 · A portrait</p><p class="sum" style="margin-top:18px">A self-trained hypnotherapist ran forty-six years of sessions, mostly people describing past lives under hypnosis. From what they said, she built a method and a teaching: everything below is held as her claim.</p></div></section>
-<section class="step" data-t="1" data-yr="1968"><div class="piece"><div class="k">1968 · Arkansas</div><h2 class="mh">Begins with hypnosis</h2><div class="txt"><p>She began working with hypnosis in the late 1960s. Sessions that started as simple relaxation kept opening, she said, into something else: clients speaking in voices and memories that did not seem their own.</p></div></div></section>
-<section class="step" data-t="2" data-yr="1992"><div class="piece"><div class="k">1992 · Arkansas</div><h2 class="mh">Founds her own press</h2><div class="txt"><p>After major publishers turned her books down, she started Ozark Mountain Publishing to put them out herself. It grew into a house for many other authors in the same field.</p></div></div></section>
-<section class="step" data-t="3" data-yr="2011"><div class="piece"><div class="k">2011</div><h2 class="mh">The Three Waves</h2><div class="txt"><p>In The Three Waves of Volunteers and the New Earth, she wrote that a call went out for help after the atomic bombings of 1945, and that souls answered in three waves, each holding what she called Earth's rising frequency differently.</p></div></div></section>
-<section class="step" data-t="after" data-yr="2014"><div class="piece"><div class="k">After 2014</div><h2 class="mh">What kept going</h2><div class="txt"><p>Practitioners trained in her method, QHHT, now work worldwide under a certification her family maintains. Ozark Mountain Publishing continues, still family-run, putting out dozens of authors. The Three Waves books remain widely read by people who say her description of not belonging fit them exactly.</p></div></div></section>
-<section class="step" data-t="open" data-yr="2014"><div class="piece"><div class="k">Held open</div><div class="txt"><p>Everything above is held as her claim: what her clients said under hypnosis, and what she made of it. Memory researchers warn that a leading question can build a false memory as easily as recover a true one; she recorded her sessions and did not claim to have settled which had happened.</p></div></div></section>
-<section class="step" data-t="grace" data-yr="2014"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">What her clients said under hypnosis is hers to report, not to prove.</div><div class="src" style="margin-top:14px;line-height:1.9">Drag along the line to walk the life.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/dolores-cannon.html" style="--to:#daa09b" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
-<div class="hint" id="hint">scroll to walk the life</div>
-<div class="count" id="count">1 / 7</div>
-<script>/* FIG_SEER — defines ASGfig before the corridor runs */
+<section class="step" data-k="0" data-lv="1"><div class="piece"><h1>Robert Monroe</h1><p class="sub">1915 – 1995 · A portrait</p><p class="sum" style="margin-top:22px">A radio broadcasting executive said he began spontaneously leaving his body at night in 1958, then built a research institute and an audio technique meant to help others do the same.</p></div></section>
+<section class="step" data-k="0" data-lv="1"><div class="piece"><div class="k">How to read it</div><div class="txt"><p>The line above is how his claims were <i>received</i> — by the scientists whose job was to doubt them. It rises as a claim is tested and accepted, and the room brightens with it. It is not a verdict on truth: some accepted ideas are later overturned, and some rejected ones come back. A hollow point is a claim still open.</p></div><div class="meta">drag along the line to travel</div></div></section>
+<section class="step" data-k="1" data-lv="1"><div class="piece"><div class="moment">1 of 5 · 1958 · <b>proposed</b></div><h2 class="nm">It starts</h2><div class="txt"><p>Monroe said he found himself floating near the ceiling, looking down at his own sleeping body. The experience recurred, unbidden, and he began keeping a private record of it.</p></div></div></section>
+<section class="step" data-k="2" data-lv="0"><div class="piece"><div class="moment">2 of 5 · 1965–66 · <b>rejected</b></div><h2 class="nm">Tested in a lab</h2><div class="txt"><p>Psychologist Charles Tart ran Monroe through repeated overnight sessions, asking him to read a hidden six-digit number displayed out of sight while apparently out of his body. Monroe never read the number correctly.</p></div></div></section>
+<section class="step" data-k="3" data-lv="1"><div class="piece"><div class="moment">3 of 5 · 1971 · <b>proposed</b></div><h2 class="nm">The book, and the institute</h2><div class="txt"><p>Journeys Out of the Body, his account of the experiences, was published the same year he founded The Monroe Institute in Virginia to study altered states and teach others his methods.</p></div></div></section>
+<section class="step" data-k="4" data-lv="1"><div class="piece"><div class="moment">4 of 5 · 1970s · <b>proposed</b></div><h2 class="nm">Hemi-Sync</h2><div class="txt"><p>The institute developed Hemi-Sync, a slightly different tone in each ear, said to guide the brain toward relaxed or expanded states. Binaural beats are a real hearing effect; evidence that they steer brain states is mixed.</p></div></div></section>
+<section class="step" data-k="5" data-lv="1"><div class="piece"><div class="moment">5 of 5 · 1983 · <b>proposed</b></div><h2 class="nm">The Army looks in</h2><div class="txt"><p>An Army officer trained in the institute's Gateway program and wrote an internal analysis mixing neuroscience and speculation. Declassified by the CIA in 2003, it was one officer's working paper, not a scientific study.</p></div></div></section>
+<section class="step" data-k="grace" data-lv="1"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The out-of-body reports were his own. What the tones do to a brain stays unproven.</div><div class="because">What his account leaves open is whether the sense of leaving the body reflects something outside the brain, or is generated entirely within it — no controlled test has yet settled which.</div><div class="src" style="margin-top:22px;line-height:1.9">Journeys Out of the Body (1971); Charles Tart's published lab studies; the declassified 1983 Gateway Process report; Monroe Institute materials.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/robert-monroe-bashar-cartography-of-consciousness.html" style="--to:#d4a948" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="hint" id="hint">scroll to walk</div>
+<div class="count" id="count">1 / 8</div>
+<script>/* FIG_RECEPTION */
 (function(){
-const X=y=>30+(y-1931)*250/83,pt=document.getElementById('pt'),lit=document.getElementById('lifelit'),
- ticks=[...document.querySelectorAll('.tick')],yrs=[...document.querySelectorAll('.yr')],br=[...document.querySelectorAll('.branch')],bl=[...document.querySelectorAll('.bl')],
- steps=[...document.querySelectorAll('.step')];
-br.forEach((b,i)=>b.style.transitionDelay=(i*.22)+'s');bl.forEach((b,i)=>b.style.transitionDelay=(.6+i*.22)+'s');
-function at(yr,t){pt.style.setProperty('--x',X(yr).toFixed(1)+'px');lit.style.setProperty('--off',(1-(yr-1931)/83).toFixed(3));
-  const n=isNaN(+t)?4:+t;ticks.forEach(k=>k.classList.toggle('on',+k.dataset.t<=n));yrs.forEach(k=>k.classList.toggle('on',+k.dataset.t===n||(n===4&&k.dataset.t==='4')));
-  const grow=t==='after'||t==='open'||t==='grace';br.forEach(b=>b.classList.toggle('on',grow));bl.forEach(b=>b.classList.toggle('on',grow));
-  document.body.dataset.grace=t==='grace'?'1':'0'}
-window.ASGfig=function(d){at(+d.yr,d.t)};
-/* play: drag the point along the life; release goes to the nearest moment.
-   Dragged past the death, it goes to what kept going. */
-const hit=document.querySelector('.hit'),svg=hit.ownerSVGElement;let on=false;
-const yrAt=e=>{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(svg.getScreenCTM().inverse());return 1931+(q.x-30)*83/250};
-hit.addEventListener('pointerdown',e=>{on=true;pt.classList.add('drag');hit.setPointerCapture&&hit.setPointerCapture(e.pointerId);move(e)});
-function move(e){if(!on)return;const y=Math.max(1931,Math.min(2014,yrAt(e)));pt.style.setProperty('--x',X(y).toFixed(1)+'px')}
-hit.addEventListener('pointermove',move);
-hit.addEventListener('pointerup',e=>{if(!on)return;on=false;pt.classList.remove('drag');const y=yrAt(e);
-  let tgt;if(y>2015)tgt=steps.find(s=>s.dataset.t==='after');else{let bd=1/0;steps.forEach(s=>{const n=+s.dataset.t;if(!(n>=1))return;const d=Math.abs(+s.dataset.yr-y);if(d<bd){bd=d;tgt=s}})}
-  window.ASGjump(tgt)});
-hit.addEventListener('pointercancel',()=>{on=false;pt.classList.remove('drag')});
-})();</script>
+const rp=[...document.querySelectorAll('.rp')],yr=[...document.querySelectorAll('.yr')],seg=[...document.querySelectorAll('.rseg')];
+window.ASGfig=function(d){const g=d.k==='grace',n=g?99:+d.k;
+  rp.forEach(p=>{const k=+p.dataset.k;p.classList.toggle('live',k===n);p.classList.toggle('done',k<n)});
+  yr.forEach(t=>t.classList.toggle('live',+t.dataset.k===n));
+  seg.forEach(s=>s.classList.toggle('drawn',+s.dataset.k<=n));
+  document.body.style.setProperty('--lift',(Math.max(.1,(+d.lv)/5)).toFixed(2))};
+/* play: drag along the line; release to arrive at the nearest moment */
+const grip=document.getElementById('grip');
+function nearest(x){let b=1,bd=1/0;rp.forEach(p=>{const r=p.getBoundingClientRect(),c=r.left+r.width/2,d=Math.abs(c-x);if(d<bd){bd=d;b=+p.dataset.k}});return b}
+let down=false;grip.addEventListener('pointerdown',e=>{down=true});
+grip.addEventListener('pointerup',e=>{if(!down)return;down=false;
+  window.ASGjump&&window.ASGjump(document.querySelector('.step[data-k="'+nearest(e.clientX)+'"]'))});
+grip.addEventListener('pointercancel',()=>{down=false});})();</script>
 <script>/* DOORS_JS */
 document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
   if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;

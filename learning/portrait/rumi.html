@@ -84,6 +84,31 @@ body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:5
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body data-seed="0.6173" class="light" data-variant="sage" data-room="none" style="--from:.86">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -104,7 +129,7 @@ body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:5
 <section class="step" data-room="silence" data-tick="3"><div class="piece"><div class="moment">Moment 3 of 5 · 1247–48</div><h1 style="font-size:clamp(26px,7vw,40px)">Disappearance</h1><div class="txt"><p>Shams disappeared from Konya, never explained, around 1247 or 1248. Rumi searched for him for years and never found him — the grief of that loss, tradition holds, is what turned into decades of poetry.</p></div></div></section>
 <section class="step" data-room="question" data-tick="4"><div class="piece"><div class="moment">Moment 4 of 5 · from 1258</div><h1 style="font-size:clamp(26px,7vw,40px)">The Masnavi</h1><div class="txt"><p>From around 1258, at the request of his disciple Husam al-Din, he began dictating a long teaching poem, the Masnavi — some 25,000 couplets, still unfinished when he died, meant as instruction for one student and read since by millions.</p></div></div></section>
 <section class="step" data-room="end" data-tick="5"><div class="piece"><div class="moment">Moment 5 of 5 · 17 Dec 1273</div><h1 style="font-size:clamp(26px,7vw,40px)">The end</h1><div class="txt"><p>He died in Konya on 17 December 1273. Followers still mark the date as Şeb-i Arus, the wedding night, calling it his union with the divine rather than his death. His son founded the whirling Mevlevi order soon after.</p></div></div></section>
-<section class="step" data-room="none" data-tick="grace"><div class="piece"><div class="aff" style="font-size:clamp(26px,6.4vw,34px)">Grief, followed for years, became poetry.</div><div class="because">The Mevlevi order his followers founded still whirls in his memory. The Masnavi is still read, in Persian and in translation, as a teaching poem.</div></div></section>
+<section class="step" data-room="none" data-tick="grace"><div class="piece"><div class="aff" style="font-size:clamp(26px,6.4vw,34px)">Grief, followed for years, became poetry.</div><div class="because">The Mevlevi order his followers founded still whirls in his memory. The Masnavi is still read, in Persian and in translation, as a teaching poem.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/verse/rumi.html" style="--to:#92a0b1" data-door><span class="dg"><svg viewBox="0 0 60 60"><path d="M8 24 L52 24"/><path class="dim" d="M12 32 L48 32"/><path class="dim" d="M16 40 L40 40"/></svg></span><span class="dt"><span class="dk">The same subject · as verse</span><span class="dn">Said aloud, a line at a time.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to go inward</div>
 <div class="count" id="count">1 / 7</div>
 

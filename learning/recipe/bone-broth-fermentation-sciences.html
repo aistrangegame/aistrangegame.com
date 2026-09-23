@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Bone Broth — a recipe</title><meta name="description" content="Bones, water, and a long slow simmer — the plain stock behind soups, broths, and sauces. No mysticism, no ferment, just time on the stove."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Bone Broth & Fermentation Sciences · recipe/ferment · pool warm → #D8742A */
+
+/* ============ BASE_CSS ============ */
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#D8742A;--acp:#4A4238;--acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);--actext:var(--acp);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:flex-end;justify-content:center;padding:calc(42svh + 12px) 22px calc(64px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,1)) translateY(10px);transition:opacity .9s ease,transform 1.1s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}
+.step.on .piece{opacity:1;transform:none}
+/* HIT-TEST CONTRACT: .step is a full-viewport positioned box, so it would cover
+   every fixed play surface beneath it. The step itself takes no pointer events;
+   the text does. Play surfaces at z-index 1 then receive everything around it. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(34px,8.8vw,52px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:19px;margin:0}
+.sum{font-size:clamp(17px,4.4vw,20px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(16.5px,4.3vw,19px);line-height:1.65}
+.txt p{margin:0 0 1em}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.68);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.72);--bg:#F7F3EC}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}
+ html{scroll-behavior:auto}}
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_RECIPE — variant: ferment ============ */
+/* The jar lives ABOVE the list and never behind it: the figure owns the top
+   42svh, the pieces own the bottom. Nothing overlaps, so the list stays legible
+   with wet hands. The days strip is real DOM type, not SVG text. */
+.w{background:linear-gradient(180deg,#FBF8F1 0%,#F7F3EC 46%,#F1EADC 100%)}
+.fig{position:fixed;left:0;right:0;top:0;height:42svh;z-index:1;pointer-events:none;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  padding:calc(44px + env(safe-area-inset-top,0px)) 20px 0;
+  background:linear-gradient(180deg,rgba(251,248,241,.96) 0%,rgba(251,248,241,.9) 72%,rgba(251,248,241,0) 100%)}
+#fig svg{height:min(30svh,270px);width:auto;overflow:visible}
+#tea,#scoby,#fizz{transition:all 1.4s cubic-bezier(.3,.9,.2,1)}
+#cut{opacity:0;transition:opacity .9s ease}
+body[data-open="1"] #cut{opacity:1}
+body[data-open="1"] #glass{fill:rgba(255,255,255,.12)}
+#glass{transition:fill .9s ease}
+.days{display:flex;gap:0;align-items:center;justify-content:center;margin:12px 0 0;
+  font-family:var(--sans);font-size:11px;letter-spacing:.18em;color:var(--muted)}
+.days .dayt{display:flex;flex-direction:column;align-items:center;gap:6px;width:34px}
+.days .dayt i{display:block;width:7px;height:7px;border-radius:50%;border:1px solid rgba(31,27,22,.3);
+  background:transparent;transition:background .5s ease,border-color .5s ease}
+.days .dayt.on i{background:var(--ac);border-color:var(--ac)}
+.days .dayt.on{color:var(--ink)}
+.dlabel{font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--muted);margin-top:8px}
+#jarhit{position:fixed;left:50%;top:6svh;width:min(46vw,200px);height:30svh;transform:translateX(-50%);
+  z-index:3;background:transparent;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+/* need / watch / keep as cards */
+.card{border:1px solid var(--faint);border-radius:14px;background:var(--card);padding:20px 20px 22px}
+.ing{display:grid;grid-template-columns:1fr auto;gap:9px 16px;font-size:16.5px}
+.ing span:nth-child(2n){color:var(--muted);font-family:var(--sans);font-size:13.5px;text-align:right;white-space:nowrap}
+.steps{counter-reset:s}
+.steps div{position:relative;padding:10px 0 10px 40px;border-bottom:1px solid var(--faint);font-size:16.5px;line-height:1.5}
+.steps div:last-child{border-bottom:0}
+.steps div::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:10px;width:26px;height:26px;
+  border-radius:50%;border:1px solid var(--ac);font-family:var(--sans);font-size:11.5px;display:flex;
+  align-items:center;justify-content:center;color:var(--actext)}
+@media (min-width:900px){.piece{max-width:620px}h1{font-size:clamp(46px,4.6vw,62px)}
+ #fig svg{height:min(32svh,320px)}}
+
+/* FIT — bottom-aligned pieces need clearance ≥20px above the hint. The Do list
+   split into two steps under the MOVES.md density rule: a piece longer than
+   one screen at full density becomes spare and splits. */
+.step{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
+@media (max-width:430px){.fig{height:38svh}.step{padding-top:calc(38svh + 10px)}.card{padding:16px 16px 18px}
+ .steps div{font-size:15.5px;padding:9px 0 9px 38px}.ing{font-size:15.5px;gap:7px 14px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+
+/* GRACE · COVER (kit/GRACE.md) — the cloth drops over the rim and the eighth
+   day reads "ready". Scroll back and it lifts again. */
+#cover{opacity:0;transform:translateY(-26px);transition:opacity .9s ease,transform 1.2s cubic-bezier(.22,1,.36,1)}
+#cloth{fill:#E7DDCB;stroke:rgba(31,27,22,.28);stroke-width:1.2}
+#band{fill:none;stroke:#C4923A;stroke-width:2.2}
+body[data-cover="1"] #cover{opacity:1;transform:none}
+body[data-cover="1"] .days .dayt:last-child{color:var(--actext)}
+body[data-cover="1"] .days .dayt:last-child i{box-shadow:0 0 0 4px color-mix(in oklab, var(--ac) 25%, transparent)}
+body[data-cover="1"] .dlabel::after{content:" · ready"}
+.dlabel,.count{white-space:nowrap}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body data-seed="0.8350" class="dark" data-variant="ferment" data-open="0" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig" id="fig" aria-hidden="true">
+  <svg viewBox="0 0 220 340">
+    <defs><clipPath id="jar"><rect x="20" y="30" width="180" height="290" rx="24"/></clipPath></defs>
+    <rect x="38" y="10" width="144" height="26" rx="8" fill="none" stroke="rgba(31,27,22,.26)"/>
+    
+    <rect id="glass" x="20" y="30" width="180" height="290" rx="24" fill="rgba(255,255,255,.34)"
+      stroke="rgba(31,27,22,.26)" stroke-width="1.5"/>
+    <g clip-path="url(#jar)">
+      <rect id="tea" x="20" y="320" width="180" height="0" fill="#C4923A" opacity=".5"/>
+      <ellipse id="scoby" cx="110" cy="320" rx="78" ry="9" fill="#EDE5D4" stroke="rgba(31,27,22,.22)" opacity="0"/>
+      <g id="cut">
+        <line x1="20" y1="120" x2="200" y2="120" stroke="rgba(31,27,22,.16)" stroke-dasharray="3 6"/>
+        <line x1="20" y1="180" x2="200" y2="180" stroke="rgba(31,27,22,.16)" stroke-dasharray="3 6"/>
+        <circle cx="70" cy="210" r="3" fill="rgba(31,27,22,.2)"/>
+        <circle cx="112" cy="250" r="2.4" fill="rgba(31,27,22,.18)"/>
+        <circle cx="150" cy="190" r="2.8" fill="rgba(31,27,22,.16)"/>
+        <circle cx="92" cy="170" r="2" fill="rgba(31,27,22,.14)"/>
+      </g>
+    </g>
+    <g id="cover"><path id="cloth" d="M26 40 Q110 24 194 40 L190 62 Q110 48 30 62 Z"/><path id="band" d="M32 56 Q110 44 188 56"/></g>
+  </svg>
+  <div class="days" id="days">
+    <div class="dayt"><i></i>1</div><div class="dayt"><i></i>2</div><div class="dayt"><i></i>3</div>
+    <div class="dayt"><i></i>4</div><div class="dayt"><i></i>5</div><div class="dayt"><i></i>6</div>
+    <div class="dayt"><i></i>7</div><div class="dayt"><i></i>8</div>
+  </div>
+  <div class="dlabel">days</div>
+</div>
+<button id="jarhit" aria-label="tap the jar to see inside"></button>
+<div class="top"><a href="/learning/">← Learning</a><span>Recipe</span></div>
+
+<section class="step" data-fill="0" data-days="0"><div class="piece"><h1>Bone Broth</h1><p class="sub">A recipe</p><p class="sum" style="margin-top:20px">Bones, water, and a long slow simmer — the plain stock behind soups, broths, and sauces. No mysticism, no ferment, just time on the stove.</p></div></section>
+<section class="step" data-fill=".2" data-days="0"><div class="piece"><div class="k">You need</div><div class="card"><div class="ing"><span>Beef or chicken bones</span><span>2 kg</span><span>Water</span><span>4 litres</span><span>Apple cider vinegar</span><span>2 tbsp</span><span>Onion, carrot, celery</span><span>1 each</span><span>Bay leaf and peppercorns</span><span>a few</span><span>Salt</span><span>to taste</span></div></div></div></section>
+<section class="step" data-fill=".55" data-days="0"><div class="piece"><div class="k">Do · 1 of 2</div><div class="card"><div class="steps"><div>Roast the bones at 200°C for 30–40 minutes, until browned, for a deeper flavour (optional but worth it).</div><div>Put bones, vegetables, vinegar and water in a large pot. Bring to a bare simmer, skimming off the grey foam that rises at first.</div><div>Simmer very gently, mostly covered, for 12–24 hours. Never leave a hob on unattended or overnight; a slow cooker is safer for long simmers.</div></div></div></div></section>
+<section class="step" data-fill=".85" data-days="4"><div class="piece"><div class="k">Do · 2 of 2</div><div class="card"><div class="steps" style="counter-reset:s 3"><div>Strain out the solids. Cool the broth quickly — an ice bath or shallow containers — then refrigerate within two hours.</div><div>Skim the fat once it's set on top, or leave it as a natural seal. Salt only when you're about to use it.</div></div></div></div></section>
+<section class="step" data-fill=".85" data-days="5"><div class="piece"><div class="k">Watch for</div><div class="card"><div class="txt"><p style="margin:0">Cool it fast and refrigerate within two hours — bacteria multiply quickest in the hours a warm pot sits out. Reboiling kills most bacteria but not toxins some leave behind, so it won't save broth that's been out too long or smells off. Any sour smell, grey-green tint, or sliminess means throw it out. If you're pregnant, immune-compromised, or unsure, ask a doctor.</p></div></div></div></section>
+<section class="step" data-fill=".85" data-days="5"><div class="piece"><div class="k">Keep</div><div class="card"><div class="txt"><p style="margin:0">In the fridge, in a sealed container, for up to four days. Freeze for longer storage.</p></div></div></div></section>
+<section class="step" data-fill=".85" data-days="5" data-cover="1"><div class="piece"><div class="k">Now</div><div class="card"><div class="txt"><p style="margin:0;font-size:clamp(20px,5.2vw,25px);line-height:1.4;font-style:italic">Low and slow, and never unattended.</p></div></div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/bone-broth-fermentation-sciences.html" style="--to:#C9A84C" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="hint" id="hint">scroll to walk</div>
+<div class="count" id="count">1 / 7</div>
+
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* CORRIDOR_JS + the jar */
+(function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
+count=document.getElementById('count'),hint=document.getElementById('hint'),
+tea=document.getElementById('tea'),sc=document.getElementById('scoby'),
+dayt=[...document.querySelectorAll('.days .dayt')];
+const BASE=320,MAX=272;
+function jar(fill,days,i){const h=MAX*parseFloat(fill||0);
+  tea.setAttribute('y',BASE-h);tea.setAttribute('height',h);
+  sc.setAttribute('cy',BASE-h+12);sc.setAttribute('opacity','0');
+  dayt.forEach((d,k)=>{d.style.transitionDelay=(k*.06)+'s';d.classList.toggle('on',k<+days)})}
+function activate(i){const e=steps[i];e.classList.add('on');count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  jar(e.dataset.fill,e.dataset.days,i);document.body.dataset.cover=e.dataset.cover||"0";if(i>0)hint.classList.add('gone')}
+let cur=-1,last=0,tm=0;
+function sync(){const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}}
+function tick(){const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}else tm=setTimeout(()=>{last=Date.now();sync()},80)}
+addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);
+addEventListener('load',sync);sync();
+addEventListener('visibilitychange',()=>{document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync()});
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});
+if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+if(e.key==='ArrowUp'){e.preventDefault();const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}});
+/* play: tap the jar and the glass clears — you can see what is happening in there */
+document.getElementById('jarhit').addEventListener('click',()=>{const b=document.body;
+  b.dataset.open=b.dataset.open==='1'?'0':'1'});})();</script>
+</body></html>

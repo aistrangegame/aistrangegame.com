@@ -87,6 +87,31 @@ body[data-swap="1"] .rounds{flex-direction:column-reverse}
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body data-seed="0.8062" class="light" data-variant="science-and-claim" data-here="open" data-swap="0" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -114,10 +139,15 @@ body[data-swap="1"] .rounds{flex-direction:column-reverse}
 <section class="step" data-here="round" data-lean="both"><div class="piece"><div class="k">Round 2</div><div class="rounds"><div class="chair left"><b>The chair that holds the promise</b>Some athletes and wellness communities report feeling less bloated or less acidic after switching, a pattern they trust even without a lab explaining it.</div><div class="chair right"><b>The chair that holds the body</b>Your stomach responds to a higher pH by making more acid to restore its own balance — the body corrects the water, not the other way around.</div></div></div></section>
 <section class="step" data-here="round" data-lean="both"><div class="piece"><div class="k">Round 3</div><div class="rounds"><div class="chair left"><b>The chair that holds the promise</b>One lab study suggests alkaline water may deactivate pepsin, the enzyme linked to reflux irritation. That’s at least something measured.</div><div class="chair right"><b>The chair that holds the body</b>That finding is narrow and early — a long way from the broad anti-aging, disease-fighting claims sold on the label.</div></div></div></section>
 <section class="step" data-here="sit" data-lean="none"><div class="piece"><div class="k">Where are you sitting?</div><div class="pick"><a href="#held" data-sit="left">The chair that holds the promise</a><a href="#held" data-sit="right">The chair that holds the body</a><a href="#held" data-sit="floor">Neither — I’m still listening</a></div></div></section>
-<section class="step" data-here="held" data-lean="none" id="held"><div class="piece"><div class="k">Held open</div><div class="txt"><p>Your body holds blood pH in a tight range through your kidneys and lungs, not your diet, and restores stomach acidity on its own. If you have kidney disease or take medication, ask a doctor before changing what you drink.</p></div><div class="because" id="sitline"></div><div class="aff" style="margin-top:18px">Your body already knows its pH. Drink what you like.</div></div></section>
+<section class="step" data-here="held" data-lean="none" id="held"><div class="piece"><div class="k">Held open</div><div class="txt"><p>Your body holds blood pH in a tight range through your kidneys and lungs, not your diet, and restores stomach acidity on its own. If you have kidney disease or take medication, ask a doctor before changing what you drink.</p></div><div class="because" id="sitline"></div><div class="aff" style="margin-top:18px">Your body already knows its pH. Drink what you like.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/alkaline-water.html" style="--to:#97a491" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to hear both</div>
 <div class="count" id="count">1 / 7</div>
 
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS */
 (function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
 count=document.getElementById('count'),hint=document.getElementById('hint'),
