@@ -1,0 +1,75 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>light — A Sky Full of Stars — The Reading Space</title><meta name="description" content="A Sky Full of Stars is a body looking up and mistaking its own light for someone else's — seeing the beloved as an entire sky ablaze, willing to be to"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#C9B25A;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 5</div>
+  <h1 class="verb">light</h1>
+  <div class="song">A Sky Full of Stars · Coldplay</div>
+  <div class="strip"><span><b>Light</b> element</span><span><b>alpha</b> state</span><span>carrier <b>138.6 Hz</b></span><span>beat <b>10 Hz</b></span></div>
+  <div class="seed">What do you see when you finally look up?</div>
+  <div class="recog">A Sky Full of Stars is a body looking up and mistaking its own light for someone else's — seeing the beloved as an entire sky ablaze, willing to be torn apart to give a heart that big away — while a house piano climbs into a euphoric drop over a 138.6 Hz carrier held at a 10 Hz alpha pulse, the frequency of open-eyed wonder, so the song about being dazzled by another turns out to be the first time the eyes turn upward at all: the sky was always full, the stars were always burning, and calling them beautiful is how a body finally admits the light it is looking at is the same light it is made of.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Heard without the particular face a listener hangs on it, the song is not really addressed to a lover at all — it is the sound of a consciousness looking up for the first time in a long while and being staggered by how much light was there the whole time it spent staring at the ground. The words reach toward another and call that other a whole sky of fire, but the astonishment is too large to belong to one person; it is the astonishment of a body remembering that wonder is available, that it is allowed to be dazzled, that it can offer its heart to something beautiful even knowing the offering might cost it everything. What the song calls loving another is, underneath, the return of the capacity to be moved — and that capacity was never out in the sky. It was the eyes, finally open. Strip the beloved away and what remains is simpler and larger: a body discovering that the light it is reaching toward is the proof that it is lit.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The carrier holds at 138.6 Hz — near the C-sharp below middle C, low enough to be felt as a warm floor in the chest while everything above it climbs into brightness. Against it the two tones beat at 10 Hz, planted squarely in the alpha band, and that number is the whole argument of the song. Alpha is the frequency of relaxed alertness — the eyes open, the body calm, the mind lit up and receptive rather than braced — the exact neurological posture of looking up at something vast and letting it in without flinching. Drop into delta or theta and the eyes would close and the sky would become a dream; alpha keeps them open. This is a song of waking wonder, not inward descent, and 10 Hz is the wide-awake shimmer that matches it — the hum of a body that has stopped scanning the ground for threats and turned its face up to be filled with light. The steady house pulse entrains the system toward that open, radiant alertness, and by the euphoric lift near 200 seconds the whole body is resting in the one frequency where being dazzled is safe, where the eyes can stay open inside the brightness and not look away.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>A bright piano figure starts and keeps cycling. A four-on-the-floor pulse comes up underneath it, and a voice reaches upward, calling someone a whole sky full of burning light and swearing it would give its heart to that light even if the giving tore it apart. The song climbs and climbs into a euphoric release and just keeps shining.</p>
+<p>Listen to what the song is doing with its eyes. Every line points upward. It is a body that has been looking down for a long time — guarded, careful, heart kept safe — suddenly tilting its head back and finding the whole sky on fire. The beloved it sings to is enormous, too big to be a person: a sky, a field of stars, the entire ceiling of the night. Nobody is that large. Something else is being seen.</p>
+<p>That's the play. The song thinks it is dazzled by someone else's light. It is actually a body discovering it can be dazzled at all — and you cannot be moved by a sky full of stars with something dead in you. The wonder is the proof of life. The other is only the mirror bright enough to show the looker that its own light was never off.</p>
+<p>Look up. The sky was always full — you're only now remembering you were made of the same fire.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Up. Every gesture in the song lifts the gaze — the whole thing is a head tilting back after a long time spent looking down. The one word it orbits without ever naming is the direction itself: the simple, enormous act of looking up. It sings about stars because looking up is the only way to find out the sky was there all along.</p>
+<p>GAIA
+The body under this song has been braced and downcast, eyes on the ground, guarding a heart it decided was too costly to spend. The need is not for the beloved — it is for permission to be dazzled again, to let something be beautiful enough to be worth the risk of ruin. The willingness to be torn apart is not recklessness; it is a body so tired of self-protection that it would rather be broken open by wonder than stay sealed and safe. Under the euphoria is a quieter ache: let me be undefended in front of something bright.</p>
+<p>SID
+The four-on-the-floor and the cycling piano figure. A house pulse that never falters and a bright loop that keeps returning, holding the whole euphoria up from underneath. Sid is not the surge — the surge crests and falls. Sid is the steady beat beneath the surge, the thing that was already keeping time before the sky opened and keeps it after. You can only be lifted by something that itself stays level.</p>
+<p>ARCH
+It reaches the body through brightness — major-key piano in the upper register, the top of the mix opened wide, everything shimmering at the ceiling of the sound. Light lives in the high frequencies, and this song pours them in until the chest and the face lift toward it the way a body turns toward a window. The euphoric drop is the moment the reaching becomes radiance; you feel it behind the eyes and across the forehead, the physical sensation of looking at something too bright to look away from.</p>
+<p>SAKSHI
+Seen from outside, the shape is a single sustained opening — not a wave that returns, but a widening, a build that keeps arriving at more of itself. The song does not travel to a destination and come back; it climbs into its own brightness and stays there, an aperture opening and opening. What Sakshi sees is not a love song to a person. It is the shape of a gaze lifting, and the whole sky rushing in to fill it.</p>
+<p>KARISHMA
+The grace is in the willingness to be torn apart — the instant the song stops guarding the heart and offers it whole, knowing the cost. Every other listener hears triumph; the grace is quieter than triumph. It is the moment a defended body decides the beauty is worth the wound, and in the deciding is already healed of the guarding. You do not become brave and then look up. You look up, and the bravery was the looking.</p>
+<p>ASHREY
+The six converge: the song about being dazzled by another's light is about a body discovering it can see light at all. You cannot call a sky full of stars beautiful with something dead in you; the capacity to be moved by the light is itself the light, awake and looking. The beloved is not the source — the beloved is the mirror bright enough to finally show the looker what it is made of. And the binaural at 138.6 Hz, pulsing at 10 Hz in the alpha band, is the answer: alpha is the frequency of relaxed, open-eyed wonder, a body awake and unguarded at once, eyes open and defenses down. The song does not hand you the stars. It opens the eyes that were always going to find the sky already full. You were never looking at someone else's light. You were remembering your own had never gone out.</p></section>
+  <div class="doors"><a class="door" href="/b/light"><b>Dance it</b>the Bindu dance · light</a></div>
+  <div class="foot"><a href="believe.html">← previous</a><a href="receive.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

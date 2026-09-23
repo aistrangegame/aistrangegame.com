@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>trace — Shape of You — The Reading Space</title><meta name="description" content="Shape of You is a body tracing the outline of another and calling it desire — the crowded bar, the pull across the room, the hands following a familia"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#3A8BC4;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 48</div>
+  <h1 class="verb">trace</h1>
+  <div class="song">Shape of You · Ed Sheeran</div>
+  <div class="strip"><span><b>Water</b> element</span><span><b>alpha</b> state</span><span>carrier <b>138.6 Hz</b></span><span>beat <b>8 Hz</b></span></div>
+  <div class="seed">What shape do you keep returning to?</div>
+  <div class="recog">Shape of You is a body tracing the outline of another and calling it desire — the crowded bar, the pull across the room, the hands following a familiar curve — while the plucked riff loops the same bright figure without end and the 138.6 Hz carrier settles an 8 Hz sway into the hips, so the song about wanting a body turns out to be the sound of one already home: the sacral body discovering that the shape it keeps returning to was never a conquest but a doorway, and the finger tracing it was always drawing the way back.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Strip the projection and this is not a song about a stranger at a bar. It's a body describing the one thing it has always wanted: to be met as a form, wanted as a shape, allowed to return. The night out, the pull across a room, the hands finding a familiar curve — these are the surface. Underneath, the song keeps doing one thing: it comes back. To the same riff, the same groove, the same outline. What sounds like appetite is really recognition — the body isn't discovering a shape, it's remembering one it already knows how to find in the dark. The tracing finger isn't taking; it's coming home. And the small domestic moments tucked between the heat — the shared meal, the ordinary closeness — are the song quietly telling the truth about what all that wanting was for: not conquest, but a place to belong that has edges you can feel.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The carrier holds steady at 138.6 Hz — a warm low-mid tone that settles into the chest and pelvis rather than the ear, close to where the body actually registers being held. Against it runs an 8 Hz beat — the low edge of the alpha band, right where it borders theta: the flowing, unhurried reverie the body drops into when it stops analyzing and starts swaying. That state belongs to this song exactly. Alpha is where memory lives in the muscles instead of the mind — where the hands know a shape without being told, where you follow a groove without deciding to. This is a body-memory song, a song about tracing a known form, and 8 Hz is the frequency of knowing-by-feel. Water moves at alpha. The binaural doesn't push the body toward anything new; it lowers it into the state where the shape it keeps returning to is already familiar under the fingertips.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>A crowded bar, a drink, the pull toward someone across the room. Hands finding the curve of a body. A night that ends in a bed, a shared meal the next day, and a bright plucked riff bouncing the same figure the whole way through.</p>
+<p>Every line reaches for a body — the hands trace, the eyes follow, the whole song leans toward another form. But listen to the riff underneath. It never changes. The same figure, verse after verse, hook after hook. It doesn't chase anything. It returns. The groove is a path already worn smooth, and the song keeps walking back down it.</p>
+<p>That's the play. The song pretends it's hungry for a body it just found. It's actually a body remembering a shape it already knows how to find in the dark. You think you're hearing desire. You're hearing homecoming. The finger tracing the outline isn't discovering anything — it's coming home, again, the way it always does.</p>
+<p>The 138.6 Hz tone sits low in the chest, and the 8 Hz sway drops you into the state where the hands know the shape without the mind's help. Nothing about this song is searching. It only sounds like searching.</p>
+<p>Enjoy the body thinking it's still looking. It found the shape three bars ago and hasn't stopped coming home since.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Home. The song names everything but this — the body, the curves, the shape, being in love with a form — and never once says the word all that tracing is reaching for. Every outline the hands follow is a search for the one shape that finally says: you can stop moving now. The word it circles and never lands on is the place the body is trying to get back to.</p>
+<p>GAIA
+The need under the wanting isn't sex — it's contact. A body alone in a loud room, drink in hand, asking to be met as a form and not measured. To be traced is to be known by touch instead of judged by sight. The sacral body, which carries every yes and no it was ever handed, is asking for one specific outline it's allowed to return to — to be chosen at the level of skin, to belong somewhere physical enough to lean into.</p>
+<p>SID
+The plucked riff. That bright, marimba-like figure that bounces the same short loop from the first second to the last — it never develops, never modulates, never resolves. It just returns. It was playing before the first word and it's still playing when the voice stops. Everything else — the verses, the hook, the breath between them — falls against it. It's the worn groove the whole body keeps stepping back into, the path already smooth from being walked.</p>
+<p>ARCH
+This song reaches the hips, not the head. The plucked timbre sits in the pocket of a mid-tempo dancehall sway, and the mechanism is the sway itself — a pulse slow enough to move to, close enough to breathe against. The vocal is mouth-close, conversational, almost murmured into the ear rather than sung across a room. It doesn't argue; it grooves. The body starts tracing the beat before the mind decides to.</p>
+<p>SAKSHI
+From outside, this isn't a chase — it's an orbit. The bar, then the bedroom, then a shared meal, then the pull again: a single body circling another through one day and one night, witnessed from the outside without judgment. The song never climbs to a peak and releases; it keeps rounding back to the same figure, the way a body comes back to the same bed. Nothing here is going anywhere. Everything here is coming back.</p>
+<p>KARISHMA
+The grace hides in the domestic detail — the ordinary aside about a shared dinner, the everyday push and pull, the mundane closeness folded in among all the heat. That's the tell. The song that sounds like it only wants a body accidentally admits it wants the ordinary: the meal, the return, the unspectacular shape of two people who keep ending up in the same room. The tenderness slipped inside the club song is where the whole thing gives itself away.</p>
+<p>ASHREY
+The song about being in love with a body is actually about the body's oldest hunger — to have one shape it is allowed to return to. And the music already answers it: the riff never stops coming back to the same figure, which is precisely what the body is reaching for — a form to come home to. The song about wanting a body is the sound of a body already home, circling the one outline it recognizes in the dark. At 138.6 Hz beneath an 8 Hz sway, the reaching quiets and the tracing takes over: the finger following the shape was never hunting. It was remembering the way back.</p></section>
+  
+  <div class="foot"><a href="melt.html">← previous</a><a href="build.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

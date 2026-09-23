@@ -1,0 +1,55 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Build the Slice — a teaching</title><meta name="description" content="Build one thing all the way through — every layer, ugly, working — before you build anything wide. Breadth first makes every problem arrive at once."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#92a0b1;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;height:100%}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;height:100%;overflow-y:auto;overflow-x:hidden;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:1;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,.92)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ac);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.one{font-size:clamp(23px,5.8vw,30px);line-height:1.4;font-weight:500}
+.tues{font-style:italic;font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.why{font-size:clamp(19px,4.8vw,22px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.list{display:grid;gap:16px}
+.list div{padding:16px 18px;border:1px solid var(--faint);border-radius:10px;background:var(--card);font-size:17.5px;line-height:1.55}
+.refuses div{font-style:italic;border-color:var(--ac)}
+.enter{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.links a{padding:12px 16px;border:1px solid var(--ac);border-radius:999px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.nav{display:flex;justify-content:space-between;gap:14px;margin-top:40px;padding-top:18px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.62);--faint:rgba(245,239,230,.16);--card:rgba(255,255,255,.05);--bg:#0B0910}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.55);--bg:#F7F3EC}
+.mixed{--ink:#1F1B16;--muted:rgba(31,27,22,.62);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.75);--bg:#F7F3EC}
+.mixed .piece{background:rgba(247,243,236,.92);padding:26px 24px;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}}
+.w{background:#1B2E17}
+.w::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 10.5%,rgba(255,255,255,.06) 10.5% 11.1%);opacity:.9}
+.w::after{content:"";position:absolute;left:calc(var(--p,0)*88% + 1%);top:14%;bottom:14%;width:10%;border:1px solid rgba(201,168,76,.7);box-shadow:0 0 40px rgba(201,168,76,.25);transition:left 1.2s cubic-bezier(.16,1,.3,1)}
+.law{font-size:clamp(24px,6.2vw,34px);line-height:1.3;font-weight:500;margin:0 0 18px}
+.because{font-style:italic;color:var(--muted);font-size:clamp(17px,4.4vw,20px);line-height:1.6;margin:0 0 14px}
+.looks{font-size:clamp(17px,4.4vw,20px);line-height:1.6;border-left:2px solid var(--ac);padding-left:18px}
+.practice{font-size:clamp(19px,4.8vw,22px);line-height:1.6}
+.close{font-size:clamp(22px,5.6vw,28px);line-height:1.4;font-style:italic}
+.src{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.08em;color:var(--muted)}
+.src a{border-bottom:1px solid var(--faint)}
+.num{font-family:var(--sans);font-size:11px;letter-spacing:.26em;color:var(--ac);margin-bottom:10px}
+</style></head><body class="light" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="top"><a href="index.html">← The teachings</a><span>One complete piece before you widen</span></div>
+<section class="step"><div class="piece"><h1>Build the Slice</h1><p class="sub">One complete piece before you widen</p></div></section><section class="step"><div class="piece"><div class=k>The teaching</div><div class="one">Build one thing all the way through — every layer, ugly, working — before you build anything wide. Breadth first makes every problem arrive at once.</div></div></section><section class="step"><div class="piece"><div class=k>Before the laws</div><div class="tues">The builds that failed were built wide: every screen sketched, every table designed, nothing running end to end. Then integration day came and every integration problem surfaced together, and there was no way to tell which one mattered. The builds that lived were built deep: freeze the contract, verify the data alone against real records, one complete vertical slice, then widen.</div></div></section><section class="step"><div class="piece"><div class="num">1 of 4</div><div class="law">Freeze the contract before you design.</div><div class="because">Because designing against a moving target means designing twice.</div><div class="looks">Write down what the thing takes in and what it gives back. Don't touch a screen until that's still.</div></div></section><section class="step"><div class="piece"><div class="num">2 of 4</div><div class="law">Verify the data alone, against the real, messy version.</div><div class="because">Because the real records have broken dates and missing years, and a design built on clean examples breaks on the first real one.</div><div class="looks">Pull ten real examples. Look at the worst three. Design for those.</div></div></section><section class="step"><div class="piece"><div class="num">3 of 4</div><div class="law">One slice, every layer, then widen.</div><div class="because">Because a slice that runs end to end teaches you what the other slices need before you build them.</div><div class="looks">Pick the smallest complete path. Make it work. Only then add a second.</div></div></section><section class="step"><div class="piece"><div class="num">4 of 4</div><div class="law">Ship it ugly in week one and use it daily.</div><div class="because">Because a beautiful thing you haven't lived in is a guess. An ugly thing you've walked for a week is knowledge.</div><div class="looks">Empty states and error states go in the spec. They are not polish; they are the parts you meet first.</div></div></section><section class="step"><div class="piece"><div class=k>The practice</div><div class="practice">Take the thing you're building. Name the narrowest path that would count as 'it works'. Build only that. Use it tomorrow.</div></div></section><section class="step"><div class="piece"><div class="close">Depth teaches. Breadth postpones. Build the slice.</div><div class="src">The build discipline that replaced breadth-first, after enough breadth-first failures. <a href="/guide/lalita-family.html">Read what it is →</a></div><div class="nav"><a href="only-true-when-true.html">← previous</a><a href="index.html">the teachings</a><a href="count-in-private.html">next →</a></div></div></section>
+<div class="hint" id="hint">scroll to walk</div>
+<div class="count" id="count">1 / 9</div>
+<script>
+(function(){const steps=[...document.querySelectorAll('.step')],w=document.getElementById('w'),count=document.getElementById('count'),hint=document.getElementById('hint'),N=steps.length,DIR="walk";
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting&&e.intersectionRatio>=0.12){const i=steps.indexOf(e.target);e.target.classList.add('on');count.textContent=(i+1)+' / '+N;const p=N>1?i/(N-1):1;const z=DIR==='in'?(1+p*1.6):DIR==='out'?(1.8-p*1.2):1;w.style.setProperty('--z',z.toFixed(3));w.style.setProperty('--p',p.toFixed(3));document.documentElement.style.setProperty('--p',p.toFixed(3));if(i>0)hint.classList.add('gone')}})},{threshold:[0.12,0.5]});steps.forEach(s=>io.observe(s));steps[0]&&steps[0].classList.add('on');if(!('IntersectionObserver' in window))steps.forEach(s=>s.classList.add('on'));
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();(steps[i+1]||steps[N-1]).scrollIntoView({behavior:'smooth'})}if(e.key==='ArrowUp'){e.preventDefault();(steps[i-1]||steps[0]).scrollIntoView({behavior:'smooth'})}});})();
+</script></body></html>

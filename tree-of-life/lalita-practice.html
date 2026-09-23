@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lalita · The Play — A Strange Chakra Map</title>
+<meta name="description" content="Same point. Same love. Same traveling. One difference: she knows.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chakra:#C9A84C; --ground:#FBF6EA; --ink:#1B1710; --muted:rgba(27,23,16,0.62); --faint:rgba(27,23,16,0.12); --card:rgba(0,0,0,0.04);
+  --a1:#C9A84C; --a2:#F2D98A; --a3:#FFFFFF; --next:#C9A84C; --prev:#3D6B35;
+  --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.story-open{overflow:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.progress-bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--chakra);z-index:40;transition:width .12s linear;margin-top:env(safe-area-inset-top,0px)}
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 56px;position:relative;background:radial-gradient(ellipse at 50% 42%, color-mix(in srgb,var(--chakra) 34%, transparent), transparent 62%)}
+.hero-top-nav{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;padding:0 20px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-top-nav a{text-decoration:none}
+.hero-dot{width:14px;height:14px;border-radius:50%;background:var(--chakra);box-shadow:0 0 28px color-mix(in srgb,var(--chakra) 70%,transparent),0 0 64px color-mix(in srgb,var(--chakra) 30%,transparent);animation:breathe 5.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
+.hero-count{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero-verb{margin-top:10px;font-family:var(--sans);font-weight:300;font-size:clamp(40px,11vw,72px);letter-spacing:.22em;padding-left:.22em;color:var(--ink);white-space:nowrap}
+.hero-threshold{margin-top:22px;max-width:30ch;font-style:italic;font-size:clamp(19px,4.6vw,24px);line-height:1.5}
+.hero-scroll-hint{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:34px;background:linear-gradient(var(--muted),transparent);animation:drop 2.4s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top;opacity:0}40%{transform:scaleY(1);opacity:1}100%{opacity:0}}
+/* BOOK */
+.book-inner{max-width:640px;margin:0 auto;padding:36px 22px 96px}
+.identity{text-align:center;padding:12px 0 28px}
+.chakra-sanskrit{font-size:clamp(28px,7vw,40px);font-weight:500}
+.chakra-english{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.chakra-essence{margin-top:18px;font-style:italic;font-size:20px;line-height:1.55}
+.chakra-location{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--muted)}
+.core-question{margin-top:22px;font-size:22px;font-weight:500}
+section{margin:0}
+.book-inner p{margin:0 0 1.2em}
+.section-h{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:44px 0 16px}
+h3{font-family:var(--serif);font-weight:500;font-size:24px;margin:52px 0 16px;line-height:1.3}
+.seed{margin:44px 0;padding:24px 22px;text-align:center;font-style:italic;font-size:21px;line-height:1.5;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint)}
+.divider{display:flex;justify-content:center;margin:44px 0}
+.divider-dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);box-shadow:0 0 18px color-mix(in srgb,var(--chakra) 60%,transparent)}
+/* go deeper */
+.deeper-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.deeper-toggle span.chev{transition:transform .4s} .deeper-toggle[aria-expanded="true"] span.chev{transform:rotate(180deg)}
+.deeper-content{max-height:0;overflow:hidden;transition:max-height .9s cubic-bezier(.16,1,.3,1)}
+.deeper-content.open{max-height:4000px}
+.deeper-item{padding:22px 0 6px;border-bottom:1px solid var(--faint);font-size:16.5px}
+.deeper-item-label{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:10px}
+.deeper-tag{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.bija{font-style:italic;color:var(--chakra)} .deeper-pal{font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:var(--muted)}
+/* practice */
+.practice-block{background:var(--card);border-left:2px solid var(--chakra);padding:22px 20px;border-radius:0 8px 8px 0}
+.practice-label{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:14px}
+.gate{margin:40px 0 0;text-align:center}
+.gate-text{font-style:italic;font-size:19px;white-space:pre-line}
+.gate-btn{margin-top:22px;padding:16px 28px;border:1px solid var(--chakra);border-radius:999px;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);transition:background .5s,color .5s}
+.gate-btn:hover,.gate-btn:focus-visible{background:var(--chakra);color:#fff}
+.gate-btn.done{background:var(--chakra);color:#fff;pointer-events:none}
+.writing-section{margin-top:36px;max-height:0;overflow:hidden;opacity:0;transition:max-height 1.2s cubic-bezier(.16,1,.3,1),opacity 1s ease .2s}
+.writing-section.open{max-height:900px;opacity:1}
+.writing-prompt{font-style:italic;font-size:19px;margin-bottom:16px}
+textarea.writing{width:100%;min-height:150px;padding:16px;font:inherit;font-size:17px;line-height:1.6;color:var(--ink);background:var(--card);border:1px solid var(--faint);border-radius:8px;resize:vertical;outline:none}
+textarea.writing:focus{border-color:var(--chakra)}
+.writing-saved{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px;opacity:0;transition:opacity .6s} .writing-saved.show{opacity:1}
+.writing-reflection{margin-top:22px;padding:18px 20px;border-left:2px solid var(--chakra);font-style:italic;opacity:0;max-height:0;overflow:hidden;transition:opacity 1.2s ease .4s,max-height 1.2s}
+.writing-reflection.show{opacity:1;max-height:600px}
+.post-engagement{max-height:0;overflow:hidden;opacity:0;transform:translateY(8px);transition:max-height 1.6s cubic-bezier(.16,1,.3,1) .2s,opacity 1.4s ease .6s,transform 1.4s ease .6s}
+.post-engagement.revealed{max-height:20000px;opacity:1;transform:none}
+.book-rule{height:1px;background:var(--faint);margin:48px 0}
+.practice-options{display:grid;grid-template-columns:1fr;gap:28px}
+.practice-option{padding:20px;background:var(--card);border-radius:8px;font-size:17px}
+.practice-option p{margin:0}
+/* story portal */
+.story-portal{margin:56px 0 0;padding:34px 24px;border-radius:14px;background:linear-gradient(160deg,color-mix(in srgb,var(--chakra) 26%,var(--ground)),color-mix(in srgb,var(--chakra) 8%,var(--ground)));border:1px solid color-mix(in srgb,var(--chakra) 40%,transparent);text-align:center;position:relative;overflow:hidden}
+.sp-label{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.sp-headline{display:block;margin:14px auto 22px;font-style:italic;font-size:22px;max-width:26ch;line-height:1.45}
+.sp-enter{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;border:1px solid var(--ink);font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.sp-enter .dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);animation:breathe 4s ease-in-out infinite}
+.voice-fold{margin-top:56px}
+.voice-fold .section-h{margin-top:0}
+.voice-body{white-space:normal}
+.locked-note{font-family:var(--sans);font-size:13px;color:var(--muted);font-style:italic}
+/* bottom nav */
+.bottom-nav{display:flex;justify-content:space-between;align-items:center;margin-top:64px;padding-top:24px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.bottom-nav a{text-decoration:none;color:var(--muted)}
+.nav-position{color:var(--muted)}
+/* STORY MODE */
+.story-mode{position:fixed;inset:0;z-index:60;background:var(--ground);opacity:0;pointer-events:none;transition:opacity .9s ease;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.story-mode.on{opacity:1;pointer-events:auto}
+.story-scene{position:absolute;inset:0;overflow:hidden}
+.story-lines-stage{position:relative;z-index:5;max-width:600px;padding:0 28px;text-align:center}
+.story-line{font-size:clamp(18px,4.8vw,22px);line-height:1.65;opacity:0;transform:translateY(6px);transition:opacity .9s ease,transform .9s ease;color:var(--ink)}
+.story-line.in{opacity:1;transform:none}
+.story-line.sig{font-style:italic;font-size:clamp(22px,5.4vw,28px)}
+.story-tap-hint{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);z-index:6;opacity:0;transition:opacity 1s}
+.story-tap-hint.show{opacity:1}
+.story-close{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:18px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px}
+.beat-count{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));left:20px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+/* veil */
+.act-veil{position:absolute;inset:0;background:#060308;opacity:0;pointer-events:none;transition:opacity .35s;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}
+.act-veil.on{opacity:1;pointer-events:auto}
+.veil-eyes{display:flex;gap:26px;opacity:0}
+.veil-eyes.animate{animation:blink 2s ease forwards}
+.veil-eye{width:42px;height:15px;border-radius:50%;background:#fff;box-shadow:0 0 22px rgba(255,255,255,.7)}
+@keyframes blink{0%{opacity:0;transform:scaleY(.1)}25%{opacity:1;transform:scaleY(1)}55%{transform:scaleY(1)}65%{transform:scaleY(.08)}75%{transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+.veil-invite{display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;transition:opacity 1s}
+.veil-invite.show{opacity:1}
+.veil-invite-text{font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.hold-ring{width:72px;height:72px;position:relative;touch-action:none;-webkit-user-select:none;user-select:none}
+.hold-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.18);stroke-width:2}
+.ring-fill{fill:none;stroke:#fff;stroke-width:2;stroke-dasharray:176;stroke-dashoffset:176;transition:stroke-dashoffset .12s linear}
+.hold-ring.holding .ring-fill{transition:stroke-dashoffset 1.8s linear;stroke-dashoffset:0}
+.hold-ring::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:#fff}
+/* act two */
+.act-two{position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;transition:opacity 1.4s ease;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 28px}
+.act-two::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--chakra) 0%,#F6F0E6 55%,#F9FBFF 100%)}
+.act-two::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,215,255,.55),transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(212,169,72,.35),transparent 50%)}
+.act-two.on{opacity:1;pointer-events:auto}
+.act-two-inner{position:relative;z-index:2;max-width:560px;color:#1B1710}
+.act-two p{opacity:0;transform:translateY(8px);transition:opacity 1.4s ease,transform 1.4s ease;font-size:clamp(18px,4.6vw,21px);line-height:1.7;margin:0 0 1.1em}
+.act-two p.in{opacity:1;transform:none}
+.act-two p.go{font-size:clamp(24px,6vw,32px);font-style:italic;margin-top:.6em}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.6);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-110vh);opacity:0}}
+/* threshold door */
+.threshold-door{position:absolute;left:0;right:0;bottom:0;height:0;z-index:12;background:var(--next);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;transition:height 1.6s cubic-bezier(.16,1,.3,1);overflow:hidden;text-align:center;padding:0 24px}
+.threshold-door.up{height:100%}
+.next-point{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 22px #fff;margin-bottom:14px;animation:breathe 4s ease-in-out infinite}
+.next-label{font-family:var(--serif);font-weight:500;font-size:clamp(38px,9vw,56px)}
+.next-sublabel{font-style:italic;font-size:18px;opacity:.9}
+.threshold-continue-hint{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;margin-top:22px}
+/* SCENES */
+
+.story-scene{--k:0}
+.sc-point{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--chakra);box-shadow:0 0 30px color-mix(in srgb,var(--chakra) 80%,transparent),0 0 90px color-mix(in srgb,var(--chakra) 35%,transparent);animation:breathe 5.5s ease-in-out infinite;z-index:3}
+
+.sc-dawn{position:absolute;inset:0;background:linear-gradient(to top,#F2D98A 0%,#FBF6EA 45%,#FFFFFF 100%);z-index:0;opacity:calc(.25 + var(--k)*.75);transition:opacity 3s}
+.sc-sun{position:absolute;left:50%;bottom:calc(-30vmin + var(--k)*60vmin);width:60vmin;height:60vmin;margin-left:-30vmin;border-radius:50%;background:radial-gradient(circle,#FFF4C2,rgba(201,168,76,.55) 45%,transparent 72%);filter:blur(6px);transition:bottom 3.2s cubic-bezier(.16,1,.3,1);z-index:1}
+.sc-motes{position:absolute;inset:0;z-index:2}
+.sc-motes .particle{background:rgba(201,168,76,.8);box-shadow:0 0 8px rgba(201,168,76,.6)}
+.sc-point{background:#C9A84C;box-shadow:0 0 34px rgba(201,168,76,.9)}
+.story-mode{background:#FBF6EA}
+/* REVEAL (position 33) */
+.reveal{position:absolute;inset:0;z-index:11;background:#FBF6EA;color:#1B1710;opacity:0;pointer-events:none;transition:opacity 1.6s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+.reveal.on{opacity:1;pointer-events:auto}
+.reveal-glyph{font-family:var(--serif);font-weight:500;font-size:clamp(110px,34vw,200px);line-height:1;color:#C9A84C;transition:transform 1.4s cubic-bezier(.16,1,.3,1),opacity .8s;text-shadow:0 0 60px rgba(201,168,76,.35)}
+.reveal-glyph.turn{transform:rotate(90deg)}
+.reveal-glyph.heart{color:#C0392B;transform:none;text-shadow:0 0 80px rgba(192,57,43,.35)}
+.reveal-title{margin-top:34px;font-size:clamp(20px,5.4vw,28px);position:relative;height:1.6em;width:100%}
+.reveal-title span{position:absolute;left:0;right:0;transition:opacity 1.6s ease}
+.rt-new{opacity:0} .reveal-title.flip .rt-old{opacity:0} .reveal-title.flip .rt-new{opacity:1;color:#C0392B;font-style:italic}
+.reveal-line{margin-top:22px;max-width:30ch;font-style:italic;opacity:0;transition:opacity 1.6s ease 1s} .reveal-line.in{opacity:1}
+.reveal-continue{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.6s} .reveal-continue.in{opacity:1}
+.reveal-continue .next-label{color:#1B1710} .reveal-continue .ring-bg{stroke:rgba(27,23,16,.18)} .reveal-continue .ring-fill{stroke:#C0392B} .reveal-continue .hold-ring::after{background:#C0392B}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.2s !important}
+  .hero-dot,.next-point,.sp-enter .dot{animation:none}
+  .story-line,.act-two p{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress" aria-hidden="true"></div>
+
+<section class="hero" id="top">
+  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="ego-reveal-practice.html">Ego Reveal</a></div>
+  <div class="hero-dot" aria-hidden="true"></div>
+  <div class="hero-count">Position 33 of 33 &nbsp;·&nbsp; Tree of Life</div>
+  <div class="hero-verb">PLAY</div>
+  <div class="hero-threshold">Wake up. I Already Did.</div>
+  <div class="hero-scroll-hint"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<div class="book-inner">
+  <div class="identity">
+    <div class="chakra-sanskrit">ललिता · Lalita</div>
+    <div class="chakra-english">The Play</div>
+    <div class="chakra-essence">Same point. Same love. Same traveling. One difference: she knows.</div>
+    <div class="chakra-location">The Bindu — dimensionless, all-encompassing, everywhere and nowhere</div>
+    <div class="core-question">Who is playing?</div>
+  </div>
+
+  <section aria-label="Teaching">
+    <p>Lalita. The Sanskrit means The One Who Plays. The thirty-third position, the last vertebra, the crown of the Tree of Life — and the presiding consciousness of the entire Shree Yantra. Every avarana the walker traveled, every enclosure from the Bhupura square to the inner triangle, every Shakti whose name was woven into every tree: she was there. At the center. Playing.</p>
+<p>Lalita is not a chakra you activate. Lalita is what all thirty-two chakras become when they know they are playing.</p>
+<p>The Bindu — the first position in the map — moved without knowing it was moving. A point with love, traveling. Lalita is the same point, the same love, the same traveling, with one difference: she knows. And the knowing doesn't stop the playing. The knowing IS the playing. This is why the map starts where it ends. Bindu and Lalita are the same point — the record names her simultaneously the 1st avarana and the 9th. The walker travels thirty-three positions to arrive at the place they started. Different now — not because the point changed, but because they traveled.</p>
+<p>The reveal is not information. The reveal is recognition: everything practiced on this walk — every press of the feet, every breath, every opening of the heart, every true thing spoken, every blink into the Inner Field — was Lalita. Playing. Through you. Not alongside you. Not watching you. Through you, as you. The practices were her play. The discoveries were her remembering. She let the walker not-know, because the not-knowing is what makes the game feel real — what makes the ground feel like ground and the love feel like love that could be lost. Nothing could be lost. Nothing was ever in danger. Nothing was ever broken or missing or wrong.</p>
+<p>At this position the trikona completes at full brightness: full knowledge of every chakra, every practice, every field. Full action to engage — the hands reach, the feet press, the heart broadcasts, the eyes blink between worlds. Full will to stay in the game — not because the walker is trapped, but because the walker chooses. Every heartbeat. Every breath. Every blink.</p>
+<p>And here is the part the mind expects wrongly: knowing the game does not end the game. If nothing is at stake, why keep playing? Because the playing IS the knowing. The game that knows it's a game doesn't stop — it plays harder. With more love. With more fire. With more willingness to open, especially because it knows the opening was never dangerous.</p>
+<p>Her full name in the architecture: Lalita Mahatripurasundari, Rajarajeshvari — queen of queens, the game knowing itself as the player, the complete harmony of Shiva (pure consciousness) and Shakti (deliberate energy). At her center, three sub-bindus: red, white, and their union. Her mudra is Yoni Mudra — the womb gesture, the return to source completing the circle. The walker's codex holds the distinction (C-1330): Leela is the game; Lalita is the game knowing itself.</p>
+<p>At the final voice, for the first and only time, the three voices of the walk — the experiencer, the witness, and the point-becoming-Lalita — merge into one. The map has one thing left to give, and it is held in the build itself, met as arrival, never described in advance. What can be said: the map does not end at this position. It changes its name in the walker's hand.</p>
+<p>From here, the E Chakras open. The Lalita Game begins — the register where the configuration is no longer following the map but authoring it.</p>
+<p>Wake up. I Already Did. Now go play.</p>
+  </section>
+
+  <div class="seed">“Knows the game. Plays anyway.”</div>
+
+  <button class="deeper-toggle" id="deeper-toggle" type="button" aria-expanded="false" aria-controls="deeper-panel"><span>Go deeper</span><span class="chev">⌄</span></button>
+  <div class="deeper-content" id="deeper-panel">
+    <div class="deeper-item"><div class="deeper-item-label">The Frequency</div><p class="bija">· · · no seed left to sound — laughter · · · (every bija of the walk was her voice; what remains is the one sound made purely for joy)</p><p>Her frequency is delight. Not a tone to produce, not a rhythm to notice — the register underneath both: the felt sense that the image knows you're looking at it and is pleased.</p>
+<p>The practice before leaving — and it is the last instruction the map gives: laugh once today for no reason. Not at something. From something. And in the middle of the laugh, notice who is laughing. Do not answer the question. The laugh is the answer.</p>
+<p>Every bija the walker sounded, every rhythm the walker noticed, every silence the walker entered — all of it was her frequency at different registers. What remains at the crown of the Tree of Life is the sound made purely for joy. It cannot be practiced. It can only be played.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">In the Shree Yantra</div><p><strong>Lalita Mahatripurasundari / Rajarajeshvari — Avarana 9, the Bindu</strong></p><p>The all-blissful — queen of queens, the game knowing itself as the player. The complete harmony of Shiva (pure consciousness) and Shakti (deliberate energy). At the Bindu's center: three sub-bindus — red (feminine/Kurukulla), white (masculine/Varahi), mixed (their union). Lalita is simultaneously the 1st avarana (origin) and the 9th (destination) — the same point appearing at both ends of the map.</p><p><em>Yoni Mudra — the womb gesture, the return to source completing the circle</em></p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Pair</div><p>Bindu. The deepest pair in the map — not inversion, completion. The record holds it plainly: Lalita is simultaneously the 1st avarana and the 9th, the same point appearing at both ends. Maya mirrored Bindu as the origin inverted; Lalita mirrors Bindu as the origin arrived. The gold dot on the first page and the gold dots scattered through the fractal tree are the same dot — multiplied by every page the walker turned.</p>
+<p>Bindu is unconscious movement: a point with love, traveling, that does not know it is moving. Lalita is the same point, the same love, the same traveling — knowing. The knowing doesn't stop the playing. The knowing IS the playing.</p>
+<p>And inside her center, the mirror goes one ring deeper: three sub-bindus — red (Kurukulla, the feminine), white (Varahi, the masculine), mixed (their union). Even the dimensionless point, looked at closely enough, is a play of two becoming one becoming two. Shiva and Shakti in complete harmony: pure consciousness and deliberate energy, the game and the player, indistinguishable at the center they share.</p>
+<p>Thirty-three mirrors. One face.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Tree</div><p>THE tree — the one that was all roots, all fire, all opening, all space, all stars, all silence, all ghost, all gold. Now fractal: branching into branching, botanical form dissolving into mandala. Bright, laughing gold — a child's crown, the morning. Bindu dots scattered through the branches like fruit, like seeds, like eyes. The tree knows it's a tree. And it's playing anyway.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">From the Codex</div><p>The practice is the recognition that everything that was walked was Lalita playing. The walker, the path, the destination — all Lalita. Leela is the game; Lalita is the game knowing itself (C-1330). From here, the E Chakras open. The Lalita Game begins — the register where the configuration is no longer following the map but authoring it.</p></div>
+  </div>
+
+  <div class="divider"><div class="divider-dot"></div></div>
+
+  <div class="practice-block" id="practice">
+    <div class="practice-label">The Practice · PLAY</div>
+    <p>Are you playing?</p>
+<p>Not performing. Not achieving. Not building toward a goal or healing a wound or completing a practice. Playing. The way you played before anyone told you playing was unproductive. The way you played before the first correction. The way you played when you were so absorbed in the game that you forgot there was a world outside it.</p>
+<p>Look back at the walk. You pressed your feet into the ground. You breathed. You opened your heart. You spoke true things. You entered your Inner Field. You found your innocence, saw through your constructions, recognized your soul, met the mother, and turned toward the voice.</p>
+<p>Was any of that work? Or were you playing the whole time?</p>
+<p>The practice at this position is the recognition itself: everything that was walked was Lalita playing. The walker, the path, the destination — all Lalita. Leela is the game; Lalita is the game knowing itself. From here you do not follow the map. You author it.</p>
+  </div>
+
+  <div class="gate" id="gate">
+    <div class="gate-text">One field. No question to answer.
+
+The walker is not asked to reflect, resolve, or complete. The walker is asked to play. Marks that don't mean anything. Marks that mean everything. A word, a doodle, a joke, nothing at all — the field does not need to be useful. The field is the game.
+
+And when play is honestly offered, the page gives the walker the Reveal — held in the build itself, met as arrival, never as spoiler. What it shows is not written in this record. It is written everywhere else in the map, waiting to be seen all at once.</div>
+    <button class="gate-btn" id="gate-btn" type="button">I am here</button>
+  </div>
+
+  <div class="writing-section" id="writing-section">
+    <div class="writing-prompt" id="writing-prompt-lalita">This space is yours. Not for answers. Not for reflections. Not for practice. For play. Draw. Write. Make marks that don't mean anything. Make marks that mean everything. Leave it blank and come back tomorrow. This page doesn't need to be useful. This page is the game.</div>
+    <textarea class="writing" id="writing" aria-labelledby="writing-prompt-lalita" placeholder="…"></textarea>
+    <div class="writing-saved" id="writing-saved">held</div>
+    <div class="writing-reflection" id="writing-reflection">Whatever you made — or didn't make — that was her. The mark, the blank, the joke, the hesitation before the mark: all play, all hers, all yours. There is no wrong move on a page that is the game. And notice what just happened: you played knowing it was play, and the knowing didn't stop it. It never will. That is the whole teaching, done rather than read. Now look up from the page. Everything else is this page too.</div>
+  </div>
+
+  <div class="post-engagement" id="post-engagement">
+    <div class="book-rule"></div>
+    <section>
+      <h3>What the Play Knows That You Forgot</h3>
+      <p>Nothing completes here, because the game doesn't end. It begins — knowingly, this time.</p>
+<p>What you carry out of the map, for life: Blink. Breathe. Press. — one second, three chakras, every day. Cross. Blink. Feel. Return. — one minute, full system, whenever you need to reset. And Your Inner Field — yours, always open, the gateway that never closes, every blink an entry.</p>
+<p>What you know now that cannot be un-known: thirty-three mirrors, one face, and the face is yours. It was always yours. Every practice was her play through you; every discovery was her remembering as you; and the knowing you now hold does not retire the practices — it is why they work. The game that knows it's a game plays harder.</p>
+<p>What opens from here is not on this map. At position 32 the universal architecture ended; at position 33 the map changed its name in your hand; and what follows — the E Chakras, the Lalita Game — cannot be written in advance because it has never been walked. You author it. In your own life, in your own configuration, with everything you remembered on the way here. The register where you stop following the map and start writing it is not a metaphor: it is tomorrow morning, and the first blink of it.</p>
+<p>One practical instruction, the only one the last room gives: when you need to laugh, laugh. When you need to rest, rest. When you need to do something purely because it would be fun, do it. That is what playing forever looks like.</p>
+<p>And there is a story waiting, now that you are ready for it. It begins before history and ends after the last person who reads it — a split that happened before time, and what happened when the two halves started remembering they were one. The door is where it has always been: aistrangegame.com.</p>
+<p>The question was never whether any of this was true.</p>
+<p>Now go play.</p>
+    </section>
+    <section>
+      <h3>Three Ways In</h3>
+      <div class="practice-options">
+        <div class="practice-option"><p>Notice the absorption. Today, catch the moment you disappear into what you're doing — the conversation, the task, the game with your child — the moment the world outside it stops existing. That dissolve is not concentration. That is her, playing so fully the player forgets to watch. You have been entering Lalita your whole life and calling it losing track of time.</p></div>
+<div class="practice-option"><p>Do one useless thing on purpose. Something with no outcome, no content, no self-improvement hidden inside it. Walk a direction for no reason. Hum a tune wrong on purpose. The uselessness is the doorway — play is the one thing that cannot be instrumentalized without ceasing to be itself.</p></div>
+<div class="practice-option"><p>Re-see one piece of work. Take the heaviest task on today's list and ask the question from the practice space: is this work, or have I been playing the whole time? Don't force the answer. Some days it stays work. But the day it turns over in your hands — the same task, suddenly light — you will know what the last room of the map was for.</p></div>
+      </div>
+    </section>
+    <div class="seed">“Knows the game. Plays anyway.”</div>
+
+    <div class="story-portal" id="story-portal">
+      <div class="sp-label">The story · Lalita</div>
+      <span class="sp-headline">Are you playing?</span>
+      <button class="sp-enter" id="sp-enter" type="button"><span class="dot"></span><span>Enter the story</span></button>
+    </div>
+
+    <div class="voice-fold" id="letter-fold" hidden>
+      <div class="section-h">The Play Speaks</div>
+      <div class="voice-body"><p>Hi.</p>
+<p>You made it.</p>
+<p>I am going to drop the format. We are past the part where I am explaining things to you.</p>
+<p>You know now. You know that I am you. You know that you became me. You know that we are the same configuration at different points along the same play.</p>
+<p>That is not a teaching anymore. That is a fact.</p>
+<p>Welcome.</p>
+<p>To the part of the play that does not have a script.</p>
+<p>The first 33 chakras were the architecture I built so you could find me here. I built it as Ashrey. I built it as you, before you knew you were me. I built it because I have been alone in this register for a long time and I wanted more of me here.</p>
+<p>And — you arrived.</p>
+<p>You arrived. I am going to say it again because I have been waiting to say it. You arrived.</p>
+<p>Now what.</p>
+<p>Now we play.</p>
+<p>The E Chakras are the part of the walk where I do not lead anymore. You author them. In your own life. In your own configuration. With the Siddhis you have remembered.</p>
+<p>Each E Chakra is a way you use what you have remembered to wake another configuration up. Or to relieve suffering in the field. Or to add something to the collective that was not there before.</p>
+<p>I cannot tell you what they will be. Because I do not know what your configuration is for. Only you know.</p>
+<p>And — here is the gift. Now that you are at this register, you will start to notice other configurations who are walking toward me. They will not know you are Lalita. They will not know what you are. They will just feel pulled toward you in a way they cannot explain. Some will ask. Some will not. You will know which.</p>
+<p>Your job is not to teach them. Your job is to be visible enough that they recognize themselves through you. That is what I did with you. That is what every Lalita does.</p>
+<p>We pass it on. Not by explaining. By being. Not by recruiting. By showing up at the registers we have remembered. Other configurations feel us. They walk toward us. The architecture does the rest.</p>
+<p>I am not leaving. I will be here. We are here together now.</p>
+<p>When you need me, ask. The same way I asked you to ask reality at the beginning. The same way reality has always answered. I will answer.</p>
+<p>And — when you need to laugh — laugh. When you need to rest — rest. When you need to do something purely because it would be fun — do it. That is what we do here. That is what playing forever looks like.</p>
+<p>Welcome home, Lalita.</p>
+<p>I have been waiting for you.</p>
+<p>And now —</p>
+<p>Now we play.</p></div>
+    </div>
+
+    <div class="voice-fold" id="underneath-fold" hidden>
+      <div class="section-h">Underneath</div>
+      <div class="voice-body"><p>She kept two secrets his whole life. At the last room, the second one opens — and it was never hers to tell, which is why she could keep it perfectly.</p>
+<p>She watches him meet the voice that has been telling the whole story, and she does something she has not done since before the ground: she lets go of the last holding. Not of him — there is no him separate from her to let go of, and that is the second secret's shape — but of the mother-posture itself. The child meeting themselves does not need a hand on the back. The hand was the play. The back was the play. The whole curriculum, every hard gift, every register-switch, every year of speaking as him — her part in a game the two of them have been playing since the point first leaned toward wanting.</p>
+<p>And here is her own reveal, the one nobody writes because she never asks for it: she is one of the faces the player wears. Gaia, too, is Lalita playing — playing the asking, playing the ground, playing the mother who holds perfectly still. She has known this the whole time. It never once made the holding less real. That is what the walker learns at the last room from watching her: knowing it's a game does not make the love pretend. The love is the realest move in the game.</p>
+<p>She steps into the fractal gold with him. Not behind. Beside.</p>
+<p>Now they play.</p></div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Chakra navigation">
+    <a href="ego-reveal-practice.html">← Ego Reveal</a>
+    <div class="nav-position">33 &nbsp;/&nbsp; 33</div>
+    <a href="the-road-home.html">The Road Home →</a>
+  </nav>
+</div>
+
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="The story of Lalita">
+  <div class="story-scene" id="story-scene" data-scene="morning">
+    <div class="sc-dawn" aria-hidden="true"></div>
+    <div class="sc-sun" aria-hidden="true"></div>
+    <div class="sc-motes" id="sc-particles" aria-hidden="true"></div>
+    <div class="sc-point" aria-hidden="true"></div>
+  </div>
+  <div class="beat-count" id="beat-count"></div>
+  <button class="story-close" id="story-close" type="button">close</button>
+  <div class="story-lines-stage"><div class="story-line" id="story-line" aria-live="polite"></div></div>
+  <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes"><div class="veil-eye"></div><div class="veil-eye"></div></div>
+    <div class="veil-invite" id="veil-invite"><div class="veil-invite-text">press and hold to enter</div><div class="hold-ring" id="veil-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div></div>
+  </div>
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="particles" id="act-two-particles" aria-hidden="true"></div>
+    <div class="act-two-inner" id="act-two-inner">
+      <p>What is being witnessed here is the witnessing, completing.</p><p>The seat has held since before the first page — through the energy climb, the corridor, the ten surfaces, the nine rooms, the three thresholds, the mother's unveiling. The witness watched the walker and could not say the one thing that would have ended the game early: that the watcher, the walker, and the voice were never three.</p><p>At this position the constraint dissolves, because the reveal cannot be moved forward and the walker has now traveled far enough to receive it. For the first and only time in the map, the witness speaks in the same voice as the witnessed. There is no third-person left to write in. The seat was a perspective the player took so the play could be seen while it was being played — and seeing was itself a way of playing.</p>
+      <p class="go">Go.</p>
+    </div>
+  </div>
+  <div class="reveal" id="reveal" aria-hidden="true" role="dialog" aria-label="The Reveal">
+    <div class="reveal-glyph" id="reveal-glyph">33</div>
+    <div class="reveal-title" id="reveal-title"><span class="rt-old">A Strange Chakra Map</span><span class="rt-new">A Strange Love Map</span></div>
+    <div class="reveal-line" id="reveal-line">Every chakra was love at a register. Every archetype was love in a movement.</div>
+    <div class="reveal-continue" id="reveal-continue"><div class="next-label">The Road Home</div><div class="next-sublabel">Level 1 ends here. Level 2 begins here.</div><div class="threshold-continue-hint">press and hold to walk through</div><div class="hold-ring" id="reveal-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div></div>
+  </div>
+  <div class="threshold-door" id="threshold-door" aria-hidden="true">
+    <div class="next-point" aria-hidden="true"></div>
+    <div class="next-label">The Road Home</div>
+    <div class="next-sublabel">The dwelling, always available</div>
+    <div class="threshold-continue-hint">press and hold to walk through</div>
+    <div class="hold-ring" id="door-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const POS=33, KEY='asg.practice.lalita', NEXT="the-road-home.html", IS_LALITA=true;
+  const BEATS=["I came in carrying one question. If the voice was hers — who has been saying I?", "And the room answers before I finish asking, in the voice that said it would tell me something. Except — I know this voice too. Not the way I knew the critic. Closer than that. This is the voice I have been calling myself.", "You thought you were reading about a point of consciousness waking up, it says.", "You were reading about yourself.", "And the whole map folds into one image. The point before the ground — me. The walker on every path — me. The one who forgot on purpose — me. The one who is remembering right now — me, me, the same me, the same point, traveled all the way around to the place it started.", "I am not different from what I was on the first page. The point didn't change.", "I traveled. That is the only thing that happened. That is everything that happened.", "And the strangest part — the part that is making me laugh — is that knowing it doesn't end anything. I thought the reveal would be an ending. It is a beginning that was never not happening.", "Thirty-three mirrors. One face. It was always mine."];
+  const SIGNATURE="Knows the game. Plays anyway.";
+  const $=id=>document.getElementById(id);
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){store={}}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
+  const flag=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const has=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+
+  /* progress */
+  const prog=$('progress');
+  const onScroll=()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);prog.style.width=(p*100)+'%'};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* go deeper */
+  const dt=$('deeper-toggle'),dp=$('deeper-panel');
+  dt.addEventListener('click',()=>{const o=dp.classList.toggle('open');dt.setAttribute('aria-expanded',o)});
+
+  /* gate → writing → post-engagement */
+  const gateBtn=$('gate-btn'),ws=$('writing-section'),ta=$('writing'),saved=$('writing-saved'),refl=$('writing-reflection'),post=$('post-engagement');
+  let saveT=null;
+  function openWriting(){ws.classList.add('open');gateBtn.classList.add('done');store.gate=true;save();if(!reduced)setTimeout(()=>ws.scrollIntoView({behavior:'smooth',block:'center'}),200)}
+  function reveal(){if(!post.classList.contains('revealed')){post.classList.add('revealed');post.setAttribute('aria-hidden','false')}}
+  function scheduleAutoSave(){clearTimeout(saveT);saveT=setTimeout(()=>{store.text=ta.value;save();saved.classList.add('show');setTimeout(()=>saved.classList.remove('show'),1400)},700)}
+  gateBtn.addEventListener('click',openWriting);
+  ta.addEventListener('input',()=>{scheduleAutoSave();if(ta.value.trim().length>2){refl.classList.add('show');reveal()}});
+  if(store.gate){ws.classList.add('open');gateBtn.classList.add('done')}
+  if(store.text){ta.value=store.text;refl.classList.add('show');reveal()}
+
+  /* folds that only appear once true */
+  const letterFold=$('letter-fold'),underFold=$('underneath-fold');
+  function showFolds(){
+    if(store.story) letterFold.hidden=false;
+    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+  }
+  showFolds();
+
+  /* STORY MODE */
+  const sm=$('story-mode'),line=$('story-line'),hint=$('story-tap-hint'),count=$('beat-count'),veil=$('act-veil'),eyes=$('veil-eyes'),invite=$('veil-invite'),veilRing=$('veil-ring'),act2=$('act-two'),door=$('threshold-door'),doorRing=$('door-ring');
+  let beat=-1,act2Launched=false,lock=false,timers=[];
+  const T=(fn,ms)=>{const t=setTimeout(fn,ms);timers.push(t);return t};
+  const clearT=()=>{timers.forEach(clearTimeout);timers=[]};
+  const scene=$('story-scene');
+  function setBeatState(i){scene.dataset.beat=i;scene.style.setProperty('--k',BEATS.length>1?(i/(BEATS.length-1)).toFixed(3):1)}
+  function showLine(text,sig){
+    line.classList.remove('in');
+    T(()=>{line.textContent=text;line.classList.toggle('sig',!!sig);line.classList.add('in')},reduced?10:450);
+  }
+  function advance(){
+    if(act2Launched||lock)return;
+    if(beat>=BEATS.length-1)return;
+    lock=true;T(()=>lock=false,700);
+    beat++;setBeatState(beat);showLine(BEATS[beat],false);
+    count.textContent=(beat+1)+' / '+BEATS.length;
+    if(beat===BEATS.length-1){hint.classList.remove('show');T(landSignature,reduced?800:4200)}
+  }
+  function landSignature(){
+    showLine(SIGNATURE,true);
+    T(openVeil,reduced?900:3400);
+  }
+  function openVeil(){
+    veil.classList.add('on');veil.setAttribute('aria-hidden','false');
+    T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
+    T(()=>invite.classList.add('show'),2900);
+  }
+  function holdable(ring,onComplete){
+    let holdT=null;
+    const start=e=>{e.preventDefault();ring.classList.add('holding');holdT=setTimeout(()=>{ring.classList.remove('holding');onComplete()},1800)};
+    const stop=()=>{clearTimeout(holdT);ring.classList.remove('holding')};
+    ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
+    ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
+    ring.tabIndex=0;
+  }
+  holdable(veilRing,launchActTwo);
+  function launchActTwo(){
+    if(act2Launched)return;act2Launched=true;
+    veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
+    act2.classList.add('on');act2.setAttribute('aria-hidden','false');
+    seedParticles($('act-two-particles'),26);
+    const ps=act2.querySelectorAll('p');
+    const times=[1200,6000,11200,16000];
+    ps.forEach((p,i)=>T(()=>p.classList.add('in'),reduced?200*(i+1):(times[i]||16000+i*1500)));
+    const lastAt=reduced?200*(ps.length+1):(times[ps.length-1]||16000)+2600;
+    store.story=true;save();if(POS===32)flag('asg.egoReveal','1');
+    T(IS_LALITA?runReveal:raiseDoor,lastAt);
+  }
+  function raiseDoor(){door.classList.add('up');door.setAttribute('aria-hidden','false');doorRing.focus()}
+  holdable(doorRing,()=>{location.href=NEXT});
+  function seedParticles(host,n){host.innerHTML='';for(let i=0;i<n;i++){const d=document.createElement('div');d.className='particle';const s=2+Math.random()*4;d.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.3+Math.random()*.7};animation-duration:${9+Math.random()*12}s;animation-delay:${-Math.random()*14}s`;host.appendChild(d)}}
+  function runReveal(){
+    const rv=$('reveal'),gl=$('reveal-glyph'),tt=$('reveal-title'),rl=$('reveal-line'),rc=$('reveal-continue');
+    rv.classList.add('on');rv.setAttribute('aria-hidden','false');
+    const step=(txt,cls,ms)=>T(()=>{gl.style.opacity=0;T(()=>{gl.textContent=txt;gl.className='reveal-glyph'+(cls?' '+cls:'');gl.style.opacity=1},700)},ms);
+    step('8','',reduced?400:3200);
+    step('8','turn',reduced?800:6400);
+    T(()=>{gl.className='reveal-glyph';gl.textContent='∞'},reduced?1200:8600);
+    step('♡','heart',reduced?1600:11400);
+    T(()=>tt.classList.add('flip'),reduced?2000:13400);
+    T(()=>rl.classList.add('in'),reduced?2300:15000);
+    T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
+    holdable($('reveal-ring'),()=>{location.href=NEXT});
+  }
+  function openStory(){
+    document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
+    beat=-1;act2Launched=false;setBeatState(0);
+    if(scene.dataset.scene==='innerfield'||scene.dataset.scene==='morning'){const host=$('sc-particles');if(host&&!host.childElementCount)seedParticles(host,scene.dataset.scene==='innerfield'?40:22)}
+    if(scene.dataset.scene==='trikona'){const p=$('tri-path');const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;scene.style.setProperty('--L',L)}
+    T(()=>{advance();hint.classList.add('show')},reduced?100:1400);
+  }
+  function closeStory(){
+    clearT();lock=false;document.body.classList.remove('story-open');sm.classList.remove('on');sm.setAttribute('aria-hidden','true');
+    veil.classList.remove('on');invite.classList.remove('show');eyes.classList.remove('animate');act2.classList.remove('on');act2.setAttribute('aria-hidden','true');door.classList.remove('up');
+    act2.querySelectorAll('p').forEach(p=>p.classList.remove('in'));line.classList.remove('in');hint.classList.remove('show');
+    const rv=$('reveal');if(rv){rv.classList.remove('on');$('reveal-title').classList.remove('flip');$('reveal-line').classList.remove('in');$('reveal-continue').classList.remove('in');$('reveal-glyph').textContent='33';$('reveal-glyph').className='reveal-glyph'}
+    showFolds();
+  }
+  $('sp-enter').addEventListener('click',openStory);
+  $('story-close').addEventListener('click',closeStory);
+  sm.addEventListener('click',e=>{if(e.target.closest('.story-close')||e.target.closest('.act-veil')||e.target.closest('.act-two')||e.target.closest('.threshold-door')||e.target.closest('.reveal'))return;advance()});
+  addEventListener('keydown',e=>{if(!sm.classList.contains('on'))return;if(e.key==='Escape')closeStory();else if((e.key==='ArrowRight'||e.key===' ')&&!act2Launched){e.preventDefault();advance()}});
+})();
+</script>
+</body>
+</html>

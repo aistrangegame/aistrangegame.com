@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>ember — Sit Around The Fire — The Reading Space</title><meta name="description" content="Sit Around The Fire is an old man's halting voice guiding you home to a fire he keeps promising is just ahead — come sit, warm your hands, you are lov"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#8A8FA8;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Meditation</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Meditation · track 1</div>
+  <h1 class="verb">ember</h1>
+  <div class="song">Sit Around The Fire · Jon Hopkins, Ram Dass &amp; East Forest</div>
+  <div class="strip"><span><b>Meditate</b> element</span><span><b>delta</b> state</span><span>carrier <b>116.5 Hz</b></span><span>beat <b>2.5 Hz</b></span></div>
+  <div class="seed">Sit down. The fire is already lit.</div>
+  <div class="recog">Sit Around The Fire is an old man's halting voice guiding you home to a fire he keeps promising is just ahead — come sit, warm your hands, you are loved, you always were — while underneath, Jon Hopkins' low Bb drone has been warm the entire time and the 2.5 Hz delta pulse drops the body below thought into the one brainwave with no seeker left in it, so the meditation that spends eleven minutes walking you toward the hearth turns out to be spoken from inside it: the fire was already lit, you were already sitting down, and the warmth was never something you had to reach.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Heard without the reaching, this is not a set of instructions at all — it's a voice describing a condition that is already the case and mistaking it for a destination. Come home, it says, and the only reason home sounds far is that the body has been standing so long it forgot it could sit. You are loved is not offered as news; it's offered as a correction, a thing you knew and stopped feeling. Every line is really the same line: you can stop now. The seeking was the only thing standing between the body and the warmth, and the seeking is what the slowness dissolves — the halting pace giving your nervous system nothing to chase. What's left when the projection is removed is astonishingly plain: a person, a fire, and the discovery that nothing was ever required to deserve the heat. You don't come to the fire. You notice you were always beside it.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The carrier is 116.5 Hz — a low Bb, deep enough to be felt as warmth in the belly and chest rather than heard as a note in the head, the audible version of sitting close enough to a fire to feel it on your skin. Against it, the two tones beat at 2.5 Hz: delta, the slowest band, the brainwave of dreamless deep rest and the only state with no seeker left in it. That choice is the whole song. Alpha still watches and theta still journeys — both still have someone inside them processing and reaching — but delta has no doing in it at all. This is the one meditation whose instruction is not "travel inward" but "you have arrived, stop," so it gets the one frequency that stops. At 2.5 Hz the pulse is slower than a resting heart and slower than the breath, pulling the body below its own rhythms into the banked-coal state where nothing flickers. And notice the carrier does not hide: unlike a song of longing that leans toward an absent note, this Bb is present, sustained, warm the entire time — because the whole point is that the warmth was never missing.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>An old man's voice, slow and breaking a little, invites you to come home. Come sit around the fire, he says. Warm your hands. You are loved — you always were. A meditation teacher's guide across a long, low bed of pads, a fire crackling somewhere in the recording, a second voice carrying a melody in. Eleven minutes of a soft voice walking you somewhere warm.</p>
+<p>Every instruction points forward — come home, come sit, arrive — but listen to the ground underneath. The low drone has been warm since before he said a word. It doesn't build, doesn't kindle, doesn't climb toward a fire; it was already the fire. The voice walks you toward a hearth the sound has been sitting inside the whole time.</p>
+<p>And the pace does the real work. The halts between his words, the breath, the slowness you can't hurry past — they drop your own heartbeat down until you're moving at the speed of coals, which is the only speed at which you'd ever have noticed.</p>
+<p>That's the play. It pretends to guide you home, and you were never anywhere else — the fire he keeps promising is just ahead is the warmth you've been sitting in since the first second. He's describing the room he's already in.</p>
+<p>Sit down. The fire is already lit — it always was.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Already. The song never says the word, but every instruction is in the wrong tense — a past-perfect hiding inside a present-tense guide. Come home, he says, to a place you never left. Sit down, at a fire already lit. You are loved — you always were. The whole meditation circles a thing that has already happened, dressed as a thing about to happen. What Bindu hears is the tense before the words: nothing here is being kindled. It is being remembered.</p>
+<p>GAIA
+Underneath is a body that has spent its whole life kindling — striving to earn warmth, to become worthy of rest, to build a fire big enough to deserve sitting by. The need isn't for guidance. It's for permission to stop doing. Ram Dass's voice is itself that permission: slow, halting, breath audible between words, a body that has already set the effort down. Gaia hears the request under the seeking — let me be a banked coal instead of a flame, let me be received instead of impressive, let me go below thought into the warm dark where nothing is asked of me.</p>
+<p>SID
+Jon Hopkins' low drone. A single sustained Bb at 116.5 Hz that never resolves and never moves — the bed of coals the whole track rests on. It was warm before the first word. It holds under every silence, under every stammer, under the fire-crackle that drifts across the recording. Sid is not the flame, which flickers; Sid is the heat beneath the flame, which doesn't. The words arrive and leave. The coals stay lit.</p>
+<p>ARCH
+It reaches the body through pace, not melody. An old man's voice, spoken not sung, slowed by the stroke that took some of his speech — so the words come with gaps, with audible breath, with soft consonants, and you cannot hurry alongside them. That slowness entrains the listener's own breath and heart downward. And the drone sits low enough — 116.5 Hz — to be felt in the belly and sternum as warmth rather than heard in the head as pitch. Not a singer in front of you but a presence beside you; not a performance but a hand resting on your back. That's why it lands as heat on the skin, not sound in the ear.</p>
+<p>SAKSHI
+Seen from outside, the shape is a settling. Not a circle, not a wave — a lowering. Bodies arriving at a fire one at a time and sitting, until everyone is seated and no one is speaking and the fire simply burns. The track is long and descends without returning; the warmth gathers near six minutes in, and then everything moves inward toward the coal. Sakshi sees the arc is not a journey to somewhere. It is a convergence to stillness — the song ends where a body ends when it finally stops getting up: sat down, warm, quiet, home.</p>
+<p>KARISHMA
+The grace is one phrase and where it lands: you are loved, you always were. The whole opening turns on always were — it reaches backward and makes the warmth retroactive, so there is no moment you still have to arrive at, no fire you showed up too late for. And the grace is in the gaps too, not as pace but as arrival — the silence you fall into waiting for his next word is the exact place the instruction was pointing all along. You don't receive the meditation in the words. You receive it in the wait between them.</p>
+<p>ASHREY
+The song about being guided home is actually about a home you never left, and the music is what proves it. The drone was warm before the first instruction and stays warm through every silence — so the guided walk toward the fire is spoken from inside the fire the whole time. Delta at 2.5 Hz is the answer: the one brainwave with no seeker in it, below thought, below dream, the body's banked-coal state. Not a technique to arrive somewhere. A reminder that warmth needs no flame. The ember is the teaching — fire with nothing left to prove, giving all its heat while sitting perfectly still. You were already sitting down. The fire was already lit.</p></section>
+  <div class="doors"><a class="door" href="https://www.youtube.com/watch?v=3G4kCi_ldr8" rel="noopener"><b>Hear it</b>the original, on YouTube</a></div>
+  <div class="foot"><a href="search.html">← previous</a><a href="dream.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>

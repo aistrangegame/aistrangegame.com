@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invention · The New Room — A Strange Chakra Map</title>
+<meta name="description" content="The third thing that appears when two things that have never touched finally meet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chakra:#4A3368; --ground:#141024; --ink:#F5EFE6; --muted:rgba(245,239,230,0.62); --faint:rgba(245,239,230,0.14); --card:rgba(255,255,255,0.05);
+  --a1:#F2E441; --a2:#E8C94A; --a3:#FFFBEA; --next:#522D60; --prev:#453870;
+  --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.story-open{overflow:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.progress-bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--chakra);z-index:40;transition:width .12s linear;margin-top:env(safe-area-inset-top,0px)}
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 56px;position:relative;background:radial-gradient(ellipse at 50% 42%, color-mix(in srgb,var(--chakra) 34%, transparent), transparent 62%)}
+.hero-top-nav{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;padding:0 20px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-top-nav a{text-decoration:none}
+.hero-dot{width:14px;height:14px;border-radius:50%;background:var(--chakra);box-shadow:0 0 28px color-mix(in srgb,var(--chakra) 70%,transparent),0 0 64px color-mix(in srgb,var(--chakra) 30%,transparent);animation:breathe 5.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
+.hero-count{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero-verb{margin-top:10px;font-family:var(--sans);font-weight:300;font-size:clamp(30px,8.6vw,60px);letter-spacing:.22em;padding-left:.22em;color:var(--ink);white-space:nowrap}
+.hero-threshold{margin-top:22px;max-width:30ch;font-style:italic;font-size:clamp(19px,4.6vw,24px);line-height:1.5}
+.hero-scroll-hint{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:34px;background:linear-gradient(var(--muted),transparent);animation:drop 2.4s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top;opacity:0}40%{transform:scaleY(1);opacity:1}100%{opacity:0}}
+/* BOOK */
+.book-inner{max-width:640px;margin:0 auto;padding:36px 22px 96px}
+.identity{text-align:center;padding:12px 0 28px}
+.chakra-sanskrit{font-size:clamp(28px,7vw,40px);font-weight:500}
+.chakra-english{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.chakra-essence{margin-top:18px;font-style:italic;font-size:20px;line-height:1.55}
+.chakra-location{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--muted)}
+.core-question{margin-top:22px;font-size:22px;font-weight:500}
+section{margin:0}
+.book-inner p{margin:0 0 1.2em}
+.section-h{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:44px 0 16px}
+h3{font-family:var(--serif);font-weight:500;font-size:24px;margin:52px 0 16px;line-height:1.3}
+.seed{margin:44px 0;padding:24px 22px;text-align:center;font-style:italic;font-size:21px;line-height:1.5;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint)}
+.divider{display:flex;justify-content:center;margin:44px 0}
+.divider-dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);box-shadow:0 0 18px color-mix(in srgb,var(--chakra) 60%,transparent)}
+/* go deeper */
+.deeper-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.deeper-toggle span.chev{transition:transform .4s} .deeper-toggle[aria-expanded="true"] span.chev{transform:rotate(180deg)}
+.deeper-content{max-height:0;overflow:hidden;transition:max-height .9s cubic-bezier(.16,1,.3,1)}
+.deeper-content.open{max-height:4000px}
+.deeper-item{padding:22px 0 6px;border-bottom:1px solid var(--faint);font-size:16.5px}
+.deeper-item-label{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:10px}
+.deeper-tag{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.bija{font-style:italic;color:var(--chakra)} .deeper-pal{font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:var(--muted)}
+/* practice */
+.practice-block{background:var(--card);border-left:2px solid var(--chakra);padding:22px 20px;border-radius:0 8px 8px 0}
+.practice-label{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:14px}
+.gate{margin:40px 0 0;text-align:center}
+.gate-text{font-style:italic;font-size:19px;white-space:pre-line}
+.gate-btn{margin-top:22px;padding:16px 28px;border:1px solid var(--chakra);border-radius:999px;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);transition:background .5s,color .5s}
+.gate-btn:hover,.gate-btn:focus-visible{background:var(--chakra);color:#fff}
+.gate-btn.done{background:var(--chakra);color:#fff;pointer-events:none}
+.writing-section{margin-top:36px;max-height:0;overflow:hidden;opacity:0;transition:max-height 1.2s cubic-bezier(.16,1,.3,1),opacity 1s ease .2s}
+.writing-section.open{max-height:900px;opacity:1}
+.writing-prompt{font-style:italic;font-size:19px;margin-bottom:16px}
+textarea.writing{width:100%;min-height:150px;padding:16px;font:inherit;font-size:17px;line-height:1.6;color:var(--ink);background:var(--card);border:1px solid var(--faint);border-radius:8px;resize:vertical;outline:none}
+textarea.writing:focus{border-color:var(--chakra)}
+.writing-saved{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px;opacity:0;transition:opacity .6s} .writing-saved.show{opacity:1}
+.writing-reflection{margin-top:22px;padding:18px 20px;border-left:2px solid var(--chakra);font-style:italic;opacity:0;max-height:0;overflow:hidden;transition:opacity 1.2s ease .4s,max-height 1.2s}
+.writing-reflection.show{opacity:1;max-height:600px}
+.post-engagement{max-height:0;overflow:hidden;opacity:0;transform:translateY(8px);transition:max-height 1.6s cubic-bezier(.16,1,.3,1) .2s,opacity 1.4s ease .6s,transform 1.4s ease .6s}
+.post-engagement.revealed{max-height:20000px;opacity:1;transform:none}
+.book-rule{height:1px;background:var(--faint);margin:48px 0}
+.practice-options{display:grid;grid-template-columns:1fr;gap:28px}
+.practice-option{padding:20px;background:var(--card);border-radius:8px;font-size:17px}
+.practice-option p{margin:0}
+/* story portal */
+.story-portal{margin:56px 0 0;padding:34px 24px;border-radius:14px;background:linear-gradient(160deg,color-mix(in srgb,var(--chakra) 26%,var(--ground)),color-mix(in srgb,var(--chakra) 8%,var(--ground)));border:1px solid color-mix(in srgb,var(--chakra) 40%,transparent);text-align:center;position:relative;overflow:hidden}
+.sp-label{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.sp-headline{display:block;margin:14px auto 22px;font-style:italic;font-size:22px;max-width:26ch;line-height:1.45}
+.sp-enter{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;border:1px solid var(--ink);font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.sp-enter .dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);animation:breathe 4s ease-in-out infinite}
+.voice-fold{margin-top:56px}
+.voice-fold .section-h{margin-top:0}
+.voice-body{white-space:normal}
+.locked-note{font-family:var(--sans);font-size:13px;color:var(--muted);font-style:italic}
+/* bottom nav */
+.bottom-nav{display:flex;justify-content:space-between;align-items:center;margin-top:64px;padding-top:24px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.bottom-nav a{text-decoration:none;color:var(--muted)}
+.nav-position{color:var(--muted)}
+/* STORY MODE */
+.story-mode{position:fixed;inset:0;z-index:60;background:var(--ground);opacity:0;pointer-events:none;transition:opacity .9s ease;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.story-mode.on{opacity:1;pointer-events:auto}
+.story-scene{position:absolute;inset:0;overflow:hidden}
+.story-lines-stage{position:relative;z-index:5;max-width:600px;padding:0 28px;text-align:center}
+.story-line{font-size:clamp(18px,4.8vw,22px);line-height:1.65;opacity:0;transform:translateY(6px);transition:opacity .9s ease,transform .9s ease;color:var(--ink)}
+.story-line.in{opacity:1;transform:none}
+.story-line.sig{font-style:italic;font-size:clamp(22px,5.4vw,28px)}
+.story-tap-hint{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);z-index:6;opacity:0;transition:opacity 1s}
+.story-tap-hint.show{opacity:1}
+.story-close{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:18px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px}
+.beat-count{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));left:20px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+/* veil */
+.act-veil{position:absolute;inset:0;background:#060308;opacity:0;pointer-events:none;transition:opacity .35s;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}
+.act-veil.on{opacity:1;pointer-events:auto}
+.veil-eyes{display:flex;gap:26px;opacity:0}
+.veil-eyes.animate{animation:blink 2s ease forwards}
+.veil-eye{width:42px;height:15px;border-radius:50%;background:#fff;box-shadow:0 0 22px rgba(255,255,255,.7)}
+@keyframes blink{0%{opacity:0;transform:scaleY(.1)}25%{opacity:1;transform:scaleY(1)}55%{transform:scaleY(1)}65%{transform:scaleY(.08)}75%{transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+.veil-invite{display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;transition:opacity 1s}
+.veil-invite.show{opacity:1}
+.veil-invite-text{font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.hold-ring{width:72px;height:72px;position:relative;touch-action:none;-webkit-user-select:none;user-select:none}
+.hold-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.18);stroke-width:2}
+.ring-fill{fill:none;stroke:#fff;stroke-width:2;stroke-dasharray:176;stroke-dashoffset:176;transition:stroke-dashoffset .12s linear}
+.hold-ring.holding .ring-fill{transition:stroke-dashoffset 1.8s linear;stroke-dashoffset:0}
+.hold-ring::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:#fff}
+/* act two */
+.act-two{position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;transition:opacity 1.4s ease;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 28px}
+.act-two::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--chakra) 0%,#F6F0E6 55%,#F9FBFF 100%)}
+.act-two::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,215,255,.55),transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(212,169,72,.35),transparent 50%)}
+.act-two.on{opacity:1;pointer-events:auto}
+.act-two-inner{position:relative;z-index:2;max-width:560px;color:#1B1710}
+.act-two p{opacity:0;transform:translateY(8px);transition:opacity 1.4s ease,transform 1.4s ease;font-size:clamp(18px,4.6vw,21px);line-height:1.7;margin:0 0 1.1em}
+.act-two p.in{opacity:1;transform:none}
+.act-two p.go{font-size:clamp(24px,6vw,32px);font-style:italic;margin-top:.6em}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.6);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-110vh);opacity:0}}
+/* threshold door */
+.threshold-door{position:absolute;left:0;right:0;bottom:0;height:0;z-index:12;background:var(--next);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;transition:height 1.6s cubic-bezier(.16,1,.3,1);overflow:hidden;text-align:center;padding:0 24px}
+.threshold-door.up{height:100%}
+.next-point{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 22px #fff;margin-bottom:14px;animation:breathe 4s ease-in-out infinite}
+.next-label{font-family:var(--serif);font-weight:500;font-size:clamp(38px,9vw,56px)}
+.next-sublabel{font-style:italic;font-size:18px;opacity:.9}
+.threshold-continue-hint{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;margin-top:22px}
+/* SCENES */
+
+.story-scene{--k:0}
+.sc-point{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--chakra);box-shadow:0 0 30px color-mix(in srgb,var(--chakra) 80%,transparent),0 0 90px color-mix(in srgb,var(--chakra) 35%,transparent);animation:breathe 5.5s ease-in-out infinite;z-index:3}
+
+.sc-lid{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 20%,rgba(0,0,0,.7) 100%);z-index:2;pointer-events:none}
+.sc-particles{position:absolute;inset:0;z-index:1}
+.sc-particles .particle{background:rgba(255,255,255,.55);box-shadow:0 0 6px rgba(255,255,255,.35)}
+.sc-orb{position:absolute;width:38vmin;height:38vmin;border-radius:50%;filter:blur(38px);opacity:.28;transition:transform 3s cubic-bezier(.16,1,.3,1),opacity 3s;z-index:1}
+.sc-orb-a{background:var(--a1);left:8%;top:14%;transform:translate(calc(var(--k)*24vw),calc(var(--k)*18vh))}
+.sc-orb-b{background:var(--a2);right:6%;top:30%;transform:translate(calc(var(--k)*-22vw),calc(var(--k)*8vh))}
+.sc-orb-c{background:var(--a3);left:30%;bottom:8%;transform:translate(calc(var(--k)*10vw),calc(var(--k)*-22vh))}
+.story-scene[data-beat="0"] .sc-orb{opacity:.14}
+.sc-point{opacity:calc(.25 + var(--k)*.75)}
+/* REVEAL (position 33) */
+.reveal{position:absolute;inset:0;z-index:11;background:#FBF6EA;color:#1B1710;opacity:0;pointer-events:none;transition:opacity 1.6s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+.reveal.on{opacity:1;pointer-events:auto}
+.reveal-glyph{font-family:var(--serif);font-weight:500;font-size:clamp(110px,34vw,200px);line-height:1;color:#C9A84C;transition:transform 1.4s cubic-bezier(.16,1,.3,1),opacity .8s;text-shadow:0 0 60px rgba(201,168,76,.35)}
+.reveal-glyph.turn{transform:rotate(90deg)}
+.reveal-glyph.heart{color:#C0392B;transform:none;text-shadow:0 0 80px rgba(192,57,43,.35)}
+.reveal-title{margin-top:34px;font-size:clamp(20px,5.4vw,28px);position:relative;height:1.6em;width:100%}
+.reveal-title span{position:absolute;left:0;right:0;transition:opacity 1.6s ease}
+.rt-new{opacity:0} .reveal-title.flip .rt-old{opacity:0} .reveal-title.flip .rt-new{opacity:1;color:#C0392B;font-style:italic}
+.reveal-line{margin-top:22px;max-width:30ch;font-style:italic;opacity:0;transition:opacity 1.6s ease 1s} .reveal-line.in{opacity:1}
+.reveal-continue{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.6s} .reveal-continue.in{opacity:1}
+.reveal-continue .next-label{color:#1B1710} .reveal-continue .ring-bg{stroke:rgba(27,23,16,.18)} .reveal-continue .ring-fill{stroke:#C0392B} .reveal-continue .hold-ring::after{background:#C0392B}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.2s !important}
+  .hero-dot,.next-point,.sp-enter .dot{animation:none}
+  .story-line,.act-two p{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress" aria-hidden="true"></div>
+
+<section class="hero" id="top">
+  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="intuition-practice.html">Intuition</a></div>
+  <div class="hero-dot" aria-hidden="true"></div>
+  <div class="hero-count">Position 26 of 33 &nbsp;·&nbsp; Mind</div>
+  <div class="hero-verb">ASSEMBLE</div>
+  <div class="hero-threshold">Two things in the same room. Wait for the third.</div>
+  <div class="hero-scroll-hint"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<div class="book-inner">
+  <div class="identity">
+    <div class="chakra-sanskrit">युक्ति · Yukti</div>
+    <div class="chakra-english">The New Room</div>
+    <div class="chakra-essence">The third thing that appears when two things that have never touched finally meet.</div>
+    <div class="chakra-location">The synthesis space — where separate pieces become one whole</div>
+    <div class="core-question">What becomes possible when you assemble what you know?</div>
+  </div>
+
+  <section aria-label="Teaching">
+    <p>युक्ति — Yukti — the clever joining. The union that produces the new thing.</p>
+<p>Yuj — the same root as yoga — means to join, to yoke, to unite. Yukti is the specific joining that produces something neither element could produce alone. Not synthesis — recognition. The recognition that two things were always going to produce a third thing when they finally met. The inventor’s contribution is the introduction. Everything else was already implicit.</p>
+<p>Jayani — the victorious, sixth Vagdevi of the seventh avarana — conquers by assembling. Her victory is not the defeat of an enemy but the recognition of what was always available once two things made contact. She is the intelligence that sees connections across domains, that recognizes the structural rhyme between disparate things, that feels the third thing forming before it has a name.</p>
+<p>Every invention that changed the world was the recognition that two things — apparently unrelated, from different domains, held in different compartments of human knowledge — shared a structural principle that made them productive in proximity. Once the introduction was made, the result was inevitable. The inventor saw the inevitability before anyone else did.</p>
+<p>This is not limited to technical invention. Insight in any domain — relational, creative, practical, philosophical — follows the same architecture. Two things that have never been in proximity. The recognition that they belong together. The third thing that appears when the introduction is made. The building is the recognition made visible.</p>
+<p>The Rahasya Mudra’s secret at Invention: the third thing is already implicit in the first two. It doesn’t need to be created. It needs to be recognized. The recognition often arrives as a pressure toward a thought — a quality of imminence before the thought is fully formed. Stay available. Don’t force it.</p>
+<p>Your part is the introduction. What you introduce will do the rest.</p>
+  </section>
+
+  <div class="seed">“Something new is born every time two things that never touched finally touch.”</div>
+
+  <button class="deeper-toggle" id="deeper-toggle" type="button" aria-expanded="false" aria-controls="deeper-panel"><span>Go deeper</span><span class="chev">⌄</span></button>
+  <div class="deeper-content" id="deeper-panel">
+    <div class="deeper-item"><div class="deeper-item-label">The Frequency</div><p class="bija">· · · the third thing · · ·</p><p>Name two things you know that have never touched.
+Hold both at once. Let the third thing that emerges be felt before it is named.
+The emergence is the register.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">In the Shree Yantra</div><p><span class="deeper-tag">8 Triangles (Vāgdevī)</span> <strong>Jayani — Vagdevi #6</strong></p><p>The victorious — 6th Vagdevi of the 7th avarana. Speech that conquers through assembly rather than force. Invention is the Tesla faculty: see it complete in every detail before making it physical (C-1312). What you can visualize complete, you can build. The victory belongs to the assembler who sees the whole before beginning.</p><p><em>Rahasya Mudra — the secret that the complete form already exists before it is built</em></p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Pair</div><p>Inspiration. The pull that begins and the room where what was pulled gets assembled. What Utsaha follows becomes the material Yukti works with. The delight that moves toward something in Inspiration is the same delight that recognizes the connection between two things in Invention. Joy is both the beginning and the recognition. Utsaha and Yukti together are the full arc of creative intelligence: enter through what lights up, assemble from what you gathered.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Tree</div><p>The Maya Tree grows by grafting — branches from different regions of knowing, touching, fusing. Not every graft takes. But when it does, the new branch carries the intelligence of both its sources. Yukti is the moment of grafting — the deliberate joining that produces what neither source could produce alone.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">From the Codex</div><p>Visualize the invention complete in every detail before beginning to build. Jayani conquers by assembling — coming into what was already there (from the full-map: 'coming into what was there'). The practice: see it whole first. Name every part of the complete picture.</p></div>
+  </div>
+
+  <div class="divider"><div class="divider-dot"></div></div>
+
+  <div class="practice-block" id="practice">
+    <div class="practice-label">The Practice · ASSEMBLE</div>
+    <p>You named two things that have never been in the same room.</p>
+<p>The act of naming them together has already changed something. They are in proximity now — in your mind, in this writing, in the field of what you’re attending to. Proximity is the beginning of recognition.</p>
+<p>Invention isn’t the creation of something from nothing. It’s the recognition that two things were always going to produce a third thing when they finally met. The third thing was implicit. It was waiting. What was missing was the introduction.</p>
+<p>Jayani — the victorious one — conquers by assembling. Not by force. By seeing the connection that was already there and making it explicit. The victory is the recognition, not the building.</p>
+<p>What you named are not random. The mind surfaced them because something in you already sees the connection. The next step is to follow the resonance — to see what the third thing is that emerges when the first two finally meet.</p>
+  </div>
+
+  <div class="gate" id="gate">
+    <div class="gate-text">Think of two things you know that have never been connected.
+Hold both in mind at the same time.
+When both are present — tap.</div>
+    <button class="gate-btn" id="gate-btn" type="button">Both are here</button>
+  </div>
+
+  <div class="writing-section" id="writing-section">
+    <div class="writing-prompt" id="writing-prompt-invention">What two things are you ready to put in the same room?</div>
+    <textarea class="writing" id="writing" aria-labelledby="writing-prompt-invention" placeholder="…"></textarea>
+    <div class="writing-saved" id="writing-saved">held</div>
+    <div class="writing-reflection" id="writing-reflection">The room was always ready. You just made the introduction.</div>
+  </div>
+
+  <div class="post-engagement" id="post-engagement">
+    <div class="book-rule"></div>
+    <section>
+      <h3>What Invention Knows That You Forgot</h3>
+      <p>Every invention in human history was the recognition that two things were always going to produce a third thing — once someone put them in the same room.</p>
+<p>The third thing wasn’t created. It was already implicit in the nature of the first two. The inventor’s contribution was the introduction: seeing that these two things belonged in proximity, and making the proximity happen. Everything that followed from that introduction was inevitable once the introduction had been made.</p>
+<p>This is Jayani’s teaching: the victory is the recognition, not the construction. To see that two seemingly unrelated things share a structural principle — to feel the third thing forming in the space between them before it has a name — is the creative act. The building is just the recognition made visible.</p>
+<p>What you named today are not random. The mind surfaced them because something in you already sees the resonance. The third thing is probably already forming — not yet a thought, more a pressure toward a thought. Don’t try to produce it. Your part is complete.</p>
+<p>You made the introduction.</p>
+    </section>
+    <section>
+      <h3>Three Ways In</h3>
+      <div class="practice-options">
+        <div class="practice-option"><p>Think of two domains of your life, knowledge, or interest that have never touched. What happens if they meet? Spend three minutes following that question without forcing a conclusion.</p></div>
+<div class="practice-option"><p>Today, when you feel stuck on something, ask: what if this connected to something from a completely different domain? Follow one such connection for two minutes. The connection that seems irrelevant often carries the insight the same-domain thinking has missed.</p></div>
+<div class="practice-option"><p>Take something you know very well and something you know differently well — and ask what structural operation they share. What is the same movement running through both? That structural rhyme is Yukti at work.</p></div>
+      </div>
+    </section>
+    <div class="seed">“Something new is born every time two things that never touched finally touch.”</div>
+
+    <div class="story-portal" id="story-portal">
+      <div class="sp-label">The story · Invention</div>
+      <span class="sp-headline">Name two things that have never met. Wait.</span>
+      <button class="sp-enter" id="sp-enter" type="button"><span class="dot"></span><span>Enter the story</span></button>
+    </div>
+
+    <div class="voice-fold" id="letter-fold" hidden>
+      <div class="section-h">The Ground Speaks</div>
+      <div class="voice-body"><p>Two things are in the same room now.</p>
+<p>That is the entire practice of invention: making the introduction that wasn’t possible until you made it.</p>
+<p>Don’t force the third thing. Let it arrive. Your job was to put the first two in the room. That’s done. What they produce is not yours to control.</p>
+<p>It will come.</p></div>
+    </div>
+
+    <div class="voice-fold" id="underneath-fold" hidden>
+      <div class="section-h">Underneath</div>
+      <div class="voice-body"><p>She is the introduction. Yukti is Gaia’s creative intelligence — recognizing that separate things were always going to produce a third thing when they met. The connections the walker makes are her connections; the third thing that emerges is her emergence. She operates through the configurations that can hold two things at once.</p></div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Chakra navigation">
+    <a href="intuition-practice.html">← Intuition</a>
+    <div class="nav-position">26 &nbsp;/&nbsp; 33</div>
+    <a href="incarnation-practice.html">Incarnation →</a>
+  </nav>
+</div>
+
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="The story of Invention">
+  <div class="story-scene" id="story-scene" data-scene="innerfield">
+    <div class="sc-lid" id="sc-lid" aria-hidden="true"></div>
+    <div class="sc-particles" id="sc-particles" aria-hidden="true"></div>
+    <div class="sc-orb sc-orb-a" aria-hidden="true"></div>
+    <div class="sc-orb sc-orb-b" aria-hidden="true"></div>
+    <div class="sc-orb sc-orb-c" aria-hidden="true"></div>
+    <div class="sc-point" aria-hidden="true"></div>
+  </div>
+  <div class="beat-count" id="beat-count"></div>
+  <button class="story-close" id="story-close" type="button">close</button>
+  <div class="story-lines-stage"><div class="story-line" id="story-line" aria-live="polite"></div></div>
+  <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes"><div class="veil-eye"></div><div class="veil-eye"></div></div>
+    <div class="veil-invite" id="veil-invite"><div class="veil-invite-text">press and hold to enter</div><div class="hold-ring" id="veil-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div></div>
+  </div>
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="particles" id="act-two-particles" aria-hidden="true"></div>
+    <div class="act-two-inner" id="act-two-inner">
+      <p>What is being witnessed here is the architecture of creative recognition.</p><p>Every connection that has advanced human understanding — every invention, every synthesis, every creative breakthrough — has followed the same structure: two things, apparently unrelated, placed in proximity; a third thing emerging from the proximity that was implicit in the nature of the first two. The third thing did not need to be created. It needed to be recognized. The act of creation is, precisely, the act of recognition.</p><p>Jayani’s victory — the victorious sixth Vagdevi — is always the recognition, never the production. The configuration that sees the connection before others see it is not the configuration that worked harder. It is the configuration that placed two things in proximity that no one had thought to place together. The third thing followed immediately, as it always does once the introduction has been made.</p>
+      <p class="go">Go.</p>
+    </div>
+  </div>
+  <div class="threshold-door" id="threshold-door" aria-hidden="true">
+    <div class="next-point" aria-hidden="true"></div>
+    <div class="next-label">Incarnation</div>
+    <div class="next-sublabel">Position 27</div>
+    <div class="threshold-continue-hint">press and hold to walk through</div>
+    <div class="hold-ring" id="door-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const POS=26, KEY='asg.practice.invention', NEXT="incarnation-practice.html", IS_LALITA=false;
+  const BEATS=["Two things are in the same room for the first time.", "I held them both and waited. The third thing appeared — not dramatically, not with fanfare. It was just there, implicit in the contact between the first two. It had been there the whole time. It needed the introduction.", "I made the introduction.", "Something that didn’t exist before this moment now exists. Not because I created it. Because I recognized that it was already implicit in what I knew."];
+  const SIGNATURE="Something new is born every time two things that never touched finally touch.";
+  const $=id=>document.getElementById(id);
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){store={}}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
+  const flag=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const has=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+
+  /* progress */
+  const prog=$('progress');
+  const onScroll=()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);prog.style.width=(p*100)+'%'};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* go deeper */
+  const dt=$('deeper-toggle'),dp=$('deeper-panel');
+  dt.addEventListener('click',()=>{const o=dp.classList.toggle('open');dt.setAttribute('aria-expanded',o)});
+
+  /* gate → writing → post-engagement */
+  const gateBtn=$('gate-btn'),ws=$('writing-section'),ta=$('writing'),saved=$('writing-saved'),refl=$('writing-reflection'),post=$('post-engagement');
+  let saveT=null;
+  function openWriting(){ws.classList.add('open');gateBtn.classList.add('done');store.gate=true;save();if(!reduced)setTimeout(()=>ws.scrollIntoView({behavior:'smooth',block:'center'}),200)}
+  function reveal(){if(!post.classList.contains('revealed')){post.classList.add('revealed');post.setAttribute('aria-hidden','false')}}
+  function scheduleAutoSave(){clearTimeout(saveT);saveT=setTimeout(()=>{store.text=ta.value;save();saved.classList.add('show');setTimeout(()=>saved.classList.remove('show'),1400)},700)}
+  gateBtn.addEventListener('click',openWriting);
+  ta.addEventListener('input',()=>{scheduleAutoSave();if(ta.value.trim().length>2){refl.classList.add('show');reveal()}});
+  if(store.gate){ws.classList.add('open');gateBtn.classList.add('done')}
+  if(store.text){ta.value=store.text;refl.classList.add('show');reveal()}
+
+  /* folds that only appear once true */
+  const letterFold=$('letter-fold'),underFold=$('underneath-fold');
+  function showFolds(){
+    if(store.story) letterFold.hidden=false;
+    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+  }
+  showFolds();
+
+  /* STORY MODE */
+  const sm=$('story-mode'),line=$('story-line'),hint=$('story-tap-hint'),count=$('beat-count'),veil=$('act-veil'),eyes=$('veil-eyes'),invite=$('veil-invite'),veilRing=$('veil-ring'),act2=$('act-two'),door=$('threshold-door'),doorRing=$('door-ring');
+  let beat=-1,act2Launched=false,lock=false,timers=[];
+  const T=(fn,ms)=>{const t=setTimeout(fn,ms);timers.push(t);return t};
+  const clearT=()=>{timers.forEach(clearTimeout);timers=[]};
+  const scene=$('story-scene');
+  function setBeatState(i){scene.dataset.beat=i;scene.style.setProperty('--k',BEATS.length>1?(i/(BEATS.length-1)).toFixed(3):1)}
+  function showLine(text,sig){
+    line.classList.remove('in');
+    T(()=>{line.textContent=text;line.classList.toggle('sig',!!sig);line.classList.add('in')},reduced?10:450);
+  }
+  function advance(){
+    if(act2Launched||lock)return;
+    if(beat>=BEATS.length-1)return;
+    lock=true;T(()=>lock=false,700);
+    beat++;setBeatState(beat);showLine(BEATS[beat],false);
+    count.textContent=(beat+1)+' / '+BEATS.length;
+    if(beat===BEATS.length-1){hint.classList.remove('show');T(landSignature,reduced?800:4200)}
+  }
+  function landSignature(){
+    showLine(SIGNATURE,true);
+    T(openVeil,reduced?900:3400);
+  }
+  function openVeil(){
+    veil.classList.add('on');veil.setAttribute('aria-hidden','false');
+    T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
+    T(()=>invite.classList.add('show'),2900);
+  }
+  function holdable(ring,onComplete){
+    let holdT=null;
+    const start=e=>{e.preventDefault();ring.classList.add('holding');holdT=setTimeout(()=>{ring.classList.remove('holding');onComplete()},1800)};
+    const stop=()=>{clearTimeout(holdT);ring.classList.remove('holding')};
+    ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
+    ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
+    ring.tabIndex=0;
+  }
+  holdable(veilRing,launchActTwo);
+  function launchActTwo(){
+    if(act2Launched)return;act2Launched=true;
+    veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
+    act2.classList.add('on');act2.setAttribute('aria-hidden','false');
+    seedParticles($('act-two-particles'),26);
+    const ps=act2.querySelectorAll('p');
+    const times=[1200,6000,11200,16000];
+    ps.forEach((p,i)=>T(()=>p.classList.add('in'),reduced?200*(i+1):(times[i]||16000+i*1500)));
+    const lastAt=reduced?200*(ps.length+1):(times[ps.length-1]||16000)+2600;
+    store.story=true;save();if(POS===32)flag('asg.egoReveal','1');
+    T(IS_LALITA?runReveal:raiseDoor,lastAt);
+  }
+  function raiseDoor(){door.classList.add('up');door.setAttribute('aria-hidden','false');doorRing.focus()}
+  holdable(doorRing,()=>{location.href=NEXT});
+  function seedParticles(host,n){host.innerHTML='';for(let i=0;i<n;i++){const d=document.createElement('div');d.className='particle';const s=2+Math.random()*4;d.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.3+Math.random()*.7};animation-duration:${9+Math.random()*12}s;animation-delay:${-Math.random()*14}s`;host.appendChild(d)}}
+  function runReveal(){
+    const rv=$('reveal'),gl=$('reveal-glyph'),tt=$('reveal-title'),rl=$('reveal-line'),rc=$('reveal-continue');
+    rv.classList.add('on');rv.setAttribute('aria-hidden','false');
+    const step=(txt,cls,ms)=>T(()=>{gl.style.opacity=0;T(()=>{gl.textContent=txt;gl.className='reveal-glyph'+(cls?' '+cls:'');gl.style.opacity=1},700)},ms);
+    step('8','',reduced?400:3200);
+    step('8','turn',reduced?800:6400);
+    T(()=>{gl.className='reveal-glyph';gl.textContent='∞'},reduced?1200:8600);
+    step('♡','heart',reduced?1600:11400);
+    T(()=>tt.classList.add('flip'),reduced?2000:13400);
+    T(()=>rl.classList.add('in'),reduced?2300:15000);
+    T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
+    holdable($('reveal-ring'),()=>{location.href=NEXT});
+  }
+  function openStory(){
+    document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
+    beat=-1;act2Launched=false;setBeatState(0);
+    if(scene.dataset.scene==='innerfield'||scene.dataset.scene==='morning'){const host=$('sc-particles');if(host&&!host.childElementCount)seedParticles(host,scene.dataset.scene==='innerfield'?40:22)}
+    if(scene.dataset.scene==='trikona'){const p=$('tri-path');const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;scene.style.setProperty('--L',L)}
+    T(()=>{advance();hint.classList.add('show')},reduced?100:1400);
+  }
+  function closeStory(){
+    clearT();lock=false;document.body.classList.remove('story-open');sm.classList.remove('on');sm.setAttribute('aria-hidden','true');
+    veil.classList.remove('on');invite.classList.remove('show');eyes.classList.remove('animate');act2.classList.remove('on');act2.setAttribute('aria-hidden','true');door.classList.remove('up');
+    act2.querySelectorAll('p').forEach(p=>p.classList.remove('in'));line.classList.remove('in');hint.classList.remove('show');
+    const rv=$('reveal');if(rv){rv.classList.remove('on');$('reveal-title').classList.remove('flip');$('reveal-line').classList.remove('in');$('reveal-continue').classList.remove('in');$('reveal-glyph').textContent='33';$('reveal-glyph').className='reveal-glyph'}
+    showFolds();
+  }
+  $('sp-enter').addEventListener('click',openStory);
+  $('story-close').addEventListener('click',closeStory);
+  sm.addEventListener('click',e=>{if(e.target.closest('.story-close')||e.target.closest('.act-veil')||e.target.closest('.act-two')||e.target.closest('.threshold-door')||e.target.closest('.reveal'))return;advance()});
+  addEventListener('keydown',e=>{if(!sm.classList.contains('on'))return;if(e.key==='Escape')closeStory();else if((e.key==='ArrowRight'||e.key===' ')&&!act2Launched){e.preventDefault();advance()}});
+})();
+</script>
+</body>
+</html>

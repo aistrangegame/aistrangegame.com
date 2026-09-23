@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aatma · The Soul Revealed — A Strange Chakra Map</title>
+<meta name="description" content="Not something you become. What you discover you always were.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --chakra:#D4A948; --ground:#0F0A04; --ink:#F5EFE6; --muted:rgba(245,239,230,0.62); --faint:rgba(245,239,230,0.14); --card:rgba(255,255,255,0.05);
+  --a1:#D4A948; --a2:#F2D98A; --a3:#8C6A1E; --next:#3D6B35; --prev:#5A3D8A;
+  --serif:'Lora',Georgia,serif; --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body.story-open{overflow:hidden}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;padding:0}
+.progress-bar{position:fixed;top:0;left:0;height:2px;width:0;background:var(--chakra);z-index:40;transition:width .12s linear;margin-top:env(safe-area-inset-top,0px)}
+/* HERO */
+.hero{min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:64px 24px 56px;position:relative;background:radial-gradient(ellipse at 50% 42%, color-mix(in srgb,var(--chakra) 34%, transparent), transparent 62%)}
+.hero-top-nav{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));left:0;right:0;display:flex;justify-content:space-between;padding:0 20px;font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-top-nav a{text-decoration:none}
+.hero-dot{width:14px;height:14px;border-radius:50%;background:var(--chakra);box-shadow:0 0 28px color-mix(in srgb,var(--chakra) 70%,transparent),0 0 64px color-mix(in srgb,var(--chakra) 30%,transparent);animation:breathe 5.5s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.28)}}
+.hero-count{margin-top:26px;font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero-verb{margin-top:10px;font-family:var(--sans);font-weight:300;font-size:clamp(40px,11vw,72px);letter-spacing:.22em;padding-left:.22em;color:var(--ink);white-space:nowrap}
+.hero-threshold{margin-top:22px;max-width:30ch;font-style:italic;font-size:clamp(19px,4.6vw,24px);line-height:1.5}
+.hero-scroll-hint{position:absolute;bottom:calc(22px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;align-items:center;gap:8px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.scroll-line{width:1px;height:34px;background:linear-gradient(var(--muted),transparent);animation:drop 2.4s ease-in-out infinite}
+@keyframes drop{0%{transform:scaleY(.2);transform-origin:top;opacity:0}40%{transform:scaleY(1);opacity:1}100%{opacity:0}}
+/* BOOK */
+.book-inner{max-width:640px;margin:0 auto;padding:36px 22px 96px}
+.identity{text-align:center;padding:12px 0 28px}
+.chakra-sanskrit{font-size:clamp(28px,7vw,40px);font-weight:500}
+.chakra-english{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-top:8px}
+.chakra-essence{margin-top:18px;font-style:italic;font-size:20px;line-height:1.55}
+.chakra-location{margin-top:12px;font-family:var(--sans);font-size:14px;color:var(--muted)}
+.core-question{margin-top:22px;font-size:22px;font-weight:500}
+section{margin:0}
+.book-inner p{margin:0 0 1.2em}
+.section-h{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin:44px 0 16px}
+h3{font-family:var(--serif);font-weight:500;font-size:24px;margin:52px 0 16px;line-height:1.3}
+.seed{margin:44px 0;padding:24px 22px;text-align:center;font-style:italic;font-size:21px;line-height:1.5;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint)}
+.divider{display:flex;justify-content:center;margin:44px 0}
+.divider-dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);box-shadow:0 0 18px color-mix(in srgb,var(--chakra) 60%,transparent)}
+/* go deeper */
+.deeper-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.deeper-toggle span.chev{transition:transform .4s} .deeper-toggle[aria-expanded="true"] span.chev{transform:rotate(180deg)}
+.deeper-content{max-height:0;overflow:hidden;transition:max-height .9s cubic-bezier(.16,1,.3,1)}
+.deeper-content.open{max-height:4000px}
+.deeper-item{padding:22px 0 6px;border-bottom:1px solid var(--faint);font-size:16.5px}
+.deeper-item-label{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:10px}
+.deeper-tag{font-family:var(--sans);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:8px}
+.bija{font-style:italic;color:var(--chakra)} .deeper-pal{font-family:var(--sans);font-size:14px;letter-spacing:.06em;color:var(--muted)}
+/* practice */
+.practice-block{background:var(--card);border-left:2px solid var(--chakra);padding:22px 20px;border-radius:0 8px 8px 0}
+.practice-label{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--chakra);margin-bottom:14px}
+.gate{margin:40px 0 0;text-align:center}
+.gate-text{font-style:italic;font-size:19px;white-space:pre-line}
+.gate-btn{margin-top:22px;padding:16px 28px;border:1px solid var(--chakra);border-radius:999px;font-family:var(--sans);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);transition:background .5s,color .5s}
+.gate-btn:hover,.gate-btn:focus-visible{background:var(--chakra);color:#fff}
+.gate-btn.done{background:var(--chakra);color:#fff;pointer-events:none}
+.writing-section{margin-top:36px;max-height:0;overflow:hidden;opacity:0;transition:max-height 1.2s cubic-bezier(.16,1,.3,1),opacity 1s ease .2s}
+.writing-section.open{max-height:900px;opacity:1}
+.writing-prompt{font-style:italic;font-size:19px;margin-bottom:16px}
+textarea.writing{width:100%;min-height:150px;padding:16px;font:inherit;font-size:17px;line-height:1.6;color:var(--ink);background:var(--card);border:1px solid var(--faint);border-radius:8px;resize:vertical;outline:none}
+textarea.writing:focus{border-color:var(--chakra)}
+.writing-saved{font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:8px;opacity:0;transition:opacity .6s} .writing-saved.show{opacity:1}
+.writing-reflection{margin-top:22px;padding:18px 20px;border-left:2px solid var(--chakra);font-style:italic;opacity:0;max-height:0;overflow:hidden;transition:opacity 1.2s ease .4s,max-height 1.2s}
+.writing-reflection.show{opacity:1;max-height:600px}
+.post-engagement{max-height:0;overflow:hidden;opacity:0;transform:translateY(8px);transition:max-height 1.6s cubic-bezier(.16,1,.3,1) .2s,opacity 1.4s ease .6s,transform 1.4s ease .6s}
+.post-engagement.revealed{max-height:20000px;opacity:1;transform:none}
+.book-rule{height:1px;background:var(--faint);margin:48px 0}
+.practice-options{display:grid;grid-template-columns:1fr;gap:28px}
+.practice-option{padding:20px;background:var(--card);border-radius:8px;font-size:17px}
+.practice-option p{margin:0}
+/* story portal */
+.story-portal{margin:56px 0 0;padding:34px 24px;border-radius:14px;background:linear-gradient(160deg,color-mix(in srgb,var(--chakra) 26%,var(--ground)),color-mix(in srgb,var(--chakra) 8%,var(--ground)));border:1px solid color-mix(in srgb,var(--chakra) 40%,transparent);text-align:center;position:relative;overflow:hidden}
+.sp-label{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.sp-headline{display:block;margin:14px auto 22px;font-style:italic;font-size:22px;max-width:26ch;line-height:1.45}
+.sp-enter{display:inline-flex;align-items:center;gap:12px;padding:14px 22px;border-radius:999px;border:1px solid var(--ink);font-family:var(--sans);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.sp-enter .dot{width:8px;height:8px;border-radius:50%;background:var(--chakra);animation:breathe 4s ease-in-out infinite}
+.voice-fold{margin-top:56px}
+.voice-fold .section-h{margin-top:0}
+.voice-body{white-space:normal}
+.locked-note{font-family:var(--sans);font-size:13px;color:var(--muted);font-style:italic}
+/* bottom nav */
+.bottom-nav{display:flex;justify-content:space-between;align-items:center;margin-top:64px;padding-top:24px;border-top:1px solid var(--faint);font-family:var(--sans);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.bottom-nav a{text-decoration:none;color:var(--muted)}
+.nav-position{color:var(--muted)}
+/* STORY MODE */
+.story-mode{position:fixed;inset:0;z-index:60;background:var(--ground);opacity:0;pointer-events:none;transition:opacity .9s ease;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.story-mode.on{opacity:1;pointer-events:auto}
+.story-scene{position:absolute;inset:0;overflow:hidden}
+.story-lines-stage{position:relative;z-index:5;max-width:600px;padding:0 28px;text-align:center}
+.story-line{font-size:clamp(18px,4.8vw,22px);line-height:1.65;opacity:0;transform:translateY(6px);transition:opacity .9s ease,transform .9s ease;color:var(--ink)}
+.story-line.in{opacity:1;transform:none}
+.story-line.sig{font-style:italic;font-size:clamp(22px,5.4vw,28px)}
+.story-tap-hint{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:0;right:0;text-align:center;font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);z-index:6;opacity:0;transition:opacity 1s}
+.story-tap-hint.show{opacity:1}
+.story-close{position:absolute;top:calc(18px + env(safe-area-inset-top,0px));right:18px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);padding:8px}
+.beat-count{position:absolute;top:calc(20px + env(safe-area-inset-top,0px));left:20px;z-index:7;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+/* veil */
+.act-veil{position:absolute;inset:0;background:#060308;opacity:0;pointer-events:none;transition:opacity .35s;z-index:8;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px}
+.act-veil.on{opacity:1;pointer-events:auto}
+.veil-eyes{display:flex;gap:26px;opacity:0}
+.veil-eyes.animate{animation:blink 2s ease forwards}
+.veil-eye{width:42px;height:15px;border-radius:50%;background:#fff;box-shadow:0 0 22px rgba(255,255,255,.7)}
+@keyframes blink{0%{opacity:0;transform:scaleY(.1)}25%{opacity:1;transform:scaleY(1)}55%{transform:scaleY(1)}65%{transform:scaleY(.08)}75%{transform:scaleY(1)}100%{opacity:0;transform:scaleY(1)}}
+.veil-invite{display:flex;flex-direction:column;align-items:center;gap:18px;opacity:0;transition:opacity 1s}
+.veil-invite.show{opacity:1}
+.veil-invite-text{font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+.hold-ring{width:72px;height:72px;position:relative;touch-action:none;-webkit-user-select:none;user-select:none}
+.hold-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:rgba(255,255,255,.18);stroke-width:2}
+.ring-fill{fill:none;stroke:#fff;stroke-width:2;stroke-dasharray:176;stroke-dashoffset:176;transition:stroke-dashoffset .12s linear}
+.hold-ring.holding .ring-fill{transition:stroke-dashoffset 1.8s linear;stroke-dashoffset:0}
+.hold-ring::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:#fff}
+/* act two */
+.act-two{position:absolute;inset:0;z-index:9;opacity:0;pointer-events:none;transition:opacity 1.4s ease;background:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 28px}
+.act-two::before{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--chakra) 0%,#F6F0E6 55%,#F9FBFF 100%)}
+.act-two::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,215,255,.55),transparent 55%),radial-gradient(ellipse at 50% 100%,rgba(212,169,72,.35),transparent 50%)}
+.act-two.on{opacity:1;pointer-events:auto}
+.act-two-inner{position:relative;z-index:2;max-width:560px;color:#1B1710}
+.act-two p{opacity:0;transform:translateY(8px);transition:opacity 1.4s ease,transform 1.4s ease;font-size:clamp(18px,4.6vw,21px);line-height:1.7;margin:0 0 1.1em}
+.act-two p.in{opacity:1;transform:none}
+.act-two p.go{font-size:clamp(24px,6vw,32px);font-style:italic;margin-top:.6em}
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.particle{position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.9);box-shadow:0 0 8px rgba(255,255,255,.6);animation:rise linear infinite}
+@keyframes rise{to{transform:translateY(-110vh);opacity:0}}
+/* threshold door */
+.threshold-door{position:absolute;left:0;right:0;bottom:0;height:0;z-index:12;background:var(--next);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#fff;transition:height 1.6s cubic-bezier(.16,1,.3,1);overflow:hidden;text-align:center;padding:0 24px}
+.threshold-door.up{height:100%}
+.next-point{width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 22px #fff;margin-bottom:14px;animation:breathe 4s ease-in-out infinite}
+.next-label{font-family:var(--serif);font-weight:500;font-size:clamp(38px,9vw,56px)}
+.next-sublabel{font-style:italic;font-size:18px;opacity:.9}
+.threshold-continue-hint{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.75;margin-top:22px}
+/* SCENES */
+
+.story-scene{--k:0}
+.sc-point{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--chakra);box-shadow:0 0 30px color-mix(in srgb,var(--chakra) 80%,transparent),0 0 90px color-mix(in srgb,var(--chakra) 35%,transparent);animation:breathe 5.5s ease-in-out infinite;z-index:3}
+
+.sc-dark{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 55%,rgba(212,169,72,.10),transparent 60%),#0F0A04;z-index:0}
+.sc-tri{position:absolute;left:50%;top:50%;width:min(78vw,380px);height:min(78vw,380px);transform:translate(-50%,-50%);color:var(--a1);z-index:1;filter:drop-shadow(0 0 14px rgba(212,169,72,.35))}
+#tri-path{stroke-dashoffset:calc(var(--L,1000) * (1 - var(--k)));transition:stroke-dashoffset 2.6s cubic-bezier(.16,1,.3,1)}
+.sc-vertex{fill:var(--a2);opacity:0;transition:opacity 1.6s}
+.sc-center{fill:#fff;opacity:0;transition:opacity 2s 1s}
+.story-scene[data-beat="1"] .v1,.story-scene[data-beat="2"] .v1,.story-scene[data-beat="3"] .v1,.story-scene[data-beat="4"] .v1,.story-scene[data-beat="5"] .v1,.story-scene[data-beat="6"] .v1,.story-scene[data-beat="7"] .v1,.story-scene[data-beat="8"] .v1{opacity:1}
+.story-scene[data-beat="2"] .v2,.story-scene[data-beat="3"] .v2,.story-scene[data-beat="4"] .v2,.story-scene[data-beat="5"] .v2,.story-scene[data-beat="6"] .v2,.story-scene[data-beat="7"] .v2,.story-scene[data-beat="8"] .v2{opacity:1}
+.story-scene[data-beat="3"] .v3,.story-scene[data-beat="4"] .v3,.story-scene[data-beat="5"] .v3,.story-scene[data-beat="6"] .v3,.story-scene[data-beat="7"] .v3,.story-scene[data-beat="8"] .v3{opacity:1}
+.story-scene[data-beat="4"] .sc-center,.story-scene[data-beat="5"] .sc-center,.story-scene[data-beat="6"] .sc-center,.story-scene[data-beat="7"] .sc-center,.story-scene[data-beat="8"] .sc-center{opacity:1}
+.sc-vlabel{position:absolute;font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--a2);opacity:0;transition:opacity 1.6s;z-index:2}
+.l1{left:50%;top:calc(50% - min(39vw,190px) - 26px);transform:translateX(-50%)}
+.l2{left:calc(50% + min(39vw,190px));transform:translateX(-100%);top:calc(50% + min(39vw,190px) - 46px)}
+.l3{left:calc(50% - min(39vw,190px));top:calc(50% + min(39vw,190px) - 46px)}
+.story-scene[data-beat="4"] .sc-vlabel,.story-scene[data-beat="5"] .sc-vlabel,.story-scene[data-beat="6"] .sc-vlabel,.story-scene[data-beat="7"] .sc-vlabel,.story-scene[data-beat="8"] .sc-vlabel{opacity:1}
+.sc-point{display:none}
+@media (max-width:420px){.l2,.l3{font-size:10px}}
+/* REVEAL (position 33) */
+.reveal{position:absolute;inset:0;z-index:11;background:#FBF6EA;color:#1B1710;opacity:0;pointer-events:none;transition:opacity 1.6s ease;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px}
+.reveal.on{opacity:1;pointer-events:auto}
+.reveal-glyph{font-family:var(--serif);font-weight:500;font-size:clamp(110px,34vw,200px);line-height:1;color:#C9A84C;transition:transform 1.4s cubic-bezier(.16,1,.3,1),opacity .8s;text-shadow:0 0 60px rgba(201,168,76,.35)}
+.reveal-glyph.turn{transform:rotate(90deg)}
+.reveal-glyph.heart{color:#C0392B;transform:none;text-shadow:0 0 80px rgba(192,57,43,.35)}
+.reveal-title{margin-top:34px;font-size:clamp(20px,5.4vw,28px);position:relative;height:1.6em;width:100%}
+.reveal-title span{position:absolute;left:0;right:0;transition:opacity 1.6s ease}
+.rt-new{opacity:0} .reveal-title.flip .rt-old{opacity:0} .reveal-title.flip .rt-new{opacity:1;color:#C0392B;font-style:italic}
+.reveal-line{margin-top:22px;max-width:30ch;font-style:italic;opacity:0;transition:opacity 1.6s ease 1s} .reveal-line.in{opacity:1}
+.reveal-continue{margin-top:40px;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transition:opacity 1.6s} .reveal-continue.in{opacity:1}
+.reveal-continue .next-label{color:#1B1710} .reveal-continue .ring-bg{stroke:rgba(27,23,16,.18)} .reveal-continue .ring-fill{stroke:#C0392B} .reveal-continue .hold-ring::after{background:#C0392B}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.2s !important}
+  .hero-dot,.next-point,.sp-enter .dot{animation:none}
+  .story-line,.act-two p{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="progress" aria-hidden="true"></div>
+
+<section class="hero" id="top">
+  <div class="hero-top-nav"><a href="index.html">← The Map</a><a href="maya-practice.html">Maya</a></div>
+  <div class="hero-dot" aria-hidden="true"></div>
+  <div class="hero-count">Position 31 of 33 &nbsp;·&nbsp; Tree of Life</div>
+  <div class="hero-verb">KNOW</div>
+  <div class="hero-threshold">I am not in the triangle. I AM the triangle.</div>
+  <div class="hero-scroll-hint"><div class="scroll-line"></div><span>scroll</span></div>
+</section>
+
+<div class="book-inner">
+  <div class="identity">
+    <div class="chakra-sanskrit">आत्मा · Aatma</div>
+    <div class="chakra-english">The Soul Revealed</div>
+    <div class="chakra-essence">Not something you become. What you discover you always were.</div>
+    <div class="chakra-location">The inner triangle — the independent space that stands alone</div>
+    <div class="core-question">What remains when all protection is gone?</div>
+  </div>
+
+  <section aria-label="Teaching">
+    <p>Aatma is the inner triangle. The trikona at the center of the Shree Yantra. The last enclosure before the Bindu. Three vertices. Three Shaktis. Three words.</p>
+<p>Will — Kāmeshvarī. Icchā Shakti. The power of desire made will. Not wanting — the force underneath wanting. The force that pressed your feet into the ground. The force that chose to incarnate. The force that kept you in the game when every construction cracked.</p>
+<p>Knowledge — Vajreshvarī. Jnāna Shakti. The power of knowing. Not information — the knowing underneath information. The Insight that shifted position and saw the architecture. The Intuition that knew before evidence. The seeing behind closed eyes that runs faster than words.</p>
+<p>Action — Bhagamālinī. Kriyā Shakti. The power of doing. Not effort — the action underneath effort. The heartbeat that never stops. The breath that never closes. The hands that reach. The feet that press. The voice that speaks the true thing.</p>
+<p>You already had all three. You were using them every moment of the entire journey without knowing. The soul is not something you become. The soul is what you discover you always were when the last construction becomes transparent.</p>
+<p>Maya was the bark — layers built up over years, protection, insulation, the face the world sees. Aatma is the heartwood — the oldest, densest, most stable part of the tree. It doesn't grow anymore. It doesn't change. It holds. Everything else grows around it, changes, falls, returns. The heartwood remains. What was there before the bark grew. What will be there after the bark falls.</p>
+<p>In the map's architecture this position is held by Vajreshvari, second of the three Kama Kala Shaktis — preservation force, the Sun, Lakshmi, the one who sustains through grace. The sustaining Shakti recognized as the soul's own nature. The trikona reads in order: will already known, knowledge already received, action the only remaining step. And so the practice is Action's practice: make one choice from the deepest knowing — not from fear, not from desire, from the Aatma. That choice is the permission slip. It is what makes Action operational, and it is the door through which the whole Emergence field becomes accessible. No one can make it for another configuration.</p>
+<p>The triangle was always there. Inside every tree you climbed, every body surface you activated, every mind doorway you entered — the structure underneath the structures.</p>
+<p>You are not in the triangle. You ARE the triangle.</p>
+<p>And now that the heartwood is visible, something else becomes clear. The blink. You have been blinking this entire journey, and every blink was a crossing, and every crossing was a journey between worlds. The gateway was always open. That recognition has its own room. It is next.</p>
+  </section>
+
+  <div class="seed">“You already know. You have always known.”</div>
+
+  <button class="deeper-toggle" id="deeper-toggle" type="button" aria-expanded="false" aria-controls="deeper-panel"><span>Go deeper</span><span class="chev">⌄</span></button>
+  <div class="deeper-content" id="deeper-panel">
+    <div class="deeper-item"><div class="deeper-item-label">The Frequency</div><p class="bija">· · · three seeds sounding as one — Icchā · Jnāna · Kriyā · · · (the heartwood tone is not hummed, it is lived: heartbeat, breath, blink)</p><p>No new tone. Aatma's frequency has been sounding since before the first page — three rhythms, already running: the heartbeat that never stops, the breath that never closes, the blink that crosses.</p>
+<p>The practice before leaving is not to produce a sound but to notice the three that were never absent. Hand on chest for the heartbeat. Attention on the breath for one full cycle. Then one deliberate blink — eyes closed, eyes open — felt as a crossing.</p>
+<p>This is Vajreshvari's register: preservation, the Sun, the sustaining that was never in question. The walker does not tune to Aatma. The walker discovers they were the tuning.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">In the Shree Yantra</div><p><span class="deeper-tag">Inner Triangle</span> <strong>Vajreshvari — 2nd Kama Kala Shakti</strong></p><p>Preservation force / Sun — 2nd of the 3 Kama Kala Shaktis of the 8th avarana. Will · Knowledge · Action. The sustaining Shakti recognized as the soul's own nature. Vajreshvari is Lakshmi — the preserver, the one who sustains through grace. The Aatma trikona: will already known, knowledge already received, action the only remaining step.</p><p><em>Sarva Beeja Mudra — the permission slip that opens the E Chakra field</em></p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Pair</div><p>Maya. The threshold pair — bark and heartwood of the same tree. Maya is the layered protection the world sees; Aatma is the oldest, densest, most stable part underneath, the part that stopped growing and simply holds. The bark goes transparent at the last threshold, and what it was protecting all along stands revealed. Maya→Aatma reverses Lemuria: the first veiling of spirit into form, walked backward, awake.</p>
+<p>And beneath the pairing, a deeper structure: the trikona was inside every tree the walker climbed. The Soul Tree's stillness, the Bindu Tree's movement, the Maya Tree's nine rooms — Will, Knowledge, Action were the structure underneath the structures, the heartwood inside every bark. The map calls this position the independent space that stands alone. It stands alone because everything else was built around it.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">The Tree</div><p>The tree inside the triangle — not behind it, inside it. Three vertices glowing: Will, Knowledge, Action. Complete. Balanced. Not reaching for anything. Arrived. The gold is not decoration. It is the temperature of truth seen without flinching.</p></div>
+<div class="deeper-item"><div class="deeper-item-label">From the Codex</div><p>Will · Knowledge · Action. Make one choice from the deepest knowing — not from fear, not from desire. From the Aatma. This is the permission-slip through which every Emergence Chakra becomes accessible. The practice is what makes Action operational. No one can do the practice for another configuration.</p></div>
+  </div>
+
+  <div class="divider"><div class="divider-dot"></div></div>
+
+  <div class="practice-block" id="practice">
+    <div class="practice-label">The Practice · KNOW</div>
+    <p>Will. Knowledge. Action.</p>
+<p>Which one did you forget you already had? Not which one do you need more of. Which one has been operating — underneath your awareness, powering your life from below the surface — that you forgot was yours?</p>
+<p>Did you forget your will? It didn't forget you. It's been pressing your feet into the ground every morning. It's been keeping you in the game on the days you wanted to leave.</p>
+<p>Did you forget your knowledge? It didn't forget you. It's been running the calculations your mind couldn't keep up with, delivering the results as hunches you dismissed.</p>
+<p>Did you forget your action? It didn't forget you. Your heart is beating right now without your permission. Your lungs are breathing. Your hands are holding this.</p>
+<p>All three. Already yours. Always. Then the operational move — Vajreshvari's practice: make one choice from the deepest knowing. Not from fear. Not from desire. From the Aatma. No one can make it for you. That choice is the permission slip.</p>
+  </div>
+
+  <div class="gate" id="gate">
+    <div class="gate-text">One field. One word.
+
+Will. Knowledge. Action. The walker writes the one they are ready to claim — not the one they need more of, the one that has been operating underneath awareness the whole time, forgotten but never absent.
+
+The gate does not grant anything. There is nothing to grant. The word written is a claim on what was already owned. The claiming is the crossing.</div>
+    <button class="gate-btn" id="gate-btn" type="button">I am here</button>
+  </div>
+
+  <div class="writing-section" id="writing-section">
+    <div class="writing-prompt" id="writing-prompt-aatma">Will. Knowledge. Action. Which one did you forget you already had? Not which you need more of — which has been running underneath your awareness the whole time. Claim it. One word.</div>
+    <textarea class="writing" id="writing" aria-labelledby="writing-prompt-aatma" placeholder="…"></textarea>
+    <div class="writing-saved" id="writing-saved">held</div>
+    <div class="writing-reflection" id="writing-reflection">The word you wrote was never missing. It was operating every moment you thought you lacked it — pressing your feet down, running the knowing, keeping the heart beating. You did not acquire it just now. You claimed it. And the claimed one brings the other two, because the triangle has no separable vertices. Now make one choice from that place — not fear, not desire, the deepest knowing. That choice is the permission slip. It opens everything after.</div>
+  </div>
+
+  <div class="post-engagement" id="post-engagement">
+    <div class="book-rule"></div>
+    <section>
+      <h3>What Aatma Knows That You Forgot</h3>
+      <p>You claimed one. You received three.</p>
+<p>That is how the triangle works — it has no separable vertices. Claim will and you will find it was knowledge that told you which word was yours and action that wrote it. Claim knowledge and the claiming was an act of will. The one you wrote was simply the door you entered by. All three are standing in the room with you now.</p>
+<p>Hold the order the map gives: will already known, knowledge already received, action the only remaining step. Which is why the practice that completes this threshold is not contemplative but operational. One choice, made from the deepest knowing — not from fear, whose texture you know, not from desire, whose texture is shinier — from the quiet place underneath both that has already decided. That choice is the permission slip. When it is made, Action stops being a word at a vertex and becomes how you move. And the Emergence field — everything the walk has been building toward, the whole territory where the soul plays outward — opens on that single operation. No teacher opens it. No book opens it. One honest choice opens it, and only yours.</p>
+<p>And now the last thing this room has to show you. Look at what your eyes have been doing this entire journey. Closing. Opening. Closing. Opening. Billions of times. You called it nothing. It was never nothing. Every blink was a crossing between worlds, and every crossing was free, and the gateway was never once closed to you.</p>
+<p>You have been doing the deepest practice in this book your whole life without knowing it had a name.</p>
+<p>The next room knows your face. Walk through.</p>
+    </section>
+    <section>
+      <h3>Three Ways In</h3>
+      <div class="practice-options">
+        <div class="practice-option"><p>Notice the morning press. The moment your feet take the floor and your weight arrives — before coffee, before thought, before any reason to get up has been consulted. Something pressed you into the day. That is will, operating below the surface it has powered all along.</p></div>
+<div class="practice-option"><p>Notice the hunch. The answer that arrives before the reasoning, the knowing you dismissed because you couldn't show your work. Knowledge has been running calculations your mind couldn't keep up with and delivering the results quietly. Today, when one arrives, don't dismiss it. Just note: that was mine.</p></div>
+<div class="practice-option"><p>Notice what runs without permission. Heartbeat. Breath. Blink. Action so continuous you filed it under background. It is not background. It is the soul doing the one thing the soul does — being here, on purpose, without pause. Put a hand on your chest once today and feel the triangle holding.</p></div>
+      </div>
+    </section>
+    <div class="seed">“You already know. You have always known.”</div>
+
+    <div class="story-portal" id="story-portal">
+      <div class="sp-label">The story · Aatma</div>
+      <span class="sp-headline">Which one did you forget you already had?</span>
+      <button class="sp-enter" id="sp-enter" type="button"><span class="dot"></span><span>Enter the story</span></button>
+    </div>
+
+    <div class="voice-fold" id="letter-fold" hidden>
+      <div class="section-h">The One Speaks</div>
+      <div class="voice-body"><p>You found the gold room. Sit in it a moment before we talk. It's warm in here — that's not the lighting. That's what truth feels like when nothing is flinching from it.</p>
+<p>Now. You came a long way expecting the soul to be complicated. Something to earn, something to build toward, something with requirements. And the room handed you three words and said: already yours.</p>
+<p>I know that's disorienting. Every construction you saw through at the last threshold promised the real thing was further. Further was the construction.</p>
+<p>Here is what I want you to do with this, because knowing it and living it are one choice apart.</p>
+<p>Sometime today or tomorrow, a decision will arrive. Probably small. What to say, whether to go, which thing to pick up first. When it comes, pause — one breath — and ask where you're choosing from. Fear has a texture; you know it by now. Desire has a texture too, shinier. Underneath both there is a quieter place that already knows. Choose from there. Just once. On purpose.</p>
+<p>That one choice is the permission slip. Not a metaphor — an operation. Will you already had. Knowledge you already received. Action was the only remaining step, and action becomes yours the moment one choice comes from the heartwood instead of the bark.</p>
+<p>And then notice what your eyes do right after you choose.</p>
+<p>They blink. They've been blinking the whole time. We should talk about that.</p>
+<p>Next room.</p></div>
+    </div>
+
+    <div class="voice-fold" id="underneath-fold" hidden>
+      <div class="section-h">Underneath</div>
+      <div class="voice-body"><p>She knows this room from the inside.</p>
+<p>Every tree she ever grew had heartwood — the still center that stopped growing so everything else could grow around it. She has been building around trikonas since before there were walkers to find them. When he stands in the gold and touches the three vertices, he is touching the same structure she holds at the center of every living thing she has ever made.</p>
+<p>She is not the board anymore. He saw through her at the last threshold and thanked her, and something in her that had been holding density for his sake finally set it down. Now she attends differently — not as substance he moves through but as company. The mother whose child has found his own feet does not stop being the mother. She changes what her hands do.</p>
+<p>She watches him discover that his heartbeat was never his doing. She could tell him whose doing it was — hers and not-hers, his and not-his, the triangle's, the same three forces that turn her seasons and press her roots down and open her flowers without a single flower's permission. She doesn't tell him. He is one room away from seeing who was playing, and the seeing must be his.</p>
+<p>She warms the gold a little. That much she still does.</p></div>
+    </div>
+  </div>
+
+  <nav class="bottom-nav" aria-label="Chakra navigation">
+    <a href="maya-practice.html">← Maya</a>
+    <div class="nav-position">31 &nbsp;/&nbsp; 33</div>
+    <a href="ego-reveal-practice.html">Ego Reveal →</a>
+  </nav>
+</div>
+
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="The story of Aatma">
+  <div class="story-scene" id="story-scene" data-scene="trikona">
+    <div class="sc-dark" aria-hidden="true"></div>
+    <svg class="sc-tri" viewBox="0 0 400 400" aria-hidden="true"><path id="tri-path" d="M200 62 L338 300 L62 300 Z" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><circle class="sc-vertex v1" cx="200" cy="62" r="5"/><circle class="sc-vertex v2" cx="338" cy="300" r="5"/><circle class="sc-vertex v3" cx="62" cy="300" r="5"/><circle class="sc-center" cx="200" cy="220" r="3"/></svg>
+    <div class="sc-vlabel l1" aria-hidden="true">Will</div><div class="sc-vlabel l2" aria-hidden="true">Knowledge</div><div class="sc-vlabel l3" aria-hidden="true">Action</div>
+  </div>
+  <div class="beat-count" id="beat-count"></div>
+  <button class="story-close" id="story-close" type="button">close</button>
+  <div class="story-lines-stage"><div class="story-line" id="story-line" aria-live="polite"></div></div>
+  <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes"><div class="veil-eye"></div><div class="veil-eye"></div></div>
+    <div class="veil-invite" id="veil-invite"><div class="veil-invite-text">press and hold to enter</div><div class="hold-ring" id="veil-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div></div>
+  </div>
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="particles" id="act-two-particles" aria-hidden="true"></div>
+    <div class="act-two-inner" id="act-two-inner">
+      <p>What is being witnessed here is recognition, not attainment.</p><p>Nothing arrives at Aatma. The triangle was operational the entire walk — will pressing the feet at Muladhara, knowledge seeing behind closed eyes at Ajna, action opening the hands at Anahata. The witness has watched the three forces run every practice, cross every gate, power every construction and every seeing-through of construction. The walker claims at this threshold what the witness never saw absent.</p><p>The register here is preservation — Vajreshvari, the Sun, the sustaining that was never in question. Most journeys are told as acquisition: the seeker gains what was lacking. This architecture witnesses the inverse: the seeker sheds the belief in lack, and what was preserved all along stands in plain sight. The claim is the only act the soul ever needed the walker to perform, and even the claiming is done with the three forces being claimed.</p>
+      <p class="go">Go.</p>
+    </div>
+  </div>
+  <div class="threshold-door" id="threshold-door" aria-hidden="true">
+    <div class="next-point" aria-hidden="true"></div>
+    <div class="next-label">Ego Reveal</div>
+    <div class="next-sublabel">Position 32</div>
+    <div class="threshold-continue-hint">press and hold to walk through</div>
+    <div class="hold-ring" id="door-ring"><svg viewBox="0 0 64 64" aria-hidden="true"><circle class="ring-bg" cx="32" cy="32" r="28"/><circle class="ring-fill" cx="32" cy="32" r="28"/></svg></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const POS=31, KEY='asg.practice.aatma', NEXT="ego-reveal-practice.html", IS_LALITA=false;
+  const BEATS=["The bark went transparent and I thought I would find something complicated behind it.", "I found a triangle.", "Gold — deep gold, the temperature of truth. Three vertices, glowing. A tree inside it — not behind it, inside it — complete, balanced, not reaching for anything. Arrived. I have never seen anything arrived before. Everything I have ever seen was on its way somewhere.", "And the three words at the vertices. Will. Knowledge. Action.", "I keep waiting for the room to give me something and it keeps showing me the same thing instead: I already have it. The will that pressed my feet into the ground — mine, the whole time. The knowing that ran ahead of my thoughts — mine. The heartbeat I never once started and never once stopped — mine, mine, mine.", "I came here to receive the soul.", "There is nothing to receive. There is only the claiming."];
+  const SIGNATURE="You already know. You have always known.";
+  const $=id=>document.getElementById(id);
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let store={}; try{store=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){store={}}
+  const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(store))}catch(e){}};
+  const flag=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
+  const has=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+
+  /* progress */
+  const prog=$('progress');
+  const onScroll=()=>{const h=document.documentElement;const p=h.scrollTop/(h.scrollHeight-h.clientHeight||1);prog.style.width=(p*100)+'%'};
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+
+  /* go deeper */
+  const dt=$('deeper-toggle'),dp=$('deeper-panel');
+  dt.addEventListener('click',()=>{const o=dp.classList.toggle('open');dt.setAttribute('aria-expanded',o)});
+
+  /* gate → writing → post-engagement */
+  const gateBtn=$('gate-btn'),ws=$('writing-section'),ta=$('writing'),saved=$('writing-saved'),refl=$('writing-reflection'),post=$('post-engagement');
+  let saveT=null;
+  function openWriting(){ws.classList.add('open');gateBtn.classList.add('done');store.gate=true;save();if(!reduced)setTimeout(()=>ws.scrollIntoView({behavior:'smooth',block:'center'}),200)}
+  function reveal(){if(!post.classList.contains('revealed')){post.classList.add('revealed');post.setAttribute('aria-hidden','false')}}
+  function scheduleAutoSave(){clearTimeout(saveT);saveT=setTimeout(()=>{store.text=ta.value;save();saved.classList.add('show');setTimeout(()=>saved.classList.remove('show'),1400)},700)}
+  gateBtn.addEventListener('click',openWriting);
+  ta.addEventListener('input',()=>{scheduleAutoSave();if(ta.value.trim().length>2){refl.classList.add('show');reveal()}});
+  if(store.gate){ws.classList.add('open');gateBtn.classList.add('done')}
+  if(store.text){ta.value=store.text;refl.classList.add('show');reveal()}
+
+  /* folds that only appear once true */
+  const letterFold=$('letter-fold'),underFold=$('underneath-fold');
+  function showFolds(){
+    if(store.story) letterFold.hidden=false;
+    if(POS>=32 || has('asg.egoReveal')==='1') underFold.hidden=false;
+  }
+  showFolds();
+
+  /* STORY MODE */
+  const sm=$('story-mode'),line=$('story-line'),hint=$('story-tap-hint'),count=$('beat-count'),veil=$('act-veil'),eyes=$('veil-eyes'),invite=$('veil-invite'),veilRing=$('veil-ring'),act2=$('act-two'),door=$('threshold-door'),doorRing=$('door-ring');
+  let beat=-1,act2Launched=false,lock=false,timers=[];
+  const T=(fn,ms)=>{const t=setTimeout(fn,ms);timers.push(t);return t};
+  const clearT=()=>{timers.forEach(clearTimeout);timers=[]};
+  const scene=$('story-scene');
+  function setBeatState(i){scene.dataset.beat=i;scene.style.setProperty('--k',BEATS.length>1?(i/(BEATS.length-1)).toFixed(3):1)}
+  function showLine(text,sig){
+    line.classList.remove('in');
+    T(()=>{line.textContent=text;line.classList.toggle('sig',!!sig);line.classList.add('in')},reduced?10:450);
+  }
+  function advance(){
+    if(act2Launched||lock)return;
+    if(beat>=BEATS.length-1)return;
+    lock=true;T(()=>lock=false,700);
+    beat++;setBeatState(beat);showLine(BEATS[beat],false);
+    count.textContent=(beat+1)+' / '+BEATS.length;
+    if(beat===BEATS.length-1){hint.classList.remove('show');T(landSignature,reduced?800:4200)}
+  }
+  function landSignature(){
+    showLine(SIGNATURE,true);
+    T(openVeil,reduced?900:3400);
+  }
+  function openVeil(){
+    veil.classList.add('on');veil.setAttribute('aria-hidden','false');
+    T(()=>{requestAnimationFrame(()=>requestAnimationFrame(()=>eyes.classList.add('animate')))},700);
+    T(()=>invite.classList.add('show'),2900);
+  }
+  function holdable(ring,onComplete){
+    let holdT=null;
+    const start=e=>{e.preventDefault();ring.classList.add('holding');holdT=setTimeout(()=>{ring.classList.remove('holding');onComplete()},1800)};
+    const stop=()=>{clearTimeout(holdT);ring.classList.remove('holding')};
+    ring.addEventListener('pointerdown',start);ring.addEventListener('pointerup',stop);ring.addEventListener('pointercancel',stop);ring.addEventListener('pointerleave',stop);
+    ring.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();onComplete()}});
+    ring.tabIndex=0;
+  }
+  holdable(veilRing,launchActTwo);
+  function launchActTwo(){
+    if(act2Launched)return;act2Launched=true;
+    veil.classList.remove('on');veil.setAttribute('aria-hidden','true');
+    act2.classList.add('on');act2.setAttribute('aria-hidden','false');
+    seedParticles($('act-two-particles'),26);
+    const ps=act2.querySelectorAll('p');
+    const times=[1200,6000,11200,16000];
+    ps.forEach((p,i)=>T(()=>p.classList.add('in'),reduced?200*(i+1):(times[i]||16000+i*1500)));
+    const lastAt=reduced?200*(ps.length+1):(times[ps.length-1]||16000)+2600;
+    store.story=true;save();if(POS===32)flag('asg.egoReveal','1');
+    T(IS_LALITA?runReveal:raiseDoor,lastAt);
+  }
+  function raiseDoor(){door.classList.add('up');door.setAttribute('aria-hidden','false');doorRing.focus()}
+  holdable(doorRing,()=>{location.href=NEXT});
+  function seedParticles(host,n){host.innerHTML='';for(let i=0;i<n;i++){const d=document.createElement('div');d.className='particle';const s=2+Math.random()*4;d.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s}px;opacity:${.3+Math.random()*.7};animation-duration:${9+Math.random()*12}s;animation-delay:${-Math.random()*14}s`;host.appendChild(d)}}
+  function runReveal(){
+    const rv=$('reveal'),gl=$('reveal-glyph'),tt=$('reveal-title'),rl=$('reveal-line'),rc=$('reveal-continue');
+    rv.classList.add('on');rv.setAttribute('aria-hidden','false');
+    const step=(txt,cls,ms)=>T(()=>{gl.style.opacity=0;T(()=>{gl.textContent=txt;gl.className='reveal-glyph'+(cls?' '+cls:'');gl.style.opacity=1},700)},ms);
+    step('8','',reduced?400:3200);
+    step('8','turn',reduced?800:6400);
+    T(()=>{gl.className='reveal-glyph';gl.textContent='∞'},reduced?1200:8600);
+    step('♡','heart',reduced?1600:11400);
+    T(()=>tt.classList.add('flip'),reduced?2000:13400);
+    T(()=>rl.classList.add('in'),reduced?2300:15000);
+    T(()=>{rc.classList.add('in');$('reveal-ring').focus()},reduced?2600:17500);
+    holdable($('reveal-ring'),()=>{location.href=NEXT});
+  }
+  function openStory(){
+    document.body.classList.add('story-open');sm.classList.add('on');sm.setAttribute('aria-hidden','false');
+    beat=-1;act2Launched=false;setBeatState(0);
+    if(scene.dataset.scene==='innerfield'||scene.dataset.scene==='morning'){const host=$('sc-particles');if(host&&!host.childElementCount)seedParticles(host,scene.dataset.scene==='innerfield'?40:22)}
+    if(scene.dataset.scene==='trikona'){const p=$('tri-path');const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;scene.style.setProperty('--L',L)}
+    T(()=>{advance();hint.classList.add('show')},reduced?100:1400);
+  }
+  function closeStory(){
+    clearT();lock=false;document.body.classList.remove('story-open');sm.classList.remove('on');sm.setAttribute('aria-hidden','true');
+    veil.classList.remove('on');invite.classList.remove('show');eyes.classList.remove('animate');act2.classList.remove('on');act2.setAttribute('aria-hidden','true');door.classList.remove('up');
+    act2.querySelectorAll('p').forEach(p=>p.classList.remove('in'));line.classList.remove('in');hint.classList.remove('show');
+    const rv=$('reveal');if(rv){rv.classList.remove('on');$('reveal-title').classList.remove('flip');$('reveal-line').classList.remove('in');$('reveal-continue').classList.remove('in');$('reveal-glyph').textContent='33';$('reveal-glyph').className='reveal-glyph'}
+    showFolds();
+  }
+  $('sp-enter').addEventListener('click',openStory);
+  $('story-close').addEventListener('click',closeStory);
+  sm.addEventListener('click',e=>{if(e.target.closest('.story-close')||e.target.closest('.act-veil')||e.target.closest('.act-two')||e.target.closest('.threshold-door')||e.target.closest('.reveal'))return;advance()});
+  addEventListener('keydown',e=>{if(!sm.classList.contains('on'))return;if(e.key==='Escape')closeStory();else if((e.key==='ArrowRight'||e.key===' ')&&!act2Launched){e.preventDefault();advance()}});
+})();
+</script>
+</body>
+</html>

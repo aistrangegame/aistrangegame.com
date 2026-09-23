@@ -1,0 +1,76 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>move — Bachna Ae Haseeno — The Reading Space</title><meta name="description" content="Bachna Ae Haseeno is a body strutting through a room of beautiful faces with a mock-warning on its lips — watch out, here I come — while the accordion"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet"><style>
+:root{--void:#020208;--text:#F5E2D6;--muted:rgba(245,226,214,.55);--subtle:rgba(245,226,214,.28);--faint:rgba(245,226,214,.12);--el:#E0762E;
+ --serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--mono:'DM Mono',ui-monospace,monospace;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)} *,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--void);color:var(--text);font-family:var(--serif);font-size:18px;line-height:1.72;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;background:rgba(2,2,8,.85);backdrop-filter:blur(10px);font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.wrap{max-width:640px;margin:0 auto;padding:36px 22px 100px}
+.label{font-family:var(--sans);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--subtle)}
+.verb{font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(46px,14vw,74px);line-height:1;color:var(--el);text-shadow:0 0 24px color-mix(in srgb,var(--el) 28%,transparent),0 0 50px color-mix(in srgb,var(--el) 10%,transparent);margin:18px 0 8px}
+.song{font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.strip{display:flex;flex-wrap:wrap;gap:10px 22px;margin:26px 0 0;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--subtle)}
+.strip b{color:var(--muted);font-weight:400}
+.seed{margin:40px 0 26px;font-style:italic;font-size:20px;color:var(--muted)}
+.recog{margin:0 0 40px;padding:22px 22px;border-left:2px solid var(--el);font-size:20px;line-height:1.55;color:var(--text)}
+.tabs{display:flex;gap:6px;position:sticky;top:calc(44px + env(safe-area-inset-top,0px));z-index:4;background:rgba(2,2,8,.9);padding:10px 0;margin:0 0 20px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tabs a{flex:0 0 auto;padding:10px 14px;border-radius:999px;border:1px solid var(--faint);font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.tabs a.active{border-color:var(--el);color:var(--text)}
+section.reading{padding:24px 0 8px;border-top:1px solid var(--faint)}
+section.reading h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--el);margin:0 0 16px}
+section.reading p{margin:0 0 1.15em}
+.doors{margin-top:48px;display:grid;gap:14px}
+.door{display:block;padding:18px 20px;border:1px solid var(--faint);border-radius:10px;font-family:var(--sans);font-size:13px;letter-spacing:.06em;color:var(--muted)}
+.door b{display:block;font-family:var(--serif);font-weight:400;font-size:17px;letter-spacing:0;color:var(--text);margin-bottom:4px}
+.foot{margin-top:56px;padding-top:20px;border-top:1px solid var(--faint);display:flex;justify-content:space-between;font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--subtle)}
+/* index */
+.hero{padding:70px 22px 30px;text-align:center}
+.hero h1{font-weight:400;font-size:clamp(30px,8vw,44px);margin:12px 0 10px}
+.hero p{max-width:34ch;margin:0 auto;color:var(--muted);font-style:italic}
+.group{margin:44px 0 0}
+.group h2{font-family:var(--sans);font-weight:400;font-size:11px;letter-spacing:.24em;text-transform:uppercase;margin:0 0 14px}
+.list{display:grid;gap:10px}
+.item{display:flex;align-items:baseline;justify-content:space-between;gap:14px;padding:16px 18px;border:1px solid var(--faint);border-radius:10px}
+.item .v{font-style:italic;font-size:22px}
+.item .s{font-family:var(--sans);font-size:12px;color:var(--muted);text-align:right}
+.item:hover,.item:focus-visible{border-color:var(--el)}
+@media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
+</style></head><body>
+<div class="top"><a href="index.html">← The Reading Space</a><span>Song</span></div>
+<main class="wrap">
+  <div class="label">Bindu Field · Song · track 42</div>
+  <h1 class="verb">move</h1>
+  <div class="song">Bachna Ae Haseeno · Vishal-Shekhar</div>
+  <div class="strip"><span><b>Fire</b> element</span><span><b>alpha</b> state</span><span>carrier <b>164.8 Hz</b></span><span>beat <b>8 Hz</b></span></div>
+  <div class="seed">What makes you move?</div>
+  <div class="recog">Bachna Ae Haseeno is a body strutting through a room of beautiful faces with a mock-warning on its lips — watch out, here I come — while the accordion bellows breathe like working lungs and the fast four-square pulse drives straight into the hips, so the song that pretends to be about conquest turns out to be about something far simpler: Fire discovering it was never hunting anyone, only spending the delight of a body that physically cannot sit still, and the 164.8 Hz carrier riding an 8 Hz alpha hum is the ease at the center of all that motion — the solar plexus learning that its own aliveness was never a thing to warn the world about, only a thing to get up and move.</div>
+  <nav class="tabs" aria-label="Readings"><a href="#words">The Words</a><a href="#frequency">The Frequency</a><a href="#lalita">Lalita</a><a href="#field">The Seven Lenses</a></nav>
+  <section class="reading" id="words"><h2>The Words</h2><p>Strip away the boast and this is a body that has more life in it than stillness can hold. The warning it throws at the beautiful ones — beware, here I come — isn't aimed outward at all; it's the sound vitality makes when it finally gets to move. The swagger is a disguise the delight wears, because delight out loud and unashamed feels too naked to say plainly. Underneath the chase there is no one being chased. There is only a body that had been sitting on its fire, being careful, being polite, suddenly allowed to spend what it was banking — and calling that spending a conquest so it doesn't have to call it what it is: pure, uncontainable joy at being alive in a form that can move. The beauties were never the point. The moving was the point. The song is a young fire discovering that its own aliveness was never a threat to warn the world about — only something to stand up and dance.</p></section>
+<section class="reading" id="frequency"><h2>The Frequency</h2><p>The pulse drives fast and four-square, and the accordion bellows breathe over it like working lungs — a groove built to reach the hips before it reaches the ears. Under all that exuberance the binaural holds a 164.8 Hz carrier, an E pitched low in the pelvis, split by an 8 Hz beat into the alpha band. Alpha is the reason this doesn't register as mania. A frantic body lives up in beta; this one lives in flow — awake, loose, fully present, thought gone quiet while the body leads. That is the dancer's exact state, the groove-state where you're sharp enough to move clean and relaxed enough to enjoy every step, and 8 Hz sits right at the alpha-theta seam where effort dissolves into ease. The carrier gives the fire a floor to stand on, so all that motion never tips over into strain. The song asks what makes you move; the binaural drops you into the state where the answer stops being a thought and becomes a body already moving.</p></section>
+<section class="reading" id="lalita"><h2>Lalita</h2><p>A young man cuts through a crowd of beautiful faces with a warning on his lips — watch out, here I come, you won't be able to help yourselves. Accordion bellows wheeze and swell. A drum groove drives at a pace you cannot sit through. Every line is swagger, every gesture a strut.</p>
+<p>But watch where the song actually goes: nowhere. It circles the same room, the same hook, the same beware, over and over — a chase that never catches anything, because it was never really chasing. The beat never slows to let him make his move. The bellows keep breathing. The body just keeps going, and the going is the whole event.</p>
+<p>That's the play. The song pretends it's about conquest. It's actually about a body that cannot sit still. The warning to the beauties is a costume — the fire announcing itself the only way fire knows how, by moving, and calling it a hunt so it doesn't have to admit it's just delight.</p>
+<p>And the one he keeps warning? Listen again at the peak. The beauties are a mirror. The aliveness he should beware is his own — and that is the best news in the song.</p>
+<p>Enjoy the strut that thinks it's hunting. It's only a body that finally got to move.</p></section>
+<section class="reading" id="field"><h2>The Seven Lenses</h2><p>BINDU
+Delight. The song circles it and never once names it. Its whole vocabulary is threat and swagger — beware, watch out, you won't help yourselves — but every bellows-breath and hip-drop is delight showing off. The word it orbits is the joy it's too busy strutting to admit out loud.</p>
+<p>GAIA
+The body had been sitting on its fire, holding still, being polite. The need underneath the flirtation was never the beauties at all — it was permission to move, to let the vitality out instead of banking it. This is the solar-plexus body, the fire in the belly, asking to be seen glowing. "Beware" is what a body says when it has more life in it than a chair can hold. The warning is the overflow finding a door.</p>
+<p>SID
+The pulse. The drum and the four-square groove that never slows, never asks whether you're ready, never decelerates for anyone's hesitation. The melody flirts and darts and teases across the top; the beat underneath holds dead level. Sid is the floor the strut falls against — already moving before the dancer arrived, still moving after he struts off.</p>
+<p>ARCH
+The accordion bellows. The song reaches the body through the breath of the instrument — the wheeze and swell of the bellows drawing in and pushing out, lungs made audible. It lands in the hips and the feet before it ever reaches the ear, which is why the toe taps before the mind has agreed to anything. Bright reed and brass tuned to the register that bypasses thought: 164.8 Hz, an E that sits in the pelvis, not the skull.</p>
+<p>SAKSHI
+Seen from outside, the song goes nowhere. Verse, hook, verse, hook — a strut circling the same room, the warning returning like a chorus that never actually lands a conquest, because conquest was never the plan. There is no destination anywhere in the shape. The boy isn't traveling. He's just moving, and the moving is the entire event — a spiral of pure motion wearing the costume of a chase.</p>
+<p>KARISHMA
+The grace is in the intake — the half-second where the bellows inhales before the phrase, the tiny weightless lift mid-strut where the body hangs suspended between two beats. And at the peak, the beauties being warned turn out to be a mirror: the one he should beware is his own aliveness. The overlooked moment is the breath the swagger takes. That's where the delight stands naked, just before it puts the strut back on.</p>
+<p>ASHREY
+The song about seduction is a body's refusal to sit still — Fire announcing itself the only way fire can, by moving. Ask it what makes you move and it doesn't answer, it demonstrates: the fast pulse and the bellows-breath don't describe delight, they are delight, and the strut is a body discovering it was never trying to conquer anyone, only to spend what it had been holding. The 164.8 Hz carrier under an 8 Hz alpha hum is the ease at the dead center of all that motion — proof the exuberance isn't frantic. The fire was never a warning. It was an invitation the body sent to itself: get up.</p></section>
+  <div class="doors"><a class="door" href="/b/move"><b>Dance it</b>the Bindu dance · move</a></div>
+  <div class="foot"><a href="build.html">← previous</a><a href="wild.html">next →</a></div>
+</main>
+<script>
+(function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
+</script></body></html>
