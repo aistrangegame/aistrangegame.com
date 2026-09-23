@@ -1,0 +1,114 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>When It Feels Like a Panic Attack — a field guide</title><meta name="description" content="A lookup for the moment itself — what to do first, then why it works — and what the cycle looks like from the outside."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: How to Stop Panic Attacks · fieldguide/in-the-moment · pool calm → #4A7A5A */
+
+/* ============ BASE_CSS ============ */
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#4A7A5A;--acp:#4A4238;--acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);--actext:var(--acp);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(64px + env(safe-area-inset-top,0px)) 22px calc(64px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,1)) translateY(10px);transition:opacity .8s ease,transform 1s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}
+.step.on .piece{opacity:1;transform:none}
+/* HIT-TEST CONTRACT: .step is a full-viewport positioned box, so it would cover
+   every fixed play surface beneath it. The step itself takes no pointer events;
+   the text does. Play surfaces at z-index 1 then receive everything around it. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(32px,8.4vw,52px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:19px;margin:0}
+.sum{font-size:clamp(17px,4.3vw,20px);line-height:1.55;font-style:italic}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.because{font-style:italic;color:var(--muted);font-size:clamp(15.5px,4vw,17px);line-height:1.6}
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.7);--faint:rgba(31,27,22,.14);--card:rgba(255,255,255,.72);--bg:#F7F3EC}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}
+ html{scroll-behavior:auto}}
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_FIELDGUIDE — variant: crisis ============ */
+/* No play, by instruction: nothing here may cost attention. The figure is a
+   horizon that does not move — the one steady thing on the screen. The picker
+   is the first thing you see, on the title screen, three taps wide.
+   when -> do -> because is one glance: three bands, no scrolling inside a card. */
+.w{background:linear-gradient(180deg,#FAF7F1 0%,#F7F3EC 58%,#F0E9DE 100%)}
+.fig::before{content:"";position:absolute;left:0;right:0;bottom:22%;height:1px;background:rgba(31,27,22,.18)}
+.fig::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;
+  background:linear-gradient(180deg, rgba(179,58,46,.07), rgba(179,58,46,0) 70%);
+  opacity:var(--steady,.5);transition:opacity 2.4s ease}
+body[data-here="situation"] .fig::after{--steady:1}
+body[data-here="grace"] .fig::after{--steady:.14}
+
+.pick{display:grid;gap:10px;margin-top:6px}
+.pick a{display:block;padding:15px 16px;border:1px solid var(--faint);border-radius:12px;background:var(--card);
+  font-size:16.5px;line-height:1.45;transition:border-color .3s ease,transform .3s ease}
+.pick a:hover,.pick a:active{border-color:var(--ac);transform:translateX(3px)}
+.pick a::after{content:"→";float:right;color:var(--actext);opacity:.7}
+/* the one-glance card */
+.band{display:grid;gap:4px}
+.when{font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin:0}
+.do{font-size:clamp(19px,5vw,25px);line-height:1.3;font-weight:500;margin:0 0 16px}
+.steps{counter-reset:s;margin:0 0 16px}
+.steps div{position:relative;padding:9px 0 9px 38px;border-bottom:1px solid var(--faint);font-size:16.5px;line-height:1.45}
+.steps div:last-child{border-bottom:0}
+.steps div::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:9px;width:24px;height:24px;
+  border-radius:50%;border:1px solid var(--ac);font-family:var(--sans);font-size:11px;display:flex;
+  align-items:center;justify-content:center;color:var(--actext)}
+.of{font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+@media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(46px,4.6vw,64px)}
+ .do{font-size:clamp(24px,2.4vw,29px)}.steps div{font-size:17.5px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+</style></head>
+<body data-seed="0.3401" class="dark" data-variant="crisis" data-here="open" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig" id="fig" aria-hidden="true"></div>
+<div class="top"><a href="/learning/">← Learning</a><span>Field guide</span></div>
+
+<section class="step" data-here="open"><div class="piece"><h1>When It Feels Like a Panic Attack</h1><p class="sub">A field guide</p><p class="sum" style="margin:18px 0 26px">A lookup for the moment itself — what to do first, then why it works — and what the cycle looks like from the outside.</p><div class="k">Which is it?</div><div class="pick"><a href="#s1">Your heart is racing and you think something is medically wrong</a><a href="#s2">You feel it starting and want to stop it</a><a href="#s3">It passed, and now you're afraid of the next one</a></div></div></section>
+<section class="step" id="s1" data-here="situation"><div class="piece"><div class="of">1 of 3</div><div class="band"><p class="when">When</p><div class="do">Your heart is racing and you think something is medically wrong</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Sit or lean on something steady.</div><div>Make the out-breath longer than the in-breath. Six slow ones.</div><div>Name five things you can see. Out loud if you can.</div></div></div><div class="band"><p class="when">Because</p><div class="because">A panic surge tends to peak within minutes and then ease; the body cannot keep it up for long. What’s above may help it pass more gently; none of it is required for it to end. If chest pain is new, crushing, or spreads to the arm or jaw, that is a different situation — call your local emergency number.</div></div></div></section>
+<section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><div class="band"><p class="when">When</p><div class="do">You feel it starting and want to stop it</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Don't fight it. Fighting is fuel.</div><div>Say: this is a false alarm and it will pass.</div><div>Do something with your hands — cold water, a wall, the ground under your feet.</div></div></div><div class="band"><p class="when">Because</p><div class="because">The cycle is: a sensation → a frightening thought about the sensation → more adrenaline → a bigger sensation. The thought is the only link you can change. Not by arguing with it — by declining to believe it for two minutes.</div></div></div></section>
+<section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><div class="band"><p class="when">When</p><div class="do">It passed, and now you're afraid of the next one</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Write down what happened and how long it actually lasted.</div><div>Do the ordinary thing you were about to do before it started.</div><div>Tell one person, plainly.</div></div></div><div class="band"><p class="when">Because</p><div class="because">Fear of the next attack is often what turns a bad afternoon into a pattern. Avoiding the place or the activity teaches the body the alarm was right. Returning teaches it the alarm was wrong. That is much of what recovery looks like.</div></div></div></section>
+<section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The alarm is real. The fire is not.</div><div class="because">If this is happening often, that is exactly what a therapist is for. This page is a hand on the shoulder, not a treatment.</div></div></section>
+<div class="hint" id="hint">scroll, or pick</div>
+<div class="count" id="count">1 / 5</div>
+
+<script>/* CORRIDOR_JS */
+(function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+function activate(i){const e=steps[i];e.classList.add('on');count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  document.body.dataset.here=e.dataset.here||'open';
+  if(i>0)hint.classList.add('gone')}
+let cur=-1,last=0,tm=0;
+function sync(){const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}}
+function tick(){const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}else tm=setTimeout(()=>{last=Date.now();sync()},80)}
+addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);
+addEventListener('load',sync);sync();
+addEventListener('visibilitychange',()=>{document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync()});
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});
+if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+if(e.key==='ArrowUp'){e.preventDefault();const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}});
+/* the picker jumps straight there — snap-stop swallows multi-step smooth scrolls */
+document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{
+  const t=document.querySelector(a.getAttribute('href'));if(!t)return;
+  e.preventDefault();scrollTo({top:t.offsetTop,behavior:'instant'});sync()}));})();</script>
+</body></html>

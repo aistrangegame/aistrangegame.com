@@ -1,0 +1,359 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Having a Thought vs. Buying a Thought — a skill</title><meta name="description" content="A thought is an event in the mind, not a fact about the world. Most of the pain thoughts cause comes from buying them — believing them the instant they appear. Defusion is the skill of having a thought without buying it."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Skill #20 Cognitive Defusion-Having a Thought vs. Buying a Thought · teaching/skill · pool all → #ee9587 */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : Skill #20 Cognitive Defusion-Having a Thought vs. Buying a Thought
+   form   : teaching        family : skill   (32 topics)
+   pool   : all → #ee9587        seed 0.5580
+   move   : figure FIELD + DISTANCE · direction walk · ground paper · density full · play type
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#ee9587;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+/* ============ EXTRA_TEACHING — skeleton: points ============
+   The fallback shape for course lessons: the teaching → what is happening →
+   3–6 points (point · because · a lived line) → a practice → a close. The same
+   hooks as the laws variant (#lawpick, data-jump); only the labels differ,
+   and the label of the lived line is a slot (data-label). */
+.top span{text-align:right}
+/* CHROME OVER A FIGURE GROUND: solid ink, never alpha */
+.top,.count,.hint{color:#5A5249}
+.step{padding-top:calc(104px + env(safe-area-inset-top,0px))}
+.one{font-size:clamp(20px,5.2vw,27px);line-height:1.42;font-weight:500}
+.tues{font-style:italic;font-size:clamp(18px,4.6vw,21px);line-height:1.6}
+#lawpick{position:fixed;left:0;right:0;top:calc(44px + env(safe-area-inset-top,0px));z-index:6;
+  display:flex;justify-content:center;gap:6px;padding:6px 16px}
+#lawpick button{width:32px;height:32px;padding:0;border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;
+  color:#5A5249;font-family:var(--sans);font-size:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:border-color .4s ease,color .4s ease,background .4s ease}
+#lawpick button:hover{border-color:var(--actext);color:var(--actext)}
+#lawpick button[aria-current="true"]{border-color:var(--actext);background:var(--actext);color:#FBFAF7}
+.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.law{font-size:clamp(27px,7.2vw,42px);line-height:1.15;font-weight:500;margin:0 0 18px;text-wrap:balance}
+.because{font-style:italic;font-size:clamp(17px,4.4vw,20px);line-height:1.56;color:var(--ink);margin:0 0 22px;padding-left:18px;border-left:2px solid var(--ac)}
+.looks{font-size:clamp(15.5px,4vw,17px);line-height:1.6;color:var(--muted);padding-top:14px;border-top:1px solid var(--faint)}
+.looks::before{content:attr(data-label);display:block;font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin-bottom:7px}
+.practice{font-size:clamp(17px,4.4vw,20px);line-height:1.62;background:rgba(255,255,255,.66);border:1px solid var(--faint);border-radius:14px;padding:22px 20px}
+.close{font-size:clamp(20px,5.2vw,26px);line-height:1.45;font-style:italic}
+@media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(50px,5vw,70px)}.law{font-size:clamp(38px,3.8vw,52px)}#lawpick button{width:36px;height:36px}}
+@media (max-height:720px){.law{font-size:25px;margin-bottom:12px}.because{font-size:16px;margin-bottom:14px}.looks{font-size:15px}.one{font-size:19px}}
+
+/* @FIG:FIELD */
+.w{background:radial-gradient(120% 90% at 50% calc(94% - var(--p,0) * 56%),color-mix(in oklab, var(--ac) 11%, #F7F3EC) 0%,#F7F3EC 46%);transition:background 2.4s ease}
+.w::after{content:"";position:absolute;left:50%;top:calc(94% - var(--p,0) * 56%);width:min(150vmin,900px);height:min(150vmin,900px);
+  transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle, color-mix(in oklab, var(--ac) 15%, transparent), transparent 62%);
+  transition:top 2.4s ease;animation:fieldbreath 9s ease-in-out infinite}
+@keyframes fieldbreath{0%,100%{opacity:.65}50%{opacity:1}}
+/* @END */
+/* ============ EXTRA_TEACHING — family: skill ============ */
+/* @FIG:DISTANCE — for skills whose move is loosening a grip: defusion,
+   describe-don't-judge, name-it-to-tame-it, reframing. The sentence is the
+   figure; each stage puts space between "you" and it. SLOTS on the move step:
+     stages   2–4 × [label, frame]; frame holds {t} where the thought goes
+     sample   one thought in the lesson's own words
+   "Try one of yours" is rendered ONLY where every frame contains {t} — i.e.
+   the skill is a verbal frame. Skills without one (e.g. #30 sustainable
+   change) take FIELD instead; never force a distance they don't describe.
+   Typed text is never stored and never leaves the page. */
+.dist{display:flex;align-items:center;gap:0;min-height:170px;margin:4px 0 18px;padding:18px 0;border-top:1px solid var(--faint);border-bottom:1px solid var(--faint)}
+.you{flex:none;width:44px;height:44px;border-radius:50%;background:var(--actext);color:#FBFAF7;display:flex;align-items:center;justify-content:center;
+  font-family:var(--sans);font-size:10px;letter-spacing:.14em;text-transform:uppercase}
+.lane{flex:1;min-width:0;position:relative;padding-left:var(--gap,6px);transition:padding-left 1.4s cubic-bezier(.22,1,.36,1)}
+.lane::before{content:"";position:absolute;left:0;top:50%;width:var(--gap,6px);height:1px;background:repeating-linear-gradient(90deg,var(--actext) 0 3px,transparent 3px 7px);
+  transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.thought{font-size:var(--fs,30px);line-height:1.22;font-weight:var(--fw,600);color:rgba(31,27,22,var(--ink-a,1));text-wrap:balance;
+  transition:font-size 1.2s cubic-bezier(.22,1,.36,1),color 1.2s ease,letter-spacing 1.2s ease;letter-spacing:var(--ls,-.01em)}
+.thought em{font-style:italic;font-weight:400;color:var(--actext)}
+.dist[data-st="0"]{--gap:4px;--fs:clamp(26px,7vw,34px);--fw:600;--ink-a:1;--ls:-.01em}
+.dist[data-st="1"]{--gap:clamp(26px,9vw,56px);--fs:clamp(19px,5vw,24px);--fw:500;--ink-a:.86;--ls:0}
+.dist[data-st="2"]{--gap:clamp(48px,16vw,110px);--fs:clamp(16.5px,4.3vw,20px);--fw:400;--ink-a:.74;--ls:.01em}
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:16px}
+.stages button{min-height:44px;border-radius:999px;border:1px solid var(--faint);background:rgba(255,255,255,.6);color:#5A5249;font-family:var(--sans);font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:border-color .3s ease,background .3s ease,color .3s ease}
+.stages button[aria-pressed="true"]{background:var(--actext);border-color:var(--actext);color:#FBFAF7}
+.own{display:grid;gap:6px;font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#5A5249}
+.own input{font-family:var(--serif);font-size:17px;letter-spacing:0;text-transform:none;color:var(--ink);min-height:48px;padding:0 14px;border-radius:12px;
+  border:1px solid rgba(31,27,22,.28);background:rgba(255,255,255,.8);outline:none}
+.own input:focus{border-color:var(--actext);box-shadow:0 0 0 3px color-mix(in oklab, var(--ac) 22%, transparent)}
+.priv{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;color:#5A5249;margin-top:8px}
+@media (max-height:720px){.dist{min-height:140px;padding:12px 0;margin-bottom:12px}}
+/* @END */
+/* HIT AREA ≥44px, visual dot unchanged. The button is the 44px target; the
+   dot is a ::before, so the picker does not look heavier than it did.
+   Same class of defect as the tree hit circles — size the target, not the mark. */
+#lawpick{gap:0}
+#lawpick button{position:relative;width:44px;height:44px;border:0;background:transparent;color:#5A5249;z-index:0}
+#lawpick button::before{content:"";position:absolute;left:50%;top:50%;width:32px;height:32px;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;z-index:-1;transition:border-color .4s ease,background .4s ease}
+#lawpick button:hover::before{border-color:var(--actext)}
+#lawpick button[aria-current="true"]{background:transparent;color:#FBFAF7}
+#lawpick button[aria-current="true"]::before{border-color:var(--actext);background:var(--actext)}
+#lawpick button:focus-visible{outline:none}
+#lawpick button:focus-visible::before{box-shadow:0 0 0 2px #F7F3EC,0 0 0 4px var(--actext)}
+@media (min-width:900px){#lawpick button{width:48px;height:48px}#lawpick button::before{width:36px;height:36px}}
+
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body class="dark" data-variant="skill" data-form="teaching" data-seed="0.5580" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="top"><a href="index.html">← The teachings</a><span>A skill</span></div>
+<div id="lawpick" role="group" aria-label="the points"></div>
+<section class="step" ><div class="piece"><h1>Having a Thought vs. Buying a Thought</h1><p class="sub">A skill</p></div></section>
+<section class="step" ><div class="piece"><div class="k">The skill</div><div class="one">A thought is an event in the mind, not a fact about the world. Most of the pain thoughts cause comes from buying them — believing them the instant they appear. Defusion is the skill of having a thought without buying it.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">Fused with a thought, you look at the world through it: “I’m going to fail” feels like a forecast. Defused, you look at it — a sentence your mind produced, maybe useful, maybe not — and you get to decide what happens next.</div></div></section>
+<section class="step" data-move="1"><div class="piece"><div class="k">The move</div><div class="dist" id="dist" aria-live="polite"><span class="you">you</span><div class="lane"><div class="thought" id="thought">I’m going to fail.</div></div></div><div class="stages" role="group" aria-label="stages"><button type="button" data-st="0" aria-pressed="true">1 · bought</button><button type="button" data-st="1" aria-pressed="false">2 · had</button><button type="button" data-st="2" aria-pressed="false">3 · noticed</button></div><label class="own"><span>Try one of yours</span><input id="own" type="text" maxlength="80" placeholder="a thought that hooks you" autocomplete="off"></label><div class="priv">Nothing you type is stored or sent anywhere.</div></div></section>
+<section class="step" data-jump="1"><div class="piece"><div class="num">1 of 3</div><div class="law">It isn’t arguing with the thought.</div><div class="because">Because arguing still treats it as a claim you have to defeat.</div><div class="looks" data-label="sounds like">You don’t need to prove you won’t fail. You only need to see “I’m going to fail” as a sentence your mind just produced.</div></div></section>
+<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 3</div><div class="law">It isn’t pushing it away.</div><div class="because">Because what you push against, you keep hold of.</div><div class="looks" data-label="sounds like">Let the thought stay in the room. You just don’t have to take its advice.</div></div></section>
+<section class="step" data-jump="3"><div class="piece"><div class="num">3 of 3</div><div class="law">Ask what it’s useful for.</div><div class="because">Because some uncomfortable thoughts are helpful — and defusion lets you use them without obeying them.</div><div class="looks" data-label="sounds like">“I’m going to fail” might mean: prepare one more hour. It doesn’t mean: don’t go.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Take the thought that hooked you hardest today. Say it slowly with “I’m having the thought that…” in front. Then sing it to the tune of Happy Birthday. The words haven’t changed. Your grip has.</div></div></section>
+<section class="step" ><div class="piece"><div class="close">You don’t have to believe everything you think.</div><div class="nav"><a href="index.html">the teachings</a></div><nav class="door" aria-label="The same subject, another way"><a href="/learning/practice/skill-20-cognitive-defusion-having-a-thought-vs-buying-a-thought.html" style="--to:#97a491" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="15"/><circle class="dim" cx="30" cy="30" r="24"/></svg></span><span class="dt"><span class="dk">The same subject · as a practice</span><span class="dn">Do it — a few minutes, now.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="hint" id="hint">scroll to walk</div>
+<div class="count" id="count">1 / 9</div>
+<script>/* FIG_DISTANCE */
+(function(){
+const ST=[["bought", "{t}"], ["had", "I’m having the thought that {t}"], ["noticed", "I notice I’m having the thought that {t}"]],SAMPLE="I’m going to fail.";
+const dist=document.getElementById('dist'),th=document.getElementById('thought'),own=document.getElementById('own'),
+ btns=[...document.querySelectorAll('.stages button')];
+let st=0,auto=null;
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+/* Lowercase the first letter so the thought joins its frame — ONLY when the
+   first word is a common sentence opener. A name can't be told from an
+   ordinary word ("Sarah hates me"), so the default is to keep the capital:
+   a stray capital is a small typo; a mangled name is worse, and it's the
+   reader's own thought. The pronoun I is never on the list. */
+const OPEN=new Set(['my','the','a','an','everyone','everybody','everything','nobody','no','nothing','no one','this','that','these','those','it','they','he','she','we','you','people','nothing','all','none','there','if','when','what','why','how','someone','something','anyone','our','your','their','his','her','its','me','being','doing','having','maybe','probably','always','never']);
+function lower(s){const w=(s.split(/\s+/)[0]||'').replace(/[’'][a-z]+$/i,'').toLowerCase();
+  return OPEN.has(w)?s.charAt(0).toLowerCase()+s.slice(1):s}
+function render(){const raw=(own.value.trim()||SAMPLE).replace(/\s+/g,' '),t=/[.!?…]$/.test(raw)?raw:raw+'.';
+  const f=ST[st][1];
+  const q=f.split('{t}'),a=q[0],b=q[1]||'',u=b?t.replace(/[.!?…]+$/,''):t;th.innerHTML=(a?'<em>'+esc(a)+'</em>'+esc(lower(u)):esc(u))+(b?'<em>'+esc(b)+'</em>':'');
+  dist.dataset.st=st;btns.forEach((b,i)=>b.setAttribute('aria-pressed',i===st?'true':'false'))}
+btns.forEach((b,i)=>b.addEventListener('click',()=>{clearInterval(auto);auto=null;st=i;render()}));
+own.addEventListener('input',()=>{render()});
+/* on arrival the move plays itself once, slowly — then it's yours */
+let played=false;const prev=window.ASGfig;
+window.ASGfig=function(d,i,N){prev&&prev(d,i,N);if(d.move&&!played){played=true;st=0;render();let k=0;
+  auto=setInterval(()=>{k++;if(k>2){clearInterval(auto);auto=null;return}st=k;render()},2200)}};
+render();})();
+(function(){const pick=document.getElementById('lawpick'),steps=[...document.querySelectorAll('.step')];
+steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('button');b.type='button';b.textContent=s.dataset.jump;
+  b.dataset.law=s.dataset.jump;b.setAttribute('aria-label','point '+s.dataset.jump);
+  b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
+const btns=[...pick.children],prev=window.ASGfig;
+window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>
