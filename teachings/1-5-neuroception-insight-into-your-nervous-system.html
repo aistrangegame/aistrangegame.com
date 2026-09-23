@@ -1,0 +1,306 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Neuroception — a teaching</title><meta name="description" content="Before you decide anything, your body has already read the room. A voice, a face, a distance, a posture — these are weighed for safety or danger far below conscious thought, and your state shifts in response before your mind catches up with a reason."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: 1.5 Neuroception: Insight Into Your Nervous System · teaching/mind-body · pool all → #daa09b */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : 1.5 Neuroception: Insight Into Your Nervous System
+   form   : teaching        family : mind-body   (fallback — covers 98 topics)
+   pool   : all → #daa09b        seed 0.3721
+   move   : figure TIDE · direction walk · ground paper · density full · play hold
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#daa09b;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_TEACHING — skeleton: points ============
+   The fallback shape for course lessons: the teaching → what is happening →
+   3–6 points (point · because · a lived line) → a practice → a close. The same
+   hooks as the laws variant (#lawpick, data-jump); only the labels differ,
+   and the label of the lived line is a slot (data-label). */
+.top span{text-align:right}
+/* CHROME OVER A FIGURE GROUND: solid ink, never alpha */
+.top,.count,.hint{color:#5A5249}
+.step{padding-top:calc(104px + env(safe-area-inset-top,0px))}
+.one{font-size:clamp(20px,5.2vw,27px);line-height:1.42;font-weight:500}
+.tues{font-style:italic;font-size:clamp(18px,4.6vw,21px);line-height:1.6}
+#lawpick{position:fixed;left:0;right:0;top:calc(44px + env(safe-area-inset-top,0px));z-index:6;
+  display:flex;justify-content:center;gap:6px;padding:6px 16px}
+#lawpick button{width:32px;height:32px;padding:0;border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;
+  color:#5A5249;font-family:var(--sans);font-size:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  transition:border-color .4s ease,color .4s ease,background .4s ease}
+#lawpick button:hover{border-color:var(--actext);color:var(--actext)}
+#lawpick button[aria-current="true"]{border-color:var(--actext);background:var(--actext);color:#FBFAF7}
+.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
+.law{font-size:clamp(27px,7.2vw,42px);line-height:1.15;font-weight:500;margin:0 0 18px;text-wrap:balance}
+.because{font-style:italic;font-size:clamp(17px,4.4vw,20px);line-height:1.56;color:var(--ink);margin:0 0 22px;padding-left:18px;border-left:2px solid var(--ac)}
+.looks{font-size:clamp(15.5px,4vw,17px);line-height:1.6;color:var(--muted);padding-top:14px;border-top:1px solid var(--faint)}
+.looks::before{content:attr(data-label);display:block;font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin-bottom:7px}
+.practice{font-size:clamp(17px,4.4vw,20px);line-height:1.62;background:rgba(255,255,255,.66);border:1px solid var(--faint);border-radius:14px;padding:22px 20px}
+.close{font-size:clamp(20px,5.2vw,26px);line-height:1.45;font-style:italic}
+@media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(50px,5vw,70px)}.law{font-size:clamp(38px,3.8vw,52px)}#lawpick button{width:36px;height:36px}}
+@media (max-height:720px){.law{font-size:25px;margin-bottom:12px}.because{font-size:16px;margin-bottom:14px}.looks{font-size:15px}.one{font-size:19px}}
+/* @FIG:TIDE — NOTE top:auto. The base .fig rule sets inset:0; without it,
+   top:0 wins over bottom and the waterline sits at the top of the screen.
+   The ground breathes at six breaths a minute (5s in, 5s out),
+   the pace of a settled body. It does not assert a model; it only keeps time.
+   TEMPO IS A PER-STEP SLOT, default rest. The generator may set quick or
+   still ONLY where the step's own words describe alarm or shutdown —
+   never as decoration. Play: hold. While held the tide rises and waits; let
+   go and it falls over eight seconds — a long exhale, untaught. */
+.w{background:#F7F3EC}
+.tide{position:fixed;top:auto;left:-6%;right:-6%;bottom:-2svh;height:50svh;display:block;z-index:1;pointer-events:none;
+  transform:translateY(var(--tl,30svh));transition:transform var(--tt,5s) cubic-bezier(.45,0,.55,1);will-change:transform}
+/* FELT PASS — a ruler-straight line read as a divider, not as water. The
+   surface is now a slow swell: scallops in the water's own colour, drifting,
+   with the accent kept as a faint line just under the crest. */
+.tide::before{content:"";position:absolute;left:0;right:0;top:-11px;height:12px;
+  background:radial-gradient(34px 11px at 50% 100%, color-mix(in oklab, var(--ac) 16%, #F7F3EC) 97%, transparent 100%) repeat-x 0 0/68px 12px;
+  animation:swell 9s linear infinite}
+.tide>i{position:absolute;left:0;right:0;top:0;height:1.5px;background:color-mix(in oklab, var(--ac) 45%, transparent)}
+@keyframes swell{to{background-position:-68px 0}}
+@media (prefers-reduced-motion: reduce){.tide::before{animation:none}}
+.tide::after{content:"";position:absolute;left:0;right:0;top:1.5px;bottom:0;
+  background:linear-gradient(180deg,color-mix(in oklab, var(--ac) 16%, #F7F3EC) 0%,color-mix(in oklab, var(--ac) 6%, #F7F3EC) 55%,#F7F3EC 100%)}
+#hold{position:fixed;inset:0;z-index:1;border:0;background:transparent;cursor:pointer;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+@media (prefers-reduced-motion: reduce){.tide{transition:none}}
+/* @END */
+
+/* HIT AREA ≥44px, visual dot unchanged. The button is the 44px target; the
+   dot is a ::before, so the picker does not look heavier than it did.
+   Same class of defect as the tree hit circles — size the target, not the mark. */
+#lawpick{gap:0}
+#lawpick button{position:relative;width:44px;height:44px;border:0;background:transparent;color:#5A5249;z-index:0}
+#lawpick button::before{content:"";position:absolute;left:50%;top:50%;width:32px;height:32px;transform:translate(-50%,-50%);
+  border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;z-index:-1;transition:border-color .4s ease,background .4s ease}
+#lawpick button:hover::before{border-color:var(--actext)}
+#lawpick button[aria-current="true"]{background:transparent;color:#FBFAF7}
+#lawpick button[aria-current="true"]::before{border-color:var(--actext);background:var(--actext)}
+#lawpick button:focus-visible{outline:none}
+#lawpick button:focus-visible::before{box-shadow:0 0 0 2px #F7F3EC,0 0 0 4px var(--actext)}
+@media (min-width:900px){#lawpick button{width:48px;height:48px}#lawpick button::before{width:36px;height:36px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+</style></head>
+<body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.3721" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig tide" id="tide" aria-hidden="true"><i></i></div>
+<button id="hold" aria-label="hold to let the tide rise"></button>
+<div class="top"><a href="index.html">← The teachings</a><span>A teaching</span></div>
+<div id="lawpick" role="group" aria-label="the points"></div>
+<section class="step" ><div class="piece"><h1>Neuroception</h1><p class="sub">How the body reads a room</p></div></section>
+<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">Before you decide anything, your body has already read the room. A voice, a face, a distance, a posture — these are weighed for safety or danger far below conscious thought, and your state shifts in response before your mind catches up with a reason.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">Deep, old circuits are always listening: for tone of voice, facial expression, how close someone stands, whether a space feels open or closed. This scanning runs constantly and without asking permission. It doesn’t reason about a threat — it simply shifts your body's state, and your thoughts and feelings follow after.</div></div></section>
+<section class="step" data-jump="1" data-tempo="quick"><div class="piece"><div class="num">1 of 5</div><div class="law">The body reads before the mind knows.</div><div class="because">Because these circuits work faster than thought, sensing cues before you could name what you noticed.</div><div class="looks" data-label="in the body">Shoulders rising at a change in someone’s tone, before you’ve worked out why.</div></div></section>
+<section class="step" data-jump="2" data-tempo="still"><div class="piece"><div class="num">2 of 5</div><div class="law">It scans for safety, not only danger.</div><div class="because">Because, as Porges describes it, the constant question underneath is simply: am I safe here, right now.</div><div class="looks" data-label="in the body">A held breath let go around someone steady — warmth, an easing at the throat.</div></div></section>
+<section class="step" data-jump="3"><div class="piece"><div class="num">3 of 5</div><div class="law">It calls up three states, not two.</div><div class="because">Because, as Porges describes it, safety, danger, and overwhelm each summon a different body, not just calm or afraid.</div><div class="looks" data-label="in the body">Engaged and warm; tense and ready; or heavy, distant, checked-out — three different weathers, one system.</div></div></section>
+<section class="step" data-jump="4" data-tempo="quick"><div class="piece"><div class="num">4 of 5</div><div class="law">The read can be wrong.</div><div class="because">Because a system shaped by past danger can sound the alarm in an ordinary, safe room.</div><div class="looks" data-label="in the body">A racing heart in a quiet house, with no danger you can point to and name.</div></div></section>
+<section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">Another person's cues move it fastest.</div><div class="because">Because, as Porges describes it, a steady voice or calm face can shift your state before any words are exchanged.</div><div class="looks" data-label="in the body">Breath slowing near someone calm, without ever deciding to slow it.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Once today, pause and notice what your body just did — a straightened spine, a held breath, a shoulder dropping — before you decided how to feel. Just name it. You're not looking for a reason, only for the read that came first.</div></div></section>
+<section class="step" ><div class="piece"><div class="close">The body answers the room before you do. Noticing that is where the choice begins.</div></div></section>
+<div class="hint" id="hint">scroll to walk</div>
+<div class="count" id="count">1 / 10</div>
+<script>/* FIG_MIND_BODY */
+(function(){
+const t=document.getElementById('tide');let tempo='rest',held=false,up=false,tm=0;
+const T={rest:{h:5000,hi:22,lo:34},quick:{h:1700,hi:20,lo:30},still:{h:8000,hi:36,lo:38}};
+const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+function set(v,ms){t.style.setProperty('--tt',ms+'ms');t.style.setProperty('--tl',v+'svh')}
+function beat(){clearTimeout(tm);if(held)return;const c=T[tempo];
+  if(document.hidden||rm){set(c.lo,600);tm=setTimeout(beat,1500);return}
+  up=!up;set(up?c.hi:c.lo,c.h);tm=setTimeout(beat,c.h)}
+window.ASGfig=function(d){const nt=d.tempo||'rest';if(nt!==tempo){tempo=nt;up=false;beat()}};
+const h=document.getElementById('hold');
+h.addEventListener('pointerdown',()=>{held=true;clearTimeout(tm);set(18,2600)});
+function rel(){if(!held)return;held=false;up=false;set(T[tempo].lo,8000);tm=setTimeout(beat,8000)}
+addEventListener('pointerup',rel);addEventListener('pointercancel',rel);
+beat();})();
+(function(){const pick=document.getElementById('lawpick'),steps=[...document.querySelectorAll('.step')];
+steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('button');b.type='button';b.textContent=s.dataset.jump;
+  b.dataset.law=s.dataset.jump;b.setAttribute('aria-label','point '+s.dataset.jump);
+  b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
+const btns=[...pick.children],prev=window.ASGfig;
+window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>
