@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Maranasati - Death Awareness Meditation — a teaching</title><meta name="description" content="As the Buddhist tradition teaches it, maranasati is the deliberate practice of holding death in mind — not to dwell in fear, but to sharpen attention to a life that won&#x27;t last forever. It&#x27;s taught as part of mindfulness practice generally, aimed at urgency and appreciation, not despair."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* gen_v2 · topic: Maranasati - Death Awareness Meditation · teaching/other · pool all → #7da6c4 */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Mahamudra: The Great Seal — a practice card</title><meta name="description" content="A gentle taste of Mahamudra, the Kagyu tradition’s path of resting the mind naturally in its own nature, held as the tradition’s own."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Mahamudra - The Great Seal · practice/stillness · pool calm → #97a491 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
-   topic  : Maranasati - Death Awareness Meditation
-   form   : teaching        family : other   (fallback — covers 75 topics)
-   pool   : all → #7da6c4        seed 0.5305
-   move   : figure FIELD · direction walk · ground paper · density full · play none
+   topic  : Mahamudra - The Great Seal
+   form   : practice        family : stillness   (22 topics)
+   pool   : calm → #97a491        seed 0.0044
+   move   : figure WATER · direction walk · ground paper · density full · play leaf
    ------------------------------------------------------------------------- */
 :root{
   --serif:'Lora',Georgia,serif;
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --ac:#7da6c4;
+  --ac:#97a491;
   /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
      every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
      invisible by eye on the mid-tones, and a fail even at display scale. The
@@ -107,55 +107,46 @@ h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 
 }
 /* a page nobody is looking at genuinely idles */
 body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
-
-/* ============ EXTRA_TEACHING — skeleton: points ============
-   The fallback shape for course lessons: the teaching → what is happening →
-   3–6 points (point · because · a lived line) → a practice → a close. The same
-   hooks as the laws variant (#lawpick, data-jump); only the labels differ,
-   and the label of the lived line is a slot (data-label). */
-.top span{text-align:right}
-/* CHROME OVER A FIGURE GROUND: solid ink, never alpha */
 .top,.count,.hint{color:#5A5249}
-.step{padding-top:calc(104px + env(safe-area-inset-top,0px))}
-.one{font-size:clamp(20px,5.2vw,27px);line-height:1.42;font-weight:500}
-.tues{font-style:italic;font-size:clamp(18px,4.6vw,21px);line-height:1.6}
-#lawpick{position:fixed;left:0;right:0;top:calc(44px + env(safe-area-inset-top,0px));z-index:6;
-  display:flex;justify-content:center;gap:6px;padding:6px 16px}
-#lawpick button{width:32px;height:32px;padding:0;border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;
-  color:#5A5249;font-family:var(--sans);font-size:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;
-  transition:border-color .4s ease,color .4s ease,background .4s ease}
-#lawpick button:hover{border-color:var(--actext);color:var(--actext)}
-#lawpick button[aria-current="true"]{border-color:var(--actext);background:var(--actext);color:#FBFAF7}
-.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.law{font-size:clamp(27px,7.2vw,42px);line-height:1.15;font-weight:500;margin:0 0 18px;text-wrap:balance}
-.because{font-style:italic;font-size:clamp(17px,4.4vw,20px);line-height:1.56;color:var(--ink);margin:0 0 22px;padding-left:18px;border-left:2px solid var(--ac)}
-.looks{font-size:clamp(15.5px,4vw,17px);line-height:1.6;color:var(--muted);padding-top:14px;border-top:1px solid var(--faint)}
-.looks::before{content:attr(data-label);display:block;font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin-bottom:7px}
-.practice{font-size:clamp(17px,4.4vw,20px);line-height:1.62;background:rgba(255,255,255,.66);border:1px solid var(--faint);border-radius:14px;padding:22px 20px}
-.close{font-size:clamp(20px,5.2vw,26px);line-height:1.45;font-style:italic}
-@media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(50px,5vw,70px)}.law{font-size:clamp(38px,3.8vw,52px)}#lawpick button{width:36px;height:36px}}
-@media (max-height:720px){.law{font-size:25px;margin-bottom:12px}.because{font-size:16px;margin-bottom:14px}.looks{font-size:15px}.one{font-size:19px}}
-/* @FIG:FIELD */
-.w{background:radial-gradient(120% 90% at 50% calc(94% - var(--p,0) * 56%),color-mix(in oklab, var(--ac) 11%, #F7F3EC) 0%,#F7F3EC 46%);transition:background 2.4s ease}
-.w::after{content:"";position:absolute;left:50%;top:calc(94% - var(--p,0) * 56%);width:min(150vmin,900px);height:min(150vmin,900px);
-  transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle, color-mix(in oklab, var(--ac) 15%, transparent), transparent 62%);
-  transition:top 2.4s ease;animation:fieldbreath 9s ease-in-out infinite}
-@keyframes fieldbreath{0%,100%{opacity:.65}50%{opacity:1}}
-/* @END */
+.hint{white-space:nowrap}
 
-/* HIT AREA ≥44px, visual dot unchanged. The button is the 44px target; the
-   dot is a ::before, so the picker does not look heavier than it did.
-   Same class of defect as the tree hit circles — size the target, not the mark. */
-#lawpick{gap:0}
-#lawpick button{position:relative;width:44px;height:44px;border:0;background:transparent;color:#5A5249;z-index:0}
-#lawpick button::before{content:"";position:absolute;left:50%;top:50%;width:32px;height:32px;transform:translate(-50%,-50%);
-  border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;z-index:-1;transition:border-color .4s ease,background .4s ease}
-#lawpick button:hover::before{border-color:var(--actext)}
-#lawpick button[aria-current="true"]{background:transparent;color:#FBFAF7}
-#lawpick button[aria-current="true"]::before{border-color:var(--actext);background:var(--actext)}
-#lawpick button:focus-visible{outline:none}
-#lawpick button:focus-visible::before{box-shadow:0 0 0 2px #F7F3EC,0 0 0 4px var(--actext)}
-@media (min-width:900px){#lawpick button{width:48px;height:48px}#lawpick button::before{width:36px;height:36px}}
+.do{font-size:clamp(21px,5.4vw,28px);line-height:1.35;font-weight:500;margin:0}
+.lead{font-size:clamp(17.5px,4.5vw,20px);line-height:1.62}
+.aff{font-size:clamp(24px,6vw,32px)}
+@media (min-width:900px){.piece{max-width:620px}h1{font-size:clamp(52px,5vw,72px)}}
+@media (max-width:430px),(max-height:720px){.lead{font-size:16.5px;line-height:1.56}.do{font-size:20px}}
+/* ============ EXTRA_PRACTICE — family: stillness ============ */
+/* @FIG:WATER — a surface at the foot of the screen that settles, step by
+   step, from ripples to still. SLOT: data-calm 0..1 per step (0 rough, 1 a
+   mirror). The water never covers text: steps pad above it. Play: on a
+   data-leaf step, type a thought and it rides a leaf across the water and off
+   the page; elsewhere, touching the water drops a ripple that settles. Typed
+   words are never stored. Stillness topics without a thought-watching move
+   (safe place, kasina) use the ripple play only. */
+.w{background:linear-gradient(180deg,#FAF8F3 0%,#F7F3EC 56%,#F3EEE4 100%)}
+.water{position:fixed;top:auto;left:0;right:0;bottom:0;height:30svh;z-index:1;overflow:hidden;pointer-events:none;
+  background:linear-gradient(180deg,color-mix(in oklab, var(--ac) 14%, #F7F3EC) 0%,color-mix(in oklab, var(--ac) 22%, #F3EEE4) 100%)}
+.water::before{content:"";position:absolute;left:0;right:0;top:0;height:1.5px;background:color-mix(in oklab, var(--ac) 60%, transparent)}
+.ripples{position:absolute;inset:0;opacity:calc(1 - var(--calm,0) * .85);transition:opacity 3s ease;
+  background:repeating-linear-gradient(180deg,transparent 0 14px,color-mix(in oklab, var(--ac) 26%, transparent) 14px 15px);
+  animation:flow calc(4s + var(--calm,0) * 14s) linear infinite}
+@keyframes flow{to{background-position:0 30px}}
+.leaf{position:absolute;left:0;top:calc(20% + var(--ly,0) * 30%);padding:8px 16px 8px 14px;border-radius:2px 18px 2px 18px;
+  background:color-mix(in oklab, var(--ac) 42%, #FBFAF7);color:#1F1B16;font-family:var(--serif);font-style:italic;font-size:15px;white-space:nowrap;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);animation:drift 13s linear forwards}
+.leaf.empty{padding:8px 18px;opacity:.7}
+@keyframes drift{0%{transform:translateX(-110%) rotate(-3deg)}50%{transform:translateX(45vw) rotate(2deg)}100%{transform:translateX(110vw) rotate(-2deg);opacity:0}}
+.ring{position:absolute;width:12px;height:12px;border-radius:50%;border:1.4px solid color-mix(in oklab, var(--ac) 70%, transparent);transform:translate(-50%,-50%);animation:ripple 2.6s ease-out forwards}
+@keyframes ripple{to{width:180px;height:60px;opacity:0}}
+#touch{position:fixed;left:0;right:0;bottom:0;height:30svh;z-index:1;border:0;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.step{padding-bottom:calc(30svh + 30px)}
+.own{display:grid;gap:6px;font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#5A5249;margin-bottom:12px}
+.own input{font-family:var(--serif);font-size:17px;letter-spacing:0;text-transform:none;color:var(--ink);min-height:48px;padding:0 14px;border-radius:12px;border:1px solid rgba(31,27,22,.28);background:rgba(255,255,255,.8);outline:none}
+.own input:focus{border-color:var(--actext);box-shadow:0 0 0 3px color-mix(in oklab, var(--ac) 22%, transparent)}
+.tbtn{display:inline-flex;align-items:center;min-height:44px;padding:0 22px;border-radius:999px;border:1px solid var(--actext);background:transparent;font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;color:var(--actext)}
+.priv{font-family:var(--sans);font-size:10.5px;letter-spacing:.1em;color:#5A5249;margin-top:10px}
+@media (prefers-reduced-motion: reduce){.leaf{animation-duration:.01s}.ripples{animation:none}}
+/* @END */
 
 /* GATE 6c — the back link is the only way out; it gets a 44px target without
    moving the chrome (negative margin absorbs the extra height). */
@@ -187,30 +178,28 @@ body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body class="dark" data-variant="other" data-form="teaching" data-seed="0.5305" style="--from:1">
+<body class="dark" data-variant="stillness" data-form="practice" data-seed="0.0044" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
-
-<div class="top"><a href="index.html">← The teachings</a><span>A teaching</span></div>
-<div id="lawpick" role="group" aria-label="the points"></div>
-<section class="step" ><div class="piece"><h1>Maranasati - Death Awareness Meditation</h1><p class="sub">Remembering death, on purpose, to live awake</p></div></section>
-<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">As the Buddhist tradition teaches it, maranasati is the deliberate practice of holding death in mind — not to dwell in fear, but to sharpen attention to a life that won't last forever. It's taught as part of mindfulness practice generally, aimed at urgency and appreciation, not despair.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">Why this is hard</div><div class="tues">The word joins two Pali terms: marana, death, and sati, mindfulness. The tradition holds that most people live as though death is distant and unlikely today, and that this quiet denial dulls attention to what's actually here. Maranasati asks the opposite — remember, plainly, that this could end, and let that fact sharpen how the present moment gets lived.</div></div></section>
-<section class="step" data-jump="1" data-tempo="still"><div class="piece"><div class="num">1 of 5</div><div class="law">Death is held in mind on purpose.</div><div class="because">Because the tradition teaches that avoiding the thought of death dulls attention to being alive.</div><div class="looks" data-label="sounds like">A quiet pause mid-afternoon, remembering plainly that today is not guaranteed to repeat.</div></div></section>
-<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">The aim is urgency, not despair.</div><div class="because">Because the tradition frames the practice as sharpening how you live, not preparing you to die.</div><div class="looks" data-label="sounds like">A small task finally started today, instead of pushed again to some assumed later.</div></div></section>
-<section class="step" data-jump="3" data-tempo="still"><div class="piece"><div class="num">3 of 5</div><div class="law">Traditional forms include specific contemplations on the body.</div><div class="because">Because the practice, as taught in the Pali canon, includes formal reflections on the body's mortality.</div><div class="looks" data-label="sounds like">An image of the body's stages after death, held in the mind, then set down.</div></div></section>
-<section class="step" data-jump="4"><div class="piece"><div class="num">4 of 5</div><div class="law">It's woven into a wider teaching on impermanence.</div><div class="because">Because in the tradition, death awareness sits inside the larger teaching that nothing lasts unchanged.</div><div class="looks" data-label="sounds like">The same held breath at a sunset, at a goodbye, at an ending of any size.</div></div></section>
-<section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">The practice can be steadying, not only sobering.</div><div class="because">Because the tradition holds that facing death honestly can loosen an anxious grip on life.</div><div class="looks" data-label="sounds like">A tight grip on small plans, loosening, once the bigger fact gets faced instead of avoided.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Sometime today, pause and remember plainly, without dramatizing it, that your time is limited. Ask what that changes about the next hour. If this brings up something heavier than reflection, your local emergency number or a crisis line is real help.</div></div></section>
-<section class="step" ><div class="piece"><div class="close">The tradition doesn't ask you to fear death. It asks you to remember it, so you actually live.</div><div class="src" style="margin-top:24px;line-height:1.9">Buddhist maranasati tradition (mindfulness of death)</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/practice/maranasati-death-awareness-meditation.html" style="--to:#88a483" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="15"/><circle class="dim" cx="30" cy="30" r="24"/></svg></span><span class="dt"><span class="dk">The same subject · as a practice</span><span class="dn">Do it — a few minutes, now.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="fig water" id="water" aria-hidden="true"><div class="ripples"></div></div><button id="touch" aria-label="touch the water"></button>
+<div class="top"><a href="/learning/">← Learning</a><span>Practice card</span></div>
+<section class="step" data-calm="0"><div class="piece"><h1>Mahamudra: The Great Seal</h1><p class="sub">A practice card</p><p class="sum" style="margin-top:22px">A gentle taste of Mahamudra, the Kagyu tradition’s path of resting the mind naturally in its own nature, held as the tradition’s own.</p></div></section>
+<section class="step" data-calm=".25"><div class="piece"><div class="k">When</div><div class="do">When your mind is busy, and you want to let it settle on its own, without effort.</div></div></section>
+<section class="step" data-calm=".5"><div class="piece"><div class="k">How</div><div class="lead">Sit, and let your mind rest exactly as it is — thoughts coming and going don’t need to be managed. Don’t grasp at a thought, and don’t push it away; let each one arise and dissolve on its own. There’s nothing to achieve here, only a natural settling, the way water clears when left undisturbed.</div></div></section>
+<section class="step" data-calm=".7" data-leaf="1"><div class="piece"><div class="k">Try it</div><label class="own"><span>A thought, left undisturbed</span><input id="thought" type="text" maxlength="60" placeholder="whatever arises" autocomplete="off"></label><button type="button" class="tbtn" id="set">Let it settle</button><div class="priv">Nothing you type is kept. It floats off the page.</div></div></section>
+<section class="step" data-calm="0.85"><div class="piece"><div class="k">Traditionally received</div><div class="lead">In the Kagyu tradition, Mahamudra is traditionally received from a qualified teacher, often through pointing-out instruction similar to Dzogchen’s. This page offers only a gentle taste of resting the mind — not that transmission.</div></div></section>
+<section class="step" data-calm="1"><div class="piece"><div class="aff">Nothing to fix. Let the mind settle.</div><div class="because">As the tradition teaches it, the seal is not stamped on from outside: it is the mind’s own nature.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/mahamudra-the-great-seal.html" style="--to:#B33A2E" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 10</div>
-<script>/* FIG_OTHER */
-(function(){const pick=document.getElementById('lawpick'),steps=[...document.querySelectorAll('.step')];
-steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('button');b.type='button';b.textContent=s.dataset.jump;
-  b.dataset.law=s.dataset.jump;b.setAttribute('aria-label','point '+s.dataset.jump);
-  b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
-const btns=[...pick.children],prev=window.ASGfig;
-window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
+<div class="count" id="count">1 / 6</div>
+<script>/* FIG_STILLNESS */
+(function(){const W=document.getElementById('water'),inp=document.getElementById('thought');
+window.ASGfig=function(d){document.body.style.setProperty('--calm',d.calm||0)};
+function leaf(txt){const l=document.createElement('div');l.className='leaf'+(txt?'':' empty');l.textContent=txt||'\u00a0';
+  l.style.setProperty('--ly',Math.random().toFixed(2));W.appendChild(l);l.addEventListener('animationend',()=>l.remove())}
+document.getElementById('set').addEventListener('click',()=>{const v=inp.value.trim();leaf(v);inp.value=''});
+inp.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();document.getElementById('set').click()}});
+document.getElementById('touch').addEventListener('click',e=>{const r=W.getBoundingClientRect(),g=document.createElement('div');g.className='ring';
+  g.style.left=(e.clientX-r.left)+'px';g.style.top=(e.clientY-r.top)+'px';W.appendChild(g);g.addEventListener('animationend',()=>g.remove())});
+let amb=setInterval(()=>{if(!document.hidden)leaf('')},11000);setTimeout(()=>leaf(''),1800);})();</script>
 <script>/* DOORS_JS */
 document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
   if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
