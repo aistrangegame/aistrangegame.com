@@ -1,0 +1,317 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Thirty Days of Connection — a walk</title><meta name="description" content="A month of small, concrete moves for a couple to walk through together — noticing, listening, repairing — with a date night worked in every week."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Thirty Days of Connection · walk/relationships · pool calm → #97a491 */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : Thirty Days of Connection
+   form   : walk        family : relationships
+   pool   : calm → #97a491        seed 0.6246
+   move   : figure LADDER · direction out · ground paper · density full · play none (the gate is the play)
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#97a491;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+/* CHROME over a figure ground: solid ink */
+.top,.count,.hint{color:#5A5249}
+.k{margin-bottom:10px}
+.dh{font-weight:500;font-size:clamp(26px,7vw,38px);line-height:1.1;margin:0 0 14px}
+.txt{font-size:clamp(16.5px,4.3vw,19px);line-height:1.66}
+.q{font-size:clamp(22px,5.6vw,30px);line-height:1.35;font-weight:500;margin:0 0 14px}
+.day{font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:#5A5249;margin-bottom:6px}
+.tog{margin-top:16px;padding:14px 16px;border-radius:12px;background:rgba(255,255,255,.66);border:1px solid var(--faint);font-size:16px;line-height:1.55}
+.tog b{display:block;font-family:var(--sans);font-weight:500;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--actext);margin-bottom:5px}
+.donerow{text-align:center;margin-top:20px}
+.tbtn{display:inline-flex;align-items:center;min-height:44px;padding:0 24px;border-radius:999px;border:1px solid var(--actext);font-family:var(--sans);font-size:11.5px;
+  letter-spacing:.16em;text-transform:uppercase;cursor:pointer;color:var(--actext)}
+.tbtn:hover{background:color-mix(in oklab, var(--ac) 12%, transparent)}
+.w{background:linear-gradient(180deg,#FCFAF5 0%,#F7F3EC 46%,#EFE9DE 100%)}
+/* ============ EXTRA_WALK — family: relationships ============ */
+/* @FIG:LADDER — a walk for two. Two rails down the left edge, one per person;
+   each finished day adds a rung between them. Every seventh day is a date
+   night in this course (7 · 14 · 21 · 28), drawn as a double rung — the
+   course's rhythm is visible before you read a word of it. The ladder
+   travels so the live day sits at eye level. Gate and key contract as the
+   month walk; the waiting state is two dots that drift toward each other.
+   SLOT: .rung.date on any day the course marks as shared time. */
+.ladder{position:fixed;left:0;top:calc(46px + env(safe-area-inset-top,0px));bottom:0;width:62px;z-index:1;pointer-events:none;overflow:hidden}
+.ladder::before,.ladder::after{content:"";position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(180deg,transparent,rgba(31,27,22,.2) 12%,rgba(31,27,22,.2) 88%,transparent)}
+.ladder::before{left:20px}.ladder::after{left:42px}
+.rungs{position:absolute;left:0;top:50%;display:flex;flex-direction:column;gap:20px;transform:translateY(var(--ty,0px));transition:transform 1.8s cubic-bezier(.22,1,.36,1);will-change:transform}
+.rung{position:relative;display:block;width:62px;height:4px}
+.rung::before{content:"";position:absolute;left:20px;width:23px;top:1.5px;height:1px;background:repeating-linear-gradient(90deg,rgba(31,27,22,.22) 0 2px,transparent 2px 5px);transition:background .9s ease,height .9s ease,top .9s ease}
+/* date nights must read at a glance, before any words: a solid double rung
+   and a mark between the rails — the course's weekly rhythm, visible */
+.rung.date::before{background:rgba(31,27,22,.34);height:1px;top:0}
+.rung.date::after{content:"";position:absolute;left:20px;width:23px;top:4px;height:1px;background:rgba(31,27,22,.34)}
+.rung.date i{position:absolute;left:28px;top:-1.5px;width:7px;height:7px;border-radius:50%;border:1px solid var(--actext);background:#F7F3EC}
+.rung.date.done i,.rung.date.live i{background:var(--actext)}
+.rung.past::before,.rung.done::before{background:var(--ac);height:2px;top:1px}
+.rung.date.done::before,.rung.date.done::after{background:var(--ac);height:1.5px}
+.rung.live::before{background:var(--actext);height:3px;top:.5px}
+.rung.live{--pulse:1}
+.rung.live b{position:absolute;top:-3px;width:9px;height:9px;border-radius:50%;background:var(--actext)}
+.rung.live b.l{left:16px}.rung.live b.r{left:38px}
+.step{padding-left:76px}
+/* the waiting state: two dots, drifting toward each other and back */
+.waiting{display:none}
+.step.locked .txt,.step.locked .donerow{display:none}
+.step.locked .waiting{display:block}
+.wcard{border:1px solid var(--faint);border-radius:14px;background:rgba(255,255,255,.6);padding:26px 22px;text-align:center}
+.two{position:relative;height:18px;width:120px;margin:0 auto 16px}
+.two span{position:absolute;top:5px;width:9px;height:9px;border-radius:50%;background:var(--ac);animation:near 7s ease-in-out infinite}
+.two span:first-child{left:20px}.two span:last-child{right:20px;animation-name:near2}
+@keyframes near{0%,100%{transform:translateX(0)}50%{transform:translateX(34px)}}
+@keyframes near2{0%,100%{transform:translateX(0)}50%{transform:translateX(-34px)}}
+.wnote{font-style:italic;color:var(--muted);font-size:16.5px;line-height:1.6;margin:0}
+.unlock{font-family:var(--sans);font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--actext);margin-top:10px}
+@media (min-width:900px){.step{padding-left:120px}.ladder{width:96px}.ladder::before{left:36px}.ladder::after{left:58px}.rung::before,.rung.date::after{left:36px}.rung.date i{left:44px}
+ .rung.live b.l{left:32px}.rung.live b.r{left:54px}.piece{max-width:620px}h1{font-size:clamp(52px,5vw,72px)}}
+@media (max-height:720px){.txt{font-size:15.5px;line-height:1.56}.dh{font-size:24px;margin-bottom:10px}.tog{margin-top:10px;padding:10px 14px;font-size:15px}}
+/* @END */
+
+/* NARROW PHONES — the ladder costs a column, so the text column at 389px is
+   ~290px and the day overflows its snap page. Density, not deletion. */
+@media (max-width:430px){.step{padding:56px 16px 58px 60px}.hint{left:60px!important}
+  .k{margin-bottom:6px}.day{margin-bottom:4px}.dh{font-size:24px;margin-bottom:8px}
+  .txt{font-size:15.5px;line-height:1.55}.tog{margin-top:10px;padding:10px 13px;font-size:15px;line-height:1.5}
+  .donerow{margin-top:12px}h1{font-size:38px}.sum{font-size:17px}.because{font-size:15.5px}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+.rung.here:not(.live)::before{background:var(--actext);height:3px;top:.5px;opacity:.55}
+</style></head>
+<body data-seed="0.6246" class="dark" data-variant="relationships" data-form="walk" data-remember="walk-relationships" style="--from:1.1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig ladder" id="fig" aria-hidden="true"><div class="rungs" id="rungs"><i class="rung" data-d="1"></i><i class="rung" data-d="2"></i><i class="rung" data-d="3"></i><i class="rung" data-d="4"></i><i class="rung" data-d="5"></i><i class="rung" data-d="6"></i><i class="rung date" data-d="7"></i><i class="rung" data-d="8"></i><i class="rung" data-d="9"></i><i class="rung" data-d="10"></i><i class="rung" data-d="11"></i><i class="rung" data-d="12"></i><i class="rung" data-d="13"></i><i class="rung date" data-d="14"></i><i class="rung" data-d="15"></i><i class="rung" data-d="16"></i><i class="rung" data-d="17"></i><i class="rung" data-d="18"></i><i class="rung" data-d="19"></i><i class="rung" data-d="20"></i><i class="rung date" data-d="21"></i><i class="rung" data-d="22"></i><i class="rung" data-d="23"></i><i class="rung" data-d="24"></i><i class="rung" data-d="25"></i><i class="rung" data-d="26"></i><i class="rung" data-d="27"></i><i class="rung date" data-d="28"></i><i class="rung" data-d="29"></i><i class="rung" data-d="30"></i></div></div>
+<div class="top"><a href="/learning/">← Learning</a><span>Walk</span></div>
+<section class="step" data-landing="0"><div class="piece"><h1>Thirty Days of Connection</h1><p class="sub">A walk, for two</p><p class="sum" style="margin-top:22px">A month of small, concrete moves for a couple to walk through together — noticing, listening, repairing — with a date night worked in every week.</p><p class="because" style="margin-top:16px">One day at a time is how this works best. Every day is here whenever you want it. Every seventh day is a date night, with no lesson.</p></div></section>
+<section class="step" data-landing="1"><div class="piece"><div class="k">Day 1 of 30</div><div class="day" id="lock-1"></div><h2 class="dh">What a Healthy Relationship Is</h2><div class="txt" id="body-1"><p>A healthy relationship isn’t the absence of problems; it’s two people who keep choosing each other and keep repairing what breaks. Over the next month you’ll walk through small, ordinary skills — noticing, listening, softening — the kind that don’t feel dramatic but change how a relationship holds up over years.</p><div class="tog"><b>Together</b>Tell each other one thing you appreciate about how the other handles hard moments.</div></div><div class="donerow"><span class="tbtn" data-done="1" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="2"><div class="piece"><div class="k">Day 2 of 30</div><div class="day" id="lock-2"></div><h2 class="dh">A Growth Mindset Together</h2><div class="txt" id="body-2"><p>Some couples treat their relationship as fixed — good or bad, compatible or not. Others treat it as something they’re building, skill by skill, with room to get better at it. That second view changes what a hard week means: not proof you’re wrong for each other, just a skill still being learned.</p><div class="tog"><b>Together</b>Name one thing about your relationship you’d like to get better at together, no blame attached.</div></div><div class="donerow"><span class="tbtn" data-done="2" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="3"><div class="piece"><div class="k">Day 3 of 30</div><div class="day" id="lock-3"></div><h2 class="dh">The Relationship Ratio</h2><div class="txt" id="body-3"><p>Researchers who study couples have found that relationships tend to hold up better when good moments — a joke, a touch, a kind word — outnumber the hard ones by a wide margin. It’s not about avoiding conflict; it’s about making sure enough warmth is banked that conflict doesn’t wear the relationship down.</p><div class="tog"><b>Together</b>Name three good moments from today, out loud, before bed.</div></div><div class="donerow"><span class="tbtn" data-done="3" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="4"><div class="piece"><div class="k">Day 4 of 30</div><div class="day" id="lock-4"></div><h2 class="dh">What You Look For</h2><div class="txt" id="body-4"><p>What you look for in a partner is often what you find. Go looking for evidence they’re selfish and you’ll spot it everywhere; go looking for evidence they’re trying and that shows up too. The habit of attention is a choice, made moment to moment, and it quietly writes the story you believe about each other.</p><div class="tog"><b>Together</b>Each name one thing the other did today that you’re choosing to notice kindly.</div></div><div class="donerow"><span class="tbtn" data-done="4" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="5"><div class="piece"><div class="k">Day 5 of 30</div><div class="day" id="lock-5"></div><h2 class="dh">Healthy Expectations</h2><div class="txt" id="body-5"><p>Some problems in every couple are solvable, and some are perpetual — rooted in differences of personality or need that will come round again. Researchers who study couples have found that many recurring conflicts never fully resolve, in happy couples too. Expecting to solve everything is a fast route to despair. The skill with the perpetual ones is to keep talking about them kindly.</p><div class="tog"><b>Together</b>Name one argument you’ve had more than once. Decide together: a problem to solve, or a difference to live with?</div></div><div class="donerow"><span class="tbtn" data-done="5" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="6"><div class="piece"><div class="k">Day 6 of 30</div><div class="day" id="lock-6"></div><h2 class="dh">Remembering the Good</h2><div class="txt" id="body-6"><p>Under stress, memory edits. The good years get filed away and the grievances stay on the desk. Deliberately remembering what drew you together isn’t nostalgia — it changes the story you each tell about the other, and that story decides how the next hard moment lands.</p><div class="tog"><b>Together</b>Each tell the story of how you met, as if to a stranger. Notice what the other remembers that you had forgotten.</div></div><div class="donerow"><span class="tbtn" data-done="6" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="7"><div class="piece"><div class="k">Day 7 of 30 · date night</div><div class="day" id="lock-7"></div><h2 class="dh">Date Night</h2><div class="txt" id="body-7"><p>No lesson today. Do something together that you both enjoy, with the phones in another room. Connection isn’t only repaired in hard conversations; it is banked in ordinary good ones, and a relationship with savings can afford a bad week.</p><div class="tog"><b>Together</b>Plan it now — a time and a place — before the week fills up.</div></div><div class="donerow"><span class="tbtn" data-done="7" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="8"><div class="piece"><div class="k">Day 8 of 30</div><div class="day" id="lock-8"></div><h2 class="dh">Responsibility, Not Blame</h2><div class="txt" id="body-8"><p>Blame asks who’s at fault. Responsibility asks what each of you can do differently next time — a smaller, far more useful question. You can own your share of an argument without settling whose share was bigger. That shift alone can quietly end a lot of fights about who started it.</p><div class="tog"><b>Together</b>Pick a recent disagreement. Each name one thing you could have done differently, without mentioning theirs.</div></div><div class="donerow"><span class="tbtn" data-done="8" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="9"><div class="piece"><div class="k">Day 9 of 30</div><div class="day" id="lock-9"></div><h2 class="dh">Learning to Communicate</h2><div class="txt" id="body-9"><p>Most couples were never taught how to talk about hard things — they picked up whatever style their own families used, good or bad. Communication is a skill like any other: it can be learned, practiced, and improved, regardless of how either of you grew up talking about feelings.</p><div class="tog"><b>Together</b>Talk about how each of your families handled disagreements when you were growing up.</div></div><div class="donerow"><span class="tbtn" data-done="9" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="10"><div class="piece"><div class="k">Day 10 of 30</div><div class="day" id="lock-10"></div><h2 class="dh">Owning Your Feelings</h2><div class="txt" id="body-10"><p>“You always ignore me” starts a fight. “I feel ignored when that happens” starts a conversation. An “I feel” statement names your own experience instead of diagnosing the other person’s character or intentions — it’s harder to argue with, and much easier to actually hear.</p><div class="tog"><b>Together</b>Turn one recent complaint into an “I feel” statement and say it out loud to each other.</div></div><div class="donerow"><span class="tbtn" data-done="10" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="11"><div class="piece"><div class="k">Day 11 of 30</div><div class="day" id="lock-11"></div><h2 class="dh">Emotional Safety</h2><div class="txt" id="body-11"><p>Emotional safety means you can bring up something hard without bracing for an attack. It’s built in small ways — not interrupting, not using something private as a weapon, taking a break before things get cruel. If either of you feels unsafe with the other, this walk isn’t the tool for that; reach out for support, or to your local emergency number or a crisis line.</p><div class="tog"><b>Together</b>Agree on one word either of you can say to pause a conversation before it turns cruel.</div></div><div class="donerow"><span class="tbtn" data-done="11" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="12"><div class="piece"><div class="k">Day 12 of 30</div><div class="day" id="lock-12"></div><h2 class="dh">Listening to Hear</h2><div class="txt" id="body-12"><p>Most of us listen to reply — already building our defense while the other person is still talking. Listening to hear means setting that aside and trying, just for a minute, to understand their view well enough that you could repeat it back accurately, even if you disagree with it.</p><div class="tog"><b>Together</b>One of you talks for two minutes about your day; the other only listens, then repeats it back.</div></div><div class="donerow"><span class="tbtn" data-done="12" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="13"><div class="piece"><div class="k">Day 13 of 30</div><div class="day" id="lock-13"></div><h2 class="dh">Getting to Know You Again</h2><div class="txt" id="body-13"><p>Long-term couples often stop asking each other real questions — you assume you already know the answer. But people change quietly, year to year, and the partner you married isn’t quite the partner sitting across from you now. Curiosity, kept up on purpose, is part of what keeps a relationship alive.</p><div class="tog"><b>Together</b>Ask each other one question you’ve genuinely never asked before.</div></div><div class="donerow"><span class="tbtn" data-done="13" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="14"><div class="piece"><div class="k">Day 14 of 30 · date night</div><div class="day" id="lock-14"></div><h2 class="dh">Something New Together</h2><div class="txt" id="body-14"><p>No lesson today — another date night. This time, do something neither of you has done before: a new restaurant, a class, a trail you haven’t walked. New experiences together create their own kind of memory, sharper than repeating the familiar, and remind you that there’s still more to discover in each other.</p><div class="tog"><b>Together</b>Pick something you’ve genuinely never done together and book it this week.</div></div><div class="donerow"><span class="tbtn" data-done="14" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="15"><div class="piece"><div class="k">Day 15 of 30</div><div class="day" id="lock-15"></div><h2 class="dh">Connection Rituals</h2><div class="txt" id="body-15"><p>A ritual is just a small habit repeated on purpose until it means something — a coffee together before the day starts, a hug at the door, a check-in text at lunch. Rituals don’t need to be big to work; they need to be reliable, so connection doesn’t depend on remembering.</p><div class="tog"><b>Together</b>Pick one small ritual to start this week — something you’ll both actually keep doing.</div></div><div class="donerow"><span class="tbtn" data-done="15" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="16"><div class="piece"><div class="k">Day 16 of 30</div><div class="day" id="lock-16"></div><h2 class="dh">The Love Languages</h2><div class="txt" id="body-16"><p>The counselor Gary Chapman popularized the idea that people tend to feel loved in different ways — words, time, gifts, touch, acts of service — and mismatches happen when partners show love in their own preferred way instead of the other’s. It’s a useful lens for a conversation, though it has far less research behind it than its popularity suggests.</p><div class="tog"><b>Together</b>Each guess the other’s love language, then ask them if you’re right.</div></div><div class="donerow"><span class="tbtn" data-done="16" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="17"><div class="piece"><div class="k">Day 17 of 30</div><div class="day" id="lock-17"></div><h2 class="dh">Turning Toward Each Other</h2><div class="txt" id="body-17"><p>All day, small bids for attention pass between partners — a comment about the weather, a sigh, “look at this.” Turning toward means responding, even briefly, instead of turning away or getting irritated. Couples who turn toward each other’s small bids tend to build a much steadier sense of connection over time.</p><div class="tog"><b>Together</b>Notice the next small bid for attention from your partner today, and turn toward it.</div></div><div class="donerow"><span class="tbtn" data-done="17" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="18"><div class="piece"><div class="k">Day 18 of 30</div><div class="day" id="lock-18"></div><h2 class="dh">From Me to We</h2><div class="txt" id="body-18"><p>Early on, most people think in terms of “my” needs and “your” needs. Longer-term partnership works better when that shifts toward “our” needs — not losing yourself, but starting to weigh decisions by what serves the relationship, not just either person alone.</p><div class="tog"><b>Together</b>Talk through one upcoming decision using “we” language instead of “I” or “you.”</div></div><div class="donerow"><span class="tbtn" data-done="18" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="19"><div class="piece"><div class="k">Day 19 of 30</div><div class="day" id="lock-19"></div><h2 class="dh">Reflective Listening</h2><div class="txt" id="body-19"><p>Reflective listening is simple to describe and hard to do: after your partner speaks, say back what you heard, in your own words, before responding with your own view. It slows things down, but it also catches the misunderstandings that turn small comments into bigger arguments.</p><div class="tog"><b>Together</b>Have a short conversation where each of you reflects back what you heard before replying.</div></div><div class="donerow"><span class="tbtn" data-done="19" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="20"><div class="piece"><div class="k">Day 20 of 30</div><div class="day" id="lock-20"></div><h2 class="dh">Soothing Stress Together</h2><div class="txt" id="body-20"><p>When one partner is stressed, the other’s response matters — a dismissive “you’ll be fine” lands differently than sitting nearby, listening, or just staying calm in the room. You don’t need to fix the stress. Often the most useful thing is simply not adding your own stress on top of it.</p><div class="tog"><b>Together</b>Tell your partner one thing that helps you calm down, not fix, when you’re stressed.</div></div><div class="donerow"><span class="tbtn" data-done="20" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="21"><div class="piece"><div class="k">Day 21 of 30 · date night</div><div class="day" id="lock-21"></div><h2 class="dh">Relax Together</h2><div class="txt" id="body-21"><p>No lesson today. Choose something genuinely relaxing — no errands, no planning, nothing that feels like another task. A slow walk, a quiet meal, doing nothing side by side. Rest shared on purpose is its own kind of closeness, different from the busy kind most days are made of.</p><div class="tog"><b>Together</b>Choose something with zero agenda and no phones, and actually do nothing together.</div></div><div class="donerow"><span class="tbtn" data-done="21" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="22"><div class="piece"><div class="k">Day 22 of 30</div><div class="day" id="lock-22"></div><h2 class="dh">Making Repairs</h2><div class="txt" id="body-22"><p>Every couple hurts each other sometimes — the difference isn’t whether it happens, it’s whether it gets repaired. A repair can be small: a hand on the arm, “I’m sorry, that came out wrong,” even a joke that breaks the tension. What matters is that someone reaches first.</p><div class="tog"><b>Together</b>Think of one small repair gesture that works for your relationship, and name it to each other.</div></div><div class="donerow"><span class="tbtn" data-done="22" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="23"><div class="piece"><div class="k">Day 23 of 30</div><div class="day" id="lock-23"></div><h2 class="dh">A Softer Start</h2><div class="txt" id="body-23"><p>How a hard conversation opens usually decides how it ends. “You never...” starts a fight before either of you has said anything real. A softer start — “Can I bring something up?”, a calmer tone, no eye-rolling — makes it far more likely the conversation actually goes somewhere.</p><div class="tog"><b>Together</b>Before your next hard conversation, agree on one line you’ll use to open it gently.</div></div><div class="donerow"><span class="tbtn" data-done="23" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="24"><div class="piece"><div class="k">Day 24 of 30</div><div class="day" id="lock-24"></div><h2 class="dh">Assertive Communication</h2><div class="txt" id="body-24"><p>Assertive isn’t aggressive — it means saying what you need plainly, without attacking the other person or shrinking yourself to avoid conflict. “I need us to leave by six” is assertive. Silent resentment and sharp sarcasm are its two common substitutes, and neither actually gets the need met.</p><div class="tog"><b>Together</b>Practice saying one real need out loud, plainly, without softening it into a joke.</div></div><div class="donerow"><span class="tbtn" data-done="24" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="25"><div class="piece"><div class="k">Day 25 of 30</div><div class="day" id="lock-25"></div><h2 class="dh">When You’re Flooded</h2><div class="txt" id="body-25"><p>Once a fight crosses a certain point, your body floods with stress and clear thinking gets hard — you’re arguing with a nervous system, not a person. A common suggestion is to name it and take a real break, twenty minutes or more, before trying to talk again.</p><div class="tog"><b>Together</b>Agree now on a phrase either of you can say to call a twenty-minute break.</div></div><div class="donerow"><span class="tbtn" data-done="25" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="26"><div class="piece"><div class="k">Day 26 of 30</div><div class="day" id="lock-26"></div><h2 class="dh">Fighting Fair</h2><div class="txt" id="body-26"><p>The psychologist John Gottman named four habits that quietly corrode a relationship: criticizing the person instead of the behavior, contempt (eye-rolling, mockery), defensiveness, and stonewalling — shutting down completely. Naming them helps you catch yourself mid-habit, which is usually the only moment you can actually choose differently.</p><div class="tog"><b>Together</b>Name which of the four you slip into most easily, honestly, without blaming each other for it.</div></div><div class="donerow"><span class="tbtn" data-done="26" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="27"><div class="piece"><div class="k">Day 27 of 30</div><div class="day" id="lock-27"></div><h2 class="dh">Giving and Receiving Feedback</h2><div class="txt" id="body-27"><p>Feedback lands better specific than general — “it helped when you called” beats “you never help.” And receiving it well matters as much as giving it: resist the urge to defend immediately, and try to hear what’s useful in it before deciding what to say back.</p><div class="tog"><b>Together</b>Give each other one specific piece of feedback, kindly, and just say thank you back.</div></div><div class="donerow"><span class="tbtn" data-done="27" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="28"><div class="piece"><div class="k">Day 28 of 30 · date night</div><div class="day" id="lock-28"></div><h2 class="dh">Laugh Together</h2><div class="txt" id="body-28"><p>No lesson today. Watch something ridiculous, tell old stories that still crack you up, be silly on purpose. Laughing together isn’t a break from the relationship — it’s some of the actual relationship, and it costs nothing to protect a little time for it.</p><div class="tog"><b>Together</b>Tell each other your favorite funny memory together, and let it turn into more stories.</div></div><div class="donerow"><span class="tbtn" data-done="28" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="29"><div class="piece"><div class="k">Day 29 of 30</div><div class="day" id="lock-29"></div><h2 class="dh">Forgiveness</h2><div class="txt" id="body-29"><p>Forgiving isn’t the same as saying it didn’t matter, and it’s never required just to keep the relationship going — some things genuinely aren’t safe to stay for. Where it does apply, forgiveness means choosing to stop making someone pay indefinitely for something they’ve already owned and repaired.</p><div class="tog"><b>Together</b>Talk about one small thing you’re still holding onto, and whether you’re ready to set it down.</div></div><div class="donerow"><span class="tbtn" data-done="29" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="30"><div class="piece"><div class="k">Day 30 of 30</div><div class="day" id="lock-30"></div><h2 class="dh">Tying It Together</h2><div class="txt" id="body-30"><p>Thirty days of small moves won’t fix everything, and they were never meant to — they were meant to build habits: turning toward each other, repairing quickly, listening to actually hear. What you keep from here is whatever you both decide is worth keeping going.</p><div class="tog"><b>Together</b>Pick one habit from this month you both want to keep, on purpose, going forward.</div></div><div class="donerow"><span class="tbtn" data-done="30" role="button" tabindex="0">We did this</span></div></div></section>
+<section class="step" data-landing="grace"><div class="piece"><div class="q">Take the next day together, when you’re both ready.</div><p class="because">Nothing here keeps score between you. A missed week is just a longer rung.</p></div></section>
+<div class="hint" id="hint" style="left:76px">scroll to open outward</div>
+<div class="count" id="count">1 / 32</div>
+<script>/* FIG_LADDER + marks */
+(function(){
+const R=document.getElementById('rungs'),rungs=[...R.children];
+rungs.forEach(r=>{r.innerHTML='<b class="l"></b><b class="r"></b>'+(r.classList.contains('date')?'<i></i>':'')});
+window.ASGfig=function(d){const k=d.landing,n=k==='grace'?30:(k==='0'?1:+k);
+  R.style.setProperty('--ty',(-(n-1)*24)+'px');
+  rungs.forEach((r,i)=>r.classList.toggle('live',i===n-1&&k!=='0'&&k!=='grace'))};
+/* no gates: every day is open; marks are for the reader. own key only */
+const KEY='asg.walk.relationships';let s={};try{s=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
+function render(){const bs=[...document.querySelectorAll('[data-done]')],here=(bs.find(b=>!s['d'+b.dataset.done])||{dataset:{}}).dataset.done;bs.forEach(b=>{const n=b.dataset.done,d=s['d'+n],lock=document.getElementById('lock-'+n),m=rungs[n-1];b.style.display=d?'none':'inline-flex';lock.textContent=d?'done together on '+new Date(d).toLocaleDateString():(n===here?'you are here':'open');if(m){m.classList.toggle('done',!!d);m.classList.toggle('here',n===here)}})}
+function mark(b){s['d'+b.dataset.done]=Date.now();try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}render()}
+document.querySelectorAll('[data-done]').forEach(b=>{b.addEventListener('click',()=>mark(b));
+  b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();mark(b)}})});
+render();})();</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>

@@ -177,6 +177,31 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body class="dark" data-variant="for-someone-else" data-form="fieldguide" data-seed="0.2661" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -188,7 +213,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <section class="step" id="s1" data-here="situation" data-pos="merged"><div class="piece"><div class="of">1 of 3 · too much</div><p class="when">When</p><div class="do">You've started managing their moods like a job</div><p class="when">Do</p><div class="steps"><div>Ask what's actually yours to carry today.</div><div>Hand back a decision that's theirs to make.</div><div>Keep one part of your life that isn't about the illness.</div></div><p class="when">To them it may feel</p><div class="their">Cared for, and quietly aware you're stretched thin doing it.</div><p class="when">Because</p><div class="because">A spouse who becomes a full-time manager tends to lose the partnership underneath it.</div></div></section>
 <section class="step" id="s2" data-here="situation" data-pos="against"><div class="piece"><div class="of">2 of 3 · facing them</div><p class="when">When</p><div class="do">Every hard evening turns into the same argument</div><p class="when">Do</p><div class="steps"><div>Name the illness as the third thing between you, not them.</div><div>Ask what would help right now, instead of replaying the pattern.</div><div>Step back before the argument repeats itself again.</div></div><p class="when">To them it may feel</p><div class="their">Defensive, if every hard evening turns into being criticized.</div><p class="when">Because</p><div class="because">Arguing at the illness as if it's simply bad behavior rarely changes it, and wears the marriage down.</div></div></section>
 <section class="step" id="s3" data-here="situation" data-pos="apart"><div class="piece"><div class="of">3 of 3 · too far</div><p class="when">When</p><div class="do">You've been quietly resentful for months</div><p class="when">Do</p><div class="steps"><div>Say the resentment out loud, to them or to someone else.</div><div>Get support of your own — a friend, a group, a therapist.</div><div>Come back toward them with the truth, not silence.</div></div><p class="when">To them it may feel</p><div class="their">Aware something's shifted, even without being told what.</div><p class="when">Because</p><div class="because">Unspoken resentment tends to grow distance quietly, long before either of you names it.</div></div></section>
-<section class="step" data-here="grace" data-pos="beside"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">Partner first. Manager never.</div><div class="because">You married a person, not a diagnosis. Staying a partner, through this, is its own kind of steady love.</div></div></section>
+<section class="step" data-here="grace" data-pos="beside"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">Partner first. Manager never.</div><div class="because">You married a person, not a diagnosis. Staying a partner, through this, is its own kind of steady love.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/your-role-as-a-spouse.html" style="--to:#D8742A" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll, or pick</div>
 <div class="count" id="count">1 / 5</div>
 <script>/* FIG_STANCE */
@@ -217,6 +242,11 @@ function up(){if(!drag)return;drag=false;M.you.classList.remove('dragging');if(!
 hit.addEventListener('pointerup',up);hit.addEventListener('pointercancel',up);
 document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));if(!t)return;e.preventDefault();window.ASGjump&&window.ASGjump(t)}));
 place('all');})();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,

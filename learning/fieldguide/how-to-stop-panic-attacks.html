@@ -71,6 +71,31 @@ body[data-here="grace"] .fig::after{--steady:.14}
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body data-seed="0.3401" class="dark" data-variant="crisis" data-here="open" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -81,10 +106,15 @@ body[data-here="grace"] .fig::after{--steady:.14}
 <section class="step" id="s1" data-here="situation"><div class="piece"><div class="of">1 of 3</div><div class="band"><p class="when">When</p><div class="do">Your heart is racing and you think something is medically wrong</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Sit or lean on something steady.</div><div>Make the out-breath longer than the in-breath. Six slow ones.</div><div>Name five things you can see. Out loud if you can.</div></div></div><div class="band"><p class="when">Because</p><div class="because">A panic surge tends to peak within minutes and then ease; the body cannot keep it up for long. What’s above may help it pass more gently; none of it is required for it to end. If chest pain is new, crushing, or spreads to the arm or jaw, that is a different situation — call your local emergency number.</div></div></div></section>
 <section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><div class="band"><p class="when">When</p><div class="do">You feel it starting and want to stop it</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Don't fight it. Fighting is fuel.</div><div>Say: this is a false alarm and it will pass.</div><div>Do something with your hands — cold water, a wall, the ground under your feet.</div></div></div><div class="band"><p class="when">Because</p><div class="because">The cycle is: a sensation → a frightening thought about the sensation → more adrenaline → a bigger sensation. The thought is the only link you can change. Not by arguing with it — by declining to believe it for two minutes.</div></div></div></section>
 <section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><div class="band"><p class="when">When</p><div class="do">It passed, and now you're afraid of the next one</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Write down what happened and how long it actually lasted.</div><div>Do the ordinary thing you were about to do before it started.</div><div>Tell one person, plainly.</div></div></div><div class="band"><p class="when">Because</p><div class="because">Fear of the next attack is often what turns a bad afternoon into a pattern. Avoiding the place or the activity teaches the body the alarm was right. Returning teaches it the alarm was wrong. That is much of what recovery looks like.</div></div></div></section>
-<section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The alarm is real. The fire is not.</div><div class="because">If this is happening often, that is exactly what a therapist is for. This page is a hand on the shoulder, not a treatment.</div></div></section>
+<section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The alarm is real. The fire is not.</div><div class="because">If this is happening often, that is exactly what a therapist is for. This page is a hand on the shoulder, not a treatment.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/how-to-stop-panic-attacks.html" style="--to:#4A7A5A" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll, or pick</div>
 <div class="count" id="count">1 / 5</div>
 
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS */
 (function(){const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
 count=document.getElementById('count'),hint=document.getElementById('hint');
