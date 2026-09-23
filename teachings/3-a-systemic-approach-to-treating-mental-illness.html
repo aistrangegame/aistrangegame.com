@@ -186,6 +186,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-variant="other" data-form="teaching" data-seed="0.9049" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -202,8 +203,9 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">Changing the system can ease what one person carries.</div><div class="because">Because shifting how people respond around a struggle can lighten it without singling anyone out.</div><div class="looks" data-label="sounds like">The same hard week, carried by three people instead of quietly by one.</div></div></section>
 <section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Notice one pattern in your own household — who tends to step in, who tends to go quiet, who ends up carrying the most. You don't need to fix it today. Just see the web, not only the person struggling inside it.</div></div></section>
 <section class="step" ><div class="piece"><div class="close">No one struggles in a vacuum. Seeing the web around them is where understanding starts.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/fieldguide/3-a-systemic-approach-to-treating-mental-illness.html" style="--to:#4A7A5A" data-door><span class="dg"><svg viewBox="0 0 60 60"><path class="dim" d="M4 40 L56 40"/><path d="M14 22 L46 22"/><path d="M14 30 L38 30"/></svg></span><span class="dt"><span class="dk">The same subject · as a field guide</span><span class="dn">For the moment itself — what to do first.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step"  data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 10</div>
+<div class="count" id="count">1 / 11</div>
 <script>/* FIG_OTHER */
 (function(){const pick=document.getElementById('lawpick'),steps=[...document.querySelectorAll('.step')];
 steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('button');b.type='button';b.textContent=s.dataset.jump;

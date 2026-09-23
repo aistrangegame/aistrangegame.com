@@ -89,6 +89,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body data-seed="0.9362" class="dark" data-variant="breath" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -109,8 +110,9 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <section class="step" data-fig="quiet"><div class="piece"><div class="k">How</div><div class="steps"><div>Sit comfortably. Let your eyes close, or soften your gaze downward.</div><div>Notice the breath wherever you feel it most — the nose, chest, or belly.</div><div>Don't change the breath. Just follow it in and follow it out.</div><div>When your mind wanders, and it will, gently bring it back to the next breath.</div></div></div></section>
 <section class="step" data-fig="now"><div class="piece"><div class="k">Now</div><div class="phase" id="phase"></div><div class="trow"><span class="tbtn" id="tstart">begin</span><div class="timer" id="timer">2:00</div></div><p class="because" style="text-align:center;margin-top:16px">Just breathe. Notice it arrive, notice it go.</p></div></section>
 <section class="step" data-fig="grace"><div class="piece"><div class="k">After</div><div class="because" style="font-size:clamp(19px,4.8vw,22px);color:var(--ink)">There's no correct breath here, only the noticing. If ten breaths went by before you realized your mind had wandered, that noticing is the practice, not a mistake.</div></div></section>
+<section class="step" data-fig="grace" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to begin</div>
-<div class="count" id="count">1 / 5</div>
+<div class="count" id="count">1 / 6</div>
 
 <script>/* CORRIDOR — scroll-driven activation. Deterministic: picks the step whose
    centre is nearest the viewport centre, so it cannot silently fail. */

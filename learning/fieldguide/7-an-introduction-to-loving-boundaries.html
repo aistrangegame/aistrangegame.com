@@ -170,6 +170,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-variant="conversation" data-form="fieldguide" data-seed="0.5532" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -181,8 +182,9 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><p class="when">When</p><div class="do">They push back hard the first time you say no</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“I hear you're upset. The answer's still no.”</button><button type="button" data-copy>“I love you, and this isn't changing tonight.”</button></div><p class="when">Instead of</p><div class="not">Explaining yourself five different ways until they agree.</div><p class="when">Because</p><div class="because">A boundary said calmly, once, holds more weight than one defended with a longer argument.</div></div></section>
 <section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><p class="when">When</p><div class="do">Setting this line might not be safe right now</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“I need to think about how to say this safely.”</button><button type="button" data-copy>“Can you help me plan this conversation?”</button></div><p class="when">Instead of</p><div class="not">Saying it alone, in the moment, if you're not sure it's safe.</div><p class="when">Because</p><div class="because">If setting it could put you in danger, get support first — your local emergency number or a crisis line, if it comes to that.</div></div></section>
 <section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">A boundary is a sentence, not a speech.</div><div class="because">You don't need the perfect words. You need one line you can actually hold — and the safety to say it.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/7-an-introduction-to-loving-boundaries.html" style="--to:#bf9b8e" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" data-here="grace" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll, or pick</div>
-<div class="count" id="count">1 / 5</div>
+<div class="count" id="count">1 / 6</div>
 <script>/* FIG_CONVERSATION */
 (function(){
 document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));

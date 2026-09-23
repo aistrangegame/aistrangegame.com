@@ -142,6 +142,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-variant="senses" data-form="practice" data-seed="0.0343" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -152,8 +153,9 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <section class="step" data-count="1"><div class="piece"><div class="k">At the edges</div><div class="count5" id="c5"><div class="crow"><div class="cl"><b>4</b> colors at the edges</div><div class="cd"><button type="button" aria-label="see 1 of 4" data-r="0"></button><button type="button" aria-label="see 2 of 4" data-r="0"></button><button type="button" aria-label="see 3 of 4" data-r="0"></button><button type="button" aria-label="see 4 of 4" data-r="0"></button></div></div><div class="crow"><div class="cl"><b>3</b> shapes at the edges</div><div class="cd"><button type="button" aria-label="see 1 of 3" data-r="1"></button><button type="button" aria-label="see 2 of 3" data-r="1"></button><button type="button" aria-label="see 3 of 3" data-r="1"></button></div></div><div class="crow"><div class="cl"><b>2</b> small movements nearby</div><div class="cd"><button type="button" aria-label="notice 1 of 2" data-r="2"></button><button type="button" aria-label="notice 2 of 2" data-r="2"></button></div></div></div><div class="cnote" id="cnote">Keep your head still. Let your eyes stay soft and wide.</div></div></section>
 <section class="step" ><div class="piece"><div class="k">Why it works</div><div class="lead">A narrow, fixed gaze often goes with a narrowed, alert mind; it's part of how attention tightens under stress. Deliberately widening what you take in, without hunting for anything in particular, tends to go along with a body that's less braced.</div></div></section>
 <section class="step" ><div class="piece"><div class="aff">Wide eyes, wide world.</div><div class="because">You can do this anywhere, eyes open, without anyone noticing — walking, waiting, mid-conversation.</div></div></section>
+<section class="step"  data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 5</div>
+<div class="count" id="count">1 / 6</div>
 <script>/* FIG_SENSES */
 (function(){const c=document.getElementById('c5'),note=document.getElementById('cnote'),b=[...c.querySelectorAll('button')];
 b.forEach(x=>x.addEventListener('click',()=>{x.classList.toggle('on');const n=b.filter(y=>y.classList.contains('on')).length;

@@ -96,6 +96,7 @@ body[data-here="grace"] .fig::after{--steady:.14}
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body data-seed="0.3892" class="dark" data-variant="crisis" data-here="open" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -107,8 +108,9 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><div class="band"><p class="when">When</p><div class="do">You're trying to talk yourself out of checking again</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Don't argue with the fear — set a timer instead.</div><div>Do one ordinary task before you check anything.</div><div>If you must check, check once, then stop.</div></div></div><div class="band"><p class="when">Because</p><div class="because">Reassurance and checking tend to quiet the worry only briefly before it returns; the loop rarely breaks by force, only by leaving a longer gap each time.</div></div></div></section>
 <section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><div class="band"><p class="when">When</p><div class="do">You're waiting on a test result or a follow-up appointment</div></div><div class="band"><p class="when">Do</p><div class="steps"><div>Write down the actual question you want answered.</div><div>Ask the doctor when and how you'll hear back.</div><div>Set a limit on searching until then.</div></div></div><div class="band"><p class="when">Because</p><div class="because">Waiting is its own kind of hard, separate from the worry about what's wrong; a real, new, or changing symptom still belongs to a doctor, not just a search bar.</div></div></div></section>
 <section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The fear and the symptom are not the same thing.</div><div class="because">This page isn't reassurance that you're fine — it's a place to stand while you find out.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/health-anxiety.html" style="--to:#B33A2E" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" data-here="grace" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll, or pick</div>
-<div class="count" id="count">1 / 5</div>
+<div class="count" id="count">1 / 6</div>
 
 <script>/* DOORS_JS */
 document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{

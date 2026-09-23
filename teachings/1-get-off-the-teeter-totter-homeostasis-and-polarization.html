@@ -204,6 +204,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.2181" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -221,8 +222,9 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <section class="step" data-jump="5"><div class="piece"><div class="num">5 of 5</div><div class="law">The swing back isn't a failure, it's the mechanism.</div><div class="because">Because the pull toward balance is the system working correctly, not something going wrong.</div><div class="looks" data-label="in the body">A low mood the day after excitement, arriving right on schedule, not out of nowhere.</div></div></section>
 <section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Notice one place today where you're pushing hard toward an extreme — too much caffeine, too much scrolling, too much of anything. Ease it back by a fraction. A smaller push tends to mean a smaller swing back later.</div></div></section>
 <section class="step" ><div class="piece"><div class="close">Balance isn't something you hold. It's something the system keeps returning to, on its own terms.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/practice/1-get-off-the-teeter-totter-homeostasis-and-polarization.html" style="--to:#7bb190" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="15"/><circle class="dim" cx="30" cy="30" r="24"/></svg></span><span class="dt"><span class="dk">The same subject · as a practice</span><span class="dn">Do it — a few minutes, now.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step"  data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 10</div>
+<div class="count" id="count">1 / 11</div>
 <script>/* FIG_MIND_BODY */
 (function(){
 const t=document.getElementById('tide');let tempo='rest',held=false,up=false,tm=0;

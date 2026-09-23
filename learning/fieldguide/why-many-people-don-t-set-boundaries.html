@@ -170,6 +170,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-variant="conversation" data-form="fieldguide" data-seed="0.7090" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -181,8 +182,9 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><p class="when">When</p><div class="do">You're actually saying the boundary out loud, to them</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“I can't do that this time.”</button><button type="button" data-copy>“I want to help, and I don't have it in me right now.”</button></div><p class="when">Instead of</p><div class="not">Over-explaining until the no turns into a yes.</div><p class="when">Because</p><div class="because">A short, plain line is harder to argue with than a long justification; the explanation is often where the no gets talked out of.</div></div></section>
 <section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><p class="when">When</p><div class="do">They react badly, and you want to hold the line</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“I hear that you're upset. The answer's still no.”</button><button type="button" data-copy>“This isn't about not loving you.”</button></div><p class="when">Instead of</p><div class="not">Taking their hurt reaction as proof you did something wrong.</div><p class="when">Because</p><div class="because">A limit can look like rejection to someone used to the old pattern; their hurt can come from the change itself, not from harm you did.</div></div></section>
 <section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">Short is easier to hold than long.</div><div class="because">If saying no could put you in real danger, get support first — a friend, someone who can help you plan, or your local emergency number or a crisis line.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/why-many-people-don-t-set-boundaries.html" style="--to:#d4a948" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" data-here="grace" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll, or pick</div>
-<div class="count" id="count">1 / 5</div>
+<div class="count" id="count">1 / 6</div>
 <script>/* FIG_CONVERSATION */
 (function(){
 document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));

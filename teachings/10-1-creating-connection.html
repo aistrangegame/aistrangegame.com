@@ -184,6 +184,7 @@ body[data-inphase="1"] .you .wave{stroke-width:3}
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
 <body class="dark" data-form="teaching" data-variant="relationship" data-seed="0.3775" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -205,8 +206,9 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 <section class="step" data-jump="5" data-ph="0.0"><div class="piece"><div class="num">5 of 5</div><div class="law">Make time without an agenda.</div><div class="because">Because connection often needs unstructured space to show up in, not just scheduled talks.</div><div class="looks">Sitting together with no plan, letting the conversation go where it goes.</div></div></section>
 <section class="step" data-ph="0" data-end="1"><div class="piece"><div class="k">The practice</div><div class="practice">Pick one small daily moment — a greeting, a goodbye, a passing comment — and give it your full attention today. Put down what’s in your hands and actually turn toward the person for those few seconds.</div></div></section>
 <section class="step" data-ph="0" data-end="1"><div class="piece"><div class="close">Connection isn’t one big moment. It’s built from all the small ones nobody remembers individually.</div><div class="src" style="margin-top:22px;line-height:1.9"></div><div class="nav"><a href="index.html">the teachings</a></div></div></section>
+<section class="step" data-ph="0" data-end="1" data-care="1"><div class="piece"><p class="care" role="note">This is a teaching, not treatment. If you’re struggling, a doctor or therapist can help. If you’re in danger right now, call your local emergency number or a crisis line (in the US, call or text 988).</p></div></section>
 <div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 10</div>
+<div class="count" id="count">1 / 11</div>
 <script>/* FIG_RELATIONSHIP — defines ASGfig before the corridor runs */
 (function(){
 const WL=240,you=document.getElementById('you'),yw=you.querySelector('.wave'),steps=[...document.querySelectorAll('.step')],pick=document.getElementById('lawpick');
