@@ -1,0 +1,335 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Polynesian Wayfinding — a storybook</title><meta name="description" content="How Pacific navigators cross open ocean by star, swell, and bird, and how a Micronesian master nearly alone kept the knowledge alive."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Polynesian Wayfinding & Star Knowledge · storybook/cosmology · pool deep → #e09258 */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : Polynesian Wayfinding & Star Knowledge
+   form   : storybook        family : cosmology   (16 topics)
+   pool   : deep → #e09258        seed 0.5140
+   move   : figure PAGE + SEPARATION · direction in · ground night · density full · play lift
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#e09258;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+.top,.count,.hint{color:#BDB5AA}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+/* @FIG:PAGE ------------------------------------------------------------------
+   A book, not a scroll. Warm stock with its own ink on a dark room, a spine
+   edge, a fore-edge stack that thins as you read, and pages that turn as they
+   become live.
+   CARD SURFACE: this is a light card on a night ground, so everything inside
+   it is measured against --paper (#F2EADB), NOT against the page background.
+   Accent text inside takes --acp; never --ac, and never a hand-picked hex.
+   Minimum alpha for ink on this stock is .65 — .45 measures 2.72:1.
+   Params: --turn (deg), --edge 0..1
+   Play: lift
+-------------------------------------------------------------------------- */
+.fig-page{--paper:#F2EADB;--paperink:#221D18}
+.fig-page .page{position:relative;color:var(--paperink);border-radius:4px 10px 10px 4px;
+  padding:34px 26px 40px;background:
+    linear-gradient(180deg, rgba(255,255,255,.5), rgba(255,255,255,0) 30%), var(--paper);
+  box-shadow:0 26px 60px rgba(0,0,0,.55), 0 2px 0 rgba(0,0,0,.2);
+  transform:perspective(1400px) rotateY(var(--turn,-7deg));transform-origin:left center;
+  transition:transform 1.2s cubic-bezier(.22,1,.36,1);will-change:transform}
+.fig-page .page::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;
+  border-radius:4px 0 0 4px;background:linear-gradient(90deg, rgba(0,0,0,.22), rgba(0,0,0,.04))}
+.fig-page .page::after{content:"";position:absolute;right:-5px;top:8px;bottom:8px;width:5px;
+  border-radius:0 4px 4px 0;opacity:var(--edge,1);transition:opacity 1.4s ease;
+  background:repeating-linear-gradient(180deg, var(--paper) 0 2px, rgba(0,0,0,.16) 2px 3px)}
+.fig-page .page .k,.fig-page .page .aff{color:var(--acp)}
+.fig-page .folio{position:absolute;right:20px;bottom:14px;font-family:var(--sans);
+  font-size:10.5px;letter-spacing:.2em;color:rgba(34,29,24,.65)}
+.fig-page .corner{position:absolute;right:0;bottom:0;width:62px;height:62px;border:0;padding:0;
+  background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fig-page .corner::after{content:"";position:absolute;right:0;bottom:0;width:0;height:0;
+  border-style:solid;border-width:0 0 var(--lift,14px) var(--lift,14px);
+  border-color:transparent transparent rgba(34,29,24,.13) rgba(0,0,0,.001);
+  border-bottom-right-radius:10px;transition:border-width .5s cubic-bezier(.22,1,.36,1)}
+.fig-page .corner:hover::after,.fig-page .corner:active::after,
+.fig-page .corner:focus-visible::after{--lift:46px}
+/* @END */
+.step{padding:56px 14px 60px}
+.fig-page .page{max-width:520px;margin:0 auto}
+.page .sub{color:rgba(34,29,24,.66)}
+.ph{font-weight:500;font-size:clamp(25px,6.6vw,36px);line-height:1.1;margin:0 0 8px;color:var(--paperink)}
+.page .aff{font-style:italic;font-size:clamp(18px,4.8vw,22px);margin:0 0 14px;padding-bottom:12px;border-bottom:1px solid rgba(34,29,24,.16)}
+.page .txt{color:rgba(34,29,24,.9);font-size:clamp(16px,4.2vw,18px);line-height:1.66}
+.q{font-weight:500;font-size:19px;color:var(--paperink);margin:0 0 10px}
+.page ul{margin:0;padding-left:20px;font-size:16px;line-height:1.55;color:rgba(34,29,24,.88)}
+.page ul li{margin-bottom:8px}
+/* ============ EXTRA_STORYBOOK — family: cosmology ============ */
+/* @FIG:SEPARATION — for cosmologies, the world behind the book IS the story.
+   Two planes (sky, earth) close over the room; SLOT data-sep 0..1 per page
+   sets how far apart they are, and the light between them follows. For a
+   story that is not about parting, the generator uses data-sep as "how much
+   of the world has been made so far" — the gap is the made world. data-rain
+   adds falling lines. The book never moves off-centre; the light gathers
+   AROUND it. */
+.w{background:#0B0910}
+.plane{position:fixed;left:0;right:0;height:50svh;z-index:0;pointer-events:none;transition:transform 3.2s cubic-bezier(.45,0,.3,1)}
+.sky{top:0;background:radial-gradient(1.2px 1.2px at 18% 30%,rgba(245,239,230,.55),transparent 60%),radial-gradient(1px 1px at 64% 22%,rgba(245,239,230,.45),transparent 60%),radial-gradient(1.4px 1.4px at 82% 48%,rgba(245,239,230,.5),transparent 60%),radial-gradient(1px 1px at 36% 62%,rgba(245,239,230,.35),transparent 60%),radial-gradient(1.2px 1.2px at 50% 12%,rgba(245,239,230,.4),transparent 60%),linear-gradient(180deg,#07060B 0%,#0E0B16 70%,#1A1426 100%);transform:translateY(calc(var(--sep,0) * -34svh))}
+.earth{bottom:0;background:repeating-linear-gradient(0deg,transparent 0 18px,rgba(245,239,230,.025) 18px 19px),linear-gradient(0deg,#07060A 0%,#120D0C 70%,#241913 100%);transform:translateY(calc(var(--sep,0) * 34svh))}
+/* the seam: where the two meet, light leaks first — a line that brightens as they part */
+.sky::after,.earth::before{content:"";position:absolute;left:0;right:0;height:2px;background:rgba(255,236,205,calc(.12 + var(--sep,0) * .7));
+  box-shadow:0 0 28px 8px rgba(255,222,180,calc(var(--sep,0) * .38));transition:background 3.2s ease,box-shadow 3.2s ease}
+.sky::after{bottom:0}.earth::before{top:0}
+/* no opacity of its own: the opaque planes are the mask, so the light exists
+   only where the world has been made — nothing to fade, nothing to go wrong */
+/* was .light — which is also the night-ground class on <body>, so the body
+   itself went position:fixed and the page could not scroll. Never name a
+   figure part after a ground class (.light .dark) or a kit class. */
+.dawn{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(80% 60% at 50% 50%, rgba(255,240,216,.9) 0%, rgba(255,222,184,.55) 34%, color-mix(in oklab, var(--ac) 30%, #2A2030) 70%, #1A1426 100%)}
+.rain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity 2s ease;
+  background:repeating-linear-gradient(100deg,transparent 0 22px,rgba(245,239,230,.07) 22px 23px);animation:fall 1.4s linear infinite}
+body[data-rain="1"] .rain{opacity:1}
+@keyframes fall{to{background-position:-6px 40px}}
+@media (max-width:430px){.fig-page .page{padding:24px 20px 32px}.page .txt{font-size:15.5px;line-height:1.6}.ph{font-size:24px}}
+@media (prefers-reduced-motion: reduce){.plane{transition:none}.rain{animation:none}}
+/* FELT PASS — the parting was happening BEHIND the page: the seam sat at the
+   middle of the screen and the page covered it, so the one event the book is
+   about was the one thing you couldn't see. The seam now sits high (28svh) and
+   the page hangs below it; the light opens above the page, where you look first. */
+.sky{height:28svh}
+.earth{height:72svh}
+.step{align-items:flex-start;padding-top:calc(28svh + 30px)}
+@media (min-width:900px){.step{padding-top:calc(28svh + 24px)}}
+/* @END */
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body class="light fig-page" data-variant="cosmology" data-form="storybook" data-seed="0.5140" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="dawn" aria-hidden="true"></div><div class="plane sky" aria-hidden="true"></div><div class="plane earth" aria-hidden="true"></div><div class="rain" aria-hidden="true"></div>
+<div class="top"><a href="../index.html">← Learning</a><span>Storybook</span></div>
+<section class="step" data-sep="0"><div class="piece"><div class="page"><h1>Polynesian Wayfinding</h1><p class="sub">Star navigation · a storybook in 5 pages</p><p class="sum" style="margin-top:20px">How Pacific navigators cross open ocean by star, swell, and bird, and how a Micronesian master nearly alone kept the knowledge alive.</p><button class="corner" aria-label="lift the corner"></button></div></div></section>
+<section class="step" data-sep="0.15"><div class="piece"><div class="page"><div class="k">1 of 5</div><h2 class="ph">The star compass</h2><div class="aff">A map with no lines.</div><div class="txt"><p>A wayfinder holds a compass of stars in memory: where each one rises and sets on the horizon, held as a fixed ring around the canoe. No chart is carried. Course is tracked by feel, by swell, by cloud, by the flight of birds toward land.</p></div><div class="folio">1</div><button class="corner" aria-label="lift the corner"></button></div></div></section>
+<section class="step" data-sep="0.05"><div class="piece"><div class="page"><div class="k">2 of 5</div><h2 class="ph">A knowledge nearly lost</h2><div class="aff">No one left who knew.</div><div class="txt"><p>Long-distance voyaging across the Pacific had stopped centuries earlier. By the 1970s, when Hawaiians built a new voyaging canoe to test how the islands were first settled, not one trained non-instrument navigator remained anywhere in Hawaii.</p></div><div class="folio">2</div><button class="corner" aria-label="lift the corner"></button></div></div></section>
+<section class="step" data-sep="0.5"><div class="piece"><div class="page"><div class="k">3 of 5</div><h2 class="ph">Mau Piailug</h2><div class="aff">One master, one voyage.</div><div class="txt"><p>A navigator from the Micronesian island of Satawal agreed to guide the canoe Hōkūleʻa. In 1976 he sailed it from Hawaii to Tahiti without instruments, breaking a custom that had kept wayfinding inside one family line.</p></div><div class="folio">3</div><button class="corner" aria-label="lift the corner"></button></div></div></section>
+<section class="step" data-sep="0.85"><div class="piece"><div class="page"><div class="k">4 of 5</div><h2 class="ph">Landfall</h2><div class="aff">Tahiti was waiting.</div><div class="txt"><p>Word of the voyage had traveled ahead, and thousands gathered on the Tahitian shore to meet Hōkūleʻa when she arrived. For many Pacific islanders it was living proof that their ancestors had crossed these waters on purpose, not by accident.</p></div><div class="folio">4</div><button class="corner" aria-label="lift the corner"></button></div></div></section>
+<section class="step" data-sep="0.9"><div class="piece"><div class="page"><div class="k">5 of 5</div><h2 class="ph">Passed on</h2><div class="aff">The teaching continued.</div><div class="txt"><p>Mau Piailug later trained a Hawaiian student directly, who in 1980 became the first Hawaiian in centuries to sail long distance by wayfinding alone. Schools and canoe programs across the Pacific now teach the method to new navigators.</p></div><div class="folio">5</div><button class="corner" aria-label="lift the corner"></button></div></div></section>
+<section class="step" data-sep="0"><div class="piece"><div class="page" style="--edge:0"><div class="k">Before you go</div><div class="q">If you want to talk about this with someone:</div><ul><li>What would you need to memorize to trust yourself at sea?</li><li>What knowledge in your own family is one generation from gone?</li><li>Could years of practiced feel outweigh any instrument?</li></ul></div></div></section>
+<section class="step" data-sep="0.8"><div class="piece"><div class="page" style="--edge:0"><div class="k">Where this comes from</div><div class="src" style="margin-top:10px;line-height:1.9;color:rgba(34,29,24,.72)">As Mau Piailug, Nainoa Thompson, and the Polynesian Voyaging Society (founded 1973) describe it; corroborated by researchers Ben Finney and David Lewis.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/polynesian-wayfinding-star-knowledge.html" style="--to:#dd8297" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></div></section>
+<div class="hint" id="hint">scroll to turn the page</div>
+<div class="count" id="count">1 / 8</div>
+<script>/* FIG_COSMOLOGY */
+(function(){const steps=[...document.querySelectorAll('.step')];
+window.ASGfig=function(d,i,N){document.body.style.setProperty('--sep',d.sep||0);document.body.dataset.rain=d.rain||'0';
+  steps.forEach((s,k)=>{const pg=s.querySelector('.page');if(!pg)return;pg.style.setProperty('--turn',k===i?'0deg':(k<i?'6deg':'-7deg'));pg.style.setProperty('--edge',Math.max(0,1-k/(N-1)).toFixed(2))})};
+document.querySelectorAll('.corner').forEach(c=>c.addEventListener('click',()=>{const s=c.closest('.step'),t=steps[steps.indexOf(s)+1];if(t&&window.ASGjump)window.ASGjump(t)}));})();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>
