@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Homeostasis — a teaching</title><meta name="description" content="The body and mind both work to hold steady, returning to a set point after any disturbance. Push hard toward one extreme, and something in the system tends to pull the other way to compensate. Stay closer to the middle, and there&#x27;s less to correct for later."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* gen_v2 · topic: 1. Get off the Teeter-Totter: Homeostasis and Polarization · teaching/mind-body · pool all → #7fb7a8 */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Perceived Danger and Creating Safety — a teaching</title><meta name="description" content="The nervous system can react to perceived danger much as it reacts to real danger — it can&#x27;t fully tell the difference from the inside. That means safety isn&#x27;t only about what&#x27;s actually true; it&#x27;s also about what signals reach the body and get read as &quot;safe enough&quot; right now."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Bonus Video: Perceived Danger and Creating Safety · teaching/mind-body · pool all → #e09258 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
-   topic  : 1. Get off the Teeter-Totter: Homeostasis and Polarization
+   topic  : Bonus Video: Perceived Danger and Creating Safety
    form   : teaching        family : mind-body   (fallback — covers 98 topics)
-   pool   : all → #7fb7a8        seed 0.2181
+   pool   : all → #e09258        seed 0.0234
    move   : figure TIDE · direction walk · ground paper · density full · play hold
    ------------------------------------------------------------------------- */
 :root{
   --serif:'Lora',Georgia,serif;
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --ac:#7fb7a8;
+  --ac:#e09258;
   /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
      every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
      invisible by eye on the mid-tones, and a fail even at display scale. The
@@ -179,48 +179,23 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
-/* DOORS — kit/DOORS.css */
-.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
-.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
-  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
-  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
-.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
-.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
-.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
-.dg svg{width:36px;height:36px;overflow:visible}
-.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.dg svg .s{fill:var(--to);stroke:none}
-.dg svg .dim{opacity:.6}
-.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
-.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
-.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
-.page .door{border-top-color:rgba(34,29,24,.16)}
-.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
-.page .dk,.page .da{color:rgba(34,29,24,.62)}
-/* the handover: the world leans toward the next page's accent */
-.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
-body.leaving .w::before{opacity:.55}
-body.leaving .piece{opacity:.2;transition:opacity .5s ease}
-@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.2181" style="--from:1">
+<body class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.0234" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
 <div class="fig tide" id="tide" aria-hidden="true"><i></i></div>
 <button id="hold" aria-label="hold to let the tide rise"></button>
 <div class="top"><a href="index.html">← The teachings</a><span>A teaching</span></div>
 <div id="lawpick" role="group" aria-label="the points"></div>
-<section class="step" ><div class="piece"><h1>Homeostasis</h1><p class="sub">Push too far, and it swings back</p></div></section>
-<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">The body and mind both work to hold steady, returning to a set point after any disturbance. Push hard toward one extreme, and something in the system tends to pull the other way to compensate. Stay closer to the middle, and there's less to correct for later.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">Systems that regulate anything — temperature, mood, energy — work the same basic way: sense the drift, correct back toward center. Push one of these systems hard toward an extreme, and the correction that follows often overshoots, landing somewhere past center, on the opposite side. That overshoot is where a lot of crashes and swings actually come from.</div></div></section>
-<section class="step" data-jump="1" data-tempo="still"><div class="piece"><div class="num">1 of 5</div><div class="law">The body always corrects toward its set point.</div><div class="because">Because regulation works by sensing drift and pulling back, not by staying still once it finds center.</div><div class="looks" data-label="in the body">A held breath finally let go, chest sinking back toward its resting rhythm on its own.</div></div></section>
-<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">A hard push one way invites a hard pull back.</div><div class="because">Because a large swing toward one extreme tends to trigger a correction that overshoots, not a gentle return.</div><div class="looks" data-label="in the body">The crash after a day running entirely on adrenaline and no food.</div></div></section>
-<section class="step" data-jump="3"><div class="piece"><div class="num">3 of 5</div><div class="law">Bigger highs tend to bring harder lows.</div><div class="because">Because the correcting swing tends to scale with how far the original push went.</div><div class="looks" data-label="in the body">A flat, foggy morning after a night of forced, wired-up energy.</div></div></section>
-<section class="step" data-jump="4"><div class="piece"><div class="num">4 of 5</div><div class="law">Staying nearer the middle means smaller corrections.</div><div class="because">Because a system pushed less far has less distance to swing back across.</div><div class="looks" data-label="in the body">An evening that ends tired but even, instead of wrung out and jittery.</div></div></section>
-<section class="step" data-jump="5"><div class="piece"><div class="num">5 of 5</div><div class="law">The swing back isn't a failure, it's the mechanism.</div><div class="because">Because the pull toward balance is the system working correctly, not something going wrong.</div><div class="looks" data-label="in the body">A low mood the day after excitement, arriving right on schedule, not out of nowhere.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Notice one place today where you're pushing hard toward an extreme — too much caffeine, too much scrolling, too much of anything. Ease it back by a fraction. A smaller push tends to mean a smaller swing back later.</div></div></section>
-<section class="step" ><div class="piece"><div class="close">Balance isn't something you hold. It's something the system keeps returning to, on its own terms.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/practice/1-get-off-the-teeter-totter-homeostasis-and-polarization.html" style="--to:#7bb190" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="30" cy="30" r="15"/><circle class="dim" cx="30" cy="30" r="24"/></svg></span><span class="dt"><span class="dk">The same subject · as a practice</span><span class="dn">Do it — a few minutes, now.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<section class="step" ><div class="piece"><h1>Perceived Danger and Creating Safety</h1><p class="sub">When the body reads danger that isn't there</p></div></section>
+<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">The nervous system can react to perceived danger much as it reacts to real danger — it can't fully tell the difference from the inside. That means safety isn't only about what's actually true; it's also about what signals reach the body and get read as "safe enough" right now.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">What is happening</div><div class="tues">A system built to protect you responds to how a situation is read, not only to what's objectively there. A memory, a tone of voice, an old pattern can all register as danger even in an ordinary, safe room. Creating safety, then, isn't only removing real threats — it's also sending the body signals it can actually recognize as safe.</div></div></section>
+<section class="step" data-jump="1" data-tempo="quick"><div class="piece"><div class="num">1 of 5</div><div class="law">Perceived danger can fire the same alarm.</div><div class="because">Because the system that raises the alarm can't fully tell an old memory from a present threat.</div><div class="looks" data-label="in the body">A racing heart in a quiet, familiar room, with nothing actually wrong in it.</div></div></section>
+<section class="step" data-jump="2" data-tempo="quick"><div class="piece"><div class="num">2 of 5</div><div class="law">The read can be shaped by the past.</div><div class="because">Because a nervous system shaped by earlier danger stays primed to find it again.</div><div class="looks" data-label="in the body">A flinch at a raised voice that has nothing to do with you, felt anyway.</div></div></section>
+<section class="step" data-jump="3"><div class="piece"><div class="num">3 of 5</div><div class="law">Safety is a signal, not just a fact.</div><div class="because">Because knowing you're safe and feeling safe run through different, not always connected, channels.</div><div class="looks" data-label="in the body">Being told "you're fine" and still not settling, the body unconvinced by the words.</div></div></section>
+<section class="step" data-jump="4" data-tempo="still"><div class="piece"><div class="num">4 of 5</div><div class="law">A steady presence can reach the body faster than logic.</div><div class="because">Because a calm voice or face often reaches the alarm system more directly than an argument does.</div><div class="looks" data-label="in the body">Breath slowing near someone steady, before a single reassuring word gets said.</div></div></section>
+<section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">Creating safety is usually small and repeated.</div><div class="because">Because the body tends to trust a signal it's received many times over one it's heard once.</div><div class="looks" data-label="in the body">The same grounding steps, done again, landing a little easier each time they're used.</div></div></section>
+<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Notice one moment today when your body reacted like something was wrong, and ask what actually was true right then. You're not arguing yourself out of the alarm — you're giving it more accurate information to work with, one time at a time.</div></div></section>
+<section class="step" ><div class="piece"><div class="close">The alarm isn't lying about what it read. It's just not always reading the room right.</div></div></section>
 <div class="hint" id="hint">scroll to walk</div>
 <div class="count" id="count">1 / 10</div>
 <script>/* FIG_MIND_BODY */
@@ -244,11 +219,6 @@ steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('butt
   b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
 const btns=[...pick.children],prev=window.ASGfig;
 window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
-<script>/* DOORS_JS */
-document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
-  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
-  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
-  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,
