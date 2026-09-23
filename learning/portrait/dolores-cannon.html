@@ -148,6 +148,31 @@ body[data-grace="1"] .band{background:radial-gradient(80% 80% at 70% 55%, color-
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body class="light" data-form="portrait" data-variant="seer" data-seed="0.3441" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -169,7 +194,7 @@ body[data-grace="1"] .band{background:radial-gradient(80% 80% at 70% 55%, color-
 <section class="step" data-t="3" data-yr="2011"><div class="piece"><div class="k">2011</div><h2 class="mh">The Three Waves</h2><div class="txt"><p>In The Three Waves of Volunteers and the New Earth, she wrote that a call went out for help after the atomic bombings of 1945, and that souls answered in three waves, each holding what she called Earth's rising frequency differently.</p></div></div></section>
 <section class="step" data-t="after" data-yr="2014"><div class="piece"><div class="k">After 2014</div><h2 class="mh">What kept going</h2><div class="txt"><p>Practitioners trained in her method, QHHT, now work worldwide under a certification her family maintains. Ozark Mountain Publishing continues, still family-run, putting out dozens of authors. The Three Waves books remain widely read by people who say her description of not belonging fit them exactly.</p></div></div></section>
 <section class="step" data-t="open" data-yr="2014"><div class="piece"><div class="k">Held open</div><div class="txt"><p>Everything above is held as her claim: what her clients said under hypnosis, and what she made of it. Memory researchers warn that a leading question can build a false memory as easily as recover a true one; she recorded her sessions and did not claim to have settled which had happened.</p></div></div></section>
-<section class="step" data-t="grace" data-yr="2014"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">What her clients said under hypnosis is hers to report, not to prove.</div><div class="src" style="margin-top:14px;line-height:1.9">Drag along the line to walk the life.</div></div></section>
+<section class="step" data-t="grace" data-yr="2014"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">What her clients said under hypnosis is hers to report, not to prove.</div><div class="src" style="margin-top:14px;line-height:1.9">Drag along the line to walk the life.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/dolores-cannon.html" style="--to:#daa09b" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to walk the life</div>
 <div class="count" id="count">1 / 7</div>
 <script>/* FIG_SEER — defines ASGfig before the corridor runs */
@@ -195,6 +220,11 @@ hit.addEventListener('pointerup',e=>{if(!on)return;on=false;pt.classList.remove(
   window.ASGjump(tgt)});
 hit.addEventListener('pointercancel',()=>{on=false;pt.classList.remove('drag')});
 })();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,

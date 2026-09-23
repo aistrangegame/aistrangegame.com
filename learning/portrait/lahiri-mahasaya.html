@@ -84,6 +84,31 @@ body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:5
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body data-seed="0.8518" class="light" data-variant="sage" data-room="none" style="--from:.86">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -103,7 +128,7 @@ body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:5
 <section class="step" data-room="train" data-tick="2"><div class="piece"><div class="moment">Moment 2 of 4 · 1861</div><h1 style="font-size:clamp(26px,7vw,40px)">Ranikhet</h1><div class="txt"><p>In 1861 his office transferred him to Ranikhet in the Himalayan foothills. As Yogananda later told the story, it was there he met a master called Babaji, who taught him the meditation technique that would carry his name forward.</p></div></div></section>
 <section class="step" data-room="question" data-tick="3"><div class="piece"><div class="moment">Moment 3 of 4 · 1860s</div><h1 style="font-size:clamp(26px,7vw,40px)">Householder guru</h1><div class="txt"><p>He returned to his clerk's post in Varanasi and began teaching what he had learned, for years without leaving his job, his marriage, or his household — becoming known, as the tradition tells it, as the guru who never renounced ordinary life.</p></div></div></section>
 <section class="step" data-room="end" data-tick="4"><div class="piece"><div class="moment">Moment 4 of 4 · 1895</div><h1 style="font-size:clamp(26px,7vw,40px)">The end</h1><div class="txt"><p>He died in Varanasi in 1895, a householder to the end, having initiated disciples — among them Sri Yukteswar — who would carry the practice on to a wider world he never traveled to see.</p></div></div></section>
-<section class="step" data-room="none" data-tick="grace"><div class="piece"><div class="aff" style="font-size:clamp(26px,6.4vw,34px)">He taught meditation without ever leaving his desk.</div><div class="because">Sri Yukteswar and, through him, Yogananda carried what Lahiri Mahasaya taught to a Western audience he never met and never sought.</div></div></section>
+<section class="step" data-room="none" data-tick="grace"><div class="piece"><div class="aff" style="font-size:clamp(26px,6.4vw,34px)">He taught meditation without ever leaving his desk.</div><div class="because">Sri Yukteswar and, through him, Yogananda carried what Lahiri Mahasaya taught to a Western audience he never met and never sought.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/lahiri-mahasaya.html" style="--to:#e09258" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to go inward</div>
 <div class="count" id="count">1 / 6</div>
 

@@ -84,6 +84,31 @@ body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:5
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body data-seed="0.9552" class="light" data-variant="sage" data-room="none" style="--from:.86">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -103,7 +128,7 @@ body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:5
 <section class="step" data-room="floor" data-tick="2"><div class="piece"><div class="moment">Moment 2 of 4 · 1924</div><h1 style="font-size:clamp(26px,7vw,40px)">Rishikesh</h1><div class="txt"><p>He gave up his medical practice in 1923 and reached Rishikesh in May 1924, where a wandering monk named Vishwananda Saraswati initiated him into the monastic order and gave him the name Sivananda. Rishikesh stayed his home for the rest of his life.</p></div></div></section>
 <section class="step" data-room="question" data-tick="3"><div class="piece"><div class="moment">Moment 3 of 4 · 1936</div><h1 style="font-size:clamp(26px,7vw,40px)">Divine Life</h1><div class="txt"><p>In 1936 he founded the Divine Life Society at Rishikesh, publishing books, running free medical care, and teaching yoga to visitors from India and abroad. He wrote more than two hundred books in his lifetime, on subjects from anatomy to meditation.</p></div></div></section>
 <section class="step" data-room="end" data-tick="4"><div class="piece"><div class="moment">Moment 4 of 4 · 1963</div><h1 style="font-size:clamp(26px,7vw,40px)">The end</h1><div class="txt"><p>He died at his ashram on the banks of the Ganges on 14 July 1963. By then the Divine Life Society had branches across India and abroad, and disciples he trained — among them Chidananda and Satyananda — carried the teaching further still.</p></div></div></section>
-<section class="step" data-room="none" data-tick="grace"><div class="piece"><div class="aff" style="font-size:clamp(26px,6.4vw,34px)">A doctor's hands turned to a different medicine.</div><div class="because">The Divine Life Society still runs from Rishikesh, publishing his books and hosting yoga students. Its teacher-training lineage reaches Sivananda-style yoga centers worldwide.</div></div></section>
+<section class="step" data-room="none" data-tick="grace"><div class="piece"><div class="aff" style="font-size:clamp(26px,6.4vw,34px)">A doctor's hands turned to a different medicine.</div><div class="because">The Divine Life Society still runs from Rishikesh, publishing his books and hosting yoga students. Its teacher-training lineage reaches Sivananda-style yoga centers worldwide.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/swami-sivananda.html" style="--to:#97a491" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to go inward</div>
 <div class="count" id="count">1 / 6</div>
 

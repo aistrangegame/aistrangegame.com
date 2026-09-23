@@ -161,6 +161,31 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
 <body class="light" data-variant="scientist" data-form="portrait" data-seed="0.9189" style="--from:.92">
 <div class="w" id="w" aria-hidden="true"></div>
@@ -177,7 +202,7 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 <section class="step" data-k="2" data-lv="1"><div class="piece"><div class="moment">2 of 4 · 1977 · <b>proposed</b></div><h2 class="nm">Stalking the Wild Pendulum</h2><div class="txt"><p>In Stalking the Wild Pendulum he proposed that micro-motions of the skull make the brain oscillate against the cerebrospinal fluid, producing standing waves he linked to meditative states and the yogic idea of kundalini rising through the body.</p></div></div></section>
 <section class="step" data-k="3" data-lv="1"><div class="piece"><div class="moment">3 of 4 · late 1970s · <b>proposed</b></div><h2 class="nm">A following</h2><div class="txt"><p>His model found an audience among transpersonal psychologists and consciousness researchers, but no controlled experiment tested the physiological mechanism he described.</p></div></div></section>
 <section class="step" data-k="4" data-lv="0"><div class="piece"><div class="moment">4 of 4 · today · <b>rejected</b></div><h2 class="nm">Where it stands</h2><div class="txt"><p>Neuroscience has never confirmed the mechanism he proposed, and critics count the wider theory as unfalsifiable.</p></div></div></section>
-<section class="step" data-k="grace" data-lv="0"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The catheter still guides doctors today. The pendulum is still just his model.</div><div class="because">What the book leaves open is whether the standing waves Bentov described are a real physiological mechanism, or a metaphor he mistook for one.</div></div></section>
+<section class="step" data-k="grace" data-lv="0"><div class="piece"><div class="aff" style="font-size:clamp(24px,6vw,32px)">The catheter still guides doctors today. The pendulum is still just his model.</div><div class="because">What the book leaves open is whether the standing waves Bentov described are a real physiological mechanism, or a metaphor he mistook for one.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/itzhak-bentov.html" style="--to:#3AADA8" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
 <div class="hint" id="hint">scroll to walk</div>
 <div class="count" id="count">1 / 7</div>
 <script>/* FIG_RECEPTION */
@@ -195,6 +220,11 @@ let down=false;grip.addEventListener('pointerdown',e=>{down=true});
 grip.addEventListener('pointerup',e=>{if(!down)return;down=false;
   window.ASGjump&&window.ASGjump(document.querySelector('.step[data-k="'+nearest(e.clientX)+'"]'))});
 grip.addEventListener('pointercancel',()=>{down=false});})();</script>
+<script>/* DOORS_JS */
+document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
+  if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  e.preventDefault();document.body.style.setProperty('--handto',a.style.getPropertyValue('--to'));
+  document.body.classList.add('leaving');setTimeout(()=>{location.href=a.href},520)}));</script>
 <script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
 (function(){
 const steps=[...document.querySelectorAll('.step')],N=steps.length,
