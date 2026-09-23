@@ -1,16 +1,16 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Why Boundaries Feel So Hard — a teaching</title><meta name="description" content="Most people don&#x27;t skip boundaries because they don&#x27;t know how. They skip them because the cost feels too high — guilt, a fight, the fear that someone will leave. Those fears are often older than the person in front of you, learned long before this relationship began."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
-/* gen_v2 · topic: Why Many People Don't Set Boundaries · teaching/other · pool all → #d4a948 */
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Helpful Things to Say — a field guide</title><meta name="description" content="What to say to someone who&#x27;s struggling, and what to say if you&#x27;re worried about their safety."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: 7. Helpful Things to Say · fieldguide/other · pool calm → #97a491 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
-   topic  : Why Many People Don't Set Boundaries
-   form   : teaching        family : other   (fallback — covers 75 topics)
-   pool   : all → #d4a948        seed 0.7090
-   move   : figure FIELD · direction walk · ground paper · density full · play none
+   topic  : 7. Helpful Things to Say
+   form   : fieldguide        family : conversation   (fallback — covers fieldguide/other, 7 topics)
+   pool   : calm → #97a491        seed 0.6256
+   move   : figure HORIZON · direction walk · ground paper · density full · play copy
    ------------------------------------------------------------------------- */
 :root{
   --serif:'Lora',Georgia,serif;
   --sans:'DM Sans',system-ui,-apple-system,sans-serif;
-  --ac:#d4a948;
+  --ac:#97a491;
   /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
      every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
      invisible by eye on the mid-tones, and a fail even at display scale. The
@@ -108,54 +108,38 @@ h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 
 /* a page nobody is looking at genuinely idles */
 body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
 
-/* ============ EXTRA_TEACHING — skeleton: points ============
-   The fallback shape for course lessons: the teaching → what is happening →
-   3–6 points (point · because · a lived line) → a practice → a close. The same
-   hooks as the laws variant (#lawpick, data-jump); only the labels differ,
-   and the label of the lived line is a slot (data-label). */
-.top span{text-align:right}
-/* CHROME OVER A FIGURE GROUND: solid ink, never alpha */
+/* ============ EXTRA_FIELDGUIDE — family: conversation ============
+   The fallback for the non-crisis field guides — listening, asking, repairing.
+   Same lookup shape as crisis (picker on the title screen, one glance per
+   situation) but calm pool, and the scripts are the point: each "try saying"
+   line is a button that copies itself, because these get pasted into
+   messages far more often than they get said aloud.
+   The horizon sits at 10%, not the crisis guide's 22%: these steps are longer,
+   and a line through the "because" text reads as a strike-through. */
 .top,.count,.hint{color:#5A5249}
-.step{padding-top:calc(104px + env(safe-area-inset-top,0px))}
-.one{font-size:clamp(20px,5.2vw,27px);line-height:1.42;font-weight:500}
-.tues{font-style:italic;font-size:clamp(18px,4.6vw,21px);line-height:1.6}
-#lawpick{position:fixed;left:0;right:0;top:calc(44px + env(safe-area-inset-top,0px));z-index:6;
-  display:flex;justify-content:center;gap:6px;padding:6px 16px}
-#lawpick button{width:32px;height:32px;padding:0;border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;
-  color:#5A5249;font-family:var(--sans);font-size:12px;cursor:pointer;-webkit-tap-highlight-color:transparent;
-  transition:border-color .4s ease,color .4s ease,background .4s ease}
-#lawpick button:hover{border-color:var(--actext);color:var(--actext)}
-#lawpick button[aria-current="true"]{border-color:var(--actext);background:var(--actext);color:#FBFAF7}
-.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:16px}
-.law{font-size:clamp(27px,7.2vw,42px);line-height:1.15;font-weight:500;margin:0 0 18px;text-wrap:balance}
-.because{font-style:italic;font-size:clamp(17px,4.4vw,20px);line-height:1.56;color:var(--ink);margin:0 0 22px;padding-left:18px;border-left:2px solid var(--ac)}
-.looks{font-size:clamp(15.5px,4vw,17px);line-height:1.6;color:var(--muted);padding-top:14px;border-top:1px solid var(--faint)}
-.looks::before{content:attr(data-label);display:block;font-family:var(--sans);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin-bottom:7px}
-.practice{font-size:clamp(17px,4.4vw,20px);line-height:1.62;background:rgba(255,255,255,.66);border:1px solid var(--faint);border-radius:14px;padding:22px 20px}
-.close{font-size:clamp(20px,5.2vw,26px);line-height:1.45;font-style:italic}
-@media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(50px,5vw,70px)}.law{font-size:clamp(38px,3.8vw,52px)}#lawpick button{width:36px;height:36px}}
-@media (max-height:720px){.law{font-size:25px;margin-bottom:12px}.because{font-size:16px;margin-bottom:14px}.looks{font-size:15px}.one{font-size:19px}}
-/* @FIG:FIELD */
-.w{background:radial-gradient(120% 90% at 50% calc(94% - var(--p,0) * 56%),color-mix(in oklab, var(--ac) 11%, #F7F3EC) 0%,#F7F3EC 46%);transition:background 2.4s ease}
-.w::after{content:"";position:absolute;left:50%;top:calc(94% - var(--p,0) * 56%);width:min(150vmin,900px);height:min(150vmin,900px);
-  transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle, color-mix(in oklab, var(--ac) 15%, transparent), transparent 62%);
-  transition:top 2.4s ease;animation:fieldbreath 9s ease-in-out infinite}
-@keyframes fieldbreath{0%,100%{opacity:.65}50%{opacity:1}}
-/* @END */
-
-/* HIT AREA ≥44px, visual dot unchanged. The button is the 44px target; the
-   dot is a ::before, so the picker does not look heavier than it did.
-   Same class of defect as the tree hit circles — size the target, not the mark. */
-#lawpick{gap:0}
-#lawpick button{position:relative;width:44px;height:44px;border:0;background:transparent;color:#5A5249;z-index:0}
-#lawpick button::before{content:"";position:absolute;left:50%;top:50%;width:32px;height:32px;transform:translate(-50%,-50%);
-  border-radius:50%;border:1px solid var(--faint);background:#F7F3EC;z-index:-1;transition:border-color .4s ease,background .4s ease}
-#lawpick button:hover::before{border-color:var(--actext)}
-#lawpick button[aria-current="true"]{background:transparent;color:#FBFAF7}
-#lawpick button[aria-current="true"]::before{border-color:var(--actext);background:var(--actext)}
-#lawpick button:focus-visible{outline:none}
-#lawpick button:focus-visible::before{box-shadow:0 0 0 2px #F7F3EC,0 0 0 4px var(--actext)}
-@media (min-width:900px){#lawpick button{width:48px;height:48px}#lawpick button::before{width:36px;height:36px}}
+.w{background:linear-gradient(180deg,#FAF7F1 0%,#F7F3EC 60%,#F2ECE2 100%)}
+.w::before{content:"";position:absolute;left:0;right:0;bottom:10%;height:1px;background:rgba(31,27,22,.16)}
+.w::after{content:"";position:absolute;left:0;right:0;bottom:0;height:10%;background:linear-gradient(180deg,color-mix(in oklab, var(--ac) 10%, transparent),transparent 70%)}
+.pick{display:grid;gap:10px}
+.pick a{display:block;padding:15px 16px;border:1px solid var(--faint);border-radius:12px;background:rgba(255,255,255,.72);font-size:16.5px;line-height:1.45;transition:border-color .3s ease,transform .3s ease}
+.pick a:hover{border-color:var(--actext);transform:translateX(3px)}
+.pick a::after{content:"→";float:right;color:var(--actext)}
+.of{font-family:var(--sans);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.when{font-family:var(--sans);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin:0 0 6px}
+.do{font-size:clamp(19px,5vw,24px);line-height:1.3;font-weight:500;margin:0 0 16px}
+.say{display:grid;gap:8px;margin:0 0 16px}
+.say button{position:relative;text-align:left;font-family:var(--serif);font-style:italic;font-size:17px;line-height:1.45;
+  padding:12px 58px 12px 16px;border:1px solid var(--faint);border-radius:12px;background:rgba(255,255,255,.8);color:var(--ink);cursor:pointer;
+  transition:border-color .3s ease,background .3s ease}
+.say button:hover{border-color:var(--actext)}
+.say button::after{content:"copy";position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:var(--sans);font-style:normal;
+  font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#5A5249}
+.say button.copied{border-color:var(--actext);background:color-mix(in oklab, var(--ac) 10%, #FFFFFF)}
+.say button.copied::after{content:"copied";color:var(--actext)}
+.not{font-size:15.5px;line-height:1.5;color:var(--muted);margin:0 0 16px}
+.because{font-size:clamp(15.5px,4vw,17px)}
+@media (min-width:900px){.piece{max-width:620px}}
+@media (max-height:720px){.do{font-size:18px;margin-bottom:10px}.say button{font-size:15.5px;padding:10px 54px 10px 14px}.say,.not{margin-bottom:10px}}
 
 /* GATE 6c — the back link is the only way out; it gets a 44px target without
    moving the chrome (negative margin absorbs the extra height). */
@@ -187,30 +171,27 @@ body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body class="dark" data-variant="other" data-form="teaching" data-seed="0.7090" style="--from:1">
+<body class="dark" data-variant="conversation" data-form="fieldguide" data-seed="0.6256" style="--from:1">
 <div class="w" id="w" aria-hidden="true"></div>
 
-<div class="top"><a href="index.html">← The teachings</a><span>A teaching</span></div>
-<div id="lawpick" role="group" aria-label="the points"></div>
-<section class="step" ><div class="piece"><h1>Why Boundaries Feel So Hard</h1><p class="sub">The reasons the line doesn't get drawn</p></div></section>
-<section class="step" ><div class="piece"><div class="k">The teaching</div><div class="one">Most people don't skip boundaries because they don't know how. They skip them because the cost feels too high — guilt, a fight, the fear that someone will leave. Those fears are often older than the person in front of you, learned long before this relationship began.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">Why this is hard</div><div class="tues">Ask someone why they don't set a boundary and the answer is rarely 'I didn't think of it.' It's usually 'I couldn't stand what would happen if I did.' A raised voice, a cold shoulder, a person they love looking hurt. Many people learned early — praised for being easy, punished for asking — that a need voiced out loud costs something.</div></div></section>
-<section class="step" data-jump="1" data-tempo="quick"><div class="piece"><div class="num">1 of 5</div><div class="law">Conflict feels like danger, not disagreement.</div><div class="because">Because a nervous system that learned love was conditional treats friction as a threat to the bond itself.</div><div class="looks" data-label="sounds like">A tight chest before a simple no, as if the sentence itself were risky.</div></div></section>
-<section class="step" data-jump="2"><div class="piece"><div class="num">2 of 5</div><div class="law">Guilt was trained in long before this.</div><div class="because">Because many people were rewarded for being easy and quietly taught that needs are a burden.</div><div class="looks" data-label="sounds like">A held breath before asking for anything, bracing for annoyance that never actually comes.</div></div></section>
-<section class="step" data-jump="3"><div class="piece"><div class="num">3 of 5</div><div class="law">A limit can look like rejection to them.</div><div class="because">Because a boundary changes the pattern, and anyone used to the old one reads that as loss.</div><div class="looks" data-label="sounds like">Their hurt look landing like proof of harm, when it's only proof of change.</div></div></section>
-<section class="step" data-jump="4"><div class="piece"><div class="num">4 of 5</div><div class="law">Some people never saw one modeled.</div><div class="because">Because a household without limits doesn't teach the skill, only the discomfort of not having it.</div><div class="looks" data-label="sounds like">Fumbling for the words, because no one in the family ever used them either.</div></div></section>
-<section class="step" data-jump="5" data-tempo="still"><div class="piece"><div class="num">5 of 5</div><div class="law">Check whether today's risk matches the old fear.</div><div class="because">Because the reaction expected is often the one learned in childhood, not necessarily the one likely now.</div><div class="looks" data-label="sounds like">Saying the line anyway, where it's safe to, and the room not ending as feared.</div></div></section>
-<section class="step" ><div class="piece"><div class="k">The practice</div><div class="practice">Notice the one relationship where you never say no. Don't change it yet; just notice what you expect would happen if you did, and whether that fear is about this person or someone from years ago. If saying no could put you in danger, get support first.</div></div></section>
-<section class="step" ><div class="piece"><div class="close">The fear was learned. It can be noticed without being obeyed.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/fieldguide/why-many-people-don-t-set-boundaries.html" style="--to:#7fb7a8" data-door><span class="dg"><svg viewBox="0 0 60 60"><path class="dim" d="M4 40 L56 40"/><path d="M14 22 L46 22"/><path d="M14 30 L38 30"/></svg></span><span class="dt"><span class="dk">The same subject · as a field guide</span><span class="dn">For the moment itself — what to do first.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
-<div class="hint" id="hint">scroll to walk</div>
-<div class="count" id="count">1 / 10</div>
-<script>/* FIG_OTHER */
-(function(){const pick=document.getElementById('lawpick'),steps=[...document.querySelectorAll('.step')];
-steps.forEach(s=>{if(!s.dataset.jump)return;const b=document.createElement('button');b.type='button';b.textContent=s.dataset.jump;
-  b.dataset.law=s.dataset.jump;b.setAttribute('aria-label','point '+s.dataset.jump);
-  b.addEventListener('click',()=>window.ASGjump&&window.ASGjump(s));pick.appendChild(b)});
-const btns=[...pick.children],prev=window.ASGfig;
-window.ASGfig=function(d,i,N){prev&&prev(d,i,N);btns.forEach(b=>b.setAttribute('aria-current',b.dataset.law===d.jump?'true':'false'))};})();</script>
+<div class="top"><a href="/learning/">← Learning</a><span>Field guide</span></div>
+
+<section class="step" data-here="open"><div class="piece"><h1>Helpful Things to Say</h1><p class="sub">A field guide</p><p class="sum" style="margin:18px 0 24px">What to say to someone who's struggling, and what to say if you're worried about their safety.</p><div class="k">What’s happening?</div><div class="pick"><a href="#s1">Someone tells you something painful and you want to respond</a><a href="#s2">You don't know what kind of help they actually want</a><a href="#s3">You're worried they might be in danger</a></div></div></section>
+<section class="step" id="s1" data-here="situation"><div class="piece"><div class="of">1 of 3</div><p class="when">When</p><div class="do">Someone tells you something painful and you want to respond</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“This is really hard.”</button><button type="button" data-copy>“I'm not going anywhere.”</button></div><p class="when">Instead of</p><div class="not">Everything happens for a reason.</div><p class="when">Because</p><div class="because">Naming the truth of the moment feels more honest than a generic comfort, and it doesn't ask them to feel better yet.</div></div></section>
+<section class="step" id="s2" data-here="situation"><div class="piece"><div class="of">2 of 3</div><p class="when">When</p><div class="do">You don't know what kind of help they actually want</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“Do you want to talk, or just have company?”</button><button type="button" data-copy>“What would actually help right now?”</button></div><p class="when">Instead of</p><div class="not">Assuming they want advice when they just want company.</div><p class="when">Because</p><div class="because">Assuming what someone needs can miss the mark even with good intentions; asking hands the choice back to them.</div></div></section>
+<section class="step" id="s3" data-here="situation"><div class="piece"><div class="of">3 of 3</div><p class="when">When</p><div class="do">You're worried they might be in danger</div><p class="when">Try saying</p><div class="say"><button type="button" data-copy>“I'm worried about your safety right now.”</button><button type="button" data-copy>“Let's call your local emergency number or a crisis line together.”</button></div><p class="when">Instead of</p><div class="not">Waiting to see if it passes on its own.</div><p class="when">Because</p><div class="because">A moment of real risk needs more than kind words; saying it plainly and acting on it together is what actually helps.</div></div></section>
+<section class="step" data-here="grace"><div class="piece"><div class="aff" style="font-size:clamp(23px,5.8vw,30px)">Plain and true beats clever, every time.</div><div class="because">If you're ever worried about someone's safety, say so plainly, and help them reach your local emergency number or a crisis line.</div><nav class="door" aria-label="The same subject, another way"><a href="/teachings/7-helpful-things-to-say.html" style="--to:#e09258" data-door><span class="dg"><svg viewBox="0 0 60 60"><circle cx="16" cy="30" r="4"/><circle class="s" cx="30" cy="30" r="4"/><circle cx="44" cy="30" r="4"/><path class="dim" d="M8 44 L52 44"/></svg></span><span class="dt"><span class="dk">The same subject · as a teaching</span><span class="dn">The rules underneath it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="hint" id="hint">scroll, or pick</div>
+<div class="count" id="count">1 / 5</div>
+<script>/* FIG_CONVERSATION */
+(function(){
+document.querySelectorAll('.pick a').forEach(a=>a.addEventListener('click',e=>{const t=document.querySelector(a.getAttribute('href'));
+  if(!t)return;e.preventDefault();window.ASGjump&&window.ASGjump(t)}));
+/* play: a line copies itself */
+document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',async()=>{const s=b.textContent.replace(/^“|”$/g,'');
+  let ok=false;try{await navigator.clipboard.writeText(s);ok=true}catch(e){const t=document.createElement('textarea');t.value=s;
+  t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();try{ok=document.execCommand('copy')}catch(_){}t.remove()}
+  if(ok){b.classList.add('copied');setTimeout(()=>b.classList.remove('copied'),2200)}}));})();</script>
 <script>/* DOORS_JS */
 document.querySelectorAll('[data-door]').forEach(a=>a.addEventListener('click',e=>{
   if(e.metaKey||e.ctrlKey||e.shiftKey||matchMedia('(prefers-reduced-motion: reduce)').matches)return;

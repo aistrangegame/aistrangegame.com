@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Ramana Maharshi — a portrait</title><meta name="description" content="A sixteen-year-old lay down on the floor of his uncle&#x27;s house, imagined his own death, and found that something in him did not die. He spent the next fifty-four years pointing at it."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Ramana Maharshi · portrait/sage · pool deep → #b99bcd */
+
+/* ============ BASE_CSS ============ */
+:root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',system-ui,-apple-system,sans-serif;--ac:#b99bcd;--acp:#4A4238;--acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);--actext:var(--acp);box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;-webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.count{white-space:nowrap}
+.hint.gone{opacity:0}
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;display:flex;align-items:center;justify-content:center;padding:calc(104px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;transform:scale(var(--from,.86)) translateY(10px);transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1);position:relative;z-index:2}
+.step.on .piece{opacity:1;transform:none}
+/* HIT-TEST CONTRACT: .step is a full-viewport positioned box, so it would cover
+   every fixed play surface beneath it. The step itself takes no pointer events;
+   the text does. Play surfaces at z-index 1 then receive everything around it. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.moment{font-family:var(--sans);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--actext);margin-bottom:10px}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.16);--card:rgba(255,255,255,.05);--bg:#0B0910;--actext:var(--ac)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition-duration:.2s!important}.piece{transform:none}
+ html{scroll-behavior:auto}}
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+
+/* ============ EXTRA_PORTRAIT — variant: sage ============ */
+/* The ages line is the figure and the navigation: the point tracks the moment
+   and can be dragged to travel the life. Each moment is a room — the ground
+   changes light around you rather than illustrating the scene. */
+.w{background:var(--room, radial-gradient(120% 100% at 50% 100%, #1A1420 0%, #0B0910 60%))}
+.w{transition:background 2.6s ease}
+.w::after{content:"";position:absolute;inset:0;opacity:var(--gleam,0);transition:opacity 3s ease;
+  background:linear-gradient(104deg, transparent 38%, rgba(245,239,230,.5) 49%, rgba(201,168,76,.28) 52%, transparent 63%)}
+body[data-room="floor"]   .w{--room:radial-gradient(90% 70% at 50% 108%, #2A2018 0%, #120E14 55%, #0B0910 100%)}
+body[data-room="train"]   .w{--room:linear-gradient(180deg,#0B0910 0%,#141020 46%,#1B1526 60%,#0B0910 100%)}
+body[data-room="silence"] .w{--room:radial-gradient(60% 46% at 50% 50%, #15121A 0%, #08060B 62%, #060409 100%)}
+body[data-room="question"].w,body[data-room="question"] .w{--room:radial-gradient(75% 60% at 50% 42%, #191426 0%, #0B0910 62%)}
+body[data-room="end"]     .w{--room:radial-gradient(100% 80% at 50% 20%, #221A24 0%, #0B0910 64%)}
+body[data-room="end"]     .w::after{--gleam:.5}
+/* train room: the faint horizontal pull of a window */
+body[data-room="train"] .w::before{content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(90deg, transparent 0 46px, rgba(245,239,230,.05) 46px 47px);
+  animation:pull 2.6s linear infinite;opacity:.9}
+@keyframes pull{to{transform:translateX(-47px)}}
+/* silence room: one dim halo, breathing */
+body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:50%;width:66vmin;height:66vmin;
+  transform:translate(-50%,-50%);border-radius:50%;border:1px solid rgba(245,239,230,.09);animation:halo 9s ease-in-out infinite}
+@keyframes halo{0%,100%{opacity:.5;transform:translate(-50%,-50%) scale(1)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.07)}}
+
+.fig{position:fixed;left:0;right:0;top:calc(56px + env(safe-area-inset-top,0px));z-index:4;
+  display:flex;justify-content:center;pointer-events:none}
+.fig svg{width:min(92vw,620px);height:56px;overflow:visible}
+#life{stroke:rgba(245,239,230,.2);stroke-width:1}
+#lifefill{stroke:var(--ac);stroke-width:1.4;transition:stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1)}
+.tk circle{fill:rgba(245,239,230,.3);transition:fill .8s ease,r .8s ease}
+.tk text{font-family:var(--sans);font-size:11px;fill:rgba(245,239,230,.55);transition:fill .8s ease}
+.tk.done circle{fill:var(--ac)}
+.tk.live circle{fill:var(--ac);r:6}
+.tk.live text{fill:#F5EFE6}
+#lifept{fill:var(--ac);transition:cx 1.4s cubic-bezier(.16,1,.3,1),r .4s ease;
+  filter:drop-shadow(0 0 7px rgba(201,168,76,.7))}
+#lifept.grab{transition:r .2s ease;r:10}
+#grip{position:fixed;left:0;right:0;top:calc(40px + env(safe-area-inset-top,0px));height:58px;z-index:5;
+  touch-action:pan-y;background:transparent;border:0;cursor:ew-resize;-webkit-tap-highlight-color:transparent}
+.step.on .piece::before{content:"";position:absolute;inset:-34px -28px;z-index:-1;border-radius:26px;
+  background:radial-gradient(ellipse at 50% 46%, rgba(11,9,16,.9) 0%, rgba(11,9,16,.74) 56%, rgba(11,9,16,0) 100%)}
+@media (min-width:900px){.piece{max-width:640px}h1{font-size:clamp(52px,5vw,74px)}
+ .step{padding-top:calc(120px + env(safe-area-inset-top,0px))}}
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
+</style></head>
+<body data-seed="0.7361" class="light" data-variant="sage" data-room="none" style="--from:.86">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig" id="fig">
+  <svg viewBox="0 0 520 56" aria-hidden="true">
+    <line id="life" x1="40" y1="14" x2="480" y2="14"/>
+    <line id="lifefill" x1="40" y1="14" x2="480" y2="14" stroke-dasharray="440" stroke-dashoffset="440"/>
+<g class="tk" data-i="1" transform="translate(60,14)"><circle r="5"/><text y="26" text-anchor="middle">16</text></g><g class="tk" data-i="2" transform="translate(160,14)"><circle r="5"/><text y="26" text-anchor="middle">17</text></g><g class="tk" data-i="3" transform="translate(260,14)"><circle r="5"/><text y="26" text-anchor="middle">20s</text></g><g class="tk" data-i="4" transform="translate(360,14)"><circle r="5"/><text y="26" text-anchor="middle">40s</text></g><g class="tk" data-i="5" transform="translate(460,14)"><circle r="5"/><text y="26" text-anchor="middle">70</text></g>
+<circle id="lifept" cx="60" cy="14" r="7"/>
+  </svg>
+</div>
+<button id="grip" aria-label="drag the point along the line to travel the life"></button>
+<div class="top"><a href="/learning/">← Learning</a><span>Portrait</span></div>
+
+<section class="step" data-room="none" data-tick="0"><div class="piece"><h1>Ramana Maharshi</h1><p class="sub">1879 – 1950 · A portrait</p><p class="sum" style="margin-top:22px">A sixteen-year-old lay down on the floor of his uncle's house, imagined his own death, and found that something in him did not die. He spent the next fifty-four years pointing at it.</p></div></section>
+<section class="step" data-room="floor" data-tick="1"><div class="piece"><div class="moment">Moment 1 of 5 · age 16</div><h1 style="font-size:clamp(26px,7vw,40px)">The floor</h1><div class="txt"><p>Madurai, 1896. A sudden, total fear of death. Instead of running from it, he lay down and went through it — stiffened his limbs, held his breath, asked what dies. The body, yes. But the one aware of the body? That did not go anywhere. The fear left and never came back. Nothing had been taught. Something had been seen.</p></div></div></section>
+<section class="step" data-room="train" data-tick="2"><div class="piece"><div class="moment">Moment 2 of 5 · age 17</div><h1 style="font-size:clamp(26px,7vw,40px)">The train</h1><div class="txt"><p>Weeks later he left a note — "I have gone in search of my Father" — and took a train to the mountain Arunachala, which he had heard named once as a boy and never forgotten. He would not leave it for the rest of his life.</p></div></div></section>
+<section class="step" data-room="silence" data-tick="3"><div class="piece"><div class="moment">Moment 3 of 5 · age 20s</div><h1 style="font-size:clamp(26px,7vw,40px)">The silence</h1><div class="txt"><p>For years he barely spoke, sat in temples and caves, was fed by others, was bitten by insects, was mistaken for a madman. People began to come and sit near him. They found that sitting near him was itself the teaching. The silence was not withholding. It was the answer, before the question.</p></div></div></section>
+<section class="step" data-room="question" data-tick="4"><div class="piece"><div class="moment">Moment 4 of 5 · age 40s</div><h1 style="font-size:clamp(26px,7vw,40px)">The question</h1><div class="txt"><p>When he did speak, he gave one instruction, endlessly: ask who am I? Not as philosophy — as a hunt. Follow every thought back to the one who is thinking it. Follow the "I" to its source. What you find there is what you were looking for with the thought.</p></div></div></section>
+<section class="step" data-room="end" data-tick="5"><div class="piece"><div class="moment">Moment 5 of 5 · age 70</div><h1 style="font-size:clamp(26px,7vw,40px)">The end</h1><div class="txt"><p>Cancer in the arm. Devotees wept and asked him not to leave. "Where can I go? I am here." The body stopped in April 1950. Many who were there said they saw a bright light cross the sky. The question he left is still being asked by people who never met him, in exactly the words he gave.</p></div></div></section>
+<section class="step" data-room="none" data-tick="grace"><div class="piece"><div class="aff" style="font-size:clamp(26px,6.4vw,34px)">Ask who is asking.</div><div class="because">The question he left needs no teacher to ask it. It needs only someone to ask who is asking.</div><nav class="door" aria-label="The same subject, another way"><a href="/learning/icebreaker/ramana-maharshi.html" style="--to:#a9a3d0" data-door><span class="dg"><svg viewBox="0 0 60 60"><rect class="dim" x="14" y="16" width="32" height="28" rx="4"/><rect x="10" y="12" width="32" height="28" rx="4"/></svg></span><span class="dt"><span class="dk">The same subject · as an icebreaker</span><span class="dn">Questions to open a conversation about it.</span></span><span class="da" aria-hidden="true">→</span></a></nav></div></section>
+<div class="hint" id="hint">scroll to go inward</div>
+<div class="count" id="count">1 / 7</div>
+
+<script>(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,w=document.getElementById('w'),
+count=document.getElementById('count'),hint=document.getElementById('hint'),fig=document.getElementById('fig'),
+pt=document.getElementById('lifept'),fill=document.getElementById('lifefill'),ticks=[...document.querySelectorAll('.tk')];
+const X={0:60,1:60,2:160,3:260,4:360,5:460},SPAN=440;
+function mark(key){
+  if(key==='grace'){ticks.forEach(t=>{t.classList.remove('live','done');t.style.opacity=.18});
+    pt.setAttribute('cx',460);fill.setAttribute('stroke-dashoffset',0);return}
+  ticks.forEach(t=>t.style.opacity=1);
+  const n=key==='0'?0:+key;pt.setAttribute('cx',X[n]);
+  fill.setAttribute('stroke-dashoffset',SPAN-((X[n]-40)/SPAN)*SPAN);
+  ticks.forEach(t=>{const i=+t.dataset.i;t.classList.toggle('live',i===n);t.classList.toggle('done',i<n)})}
+/* scroll-driven activation — deterministic, cannot silently fail */
+function activate(i){const e=steps[i];e.classList.add('on');count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  document.body.dataset.room=e.dataset.room;mark(e.dataset.tick);
+  if(i>0)hint.classList.add('gone')}
+let cur=-1,last=0,tm=0;
+function sync(){const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}}
+/* timestamp throttle — never gated on a frame that may never arrive */
+function tick(){const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}else tm=setTimeout(()=>{last=Date.now();sync()},80)}
+addEventListener('scroll',tick,{passive:true});addEventListener('resize',tick);
+addEventListener('load',sync);mark('0');sync();
+addEventListener('visibilitychange',()=>{document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync()});
+addEventListener('keydown',e=>{const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();return r.top>-10&&r.top<innerHeight/2});
+if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+if(e.key==='ArrowUp'){e.preventDefault();const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}});
+/* play: drag the point — the line becomes the way you travel the life */
+const grip=document.getElementById('grip');let dragging=false;
+function pick(clientX){const r=fig.querySelector('svg').getBoundingClientRect();
+ const vx=((clientX-r.left)/r.width)*520;let best=1,bd=1e9;
+ for(const k of [1,2,3,4,5]){const d=Math.abs(X[k]-vx);if(d<bd){bd=d;best=k}}
+ pt.setAttribute('cx',Math.max(60,Math.min(460,vx)));return best}
+grip.addEventListener('pointerdown',e=>{dragging=true;pt.classList.add('grab');pick(e.clientX);
+ grip.setPointerCapture&&grip.setPointerCapture(e.pointerId)});
+grip.addEventListener('pointermove',e=>{if(dragging)pick(e.clientX)});
+/* scroll-snap-stop:always swallows multi-snap smooth scrolls, and this jump can
+   cross four moments at once — so the travel is instant, then it settles */
+function drop(e){if(!dragging)return;dragging=false;pt.classList.remove('grab');
+ const k=pick(e.clientX);const target=steps[k];
+ if(target){scrollTo({top:target.offsetTop,behavior:'instant'});sync()}}
+grip.addEventListener('pointerup',drop);grip.addEventListener('pointercancel',()=>{dragging=false;pt.classList.remove('grab')});
+})();</script>
+</body></html>

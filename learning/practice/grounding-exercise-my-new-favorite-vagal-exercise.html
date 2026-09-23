@@ -1,0 +1,258 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>A Slow Settling Sequence — a practice card</title><meta name="description" content="A short sequence of slow neck turns, eye movements, and breath — the kind of gentle exercise that&#x27;s thought to help cue the body toward calm."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+/* gen_v2 · topic: Grounding Exercise: My new Favorite Vagal Exercise · practice/body · pool calm → #7da6c4 */
+
+/* ============ BASE_CSS — kit/BASE.css ============
+   topic  : Grounding Exercise: My new Favorite Vagal Exercise
+   form   : practice        family : body   (12 topics)
+   pool   : calm → #7da6c4        seed 0.4482
+   move   : figure SCAN · direction walk · ground paper · density full · play hold
+   ------------------------------------------------------------------------- */
+:root{
+  --serif:'Lora',Georgia,serif;
+  --sans:'DM Sans',system-ui,-apple-system,sans-serif;
+  --ac:#7da6c4;
+  /* --acp: the accent at paper weight. THE PAPER GROUND IS WHERE THIS MATTERS:
+     every accent in the set lands between 1.96:1 and 2.91:1 as text on cream —
+     invisible by eye on the mid-tones, and a fail even at display scale. The
+     night ground does not need it for text (the raw accent clears easily on
+     #0B0910) but does need it for light cards sitting on dark.
+     55%, not 68%: at 68% the worst pool colour reaches only 3.77:1.
+
+     MIXED IN OKLAB AGAINST A NEUTRAL, not in oklch against a warm dark.
+     Polar interpolation rotates the hue toward the dark endpoint's hue when
+     the source chroma is low — measured up to 14.6° of drift, which turned a
+     lavender into a rose. Rectangular interpolation against a neutral scales
+     a and b proportionally: hue holds (max 1.6°) and contrast is slightly
+     better. Measured worst case across all 24 accents and all four paper
+     stocks, including the storybook's #F2EADB: 5.39:1. Declared twice so a
+     browser without color-mix keeps a usable value instead of an invalid one. */
+  --acp:#4A4238;
+  --acp:color-mix(in oklab, var(--ac) 50%, #191919 50%);
+  /* --actext: accent AS TEXT, resolved per ground. Use this for every glyph
+     that carries the accent. Keep --ac for strokes, rings, fills and figure
+     geometry, where the raw hue is wanted and the looser 3:1 UI bar applies. */
+  --actext:var(--acp);
+  box-sizing:border-box;
+}
+*,*::before,*::after{box-sizing:inherit}
+
+/* The document owns scrolling. Do NOT give body a height or overflow-y:
+   body then becomes an overflow clip ancestor whose scrollTop stays 0 while
+   html scrolls, and every viewport-relative measurement silently breaks.
+   overflow-x lives on html because overflow-x:hidden on body forces
+   overflow-y to compute to auto, recreating the same bug. */
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth;overflow-x:hidden}
+body{margin:0;font-family:var(--serif);font-size:18px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;color:var(--ink);background:var(--bg)}
+a{color:inherit;text-decoration:none}
+a:hover{color:var(--actext)}
+
+/* layers: world 0 · figure and play surfaces 1 · steps 2 · chrome 5 · picker 6 */
+.w{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.fig{position:fixed;inset:0;z-index:1;pointer-events:none;
+  display:flex;align-items:center;justify-content:center}
+
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 20px;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.count{position:fixed;right:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;color:var(--muted)}
+.hint{position:fixed;left:20px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:5;
+  font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);transition:opacity 1s}
+.hint{white-space:nowrap}
+.hint.gone{opacity:0}
+
+.step{position:relative;z-index:2;min-height:100svh;scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;align-items:center;justify-content:center;
+  padding:calc(70px + env(safe-area-inset-top,0px)) 24px calc(70px + env(safe-area-inset-bottom,0px))}
+.piece{max-width:560px;width:100%;opacity:0;position:relative;z-index:2;
+  transform:scale(var(--from,1)) translateY(10px);
+  transition:opacity 1.1s ease,transform 1.3s cubic-bezier(.16,1,.3,1)}
+.step.on .piece{opacity:1;transform:none}
+
+/* HIT-TEST CONTRACT. .step is a positioned, full-viewport box above the figure
+   layer, so it would swallow every pointer event aimed at a play surface —
+   across its whole area, not just where text is painted. Stacking cannot fix
+   this (z-index:3 blocks the text, z-index:1 blocks the gesture). The step
+   passes events through; the text block keeps them. */
+.step{pointer-events:none}
+.piece{pointer-events:auto}
+
+/* type */
+.k{font-family:var(--sans);font-size:11px;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--actext);margin-bottom:14px}
+h1{font-weight:500;font-size:clamp(36px,9.5vw,58px);line-height:1.08;margin:0 0 10px}
+.sub{font-style:italic;color:var(--muted);font-size:20px;margin:0}
+.sum{font-size:clamp(18px,4.6vw,21px);line-height:1.6;font-style:italic}
+.txt{font-size:clamp(17px,4.4vw,19.5px);line-height:1.7}
+.txt p{margin:0 0 1em}
+.txt p:last-child{margin:0}
+.because{font-style:italic;color:var(--muted);font-size:clamp(16px,4.2vw,19px);line-height:1.6}
+.aff{font-style:italic;font-size:clamp(20px,5.2vw,26px);line-height:1.45;color:var(--actext);margin:0 0 18px}
+.src{font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+
+/* grounds. --actext flips with the ground: darkened on paper, raw on night.
+   --acp stays the paper-weight accent on BOTH, because a light card can sit on
+   a night ground (the storybook page) and needs it there. */
+.dark{--ink:#1F1B16;--muted:rgba(31,27,22,.66);--faint:rgba(31,27,22,.14);
+  --card:rgba(255,255,255,.6);--bg:#F7F3EC;--actext:var(--acp)}
+.light{--ink:#F5EFE6;--muted:rgba(245,239,230,.68);--faint:rgba(245,239,230,.18);
+  --card:rgba(255,255,255,.055);--bg:#0B0910;--actext:var(--ac)}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation:none!important;transition-duration:.2s!important}
+  .piece{transform:none}
+  html{scroll-behavior:auto}
+}
+/* a page nobody is looking at genuinely idles */
+body.still *,body.still *::before,body.still *::after{animation-play-state:paused!important}
+.top,.count,.hint{color:#5A5249}
+.hint{white-space:nowrap}
+
+.do{font-size:clamp(21px,5.4vw,28px);line-height:1.35;font-weight:500;margin:0}
+.lead{font-size:clamp(17.5px,4.5vw,20px);line-height:1.62}
+.aff{font-size:clamp(24px,6vw,32px)}
+@media (min-width:900px){.piece{max-width:620px}h1{font-size:clamp(52px,5vw,72px)}}
+@media (max-width:430px),(max-height:720px){.lead{font-size:16.5px;line-height:1.56}.do{font-size:20px}}
+.num{font-family:var(--sans);font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#5A5249;margin-bottom:10px}
+.nm{font-weight:500;font-size:clamp(26px,7vw,38px);line-height:1.12;margin:0 0 14px}
+.meta{font-family:var(--sans);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#5A5249;margin-top:16px}
+/* ============ EXTRA_PRACTICE — family: body ============ */
+/* @FIG:SCAN — attention moving down the body, drawn as a band of warmth that
+   descends the SCREEN, not as a drawn body. It costs no column, and it never
+   pretends to know the reader's shape. A strip of ticks on the right edge
+   shows where you are. SLOT: data-y 0..1 per region step (top → feet); the
+   ending lets the warmth spread to the whole screen. Play: hold — while held,
+   the band widens and warms: stay here longer. */
+.w{background:#F7F3EC}
+.warm{position:fixed;left:-10%;right:-10%;top:0;bottom:auto;height:46svh;z-index:1;pointer-events:none;
+  transform:translateY(calc(var(--y,-.3) * 100svh - 23svh));opacity:var(--wo,.9);
+  /* warmth must read as warmth whatever the identity accent: the topic hue is
+     kept, but mixed toward amber so a slate accent never becomes a shadow */
+  background:radial-gradient(60% 50% at 50% 50%, color-mix(in oklab, color-mix(in oklab, var(--ac) 35%, #EDB877) 46%, transparent) 0%, color-mix(in oklab, color-mix(in oklab, var(--ac) 35%, #EDB877) 16%, transparent) 46%, transparent 72%);
+  transition:transform 2.6s cubic-bezier(.45,0,.3,1),height 1.6s ease,opacity 1.6s ease}
+body.held .warm{height:66svh;transform:translateY(calc(var(--y,-.3) * 100svh - 33svh))}
+body.whole .warm{height:140svh;transform:translateY(-20svh);opacity:.7}
+.ticks{position:fixed;right:10px;top:22svh;bottom:22svh;z-index:2;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none}
+.ticks i{display:block;width:6px;height:6px;border-radius:50%;background:rgba(31,27,22,.18);transition:background .8s ease,transform .8s ease}
+.ticks i.done{background:color-mix(in oklab, var(--actext) 60%, transparent)}
+.ticks i.live{background:var(--actext);transform:scale(1.7)}
+#hold{position:fixed;inset:0;z-index:1;border:0;background:transparent;cursor:pointer;touch-action:pan-y;-webkit-tap-highlight-color:transparent}
+.step{padding-right:30px}
+@media (prefers-reduced-motion: reduce){.warm{transition:none}}
+/* @END */
+
+/* GATE 6c — the back link is the only way out; it gets a 44px target without
+   moving the chrome (negative margin absorbs the extra height). */
+.top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
+.links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+</style></head>
+<body class="dark" data-variant="body" data-form="practice" data-seed="0.4482" style="--from:1">
+<div class="w" id="w" aria-hidden="true"></div>
+<div class="fig warm" id="fig" aria-hidden="true"></div><div class="ticks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div><button id="hold" aria-label="hold to stay longer"></button>
+<div class="top"><a href="/learning/">← Learning</a><span>Practice card</span></div>
+<section class="step" data-y="-0.2"><div class="piece"><h1>A Slow Settling Sequence</h1><p class="sub">A practice card</p><p class="sum" style="margin-top:22px">A short sequence of slow neck turns, eye movements, and breath — the kind of gentle exercise that's thought to help cue the body toward calm.</p></div></section>
+<section class="step" data-y="-0.2"><div class="piece"><div class="k">When</div><div class="do">When you want a gentle physical sequence to settle into, rather than sitting still.</div></div></section>
+<section class="step" data-y="0"><div class="piece"><div class="k">How</div><div class="lead">Move slowly and gently throughout — nothing here should ever feel forced or strained. Do each step once or twice. If you feel dizzy or lightheaded at any point, stop and sit quietly until it passes.</div><div class="meta">go slowly, nothing forced</div></div></section>
+<section class="step" data-y="0.100" data-r="1"><div class="piece"><div class="num">1 of 5</div><h2 class="nm">Settle and breathe</h2><div class="lead">Sit or lie comfortably. Take a few slow breaths, letting the exhale run a little longer than the inhale.</div></div></section>
+<section class="step" data-y="0.300" data-r="2"><div class="piece"><div class="num">2 of 5</div><h2 class="nm">Turn your head</h2><div class="lead">Slowly turn your head to look over one shoulder, then the other, without straining the neck.</div></div></section>
+<section class="step" data-y="0.500" data-r="3"><div class="piece"><div class="num">3 of 5</div><h2 class="nm">Soften your gaze</h2><div class="lead">Let your eyes rest on a point without focusing hard. Notice the edges of your vision.</div></div></section>
+<section class="step" data-y="0.700" data-r="4"><div class="piece"><div class="num">4 of 5</div><h2 class="nm">Move your eyes slowly</h2><div class="lead">Without moving your head, let your eyes drift slowly left, then right, then back to center.</div></div></section>
+<section class="step" data-y="0.900" data-r="5"><div class="piece"><div class="num">5 of 5</div><h2 class="nm">Rest and breathe again</h2><div class="lead">Come back to stillness. Take a few more slow breaths before you finish.</div></div></section>
+<section class="step" data-y="1.2"><div class="piece"><div class="k">Why it works</div><div class="lead">Slow movement paired with a longer exhale is thought to help cue the nervous system toward rest — sometimes described as working on the vagus nerve. Nothing here should ever feel forced, and it's fine to stop early.</div></div></section>
+<section class="step" data-y="grace"><div class="piece"><div class="aff">Slow moves. A little more room.</div></div></section>
+<div class="hint" id="hint">scroll to move down</div>
+<div class="count" id="count">1 / 10</div>
+<script>/* FIG_BODY */
+(function(){const t=[...document.querySelectorAll('.ticks i')];
+window.ASGfig=function(d){const g=d.y==='grace';document.body.classList.toggle('whole',g);
+  if(!g)document.body.style.setProperty('--y',d.y);const r=+d.r||0;
+  t.forEach((x,i)=>{x.classList.toggle('live',i+1===r);x.classList.toggle('done',g||(r&&i+1<r)||(!r&&+d.y>1))})};
+const h=document.getElementById('hold'),on=()=>document.body.classList.add('held'),off=()=>document.body.classList.remove('held');
+h.addEventListener('pointerdown',on);addEventListener('pointerup',off);addEventListener('pointercancel',off);})();</script>
+<script>/* CORRIDOR_JS — kit/CORRIDOR.js, verbatim */
+(function(){
+const steps=[...document.querySelectorAll('.step')],N=steps.length,
+w=document.getElementById('w'),fig=document.getElementById('fig'),
+count=document.getElementById('count'),hint=document.getElementById('hint');
+
+function activate(i){
+  const e=steps[i];
+  e.classList.add('on');
+  count.textContent=(i+1)+' / '+N;
+  document.body.dataset.cur=i;
+  const p=N>1?i/(N-1):1;
+  w.style.setProperty('--p',p.toFixed(3));
+  document.documentElement.style.setProperty('--p',p.toFixed(3));
+  window.ASGfig&&window.ASGfig(e.dataset,i,N);
+  if(i>0)hint.classList.add('gone');
+}
+
+/* Scroll-driven, not observer-driven: picks the step whose centre is nearest
+   the viewport centre. An IntersectionObserver clipped against a mis-rooted
+   ancestor reports ratio 0 forever and fails silently; this cannot. */
+let cur=-1,last=0,tm=0;
+function sync(){
+  const mid=innerHeight/2;let best=0,bd=1/0;
+  steps.forEach((s,i)=>{const r=s.getBoundingClientRect();
+    const d=Math.abs(r.top+r.height/2-mid);if(d<bd){bd=d;best=i}});
+  if(best!==cur){cur=best;activate(best)}
+}
+/* Timestamp throttle, never gated on requestAnimationFrame. An rAF gate
+   deadlocks permanently in a hidden or throttled document: the pending flag is
+   cleared only inside the callback, so a frame that never fires swallows every
+   subsequent scroll event. */
+function tick(){
+  const n=Date.now();clearTimeout(tm);
+  if(n-last>80){last=n;sync()}
+  else tm=setTimeout(()=>{last=Date.now();sync()},80);
+}
+addEventListener('scroll',tick,{passive:true});
+addEventListener('resize',tick);
+addEventListener('load',sync);
+sync();
+addEventListener('visibilitychange',()=>{
+  document.body.classList.toggle('still',document.hidden);
+  if(!document.hidden)sync();
+});
+
+/* Keyboard nav. Single-snap moves only, so smooth is safe here. */
+addEventListener('keydown',e=>{
+  const i=steps.findIndex(s=>{const r=s.getBoundingClientRect();
+    return r.top>-10&&r.top<innerHeight/2});
+  if(e.key==='ArrowDown'||e.key===' '){e.preventDefault();
+    const t=steps[i+1]||steps[N-1];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+  if(e.key==='ArrowUp'){e.preventDefault();
+    const t=steps[i-1]||steps[0];scrollTo({top:t.offsetTop,behavior:'smooth'})}
+});
+
+/* jump(el) — ALWAYS use this for any move that can cross more than one step.
+   scroll-snap-stop:always swallows multi-snap smooth scrolls entirely; the
+   scroll simply does not happen. Instant, then re-sync. */
+window.ASGjump=function(target){
+  if(!target)return;
+  const s=target.closest?(target.closest('.step')||target):target;
+  scrollTo({top:s.offsetTop,behavior:'instant'});
+  sync();
+};
+window.ASGsync=sync;
+window.ASGstepAt=function(){return steps[+(document.body.dataset.cur||0)]};
+
+/* THE CORRIDOR REMEMBERS. Long forms (a thirty-day walk) are returned to over
+   weeks. Restore quietly — no banner, no "welcome back", and never past the
+   furthest step actually reached. Opt in with data-remember="<key>" on body. */
+const RK=document.body.dataset.remember;
+if(RK){
+  const K='asg.at.'+RK;
+  try{
+    const at=+localStorage.getItem(K);
+    if(at>0&&at<N)addEventListener('load',()=>{
+      scrollTo({top:steps[at].offsetTop,behavior:'instant'});sync()});
+  }catch(e){}
+  addEventListener('beforeunload',()=>{
+    try{localStorage.setItem(K,document.body.dataset.cur||0)}catch(e){}
+  });
+}
+})();</script>
+</body></html>
