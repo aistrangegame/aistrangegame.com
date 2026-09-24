@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>The Welcome · A Strange Game</title>
+<meta name="description" content="The guidebook — what the road is, how it begins, what gets held." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   THE WELCOME · the guidebook · aistrangegame.com/tree-of-life/the-welcome.html
+
+   The Mind door. Answers the question "what is this? what are
+   you asking of me?" without ceremony. Light cream register.
+   Readable. Clear.
+
+   Two states:
+     - First-arrival (no bindu-essence): shows eye + "Begin" → the-one.html
+     - Return (essence present): personalized title + Continue + Begin New Journey
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Light register — Welcome uses the cream ground, unlike the-one's dark */
+  --cream:        #faf3e4;
+  --cream-soft:   #f4ead3;
+  --cream-deep:   #ece2c7;
+  --paper:        #fbf5e6;
+  --ink:          #2a1f14;
+  --ink-soft:     #4a3a28;
+  --ink-whisper:  rgba(42, 31, 20, 0.58);
+  --ink-trace:    rgba(42, 31, 20, 0.32);
+  --trace:        #9a7b3d;
+  --trace-soft:   rgba(154, 123, 61, 0.48);
+  --gold:         #c9a84c;
+  --gold-glow:    rgba(201, 168, 76, 0.35);
+  --c-bindu:      #c9a84c;
+  --c-bindu-glow: rgba(201, 168, 76, 0.4);
+
+  /* Dark register — used only during Begin-New-Journey honoring moment */
+  --void:         #100a08;
+  --text-soft:    rgba(240, 226, 188, 0.82);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overscroll-behavior-y: none;
+}
+
+/* ═══ ATMOSPHERE — very faint Shree Yantra watermark, top ═══ */
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.atmosphere-yantra {
+  position: absolute;
+  top: -140px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(85vw, 640px);
+  height: min(85vw, 640px);
+  opacity: 0.045;
+  color: var(--trace);
+}
+.atmosphere-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(154, 123, 61, 0.4) 0.5px, transparent 1px),
+    radial-gradient(circle at 70% 80%, rgba(154, 123, 61, 0.3) 0.5px, transparent 1px),
+    radial-gradient(circle at 40% 50%, rgba(154, 123, 61, 0.3) 0.5px, transparent 1px);
+  background-size: 180px 180px, 240px 240px, 140px 140px;
+  mix-blend-mode: multiply;
+}
+
+/* ═══ PAGE STRUCTURE ═══ */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom));
+}
+
+/* ═══ HERO — title + eye + welcome line ═══ */
+.hero {
+  text-align: center;
+  margin-bottom: 72px;
+  opacity: 0;
+  animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.hero-eye {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-eye svg {
+  width: 100%;
+  height: 100%;
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(28px, 5.4vw, 38px);
+  color: var(--ink);
+  letter-spacing: 0.14em;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.hero-title .eye-char {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 0.88em;
+  vertical-align: middle;
+  margin: 0 0.12em;
+  filter: drop-shadow(0 0 6px rgba(201, 168, 76, 0.4));
+}
+.hero-subtitle {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.4vw, 22px);
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+  margin-bottom: 18px;
+}
+.hero-greeting {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(17px, 3.2vw, 20px);
+  color: var(--ink-soft);
+  margin-top: 28px;
+  letter-spacing: 0.01em;
+}
+.hero-greeting .name {
+  color: var(--trace);
+  font-weight: 500;
+}
+
+/* ═══ SECTIONS ═══ */
+.section {
+  margin-bottom: 56px;
+  opacity: 0;
+  transform: translateY(12px);
+}
+.section.visible {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.section-number {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 0.28em;
+  color: var(--trace);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.section-heading {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(22px, 4.2vw, 26px);
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  margin-bottom: 22px;
+  line-height: 1.4;
+}
+.section-prose {
+  font-family: 'Lora', serif;
+  font-size: clamp(17px, 3.2vw, 19px);
+  color: var(--ink);
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+.section-prose em {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+.section-prose strong {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.inline-link {
+  color: var(--trace);
+  text-decoration: underline;
+  text-decoration-color: var(--trace-soft);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color 0.3s ease, text-decoration-color 0.3s ease;
+}
+.inline-link:hover {
+  color: var(--gold);
+  text-decoration-color: var(--gold);
+}
+
+/* ═══ ACTIONS — primary Begin / Continue / Begin-New buttons ═══ */
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  margin-top: 56px;
+  margin-bottom: 72px;
+}
+.action-primary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: transparent;
+  border: 1.5px solid var(--gold);
+  padding: 18px 44px;
+  cursor: pointer;
+  min-height: 56px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  font-weight: 500;
+}
+.action-primary:hover {
+  color: var(--ink);
+  background: var(--gold);
+  box-shadow: 0 0 24px var(--gold-glow);
+}
+.action-divider {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-whisper);
+  letter-spacing: 0.02em;
+}
+.action-secondary {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-whisper);
+  background: transparent;
+  border: none;
+  padding: 14px 20px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.action-secondary:hover { color: var(--trace); }
+
+.action-cue {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(17px, 3.2vw, 19px);
+  color: var(--ink);
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* ═══ BEGIN-NEW-JOURNEY — heavy confirmation panel ═══ */
+.begin-new-panel {
+  display: none;
+  width: 100%;
+  max-width: 520px;
+  padding: 32px 28px;
+  background: rgba(42, 31, 20, 0.04);
+  border: 1px solid var(--trace-soft);
+  border-radius: 2px;
+  text-align: center;
+}
+.begin-new-panel.active { display: block; }
+.begin-new-heading {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--ink);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.begin-new-prose {
+  font-family: 'Lora', serif;
+  font-size: clamp(16px, 3vw, 18px);
+  color: var(--ink-soft);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.begin-new-prose.emphasis {
+  color: var(--ink);
+  font-style: italic;
+  margin-bottom: 32px;
+}
+.begin-new-actions {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.begin-new-cancel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ink-whisper);
+  background: transparent;
+  border: 1px solid var(--ink-trace);
+  padding: 14px 28px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.begin-new-cancel:hover {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+/* Hold-gate for "Hold to release" */
+.hold-gate {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  padding: 0;
+}
+.hold-gate .bindu {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 28px; height: 28px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--c-bindu);
+  box-shadow: 0 0 18px var(--c-bindu-glow);
+  animation: binduBreath 4s ease-in-out infinite;
+  pointer-events: none;
+}
+.hold-gate .progress-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+.progress-track {
+  fill: none;
+  stroke: var(--trace-soft);
+  stroke-width: 1.5;
+}
+.progress-fill {
+  fill: none;
+  stroke: var(--c-bindu);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 226;
+  stroke-dashoffset: 226;
+  transition: stroke-dashoffset 0.1s linear;
+  filter: drop-shadow(0 0 4px rgba(201, 168, 76, 0.5));
+}
+.hold-label {
+  display: block;
+  margin-top: 14px;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+  text-align: center;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+/* The honoring moment — final stage of Begin New Journey */
+.honoring-overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--void);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 100000;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  padding: 24px;
+}
+.honoring-overlay.visible { opacity: 1; }
+.honoring-prose {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: var(--text-soft);
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+.honoring-prose.visible { opacity: 1; }
+
+/* ═══ FAQ — accordion ═══ */
+.faq {
+  margin-top: 72px;
+  border-top: 1px solid var(--ink-trace);
+  padding-top: 44px;
+}
+.faq-header {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  color: var(--trace);
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 0;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.3s ease;
+}
+.faq-header:hover { color: var(--gold); }
+.faq-header-caret {
+  font-family: serif;
+  font-size: 18px;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}
+.faq.open .faq-header-caret {
+  transform: rotate(90deg);
+}
+
+.faq-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.faq.open .faq-list {
+  max-height: 4800px;
+}
+.faq-item {
+  margin-top: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--ink-trace);
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-question {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(15px, 2.8vw, 17px);
+  color: var(--ink);
+  letter-spacing: 0.04em;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.faq-answer {
+  font-family: 'Lora', serif;
+  font-size: clamp(16px, 3vw, 18px);
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.faq-answer em { color: var(--ink); font-style: italic; }
+.faq-answer .inline-link { color: var(--trace); }
+
+/* ═══ FOOTER ═══ */
+.footer {
+  margin-top: 72px;
+  padding-top: 32px;
+  border-top: 1px solid var(--ink-trace);
+  text-align: center;
+}
+.footer-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-whisper);
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes binduBreath {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.0); }
+  50%      { opacity: 1.0; transform: translate(-50%, -50%) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 200ms !important;
+  }
+  .hold-gate .bindu { animation: binduBreath 4s ease-in-out infinite !important; }
+  .section { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ ATMOSPHERE ═══ -->
+<div class="atmosphere" aria-hidden="true">
+  <svg class="atmosphere-yantra" viewBox="-100 -100 200 200" preserveAspectRatio="xMidYMid meet">
+    <g fill="none" stroke="currentColor" stroke-width="0.25">
+      <polygon points="0,-80 70,40 -70,40" />
+      <polygon points="0,-55 48,28 -48,28" />
+      <polygon points="0,-38 33,19 -33,19" />
+      <polygon points="0,-22 19,11 -19,11" />
+      <polygon points="0,75 -68,-38 68,-38" />
+      <polygon points="0,52 -47,-26 47,-26" />
+      <polygon points="0,36 -32,-18 32,-18" />
+      <polygon points="0,20 -18,-10 18,-10" />
+      <polygon points="0,8 -8,-5 8,-5" />
+      <circle cx="0" cy="0" r="1.4" fill="currentColor" />
+      <circle cx="0" cy="0" r="88" />
+    </g>
+  </svg>
+  <div class="atmosphere-grain"></div>
+</div>
+
+<!-- ═══ PAGE ═══ -->
+<main class="page">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-eye" aria-hidden="true">
+      <!-- Simple stylized eye icon — the textual echo of the eye the experiencer will meet at The One -->
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Upper lid curve -->
+        <path d="M 12 48 Q 50 18, 88 48" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" fill="none" />
+        <!-- Lower lid curve -->
+        <path d="M 14 52 Q 50 76, 86 52" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.82" />
+        <!-- Iris -->
+        <circle cx="50" cy="50" r="13" fill="currentColor" opacity="0.35" />
+        <!-- Pupil -->
+        <circle cx="50" cy="50" r="5.5" fill="currentColor" opacity="0.9" />
+      </svg>
+    </div>
+    <h1 class="hero-title" id="hero-title">A Strange <span class="eye-char" id="hero-title-center">👁</span> Game</h1>
+    <p class="hero-subtitle">The Tree of Life</p>
+    <p class="hero-greeting" id="hero-greeting" style="display:none;">
+      Welcome back, <span class="name" id="hero-greeting-name"></span>.
+    </p>
+  </section>
+
+  <!-- ═══ SECTION 1 — What this is ═══ -->
+  <section class="section" data-reveal>
+    <div class="section-number">one</div>
+    <h2 class="section-heading">What this is</h2>
+    <p class="section-prose">This is a road.</p>
+    <p class="section-prose">Nine practices are walkable now. Each one is a chakra — a teaching that arrives through walking, not through reading about it.</p>
+    <p class="section-prose">The road has an order the first time through. After you've walked a practice once, you can return to it anytime.</p>
+  </section>
+
+  <!-- ═══ SECTION 2 — How it begins ═══ -->
+  <section class="section" data-reveal>
+    <div class="section-number">two</div>
+    <h2 class="section-heading">How it begins</h2>
+    <div id="section-2-first-arrival">
+      <p class="section-prose">Before you walk, the road asks who is walking.</p>
+      <p class="section-prose">You give three things: the name you go by, the day you arrived, and — through a brief practice — the name of your higher self.</p>
+      <p class="section-prose">These become your essence. The road holds it. Every practice knows who is walking.</p>
+    </div>
+    <div id="section-2-return" style="display:none;">
+      <p class="section-prose">You've given your essence. Your road holds it.</p>
+      <p class="section-prose">If you want to change anything — your name, your date, your higher self's name — you can <a class="inline-link" href="the-one.html">re-walk the One</a> at any time.</p>
+    </div>
+  </section>
+
+  <!-- ═══ SECTION 3 — What gets held ═══ -->
+  <section class="section" data-reveal>
+    <div class="section-number">three</div>
+    <h2 class="section-heading">What gets held</h2>
+    <p class="section-prose">As you walk, the road remembers. Every word you offer. Every place your body has pressed. Every practice you've given yourself to.</p>
+    <p class="section-prose"><em>Nothing leaves your device.</em> The road holds your journey for you — no one else sees it.</p>
+  </section>
+
+  <!-- ═══ SECTION 4 — What comes after ═══ -->
+  <section class="section" data-reveal>
+    <div class="section-number">four</div>
+    <h2 class="section-heading">What comes after</h2>
+    <p class="section-prose">Nine practices are walkable now. More will arrive as they're ready.</p>
+    <p class="section-prose">When you've walked what's here, the road rests. You can return to any practice — walking a second time is not repetition. The teaching arrives in layers.</p>
+  </section>
+
+  <!-- ═══ SECTION 5 — What to do now (state-dependent) ═══ -->
+  <section class="section" data-reveal>
+    <div class="section-number">five</div>
+    <h2 class="section-heading">What to do now</h2>
+
+    <!-- First-arrival: only Begin -->
+    <div id="actions-first-arrival">
+      <p class="action-cue">If you're ready, meet your higher self.</p>
+      <div class="actions">
+        <a class="action-primary" href="the-one.html">Begin</a>
+      </div>
+    </div>
+
+    <!-- Return: Continue + Begin New Journey -->
+    <div id="actions-return" style="display:none;">
+      <p class="action-cue">Your road is where you left it.</p>
+      <div class="actions" id="actions-return-normal">
+        <a class="action-primary" href="the-road-home.html">Continue your journey</a>
+        <p class="action-divider">— or —</p>
+        <button class="action-secondary" id="btn-begin-new" type="button">Begin a new journey</button>
+      </div>
+
+      <!-- Begin New Journey heavy-confirmation panel -->
+      <div class="begin-new-panel" id="begin-new-panel">
+        <p class="begin-new-heading">This releases everything.</p>
+        <p class="begin-new-prose">Your name. Your higher self. Every word you've offered. Every practice you've walked.</p>
+        <p class="begin-new-prose emphasis">The road you've walked will be let go. You'll arrive clean.</p>
+        <div class="begin-new-actions">
+          <button class="begin-new-cancel" id="btn-cancel-release" type="button">Cancel</button>
+          <button class="hold-gate" id="hold-release" data-hold="1800" aria-label="Hold to release the journey">
+            <span class="bindu"></span>
+            <svg class="progress-ring" viewBox="0 0 80 80" aria-hidden="true">
+              <circle cx="40" cy="40" r="36" class="progress-track" />
+              <circle cx="40" cy="40" r="36" class="progress-fill" />
+            </svg>
+            <span class="hold-label">Hold to release</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FAQ ═══ -->
+  <section class="faq" id="faq">
+    <button class="faq-header" id="faq-toggle" type="button" aria-expanded="false" aria-controls="faq-list">
+      <span>Questions</span>
+      <span class="faq-header-caret">›</span>
+    </button>
+    <div class="faq-list" id="faq-list">
+
+      <div class="faq-item">
+        <p class="faq-question">How long does a practice take?</p>
+        <p class="faq-answer">Each one is experiencer-paced. Most take 8–15 minutes the first time. Re-walks can be shorter.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Can I skip ahead?</p>
+        <p class="faq-answer">Not the first time through. The road has an order the first time. After you've walked a practice once, you can return to it anytime.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">What if I want to erase everything?</p>
+        <p class="faq-answer"><em>Begin a new journey</em> — above. It releases your essence, your memory, every practice you've walked. The road returns to its empty state. You can start again.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">Where does my data go?</p>
+        <p class="faq-answer">Nowhere. Everything you offer stays on your device. Clearing your browser's storage erases it. No one else — not even us — sees what you've walked.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">What if a practice doesn't land for me?</p>
+        <p class="faq-answer">That's allowed. The teaching doesn't arrive on command. Some practices will land the first walk. Some will land the second. Some are for someone else — that's honored too.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">What happens when I've walked everything?</p>
+        <p class="faq-answer">The road rests. You can return to any practice. Walking a second time is not repetition — the teaching arrives in layers, and each layer wants a different walker to receive it. The one who returned is different from the one who first walked.</p>
+      </div>
+
+      <div class="faq-item">
+        <p class="faq-question">What about the other chakras — I've heard there are more than nine?</p>
+        <p class="faq-answer">There are. The full arc is thirty-three. Nine are walkable now. The rest will arrive as they're ready. <em>The hoop doesn't hurry.</em></p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <p class="footer-line">A Strange Game · The Tree of Life</p>
+  </footer>
+
+</main>
+
+<!-- ═══ HONORING OVERLAY — shown after Begin-New-Journey hold completes ═══ -->
+<div class="honoring-overlay" id="honoring-overlay" aria-hidden="true">
+  <p class="honoring-prose" id="honoring-line-1">The journey is released.</p>
+  <p class="honoring-prose" id="honoring-line-2">You are clean.</p>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ══════════════════════════════════════════════════════════
+  // 1 · STORAGE HELPERS
+  // ══════════════════════════════════════════════════════════
+  function getEssence() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function essenceComplete() {
+    var e = getEssence();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 2 · HOLD-GATE — universal utility
+  // ══════════════════════════════════════════════════════════
+  function attachHold(btn, durationMs, onComplete) {
+    if (!btn) return;
+    var hold = false, start = 0, frameId = null;
+    var fill = btn.querySelector('.progress-fill');
+    var CIRC = 226;
+
+    function tick() {
+      if (!hold) return;
+      var elapsed = Date.now() - start;
+      var progress = Math.min(elapsed / durationMs, 1);
+      if (fill) fill.style.strokeDashoffset = (CIRC * (1 - progress)).toFixed(1);
+      if (progress >= 1) {
+        hold = false;
+        if (navigator.vibrate) { try { navigator.vibrate(40); } catch(e){} }
+        onComplete();
+        return;
+      }
+      frameId = requestAnimationFrame(tick);
+    }
+    function startHold(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (hold) return;
+      hold = true; start = Date.now();
+      if (fill) fill.style.transition = 'stroke-dashoffset 0.1s linear';
+      tick();
+    }
+    function endHold() {
+      if (!hold) return;
+      hold = false;
+      if (frameId) cancelAnimationFrame(frameId);
+      if (fill) {
+        fill.style.transition = 'stroke-dashoffset 0.4s ease-out';
+        fill.style.strokeDashoffset = CIRC;
+      }
+    }
+    btn.addEventListener('touchstart', startHold, { passive: false });
+    btn.addEventListener('touchend',   endHold);
+    btn.addEventListener('touchcancel', endHold);
+    btn.addEventListener('mousedown',  startHold);
+    btn.addEventListener('mouseup',    endHold);
+    btn.addEventListener('mouseleave', endHold);
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 3 · STATE ROUTING — first-arrival vs return
+  // ══════════════════════════════════════════════════════════
+  function $(id) { return document.getElementById(id); }
+
+  function renderState() {
+    var essence = getEssence();
+    if (essenceComplete()) {
+      // Return state — personalize title, show return actions, show re-walk prose
+      $('hero-title').innerHTML = 'A Strange <span class="eye-char">' + escapeHtml(essence.higherSelfName) + '</span> Game';
+      $('hero-greeting-name').textContent = essence.name;
+      $('hero-greeting').style.display = '';
+
+      $('section-2-first-arrival').style.display = 'none';
+      $('section-2-return').style.display = '';
+
+      $('actions-first-arrival').style.display = 'none';
+      $('actions-return').style.display = '';
+
+      // Update page title
+      document.title = 'The Welcome · A Strange ' + essence.higherSelfName + ' Game';
+    } else {
+      // First-arrival — keep defaults. Title remains "A Strange 👁 Game".
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 4 · BEGIN NEW JOURNEY — heavy confirmation
+  // ══════════════════════════════════════════════════════════
+  var ESSENCE_KEYS_TO_CLEAR = [
+    'bindu-essence',
+    'bindu-memory',
+    'bindu-point',
+    'chakra-bindu',
+    'chakra-muladhara',
+    'chakra-svadhisthana',
+    'chakra-manipura',
+    'chakra-anahata',
+    'chakra-vishuddha',
+    'chakra-ajna',
+    'chakra-sahasrara',
+    'chakra-shadow',
+    'tol-bodypoint-1', 'tol-bodypoint-2', 'tol-bodypoint-3', 'tol-bodypoint-4',
+    'tol-bodypoint-5', 'tol-bodypoint-6', 'tol-bodypoint-7',
+    'tol-word-2', 'tol-word-4', 'tol-word-5', 'tol-word-7',
+    'tol-mirror-completed',
+    'prev-tol-word-2', 'prev-tol-word-4', 'prev-tol-word-5', 'prev-tol-word-7',
+    'tol-bindu-dance', 'tol-muladhara-dance', 'tol-svadhisthana-dance',
+    'tol-manipura-dance', 'tol-anahata-dance', 'tol-vishuddha-dance',
+    'tol-ajna-dance', 'tol-sahasrara-dance', 'tol-shadow-dance',
+    'tol-bindu-dance-word', 'tol-muladhara-dance-word', 'tol-svadhisthana-dance-word',
+    'tol-manipura-dance-word', 'tol-anahata-dance-word', 'tol-vishuddha-dance-word',
+    'tol-ajna-dance-word', 'tol-sahasrara-dance-word', 'tol-shadow-dance-word'
+  ];
+
+  function clearEssenceKeys() {
+    for (var i = 0; i < ESSENCE_KEYS_TO_CLEAR.length; i++) {
+      try { localStorage.removeItem(ESSENCE_KEYS_TO_CLEAR[i]); } catch(e) {}
+    }
+  }
+
+  function setupBeginNew() {
+    var beginNewBtn = $('btn-begin-new');
+    var panel = $('begin-new-panel');
+    var actionsNormal = $('actions-return-normal');
+    var cancelBtn = $('btn-cancel-release');
+    var holdBtn = $('hold-release');
+
+    if (!beginNewBtn) return;
+
+    beginNewBtn.addEventListener('click', function() {
+      actionsNormal.style.display = 'none';
+      panel.classList.add('active');
+      // scroll panel into view gently (guarded — not all environments support smooth)
+      setTimeout(function() {
+        if (typeof panel.scrollIntoView === 'function') {
+          try { panel.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch(e) {}
+        }
+      }, 200);
+    });
+
+    cancelBtn.addEventListener('click', function() {
+      panel.classList.remove('active');
+      actionsNormal.style.display = '';
+    });
+
+    attachHold(holdBtn, 1800, function() {
+      // Release confirmed — show honoring, clear keys, redirect
+      var overlay = $('honoring-overlay');
+      overlay.setAttribute('aria-hidden', 'false');
+      overlay.classList.add('visible');
+      setTimeout(function() { $('honoring-line-1').classList.add('visible'); }, 500);
+      setTimeout(function() { $('honoring-line-2').classList.add('visible'); }, 1400);
+
+      // Clear localStorage during the honoring (not before — if they back out during 400ms, nothing cleared)
+      setTimeout(function() { clearEssenceKeys(); }, 600);
+
+      // Redirect to the-one after honoring settles
+      setTimeout(function() {
+        window.location.href = 'the-one.html';
+      }, 3200);
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 5 · FAQ ACCORDION
+  // ══════════════════════════════════════════════════════════
+  function setupFaq() {
+    var faq = $('faq');
+    var toggle = $('faq-toggle');
+    if (!toggle || !faq) return;
+    toggle.addEventListener('click', function() {
+      var open = faq.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 6 · SCROLL-TRIGGERED SECTION REVEAL
+  // ══════════════════════════════════════════════════════════
+  function setupReveal() {
+    var sections = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      // Fallback — just show all
+      for (var i = 0; i < sections.length; i++) sections[i].classList.add('visible');
+      return;
+    }
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    for (var i = 0; i < sections.length; i++) obs.observe(sections[i]);
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 7 · INIT
+  // ══════════════════════════════════════════════════════════
+  function init() {
+    renderState();
+    setupBeginNew();
+    setupFaq();
+    setupReveal();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+</body>
+</html>

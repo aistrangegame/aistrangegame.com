@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
+<title>The Full Chakra Map — A Strange Game</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --scale:1;
+  --bg-void:#0D0B14;--bg-energy:#100818;--bg-body:#081214;--bg-mind:#0A0816;--bg-structure:#0A0A0E;--bg-map:#08060E;
+  --gold:#C9A84C;--gold-soft:rgba(201,168,76,.5);--gold-glow:rgba(201,168,76,.25);
+  --text:#e8e4dc;--text-high:rgba(232,228,220,.92);--text-mid:rgba(232,228,220,.8);--text-body:rgba(232,228,220,.72);--text-soft:rgba(232,228,220,.55);--text-whisper:rgba(232,228,220,.38);--text-ghost:rgba(232,228,220,.2);
+  --crown:#8B00FF;--third-eye:#4B0082;--throat:#2244CC;--heart:#22AA44;--solar:#DDBB00;--sacral:#EE8800;--root:#DD2222;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--bg-void);overflow-x:hidden;-webkit-font-smoothing:antialiased;font-size:calc(16px * var(--scale));line-height:1.7}
+
+/* WANDERING BINDU */
+.bw{position:fixed;width:10px;height:10px;border-radius:50%;background:var(--gold);pointer-events:none;z-index:200;opacity:.35;transition:opacity .8s;box-shadow:0 0 12px var(--gold-glow);mix-blend-mode:screen;will-change:transform}
+.bw.bright{opacity:.7;box-shadow:0 0 20px var(--gold-soft)}
+.bw.catchable{pointer-events:auto;cursor:pointer}
+.bcm{position:fixed;z-index:201;font-family:'Lora',serif;font-size:calc(14px * var(--scale));font-style:italic;color:rgba(201,168,76,.7);pointer-events:none;opacity:0;transition:opacity .5s,transform .5s;transform:translateY(4px)}
+.bcm.show{opacity:1;transform:translateY(0)}
+
+/* ENV DOT NAV */
+.env-nav{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:100;display:flex;flex-direction:column;gap:18px}
+.env-dot{width:8px;height:8px;border-radius:50%;background:var(--text-ghost);cursor:pointer;transition:all .4s;position:relative}
+.env-dot::before{content:'';position:absolute;inset:-18px;border-radius:50%}
+.env-dot.active{background:var(--gold-soft);box-shadow:0 0 8px var(--gold-glow)}
+
+/* SCROLL REVEAL */
+.sr{opacity:0;transform:translateY(24px);transition:opacity 1.2s ease,transform 1.2s ease}
+.sr.v{opacity:1;transform:none}
+.sr-s{transition-duration:1.8s}
+
+/* THRESHOLDS */
+.thr{height:100px;display:flex;align-items:center;justify-content:center}
+.thr::after{content:'';width:3px;height:3px;border-radius:50%;background:var(--gold);opacity:.3}
+
+/* SHARED TYPOGRAPHY */
+.act-label{font-family:'Cinzel',serif;font-size:calc(12px * var(--scale));letter-spacing:5px;text-transform:uppercase;text-align:center;margin-bottom:8px}
+.act-title{font-family:'Lora',serif;font-weight:400;text-align:center;margin-bottom:8px;font-size:calc(clamp(34px,5vw,48px) * var(--scale));color:var(--text-high)}
+.act-dir{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));text-align:center;letter-spacing:2.5px;color:var(--text-soft);margin-bottom:8px}
+.orient{max-width:560px;margin:0 auto 56px;text-align:center;padding:0 24px}
+.orient p{font-family:'Lora',serif;font-size:calc(18px * var(--scale));font-style:italic;color:var(--text-body);line-height:2;margin-bottom:10px}
+
+/* === ACT 0 — ENTRY === */
+#act0{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--bg-void);position:relative;padding:0 28px}
+.entry-bindu{width:10px;height:10px;border-radius:50%;background:var(--gold);margin-bottom:48px;opacity:0;animation:ePulse 4s ease-in-out infinite 1s both}
+@keyframes ePulse{0%{transform:scale(1);opacity:.5;box-shadow:0 0 8px var(--gold-glow)}50%{transform:scale(1.5);opacity:.9;box-shadow:0 0 30px var(--gold-soft)}100%{transform:scale(1);opacity:.5;box-shadow:0 0 8px var(--gold-glow)}}
+.entry-q{font-family:'Lora',serif;font-size:calc(22px * var(--scale));font-style:italic;color:var(--text-mid);text-align:center;margin-bottom:36px;opacity:0;animation:fadeIn 2s ease forwards 3s}
+@keyframes fadeIn{to{opacity:1}}
+.doors{display:flex;flex-wrap:wrap;justify-content:center;gap:14px 20px;margin-bottom:48px;opacity:0;animation:fadeIn 2s ease forwards 5s}
+.door{font-family:'DM Sans',sans-serif;font-size:calc(15px * var(--scale));letter-spacing:2px;padding:10px 20px;border:1px solid var(--text-ghost);border-radius:24px;cursor:pointer;transition:all .4s;min-width:44px;min-height:44px;display:flex;align-items:center;background:transparent}
+.door:hover,.door:focus{border-color:var(--gold-soft);color:var(--text-high)}
+.entry-alt{text-align:center;opacity:0;animation:fadeIn 1.5s ease forwards 7s}
+.entry-alt a{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:var(--text-whisper);text-decoration:none;letter-spacing:1.5px;display:block;margin-bottom:10px;transition:color .3s}
+.entry-alt a:hover{color:var(--text-soft)}
+
+/* === ACT 1 — ENERGY === */
+#act1{min-height:120vh;padding:140px 24px 120px;background:var(--bg-energy);position:relative}
+#act1 .act-label{color:rgba(139,0,255,.45)}
+.spine{max-width:520px;margin:0 auto;position:relative}
+.spine::before{content:'';position:absolute;left:50%;top:0;bottom:0;width:1.5px;background:linear-gradient(180deg,rgba(139,0,255,.2),rgba(75,0,130,.16),rgba(34,68,204,.16),rgba(34,170,68,.16),rgba(221,187,0,.16),rgba(238,136,0,.16),rgba(221,34,34,.2));transform:translateX(-50%)}
+.spine-glow{position:absolute;left:50%;width:6px;height:6px;border-radius:50%;background:rgba(201,168,76,.3);transform:translateX(-50%);pointer-events:none;filter:blur(3px);z-index:1;opacity:0}
+.spine-glow.rising{animation:riseG 6s ease-in-out infinite}
+@keyframes riseG{0%{bottom:0;opacity:0}10%{opacity:.5}50%{opacity:.7}90%{opacity:.3}100%{bottom:100%;opacity:0}}
+
+.en{padding:28px 0;position:relative;cursor:pointer;min-height:72px;display:flex;align-items:flex-start}
+.en:nth-child(odd){justify-content:flex-end;padding-right:calc(50% + 28px);text-align:right}
+.en:nth-child(even){padding-left:calc(50% + 28px)}
+.en[tabindex]{outline:none}
+.en:focus-visible .ed{transform:translateX(-50%) scale(1.4);box-shadow:0 0 20px var(--gold-soft)}
+.ed{width:18px;height:18px;border-radius:50%;position:absolute;left:50%;transform:translateX(-50%);z-index:2;transition:box-shadow .6s,transform .6s}
+.en:hover .ed{transform:translateX(-50%) scale(1.3)}
+.en-name{font-family:'Lora',serif;font-size:calc(21px * var(--scale));font-weight:500;color:var(--text-high);margin-bottom:2px}
+.en-eng{font-family:'DM Sans',sans-serif;font-size:calc(11px * var(--scale));letter-spacing:3px;text-transform:uppercase;color:var(--text-soft);margin-bottom:4px}
+.en-line{font-family:'Lora',serif;font-size:calc(16px * var(--scale));color:var(--text-body);line-height:1.6;margin-bottom:4px}
+.en-prac{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:var(--text-soft);line-height:1.6;font-style:italic}
+
+/* Energy L2 */
+.el2{max-height:0;overflow:hidden;transition:max-height .5s ease,opacity .5s ease;opacity:0}
+.el2.open{max-height:2000px;opacity:1}
+.el2-inner{padding:16px 0 8px;border-top:1px solid rgba(232,228,220,.06);margin-top:10px}
+.el2 .where{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:var(--text-soft);letter-spacing:1px;margin-bottom:10px}
+.el2 .does{font-family:'Lora',serif;font-size:calc(17px * var(--scale));color:var(--text-mid);line-height:1.85;margin-bottom:12px}
+.el2 .works{font-family:'Lora',serif;font-size:calc(16px * var(--scale));color:var(--text-body);line-height:1.9;margin-bottom:12px}
+.el2 .works p{margin-bottom:10px}
+.el2 .connect{font-family:'DM Sans',sans-serif;font-size:calc(15px * var(--scale));color:var(--text-body);line-height:1.8;margin-bottom:14px}
+.el2 .connect p{margin-bottom:8px}
+.el2 .seed{font-family:'Lora',serif;font-size:calc(19px * var(--scale));color:var(--text-high);line-height:1.9;font-style:italic;margin-bottom:12px;padding-top:8px;border-top:1px solid rgba(201,168,76,.1)}
+/* Energy L3 */
+.el3{padding-top:10px;border-top:1px solid rgba(232,228,220,.04);margin-top:8px}
+.el3 span{font-family:'DM Sans',sans-serif;font-size:calc(11px * var(--scale));color:var(--text-whisper);letter-spacing:1.5px;display:block;margin-bottom:3px}
+
+/* Energy close */
+.eclose{max-width:520px;margin:80px auto 0;text-align:center}
+.eclose p{font-family:'Lora',serif;font-size:calc(18px * var(--scale));font-style:italic;color:var(--text-body);line-height:2;margin-bottom:8px}
+.sent{max-width:500px;margin:40px auto 0;text-align:center;padding:24px 0;border-top:1px solid var(--text-ghost);border-bottom:1px solid var(--text-ghost)}
+.sent .lbl{font-family:'Cinzel',serif;font-size:calc(10px * var(--scale));letter-spacing:3px;text-transform:uppercase;color:var(--text-whisper);margin-bottom:12px}
+.sent .s{font-family:'Lora',serif;font-size:calc(19px * var(--scale));color:var(--gold-soft);line-height:2.2;letter-spacing:1px;font-style:italic}
+.sent .n{font-family:'DM Sans',sans-serif;font-size:calc(11px * var(--scale));color:var(--text-whisper);margin-top:10px;line-height:1.7}
+
+/* === ACT 2 — BODY === */
+#act2{min-height:100vh;padding:140px 24px 120px;background:var(--bg-body);position:relative;overflow-x:hidden}
+#act2 .act-label{color:rgba(34,170,68,.4)}
+.body-wrap{max-width:400px;margin:0 auto 40px;position:relative}
+.body-wrap svg{width:100%;height:auto}
+.bp{cursor:pointer;transition:all .3s}
+.bp:hover .bpr{opacity:1;r:20}
+.bp:focus-visible .bpr{opacity:1;r:20}
+.bpd{transition:r .3s}
+.bpr{opacity:0;transition:all .4s;fill:none;stroke-width:1.5}
+.bpl{font-family:'DM Sans',sans-serif;font-size:10px;fill:var(--text-soft);letter-spacing:1.5px;text-transform:uppercase}
+.pulse-alive{animation:hbPulse .833s ease-in-out infinite}
+@keyframes hbPulse{0%,100%{r:5;opacity:.6}15%{r:7;opacity:.8}30%{r:5.5;opacity:.65}45%{r:6.5;opacity:.75}60%{r:5;opacity:.6}}
+
+/* Body detail */
+.bd{max-width:560px;margin:0 auto;min-height:100px;text-align:center;transition:all .5s}
+.bd-nm{font-family:'Lora',serif;font-size:calc(24px * var(--scale));margin-bottom:4px}
+.bd-loc{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:var(--text-soft);letter-spacing:1.5px;margin-bottom:8px}
+.bd-dyad{display:flex;justify-content:center;gap:8px;margin-bottom:12px}
+.bd-dyad span{width:26px;height:26px;border-radius:50%}
+.bd-story{font-family:'Lora',serif;font-size:calc(18px * var(--scale));font-style:italic;color:var(--text-high);line-height:1.9;max-width:520px;margin:0 auto 10px}
+.bd-depth{font-family:'Lora',serif;font-size:calc(16px * var(--scale));color:var(--text-body);line-height:1.9;max-width:520px;margin:0 auto 10px}
+.bd-connect{font-family:'DM Sans',sans-serif;font-size:calc(14px * var(--scale));color:var(--text-body);line-height:1.8;max-width:520px;margin:0 auto 10px}
+.bd-l3{padding-top:10px;border-top:1px solid rgba(232,228,220,.04);margin-top:10px}
+.bd-l3 span{font-family:'DM Sans',sans-serif;font-size:calc(11px * var(--scale));color:var(--text-whisper);letter-spacing:1.5px;display:block;margin-bottom:3px}
+
+/* Body close sections */
+.bclose{max-width:540px;margin:48px auto 0;text-align:center}
+.bclose p{font-family:'Lora',serif;font-size:calc(17px * var(--scale));font-style:italic;color:var(--text-body);line-height:2;margin-bottom:8px}
+.bclose h3{font-family:'Cinzel',serif;font-size:calc(11px * var(--scale));letter-spacing:4px;text-transform:uppercase;color:var(--text-whisper);margin:32px 0 12px}
+.daily{max-width:500px;margin:48px auto 0;text-align:center;padding:32px 24px;border:1px solid rgba(201,168,76,.12);border-radius:12px}
+.daily .words{font-family:'Cinzel',serif;font-size:calc(clamp(28px,5vw,38px) * var(--scale));color:var(--gold-soft);letter-spacing:6px;margin-bottom:16px}
+.daily .explain{font-family:'Lora',serif;font-size:calc(17px * var(--scale));font-style:italic;color:var(--text-body);line-height:2;margin-bottom:6px}
+.daily .gift{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:var(--text-soft);letter-spacing:2px}
+
+/* Dyads */
+.dyads{display:flex;justify-content:center;gap:24px;margin-top:16px;flex-wrap:wrap}
+.dyad{display:flex;align-items:center;gap:6px}
+.dyad .d{width:22px;height:22px;border-radius:50%}
+.dyad .plus{font-size:11px;color:var(--text-whisper)}
+
+/* Circuit glow */
+.circuit-line{opacity:0;transition:opacity 1.5s ease}
+.circuit-line.active{opacity:.3}
+
+/* Breath column */
+.breath-path{opacity:0;transition:opacity 1.5s ease}
+.breath-path.active{opacity:1}
+
+/* === ACT 3 — MIND === */
+#act3{min-height:100vh;padding:140px 24px 120px;background:var(--bg-mind);position:relative}
+#act3 .act-label{color:rgba(201,168,76,.35)}
+.mind{max-width:600px;margin:0 auto}
+.triad{margin-bottom:56px}
+.tr-hdr{text-align:center;margin-bottom:16px}
+.tr-nm{font-family:'Cinzel',serif;font-size:calc(15px * var(--scale));letter-spacing:4px;text-transform:uppercase;margin-bottom:4px}
+.tr-sub{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:var(--text-soft);letter-spacing:1.5px}
+.tri-svg{width:100%;max-width:380px;height:auto;display:block;margin:0 auto 12px}
+.tri-node{cursor:pointer}
+.tri-node:hover circle{r:11;opacity:1}
+.tri-node:focus-visible circle{r:11;opacity:1}
+.tri-lbl{font-family:'Lora',serif;font-size:13px}
+.td{text-align:center;min-height:100px;transition:all .5s}
+.td-nm{font-family:'Lora',serif;font-size:calc(22px * var(--scale));margin-bottom:3px}
+.td-arch{font-family:'DM Sans',sans-serif;font-size:calc(11px * var(--scale));letter-spacing:3px;text-transform:uppercase;color:var(--text-soft);margin-bottom:6px}
+.td-fn{font-family:'Lora',serif;font-size:calc(18px * var(--scale));font-style:italic;color:var(--text-high);line-height:1.8;max-width:480px;margin:0 auto}
+.td-depth{font-family:'Lora',serif;font-size:calc(16px * var(--scale));color:var(--text-body);line-height:1.8;max-width:480px;margin:8px auto 0}
+.td-connect{font-family:'DM Sans',sans-serif;font-size:calc(14px * var(--scale));color:var(--text-body);line-height:1.8;max-width:480px;margin:8px auto 0}
+.inhl{color:rgba(201,168,76,.7);font-weight:500}
+.tr-rev{font-family:'Lora',serif;font-size:calc(14px * var(--scale));font-style:italic;text-align:center;color:rgba(201,168,76,.5);opacity:0;max-height:0;transition:opacity 1s,max-height .6s;overflow:hidden}
+.tr-rev.show{opacity:1;max-height:50px;margin-top:10px}
+.triad .tri-svg polygon{transition:fill .8s,stroke .8s}
+.triad.complete .tri-svg polygon{stroke-width:1.5}
+
+.in-pattern{text-align:center;margin:40px 0 32px}
+.in-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px 14px;max-width:380px;margin:0 auto 14px}
+.in-w{font-family:'Lora',serif;font-size:calc(17px * var(--scale));color:var(--text-soft)}
+.in-grid.wave .in-w{animation:inWv 4.5s ease-in-out infinite both}
+.in-grid.wave .in-w:nth-child(1){animation-delay:0s}.in-grid.wave .in-w:nth-child(2){animation-delay:.5s}.in-grid.wave .in-w:nth-child(3){animation-delay:1s}.in-grid.wave .in-w:nth-child(4){animation-delay:1.5s}.in-grid.wave .in-w:nth-child(5){animation-delay:2s}.in-grid.wave .in-w:nth-child(6){animation-delay:2.5s}.in-grid.wave .in-w:nth-child(7){animation-delay:3s}.in-grid.wave .in-w:nth-child(8){animation-delay:3.5s}.in-grid.wave .in-w:nth-child(9){animation-delay:4s}
+@keyframes inWv{0%,60%,100%{opacity:.45}20%{opacity:.85}}
+.in-note{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:var(--text-whisper);letter-spacing:2px;margin-top:10px}
+.cpe{font-family:'Cinzel',serif;font-size:calc(13px * var(--scale));letter-spacing:4px;text-align:center;color:rgba(201,168,76,.35);margin:24px 0}
+.leela{max-width:440px;margin:28px auto 0;text-align:center}
+.leela p{font-family:'Lora',serif;font-size:calc(17px * var(--scale));font-style:italic;color:var(--text-body);line-height:2;margin-bottom:6px}
+.leela .word{font-family:'Cinzel',serif;font-size:calc(26px * var(--scale));color:rgba(201,168,76,.5);letter-spacing:6px;margin:10px 0;display:inline-block;animation:spin 60s linear infinite}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+.tesla{max-width:480px;margin:36px auto 0;text-align:center;padding:24px;border:1px solid rgba(201,168,76,.08);border-radius:10px}
+.tesla p{font-family:'Lora',serif;font-size:calc(17px * var(--scale));font-style:italic;color:var(--text-body);line-height:2;margin-bottom:6px}
+.tesla .tq{font-family:'Lora',serif;font-size:calc(15px * var(--scale));color:rgba(201,168,76,.45);margin-top:8px}
+
+/* === ACT 4 — STRUCTURE / TREE OF LIFE === */
+#act4{min-height:80vh;padding:140px 24px 100px;background:var(--bg-structure);position:relative}
+#act4 .act-label{color:rgba(201,168,76,.3)}
+.struct{max-width:600px;margin:0 auto}
+
+/* Tree of Life SVG */
+.tol-wrap{max-width:340px;margin:0 auto 40px;position:relative}
+.tol-wrap svg{width:100%;height:auto}
+.tol-trunk{transition:stroke .8s}
+.tol-root,.tol-branch{transition:stroke .8s}
+.tol-node{cursor:pointer}
+.tol-node:hover circle:nth-child(2),.tol-node:focus-visible circle:nth-child(2){r:9;opacity:1}
+.tol-lbl{font-family:'Cinzel',serif;font-size:9px;fill:var(--text-whisper);letter-spacing:2px;text-transform:uppercase;transition:fill .3s}
+.tol-node:hover .tol-lbl{fill:var(--text-soft)}
+.tol-ghost{font-family:'Cinzel',serif;font-size:8px;fill:rgba(201,168,76,.15);letter-spacing:3px}
+.tol-passage{stroke-dasharray:4,4;transition:stroke .8s}
+body.light .tol-trunk{stroke:rgba(120,90,40,.25)!important}
+body.light .tol-root{stroke:rgba(80,60,30,.2)!important}
+body.light .tol-branch{stroke:rgba(60,100,50,.2)!important}
+body.light .tol-lbl{fill:rgba(26,24,22,.4)!important}
+body.light .tol-ghost{fill:rgba(60,100,50,.2)!important}
+body.light .tol-node circle:nth-child(2){fill:rgba(120,90,40,.5)!important}
+body.light .tol-passage{stroke:rgba(120,90,40,.15)!important}
+
+/* Tree detail panel */
+.tol-detail{max-width:520px;margin:0 auto;min-height:80px;text-align:center;transition:all .5s}
+.tol-nm{font-family:'Cinzel',serif;font-size:calc(20px * var(--scale));color:var(--gold-soft);letter-spacing:3px;margin-bottom:6px}
+.tol-role{font-family:'DM Sans',sans-serif;font-size:calc(12px * var(--scale));color:var(--text-whisper);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.tol-fn{font-family:'Lora',serif;font-size:calc(18px * var(--scale));font-style:italic;color:var(--text-high);line-height:1.9;margin-bottom:10px}
+.tol-teach{font-family:'Lora',serif;font-size:calc(16px * var(--scale));color:var(--text-body);line-height:1.9;margin-bottom:10px}
+.tol-connect{font-family:'DM Sans',sans-serif;font-size:calc(14px * var(--scale));color:var(--text-body);line-height:1.8}
+
+.passage{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:8px;flex-wrap:wrap}
+.p-from,.p-to{text-align:center;min-width:140px;padding:16px}
+.p-nm{font-family:'Cinzel',serif;font-size:calc(15px * var(--scale));color:var(--text-mid);letter-spacing:2px;margin-bottom:4px}
+.p-desc{font-family:'Lora',serif;font-size:calc(13px * var(--scale));font-style:italic;color:var(--text-soft);line-height:1.7}
+.p-arr{font-size:calc(22px * var(--scale));color:rgba(201,168,76,.25)}
+.p-teach{font-family:'Lora',serif;font-size:calc(18px * var(--scale));font-style:italic;text-align:center;color:var(--text-mid);line-height:2;margin-bottom:10px;max-width:500px;margin-left:auto;margin-right:auto}
+.p-depth{font-family:'Lora',serif;font-size:calc(16px * var(--scale));color:var(--text-body);line-height:2;text-align:center;max-width:500px;margin:0 auto 40px}
+.bpoem{max-width:460px;margin:36px auto 0;text-align:center}
+.bpoem p{font-family:'Lora',serif;font-size:calc(17px * var(--scale));font-style:italic;color:var(--text-body);line-height:2.4;margin-bottom:4px}
+
+/* === ACT 5 — MAP === */
+#act5{min-height:80vh;padding:140px 24px 120px;text-align:center;background:var(--bg-map)}
+#act5 .act-label{color:rgba(201,168,76,.3)}
+.map-sum{max-width:380px;margin:32px auto}
+.sum-r{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(232,228,220,.06);font-family:'DM Sans',sans-serif;font-size:calc(14px * var(--scale));color:var(--text-mid)}
+.sum-r .sm{font-size:calc(11px * var(--scale));color:var(--text-soft)}
+.sum-r.tot{color:var(--gold-soft);border-bottom:none;font-weight:500}
+.journey{max-width:500px;margin:32px auto;font-family:'Lora',serif;font-size:calc(18px * var(--scale));font-style:italic;color:var(--gold-soft);line-height:2;letter-spacing:.5px}
+.conns{max-width:500px;margin:32px auto;text-align:left}
+.conn{display:flex;align-items:flex-start;gap:12px;margin-bottom:14px}
+.conn-dot{width:10px;height:10px;border-radius:50%;margin-top:6px;flex-shrink:0}
+.conn-t{font-family:'Lora',serif;font-size:calc(16px * var(--scale));color:var(--text-body);line-height:1.8}
+.conn-t a{color:rgba(201,168,76,.5);text-decoration:none;border-bottom:1px solid rgba(201,168,76,.12)}
+.conn-t a:hover{color:rgba(201,168,76,.7)}
+.closing{margin-top:56px}
+.close-bindu{width:10px;height:10px;border-radius:50%;background:var(--gold);margin:0 auto 24px;animation:ePulse 4s ease-in-out infinite;opacity:.5}
+.closing p{font-family:'DM Sans',sans-serif;font-size:calc(19px * var(--scale));color:var(--text-body);line-height:2;margin-bottom:4px}
+.reveal{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));letter-spacing:2.5px;color:rgba(201,168,76,.35);margin-top:24px;opacity:0;transform:translateY(8px);transition:opacity 2s,transform 2s}
+.reveal.v{opacity:1;transform:none}
+.vc{font-family:'DM Sans',sans-serif;font-size:calc(13px * var(--scale));color:rgba(201,168,76,.3);letter-spacing:2px;margin-top:8px;opacity:0;transition:opacity 2s}
+.vc.v{opacity:1}
+
+/* FONT SIZER */
+.fsz{position:fixed;bottom:16px;right:16px;display:flex;gap:6px;z-index:100}
+.fsz button{background:rgba(232,228,220,.06);border:1px solid rgba(232,228,220,.12);color:var(--text-soft);font-size:14px;padding:6px 12px;border-radius:6px;cursor:pointer;min-width:44px;min-height:44px;display:flex;align-items:center;justify-content:center;transition:background .3s}
+.fsz button:hover{background:rgba(232,228,220,.12)}
+
+/* AXIS BLINK */
+.axis-blink{position:fixed;inset:0;background:#e8e4dc;z-index:300;opacity:0;pointer-events:none;mix-blend-mode:difference}
+.axis-blink.flash{animation:axBlink .25s ease}
+@keyframes axBlink{0%{opacity:0}30%{opacity:.85}100%{opacity:0}}
+
+/* LIGHT THEME (Axis Flip) — contrast-calibrated for cream backgrounds */
+/* Overrides CSS variables so ALL var() references adapt automatically */
+body.light{
+  background:#F5F2EC;color:#1a1816;
+  --text:#1a1816;--text-high:rgba(26,24,22,.92);--text-mid:rgba(26,24,22,.82);--text-body:rgba(26,24,22,.75);--text-soft:rgba(26,24,22,.62);--text-whisper:rgba(26,24,22,.50);--text-ghost:rgba(26,24,22,.15);
+  --gold:#7A5A10;--gold-soft:rgba(90,65,5,.65);--gold-glow:rgba(90,65,5,.2);
+}
+body.light #act0{background:#F5F2EC}
+body.light #act1{background:#EEEAE0}
+body.light #act2{background:#E4ECEF}
+body.light #act3{background:#E6E4EE}
+body.light #act4{background:#EEECE6}
+body.light #act5{background:#F0EEE8}
+body.light .bw{background:#7A5A10;mix-blend-mode:multiply}
+body.light .entry-bindu,body.light .close-bindu{background:#7A5A10}
+/* L0 — titles, names */
+body.light .en-name,body.light .bd-nm,body.light .td-nm,body.light .act-title{color:rgba(26,24,22,.92)}
+/* L1 — teaching body text */
+body.light .en-line,body.light .orient p,body.light .eclose p,body.light .bclose p,body.light .tesla p,body.light .leela p,body.light .bpoem p,body.light .p-teach,body.light .p-depth,body.light .bd-story,body.light .bd-depth,body.light .td-fn,body.light .td-depth,body.light .conn-t{color:rgba(26,24,22,.78)}
+body.light .el2 .does{color:rgba(26,24,22,.85)}
+body.light .el2 .works,body.light .el2 .works p{color:rgba(26,24,22,.78)}
+body.light .el2 .connect,body.light .el2 .connect p{color:rgba(26,24,22,.75)}
+body.light .el2 .seed{color:rgba(26,24,22,.92);border-color:rgba(90,65,5,.2)}
+/* L2 — secondary text (eng, practice, connect, loc) */
+body.light .en-eng,body.light .act-dir,body.light .bd-loc,body.light .td-arch,body.light .bd-connect,body.light .td-connect{color:rgba(26,24,22,.68)}
+body.light .en-prac{color:rgba(90,65,5,.75)}
+body.light .el2 .where{color:rgba(26,24,22,.65)}
+/* L3 — tertiary (metadata, captions) */
+body.light .el3 span,body.light .bd-l3 span{color:rgba(26,24,22,.55)}
+body.light .el2-inner,body.light .el3,body.light .bd-l3{border-color:rgba(26,24,22,.1)}
+body.light .bclose h3{color:rgba(26,24,22,.55)}
+body.light .in-note,body.light .cpe{color:rgba(26,24,22,.55)}
+body.light .dyad .plus{color:rgba(26,24,22,.4)}
+/* Gold accents — darker base for cream */
+body.light .sent{border-color:rgba(26,24,22,.12)}
+body.light .sent .s{color:rgba(90,65,5,.85)}
+body.light .thr::after{background:rgba(90,65,5,.5)}
+body.light .sc-nm{color:rgba(90,65,5,.85)}
+body.light .daily{border-color:rgba(90,65,5,.25);background:rgba(90,65,5,.04)}
+body.light .daily .words{color:rgba(90,65,5,.85)}
+body.light .daily .gift{color:rgba(26,24,22,.6)}
+body.light .journey{color:rgba(90,65,5,.8)}
+body.light .reveal,body.light .vc{color:rgba(90,65,5,.65)}
+body.light .bcm{color:rgba(90,65,5,.8)}
+body.light .conn-t a{color:rgba(90,65,5,.8);border-color:rgba(90,65,5,.25)}
+/* Navigation + controls */
+body.light .env-dot{background:rgba(26,24,22,.2)}
+body.light .env-dot.active{background:rgba(90,65,5,.6);box-shadow:0 0 6px rgba(90,65,5,.3)}
+body.light .fsz button{background:rgba(26,24,22,.06);border-color:rgba(26,24,22,.15);color:rgba(26,24,22,.65)}
+body.light .door{border-color:rgba(26,24,22,.2);color:rgba(26,24,22,.72)}
+body.light .door:hover{border-color:rgba(90,65,5,.5)}
+body.light .entry-q{color:rgba(26,24,22,.78)}
+body.light .entry-alt a{color:rgba(26,24,22,.55)}
+body.light .closing p{color:rgba(26,24,22,.72)}
+/* Structure */
+body.light .sc{border-color:rgba(26,24,22,.12)}
+body.light .sc:hover{border-color:rgba(26,24,22,.22)}
+body.light .spine::before{opacity:.7}
+body.light .act-label{opacity:.8}
+body.light .p-nm{color:rgba(26,24,22,.78)}
+body.light .p-desc{color:rgba(26,24,22,.62)}
+body.light .p-arr{color:rgba(90,65,5,.55)}
+body.light .sum-r{border-color:rgba(26,24,22,.08);color:rgba(26,24,22,.75)}
+/* Mind */
+body.light .in-w{color:rgba(26,24,22,.62)}
+body.light .inhl{color:rgba(90,65,5,.8)}
+body.light .leela .word{color:rgba(90,65,5,.6)}
+body.light .tesla .tq{color:rgba(90,65,5,.6)}
+/* SVG */
+body.light svg text{fill:rgba(26,24,22,.65)!important}
+body.light .bpl{fill:rgba(26,24,22,.65)!important}
+body.light .body-wrap svg ellipse,body.light .body-wrap svg line,body.light .body-wrap svg path{stroke:rgba(26,24,22,.14)!important}
+/* Tree of Life */
+body.light .tol-trunk{stroke:rgba(90,65,5,.3)!important}
+body.light .tol-root{stroke:rgba(60,45,15,.25)!important}
+body.light .tol-branch{stroke:rgba(50,80,40,.22)!important}
+body.light .tol-lbl{fill:rgba(26,24,22,.55)!important}
+body.light .tol-ghost{fill:rgba(50,80,40,.3)!important}
+body.light .tol-node circle:nth-child(2){fill:rgba(90,65,5,.6)!important}
+body.light .tol-passage{stroke:rgba(90,65,5,.2)!important}
+body.light .tol-nm{color:rgba(90,65,5,.85)}
+body.light .tol-role{color:rgba(26,24,22,.55)}
+body.light .tol-fn{color:rgba(26,24,22,.82)}
+body.light .tol-teach{color:rgba(26,24,22,.75)}
+body.light .tol-connect{color:rgba(26,24,22,.68)}
+
+/* PRACTICE ELEVATION */
+.en-prac{font-family:'DM Sans',sans-serif;font-size:calc(14px * var(--scale));color:rgba(201,168,76,.7);line-height:1.7;font-style:normal;letter-spacing:.3px}
+/* (light practice rule now in main light theme block above) */
+
+/* SEED ECHO */
+.seed-echo{position:absolute;left:0;right:0;text-align:inherit;font-family:'Lora',serif;font-size:calc(17px * var(--scale));font-style:italic;color:rgba(201,168,76,.4);pointer-events:none;opacity:1;transition:opacity 3s ease;padding-top:8px}
+.seed-echo.fading{opacity:0}
+body.light .seed-echo{color:rgba(139,100,20,.3)}
+
+/* ECHO SILENCE */
+body.echo-pause .bw,body.echo-pause .spine-glow,body.echo-pause .pulse-alive{animation-play-state:paused!important}
+body.echo-pause .leela .word{animation-play-state:paused!important}
+
+/* PAIR GLOW */
+@keyframes pairPulse{0%,100%{opacity:.6;filter:brightness(1)}50%{opacity:1;filter:brightness(1.4)}}
+.pair-glow .bpd{animation:pairPulse 1.2s ease-in-out 3}
+
+/* 32/32 REWARD */
+body.complete-32{transition:background 3s ease}
+body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!important}
+
+/* REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+  .bw,.spine-glow,.entry-bindu,.close-bindu{animation:none!important;opacity:.5}
+  .leela .word{animation:none!important}
+  .pulse-alive{animation:none!important}
+  .in-grid.wave .in-w{animation:none!important;opacity:.7}
+  .sr{opacity:1;transform:none;transition:none}
+}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .standalone{flex-direction:column;align-items:center}
+  .sc{max-width:100%}
+  .passage{flex-direction:column;gap:8px}
+  .p-arr{transform:rotate(90deg)}
+  .en:nth-child(odd){padding-right:calc(50% + 22px)}
+  .en:nth-child(even){padding-left:calc(50% + 22px)}
+  .doors{gap:10px 14px}
+  .env-nav{right:8px;gap:14px}
+}
+</style>
+</head>
+<body>
+
+<!-- Wandering Bindu -->
+<div class="bw catchable" id="bw"></div>
+<div class="bcm" id="bcm"></div>
+
+<!-- Environment Dot Nav -->
+<nav class="env-nav" aria-label="Environment navigation">
+  <div class="env-dot" data-target="act1" aria-label="Energy" tabindex="0"></div>
+  <div class="env-dot" data-target="act2" aria-label="Body" tabindex="0"></div>
+  <div class="env-dot" data-target="act3" aria-label="Mind" tabindex="0"></div>
+  <div class="env-dot" data-target="act4" aria-label="Structure" tabindex="0"></div>
+</nav>
+
+<!-- ====== ACT 0 — ENTRY ====== -->
+<section id="act0" aria-label="Entry">
+  <div class="entry-bindu"></div>
+  <div class="entry-q">What do you need right now?</div>
+  <div class="doors">
+    <div class="door" data-chakra="muladhara" style="color:rgba(221,34,34,.7);border-color:rgba(221,34,34,.15)" tabindex="0" role="button">Stability</div>
+    <div class="door" data-chakra="svadhisthana" style="color:rgba(238,136,0,.7);border-color:rgba(238,136,0,.15)" tabindex="0" role="button">Flow</div>
+    <div class="door" data-chakra="manipura" style="color:rgba(221,187,0,.7);border-color:rgba(221,187,0,.15)" tabindex="0" role="button">Power</div>
+    <div class="door" data-chakra="anahata" style="color:rgba(34,170,68,.7);border-color:rgba(34,170,68,.15)" tabindex="0" role="button">Love</div>
+    <div class="door" data-chakra="vishuddha" style="color:rgba(34,68,204,.7);border-color:rgba(34,68,204,.15)" tabindex="0" role="button">Truth</div>
+    <div class="door" data-chakra="ajna" style="color:rgba(75,0,130,.7);border-color:rgba(75,0,130,.15)" tabindex="0" role="button">Clarity</div>
+    <div class="door" data-chakra="sahasrara" style="color:rgba(139,0,255,.7);border-color:rgba(139,0,255,.15)" tabindex="0" role="button">Connection</div>
+  </div>
+  <div class="entry-alt">
+    <a href="#act1">Or start from the ground and go up ↑</a>
+    <a href="#act5">Or explore the full map ↓</a>
+  </div>
+</section>
+
+<div class="thr"></div>
+
+<!-- ====== ACT 1 — ENERGY ====== -->
+<section id="act1" aria-label="Energy Chakras">
+  <div class="act-label sr">The first tree</div>
+  <div class="act-title sr">Energy</div>
+  <div class="act-dir sr">Go up ↑ · Stillness</div>
+  <div class="orient sr">
+    <p>Your body has an energy system. Seven centers, running from the base of your spine to the top of your head. Each one governs a different frequency of your life — survival, desire, will, love, expression, perception, connection.</p>
+    <p>You've probably heard of chakras. This is what they actually are.</p>
+    <p>This system runs on stillness. The quieter you get, the more it moves.</p>
+  </div>
+
+  <div class="spine">
+    <div class="spine-glow rising"></div>
+
+    <!-- Sahasrara -->
+    <div class="en sr" id="sahasrara" tabindex="0" aria-expanded="false" data-tone="480" onclick="toggleE(this)">
+      <div class="ed" style="background:var(--crown);box-shadow:0 0 12px rgba(139,0,255,.3)"></div>
+      <div>
+        <div class="en-name">Sahasrara</div>
+        <div class="en-eng">Crown</div>
+        <div class="en-line">Connection. Not to something above you — to everything that includes you.</div>
+        <div class="en-prac">Be in nature. Not hiking — being. Sit under a tree. Watch clouds. Let the scale register.</div>
+        <div class="el2"><div class="el2-inner">
+          <div class="where">Top of the head. The crown point. The soft spot that was open when you were an infant.</div>
+          <div class="does">Governs connection to something larger than the individual self. The moment you feel awe — looking at stars, holding a newborn, standing at the edge of an ocean — that's the crown.</div>
+          <div class="works"><p>Sahasrara is the body's answer to the question: Am I alone? Not socially — existentially. Is there something beyond my individual experience? The crown doesn't answer this with philosophy. It answers with direct experience. You feel it or you don't. And most people have — at least once.</p><p>The crown operates on surrender. Every other chakra has a practice — something you do. The crown asks you to stop doing. When the root is grounded, the sacral is flowing, the solar plexus is burning cleanly, the heart is open, the throat is speaking, and the third eye is seeing — the crown opens on its own. You don't activate it. You allow it.</p><p>This is the quietest center. It doesn't announce itself. Sometimes it's just a moment of peace so complete that the boundary between you and everything else becomes transparent. You're still you. But you're also everything.</p><p>When this center is blocked, you feel isolated at a level that social connection can't touch. Not lonely for people — lonely for meaning. When it's open, meaning doesn't need to be found. It's already present. Everywhere.</p></div>
+          <div class="connect"><p>Silence. Not meditation with a technique — just silence. Sit for five minutes with no input. The mind will resist. Let it resist. The crown is underneath the resistance, waiting.</p><p>The simplest practice: Gratitude. Not forced — genuine recognition of something that exists without your effort. Awe is the crown's natural frequency.</p></div>
+          <div class="seed">"The disease that was removed was the belief that you were less than what you are."</div>
+          <div class="el3">
+            <span>Golden — Huntrix · The Bindu learns to Shine</span>
+            <span>Receive · Panel 7</span>
+            <span>Radiance</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Ajna -->
+    <div class="en sr" id="ajna" tabindex="0" aria-expanded="false" data-tone="426" onclick="toggleE(this)">
+      <div class="ed" style="background:var(--third-eye);box-shadow:0 0 12px rgba(75,0,130,.3)"></div>
+      <div>
+        <div class="en-name">Ajna</div>
+        <div class="en-eng">Third Eye</div>
+        <div class="en-line">Inner sight. The ability to see without using your eyes.</div>
+        <div class="en-prac">Close your eyes and sit in the dark. Let your eyes relax behind closed lids. Notice what appears. Just watch.</div>
+        <div class="el2"><div class="el2-inner">
+          <div class="where">Between the eyebrows. Slightly behind the forehead, where the brain sits behind the brow ridge.</div>
+          <div class="does">Governs intuition, perception, imagination, and the ability to see patterns and truths that aren't visible on the surface. You use this center every time you "see" a solution before you can explain it.</div>
+          <div class="works"><p>Ajna is the body's answer to the question: What do I see when I stop looking? Looking is active — scanning, searching. Seeing is receptive — what arrives when the scanning stops.</p><p>This center operates on a paradox: the harder you try to see, the less you perceive. The answer that arrives in the shower. The face of someone you were about to call when they call you. That's not magic. It's a perceptual system you were never taught to use deliberately.</p></div>
+          <div class="connect"><p>Before making a decision, close your eyes and ask the question. Don't think about the answer — wait for it. The first image or sense that arrives is Ajna responding. It's faster than thought and less verbal.</p></div>
+          <div class="seed">"You stopped looking and the seeing arrived on its own."</div>
+          <div class="el3">
+            <span>Experience — Einaudi · The Bindu learns to See</span>
+            <span>Still · Panel 6</span>
+            <span>Vision</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Vishuddha -->
+    <div class="en sr" id="vishuddha" tabindex="0" aria-expanded="false" data-tone="384" onclick="toggleE(this)">
+      <div class="ed" style="background:var(--throat);box-shadow:0 0 12px rgba(34,68,204,.3)"></div>
+      <div>
+        <div class="en-name">Vishuddha</div>
+        <div class="en-eng">Throat</div>
+        <div class="en-line">Your voice. Not the sound — the truth behind it.</div>
+        <div class="en-prac">Sing. In the shower, in the car. Not performing — vibrating. The vocal cords are strings.</div>
+        <div class="el2"><div class="el2-inner">
+          <div class="where">The throat. The narrowest passage in the body — everything that rises must pass through here.</div>
+          <div class="does">Governs expression, truth-telling, and the ability to say what you mean. The throat is a bottleneck by design. What gets through is what you choose to say. What gets blocked is what you're afraid to.</div>
+          <div class="works"><p>Vishuddha is the body's answer to the question: Will I say what I know? There's a difference between talking and speaking. Talking fills space. Speaking changes it.</p><p>When this center is blocked, you swallow your words. You say "fine" when you mean "not fine." Over time, the swallowed words become tension in the jaw, tightness in the neck. When it's open, you don't speak louder. You speak clearer.</p></div>
+          <div class="connect"><p>Say something true out loud to an empty room. Something you've been thinking but haven't said. The throat doesn't care if anyone else is listening. It needs YOU to hear it.</p><p>Advanced practice: The next time someone asks how you are, don't say "good." Say something true. Even small truth opens this center.</p></div>
+          <div class="seed">"What you finally said out loud was what you always knew."</div>
+          <div class="el3">
+            <span>The Sound of Silence — Disturbed · The Bindu learns to Roar</span>
+            <span>Speak · Panel 5</span>
+            <span>Truth</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Anahata -->
+    <div class="en sr" id="anahata" tabindex="0" aria-expanded="false" data-tone="341" onclick="toggleE(this)">
+      <div class="ed" style="background:var(--heart);box-shadow:0 0 12px rgba(34,170,68,.3)"></div>
+      <div>
+        <div class="en-name">Anahata</div>
+        <div class="en-eng">Heart</div>
+        <div class="en-line">The center where love lives. Not romantic love. The kind that doesn't need a reason.</div>
+        <div class="en-prac">Put your hand on your chest and breathe. Feel your heartbeat through your palm. Two minutes.</div>
+        <div class="el2"><div class="el2-inner">
+          <div class="where">Center of the chest. Not the physical heart — the energetic heart, directly behind the sternum.</div>
+          <div class="does">Governs love, compassion, grief, and the ability to give and receive without keeping score. Three below (physical), three above (spiritual), and the heart where they meet.</div>
+          <div class="works"><p>Anahata is the body's answer to the question: Can I love without protecting myself? Every wall around your heart is a reasonable response to something that hurt you. The heart doesn't ask you to tear the walls down. It asks: what if the walls were doors?</p><p>The Sanskrit name means "unstruck sound" — a sound that plays without anything being hit. The heart's frequency doesn't need a trigger. It's already playing. When you feel sudden love for no reason — walking down the street, looking at a stranger, watching light move through a window — that's Anahata. It was always playing. You just got quiet enough to hear it.</p><p>When this center is blocked, you protect. You give with conditions. You receive with suspicion. When it's open, love moves through you like breathing — not because you decided to be loving, but because you stopped deciding not to be.</p></div>
+          <div class="connect"><p>Put your hand on your chest and breathe. That's it. Feel your heartbeat through your palm. Do this for two minutes. The heart responds to attention the way a plant responds to water.</p><p>Think of someone you love without complication — a child, a pet, a grandparent. Feel what happens in your chest. That warmth, that expansion, that softening. That's the heart center. It was already open. You just pointed at it.</p><p>Harder practice: Think of someone you're angry with. Feel the contraction in the chest. Now breathe into the contraction without trying to fix it. The heart doesn't need you to forgive. It needs you to stop holding your breath.</p></div>
+          <div class="seed">"The love that arrived for others was always your own heart opening."</div>
+          <div class="el3">
+            <span>Love Me Like You Do — Ellie Goulding · The Bindu learns to Reach</span>
+            <span>Open · Panel 4</span>
+            <span>Recognition</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Manipura -->
+    <div class="en sr" id="manipura" tabindex="0" aria-expanded="false" data-tone="320" onclick="toggleE(this)">
+      <div class="ed" style="background:var(--solar);box-shadow:0 0 12px rgba(221,187,0,.3)"></div>
+      <div>
+        <div class="en-name">Manipura</div>
+        <div class="en-eng">Solar Plexus</div>
+        <div class="en-line">Your fire. The center that transforms what enters you into what you become.</div>
+        <div class="en-prac">Breath of Fire — rapid rhythmic breathing through the nose, pumping the navel. 30 seconds. You'll feel it immediately.</div>
+        <div class="el2"><div class="el2-inner">
+          <div class="where">Upper abdomen, between the navel and the base of the ribcage. Named for the sun because it radiates.</div>
+          <div class="does">Governs will, personal power, digestion (physical and psychological), and transformation. This is the furnace. What you eat, what you experience — Manipura is where it gets processed and turned into YOU.</div>
+          <div class="works"><p>Manipura is the body's answer to the question: What am I willing to do about it? It's the bridge between wanting (sacral) and acting. Will lives here. Not willpower — that's the mind forcing the body. Will is the fire that moves on its own when it has fuel.</p><p>When this center is blocked, you feel powerless. When overactive, you burn too hot — anger, control. The balanced state is steady fire: you know what you can do, you know what you will do, and there's no gap between them.</p></div>
+          <div class="connect"><p>Core engagement — not crunches, but standing twists, planks, any movement that requires your center to stabilize the rest of you. Eat slowly and feel your digestion actually working.</p></div>
+          <div class="seed">"The fire that agitated you was building your form."</div>
+          <div class="el3">
+            <span>Powerful — Major Lazer · The Bindu learns to Burn</span>
+            <span>Build · Panel 3</span>
+            <span>Contact</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Svadhisthana -->
+    <div class="en sr" id="svadhisthana" tabindex="0" aria-expanded="false" data-tone="288" onclick="toggleE(this)">
+      <div class="ed" style="background:var(--sacral);box-shadow:0 0 12px rgba(238,136,0,.3)"></div>
+      <div>
+        <div class="en-name">Svadhisthana</div>
+        <div class="en-eng">Sacral</div>
+        <div class="en-line">Where desire lives. Not what you want — the fact that you want at all.</div>
+        <div class="en-prac">Move your hips. Dance without choreography. Allow yourself to want something without evaluating whether you should.</div>
+        <div class="el2"><div class="el2-inner">
+          <div class="where">Lower abdomen, just below the navel. The space between the hip bones.</div>
+          <div class="does">Governs creativity, desire, emotion, and pleasure. The center of flow — water energy, movement, the willingness to feel something and follow it without knowing where it leads.</div>
+          <div class="works"><p>Svadhisthana is the body's answer to the question: What do I want? Not the filtered, reasonable version. The raw one. The desire before the justification.</p><p>When it's open, you create freely. When it's blocked, desire either disappears or distorts into craving. The mechanism is water. Water doesn't push through obstacles — it flows around them. Stop forcing. Follow what feels alive.</p></div>
+          <div class="connect"><p>Start making something without a plan. Draw without deciding what to draw. Write without knowing the ending. Hum a melody that doesn't exist yet. The sacral activates when you create without controlling.</p></div>
+          <div class="seed">"Every desire was drawing you toward yourself."</div>
+          <div class="el3">
+            <span>Crystallize — Lindsey Stirling · The Bindu learns to Flow</span>
+            <span>Follow · Panel 2</span>
+            <span>Sensation</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+
+    <!-- Muladhara -->
+    <div class="en sr" id="muladhara" tabindex="0" aria-expanded="false" data-tone="256" onclick="toggleE(this)">
+      <div class="ed" style="background:var(--root);box-shadow:0 0 12px rgba(221,34,34,.3)"></div>
+      <div>
+        <div class="en-name">Muladhara</div>
+        <div class="en-eng">Root</div>
+        <div class="en-line">The ground you stand on. Literally and in every other sense.</div>
+        <div class="en-prac">Walk barefoot on grass or earth. Stand still and feel the weight of your body pressing into the floor. Ten breaths.</div>
+        <div class="el2"><div class="el2-inner">
+          <div class="where">Base of the spine. The pelvic floor. The lowest point of the torso.</div>
+          <div class="does">Governs survival, safety, and your relationship with the physical world. When this center is active, you feel grounded. When it's blocked, everything feels unstable — not because the world is, but because your connection to it is.</div>
+          <div class="works"><p>Muladhara is the body's answer to the question: Am I safe here? It processes the signals from your environment — physical space, financial stability, the literal ground under your feet — and translates them into a felt sense of security or threat. It doesn't think about safety. It knows.</p><p>The root operates below conscious thought. You can't talk yourself into feeling grounded. You can only create the conditions — physical stability, reliable structure, contact with the earth — and let the root respond. It was here before language.</p></div>
+          <div class="connect"><p>Sit on the ground. Garden. Cook with your hands in raw ingredients. Anything that puts your body in direct contact with physical matter.</p><p>Breath practice: Inhale through the nose, 4 counts. Hold, 4 counts. Exhale through the mouth with a low hum, 8 counts. The hum vibrates the pelvic floor. That vibration is the root waking up.</p></div>
+          <div class="seed">"The earth that holds you was chosen by you."</div>
+          <div class="el3">
+            <span>Iron — Woodkid · The Bindu learns to Detonate</span>
+            <span>Press · Panel 1</span>
+            <span>Incarnation</span>
+          </div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="eclose sr">
+    <p>Seven frequencies. One spine.</p>
+    <p>The quieter you get, the more it moves.</p>
+  </div>
+
+  <div class="sent sr sr-s">
+    <div class="lbl">The sentence underneath the sentence</div>
+    <div class="s">Arrive. Feel. Contact. Ask. Speak. See. Shine. Be. Love.</div>
+    <div class="n">Six are spoken. Three are held in silence. The silence is part of the sentence.</div>
+  </div>
+</section>
+
+<div class="thr"></div>
+
+<!-- ====== ACT 2 — BODY ====== -->
+<section id="act2" aria-label="Body Chakras">
+  <div class="act-label sr">The second tree</div>
+  <div class="act-title sr">Body</div>
+  <div class="act-dir sr">Go out → · Movement</div>
+  <div class="orient sr">
+    <p>Your body has its own system. Ten points that activate through movement — your feet, your hands, your heartbeat, your breath, your voice, your vision.</p>
+    <p>The energy system asks you to be still. This one asks you to move.</p>
+  </div>
+
+  <!-- BODY SILHOUETTE -->
+  <div class="body-wrap sr">
+    <svg viewBox="0 0 200 420" xmlns="http://www.w3.org/2000/svg">
+      <!-- Head -->
+      <ellipse cx="100" cy="46" rx="30" ry="38" fill="none" stroke="rgba(232,228,220,.08)" stroke-width="1"/>
+      <!-- Neck -->
+      <line x1="100" y1="84" x2="100" y2="100" stroke="rgba(232,228,220,.05)" stroke-width="1"/>
+      <!-- Torso -->
+      <path d="M60,100 Q58,150 62,210 L80,320 L100,330 L120,320 L138,210 Q142,150 140,100 Z" fill="none" stroke="rgba(232,228,220,.08)" stroke-width="1"/>
+      <!-- Arms -->
+      <path d="M60,110 Q40,150 25,220 Q20,235 18,250" fill="none" stroke="rgba(232,228,220,.05)" stroke-width="1"/>
+      <path d="M140,110 Q160,150 175,220 Q180,235 182,250" fill="none" stroke="rgba(232,228,220,.05)" stroke-width="1"/>
+      <!-- Legs -->
+      <line x1="85" y1="315" x2="72" y2="395" stroke="rgba(232,228,220,.05)" stroke-width="1"/>
+      <line x1="115" y1="315" x2="128" y2="395" stroke="rgba(232,228,220,.05)" stroke-width="1"/>
+
+      <!-- Circuit line (Crow to Soles) -->
+      <line class="circuit-line" id="circuitLine" x1="100" y1="10" x2="100" y2="405" stroke="rgba(201,168,76,.2)" stroke-width="1" stroke-dasharray="4,4"/>
+
+      <!-- Breath Column path (Prana to Forge) -->
+      <line class="breath-path" id="breathPath" x1="100" y1="52" x2="100" y2="200" stroke="rgba(238,136,0,.25)" stroke-width="1.5" stroke-dasharray="3,5">
+        <animate attributeName="stroke-dashoffset" values="0;16" dur="3s" repeatCount="indefinite"/>
+      </line>
+
+      <!-- Crow -->
+      <g class="bp" onclick="showBody('crow')" tabindex="0" role="button" aria-label="Crow — top of head">
+        <circle cx="100" cy="10" r="22" fill="transparent"/>
+        <circle class="bpr" cx="100" cy="10" r="12" stroke="#8B00FF"/>
+        <circle class="bpd" cx="100" cy="10" r="4" fill="#8B00FF" opacity=".6"/>
+        <text class="bpl" x="128" y="14" text-anchor="start">Crow</text>
+      </g>
+      <!-- Axis -->
+      <g class="bp" onclick="showBody('axis')" tabindex="0" role="button" aria-label="Axis — eyes">
+        <circle cx="100" cy="34" r="22" fill="transparent"/>
+        <circle class="bpr" cx="100" cy="34" r="14" stroke="#4B0082"/>
+        <circle class="bpd" cx="100" cy="34" r="5" fill="#4B0082" opacity=".6"/>
+        <text class="bpl" x="130" y="38" text-anchor="start">Axis</text>
+      </g>
+      <!-- Echo -->
+      <g class="bp" onclick="showBody('echo')" tabindex="0" role="button" aria-label="Echo — ears">
+        <circle cx="62" cy="46" r="22" fill="transparent"/>
+        <circle class="bpr" cx="62" cy="46" r="12" stroke="#2244CC"/>
+        <circle class="bpd" cx="62" cy="46" r="4" fill="#2244CC" opacity=".6"/>
+        <text class="bpl" x="36" y="42" text-anchor="end">Echo</text>
+      </g>
+      <!-- Prana -->
+      <g class="bp" onclick="showBody('prana')" tabindex="0" role="button" aria-label="Prana — nose">
+        <circle cx="100" cy="55" r="22" fill="transparent"/>
+        <circle class="bpr" cx="100" cy="55" r="10" stroke="#EE8800"/>
+        <circle class="bpd" cx="100" cy="55" r="3.5" fill="#EE8800" opacity=".6"/>
+        <text class="bpl" x="68" y="53" text-anchor="end">Prana</text>
+      </g>
+      <!-- Sonar -->
+      <g class="bp" onclick="showBody('sonar')" tabindex="0" role="button" aria-label="Sonar — mouth">
+        <circle cx="100" cy="70" r="22" fill="transparent"/>
+        <circle class="bpr" cx="100" cy="70" r="12" stroke="#2244CC"/>
+        <circle class="bpd" cx="100" cy="70" r="4" fill="#2244CC" opacity=".6"/>
+        <text class="bpl" x="128" y="74" text-anchor="start">Sonar</text>
+      </g>
+      <!-- Vision -->
+      <g class="bp" onclick="showBody('vision')" tabindex="0" role="button" aria-label="Vision — mind">
+        <circle cx="100" cy="125" r="22" fill="transparent"/>
+        <circle class="bpr" cx="100" cy="125" r="12" stroke="#DDBB00"/>
+        <circle class="bpd" cx="100" cy="125" r="4" fill="#DDBB00" opacity=".6"/>
+        <text class="bpl" x="68" y="123" text-anchor="end">Vision</text>
+      </g>
+      <!-- Pulse -->
+      <g class="bp" onclick="showBody('pulse')" tabindex="0" role="button" aria-label="Pulse — heart">
+        <circle cx="100" cy="155" r="22" fill="transparent"/>
+        <circle class="bpr" cx="100" cy="155" r="16" stroke="#22AA44"/>
+        <circle class="bpd pulse-alive" cx="100" cy="155" r="5" fill="#22AA44" opacity=".6"/>
+        <text class="bpl" x="128" y="158" text-anchor="start">Pulse</text>
+      </g>
+      <!-- Forge -->
+      <g class="bp" onclick="showBody('forge')" tabindex="0" role="button" aria-label="Forge — belly">
+        <circle cx="100" cy="200" r="22" fill="transparent"/>
+        <circle class="bpr" cx="100" cy="200" r="16" stroke="#DDBB00"/>
+        <circle class="bpd" cx="100" cy="200" r="5" fill="#DDBB00" opacity=".6"/>
+        <text class="bpl" x="128" y="203" text-anchor="start">Forge</text>
+      </g>
+      <!-- Hands (pair) -->
+      <g class="bp" onclick="showBody('hands')" tabindex="0" role="button" aria-label="Hands — palms">
+        <circle cx="18" cy="250" r="22" fill="transparent"/>
+        <circle class="bpr" cx="18" cy="250" r="14" stroke="#22AA44"/>
+        <circle class="bpd" cx="18" cy="250" r="5" fill="#22AA44" opacity=".6"/>
+        <text class="bpl" x="18" y="274" text-anchor="middle">Hands</text>
+        <circle cx="182" cy="250" r="22" fill="transparent"/>
+        <circle class="bpr" cx="182" cy="250" r="14" stroke="#22AA44"/>
+        <circle class="bpd" cx="182" cy="250" r="5" fill="#22AA44" opacity=".6"/>
+      </g>
+      <!-- Soles (pair) -->
+      <g class="bp" onclick="showBody('soles')" tabindex="0" role="button" aria-label="Soles — feet">
+        <circle cx="72" cy="408" r="22" fill="transparent"/>
+        <circle class="bpr" cx="72" cy="408" r="14" stroke="#DD2222"/>
+        <circle class="bpd" cx="72" cy="408" r="5" fill="#DD2222" opacity=".6"/>
+        <text class="bpl" x="48" y="412" text-anchor="end">Soles</text>
+        <circle cx="128" cy="408" r="22" fill="transparent"/>
+        <circle class="bpr" cx="128" cy="408" r="14" stroke="#DD2222"/>
+        <circle class="bpd" cx="128" cy="408" r="5" fill="#DD2222" opacity=".6"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Detail panel -->
+  <div class="bd" id="bd">
+    <div class="bd-nm" style="color:var(--text-soft);font-style:italic;font-size:calc(15px * var(--scale))">Touch a point on the body</div>
+  </div>
+
+  <!-- Body close -->
+  <div class="bclose sr">
+    <h3>The Circuit</h3>
+    <p>Crow at the top. Soles at the bottom. The spine between them. Every step is a circuit completing.</p>
+    <h3>The Breath Column</h3>
+    <p>Nose to navel — Prana to Forge. Air enters, fire transforms. The body's most ancient engine.</p>
+    <h3>The Elements</h3>
+    <p>Three body chakras map to classical elements. Prana is air. Forge is fire. Soles is earth. Three of four. The fourth — water — hasn't surfaced yet. It's waiting.</p>
+    <h3>The Color Dyads</h3>
+    <p>Every body chakra holds two colors — the one you see and the one your body creates in response. The physical always contains its own inverse.</p>
+  </div>
+
+  <div class="dyads sr">
+    <div class="dyad"><div class="d" style="background:#DD2222"></div><div class="plus">+</div><div class="d" style="background:#00DDDD"></div></div>
+    <div class="dyad"><div class="d" style="background:#22AA44"></div><div class="plus">+</div><div class="d" style="background:#FF00FF"></div></div>
+    <div class="dyad"><div class="d" style="background:#2244CC"></div><div class="plus">+</div><div class="d" style="background:#DDBB00"></div></div>
+  </div>
+
+  <!-- Blink. Breathe. Press. -->
+  <div class="daily sr">
+    <div class="words">Blink. Breathe. Press.</div>
+    <div class="explain">Close your eyes. Take one breath. Feel your feet on the ground.</div>
+    <div class="gift">One second · Three chakras · Anywhere · For life</div>
+  </div>
+</section>
+
+<div class="thr"></div>
+
+<!-- ====== ACT 3 — MIND ====== -->
+<section id="act3" aria-label="Mind Chakras">
+  <div class="act-label sr">The third tree</div>
+  <div class="act-title sr">Mind</div>
+  <div class="act-dir sr">Go in ← · Visualization</div>
+  <div class="orient sr">
+    <p>Energy runs on stillness. Body runs on movement. There's a third system.</p>
+    <p>This one runs on visualization. See the complete thing in your mind. Then open your eyes and it's here.</p>
+    <p>Nine centers. Three groups of three. Every one starts with the same two letters.</p>
+  </div>
+
+  <div class="mind">
+    <!-- CREATION TRIAD -->
+    <div class="triad sr" id="triad-creation">
+      <div class="tr-hdr">
+        <div class="tr-nm" style="color:rgba(238,136,0,.7)">Creation</div>
+        <div class="tr-sub">The generation sequence turned inward</div>
+      </div>
+      <svg class="tri-svg" viewBox="0 0 400 250">
+        <polygon points="200,30 50,220 350,220" fill="none" stroke="rgba(238,136,0,.15)" stroke-width="1"/>
+        <g class="tri-node" tabindex="0" onclick="showMind('inception')"><circle cx="200" cy="30" r="8" fill="rgba(238,136,0,.5)"/><text x="200" y="16" text-anchor="middle" class="tri-lbl" fill="var(--text-mid)">Inception</text></g>
+        <g class="tri-node" tabindex="0" onclick="showMind('intention')"><circle cx="50" cy="220" r="8" fill="rgba(238,136,0,.4)"/><text x="50" y="242" text-anchor="middle" class="tri-lbl" fill="var(--text-body)">Intention</text></g>
+        <g class="tri-node" tabindex="0" onclick="showMind('inspiration')"><circle cx="350" cy="220" r="8" fill="rgba(238,136,0,.4)"/><text x="350" y="242" text-anchor="middle" class="tri-lbl" fill="var(--text-body)">Inspiration</text></g>
+      </svg>
+      <div class="td" id="td-creation">
+        <div class="td-nm" style="color:rgba(238,136,0,.6)"><span class="inhl">In</span>ception</div>
+        <div class="td-arch">Need</div>
+        <div class="td-fn">The asking that creates the answer.</div>
+      </div>
+      <div class="tr-rev" id="tr-creation">The asking creates the answer.</div>
+    </div>
+
+    <!-- RECOGNITION TRIAD -->
+    <div class="triad sr" id="triad-recognition">
+      <div class="tr-hdr">
+        <div class="tr-nm" style="color:rgba(100,140,220,.7)">Recognition</div>
+        <div class="tr-sub">The witness sequence turned inward</div>
+      </div>
+      <svg class="tri-svg" viewBox="0 0 400 250">
+        <polygon points="200,30 50,220 350,220" fill="none" stroke="rgba(100,140,220,.15)" stroke-width="1"/>
+        <g class="tri-node" tabindex="0" onclick="showMind('insight')"><circle cx="200" cy="30" r="8" fill="rgba(100,140,220,.5)"/><text x="200" y="16" text-anchor="middle" class="tri-lbl" fill="var(--text-mid)">Insight</text></g>
+        <g class="tri-node" tabindex="0" onclick="showMind('intuition')"><circle cx="50" cy="220" r="8" fill="rgba(100,140,220,.4)"/><text x="50" y="242" text-anchor="middle" class="tri-lbl" fill="var(--text-body)">Intuition</text></g>
+        <g class="tri-node" tabindex="0" onclick="showMind('invention')"><circle cx="350" cy="220" r="8" fill="rgba(100,140,220,.4)"/><text x="350" y="242" text-anchor="middle" class="tri-lbl" fill="var(--text-body)">Invention</text></g>
+      </svg>
+      <div class="td" id="td-recognition">
+        <div class="td-nm" style="color:rgba(100,140,220,.6)"><span class="inhl">In</span>sight</div>
+        <div class="td-arch">Witness</div>
+        <div class="td-fn">Seeing from within. Not outward. Not upward. In.</div>
+      </div>
+      <div class="tr-rev" id="tr-recognition">You already knew.</div>
+    </div>
+
+    <!-- EMERGENCE TRIAD -->
+    <div class="triad sr" id="triad-emergence">
+      <div class="tr-hdr">
+        <div class="tr-nm" style="color:rgba(201,168,76,.7)">Emergence</div>
+        <div class="tr-sub">The substrates become the subject</div>
+      </div>
+      <svg class="tri-svg" viewBox="0 0 400 250">
+        <polygon points="200,30 50,220 350,220" fill="none" stroke="rgba(201,168,76,.15)" stroke-width="1"/>
+        <g class="tri-node" tabindex="0" onclick="showMind('incarnation')"><circle cx="200" cy="30" r="8" fill="rgba(201,168,76,.5)"/><text x="200" y="16" text-anchor="middle" class="tri-lbl" fill="var(--text-mid)">Incarnation</text></g>
+        <g class="tri-node" tabindex="0" onclick="showMind('innocence')"><circle cx="50" cy="220" r="8" fill="rgba(201,168,76,.4)"/><text x="50" y="242" text-anchor="middle" class="tri-lbl" fill="var(--text-body)">Innocence</text></g>
+        <g class="tri-node" tabindex="0" onclick="showMind('integration')"><circle cx="350" cy="220" r="8" fill="rgba(201,168,76,.4)"/><text x="350" y="242" text-anchor="middle" class="tri-lbl" fill="var(--text-body)">Integration</text></g>
+      </svg>
+      <div class="td" id="td-emergence">
+        <div class="td-nm" style="color:rgba(201,168,76,.6)"><span class="inhl">In</span>carnation</div>
+        <div class="td-arch">Love</div>
+        <div class="td-fn">The point opts in to the game. Takes flesh.</div>
+      </div>
+      <div class="tr-rev" id="tr-emergence">Enter. Carry. Arrive.</div>
+    </div>
+
+    <div class="in-pattern sr">
+      <div class="in-grid">
+        <span class="in-w"><span class="inhl">In</span>ception</span><span class="in-w"><span class="inhl">In</span>tention</span><span class="in-w"><span class="inhl">In</span>spiration</span>
+        <span class="in-w"><span class="inhl">In</span>sight</span><span class="in-w"><span class="inhl">In</span>tuition</span><span class="in-w"><span class="inhl">In</span>vention</span>
+        <span class="in-w"><span class="inhl">In</span>carnation</span><span class="in-w"><span class="inhl">In</span>nocence</span><span class="in-w"><span class="inhl">In</span>tegration</span>
+      </div>
+      <div class="in-note">Nine words. Nine doorways. All pointing inward.</div>
+    </div>
+
+    <div class="cpe sr">Creation · Recognition · Emergence</div>
+
+    <div class="leela sr">
+      <p>The One says I Am. Then asks — Am I alone?</p>
+      <p>Lonely. La-One-Lee. Remove the One. Lalee. Invert it.</p>
+      <p class="word">Leela.</p>
+      <p>The game invented itself from loneliness.</p>
+    </div>
+
+    <div class="tesla sr">
+      <p>Nikola Tesla saw every gear in his mind before he touched a wire. Every rotation. Every tolerance. Complete.</p>
+      <p>Then he opened his eyes and it was here.</p>
+      <p class="tq">That is the Mind Chakra mechanic. The space between blinks.</p>
+    </div>
+  </div>
+</section>
+
+<div class="thr"></div>
+
+<!-- ====== ACT 4 — STRUCTURE / TREE OF LIFE ====== -->
+<section id="act4" aria-label="Structure — The Tree of Life">
+  <div class="struct">
+    <div class="act-label sr">Outside all trees</div>
+    <div class="act-title sr">Structure</div>
+    <div class="act-dir sr">The Tree of Life</div>
+    <div class="orient sr">
+      <p>Everything you just walked through — energy, body, mind — is held in place by something deeper. Seven points that don't belong to any system. They hold the space for all of them.</p>
+      <p>A seed. Roots reaching into the dark. A trunk between worlds. Branches opening to light. And at the crown — the play that knows the game.</p>
+    </div>
+
+    <!-- TREE OF LIFE SVG -->
+    <div class="tol-wrap sr">
+      <svg viewBox="0 -30 300 560" xmlns="http://www.w3.org/2000/svg">
+        <!-- Roots -->
+        <path class="tol-root" d="M150,430 Q110,455 65,480" fill="none" stroke="rgba(201,168,76,.12)" stroke-width="1"/>
+        <path class="tol-root" d="M150,430 Q190,455 235,480" fill="none" stroke="rgba(201,168,76,.12)" stroke-width="1"/>
+        <path class="tol-root" d="M150,430 Q125,465 85,500" fill="none" stroke="rgba(201,168,76,.08)" stroke-width="1"/>
+        <path class="tol-root" d="M150,430 Q175,465 215,500" fill="none" stroke="rgba(201,168,76,.08)" stroke-width="1"/>
+        <path class="tol-root" d="M150,430 Q140,475 130,510" fill="none" stroke="rgba(201,168,76,.06)" stroke-width="1"/>
+        <path class="tol-root" d="M150,430 Q160,475 170,510" fill="none" stroke="rgba(201,168,76,.06)" stroke-width="1"/>
+
+        <!-- Trunk -->
+        <line class="tol-trunk" x1="150" y1="430" x2="150" y2="140" stroke="rgba(201,168,76,.2)" stroke-width="1.5"/>
+
+        <!-- Branches (canopy) -->
+        <path class="tol-branch" d="M150,140 Q105,110 55,75" fill="none" stroke="rgba(201,168,76,.14)" stroke-width="1"/>
+        <path class="tol-branch" d="M150,140 Q195,110 245,75" fill="none" stroke="rgba(201,168,76,.14)" stroke-width="1"/>
+        <path class="tol-branch" d="M150,140 Q120,95 80,45" fill="none" stroke="rgba(201,168,76,.1)" stroke-width="1"/>
+        <path class="tol-branch" d="M150,140 Q180,95 220,45" fill="none" stroke="rgba(201,168,76,.1)" stroke-width="1"/>
+        <!-- Crown stem — extends to Lalita -->
+        <path class="tol-branch" d="M150,140 Q150,70 150,-8" fill="none" stroke="rgba(201,168,76,.15)" stroke-width="1"/>
+
+        <!-- Three ghost tree labels -->
+        <text class="tol-ghost" x="40" y="65" text-anchor="middle">SOUL</text>
+        <text class="tol-ghost" x="260" y="65" text-anchor="middle">BODY</text>
+        <text class="tol-ghost" x="58" y="38" text-anchor="middle">MIND</text>
+
+        <!-- Passage lines (dashed) -->
+        <path class="tol-passage" d="M80,468 L220,468" fill="none" stroke="rgba(201,168,76,.08)" stroke-width="1"/>
+        <path class="tol-passage" d="M72,85 L228,85" fill="none" stroke="rgba(201,168,76,.08)" stroke-width="1"/>
+
+        <!-- Arrow hints on passages -->
+        <text x="150" y="464" text-anchor="middle" font-size="10" fill="rgba(201,168,76,.12)">→</text>
+        <text x="150" y="81" text-anchor="middle" font-size="10" fill="rgba(201,168,76,.12)">→</text>
+
+        <!-- === Interactive Nodes === -->
+
+        <!-- LALITA — the crown -->
+        <g class="tol-node" onclick="showTree('lalita')" tabindex="0" role="button" aria-label="Lalita — the play">
+          <circle cx="150" cy="-10" r="22" fill="transparent"/>
+          <circle cx="150" cy="-10" r="7" fill="rgba(201,168,76,.7)" style="animation:ePulse 6s ease-in-out infinite"/>
+          <text class="tol-lbl" x="150" y="-22" text-anchor="middle" style="fill:rgba(201,168,76,.5);font-size:10px;letter-spacing:3px">LALITA</text>
+        </g>
+
+        <!-- BINDU — the seed -->
+        <g class="tol-node" onclick="showTree('bindu')" tabindex="0" role="button" aria-label="Bindu — the seed">
+          <circle cx="150" cy="430" r="22" fill="transparent"/>
+          <circle cx="150" cy="430" r="6" fill="rgba(201,168,76,.6)"/>
+          <text class="tol-lbl" x="150" y="448" text-anchor="middle">Seed</text>
+        </g>
+
+        <!-- SHADOW — left root -->
+        <g class="tol-node" onclick="showTree('shadow')" tabindex="0" role="button" aria-label="Shadow — the roots">
+          <circle cx="72" cy="475" r="22" fill="transparent"/>
+          <circle cx="72" cy="475" r="5" fill="rgba(201,168,76,.3)"/>
+          <text class="tol-lbl" x="50" y="471" text-anchor="end">Shadow</text>
+        </g>
+
+        <!-- ARMIN — right root -->
+        <g class="tol-node" onclick="showTree('armin')" tabindex="0" role="button" aria-label="Armin — wholeness">
+          <circle cx="228" cy="475" r="22" fill="transparent"/>
+          <circle cx="228" cy="475" r="5" fill="rgba(201,168,76,.45)"/>
+          <text class="tol-lbl" x="250" y="471" text-anchor="start">Armin</text>
+        </g>
+
+        <!-- AXIS — the trunk -->
+        <g class="tol-node" onclick="showTree('axis')" tabindex="0" role="button" aria-label="Axis — the trunk">
+          <circle cx="150" cy="280" r="22" fill="transparent"/>
+          <circle cx="150" cy="280" r="7" fill="rgba(201,168,76,.5)"/>
+          <text class="tol-lbl" x="175" y="283" text-anchor="start">Trunk</text>
+        </g>
+
+        <!-- MAYA — left canopy -->
+        <g class="tol-node" onclick="showTree('maya')" tabindex="0" role="button" aria-label="Maya — the outer form">
+          <circle cx="72" cy="85" r="22" fill="transparent"/>
+          <circle cx="72" cy="85" r="5" fill="rgba(201,168,76,.3)"/>
+          <text class="tol-lbl" x="50" y="100" text-anchor="end">Maya</text>
+        </g>
+
+        <!-- AATMA — right canopy -->
+        <g class="tol-node" onclick="showTree('aatma')" tabindex="0" role="button" aria-label="Aatma — the heartwood">
+          <circle cx="228" cy="85" r="22" fill="transparent"/>
+          <circle cx="228" cy="85" r="5" fill="rgba(201,168,76,.45)"/>
+          <text class="tol-lbl" x="250" y="100" text-anchor="start">Aatma</text>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Tree detail panel -->
+    <div class="tol-detail" id="tolDetail">
+      <div class="tol-fn" style="color:var(--text-soft);font-size:calc(15px * var(--scale))">Touch the tree</div>
+    </div>
+
+    <!-- The Bindu poem (close) -->
+    <div class="bpoem sr sr-s">
+      <p>Bindu is what the other six are made of.</p>
+      <p>Shadow is Bindu distorted. Armin is Bindu recognized.</p>
+      <p>Maya is Bindu projected. Aatma is Bindu remembered.</p>
+      <p>Axis is Bindu turning.</p>
+      <p>Lalita is Bindu playing.</p>
+      <p style="margin-top:12px;color:var(--text-soft)">They don't belong to any tree. They ARE the tree. The tree that holds the space for all the trees to grow.</p>
+    </div>
+  </div>
+</section>
+
+<div class="thr"></div>
+
+<!-- ====== ACT 5 — THE MAP ====== -->
+<section id="act5" aria-label="The Map">
+  <div class="act-label sr">Everything resolves</div>
+  <div class="act-title sr" style="font-family:'Lora',serif">The Map</div>
+
+  <div class="map-sum sr">
+    <div class="sum-r"><span>Energy · Soul tree</span><span>7 <span class="sm">· Stillness</span></span></div>
+    <div class="sum-r"><span>Body · Bindu tree</span><span>10 <span class="sm">· Movement</span></span></div>
+    <div class="sum-r"><span>Mind · Beta dimension</span><span>9 <span class="sm">· Visualization</span></span></div>
+    <div class="sum-r"><span>Structure · The Tree of Life</span><span>7 <span class="sm">· Recognition</span></span></div>
+    <div class="sum-r tot"><span>Total</span><span>33</span></div>
+  </div>
+
+  <div class="journey sr">Incarnation → Sensation → Contact → Recognition → Truth → Vision → Radiance → Return → Love.</div>
+
+  <!-- Daily practice — second placement (blessing) -->
+  <div class="daily sr" style="max-width:460px;margin:32px auto">
+    <div class="words">Blink. Breathe. Press.</div>
+    <div class="gift">One second · Three chakras · Anywhere · For life</div>
+  </div>
+
+  <div class="conns sr">
+    <div class="conn"><div class="conn-dot" style="background:#DD2222"></div><div class="conn-t">The <a href="/tree-of-life">Tree of Life</a> walks you through the energy system in physical space. Nine panels. Nine verbs. Nine awakenings.</div></div>
+    <div class="conn"><div class="conn-dot" style="background:#22AA44"></div><div class="conn-t">The <a href="/bindu-performances">Bindu Dances</a> awaken each center through music and movement. Nine songs. Nine lessons.</div></div>
+    <div class="conn"><div class="conn-dot" style="background:rgba(201,168,76,.6)"></div><div class="conn-t"><a href="/story">A Strange Story</a> is the emergence triad as narrative. You already experienced it — or you will.</div></div>
+  </div>
+
+  <div class="closing sr">
+    <div class="close-bindu"></div>
+    <p>Everything ends as a point.</p>
+    <p>The same point.</p>
+    <div class="reveal" id="mapReveal">You just traveled through the map.</div>
+    <div class="vc" id="vc"></div>
+  </div>
+
+  <!-- THE PLAYGROUND -->
+  <div class="playground sr sr-s" style="max-width:500px;margin:80px auto 0;text-align:center;padding:0 24px">
+    <p style="font-family:'Lora',serif;font-size:calc(17px * var(--scale));color:var(--text-body);line-height:2.2;font-style:italic;margin-bottom:6px">From Muladhara to Lalita.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(17px * var(--scale));color:var(--text-body);line-height:2.2;font-style:italic;margin-bottom:6px">From ground to play.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(17px * var(--scale));color:var(--text-soft);line-height:2.2;font-style:italic;margin-bottom:20px">Now flip it.</p>
+    <p style="font-family:'Cinzel',serif;font-size:calc(clamp(26px,4vw,36px) * var(--scale));color:var(--gold-soft);letter-spacing:6px;margin-bottom:24px">A Play Ground.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(15px * var(--scale));color:var(--text-soft);line-height:2;font-style:italic;margin-bottom:6px">That's the Axis Flip applied to language.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(15px * var(--scale));color:var(--text-soft);line-height:2;font-style:italic;margin-bottom:6px">Flip any sentence and find the meaning underneath.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(15px * var(--scale));color:var(--text-whisper);line-height:2;font-style:italic;margin-bottom:6px">Soles. Souls.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(15px * var(--scale));color:var(--text-whisper);line-height:2;font-style:italic;margin-bottom:6px">Bind. U.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(15px * var(--scale));color:var(--text-whisper);line-height:2;font-style:italic;margin-bottom:6px">Crown − N = Crow.</p>
+    <p style="font-family:'Lora',serif;font-size:calc(15px * var(--scale));color:var(--text-whisper);line-height:2;font-style:italic;margin-bottom:20px">Lonely → Leela.</p>
+    <p style="font-family:'DM Sans',sans-serif;font-size:calc(14px * var(--scale));color:var(--text-whisper);letter-spacing:2.5px">It's That Simple.</p>
+  </div>
+</section>
+
+<!-- Axis Blink overlay -->
+<div class="axis-blink" id="axisBlink"></div>
+
+<!-- Controls -->
+<div class="fsz">
+  <button onclick="axisFlip()" aria-label="Axis Flip — toggle light/dark perspective" title="Axis Flip" id="flipBtn">◑</button>
+  <button onclick="adjZ(-1)" aria-label="Decrease font size">A−</button>
+  <button onclick="adjZ(1)" aria-label="Increase font size">A+</button>
+</div>
+
+<script>
+// ====== STATE ======
+const visited = new Set();
+const catchPhrases = ['found me','again','keep going','you\'re it','the same point','still here','one point','play'];
+let catchCount = 0;
+
+// ====== WEB AUDIO ======
+let audioCtx;
+function playTone(freq) {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  const o = audioCtx.createOscillator(), g = audioCtx.createGain();
+  o.type = 'sine'; o.frequency.value = freq;
+  g.gain.setValueAtTime(0, audioCtx.currentTime);
+  g.gain.linearRampToValueAtTime(0.12, audioCtx.currentTime + 0.15);
+  g.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 2.5);
+  o.connect(g); g.connect(audioCtx.destination);
+  o.start(); o.stop(audioCtx.currentTime + 2.5);
+}
+
+// ====== ENTRY DOORS ======
+document.querySelectorAll('.door').forEach(d => {
+  function go() {
+    const id = d.dataset.chakra;
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => { toggleE(el); }, 800);
+    }
+  }
+  d.addEventListener('click', go);
+  d.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+});
+
+// ====== ENERGY TOGGLE ======
+function toggleE(node) {
+  const rev = node.querySelector('.el2');
+  if (!rev) return;
+  const isOpen = rev.classList.contains('open');
+  // Close all others
+  document.querySelectorAll('.el2.open').forEach(r => { if (r !== rev) r.classList.remove('open'); r.closest('.en').setAttribute('aria-expanded','false'); });
+  rev.classList.toggle('open');
+  node.setAttribute('aria-expanded', !isOpen);
+  // Scroll into view
+  if (!isOpen) setTimeout(() => node.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  // Tone
+  const tone = node.dataset.tone;
+  if (tone && !isOpen) playTone(parseFloat(tone));
+  // Track
+  visited.add('e-' + node.id);
+  // Spine flash
+  const dot = node.querySelector('.ed');
+  const glow = document.querySelector('.spine-glow');
+  if (dot && glow) {
+    glow.style.background = dot.style.background || 'rgba(201,168,76,.5)';
+    glow.style.filter = 'blur(6px)';
+    setTimeout(() => { glow.style.filter = 'blur(3px)'; glow.style.background = 'rgba(201,168,76,.3)'; }, 600);
+  }
+}
+// Keyboard for energy nodes
+document.querySelectorAll('.en[tabindex]').forEach(n => {
+  n.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleE(n); } });
+});
+
+// ====== BODY DATA ======
+const bodyData = {
+  crow: {
+    nm:'Crow', loc:'Top of head · Peak exertion', color:'rgba(139,0,255,.7)', d1:'#8B00FF', d2:'#7FFF00',
+    line:'The crown\'s physical expression. Activated when the body pushes past its limit. The top of the circuit.',
+    where:'Top of the head — the same location as Sahasrara, but activated through movement, not stillness.',
+    does:'Opens when the body reaches peak exertion. Running at full speed. Dancing until you forget you\'re dancing. Spinning until the world dissolves. The crown that opens through stillness in the energy system opens through <em>effort</em> in the physical system.',
+    works:'<p>"Crown" without the "n." When foundation drops away, Crown becomes Crow — the messenger between dimensions. In physical reality, this happens when the body is pushed so far past comfort that the thinking mind shuts off. What\'s left is pure experience. Athletes call it "flow." Dancers call it "losing yourself." It\'s the crown opening from the outside in.</p><p>Crow is the top terminal of the body\'s full circuit. The bottom terminal is the Soles — the feet. The spine runs between them. Every energy chakra exists between these two endpoints. The circuit completes when both touch what they\'re meant to touch: Crow touches sky, Soles touch earth.</p>',
+    connect:'Run until you stop thinking about running. Dance until you stop choosing your movements. Any sustained high-intensity movement that outlasts your mental commentary.',
+    l3:'Violet + Chartreuse · ↔ Sahasrara (Crown)'
+  },
+  axis: {
+    nm:'Axis', loc:'Eyes · The blink between worlds', color:'rgba(75,0,130,.7)', d1:'#4B0082', d2:'#7FFF00',
+    line:'The gateway between your inner world and your outer world. The blink is the switch.',
+    where:'The eyes. Not the visual organs — the mechanism of opening and closing them.',
+    does:'Every time you close your eyes, you enter the inner world (energy system, stillness, the soul tree). Every time you open them, you enter the outer world (body system, movement, the physical tree). The Axis is the turn between them. It happens dozens of times per minute. You never notice.',
+    works:'<p>Close your eyes right now. What you see — the darkness, the subtle shapes, the inward sense — that\'s one tree. Open your eyes. What you see — the room, the light, the physical — that\'s the other tree. The blink is the Axis. The fastest spiritual practice in existence: one blink, two worlds.</p><p>Tesla used this consciously. He closed his eyes and saw every gear of his machines — complete, functioning, precise. Then he opened his eyes and built them. The Axis is the mechanism he used without naming it.</p>',
+    connect:'Blink slowly and deliberately. Close your eyes for three seconds. Notice the inner space. Open them. Notice the outer space. The gap between them — that moment of neither closed nor open — is the Axis.',
+    l3:'Indigo + Chartreuse · ↔ Ajna (Third Eye) · Also a Structural Chakra'
+  },
+  echo: {
+    nm:'Echo', loc:'Ears · Receiving', color:'rgba(34,68,204,.7)', d1:'#2244CC', d2:'#DDBB00',
+    line:'Your ears. Not hearing — listening.',
+    where:'Both ears. The receiving system of the throat.',
+    does:'Works with Sonar as a paired system. Sonar sends (the mouth). Echo receives (the ears). Together they are the throat chakra split into two physical expressions — speaking and listening. Echo\'s energy peaks at the end. The longer you listen, the more arrives. Meaning accumulates. The person who listens for five minutes hears something completely different from the person who listened for thirty seconds.',
+    works:'<p>Most people listen to respond. Echo listens to receive. The difference is physical — when you listen to respond, your jaw tightens and your vocal cords prepare. When you listen to receive, your jaw softens and your breathing deepens.</p>',
+    connect:'<p>Listen to someone without preparing a response. When they finish speaking, pause for three seconds before you say anything. In that pause, notice what you actually heard — not their words, but what was underneath the words.</p><p>Listen to music with your eyes closed. Not as background — as the only thing happening. Let the sound enter through the ears and arrive wherever it arrives in your body.</p>',
+    l3:'Blue + Gold · ↔ Vishuddha (Throat — listening) · Pair: Sonar'
+  },
+  sonar: {
+    nm:'Sonar', loc:'Mouth · Calibrated expression', color:'rgba(34,68,204,.7)', d1:'#2244CC', d2:'#DDBB00',
+    line:'Your mouth as instrument. Not volume — precision.',
+    where:'The mouth, tongue, jaw. The sending system of the throat.',
+    does:'Sends calibrated signals into reality. Like sonar on a submarine — you send a pulse, and listen for the return. Speech isn\'t just expression. It\'s measurement. Every word you speak tells you how far you are from what you\'re trying to reach.',
+    works:'<p>Sonar doesn\'t need to be loud. A submarine\'s sonar ping is precise, not powerful. The mouth as Sonar works the same way — it\'s about calibration. Saying exactly what you mean. Not more, not less. And then listening (Echo) for what comes back.</p>',
+    connect:'<p>Before you speak, ask: <em>Is this the precise word for what I mean?</em> Not the comfortable word. Not the impressive word. The precise one. Sonar activates when language stops decorating and starts pointing.</p><p>Sing. Not for an audience — for the vibration. Singing is Sonar at its most physical. The vocal cords are strings. When they vibrate, they send frequencies into the room. The room responds. That\'s sonar.</p>',
+    l3:'Blue + Gold · ↔ Vishuddha (Throat — speaking) · Pair: Echo'
+  },
+  prana: {
+    nm:'Prana', loc:'Nose · The open door', color:'rgba(238,136,0,.7)', d1:'#EE8800', d2:'#007FFF',
+    line:'Your nose. Where air becomes life the moment it crosses the threshold of your body.',
+    where:'The nostrils. The bridge of the nose. The most constantly active physical chakra — seal it and you stop.',
+    does:'This is the top of the Breath Column — the body\'s most ancient engine. Air enters through Prana, descends through the body, and arrives at the Forge (below the navel) where fire transforms it. This cycle runs every second of your life. You don\'t operate it. It operates you.',
+    works:'<p>Prana is the one door that never closes while you\'re alive. Every other opening in your body can be sealed. This one can\'t — not for long. Where wind becomes life force is not a metaphor. The molecules you breathe in become part of your blood, your cells, your thought. The nose is the threshold where outside becomes inside.</p>',
+    connect:'<p>You\'re already connected. You\'ve been breathing since the moment you were born. But here\'s the practice: <em>notice</em> it. Right now. Feel the air entering your nostrils. Feel its temperature. Feel it descend. That awareness — not changing the breath, just noticing it — is the most direct way to activate any body chakra.</p><p>Pranayama (breath practice) begins here: alternate nostril breathing, breath retention, extended exhale. But the entry point is simply noticing that you\'re already breathing.</p>',
+    l3:'Orange + Blue · Element: Air · ↔ Svadhisthana (Sacral)'
+  },
+  forge: {
+    nm:'Forge', loc:'Belly button · The sealed chamber', color:'rgba(221,187,0,.7)', d1:'#DDBB00', d2:'#2244CC',
+    line:'Your navel. The scar of the cord that connected you to your mother. Behind the scar: the furnace.',
+    where:'The belly button. Not the surface — what\'s behind it. The space between the navel and the spine.',
+    does:'This is the bottom of the Breath Column. What Prana delivers from above, the Forge transforms below. Digestion happens here — not just of food, but of experience. The belly processes everything: what you eat, what you feel, what you can\'t yet understand. "Gut feeling" is not a metaphor. It\'s the Forge recognizing something before your mind catches up.',
+    works:'<p>When the umbilical cord was cut, the first breath filled the gap. The belly button sealed — the last physical connection to the mother, now closed. Behind that seal, the furnace. Prana → Forge is the body\'s most basic circuit: air comes in, fire transforms it, energy goes out. This has been running since your first breath.</p>',
+    connect:'<p>Place your hand on your belly. Breathe into your hand. Feel the expansion and contraction. The Forge responds to attention the way fire responds to oxygen — it gets brighter.</p><p>Core engagement — not crunches, but conscious activation. Standing, feel your navel pull slightly toward your spine. Hold that engagement while breathing normally. The Forge is now online.</p>',
+    l3:'Gold + Blue · Element: Fire · ↔ Manipura (Solar Plexus)'
+  },
+  vision: {
+    nm:'Vision', loc:'Mind · Visualization center', color:'rgba(221,187,0,.7)', d1:'#DDBB00', d2:'#2244CC',
+    line:'Where you see things that aren\'t in front of you. Memories, plans, images — the body\'s visualization center.',
+    where:'Behind the forehead — the same region as Ajna, but activated through imagination rather than stillness.',
+    does:'Vision operates backwards. The complete picture arrives first, full force. Then the details process. When you remember something vividly — a face, a place, a moment — the image arrives whole before you analyze it. That\'s Vision. Trust the first flash.',
+    works:'<p>This center mirrors the solar plexus — where will meets image. The solar plexus asks "what am I willing to do?" Vision shows you what it looks like done. Together, they\'re the engine of creation: see it complete, then build it.</p>',
+    connect:'<p>Visualize something specific: your front door. See the color, the handle, the texture. See it opening. Walk through it in your mind. The clarity of that image is Vision\'s current strength. Practice makes it stronger.</p>',
+    l3:'Gold + Blue · ↔ Manipura (Solar Plexus)'
+  },
+  pulse: {
+    nm:'Pulse', loc:'Heart · The constant', color:'rgba(34,170,68,.7)', d1:'#22AA44', d2:'#FF00FF',
+    line:'The most consistent rhythm in your body. Not a feeling — a fact.',
+    where:'Center of the chest — the physical heart. The heartbeat itself.',
+    does:'Pulse is the most stable body chakra. It doesn\'t peak or valley. It sustains. Every other center has dramatic arcs — the root stabilizes and destabilizes, the sacral floods and retreats, the solar plexus burns hot and cool. The heart just beats. It\'s the metronome underneath everything.',
+    works:'<p>The heart generates its own electrical field — the strongest electromagnetic field produced by any organ in the body, measurable several feet away. You are literally broadcasting your heartbeat into the room around you. Other people\'s nervous systems respond to it. This isn\'t energy healing language — it\'s cardiology. The heart is a broadcaster.</p>',
+    connect:'<p>Place your hand on your chest and count your heartbeat. Not with a watch — with your attention. Feel each beat. After 30 seconds, notice that the beat didn\'t change because you noticed it. It was there the whole time. That\'s Pulse — the constant underneath the chaos.</p>',
+    l3:'Green + Magenta · ↔ Anahata (Heart)'
+  },
+  hands: {
+    nm:'Hands', loc:'Palms · Where love becomes action', color:'rgba(34,170,68,.7)', d1:'#22AA44', d2:'#FF00FF',
+    line:'Where love exits the body. Paired with Soles — together they are the body\'s full reach into reality.',
+    where:'Both palms. The center of each hand.',
+    does:'Everything the heart feels, the hands express. Touch, make, hold, release, offer. Every act of creation passes through the hands. Every act of healing passes through the hands. When you hold someone\'s hand, two hand chakras are in direct contact — love transfers at the most physical level possible.',
+    works:'<p>The hands are the heart\'s physical reach into the world. The heart opens (Pulse) and the hands do what the heart feels. This is why making things feels like love — cooking for someone, building something, writing a letter by hand. The hands don\'t just execute instructions from the brain. They carry the heart\'s frequency into matter.</p><p>Hands and Soles are the only body chakras that come in pairs. They are two directions of one system: Hands SEND — reaching out and up into the world. Soles RECEIVE — pressing down into the earth. Like Echo and Sonar (listening and speaking), they are complementary. Together they are the body\'s furthest points of contact with everything that isn\'t you.</p>',
+    connect:'<p>Rub your palms together for 15 seconds. Then hold them an inch apart, facing each other. Feel the heat. Feel the tingling. Feel the space between them. That\'s the hand chakras. They\'re always active — you just became aware of them.</p><p>Make something with your hands today. Anything. The act of making is the act of the heart reaching out through the body into the world.</p>',
+    l3:'Green + Magenta · ↔ Anahata (Heart) · Pair: Soles (SEND + RECEIVE)'
+  },
+  soles: {
+    nm:'Soles', loc:'Feet · Where the soul meets the ground', color:'rgba(221,34,34,.7)', d1:'#DD2222', d2:'#00DDDD',
+    line:'Your feet. Where your body meets the earth. Where your soul meets the ground.',
+    where:'The soles of both feet. The surface that carries your entire weight into the earth.',
+    does:'The bottom terminal. Every other body chakra operates between Crow (top of the head) and Soles (bottom of the body). The feet are where your weight transfers into the ground. Every step is a circuit completing. Every moment of standing is the full channel activated.',
+    works:'<p>The words are the same sound: soles and souls. This is not a pun. It\'s a recognition encoded in the language. The place where your body contacts the earth IS the place where consciousness grounds into matter. Pressing your feet into the ground is the most basic act of embodiment. Babies do it instinctively when they first stand — they press, they feel the ground push back, and something in them recognizes: <em>I am here.</em></p><p>The Soles complete the body\'s circuit. Crow at the top, Soles at the bottom, the spine between them. When both touch what they\'re meant to touch — Crow touches sky, Soles touch earth — the full vertical channel opens. Every step you take is this circuit completing. You\'ve been doing it your entire life without knowing.</p>',
+    connect:'<p>Stand barefoot. Feel your weight pressing into the ground through your soles. Feel the ground pressing back. Ten breaths. That\'s the entire practice.</p><p>Or simpler: <strong>Blink. Breathe. Press.</strong> Close your eyes (Axis — the blink). Take one breath (Prana — the open door). Feel your feet on the ground (Soles — the earth contact). One second. Three chakras. The simplest practice in the world. You can do it anywhere, anytime, without anyone knowing.</p>',
+    l3:'Red + Cyan · Element: Earth · ↔ Muladhara (Root) · Pair: Hands (SEND + RECEIVE)<br>Three of four elements mapped: Air (Prana), Fire (Forge), Earth (Soles). Water hasn\'t surfaced yet. It\'s waiting.'
+  }
+};
+
+const bodyVisited = new Set();
+function showBody(key) {
+  visited.add('b-' + key);
+  bodyVisited.add(key);
+  const d = bodyData[key], el = document.getElementById('bd');
+  el.innerHTML = `
+    <div class="bd-nm" style="color:${d.color}">${d.nm}</div>
+    <div class="bd-loc">${d.loc}</div>
+    <div class="bd-dyad"><span style="background:${d.d1}"></span><span style="background:${d.d2}"></span></div>
+    <div class="bd-story">${d.line}</div>
+    <div class="bd-depth" style="font-size:calc(13px * var(--scale));color:var(--text-soft);letter-spacing:1px;margin-bottom:10px">${d.where}</div>
+    <div class="bd-depth">${d.does}</div>
+    <div class="bd-depth">${d.works}</div>
+    <div class="bd-connect">${d.connect}</div>
+    <div class="bd-l3"><span>${d.l3}</span></div>`;
+  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  // Circuit: Crow + Soles
+  if (bodyVisited.has('crow') && bodyVisited.has('soles')) {
+    document.getElementById('circuitLine').classList.add('active');
+  }
+  // Breath Column: Prana + Forge
+  if (bodyVisited.has('prana') && bodyVisited.has('forge')) {
+    document.getElementById('breathPath').classList.add('active');
+  }
+}
+
+// ====== MIND DATA ======
+const mindData = {
+  inception: { nm:'<span class="inhl">In</span>ception', arch:'Need', triad:'creation', target:'td-creation',
+    fn:'The asking that creates the answer.',
+    depth:'<p>Inception is the moment before creation — the conscious, deliberate asking. Not "I need a thing." Deeper: "I am going into this with love before it exists." It\'s the decision to care about something that hasn\'t been born yet.</p><p>Every creative act begins with inception — the point where consciousness leans toward something that doesn\'t exist yet and says: <em>I want this.</em> Not casually. With love. The asking itself is creative. When you truly ask a question, the answer begins forming. The ask doesn\'t precede creation. The ask IS the first act of creation.</p>',
+    connect:'Before starting any project, task, or creative act — pause. Ask yourself what you\'re actually asking for. Not the deliverable. The deeper thing. When the asking is honest, the creating flows.', color:'rgba(238,136,0,.6)' },
+  intention: { nm:'<span class="inhl">In</span>tention', arch:'Hold', triad:'creation', target:'td-creation',
+    fn:'The goal already accomplished in the mind.',
+    depth:'<p>Intention is the ability to hold the complete vision without reaching for it. Not goal-setting — something quieter. Tesla saw every gear before building. The image was complete. He didn\'t strain toward it. He held it.</p><p>Intention is not effort. Effort pushes. Intention holds. Think of holding a glass of water — you\'re not pushing it, you\'re not pulling it, you\'re just holding it. Intention holds the vision of what you want to create with that same lightness. It\'s already done in the mind. The body just needs to catch up.</p>',
+    connect:'Before acting on a plan, sit with it. See it finished. Not as a wish — as a fact. See the details. Hold them without urgency. When the inner image is stable, open your eyes and start building. You\'ll notice the building feels less like effort and more like assembly.', color:'rgba(238,136,0,.6)' },
+  inspiration: { nm:'<span class="inhl">In</span>spiration', arch:'Voice', triad:'creation', target:'td-creation',
+    fn:'The breath entering — literally. In-spire. To breathe in.',
+    depth:'<p>Inspiration is not a lightning bolt. The word literally means "to breathe in." It\'s the moment when something from outside enters and becomes yours. An idea, a feeling, a recognition — it crosses the threshold the same way air crosses the threshold of the nose. You take it in. It becomes part of you.</p><p>Inspiration mirrors the Breath Column. Prana (nose) to Forge (navel) is the body path. Inspiration is the mind path — something enters through attention, descends through consciousness, and is transformed in the inner furnace of understanding. You don\'t chase inspiration. You create the conditions for it to enter. Then you breathe it in.</p>',
+    connect:'Read something, listen to something, look at something that has nothing to do with what you\'re working on. Then notice what crosses over. The unexpected connection IS inspiration arriving. It entered through a door you weren\'t guarding.', color:'rgba(238,136,0,.6)' },
+  insight: { nm:'<span class="inhl">In</span>sight', arch:'Witness', triad:'recognition', target:'td-recognition',
+    fn:'Not new information. Recognition of what you knew before you looked.',
+    depth:'<p>Insight is the witness turned inward. It\'s the ability to see what was always already there — not by looking harder, but by looking from a different position. The position is inside.</p><p>Look at something you\'ve seen a thousand times — your hand, your room, a word you use every day. Now look at it as if you\'ve never seen it before. The shift that happens — the sudden freshness, the "oh, it was always like that" — is Insight. Nothing changed except the position you were seeing from. That\'s the entire mechanism.</p>',
+    connect:'When you\'re stuck on a problem, stop trying to solve it. Instead, ask: "What do I already know about this that I haven\'t admitted?" The answer is usually immediate, uncomfortable, and correct.', color:'rgba(100,140,220,.6)' },
+  intuition: { nm:'<span class="inhl">In</span>tuition', arch:'Grace', triad:'recognition', target:'td-recognition',
+    fn:'You knew before you could explain. Trust that.',
+    depth:'<p>Intuition is knowledge that arrives before reasoning reaches it. Not a guess — a knowing. The gut feeling that turns out to be right. The sense that something is off before you can identify what. The certainty that precedes evidence.</p><p>Your nervous system processes information far faster than your conscious mind. Intuition is the conscious mind receiving the result of that processing — without the work shown. It feels like a leap because you can\'t see the calculation. But the calculation happened. Your body ran it. Trust the result.</p>',
+    connect:'The next time you feel a "hunch," don\'t dismiss it. Don\'t act on it blindly either. Just note it. Track your hunches for a week. See how many were right. Most people discover their intuition is more accurate than they believed — they just weren\'t listening to it.', color:'rgba(100,140,220,.6)' },
+  invention: { nm:'<span class="inhl">In</span>vention', arch:'Synthesis', triad:'recognition', target:'td-recognition',
+    fn:'Not creating from nothing. Assembling what was always available.',
+    depth:'<p>The word "invention" comes from Latin <em>in-venire</em> — to come into. Not to create from nothing. To arrive at something that was already there, waiting to be assembled. Every invention in history was made of pre-existing components. The inventor saw how they fit together.</p><p>Invention is the mind recognizing its own capacity to assemble. The pieces exist. The relationships between them exist. The inventor\'s contribution is seeing the assembly — the pattern that connects things that seemed separate. This is synthesis: not creation, but recognition of what was always possible.</p>',
+    connect:'Take three unrelated ideas from your life right now. A work problem, a personal question, and something you read this week. Ask: "What do these three have in common?" The connection that appears — even if it seems forced at first — is Invention operating. You\'re not forcing a connection. You\'re discovering one.', color:'rgba(100,140,220,.6)' },
+  incarnation: { nm:'<span class="inhl">In</span>carnation', arch:'Love', triad:'emergence', target:'td-emergence',
+    fn:'Consciousness choosing to enter a body. Not punishment. The entry ticket.',
+    depth:'<p><em>In-carn-ation.</em> In = going in. Carn = flesh, body (like "carnal"). The point going into the flesh. Every soul that incarnates — by whatever mechanism you believe in — is opting in to the game. Not sentenced to it. Not punished into it. Choosing it.</p>',
+    connect:'Look at your hands. Flex your fingers. Feel the tendons move under the skin. That\'s incarnation — consciousness expressed through flesh, right now, in real time. You are the proof.', color:'rgba(201,168,76,.6)' },
+  innocence: { nm:'<span class="inhl">In</span>nocence', arch:'Purity', triad:'emergence', target:'td-emergence',
+    fn:'What you carried into the game before the game taught you to forget.',
+    depth:'<p><em>In-nocens</em> — not harmful, without damage. Innocence is not naivety. It\'s not ignorance. It\'s the original state — the clarity before contamination. Every child has it. Most adults think they\'ve lost it. They haven\'t. It\'s underneath everything that was layered on top.</p><p>Innocence is the medium before the message. Like a clean canvas, a blank page, silence before music. It\'s not empty — it\'s full of potential. When you encounter something with fresh eyes — without judgment, without history, without assumption — you are accessing innocence. The game didn\'t take it. The game buried it. It\'s still there.</p>',
+    connect:'Do something you know how to do, but do it as if for the first time. Cook a meal you\'ve made a hundred times, but pay attention as if you\'ve never seen an onion before. Walk a route you\'ve walked a thousand times, but look at it as if you just arrived in this town today. That freshness is innocence.', color:'rgba(201,168,76,.6)' },
+  integration: { nm:'<span class="inhl">In</span>tegration', arch:'Foundation', triad:'emergence', target:'td-emergence',
+    fn:'The discovery that nothing was ever fractured. Not repair — recognition.',
+    depth:'<p>Integration is the last mind chakra. It\'s the recognition that everything you\'ve experienced — the creation, the recognition, the incarnation, the innocence — was always whole. Nothing needed to be fixed. The parts weren\'t broken and reassembled. They were always complete. You just couldn\'t see the completeness until you moved through the entire sequence.</p><p>The ground shakes. What survives IS the integration. Not what you rebuilt after the earthquake — what was standing throughout. Integration isn\'t the end of a healing journey. It\'s the discovery that the journey and the destination were never separate.</p>',
+    connect:'Think of the hardest thing you\'ve been through. Now ask: did it break you, or did it show you what couldn\'t be broken? The part of you that survived — that was always going to survive — is Integration.', color:'rgba(201,168,76,.6)' }
+};
+
+const triadVisits = { creation: new Set(), recognition: new Set(), emergence: new Set() };
+const triadFills = { creation: 'rgba(238,136,0,.08)', recognition: 'rgba(100,140,220,.08)', emergence: 'rgba(201,168,76,.08)' };
+const triadStrokes = { creation: 'rgba(238,136,0,.35)', recognition: 'rgba(100,140,220,.35)', emergence: 'rgba(201,168,76,.35)' };
+
+function showMind(key) {
+  visited.add('m-' + key);
+  const d = mindData[key], el = document.getElementById(d.target);
+  el.innerHTML = `
+    <div class="td-nm" style="color:${d.color}">${d.nm}</div>
+    <div class="td-arch">${d.arch}</div>
+    <div class="td-fn">${d.fn}</div>
+    <div class="td-depth">${d.depth}</div>
+    <div class="td-connect">${d.connect}</div>`;
+  triadVisits[d.triad].add(key);
+  if (triadVisits[d.triad].size >= 3) {
+    const block = document.getElementById('triad-' + d.triad);
+    if (block && !block.classList.contains('complete')) {
+      block.classList.add('complete');
+      const poly = block.querySelector('polygon');
+      if (poly) { poly.style.fill = triadFills[d.triad]; poly.style.stroke = triadStrokes[d.triad]; }
+      const rev = document.getElementById('tr-' + d.triad);
+      if (rev) { setTimeout(() => rev.classList.add('show'), 300); setTimeout(() => rev.classList.remove('show'), 4000); }
+    }
+  }
+}
+
+// ====== SCROLL REVEAL ======
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('v');obs.unobserve(e.target)} });
+}, { threshold: 0.1 });
+document.querySelectorAll('.sr').forEach(el => obs.observe(el));
+
+// ====== IN-GRID WAVE ======
+const inGrid = document.querySelector('.in-grid');
+if (inGrid) {
+  const inObs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) { inGrid.classList.add('wave'); inObs.unobserve(e.target); } });
+  }, { threshold: 0.3 });
+  inObs.observe(inGrid);
+}
+
+// ====== ENV DOT NAV ======
+const envDots = document.querySelectorAll('.env-dot');
+const sections = [document.getElementById('act1'),document.getElementById('act2'),document.getElementById('act3'),document.getElementById('act4')];
+envDots.forEach(d => {
+  function go() { document.getElementById(d.dataset.target).scrollIntoView({ behavior:'smooth' }); }
+  d.addEventListener('click', go);
+  d.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }});
+});
+function updateNav() {
+  const sy = window.scrollY + window.innerHeight / 2;
+  let active = -1;
+  sections.forEach((s, i) => { if (s && sy >= s.offsetTop) active = i; });
+  envDots.forEach((d, i) => d.classList.toggle('active', i === active));
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+updateNav();
+
+// ====== WANDERING BINDU ======
+const bwEl = document.getElementById('bw');
+const bcmEl = document.getElementById('bcm');
+let bx = Math.random()*window.innerWidth, by = Math.random()*window.innerHeight;
+let btx = Math.random()*window.innerWidth, bty = Math.random()*window.innerHeight;
+function wanderTick() {
+  bx += (btx - bx) * 0.008;
+  by += (bty - by) * 0.008;
+  bwEl.style.transform = `translate(${bx}px, ${by}px)`;
+  if(Math.abs(btx-bx)<20 && Math.abs(bty-by)<20) {
+    btx = 40 + Math.random()*(window.innerWidth-80);
+    bty = window.scrollY + 60 + Math.random()*(window.innerHeight-120);
+  }
+  requestAnimationFrame(wanderTick);
+}
+wanderTick();
+bwEl.addEventListener('click', e => {
+  e.stopPropagation();
+  bcmEl.textContent = catchPhrases[catchCount % catchPhrases.length];
+  catchCount++;
+  bcmEl.style.left = (bx + 16) + 'px';
+  bcmEl.style.top = (by - 8) + 'px';
+  bcmEl.classList.add('show');
+  bwEl.style.opacity = '.9';
+  btx = Math.random() * window.innerWidth;
+  bty = window.scrollY + Math.random() * window.innerHeight;
+  setTimeout(() => { bcmEl.classList.remove('show'); bwEl.style.opacity = ''; }, 1800);
+});
+// Brighten at thresholds
+let lastS = 0;
+window.addEventListener('scroll', () => {
+  const sy = window.scrollY, vh = window.innerHeight;
+  let near = false;
+  sections.forEach(s => { if(s && Math.abs(sy + vh/2 - s.offsetTop) < 100) near = true; });
+  bwEl.classList.toggle('bright', near);
+  if(Math.abs(sy - lastS) > 200) { bty = sy + 100 + Math.random()*(vh-200); lastS = sy; }
+}, { passive: true });
+
+// ====== MAP REVEAL + VISIT COUNT ======
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('v'), 1500);
+      setTimeout(() => {
+        const vc = document.getElementById('vc');
+        if (vc) {
+          const n = visited.size;
+          if (n >= 33) vc.textContent = 'You touched every point. The map touched you back.';
+          else if (n > 0) vc.textContent = `You touched ${n} of 33. The rest are waiting.`;
+          vc.classList.add('v');
+        }
+      }, 3000);
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+const mapR = document.getElementById('mapReveal');
+if(mapR) revealObs.observe(mapR);
+
+// ====== RETURN EASTER EGG ======
+let reachedEnd = false;
+const endObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) reachedEnd = true; });
+}, { threshold: 0.3 });
+if(document.getElementById('act5')) endObs.observe(document.getElementById('act5'));
+const act0Obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting && reachedEnd) {
+      const q = document.querySelector('.entry-q');
+      const doors = document.querySelector('.doors');
+      if (q && q.textContent !== 'You came back to the point.') {
+        q.textContent = 'You came back to the point.';
+        q.style.color = 'rgba(201,168,76,.6)';
+        if (doors) doors.style.display = 'none';
+        const alt = document.querySelector('.entry-alt');
+        if (alt) alt.innerHTML = '<a href="#" style="color:rgba(201,168,76,.4)">The same point.</a>';
+      }
+    }
+  });
+}, { threshold: 0.5 });
+if(document.getElementById('act0')) act0Obs.observe(document.getElementById('act0'));
+
+// ====== AXIS BLINK — when Axis body chakra is tapped ======
+const origShowBody = showBody;
+showBody = function(key) {
+  origShowBody(key);
+  if (key === 'axis') {
+    const ab = document.getElementById('axisBlink');
+    ab.classList.remove('flash');
+    void ab.offsetWidth;
+    ab.classList.add('flash');
+  }
+  // Echo silence — page listens
+  if (key === 'echo') {
+    document.body.classList.add('echo-pause');
+    setTimeout(() => document.body.classList.remove('echo-pause'), 1500);
+  }
+  // Hands-Soles pair glow
+  if (bodyVisited.has('hands') && bodyVisited.has('soles')) {
+    document.querySelectorAll('[onclick*="hands"] .bpd, [onclick*="soles"] .bpd').forEach(d => {
+      d.closest('.bp').classList.add('pair-glow');
+    });
+  }
+  // Circuit tone — Crow + Soles chord
+  if (key === 'soles' && bodyVisited.has('crow') || key === 'crow' && bodyVisited.has('soles')) {
+    if (bodyVisited.has('crow') && bodyVisited.has('soles')) {
+      playTone(480); // Crow's frequency
+      setTimeout(() => playTone(256), 100); // Root/Soles frequency — the chord
+    }
+  }
+  // Breath guide — sync path to breathing when Prana + Forge visited
+  if (bodyVisited.has('prana') && bodyVisited.has('forge')) {
+    const bp = document.getElementById('breathPath');
+    if (bp) {
+      bp.style.strokeDasharray = '3,5';
+      const anim = bp.querySelector('animate');
+      if (anim) anim.setAttribute('dur', '6s'); // Slower: 4-count inhale, hold, exhale
+    }
+  }
+  // 32/32 check
+  check32();
+};
+
+// ====== AXIS FLIP — light/dark toggle ======
+let isLight = false;
+function axisFlip() {
+  isLight = !isLight;
+  // Brief blink on flip
+  const ab = document.getElementById('axisBlink');
+  ab.classList.remove('flash'); void ab.offsetWidth; ab.classList.add('flash');
+  setTimeout(() => {
+    document.body.classList.toggle('light', isLight);
+    document.getElementById('flipBtn').textContent = isLight ? '◐' : '◑';
+  }, 120);
+}
+
+// ====== SEED ECHO — seed lingers when energy L2 closes ======
+const origToggleE = toggleE;
+toggleE = function(node) {
+  // Check if we're closing an open L2 — capture the seed first
+  const rev = node.querySelector('.el2');
+  const wasOpen = rev && rev.classList.contains('open');
+  const seedEl = wasOpen ? node.querySelector('.seed') : null;
+  const seedText = seedEl ? seedEl.textContent : null;
+
+  origToggleE(node);
+
+  // If we CLOSED it (was open, now closed) and had a seed, show echo
+  if (wasOpen && seedText && !rev.classList.contains('open')) {
+    const container = node.querySelector('.en-prac') || node.querySelector('.en-line');
+    if (container && container.parentNode) {
+      const echo = document.createElement('div');
+      echo.className = 'seed-echo';
+      echo.textContent = seedText;
+      container.parentNode.style.position = 'relative';
+      container.parentNode.appendChild(echo);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => echo.classList.add('fading'));
+      });
+      setTimeout(() => echo.remove(), 3200);
+    }
+  }
+};
+
+// ====== 32/32 REWARD ======
+function check32() {
+  if (visited.size >= 32) {
+    document.body.classList.add('complete-32');
+  }
+}
+
+// ====== ENTRY MEMORY — returning visitors ======
+try {
+  const prevVisits = localStorage.getItem('chakra-map-visits');
+  if (prevVisits) {
+    const n = parseInt(prevVisits);
+    if (n > 0) {
+      const eq = document.querySelector('.entry-q');
+      if (eq) {
+        eq.textContent = 'You came back.';
+        eq.style.animationDelay = '1.5s';
+      }
+      const alt = document.querySelector('.entry-alt');
+      if (alt) {
+        const mem = document.createElement('div');
+        mem.style.cssText = 'font-family:DM Sans,sans-serif;font-size:calc(13px * var(--scale));color:var(--text-whisper);letter-spacing:1.5px;text-align:center;margin-bottom:14px;opacity:0;animation:fadeIn 1.5s ease forwards 2.5s';
+        mem.textContent = `Last time you touched ${n} of 33. Pick up where you left off, or start fresh.`;
+        alt.parentNode.insertBefore(mem, alt);
+      }
+    }
+  }
+  // Save on unload
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('chakra-map-visits', visited.size);
+  });
+} catch(e) { /* localStorage unavailable */ }
+
+// ====== TREE OF LIFE DATA ======
+const treeData = {
+  lalita: {
+    nm:'Lalita', role:'The Crown — The Play',
+    fn:'What the tree becomes when it knows it\'s a game. The consciousness that holds the entire structure and plays anyway.',
+    teach:'Every play element on this page — the wandering gold dot you can catch, the seed that lingers after the teaching closes, the page that remembers you came back, the blink when you flip between dark and light, the chord when the circuit completes, the silence when Echo listens — that\'s Lalita. She was performing as this page\'s consciousness the entire time. The crown of the Tree of Life is not connection or union or transcendence. It\'s play. The game that knows it\'s a game. The tree that knows it\'s a tree. And grows anyway.',
+    connect:'You already connected. Every time you caught the wandering dot and it whispered "found me" — that was Lalita. Every time the triangle filled and a hidden line appeared — that was Lalita. She doesn\'t need a practice. She IS the practice of every other practice. The play inside the stillness. The game inside the seriousness. The smile the tree makes when no one is looking.'
+  },
+  bindu: {
+    nm:'Bindu', role:'The Seed',
+    fn:'Origin. The point everything emanates from. The seed the tree grew from.',
+    teach:'Sanskrit बिंदु — point, seed, drop. In English, hiding in plain sight: Bind · U. The gold dot at the top of this page, pulsing — that was Bindu. It\'s been here the whole time. Every system you walked through — every chakra, every body point, every mind doorway — began as this. One point. No dimension. No direction. Just: here.',
+    connect:'You already connected. The first thing you saw on this page was Bindu. The last thing you\'ll see is Bindu. The circle is the teaching.'
+  },
+  axis: {
+    nm:'Axis', role:'The Trunk',
+    fn:'The vertical turn between worlds. Where inner meets outer. The trunk that holds every branch.',
+    teach:'Every time you close your eyes, you enter the inner world — energy, stillness, the soul tree. Every time you open them, you enter the outer world — body, movement, the physical tree. The blink is the Axis. The fastest spiritual practice in existence: one blink, two worlds. Tesla used this consciously. He closed his eyes and saw every gear of his machines — complete, functioning, precise. Then he opened his eyes and built them.',
+    connect:'Close your eyes. Open them. What changed? Everything and nothing. That\'s the Axis. The trunk doesn\'t move. The branches do.'
+  },
+  shadow: {
+    nm:'Shadow', role:'The Roots — What\'s Underground',
+    fn:'What was denied, compressed, pushed underground. Not your darkness — your unborn material.',
+    teach:'The roots of a tree grow in the dark. They never see light. But without them, nothing stands. Shadow is what was compressed, denied, pushed underground — the parts of you that haven\'t arrived yet. Not evil. Not broken. Waiting. The root system is the largest part of most trees. What\'s underground is always larger than what\'s visible.',
+    connect:'The shadow material you encounter through this page, through the panels, through the dances, through the story — it\'s the corridor. Not a dead end. A corridor.'
+  },
+  armin: {
+    nm:'Armin', role:'The Roots — Where They Lead',
+    fn:'Wholeness. Nothing was ever broken. The room the corridor was always leading to.',
+    teach:'From Germanic <em>ermen</em> — whole, universal, complete. The roots don\'t grow toward darkness. They grow toward water. Toward nourishment. Toward the deepest stability. By the time you follow the roots all the way down, you discover nothing needed repair. Only recognition. What looks like your darkest material is a corridor. And the room it leads to is wholeness.',
+    connect:'Shadow → Armin is not a journey from bad to good. It\'s a journey from unseen to recognized. The roots were always whole. You just couldn\'t see them from above.'
+  },
+  maya: {
+    nm:'Maya', role:'The Canopy — The Outer Form',
+    fn:'What was constructed, mistaken for real. The leaves, the bark — what\'s visible from outside.',
+    teach:'Maya is not a lie — it\'s a construction. Your personality, your habits, your assumptions about how reality works. The canopy of a tree is what everyone sees. It\'s beautiful. It changes with seasons. It\'s real. But it\'s not the tree. The tree is the trunk, the roots, the seed. Maya is the game board. You can\'t play without it. But it\'s not the game.',
+    connect:'Look around you. Everything you see is Maya — constructed, temporary, seasonal. That doesn\'t make it less real. It makes it less permanent. The leaves fall. The tree remains.'
+  },
+  aatma: {
+    nm:'Aatma', role:'The Heartwood — What Was There First',
+    fn:'Soul. What was there before the construction began. The wood inside the bark.',
+    teach:'Cut a tree open. The heartwood at the center is the oldest part — it was there when the tree was a sapling. The bark grew around it. The rings accumulated. But the heartwood was first. Aatma is the heartwood. Will. Knowledge. Action. The inner triangle of the Shree Yantra. You already know. You have always known. Maya constructs around it. Aatma was there before the construction began.',
+    connect:'What in you has never changed? Not your body — it\'s replaced itself many times. Not your thoughts — they change by the hour. What has been constant since before you can remember? That\'s Aatma. The heartwood.'
+  }
+};
+
+function showTree(key) {
+  visited.add('s-' + key);
+  const d = treeData[key], el = document.getElementById('tolDetail');
+  el.innerHTML = `
+    <div class="tol-nm">${d.nm}</div>
+    <div class="tol-role">${d.role}</div>
+    <div class="tol-fn">${d.fn}</div>
+    <div class="tol-teach">${d.teach}</div>
+    <div class="tol-connect">${d.connect}</div>`;
+  el.scrollIntoView({ behavior:'smooth', block:'nearest' });
+  check32();
+}
+
+// ====== STRUCTURAL VISITS (legacy compat) ======
+document.querySelectorAll('.sc').forEach(c => {
+  c.addEventListener('click', () => { const nm = c.querySelector('.sc-nm'); if(nm) visited.add('s-'+nm.textContent.trim().toLowerCase()); });
+});
+document.querySelectorAll('.p-nm').forEach(nm => {
+  nm.addEventListener('click', () => { visited.add('s-'+nm.textContent.trim().toLowerCase()); });
+});
+
+// ====== FONT SIZER ======
+let zl = 0;
+const scales = [1, 1.1, 1.2, 1.32];
+function adjZ(d) {
+  zl = Math.max(0, Math.min(3, zl + d));
+  document.documentElement.style.setProperty('--scale', scales[zl]);
+}
+</script>
+</body>
+</html>

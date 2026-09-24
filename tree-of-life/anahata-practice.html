@@ -1,0 +1,3850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anahata — The Heart · A Strange Chakra Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #fdfbf5;
+  --bg: #f5f2ec;
+  --bg-warm: #ede8df;
+  --gold: #C9A84C;
+  --text: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --border: rgba(0,0,0,0.07);
+
+  /* Anahata — leaf-green, calibrated for cream. The unstruck sound's color. */
+  --chakra: #1A8A38;
+  --chakra-tint: rgba(26,138,56,0.05);
+  --chakra-border: rgba(26,138,56,0.18);
+  --chakra-glow: rgba(39,174,96,0.5);
+  --chakra-bright: #27AE60;  /* interactive counter-glow — the heart at full open */
+
+  /* The next chakra — Vishuddha's throat-blue. The exit love discovers when it overflows.
+     Slightly brightened from the cream-calibrated #1A38B0 so it reads cleanly on the dark threshold scene. */
+  /* The next chakra — Vishuddha's deep blue. Canonical value from color-system.md,
+     cream-calibrated. The pigment the threshold opens onto. */
+  --next-color: #1A38B0;
+  --next-glow: rgba(26,56,176,0.55);
+  --threshold-top: 50%;   /* heart-knot sits at exact center — Anahata's architectural position */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: var(--chakra);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--cream);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* A faint green radiance centers. The unstruck sound is already playing — the walker just hasn't gotten quiet enough. */
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(26,138,56,0.06) 0%, transparent 72%),
+    radial-gradient(ellipse 40% 30% at 50% 50%, rgba(39,174,96,0.04) 0%, transparent 80%);
+  pointer-events: none;
+  animation: heroBreath 11s ease-in-out infinite;
+}
+@keyframes heroBreath {
+  0%, 100% { opacity: 0.85; }
+  50%      { opacity: 1;    }
+}
+
+.hero-top-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 28px 36px;
+  display: flex;
+  justify-content: space-between;
+}
+.hero-top-nav a {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26,26,26,0.3);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.hero-top-nav a:hover { color: var(--chakra); }
+
+.hero-count {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.3s forwards;
+}
+
+.hero-verb {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: clamp(80px, 16vw, 148px);
+  letter-spacing: 0.07em;
+  color: var(--chakra);
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: verbIn 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+}
+
+.hero-threshold {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: rgba(26,26,26,0.42);
+  text-align: center;
+  line-height: 1.75;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 1s forwards;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%; transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 1.5s forwards;
+}
+.hero-scroll-hint span {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26,26,26,0.25);
+}
+.scroll-line {
+  width: 1px; height: 36px;
+  background: linear-gradient(to bottom, rgba(26,26,26,0.2), transparent);
+  animation: breathe 2.5s ease-in-out 2s infinite;
+}
+
+@keyframes verbIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.7; }
+}
+
+/* ─── BOOK ─── */
+.book {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--cream);
+  box-shadow: 0 0 80px rgba(0,0,0,0.05);
+}
+.book-inner { padding: 72px 56px; }
+@media (max-width: 640px) {
+  .book-inner { padding: 48px 24px; }
+}
+
+/* ─── IDENTITY ─── */
+.identity {
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.chakra-sanskrit {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.chakra-english {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 20px;
+}
+.chakra-essence {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.chakra-location {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.core-question {
+  padding: 18px 22px;
+  background: var(--chakra-tint);
+  border-left: 2px solid var(--chakra);
+}
+.core-question-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+.core-question p {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--text);
+  margin: 0;
+}
+.core-question p + p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ─── PROSE ─── */
+p { color: var(--text-secondary); margin-bottom: 20px; }
+em { font-family: 'Lora', serif; font-style: italic; color: var(--text); }
+strong { font-weight: 500; color: var(--text); }
+h3 {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  margin: 48px 0 18px;
+}
+
+/* ─── SEED ─── */
+.seed {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  text-align: center;
+  padding: 30px 0;
+  margin: 40px 0;
+  color: var(--text);
+  border-top: 1px solid rgba(201,168,76,0.3);
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  line-height: 1.6;
+}
+
+/* ─── GO DEEPER ─── */
+.deeper-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s;
+  margin-top: 8px;
+}
+.deeper-toggle:hover { color: var(--chakra); }
+.deeper-toggle::before {
+  content: '';
+  display: block;
+  width: 22px; height: 1px;
+  background: currentColor;
+  transition: width 0.3s;
+}
+.deeper-toggle:hover::before { width: 36px; }
+.deeper-toggle .arrow { margin-left: auto; transition: transform 0.3s; }
+.deeper-toggle.open .arrow { transform: rotate(180deg); }
+
+.deeper-content {
+  display: none;
+  padding: 28px 0 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 18px;
+}
+.deeper-content.open { display: block; }
+.deeper-item { margin-bottom: 28px; }
+.deeper-item-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.deeper-item p { font-size: 15px; line-height: 1.75; color: var(--text-secondary); margin: 0; }
+.frequency-sound {
+  font-family: 'Lora', serif;
+  font-size: 30px;
+  color: var(--chakra);
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 56px 0;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.divider-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* ─── PRACTICE BLOCK ─── */
+.practice-block {
+  background: var(--chakra-tint);
+  border-top: 2px solid var(--chakra-border);
+  border-bottom: 1px solid var(--chakra-border);
+  margin: 0 -56px;
+  padding: 48px 56px;
+}
+@media (max-width: 640px) {
+  .practice-block { margin: 0 -24px; padding: 36px 24px; }
+}
+.practice-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+.practice-block p { color: var(--text-secondary); font-size: 16px; line-height: 1.9; }
+.practice-block strong { color: var(--text); }
+.practice-block em { color: var(--text-secondary); }
+
+/* ─── WRITING ─── */
+.writing-section { margin: 56px 0 48px; }
+.writing-prompt {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+  line-height: 1.7;
+}
+.writing-area {
+  width: 100%;
+  min-height: 140px;
+  border: none;
+  border-bottom: 1.5px solid rgba(0,0,0,0.1);
+  background: transparent;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  line-height: 2.2;
+  color: var(--text);
+  resize: none;
+  outline: none;
+  padding: 4px 0 16px;
+  transition: border-color 0.25s;
+  background-image: repeating-linear-gradient(
+    to bottom, transparent, transparent calc(2.2em - 1px),
+    rgba(0,0,0,0.04) calc(2.2em - 1px), rgba(0,0,0,0.04) 2.2em
+  );
+  background-attachment: local;
+}
+.writing-area:focus { border-bottom-color: var(--chakra); }
+.writing-area::placeholder { color: rgba(0,0,0,0.18); font-style: italic; }
+.writing-saved {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.writing-saved.visible { opacity: 1; }
+
+/* Post-write reflection — the heart noticing its own receiving.
+   The Name was offered. The register landing at the writing scale. */
+.writing-reflection {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  max-width: 540px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  transition: max-height 1.6s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              opacity 1.2s ease 0.5s,
+              margin-top 1.2s ease 0.2s;
+}
+.writing-reflection.revealed {
+  max-height: 220px;
+  opacity: 1;
+  margin-top: 28px;
+}
+
+/* ─── PRACTICE OPTIONS ─── */
+.practice-options { margin: 8px 0 0; }
+.practice-option {
+  padding: 18px 22px;
+  background: rgba(0,0,0,0.02);
+  border-radius: 3px;
+  margin-bottom: 10px;
+  border-left: 2px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.practice-option:hover {
+  border-left-color: var(--chakra);
+  background: var(--chakra-tint);
+}
+.practice-option p { font-size: 15px; line-height: 1.75; margin: 0; }
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 56px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+@media (max-width: 640px) { .bottom-nav { padding: 28px 24px; } }
+.nav-link {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--chakra); }
+.nav-position {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+}
+
+hr.book-rule {
+  border: none; height: 1px;
+  background: var(--border);
+  margin: 48px 0;
+}
+
+/* ─── TREE IMAGE ─── */
+/* The tree the text has been pointing at. More space than branch.
+   Birds lifting because the tree grew open enough. Click to look closer. */
+.tree-figure {
+  margin: 48px -16px;
+  cursor: zoom-in;
+  position: relative;
+}
+@media (max-width: 640px) {
+  .tree-figure { margin: 36px -8px; }
+}
+.tree-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 3px;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+  /* Heart breathes — slower than Manipura's 12s fire-pulse. Air-register.
+     Three inhales-one-exhale tempo at the tree-scale: 14s full cycle. */
+  animation: treeBreath 14s ease-in-out infinite;
+}
+.tree-figure:hover .tree-image {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(26,138,56,0.22), 0 2px 8px rgba(0,0,0,0.08);
+}
+.tree-hint {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 18px;
+  letter-spacing: 0.02em;
+  transition: color 0.3s;
+}
+.tree-figure:hover .tree-hint { color: var(--chakra); }
+
+@keyframes treeBreath {
+  0%, 100% { transform: scale(1.000); }
+  50%      { transform: scale(1.005); }
+}
+
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Near-black with cool-green undertone — not pure black, this is the forest-dark */
+  background: radial-gradient(ellipse at center, #0a1a0f 0%, #02060a 78%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease;
+}
+.lightbox-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-image {
+  max-width: 96vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  transform-origin: center center;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+  will-change: transform;
+}
+.lightbox-image.dragging { transition: none; cursor: grabbing; }
+.lightbox-image.zoomed { cursor: grab; }
+
+.lightbox-close {
+  position: absolute;
+  top: 22px; right: 22px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  z-index: 2;
+}
+.lightbox-close:hover {
+  background: rgba(26,138,56,0.22);
+  color: rgba(255,255,255,0.95);
+  border-color: rgba(39,174,96,0.55);
+}
+
+.lightbox-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(255,255,255,0.48);
+  letter-spacing: 0.06em;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  padding: 10px 20px;
+  background: rgba(0,0,0,0.28);
+  border-radius: 3px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  max-width: calc(100vw - 40px);
+}
+.lightbox-hint.visible { opacity: 1; }
+.lightbox-hint .sep { opacity: 0.5; margin: 0 8px; }
+
+@media (max-width: 640px) {
+  .lightbox-close { top: 16px; right: 16px; width: 40px; height: 40px; font-size: 16px; }
+  .lightbox-hint { bottom: 20px; font-size: 12px; padding: 8px 14px; }
+}
+
+body.lightbox-open { overflow: hidden; }
+
+/* ─── WHERE THE CHAMBERS LEAD ─── */
+/* Each chamber a space with doors. The page was one door. Two more open here. */
+.chambers-lead {
+  margin: 56px 0 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.wchl-toggle {
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  letter-spacing: 0.01em;
+  transition: color 0.25s;
+}
+.wchl-toggle:hover { color: var(--chakra); }
+.wchl-toggle-indicator {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.25s;
+  line-height: 1;
+}
+.wchl-toggle:hover .wchl-toggle-indicator { color: var(--chakra); }
+.chambers-lead.open .wchl-toggle-indicator { transform: rotate(180deg); }
+
+.wchl-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.chambers-lead.open .wchl-content {
+  max-height: 3600px;
+  transition: max-height 1.1s cubic-bezier(0.16,1,0.3,1);
+}
+.chambers-lead-label {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.chambers-lead-intro {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  line-height: 1.7;
+  padding-top: 4px;
+}
+.chambers-grid {
+  display: grid;
+  grid-template-columns: 1fr;  /* stacked — each chamber gets its own moment */
+  gap: 40px;
+}
+@media (max-width: 640px) {
+  .chambers-grid { gap: 32px; }
+}
+.chamber-door {
+  display: block;
+  padding: 28px 26px;
+  background: rgba(26,138,56,0.05);
+  border: 1px solid rgba(26,138,56,0.18);
+  border-radius: 3px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              background 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+.chamber-door:hover {
+  transform: translateY(-2px);
+  background: rgba(26,138,56,0.09);
+  border-color: rgba(26,138,56,0.38);
+  box-shadow: 0 8px 28px rgba(26,138,56,0.15),
+              0 2px 8px rgba(39,174,96,0.08);
+}
+
+.door-meta {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+.door-title {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.door-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+.door-text em {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.door-enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.25s;
+}
+.chamber-door:hover .door-enter { color: var(--chakra); }
+.door-arrow {
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  position: relative;
+  transition: width 0.35s ease;
+}
+.door-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 7px; height: 7px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+.chamber-door:hover .door-arrow { width: 42px; }
+
+/* Text content must sit above the glyph */
+.door-meta, .door-title, .door-text, .door-enter {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cream gradient overlay so text reads cleanly over glyph */
+.chamber-door::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(253,251,245,0.0) 0%,
+    rgba(253,251,245,0.45) 30%,
+    rgba(253,251,245,0.62) 70%,
+    rgba(253,251,245,0.28) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  opacity: 0.92;
+}
+.chamber-door:hover::after { opacity: 0.78; }
+
+/* ─── DOOR GLYPHS · FULL-CARD SIGILS · Anahata ─── */
+/* Wakeup: Central heart-knot surrounded by 14 interlocking triangles (Chaturdasha Trikona).
+           Six Shakti-points at trikona vertices. Ambient triangle counter-rotation.
+           On hover: knot dilates, triangles interlock tighter.
+   Dance:  Central heart pulsing at 72 BPM with three concentric breath-rings expanding in stagger.
+           Ambient heart-beat, staggered ring-expansions encode three-inhales-one-long-exhale.
+           On hover: heart opens at cleft, motes float outward. */
+
+.door-glyph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.45;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.chamber-door:hover .door-glyph { opacity: 0.8; }
+
+/* ── Wakeup Glyph — fourteen around the one, heart-knot at center ── */
+.wg-heart-knot {
+  fill: var(--chakra);
+  opacity: 0.78;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wgKnotPulse 10s ease-in-out infinite;
+}
+@keyframes wgKnotPulse {
+  /* Three-inhales-one-long-exhale at the card scale: 10s cycle, three small inhale-peaks before the largest */
+  0%   { transform: scale(1);    opacity: 0.7; }
+  18%  { transform: scale(1.04); opacity: 0.82; }
+  30%  { transform: scale(1.00); opacity: 0.7; }
+  48%  { transform: scale(1.08); opacity: 0.9; }
+  60%  { transform: scale(1.00); opacity: 0.68; }
+  78%  { transform: scale(1.12); opacity: 1;   }
+  100% { transform: scale(1);    opacity: 0.7; }
+}
+
+/* The 14 triangles — 7 upward + 7 downward, rotating in counter-directions */
+.wg-triangles-up {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wgTrianglesUp 60s linear infinite;
+}
+.wg-triangles-down {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wgTrianglesDown 60s linear infinite;
+}
+@keyframes wgTrianglesUp {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(360deg); }
+}
+@keyframes wgTrianglesDown {
+  from { transform: rotate(0deg);   }
+  to   { transform: rotate(-360deg); }
+}
+.wg-triangle {
+  fill: none;
+  stroke: var(--chakra);
+  stroke-width: 0.5;
+  opacity: 0.48;
+}
+
+/* Six Shakti points around the trikona — Kulakula forces, each twinkling in stagger */
+.wg-shakti {
+  fill: var(--chakra);
+  opacity: 0.62;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wgShaktiTwinkle 8s ease-in-out infinite;
+}
+.wg-shakti.s1 { animation-delay: 0s;   }
+.wg-shakti.s2 { animation-delay: -1.3s; }
+.wg-shakti.s3 { animation-delay: -2.6s; }
+.wg-shakti.s4 { animation-delay: -4.0s; }
+.wg-shakti.s5 { animation-delay: -5.3s; }
+.wg-shakti.s6 { animation-delay: -6.6s; }
+@keyframes wgShaktiTwinkle {
+  0%, 100% { transform: scale(1);    opacity: 0.55; }
+  50%      { transform: scale(1.25); opacity: 0.95; }
+}
+
+/* On hover: knot pulses faster, triangles interlock tighter, Shaktis brighten */
+.chamber-door.wakeup:hover .wg-heart-knot     { animation-duration: 5s; }
+.chamber-door.wakeup:hover .wg-triangles-up   { animation-duration: 30s; }
+.chamber-door.wakeup:hover .wg-triangles-down { animation-duration: 30s; }
+.chamber-door.wakeup:hover .wg-shakti         { animation-duration: 4s; }
+
+.chamber-door.wakeup {
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1),
+              background 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.5s ease;
+}
+.chamber-door.wakeup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(26,138,56,0.18),
+              0 2px 10px rgba(39,174,96,0.14);
+}
+
+/* ── Dance Glyph — central heart pulsing, three breath-rings staggered ── */
+.dg-baseline {
+  stroke: var(--chakra);
+  stroke-width: 0.6;
+  stroke-linecap: round;
+  opacity: 0.28;
+}
+.dg-heart {
+  fill: none;
+  stroke: var(--chakra);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dgHeartbeat 1.2s ease-in-out infinite;  /* 72 BPM — Pulse register */
+}
+@keyframes dgHeartbeat {
+  0%, 100% { transform: scale(1);    opacity: 0.78; }
+  18%      { transform: scale(1.06); opacity: 1;    }
+  42%      { transform: scale(1);    opacity: 0.78; }
+  52%      { transform: scale(1.03); opacity: 0.88; }
+}
+
+.dg-ring {
+  fill: none;
+  stroke: var(--chakra-bright);
+  stroke-width: 0.8;
+  stroke-linecap: round;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dgRingExpand 12s ease-out infinite;
+}
+.dg-ring.r1 { animation-delay: 0s;   }
+.dg-ring.r2 { animation-delay: 2s;   }
+.dg-ring.r3 { animation-delay: 4s;   }
+@keyframes dgRingExpand {
+  /* Three rings stagger across 12s — three inhales of increasing reach.
+     Each ring expands from ~0.4x to ~1.8x its base radius, fading as it grows. */
+  0%   { transform: scale(0.4); opacity: 0;    }
+  10%  {                        opacity: 0.85; }
+  60%  {                        opacity: 0.45; }
+  100% { transform: scale(1.8); opacity: 0;    }
+}
+
+/* Small heart-mote, ambient */
+.dg-mote {
+  fill: var(--chakra);
+  opacity: 0.5;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dgMoteDrift 9s ease-in-out infinite;
+}
+.dg-mote.m1 { animation-delay: 0s;   }
+.dg-mote.m2 { animation-delay: -3s;  }
+.dg-mote.m3 { animation-delay: -6s;  }
+@keyframes dgMoteDrift {
+  0%, 100% { transform: translate(0, 0)      scale(1);    opacity: 0.35; }
+  50%      { transform: translate(4px, -6px) scale(1.25); opacity: 0.75; }
+}
+
+/* On hover: heart opens, motes expand, rings speed up */
+.chamber-door.dance:hover .dg-heart { animation-duration: 0.85s; }
+.chamber-door.dance:hover .dg-ring  { animation-duration: 10s; }
+.chamber-door.dance:hover .dg-mote  { animation-duration: 5s; opacity: 0.9; }
+
+.chamber-door.dance {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.5s ease;
+}
+.chamber-door.dance:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(26,138,56,0.16),
+              0 2px 14px rgba(39,174,96,0.1);
+}
+
+@media (max-width: 640px) {
+  .door-glyph { opacity: 0.38; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wg-heart-knot, .wg-shakti, .wg-triangles-up, .wg-triangles-down,
+  .dg-heart, .dg-ring, .dg-mote,
+  .chamber-door.wakeup:hover, .chamber-door.dance:hover {
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* ─── STORY PORTAL · THE HEART PREVIEW ─── */
+/* A full region with the heart-knot already glowing, breath already moving.
+   Same forest-dark green as the Story Mode scene, so the flip feels continuous.
+   Gated on writing-area engagement — reveals once the walker has offered. */
+.story-portal {
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+  background: radial-gradient(ellipse at 50% 50%, #0F3820 0%, #061812 85%);
+  border: 1px solid rgba(26,138,56,0.28);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  color: rgba(232,250,236,0.9);
+  font-family: 'DM Sans', sans-serif;
+  padding: 56px 40px;
+  margin: 48px 0 12px;
+  max-height: 0;
+  opacity: 0;
+  transition: color 0.3s ease,
+              max-height 1.6s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              opacity 1.4s ease 0.4s,
+              padding 0.5s ease,
+              margin 0.5s ease,
+              border-color 0.5s ease,
+              box-shadow 0.5s ease,
+              transform 0.5s ease;
+}
+.story-portal.revealed {
+  max-height: 620px;
+  opacity: 1;
+}
+.story-portal:hover {
+  border-color: rgba(39,174,96,0.52);
+  box-shadow: 0 0 0 1px rgba(26,138,56,0.32),
+              0 16px 48px rgba(6,24,18,0.55);
+  transform: translateY(-2px);
+}
+
+/* ── Background layers ── */
+.sp-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: block;
+}
+
+/* Faint Chaturdasha Trikona ghosted in the background — the architecture.
+   14 triangles in star-like interlocking geometry. */
+.sp-trikona {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 380px; height: 380px;
+  transform: translate(-50%, -52%);
+  opacity: 0.16;
+  animation: spTrikonaBreath 11s ease-in-out infinite;
+  display: block;
+}
+.sp-trikona svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.sp-trikona .tri-up   { fill: none; stroke: rgba(232,200,140,0.5); stroke-width: 0.6; }
+.sp-trikona .tri-down { fill: none; stroke: rgba(180,220,180,0.5); stroke-width: 0.6; }
+@keyframes spTrikonaBreath {
+  0%, 100% { opacity: 0.12; transform: translate(-50%, -52%) scale(1);    }
+  50%      { opacity: 0.24; transform: translate(-50%, -52%) scale(1.03); }
+}
+
+/* Central breath-glow — the unstruck sound's field, already present */
+.sp-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(39,174,96,0.22) 0%,
+    rgba(26,138,56,0.1) 40%,
+    transparent 72%);
+  filter: blur(4px);
+  animation: spGlowBreath 7s ease-in-out infinite;
+  display: block;
+}
+@keyframes spGlowBreath {
+  0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1);    }
+  50%      { opacity: 1;   transform: translate(-50%, -50%) scale(1.18); }
+}
+
+/* Air-shimmer — soft diagonal breath moving across, echoing the song's three-inhale arc */
+.sp-shimmer {
+  position: absolute;
+  top: -30%; left: -60%;
+  width: 220%; height: 160%;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(39,174,96,0.05) 46%,
+    rgba(39,174,96,0.14) 50%,
+    rgba(39,174,96,0.05) 54%,
+    transparent 65%
+  );
+  animation: spShimmer 9s linear infinite;
+  display: block;
+}
+@keyframes spShimmer {
+  0%   { transform: translateX(-55%); }
+  100% { transform: translateX(55%);  }
+}
+
+/* ── Content layer ── */
+.sp-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  z-index: 2;
+  text-align: center;
+}
+
+.sp-label {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(180,220,190,0.88);
+  font-weight: 400;
+}
+
+.sp-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--chakra-bright);  /* The bright green — the heart's jewel */
+  box-shadow: 0 0 22px rgba(39,174,96,0.7),
+              0 0 48px rgba(39,174,96,0.32);
+  animation: spDotBreath 5.5s ease-in-out infinite;
+  display: block;
+}
+@keyframes spDotBreath {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 22px rgba(39,174,96,0.7),  0 0 48px rgba(39,174,96,0.32); }
+  50%      { transform: scale(1.2);  box-shadow: 0 0 34px rgba(39,174,96,0.95), 0 0 68px rgba(39,174,96,0.44); }
+}
+
+.sp-headline {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(19px, 3vw, 23px);
+  color: rgba(232,250,236,0.95);
+  line-height: 1.5;
+  max-width: 480px;
+  text-shadow: 0 0 24px rgba(26,138,56,0.32);
+}
+
+.sp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232,250,236,0.6);
+  padding: 14px 2px 2px;
+  border-top: 1px solid rgba(26,138,56,0.4);
+  margin-top: 6px;
+  transition: color 0.35s, border-color 0.35s;
+}
+.story-portal:hover .sp-cta {
+  color: rgba(232,250,236,0.96);
+  border-top-color: rgba(39,174,96,0.6);
+}
+.sp-cta-arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.story-portal:hover .sp-cta-arrow { transform: translateX(7px); }
+
+/* Hover intensifies background motion — the heart noticed you */
+.story-portal:hover .sp-shimmer { animation-duration: 5s; }
+.story-portal:hover .sp-dot     { animation-duration: 2.8s; }
+.story-portal:hover .sp-glow    { animation-duration: 3.8s; }
+.story-portal:hover .sp-trikona { animation-duration: 6s; }
+
+@media (max-width: 640px) {
+  .story-portal {
+    padding: 44px 24px;
+    min-height: 260px;
+  }
+  .sp-headline { font-size: 17px; }
+  .sp-glow    { width: 220px; height: 220px; }
+  .sp-trikona { width: 240px; height: 240px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-shimmer, .sp-glow, .sp-dot, .sp-trikona {
+    animation: none;
+  }
+}
+
+/* ═══ STORY MODE · THE HEART ═══
+   Anahata — the forest-dark scene, heart-knot at center, Chaturdasha Trikona
+   interlocking, six Kulakula Shaktis, YAM at center, tree silhouette with
+   birds lifting, breath-glow expanding through three inhales with the long exhale.
+   Eleven beats. The heart-form auto-draws at beat 10.
+   */
+
+.story-mode {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  perspective: 1800px;
+  /* V5 Locked Decision 24: solid base so veil transitions never bleed the page through */
+  background: #060308;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0s linear 1.6s;
+}
+.story-mode.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s ease, visibility 0s linear;
+}
+
+body.story-open { overflow: hidden; }
+
+.story-scene {
+  position: absolute;
+  inset: 0;
+  /* Forest-dark — same as Story Portal so the flip feels continuous */
+  background: radial-gradient(ellipse at 50% 50%, #0F3820 0%, #061812 85%);
+  transform: rotateY(-180deg) scale(0.96);
+  transform-origin: right center;
+  transition: transform 1.55s cubic-bezier(0.16,1,0.3,1),
+              background 3.4s ease;
+  backface-visibility: hidden;
+  overflow: hidden;
+  color: rgba(232,250,236,0.88);
+  font-family: 'Lora', serif;
+  cursor: pointer;
+}
+.story-mode.active .story-scene {
+  transform: rotateY(0deg) scale(1);
+}
+
+/* ══ Breath-glow — the unstruck sound's field, continuous ══ */
+.an-breath-glow {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: clamp(340px, 58vmin, 540px);
+  height: clamp(340px, 58vmin, 540px);
+  transform: translate(-50%, -50%) scale(0.6);
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(39,174,96,0.22) 0%,
+    rgba(26,138,56,0.12) 38%,
+    rgba(26,138,56,0.04) 68%,
+    transparent 85%);
+  filter: blur(8px);
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 2.4s ease, transform 2.4s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.story-scene.first-inhale  .an-breath-glow { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); }
+.story-scene.second-inhale .an-breath-glow { opacity: 0.72; transform: translate(-50%, -50%) scale(1);    }
+.story-scene.walls-doors   .an-breath-glow { opacity: 0.8;  transform: translate(-50%, -50%) scale(1.08); }
+.story-scene.exhale        .an-breath-glow { opacity: 0.22; transform: translate(-50%, -50%) scale(0.82); }
+.story-scene.grace-held    .an-breath-glow { opacity: 0.14; transform: translate(-50%, -50%) scale(0.76); }
+.story-scene.fullest-breath .an-breath-glow { opacity: 1;   transform: translate(-50%, -50%) scale(1.22); }
+.story-scene.recognition   .an-breath-glow { opacity: 1;    transform: translate(-50%, -50%) scale(1.28); }
+.story-scene.overflow      .an-breath-glow { opacity: 1;    transform: translate(-50%, -50%) scale(1.32); }
+
+/* ══ Chaturdasha Trikona — fourteen interlocking triangles ══
+   Seven upward + seven downward, rendered as SVG.
+   Each triangle has 14-fold rotational symmetry in its group, with the two
+   groups offset by half a step (~25.7°) so they interlock.
+   Opacity rises across beats as the architecture becomes legible. */
+
+.an-trikona {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: clamp(320px, 56vmin, 520px);
+  height: clamp(320px, 56vmin, 520px);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 3;
+  transition: opacity 2.2s ease, transform 3.4s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.an-trikona svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.story-scene.first-inhale  .an-trikona { opacity: 0.18; }
+.story-scene.unstruck      .an-trikona { opacity: 0.28; }
+.story-scene.second-inhale .an-trikona { opacity: 0.42; }
+.story-scene.walls-doors   .an-trikona { opacity: 0.62; transform: translate(-50%, -50%) scale(1.02); }
+.story-scene.exhale        .an-trikona { opacity: 0.32; transform: translate(-50%, -50%) scale(0.98); }
+.story-scene.grace-held    .an-trikona { opacity: 0.22; transform: translate(-50%, -50%) scale(0.96); }
+.story-scene.fullest-breath .an-trikona { opacity: 0.88; transform: translate(-50%, -50%) scale(1.04); }
+.story-scene.recognition   .an-trikona { opacity: 1;    transform: translate(-50%, -50%) scale(1.04); }
+.story-scene.overflow      .an-trikona { opacity: 0.95; transform: translate(-50%, -50%) scale(1.04); }
+
+.an-tri-up {
+  fill: none;
+  stroke: rgba(232,200,140,0.6);   /* soft gold — the ascending current */
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+  transition: stroke 1.6s ease;
+}
+.an-tri-down {
+  fill: none;
+  stroke: rgba(180,220,180,0.6);   /* soft green — the descending current */
+  stroke-width: 0.9;
+  stroke-linejoin: round;
+  transform-box: view-box;
+  transform-origin: 100px 100px;
+  transition: stroke 1.6s ease;
+}
+/* At walls-doors, the Chaturdasha Trikona brightens — the first interlocking of
+   ascending and descending becomes legible */
+.story-scene.walls-doors   .an-tri-up,
+.story-scene.fullest-breath .an-tri-up,
+.story-scene.recognition   .an-tri-up { stroke: rgba(245,220,160,0.85); stroke-width: 1.1; }
+.story-scene.walls-doors   .an-tri-down,
+.story-scene.fullest-breath .an-tri-down,
+.story-scene.recognition   .an-tri-down { stroke: rgba(200,235,200,0.85); stroke-width: 1.1; }
+
+/* ══ Six Kulakula Shaktis — small pulse-points around the heart-knot ══
+   Positioned at 60° apart. The six forces named on the tree:
+   Samkshobhini, Vidrāvinī, Ākarshini, Sammohini, Stambhini, Jrumbhini.
+   They brighten at walls-doors; Sammohini has a slightly larger halo at recognition
+   (Panel 4's named Shakti). */
+.an-shakti-point {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(232,200,140,0.95) 0%,
+    rgba(221,180,80,0.55)  50%,
+    transparent            100%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 1.6s ease, transform 1.4s cubic-bezier(0.16,1,0.3,1);
+  filter: blur(0.4px);
+  box-shadow: 0 0 10px rgba(221,180,80,0.55),
+              0 0 22px rgba(221,180,80,0.22);
+}
+/* Six positions around center (50%/50%). 60° apart, radius ~22vmin */
+.an-shakti-point.sp-samkshobhini { top: 50%; left: 50%; margin: -20vmin 0 0 0;    }  /* top (N)    */
+.an-shakti-point.sp-vidravini    { top: 50%; left: 50%; margin: -10vmin 0 0 17.3vmin; }  /* NE  */
+.an-shakti-point.sp-akarshini    { top: 50%; left: 50%; margin:  10vmin 0 0 17.3vmin; }  /* SE  */
+.an-shakti-point.sp-sammohini    { top: 50%; left: 50%; margin:  20vmin 0 0 0;    }  /* bottom (S) — the named one */
+.an-shakti-point.sp-stambhini    { top: 50%; left: 50%; margin:  10vmin 0 0 -17.3vmin; }  /* SW  */
+.an-shakti-point.sp-jrumbhini    { top: 50%; left: 50%; margin: -10vmin 0 0 -17.3vmin; }  /* NW  */
+
+/* Shakti brightening across beats */
+.story-scene.second-inhale .an-shakti-point { opacity: 0.5;  transform: translate(-50%, -50%) scale(0.9); }
+.story-scene.walls-doors   .an-shakti-point { opacity: 1;    transform: translate(-50%, -50%) scale(1);   }
+.story-scene.exhale        .an-shakti-point { opacity: 0.3;  transform: translate(-50%, -50%) scale(0.85); }
+.story-scene.grace-held    .an-shakti-point { opacity: 0.18; transform: translate(-50%, -50%) scale(0.8);  }
+.story-scene.fullest-breath .an-shakti-point { opacity: 1;   transform: translate(-50%, -50%) scale(1.1); }
+.story-scene.recognition   .an-shakti-point { opacity: 1;    transform: translate(-50%, -50%) scale(1);   }
+.story-scene.overflow      .an-shakti-point { opacity: 0.88; transform: translate(-50%, -50%) scale(1);   }
+
+/* Sammohini — the named Shakti, slightly larger at recognition */
+.story-scene.recognition .an-shakti-point.sp-sammohini {
+  transform: translate(-50%, -50%) scale(1.35);
+  box-shadow: 0 0 14px rgba(232,200,140,0.8),
+              0 0 32px rgba(232,200,140,0.45);
+}
+
+/* Sammohini label — appears at fullest-breath */
+.an-shakti-label {
+  position: absolute;
+  top: 50%; left: 50%;
+  margin: 20vmin 0 0 0;
+  transform: translate(-50%, 30px);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 12px;
+  color: rgba(232,200,140,0.7);
+  letter-spacing: 0.14em;
+  white-space: nowrap;
+  opacity: 0;
+  z-index: 6;
+  text-shadow: 0 0 8px rgba(26,138,56,0.4);
+  transition: opacity 1.6s ease;
+  pointer-events: none;
+}
+.story-scene.fullest-breath .an-shakti-label,
+.story-scene.recognition    .an-shakti-label { opacity: 0.85; }
+.story-scene.overflow       .an-shakti-label { opacity: 0.7;  }
+
+/* ══ Central heart-knot — tight coiled shape, loosens across beats ══
+   SVG rendered as an interleaved knot that unfolds. Base state: tight coil.
+   At unstruck: slight loosening. At walls-doors: loosens more. At fullest-breath:
+   nearly fully open. At recognition: dissolves entirely as the heart-form draws. */
+.an-heart-knot {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: clamp(110px, 18vmin, 170px);
+  height: clamp(110px, 18vmin, 170px);
+  transform: translate(-50%, -50%) scale(0.85);
+  opacity: 0.9;
+  z-index: 7;
+  transition: opacity 2s ease, transform 2.4s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.an-heart-knot svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.an-knot-path {
+  fill: none;
+  stroke: rgba(245,220,180,0.75);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 1.8s ease, stroke-width 1.8s ease;
+}
+.story-scene.unstruck       .an-heart-knot { transform: translate(-50%, -50%) scale(0.95); opacity: 0.92; }
+.story-scene.second-inhale  .an-heart-knot { transform: translate(-50%, -50%) scale(1);    opacity: 0.92; }
+.story-scene.walls-doors    .an-heart-knot { transform: translate(-50%, -50%) scale(1.08); opacity: 0.85; }
+.story-scene.exhale         .an-heart-knot { transform: translate(-50%, -50%) scale(0.78); opacity: 0.32; }
+.story-scene.grace-held     .an-heart-knot { transform: translate(-50%, -50%) scale(0.7);  opacity: 0.15; }
+.story-scene.fullest-breath .an-heart-knot { transform: translate(-50%, -50%) scale(1.18); opacity: 0.7;  }
+.story-scene.recognition    .an-heart-knot { transform: translate(-50%, -50%) scale(1.3);  opacity: 0;    }
+.story-scene.overflow       .an-heart-knot { transform: translate(-50%, -50%) scale(1.3);  opacity: 0;    }
+
+/* At walls-doors the knot's stroke softens slightly — the coil loosens */
+.story-scene.walls-doors .an-knot-path,
+.story-scene.fullest-breath .an-knot-path { stroke: rgba(255,240,200,0.85); stroke-width: 1.1; }
+
+/* ══ YAM yantra — Devanagari यं at center, soft-glowing gold ══ */
+.an-yam {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  font-family: 'Lora', serif;
+  font-size: clamp(26px, 4vmin, 38px);
+  font-weight: 400;
+  color: rgba(255,240,200,0.88);
+  text-shadow: 0 0 14px rgba(232,200,140,0.7),
+               0 0 28px rgba(232,200,140,0.28);
+  opacity: 0;
+  z-index: 8;
+  transition: opacity 2s ease, transform 2.4s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+  letter-spacing: 0.02em;
+}
+.story-scene.unstruck       .an-yam { opacity: 0.55; transform: translate(-50%, -50%) scale(0.85); }
+.story-scene.second-inhale  .an-yam { opacity: 0.7;  transform: translate(-50%, -50%) scale(0.92); }
+.story-scene.walls-doors    .an-yam { opacity: 0.85; transform: translate(-50%, -50%) scale(1);    }
+.story-scene.exhale         .an-yam { opacity: 0.32; transform: translate(-50%, -50%) scale(0.88); }
+.story-scene.grace-held     .an-yam { opacity: 0.18; transform: translate(-50%, -50%) scale(0.82); }
+.story-scene.fullest-breath .an-yam { opacity: 1;    transform: translate(-50%, -50%) scale(1.08); text-shadow: 0 0 22px rgba(232,200,140,0.88), 0 0 48px rgba(232,200,140,0.38); }
+.story-scene.recognition    .an-yam { opacity: 1;    transform: translate(-50%, -50%) scale(1.08); text-shadow: 0 0 22px rgba(232,200,140,0.88), 0 0 48px rgba(232,200,140,0.38); }
+.story-scene.overflow       .an-yam { opacity: 0.9;  transform: translate(-50%, -50%) scale(1.08); }
+
+/* ══ Heart-form — auto-drawn at beat 10 (recognition) ══
+   A large heart path that traces itself across the scene, connecting the trikona
+   vertices. Uses stroke-dasharray + stroke-dashoffset for the reveal.
+   One-shot animation triggered by .recognition class. */
+.an-heart-form {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: clamp(320px, 56vmin, 520px);
+  height: clamp(320px, 56vmin, 520px);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  z-index: 9;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+.an-heart-form svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.an-heart-path {
+  fill: none;
+  stroke: rgba(39,174,96,0.92);
+  stroke-width: 2.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  filter: drop-shadow(0 0 14px rgba(39,174,96,0.6));
+}
+.story-scene.recognition .an-heart-form,
+.story-scene.overflow    .an-heart-form { opacity: 1; }
+.story-scene.recognition .an-heart-path,
+.story-scene.overflow    .an-heart-path {
+  animation: anHeartDraw 2.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes anHeartDraw {
+  0%   { stroke-dashoffset: 1200; opacity: 0.7; }
+  25%  {                          opacity: 1;   }
+  100% { stroke-dashoffset: 0;    opacity: 1;   }
+}
+
+/* ══ Tree silhouette — bottom of scene ══
+   A simplified tree outline at the scene's lower edge. Birds sit in branches
+   initially and lift across beats 3-9 as the heart opens. */
+.an-tree-silhouette {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(720px, 92vw);
+  height: 18vmin;
+  max-height: 160px;
+  min-height: 100px;
+  pointer-events: none;
+  z-index: 4;
+  opacity: 0.78;
+  transition: opacity 2.4s ease;
+}
+.an-tree-silhouette svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.an-tree-path {
+  fill: none;
+  stroke: rgba(40,90,55,0.65);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.story-scene.exhale     .an-tree-silhouette { opacity: 0.55; }
+.story-scene.grace-held .an-tree-silhouette { opacity: 0.42; }
+.story-scene.fullest-breath .an-tree-silhouette,
+.story-scene.recognition .an-tree-silhouette { opacity: 0.88; }
+
+/* ══ Birds — 8 birds sitting in the tree, lifting across beats ══
+   Birds lift in staggered sequence during first-inhale → fullest-breath.
+   Each bird has its own starting position in the tree and its own flight path. */
+.an-bird {
+  position: absolute;
+  bottom: 14vmin;
+  width: 10px;
+  height: 6px;
+  opacity: 0;
+  z-index: 6;
+  pointer-events: none;
+  /* Default state — bird sits in branch, nearly invisible */
+}
+.an-bird svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+.an-bird-path {
+  fill: none;
+  stroke: rgba(245,220,180,0.85);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+}
+
+/* Bird starting positions — spread across tree width */
+.an-bird.b1 { left: 22%; bottom: 16vmin; }
+.an-bird.b2 { left: 32%; bottom: 17vmin; }
+.an-bird.b3 { left: 40%; bottom: 15vmin; }
+.an-bird.b4 { left: 48%; bottom: 17vmin; }
+.an-bird.b5 { left: 56%; bottom: 15vmin; }
+.an-bird.b6 { left: 62%; bottom: 17vmin; }
+.an-bird.b7 { left: 70%; bottom: 16vmin; }
+.an-bird.b8 { left: 78%; bottom: 15vmin; }
+
+/* Birds appear as dots resting in tree — faint but visible */
+.story-scene.quiet        .an-bird { opacity: 0.3; transform: translateY(0) scale(0.6); transition: opacity 1.4s ease, transform 1.4s ease; }
+.story-scene.first-inhale .an-bird { opacity: 0.35; transform: translateY(0) scale(0.6); transition: opacity 1.4s ease, transform 1.4s ease; }
+
+/* First-inhale — bird 1 lifts */
+.story-scene.first-inhale .an-bird.b1 {
+  opacity: 0.9;
+  transform: translate(8px, -40px) scale(0.9);
+  transition: opacity 2s ease, transform 3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Unstruck — no new birds yet, bird 1 continues */
+.story-scene.unstruck .an-bird.b1 {
+  opacity: 0.85;
+  transform: translate(14px, -70px) scale(0.85);
+  transition: opacity 2s ease, transform 4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.story-scene.unstruck .an-bird { opacity: 0.35; transform: translateY(0) scale(0.6); transition: opacity 1.4s ease, transform 1.4s ease; }
+.story-scene.unstruck .an-bird.b1 { opacity: 0.85; }
+
+/* Second-inhale — birds 2 and 3 lift */
+.story-scene.second-inhale .an-bird.b1 {
+  opacity: 0.7;
+  transform: translate(24px, -120px) scale(0.75);
+  transition: opacity 2.5s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.story-scene.second-inhale .an-bird.b2 {
+  opacity: 0.9;
+  transform: translate(-6px, -50px) scale(0.9);
+  transition: opacity 2s ease, transform 3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.story-scene.second-inhale .an-bird.b3 {
+  opacity: 0.88;
+  transform: translate(10px, -48px) scale(0.9);
+  transition: opacity 2s ease 0.4s, transform 3s cubic-bezier(0.22, 1, 0.36, 1) 0.4s;
+}
+.story-scene.second-inhale .an-bird { opacity: 0.35; }
+
+/* Walls-doors — birds continue in flight, b4 lifts */
+.story-scene.walls-doors .an-bird.b1 { opacity: 0.5; transform: translate(40px, -180px) scale(0.65); transition: opacity 3s ease, transform 6s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.walls-doors .an-bird.b2 { opacity: 0.75; transform: translate(4px, -90px) scale(0.8); transition: opacity 2.4s ease, transform 4.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.walls-doors .an-bird.b3 { opacity: 0.78; transform: translate(22px, -88px) scale(0.8); transition: opacity 2.4s ease, transform 4.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.walls-doors .an-bird.b4 { opacity: 0.9;  transform: translate(-4px, -46px) scale(0.9); transition: opacity 2s ease, transform 3s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.walls-doors .an-bird { opacity: 0.35; }
+
+/* Exhale — birds pause, hover in place, opacity drops slightly */
+.story-scene.exhale .an-bird.b1 { opacity: 0.3; transform: translate(44px, -185px) scale(0.62); transition: opacity 3s ease, transform 3s ease; }
+.story-scene.exhale .an-bird.b2 { opacity: 0.45; transform: translate(6px, -94px) scale(0.75); transition: opacity 3s ease, transform 3s ease; }
+.story-scene.exhale .an-bird.b3 { opacity: 0.45; transform: translate(24px, -92px) scale(0.75); transition: opacity 3s ease, transform 3s ease; }
+.story-scene.exhale .an-bird.b4 { opacity: 0.55; transform: translate(-2px, -52px) scale(0.85); transition: opacity 3s ease, transform 3s ease; }
+.story-scene.exhale .an-bird { opacity: 0.2; }
+
+/* Grace-held — deepest emptying, birds suspended */
+.story-scene.grace-held .an-bird.b1 { opacity: 0.22; }
+.story-scene.grace-held .an-bird.b2 { opacity: 0.35; }
+.story-scene.grace-held .an-bird.b3 { opacity: 0.35; }
+.story-scene.grace-held .an-bird.b4 { opacity: 0.42; }
+.story-scene.grace-held .an-bird { opacity: 0.14; }
+
+/* Fullest-breath — remaining birds (5, 6, 7, 8) all lift; earlier birds continue onward */
+.story-scene.fullest-breath .an-bird.b1 { opacity: 0.4; transform: translate(60px, -240px) scale(0.55); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.fullest-breath .an-bird.b2 { opacity: 0.55; transform: translate(20px, -160px) scale(0.7); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.fullest-breath .an-bird.b3 { opacity: 0.55; transform: translate(36px, -158px) scale(0.7); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.fullest-breath .an-bird.b4 { opacity: 0.7;  transform: translate(14px, -110px) scale(0.78); transition: opacity 2.6s ease, transform 4.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.fullest-breath .an-bird.b5 { opacity: 0.9;  transform: translate(-10px, -50px) scale(0.92); transition: opacity 2s ease, transform 3s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.fullest-breath .an-bird.b6 { opacity: 0.88; transform: translate(6px, -48px) scale(0.9); transition: opacity 2s ease 0.3s, transform 3s cubic-bezier(0.22, 1, 0.36, 1) 0.3s; }
+.story-scene.fullest-breath .an-bird.b7 { opacity: 0.9;  transform: translate(-8px, -46px) scale(0.92); transition: opacity 2s ease 0.6s, transform 3s cubic-bezier(0.22, 1, 0.36, 1) 0.6s; }
+.story-scene.fullest-breath .an-bird.b8 { opacity: 0.88; transform: translate(12px, -48px) scale(0.9); transition: opacity 2s ease 0.9s, transform 3s cubic-bezier(0.22, 1, 0.36, 1) 0.9s; }
+
+/* Recognition — all birds in full flight, dispersing */
+.story-scene.recognition .an-bird.b1 { opacity: 0.3; transform: translate(70px, -280px) scale(0.5); transition: opacity 3.5s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.recognition .an-bird.b2 { opacity: 0.42; transform: translate(28px, -200px) scale(0.6); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.recognition .an-bird.b3 { opacity: 0.42; transform: translate(44px, -198px) scale(0.6); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.recognition .an-bird.b4 { opacity: 0.55; transform: translate(22px, -160px) scale(0.68); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.recognition .an-bird.b5 { opacity: 0.72; transform: translate(-18px, -120px) scale(0.78); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.recognition .an-bird.b6 { opacity: 0.7;  transform: translate(14px, -118px) scale(0.78); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.recognition .an-bird.b7 { opacity: 0.72; transform: translate(-16px, -116px) scale(0.78); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+.story-scene.recognition .an-bird.b8 { opacity: 0.7;  transform: translate(22px, -120px) scale(0.78); transition: opacity 3s ease, transform 5s cubic-bezier(0.22, 1, 0.36, 1); }
+
+/* Overflow — birds dispersed out into the air-register */
+.story-scene.overflow .an-bird.b1 { opacity: 0.2; transform: translate(90px, -340px) scale(0.45); transition: opacity 3.5s ease, transform 5s ease; }
+.story-scene.overflow .an-bird.b2 { opacity: 0.32; transform: translate(36px, -240px) scale(0.55); transition: opacity 3s ease, transform 5s ease; }
+.story-scene.overflow .an-bird.b3 { opacity: 0.32; transform: translate(54px, -238px) scale(0.55); transition: opacity 3s ease, transform 5s ease; }
+.story-scene.overflow .an-bird.b4 { opacity: 0.44; transform: translate(30px, -200px) scale(0.62); transition: opacity 3s ease, transform 5s ease; }
+.story-scene.overflow .an-bird.b5 { opacity: 0.58; transform: translate(-28px, -170px) scale(0.7); transition: opacity 3s ease, transform 5s ease; }
+.story-scene.overflow .an-bird.b6 { opacity: 0.58; transform: translate(22px, -168px) scale(0.7); transition: opacity 3s ease, transform 5s ease; }
+.story-scene.overflow .an-bird.b7 { opacity: 0.58; transform: translate(-24px, -166px) scale(0.7); transition: opacity 3s ease, transform 5s ease; }
+.story-scene.overflow .an-bird.b8 { opacity: 0.55; transform: translate(30px, -170px) scale(0.7); transition: opacity 3s ease, transform 5s ease; }
+
+/* ── Story lines stage (generic) ── */
+.story-lines-stage {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  width: min(640px, 88vw);
+  min-height: 100px;
+  text-align: center;
+  padding: 0 20px;
+  z-index: 20;
+}
+
+.story-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.2vw, 22px);
+  line-height: 1.7;
+  color: rgba(232,250,236,0.94);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1.2s ease, transform 1.4s cubic-bezier(0.16,1,0.3,1);
+  text-shadow: 0 0 16px rgba(0,0,0,0.55);
+}
+.story-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.story-line.fading {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* Tap-to-advance hint */
+.story-tap-hint {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232,250,236,0.32);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  z-index: 20;
+}
+/* Breathing pulse only while visible — when JS removes .visible, animation stops
+   and static opacity:0 takes over, fading cleanly via the transition. */
+.story-tap-hint.visible {
+  opacity: 0.7;
+  animation: storyHintBreath 3.5s ease-in-out infinite;
+}
+@keyframes storyHintBreath {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 0.4; }
+}
+
+@media (max-width: 640px) {
+  .story-tap-hint { bottom: 9%; font-size: 9px; }
+  .story-lines-stage { bottom: 15%; }
+  .an-tree-silhouette { height: 14vmin; min-height: 80px; }
+  .an-bird { width: 8px; height: 5px; }
+}
+
+/* Close button */
+.story-close {
+  position: absolute;
+  top: 22px; right: 22px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(232,250,236,0.05);
+  border: 1px solid rgba(232,250,236,0.14);
+  color: rgba(232,250,236,0.55);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  z-index: 21;
+}
+.story-close:hover {
+  background: rgba(26,138,56,0.26);
+  color: rgba(232,250,236,0.95);
+  border-color: rgba(39,174,96,0.58);
+}
+@media (max-width: 640px) {
+  .story-close { top: 16px; right: 16px; width: 40px; height: 40px; font-size: 16px; }
+}
+
+/* ── Threshold — the passage that opens at the close of the chakra ──
+   After the heart-form auto-draws and "something wants out" lands, the scene
+   darkens, Anahata-register fades, and Vishuddha's first point rises at the
+   heart's center. The exit love discovers when it overflows. */
+
+.story-scene.threshold-open {
+  background: radial-gradient(ellipse at 50% 50%, #0c0402 0%, #020100 95%);
+  transition: background 3.4s ease;
+}
+
+/* Everything Anahata-register fades during threshold */
+.story-scene.threshold-open .an-breath-glow,
+.story-scene.threshold-open .an-trikona,
+.story-scene.threshold-open .an-shakti-point,
+.story-scene.threshold-open .an-shakti-label,
+.story-scene.threshold-open .an-heart-knot,
+.story-scene.threshold-open .an-yam,
+.story-scene.threshold-open .an-heart-form,
+.story-scene.threshold-open .an-tree-silhouette,
+.story-scene.threshold-open .an-bird {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+/* Beat text fades — the recognition landed, words aren't needed anymore */
+.story-scene.threshold-open .story-line {
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+.story-scene.threshold-open .story-lines-stage {
+  pointer-events: none;
+}
+
+/* ── The Threshold Door ── */
+/* Appears at --threshold-top (50% — where the heart-knot was).
+   Vishuddha's blue-point rises where the heart has been. Love discovered the throat. */
+.threshold-door {
+  position: absolute;
+  top: var(--threshold-top, 50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 22;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  padding: 40px;
+  text-decoration: none;
+  color: rgba(232,250,236,0.78);
+  transition: opacity 2s ease 1.6s, color 0.35s ease;
+}
+.story-scene.threshold-open .threshold-door {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.next-point {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--next-color);
+  box-shadow: 0 0 28px var(--next-glow),
+              0 0 72px rgba(26,56,176,0.32);
+  animation: nextPointBreath 4.5s ease-in-out infinite;
+}
+@keyframes nextPointBreath {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 28px var(--next-glow), 0 0 72px rgba(26,56,176,0.32); }
+  50%      { transform: scale(1.22); box-shadow: 0 0 40px rgba(26,56,176,0.9), 0 0 108px rgba(26,56,176,0.48); }
+}
+
+.next-label {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(14px, 2.4vw, 17px);
+  letter-spacing: 0.14em;
+  color: var(--next-color);
+  opacity: 0.9;
+  text-shadow: 0 0 16px rgba(26,56,176,0.32);
+}
+.next-sublabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(232,250,236,0.4);
+  margin-top: -14px;
+}
+
+.threshold-continue-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232,250,236,0.42);
+  padding-top: 14px;
+  border-top: 1px solid rgba(26,56,176,0.28);
+  transition: color 0.35s, border-color 0.35s;
+}
+.threshold-continue-hint .arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+.threshold-door:hover .next-point {
+  animation-duration: 2.8s;
+}
+.threshold-door:hover .threshold-continue-hint {
+  color: var(--next-color);
+  border-top-color: rgba(26,56,176,0.58);
+}
+.threshold-door:hover .threshold-continue-hint .arrow {
+  transform: translateX(8px);
+}
+
+@media (max-width: 640px) {
+  .threshold-door { gap: 22px; padding: 28px; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT VEIL — the dark between-space · #060308
+   Rises after the signature phrase lands. Sakshi's eyes appear,
+   blink once, fade. Press-and-hold 1.8s to enter Act 2.
+   ════════════════════════════════════════════════════════════════════ */
+.act-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: #060308;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 52px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s cubic-bezier(0.4,0,0.2,1);
+}
+.act-veil.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.act-veil.dissolving {
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+
+.veil-eyes {
+  display: flex;
+  gap: 52px;
+  align-items: center;
+  opacity: 0;
+}
+.veil-eyes.visible { opacity: 1; }
+
+.veil-eye {
+  width: 42px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.88);
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.6),
+    0 0 32px rgba(220,240,230,0.3);
+  transform: scaleY(0.06);
+  opacity: 0;
+  transform-origin: center center;
+}
+.veil-eyes.animate .veil-eye {
+  animation: eyeBlink 2s ease-in-out 1 forwards;
+}
+.veil-eyes.animate .veil-eye:nth-child(2) {
+  animation-delay: 0.06s;
+}
+@keyframes eyeBlink {
+  0%   { opacity: 0;   transform: scaleY(0.06); }
+  14%  { opacity: 1;   transform: scaleY(1); }
+  55%  { opacity: 1;   transform: scaleY(1); }
+  64%  { opacity: 1;   transform: scaleY(0.06); }
+  73%  { opacity: 1;   transform: scaleY(1); }
+  88%  { opacity: 0.7; transform: scaleY(1); }
+  100% { opacity: 0;   transform: scaleY(1); }
+}
+
+.veil-invite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+.veil-invite.visible { opacity: 1; }
+
+.veil-invite-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+
+.veil-hold-ring {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
+}
+.veil-hold-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.veil-ring-track {
+  fill: none;
+  stroke: rgba(255,255,255,0.1);
+  stroke-width: 1.5;
+}
+.veil-ring-fill {
+  fill: none;
+  stroke: rgba(255,255,255,0.72);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 201;
+  stroke-dashoffset: 201;
+  transition: stroke-dashoffset linear;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.5));
+}
+.veil-hold-dot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.veil-hold-dot::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  box-shadow: 0 0 14px rgba(255,255,255,0.4);
+  transition: transform 0.3s ease, background 0.3s;
+}
+.veil-hold-ring.holding .veil-hold-dot::after {
+  transform: scale(1.5);
+  background: rgba(255,255,255,0.9);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT 2 — SAKSHI WITNESS (Anahata)
+   Rises after press-and-hold. Ascending field: Anahata green at base →
+   cream mid → silver-white crown. 26 particles rising. Three paragraphs.
+   Anahata's p3 is SINGLE-WORD: "Speak." — punch sizing (not sentence-go).
+   Timing: 1.33× slower pacing (revised April 24) · single-word shape.
+   ════════════════════════════════════════════════════════════════════ */
+.act-two {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2.2s cubic-bezier(0.16,1,0.3,1);
+}
+.act-two.rising {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.act2-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #1A8A38 0%,
+    rgba(26,138,56,0.55) 12%,
+    rgba(206,230,214,0.88) 34%,
+    rgba(250,252,249,0.97) 60%,
+    rgba(255,255,255,0.99) 80%,
+    #ffffff 100%
+  );
+}
+.act2-crown {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 280px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(215,230,255,0.5) 0%, rgba(255,255,255,0) 72%);
+  pointer-events: none;
+}
+.act2-base {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(26,138,56,0.32) 0%, rgba(26,138,56,0) 75%);
+  pointer-events: none;
+}
+.act2-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.act2-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  animation: act2Ascend linear infinite;
+}
+@keyframes act2Ascend {
+  0%   { transform: translateY(0) scale(1);    opacity: 0; }
+  8%   { opacity: var(--p-op); }
+  85%  { opacity: var(--p-op); }
+  100% { transform: translateY(-110vh) scale(0.4); opacity: 0; }
+}
+
+.act2-text-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14vh 28px calc(9vh + 240px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  z-index: 2;
+}
+.act2-text-stage::-webkit-scrollbar { display: none; }
+.act2-para {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3.2vw, 19px);
+  line-height: 2;
+  color: var(--act2-text, rgba(54,24,10,0.88));
+  max-width: min(560px, 92vw);
+  text-align: center;
+  margin: 0 0 1.6em;
+  opacity: 1;
+  transform: none;
+}
+.act2-para:last-child { margin-bottom: 0; }
+.act2-go {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.act2-word {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  will-change: opacity;
+}
+.act2-word.visible {
+  opacity: 1;
+}
+
+/* Vishuddha threshold — rises edge-to-edge from below. Canonical #1A38B0. */
+.act2-door {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+  padding: 36px 32px 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 1.8s cubic-bezier(0.16,1,0.3,1);
+  background: #1A38B0;
+  z-index: 3;
+}
+.act2-door:hover {
+  background: #2548C5;
+}
+.act2-door.risen {
+  transform: translateY(0);
+}
+.act2-door-name {
+  font-family: 'Lora', serif;
+  font-size: clamp(38px, 8vw, 56px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.act2-door-hint {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.8vw, 18px);
+  color: rgba(255,255,255,0.74);
+  letter-spacing: 0.02em;
+}
+.act2-door-continue {
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  transition: color 0.3s;
+}
+.act2-door:hover .act2-door-continue { color: rgba(255,255,255,0.82); }
+
+@media (prefers-reduced-motion: reduce) {
+  .act2-particle { animation: none; opacity: 0.15; }
+  .act2-para { transition: opacity 0.8s ease; transform: none; }
+  .act2-door { transition: transform 0.8s ease; }
+  .act-two { transition: opacity 0.8s ease; }
+  .veil-eyes.animate .veil-eye { animation-duration: 1.2s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .next-point, .threshold-door {
+    animation: none;
+    transition: opacity 0.4s ease;
+  }
+  /* Reduced motion — freeze the scene's autoplay but keep structure visible */
+  .an-breath-glow, .an-shakti-point, .an-heart-knot, .an-yam,
+  .an-heart-form, .an-bird, .story-tap-hint, .story-tap-hint.visible {
+    animation: none;
+    transition: opacity 0.4s ease;
+  }
+  .an-heart-path {
+    stroke-dashoffset: 0;  /* show complete heart-form immediately */
+  }
+  .story-scene {
+    transition: transform 0.4s ease;
+  }
+}
+
+/* ─── Bindu Field card — universal across all chakras ─── */
+.bfg-core {
+  fill: #C9A84C;
+  opacity: 0.95;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgCoreBreath 4.5s ease-in-out infinite;
+}
+@keyframes bfgCoreBreath {
+  0%, 100% { transform: scale(1); opacity: 0.88; }
+  50%      { transform: scale(1.18); opacity: 1; }
+}
+.bfg-wave {
+  fill: none;
+  stroke: #C9A84C;
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgWaveOut 6s ease-out infinite;
+  opacity: 0;
+}
+.bfg-wave.w1 { animation-delay: 0.0s; }
+.bfg-wave.w2 { animation-delay: 1.2s; }
+.bfg-wave.w3 { animation-delay: 2.4s; }
+.bfg-wave.w4 { animation-delay: 3.6s; }
+.bfg-wave.w5 { animation-delay: 4.8s; }
+@keyframes bfgWaveOut {
+  0%   { transform: scale(0.18); opacity: 0.8;  stroke-width: 1.6; }
+  60%  { opacity: 0.35; stroke-width: 1; }
+  100% { transform: scale(1.6);  opacity: 0;    stroke-width: 0.4; }
+}
+.bfg-pos {
+  fill: #C9A84C;
+  opacity: 0.24;
+}
+.bfg-pos.bfg-bindu-pos {
+  opacity: 0.95;
+  animation: bfgBinduPosGlow 4.5s ease-in-out infinite;
+}
+@keyframes bfgBinduPosGlow {
+  0%, 100% { opacity: 0.78; }
+  50%      { opacity: 1; }
+}
+.bfg-thread {
+  stroke: #C9A84C;
+  stroke-width: 0.6;
+  fill: none;
+  stroke-dasharray: 2 3;
+  opacity: 0.28;
+}
+.bindu-field:hover .bfg-wave { animation-duration: 3s; }
+.bindu-field:hover .bfg-wave.w1 { animation-delay: 0.0s; }
+.bindu-field:hover .bfg-wave.w2 { animation-delay: 0.6s; }
+.bindu-field:hover .bfg-wave.w3 { animation-delay: 1.2s; }
+.bindu-field:hover .bfg-wave.w4 { animation-delay: 1.8s; }
+.bindu-field:hover .bfg-wave.w5 { animation-delay: 2.4s; }
+.bindu-field:hover .bfg-core { animation-duration: 2.2s; }
+
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal styles ═══ */
+.essence-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.essence-gate-overlay.visible { opacity: 1; }
+.essence-gate-bindu {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #e8c568;
+  box-shadow: 0 0 18px rgba(232, 197, 104, 0.4);
+  margin-bottom: 32px;
+  animation: egBreath 4s ease-in-out infinite;
+}
+.essence-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(240, 226, 188, 0.92);
+  text-align: center;
+  margin: 0 24px 12px;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-line.visible { opacity: 1; }
+.essence-gate-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(240, 226, 188, 0.62);
+  margin: 0 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-sub.visible { opacity: 1; }
+@keyframes egBreath {
+  0%, 100% { opacity: 0.7; transform: scale(1.0); }
+  50%      { opacity: 1.0; transform: scale(1.08); }
+}
+
+.sequential-gate-surface {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99998;
+  padding: 24px;
+}
+.sequential-gate-tint {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 1;
+}
+.sequential-gate-content {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  text-align: center;
+}
+.sequential-gate-yantra {
+  width: min(60vw, 280px);
+  height: min(60vw, 280px);
+  margin: 0 auto 36px;
+  opacity: 0.06;
+  color: #d4b888;
+}
+.sequential-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: #f5e8c8;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.sequential-gate-prev {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.8vw, 22px);
+  color: rgba(240, 226, 188, 0.82);
+  margin-bottom: 56px;
+  line-height: 1.6;
+}
+.sequential-gate-prev em {
+  color: #f5e8c8;
+  font-style: italic;
+  font-weight: 500;
+}
+.sequential-gate-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #d4b888;
+  background: transparent;
+  border: 1px solid #d4b888;
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sequential-gate-button:hover {
+  color: #f5e8c8;
+  background: rgba(212, 184, 136, 0.12);
+}
+/* ═══ END ESSENCE+SEQUENTIAL GATES ═══ */
+</style>
+</head>
+<body>
+<!-- ═══ ESSENCE+SEQUENTIAL GATES ═══ -->
+<script>
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal logic ═══
+   Injected immediately after <body> opens, before page renders.
+   THIS_CHAKRA placeholder gets replaced with the actual chakra id
+   per file (or '__none__' for index.html which only does essence). */
+(function() {
+  'use strict';
+
+  var CHAKRA_SEQUENCE = ['bindu','muladhara','svadhisthana','manipura',
+                          'anahata','vishuddha','ajna','sahasrara','shadow'];
+  var CHAKRA_DISPLAY = {
+    bindu: 'Bindu', muladhara: 'Muladhara', svadhisthana: 'Svadhisthana',
+    manipura: 'Manipura', anahata: 'Anahata', vishuddha: 'Vishuddha',
+    ajna: 'Ajna', sahasrara: 'Sahasrara', shadow: 'Shadow',
+  };
+  var CHAKRA_COLORS = {
+    bindu: '#e8c568', muladhara: '#b83a3a', svadhisthana: '#d47438',
+    manipura: '#d4a848', anahata: '#6b8e4e', vishuddha: '#4c7ab8',
+    ajna: '#5b4e8e', sahasrara: '#9a7ac8', shadow: '#2a2420',
+  };
+
+  function getEssenceLocal() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function essenceCompleteLocal() {
+    var e = getEssenceLocal();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function isChakraWalked(chakraId) {
+    // Bindu writes 'bindu-point' (coords); all others write 'chakra-{id}'
+    if (chakraId === 'bindu') return !!localStorage.getItem('bindu-point');
+    return !!localStorage.getItem('chakra-' + chakraId);
+  }
+
+  function canAccessChakraLocal(chakraId) {
+    if (isChakraWalked(chakraId)) return true;
+    if (chakraId === 'bindu') return true;
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    if (idx <= 0) return true;
+    var prev = CHAKRA_SEQUENCE[idx - 1];
+    return isChakraWalked(prev);
+  }
+
+  // ── ESSENCE GATE ──
+  /* no gates (standing ruling): essence may personalise, never permit; nothing waits on earlier pages */
+
+  // ── SEQUENTIAL FIRST-WALK GATE ──
+  var THIS_CHAKRA = 'anahata';
+  if (THIS_CHAKRA !== '__none__') {
+    /* sequence gate removed */
+  }
+
+  function showEssenceGate() {
+    var ov = document.createElement('div');
+    ov.className = 'essence-gate-overlay';
+    ov.innerHTML =
+      '<div class="essence-gate-bindu"></div>' +
+      '<p class="essence-gate-line">The road asks who is walking.</p>' +
+      '<p class="essence-gate-sub">One moment.</p>';
+    function inject() {
+      document.body.appendChild(ov);
+      // Hide everything else under it — set a flag that page-init can check
+      document.body.setAttribute('data-essence-gating', 'true');
+      requestAnimationFrame(function() {
+        ov.classList.add('visible');
+        setTimeout(function() { ov.querySelector('.essence-gate-line').classList.add('visible'); }, 100);
+        setTimeout(function() { ov.querySelector('.essence-gate-sub').classList.add('visible'); }, 500);
+      });
+      var ret = encodeURIComponent(window.location.pathname);
+      setTimeout(function() {
+        window.location.href = 'the-one.html?return=' + ret;
+      }, 1400);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+
+  function showSequentialGate(chakraId) {
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    var prevId = CHAKRA_SEQUENCE[idx - 1];
+    var prevDisplay = CHAKRA_DISPLAY[prevId];
+    var thisColor = CHAKRA_COLORS[chakraId];
+
+    var html =
+      '<div class="sequential-gate-surface">' +
+      '  <div class="sequential-gate-tint" style="background: radial-gradient(ellipse at center, ' + thisColor + ' 0%, transparent 70%);"></div>' +
+      '  <div class="sequential-gate-content">' +
+      '    <svg class="sequential-gate-yantra" viewBox="-100 -100 200 200">' +
+      '      <g fill="none" stroke="currentColor" stroke-width="0.5">' +
+      '        <polygon points="0,-80 70,40 -70,40" />' +
+      '        <polygon points="0,75 -68,-38 68,-38" />' +
+      '        <polygon points="0,-38 33,19 -33,19" />' +
+      '        <polygon points="0,36 -32,-18 32,-18" />' +
+      '        <circle cx="0" cy="0" r="2" fill="currentColor" />' +
+      '        <circle cx="0" cy="0" r="88" />' +
+      '      </g>' +
+      '    </svg>' +
+      '    <p class="sequential-gate-line">The road has an order, the first time through.</p>' +
+      '    <p class="sequential-gate-prev">You haven\'t walked <em>' + prevDisplay + '</em> yet.</p>' +
+      '    <a class="sequential-gate-button" href="' + prevId + '-practice.html">Walk ' + prevDisplay + ' →</a>' +
+      '  </div>' +
+      '</div>';
+
+    function inject() {
+      document.body.setAttribute('data-sequential-gating', 'true');
+      document.body.insertAdjacentHTML('afterbegin', html);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+})();
+
+</script>
+<!-- ═══ END ESSENCE+SEQUENTIAL GATES ═══ -->
+<div class="progress-bar" id="progress"></div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-top-nav">
+    <a href="the-road-home.html">← The Road Home</a>
+    <a href="manipura-practice.html">← Manipura</a>
+  </div>
+  <div class="hero-count">Chakra 5 of 33 &nbsp;·&nbsp; अनाहत</div>
+  <div class="hero-verb">OPEN</div>
+  <div class="hero-threshold">The walls you built had good reasons.<br>What if they were doors?</div>
+  <div class="hero-scroll-hint">
+    <span>Begin</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── BOOK ─── -->
+<main class="book">
+<div class="book-inner">
+
+  <div class="identity">
+    <div class="chakra-sanskrit">अनाहत · Anahata</div>
+    <div class="chakra-english">The Heart</div>
+    <div class="chakra-essence">The center where love lives. Not romantic love. The kind that doesn't need a reason.</div>
+    <div class="chakra-location">Center of the chest &nbsp;·&nbsp; Behind the sternum &nbsp;·&nbsp; The midpoint of everything</div>
+    <div class="core-question">
+      <div class="core-question-label">Core Question</div>
+      <p>Can I receive?</p>
+      <p>— or, at the register of practice — <em>what if the walls were doors?</em></p>
+    </div>
+  </div>
+
+  <section>
+    <p>This center governs one question — not <em>who do I love</em> the way an inventory answers, but the rawer version. <strong>Can you receive what has been arriving in your chest since before you had the word for it?</strong> The root grounded you. The sacral moved you. The solar plexus built you. Now the heart asks the question that renders all of that legible: <em>what was all that building for?</em></p>
+
+    <p>The Sanskrit name means <em>unstruck sound.</em> A sound that plays without anything being hit. No hammer on a bell. No finger on a string. A frequency that needs no trigger because it was never started. It was always playing. Before you were born. Before you had a name. Before anyone told you what love was supposed to look like. <strong>You have heard it.</strong> Walking down a street. Looking at a stranger on a train. Watching light move through a window in the late afternoon and your eyes fill and you don't know why. That's Anahata. The unstruck sound arriving in a body that finally got quiet enough to hear it.</p>
+
+    <p>Anahata is not an emotion-center only. It is a <strong>relational center</strong> — the first one you will meet in this sequence. The three chakras below this one are your body meeting impersonal substance. Earth. Water. Fire. Anahata is the first center that involves <em>other.</em> Not a specific other. The capacity for other. The register at which your interior meets what is not-you.</p>
+
+    <p>It is also the <strong>midpoint</strong> of everything. Three centers below — earth, water, fire. Three centers above — space, light, radiance. Anahata is the place where the bottom three stop being separate from the top three. The hinge. Not a stage. Unlike the Energy Chakras before it — which are sequential — Anahata is the middle from which the whole sequence becomes visible in both directions.</p>
+
+    <p>Look at the tree across from you. <strong>More space than branch.</strong> Open enough that the light moves through. Open enough that the birds lifting from the branches are not pushing off — they are being held by what they are lifting from. The tree didn't open by effort. It grew open enough that the holding-on stopped being required.</p>
+
+    <figure class="tree-figure" onclick="openLightbox()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox();}" tabindex="0" role="button" aria-label="Open the Anahata tree image at full size">
+      <img class="tree-image" src="/tree-of-life/anahata-tree.jpg" alt="The Anahata tree — a green tree of life rising from wide-spreading roots, with the Chaturdasha Trikona (fourteen interlocking triangles, seven upward and seven downward) rendered as a luminous geometric lattice behind the tree. A large heart-shape forms where the branches curve, and YAM यं is inscribed at the heart's center, glowing soft gold. Seven birds sit and lift in the branches. Six Kulakula Shakti names curve along the roots and trunk: Sarva Samkshobhini (the all-agitator), Sarva Vidrāvinī (the all-melter), Sarva Ākarshini (the all-attractor), Sarva Sammohini (the all-enchanter, the love that made no logical sense), Sarva Stambhini (the all-stabilizer), and Sarva Jrumbhini (the all-expander). The tree is open enough that the birds are lifting, not pushing off — the tree grew open enough that holding-on stopped being required. The quote beneath reads: 'The love that arrived for others was always your own heart opening.'">
+      <figcaption class="tree-hint">Tap to look closer. The tree's openness is its teaching.</figcaption>
+    </figure>
+
+    <p>Every wall you have built around your heart was a reasonable response to something that hurt you. Every one. A specific moment. A specific face. A specific sentence someone said that landed in your chest like a stone and stayed. You built the wall the same day the stone arrived. Sometimes the same hour. <strong>That was intelligence.</strong> Your system protecting something it knew was too important to let happen again.</p>
+
+    <p><em>The practice is not tearing down what you built.</em> The practice is noticing that the cut healed years ago. And the wall is still there. And the wall is so familiar now that you forgot it was a wall. You think it is you. You think the protection IS your personality — the person who gives warmth to everyone but access to no one. <strong>That is the wall wearing your face.</strong></p>
+
+    <p>The door is what happens when you realize: the thing you were protecting yourself from already happened. It already came. It already landed. And you survived. You are here, reading this page with your hand on your chest. <strong>The walls can be doors now.</strong> Not all at once. Not to everyone. One door. One person. One moment where you choose to let what your heart is broadcasting actually reach the person across from you.</p>
+
+    <p>There are forces in this center that have names older than your language. Six of them, woven into the tree across from you — you can read them on the roots and the trunk. <em>Samkshobhini</em> agitates everything toward love. <em>Vidrāvinī</em> melts all resistance. <em>Ākarshini</em> pulls everything toward the center. <em>Sammohini</em> enchants — the love that made no logical sense. <em>Stambhini</em> holds you in the opening. <em>Jrumbhini</em> expands you past where you thought the edges were. They are operating right now. In you. Whether or not you look closely enough to find their names in the branches.</p>
+
+    <p>The deepest teaching Anahata carries is this: <strong>the love was always in you.</strong> Every person you have loved has been a mirror your own heart used to recognize its own face. The specific features of that face matter — the beloved is not arbitrary, the beloved is the particular angle of light the heart needed to see something in itself — but <em>the light was always yours.</em> This is not a consolation. Grief is still grief. The beloved is still beloved. But something important shifts when you recognize the source correctly. You stop being at the mercy of love. You are no longer in a position where someone can walk away and take your heart with them. <em>The heart never left your chest. You only thought it did.</em></p>
+
+    <p>And — the wildest consequence of this recognition: <strong>the heart cannot be broken.</strong> It can only be opened further. Every loss, every rejection, every door slammed — did not break the heart. Broke open something the heart was ready to let go of. Every time you have said <em>my heart is broken,</em> what has actually happened is the heart has opened one more chamber you did not know was there.</p>
+  </section>
+
+  <div class="seed">"The love that arrived for others was always your own heart opening."</div>
+
+  <button class="deeper-toggle" type="button" onclick="toggleDeeper(this)" aria-expanded="false" aria-controls="deeper-panel">
+    Go deeper <span class="arrow">↓</span>
+  </button>
+  <div class="deeper-content" id="deeper-panel">
+    <div class="deeper-item">
+      <div class="deeper-item-label">The Frequency</div>
+      <span class="frequency-sound">YAM यं</span>
+      <p>An open, expanding tone. Hum it in the center of your chest. Feel the sternum vibrate. YAM opens. <em>You will feel your chest soften before the hum is finished.</em> The attack is gentle — 0.03 seconds — almost no onset. The decay is long — 3.5 seconds. <strong>Love lingers.</strong> The tone is calibrated to crystal — the warmest-toned and longest-sustained of any awakening sound in the sequence. The frequency itself is the teaching.</p>
+    </div>
+    <div class="deeper-item">
+      <div class="deeper-item-label">The Avarana</div>
+      <p><strong>Chaturdasha Trikona — the Fourteen Triangles.</strong> Seven pointing upward, seven pointing downward. Interlocking. <em>The first interlocking of ascending and descending forces in the Shree Yantra.</em> Before Anahata, all avaranas pointed one direction — Muladhara's square earth, Svadhisthana's sixteen-petal water, Manipura's eight-petal fire. Anahata is the first avarana where opposing geometries meet. Love as the intersection. What rises and what descends are not in opposition. <strong>They create each other.</strong></p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-dot"></div></div>
+
+  <div class="practice-block">
+    <div class="practice-label">The Practice · Open</div>
+    <p>Put your hand on your chest.</p>
+    <p>Feel your heartbeat through your palm. That's it. Don't change it. Don't deepen it. Don't try to slow it down or time it with your breathing. Just feel it. <strong>Two minutes.</strong></p>
+    <p>The heart responds to attention the way a plant responds to water. You don't have to do anything else. You don't have to think <em>loving thoughts.</em> You don't have to summon gratitude. You don't have to visualize light or warmth or anyone you miss. <em>Attention is the water. The heart is already the plant.</em></p>
+    <p>What you will feel, after maybe a minute, is the place under your palm softening. Not a metaphor. A specific sensation — like a fist you did not know you were making is unclenching. That unclenching is Anahata recognizing that you noticed it.</p>
+    <p><strong>The unstruck sound plays louder when it is listened for.</strong> It does not get louder. Your ability to hear it improves.</p>
+    <p><em>You don't open the heart. You get quiet enough that the opening becomes audible.</em></p>
+  </div>
+
+  <div class="writing-section">
+    <div class="writing-prompt" id="writing-prompt-anahata">Think of someone you loved before you knew why. Not the person you chose — the one who arrived. A name. Or a word. Or nothing at all — the heart knows who you're holding.</div>
+    <textarea
+      class="writing-area"
+      id="writing-anahata"
+      aria-labelledby="writing-prompt-anahata"
+      placeholder="Write here. This space is yours."
+      rows="5"
+      oninput="autoResize(this); scheduleAutoSave()"
+    ></textarea>
+    <div class="writing-saved" id="save-note">Saved</div>
+    <div class="writing-reflection" id="writing-reflection">The name you offered was not the source of the love. The name was the specific angle of light your heart used to see itself. The love was always yours. It still is. The heart that held that name is the chamber that name opened.</div>
+  </div>
+
+  <hr class="book-rule">
+
+  <section>
+    <h3>What the Heart Knows That You Forgot</h3>
+    <p>You thought the love came from the other person.</p>
+    <p>You thought that is why it hurt so much when they left, when they disappointed you, when the relationship ended. You thought they <em>took</em> the love with them when they went. That is why grief felt like having something amputated — because you were convinced a crucial piece of you had left the building with them.</p>
+    <p>But notice what is still happening right now, with them gone. You can still feel the love. You can still warm your chest by remembering them. You can still ache in the exact shape of their absence. <strong>The love is still here. They are not here, but the love is.</strong> Which means the love was never in them.</p>
+    <p>The love was always in you, finding a shape in them that let it see itself. Every person you have ever loved has been a mirror your own heart used to recognize its own face. The specific features of that face matter — the beloved is not arbitrary, the beloved is the particular angle of light the heart needed to see something in itself — but the light was always yours.</p>
+    <p><em>The love that arrived for others was always your own heart opening.</em></p>
+    <p>This is not a consolation. This is not <em>you don't need them after all.</em> Grief is still grief. The beloved is still beloved. But something important shifts when you recognize the source correctly. You stop being at the mercy of love. You are no longer in a position where someone can walk away and take your heart with them. <strong>The heart never left your chest. You only thought it did.</strong></p>
+    <p>And the wildest consequence of this recognition: <strong>the heart cannot be broken.</strong> It can only be opened further. Every loss, every rejection, every door slammed — did not break the heart. It broke open something the heart was ready to let go of. Every time you have said <em>my heart is broken,</em> what has actually happened is the heart has opened one more chamber you did not know was there.</p>
+    <p><em>What you were watching became what you loved.</em></p>
+    <p>The specific faces. The specific songs. The specific afternoons of light. Your attention landed on them and they became what you loved because your attention is how love takes shape. <strong>Love is the direction of looking.</strong> Not the object. The turning-toward.</p>
+    <p>And now — look at your life. <em>The chambers you opened are the ones you walked through.</em> They are all still here. Every one. Permanent. Portable. Not dependent on any specific other's presence. The heart you have been wearing is the one the loving made.</p>
+  </section>
+
+  <section>
+    <h3>Three Ways In</h3>
+    <div class="practice-options">
+      <div class="practice-option">
+        <p>Think of someone you are angry with. Not annoyed — angry. The face that arrives when your jaw tightens. Feel the contraction in your chest. Now <strong>breathe into the contraction</strong> without trying to fix it. Don't forgive them. The heart is not asking for forgiveness. It is asking: <em>can you breathe where it hurts?</em> Not around it. Not past it. Into it. The breath enters the contraction the way light enters the opening in the tree — not by force, through the space that was already there.</p>
+      </div>
+      <div class="practice-option">
+        <p>Hum YAM — यं. Low in your chest, where the sternum meets the ribs. Hold the hum for as long as one breath lasts. Feel which bones vibrate. <em>The chest is a resonance chamber.</em> The more accurately you aim the tone into the center of the chest, the more the sternum itself becomes the instrument. You are not singing to the heart. <strong>You are letting the heart's own frequency find its way out through your body.</strong></p>
+      </div>
+      <div class="practice-option">
+        <p>Walk somewhere with strangers. A sidewalk, a train, a cafe. Let your eyes land on one face. Not to stare — just to see. Hold the attention for three seconds and then let it go. <em>Notice what happened in your chest during those three seconds.</em> Something moved. Something warmed or ached or softened. That was not about them. That was your own attention discovering it is how love takes shape. <strong>The turning-toward is the love.</strong> The stranger did not give it to you. The stranger was the specific direction in which it became audible.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="seed">"The love that arrived for others was always your own heart opening."</div>
+
+  <!-- STORY PORTAL — preview of the axis dimension, Anahata's heart register.
+       Gated on writing-area engagement — reveals once the walker has offered. -->
+  <button class="story-portal" id="story-invite" type="button" aria-label="Open the story on the other side">
+    <span class="sp-bg" aria-hidden="true">
+      <span class="sp-trikona">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <!-- Seven upward triangles — each at 0°, 51.4°, 102.8°, 154.2°, 205.7°, 257.1°, 308.5° -->
+          <g>
+            <polygon class="tri-up" points="100,42 130,106 70,106"  transform="rotate(0 100 100)"     />
+            <polygon class="tri-up" points="100,42 130,106 70,106"  transform="rotate(51.4 100 100)"  />
+            <polygon class="tri-up" points="100,42 130,106 70,106"  transform="rotate(102.8 100 100)" />
+            <polygon class="tri-up" points="100,42 130,106 70,106"  transform="rotate(154.2 100 100)" />
+            <polygon class="tri-up" points="100,42 130,106 70,106"  transform="rotate(205.7 100 100)" />
+            <polygon class="tri-up" points="100,42 130,106 70,106"  transform="rotate(257.1 100 100)" />
+            <polygon class="tri-up" points="100,42 130,106 70,106"  transform="rotate(308.5 100 100)" />
+          </g>
+          <!-- Seven downward triangles — each at 25.7°, 77.1°, 128.5°, 180°, 231.4°, 282.8°, 334.2° -->
+          <g>
+            <polygon class="tri-down" points="100,158 130,94 70,94" transform="rotate(25.7 100 100)"  />
+            <polygon class="tri-down" points="100,158 130,94 70,94" transform="rotate(77.1 100 100)"  />
+            <polygon class="tri-down" points="100,158 130,94 70,94" transform="rotate(128.5 100 100)" />
+            <polygon class="tri-down" points="100,158 130,94 70,94" transform="rotate(180 100 100)"   />
+            <polygon class="tri-down" points="100,158 130,94 70,94" transform="rotate(231.4 100 100)" />
+            <polygon class="tri-down" points="100,158 130,94 70,94" transform="rotate(282.8 100 100)" />
+            <polygon class="tri-down" points="100,158 130,94 70,94" transform="rotate(334.2 100 100)" />
+          </g>
+          <circle cx="100" cy="100" r="14" fill="none" stroke="rgba(232,200,140,0.4)" stroke-width="0.6" />
+        </svg>
+      </span>
+      <span class="sp-shimmer"></span>
+      <span class="sp-glow"></span>
+    </span>
+    <span class="sp-content">
+      <span class="sp-label">Story · The Heart</span>
+      <span class="sp-dot"></span>
+      <span class="sp-headline">something has been sounding inside you the whole time</span>
+      <span class="sp-cta">
+        <span class="sp-cta-text">tap to flip</span>
+        <span class="sp-cta-arrow">→</span>
+      </span>
+    </span>
+  </button>
+
+  <!-- WHERE THE CHAMBERS LEAD — deeper experiences where the voice still lives -->
+  <section class="chambers-lead" id="where-the-chambers-lead" aria-labelledby="wchl-heading">
+    <button type="button" class="wchl-toggle" id="wchl-toggle" aria-expanded="false" aria-controls="wchl-content">
+      <span id="wchl-heading">Where the Chambers Lead</span>
+      <span class="wchl-toggle-indicator" aria-hidden="true">↓</span>
+    </button>
+    <div class="wchl-content" id="wchl-content">
+    <p class="chambers-lead-intro">The page was one door. The tree was another. The story was a third. These are two more — chambers where that voice still lives. Enter through whichever the body calls to.</p>
+
+    <div class="chambers-grid">
+      <a class="chamber-door wakeup" href="https://aistrangegame.com/tree-of-life/anahata-wakeup.html">
+        <svg class="door-glyph wakeup-glyph" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- Seven upward triangles, counter-rotating group -->
+          <g class="wg-triangles-up">
+            <polygon class="wg-triangle" points="100,48 126,102 74,102" transform="rotate(0 100 100)"     />
+            <polygon class="wg-triangle" points="100,48 126,102 74,102" transform="rotate(51.4 100 100)"  />
+            <polygon class="wg-triangle" points="100,48 126,102 74,102" transform="rotate(102.8 100 100)" />
+            <polygon class="wg-triangle" points="100,48 126,102 74,102" transform="rotate(154.2 100 100)" />
+            <polygon class="wg-triangle" points="100,48 126,102 74,102" transform="rotate(205.7 100 100)" />
+            <polygon class="wg-triangle" points="100,48 126,102 74,102" transform="rotate(257.1 100 100)" />
+            <polygon class="wg-triangle" points="100,48 126,102 74,102" transform="rotate(308.5 100 100)" />
+          </g>
+          <!-- Seven downward triangles, counter-rotating -->
+          <g class="wg-triangles-down">
+            <polygon class="wg-triangle" points="100,152 126,98 74,98"  transform="rotate(25.7 100 100)"  />
+            <polygon class="wg-triangle" points="100,152 126,98 74,98"  transform="rotate(77.1 100 100)"  />
+            <polygon class="wg-triangle" points="100,152 126,98 74,98"  transform="rotate(128.5 100 100)" />
+            <polygon class="wg-triangle" points="100,152 126,98 74,98"  transform="rotate(180 100 100)"   />
+            <polygon class="wg-triangle" points="100,152 126,98 74,98"  transform="rotate(231.4 100 100)" />
+            <polygon class="wg-triangle" points="100,152 126,98 74,98"  transform="rotate(282.8 100 100)" />
+            <polygon class="wg-triangle" points="100,152 126,98 74,98"  transform="rotate(334.2 100 100)" />
+          </g>
+          <!-- Central heart-knot (tight coiled circle for the card glyph) -->
+          <circle class="wg-heart-knot" cx="100" cy="100" r="10" />
+          <!-- Six Kulakula Shakti points around trikona -->
+          <circle class="wg-shakti s1" cx="100" cy="60"  r="3"   /> <!-- N  -->
+          <circle class="wg-shakti s2" cx="134" cy="80"  r="3"   /> <!-- NE -->
+          <circle class="wg-shakti s3" cx="134" cy="120" r="3"   /> <!-- SE -->
+          <circle class="wg-shakti s4" cx="100" cy="140" r="3"   /> <!-- S  (Sammohini position) -->
+          <circle class="wg-shakti s5" cx="66"  cy="120" r="3"   /> <!-- SW -->
+          <circle class="wg-shakti s6" cx="66"  cy="80"  r="3"   /> <!-- NW -->
+        </svg>
+        <div class="door-meta">Wakeup &nbsp;·&nbsp; Pinch the Knot</div>
+        <div class="door-title">Two fingers. Three pinches. The love that made no logical sense has a name — find it.</div>
+        <div class="door-text">A guided passage through the Chaturdasha Trikona. Pinch outward to open the knot, layer by layer. Sarva Sammohini — the all-enchanter — surfaces at the core. Then a name. Then the heart-path that draws itself. <em>About six minutes. Headphones help.</em></div>
+        <div class="door-enter">
+          Enter
+          <div class="door-arrow"></div>
+        </div>
+      </a>
+
+      <a class="chamber-door dance" href="https://aistrangegame.com/tree-of-life/anahata-dance.html">
+        <svg class="door-glyph dance-glyph" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- Baseline — the bass heartbeat -->
+          <line class="dg-baseline" x1="6" y1="78" x2="194" y2="78" />
+          <!-- Three concentric rings expanding from center — three inhales -->
+          <circle class="dg-ring r1" cx="100" cy="50" r="18" />
+          <circle class="dg-ring r2" cx="100" cy="50" r="18" />
+          <circle class="dg-ring r3" cx="100" cy="50" r="18" />
+          <!-- Central heart — pulsing at 72 BPM (1.2s cycle) -->
+          <path class="dg-heart" d="
+            M 100 38
+            C  92 28, 76 28, 76 44
+            C  76 56, 100 66, 100 66
+            C 100 66, 124 56, 124 44
+            C 124 28, 108 28, 100 38
+            Z
+          " />
+          <!-- Ambient motes -->
+          <circle class="dg-mote m1" cx="76"  cy="34" r="1.4" />
+          <circle class="dg-mote m2" cx="124" cy="34" r="1.4" />
+          <circle class="dg-mote m3" cx="100" cy="70" r="1.4" />
+        </svg>
+        <div class="door-meta">Dance &nbsp;·&nbsp; Three Inhales, One Long Exhale</div>
+        <div class="door-title">A song in three breaths of increasing fullness. The forty-second exhale before the biggest breath. The heart recognizing its own openness in real time.</div>
+        <div class="door-text">Love Me Like You Do by Ellie Goulding. Watch for the bridge at 2:35 — forty seconds where the song almost disappears. That's not a pause. That's the emptying that makes the next inhale whole. <em>About four minutes end-to-end. Headphones help.</em></div>
+        <div class="door-enter">
+          Enter
+          <div class="door-arrow"></div>
+        </div>
+      </a>
+
+      <!-- Bindu Field — the chakra's note in the Field of 33 -->
+      <a class="chamber-door bindu-field"
+         href="https://aistrangegame.com/bindu-field.html#anahata"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Anahata's note in the Field — new tab">
+        <svg class="door-glyph bindu-field-glyph" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- 5 sound-waves radiating from the Bindu core -->
+          <circle class="bfg-wave w1" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w2" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w3" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w4" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w5" cx="200" cy="130" r="24" />
+
+          <!-- 33 position-markers around the Bindu. This chakra's position glows. -->
+            <circle class="bfg-pos" cx="200.00" cy="30.00" r="1.8" />
+            <circle class="bfg-pos" cx="232.17" cy="31.81" r="1.8" />
+            <circle class="bfg-pos" cx="263.18" cy="37.16" r="1.8" />
+            <circle class="bfg-pos" cx="291.91" cy="45.87" r="1.8" />
+            <circle class="bfg-pos bfg-bindu-pos" cx="317.31" cy="57.63" r="2.6" />
+            <circle class="bfg-pos" cx="338.48" cy="71.99" r="1.8" />
+            <circle class="bfg-pos" cx="354.64" cy="88.46" r="1.8" />
+            <circle class="bfg-pos" cx="365.21" cy="106.42" r="1.8" />
+            <circle class="bfg-pos" cx="369.81" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="368.27" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="360.65" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="347.22" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="328.48" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="305.09" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="277.90" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="247.89" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="216.16" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="183.84" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="152.11" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="122.10" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="94.91" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="71.52" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="52.78" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="39.35" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="31.73" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="30.19" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="34.79" cy="106.42" r="1.8" />
+            <circle class="bfg-pos" cx="45.36" cy="88.46" r="1.8" />
+            <circle class="bfg-pos" cx="61.52" cy="71.99" r="1.8" />
+            <circle class="bfg-pos" cx="82.69" cy="57.63" r="1.8" />
+            <circle class="bfg-pos" cx="108.09" cy="45.87" r="1.8" />
+            <circle class="bfg-pos" cx="136.82" cy="37.16" r="1.8" />
+            <circle class="bfg-pos" cx="167.83" cy="31.81" r="1.8" />
+
+          <!-- Thread from this chakra's position to the central Bindu -->
+          <line class="bfg-thread" x1="317.31" y1="57.63" x2="200" y2="130" />
+
+          <!-- Central Bindu — the note all the others arrive from -->
+          <circle class="bfg-core" cx="200" cy="130" r="7" />
+        </svg>
+        <div class="door-meta">Bindu Field &nbsp;&middot;&nbsp; Song 5 of 33</div>
+        <div class="door-title">The note of opening — where the heart hears itself.</div>
+        <div class="door-text">The tone the heart breathes in. Twelve petals, twelve currents of love. Let it play underneath while you read. <em>Opens in a new tab.</em></div>
+        <div class="door-enter">
+          Listen
+          <div class="door-enter-arrow"></div>
+        </div>
+      </a>
+    </div>
+    </div><!-- /wchl-content -->
+  </section>
+
+</div>
+</main>
+
+<!-- ─── BOTTOM NAV ─── -->
+<nav class="bottom-nav" aria-label="Chakra navigation">
+  <a class="nav-link" href="manipura-practice.html">← Manipura</a>
+  <div class="nav-position">5 / 33</div>
+  <a class="nav-link" href="vishuddha-practice.html">Vishuddha →</a>
+</nav>
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Anahata tree — close look">
+  <div class="lightbox-stage" id="lightbox-stage">
+    <img class="lightbox-image" id="lightbox-image" src="/tree-of-life/anahata-tree.jpg" alt="Anahata tree — full close-look. Zoom to find the six Kulakula Shakti names inscribed along the roots and trunk, YAM यं glowing at the heart's center, and the Chaturdasha Trikona lattice of fourteen interlocking triangles behind the tree." draggable="false">
+  </div>
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close" type="button">×</button>
+  <div class="lightbox-hint" id="lightbox-hint">
+    <span>Pinch or scroll to zoom</span><span class="sep">·</span><span>Drag to move</span><span class="sep">·</span><span>Double-tap to reset</span>
+  </div>
+</div>
+
+<!-- ═══ STORY MODE · THE HEART ═══
+     The heart scene. Fourteen triangles (Chaturdasha Trikona) interlocking.
+     Six Kulakula Shaktis around the heart-knot. YAM at center. Tree silhouette
+     with eight birds lifting across the three-inhale arc. Heart-form auto-draws
+     at recognition. -->
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="Anahata's story — the other side of the page">
+  <div class="story-scene" id="story-scene">
+
+    <!-- Breath-glow — the unstruck sound's field -->
+    <div class="an-breath-glow" aria-hidden="true"></div>
+
+    <!-- Chaturdasha Trikona — 14 interlocking triangles, 7 upward + 7 downward -->
+    <div class="an-trikona" aria-hidden="true">
+      <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+        <!-- Seven upward triangles — soft gold, ascending current -->
+        <g>
+          <polygon class="an-tri-up" points="100,38 134,106 66,106" transform="rotate(0 100 100)"     />
+          <polygon class="an-tri-up" points="100,38 134,106 66,106" transform="rotate(51.4 100 100)"  />
+          <polygon class="an-tri-up" points="100,38 134,106 66,106" transform="rotate(102.8 100 100)" />
+          <polygon class="an-tri-up" points="100,38 134,106 66,106" transform="rotate(154.2 100 100)" />
+          <polygon class="an-tri-up" points="100,38 134,106 66,106" transform="rotate(205.7 100 100)" />
+          <polygon class="an-tri-up" points="100,38 134,106 66,106" transform="rotate(257.1 100 100)" />
+          <polygon class="an-tri-up" points="100,38 134,106 66,106" transform="rotate(308.5 100 100)" />
+        </g>
+        <!-- Seven downward triangles — soft green, descending current -->
+        <g>
+          <polygon class="an-tri-down" points="100,162 134,94 66,94" transform="rotate(25.7 100 100)"  />
+          <polygon class="an-tri-down" points="100,162 134,94 66,94" transform="rotate(77.1 100 100)"  />
+          <polygon class="an-tri-down" points="100,162 134,94 66,94" transform="rotate(128.5 100 100)" />
+          <polygon class="an-tri-down" points="100,162 134,94 66,94" transform="rotate(180 100 100)"   />
+          <polygon class="an-tri-down" points="100,162 134,94 66,94" transform="rotate(231.4 100 100)" />
+          <polygon class="an-tri-down" points="100,162 134,94 66,94" transform="rotate(282.8 100 100)" />
+          <polygon class="an-tri-down" points="100,162 134,94 66,94" transform="rotate(334.2 100 100)" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- Six Kulakula Shaktis around the heart-knot -->
+    <div class="an-shakti-point sp-samkshobhini" aria-hidden="true"></div>
+    <div class="an-shakti-point sp-vidravini"    aria-hidden="true"></div>
+    <div class="an-shakti-point sp-akarshini"    aria-hidden="true"></div>
+    <div class="an-shakti-point sp-sammohini"    aria-hidden="true"></div>
+    <div class="an-shakti-point sp-stambhini"    aria-hidden="true"></div>
+    <div class="an-shakti-point sp-jrumbhini"    aria-hidden="true"></div>
+
+    <!-- Sammohini label — surfaces at fullest-breath -->
+    <div class="an-shakti-label" aria-hidden="true">Sarva Sammohini</div>
+
+    <!-- Central heart-knot — tight coiled shape that loosens -->
+    <div class="an-heart-knot" aria-hidden="true">
+      <svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+        <!-- A coiled knot, rendered as intersecting infinity-like loops -->
+        <path class="an-knot-path" d="
+          M 50 35
+          C 32 35, 32 55, 50 55
+          C 68 55, 68 35, 50 35
+          M 35 45
+          C 35 28, 55 28, 55 45
+          C 55 62, 35 62, 35 45
+          M 65 45
+          C 65 28, 45 28, 45 45
+          C 45 62, 65 62, 65 45
+          M 40 62
+          C 40 72, 60 72, 60 62
+        " />
+      </svg>
+    </div>
+
+    <!-- YAM yantra — Devanagari यं at center -->
+    <div class="an-yam" aria-hidden="true">यं</div>
+
+    <!-- Heart-form — auto-drawn at recognition -->
+    <div class="an-heart-form" aria-hidden="true">
+      <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+        <!-- Large heart path traced from top-center down through the trikona vertices -->
+        <path class="an-heart-path" d="
+          M 100 60
+          C  80 38, 40 42, 40 80
+          C  40 112, 72 138, 100 160
+          C 128 138, 160 112, 160 80
+          C 160 42, 120 38, 100 60
+          Z
+        " />
+      </svg>
+    </div>
+
+    <!-- Tree silhouette at the bottom of the scene -->
+    <div class="an-tree-silhouette" aria-hidden="true">
+      <svg viewBox="0 0 400 140" preserveAspectRatio="xMidYMax meet">
+        <!-- Trunk rising from center-bottom -->
+        <path class="an-tree-path" d="
+          M 200 140
+          L 198 100
+          C 196 84, 188 76, 184 68
+          M 200 100
+          C 202 86, 210 78, 214 72
+          M 200 120
+          C 194 100, 184 86, 176 78
+          M 200 120
+          C 206 100, 216 86, 224 78
+          M 190 95
+          C 180 90, 168 86, 156 82
+          M 210 95
+          C 220 90, 232 86, 244 82
+          M 182 86
+          C 172 82, 160 74, 148 68
+          M 218 86
+          C 228 82, 240 74, 252 68
+          M 198 82
+          C 186 70, 172 60, 156 52
+          M 202 82
+          C 214 70, 228 60, 244 52
+          M 184 72
+          C 170 62, 158 58, 144 54
+          M 216 72
+          C 230 62, 242 58, 256 54
+        " />
+        <!-- Wider root-spread at base -->
+        <path class="an-tree-path" d="
+          M 200 140
+          L 120 140
+          L 100 138
+          M 200 140
+          L 280 140
+          L 300 138
+        " />
+      </svg>
+    </div>
+
+    <!-- Eight birds sitting in the tree, lifting across beats -->
+    <div class="an-bird b1" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+    <div class="an-bird b2" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+    <div class="an-bird b3" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+    <div class="an-bird b4" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+    <div class="an-bird b5" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+    <div class="an-bird b6" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+    <div class="an-bird b7" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+    <div class="an-bird b8" aria-hidden="true">
+      <svg viewBox="0 0 20 12" preserveAspectRatio="xMidYMid meet">
+        <path class="an-bird-path" d="M 2 8 Q 6 2, 10 6 Q 14 2, 18 8" />
+      </svg>
+    </div>
+
+    <!-- Beat text -->
+    <div class="story-lines-stage">
+      <div class="story-line" id="story-line-content" aria-live="polite"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+
+    <!-- The Threshold — opens at the close of the final recognition.
+         The heart's center becomes Vishuddha's first point. Love discovers the throat. -->
+    <a class="threshold-door" id="threshold-door" href="vishuddha-practice.html" aria-hidden="true" aria-label="Continue to Vishuddha">
+      <div class="next-point" aria-hidden="true"></div>
+      <div class="next-label">Vishuddha</div>
+      <div class="next-sublabel">The Throat</div>
+      <div class="threshold-continue-hint">
+        <span>Continue</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <button class="story-close" id="story-close" type="button" aria-label="Return to the page">×</button>
+
+  </div><!-- /story-scene -->
+
+  <!-- ═══ ACT 2 — SAKSHI WITNESS (Anahata) ═══
+       Rises after the press-and-hold. Ascending green→cream→silver-white.
+       Sakshi's integrative voice — the sound has been playing since before
+       the fire. Anahata's p3 is a SINGLE WORD: "Speak." — the love that was
+       received now wants to exit. Vishuddha's register arrives through speech. -->
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="act2-bg"></div>
+    <div class="act2-crown"></div>
+    <div class="act2-base"></div>
+    <div class="act2-particles" id="act2-particles"></div>
+
+    <div class="act2-text-stage">
+      <p class="act2-para" id="act2-p1"><span class="act2-word">The</span> <span class="act2-word">sound</span> <span class="act2-word">has</span> <span class="act2-word">been</span> <span class="act2-word">playing</span> <span class="act2-word">since</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">fire.</span> <span class="act2-word">Since</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">pull.</span> <span class="act2-word">Since</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">ground.</span> <span class="act2-word">Since</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">first</span> <span class="act2-word">stirring</span> <span class="act2-word">in</span> <span class="act2-word">the</span> <span class="act2-word">dark.</span> <span class="act2-word">I</span> <span class="act2-word">know</span> <span class="act2-word">this</span> <span class="act2-word">because</span> <span class="act2-word">I</span> <span class="act2-word">have</span> <span class="act2-word">been</span> <span class="act2-word">here</span> <span class="act2-word">the</span> <span class="act2-word">whole</span> <span class="act2-word">time,</span> <span class="act2-word">and</span> <span class="act2-word">I</span> <span class="act2-word">have</span> <span class="act2-word">been</span> <span class="act2-word">listening.</span></p>
+      <p class="act2-para" id="act2-p2"><span class="act2-word">Every</span> <span class="act2-word">face</span> <span class="act2-word">you</span> <span class="act2-word">loved</span> <span class="act2-word">was</span> <span class="act2-word">a</span> <span class="act2-word">mirror</span> <span class="act2-word">the</span> <span class="act2-word">love</span> <span class="act2-word">used</span> <span class="act2-word">to</span> <span class="act2-word">recognize</span> <span class="act2-word">itself.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">each</span> <span class="act2-word">one</span> <span class="act2-word">arrive</span> <span class="act2-word">in</span> <span class="act2-word">the</span> <span class="act2-word">field</span> <span class="act2-word">of</span> <span class="act2-word">your</span> <span class="act2-word">attention.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">each</span> <span class="act2-word">one</span> <span class="act2-word">become</span> <span class="act2-word">significant.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">ones</span> <span class="act2-word">who</span> <span class="act2-word">stayed</span> <span class="act2-word">and</span> <span class="act2-word">the</span> <span class="act2-word">ones</span> <span class="act2-word">who</span> <span class="act2-word">left.</span> <span class="act2-word">The</span> <span class="act2-word">love</span> <span class="act2-word">did</span> <span class="act2-word">not</span> <span class="act2-word">move.</span> <span class="act2-word">The</span> <span class="act2-word">faces</span> <span class="act2-word">moved.</span> <span class="act2-word">The</span> <span class="act2-word">love</span> <span class="act2-word">was</span> <span class="act2-word">the</span> <span class="act2-word">substance</span> <span class="act2-word">underneath.</span> <span class="act2-word">The</span> <span class="act2-word">walls</span> <span class="act2-word">you</span> <span class="act2-word">built</span> <span class="act2-word">had</span> <span class="act2-word">good</span> <span class="act2-word">reasons.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">each</span> <span class="act2-word">one</span> <span class="act2-word">go</span> <span class="act2-word">up.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">day,</span> <span class="act2-word">the</span> <span class="act2-word">hour,</span> <span class="act2-word">sometimes</span> <span class="act2-word">the</span> <span class="act2-word">exact</span> <span class="act2-word">sentence</span> <span class="act2-word">someone</span> <span class="act2-word">said</span> <span class="act2-word">that</span> <span class="act2-word">built</span> <span class="act2-word">the</span> <span class="act2-word">next</span> <span class="act2-word">brick.</span> <span class="act2-word">I</span> <span class="act2-word">did</span> <span class="act2-word">not</span> <span class="act2-word">intervene.</span> <span class="act2-word">The</span> <span class="act2-word">walls</span> <span class="act2-word">were</span> <span class="act2-word">also</span> <span class="act2-word">the</span> <span class="act2-word">building.</span></p>
+      <p class="act2-para act2-go" id="act2-p3"><span class="act2-word">Speak.</span></p>
+    </div>
+
+    <a class="act2-door" id="act2-door" href="vishuddha-practice.html" aria-hidden="true" aria-label="Continue to Vishuddha">
+      <div class="act2-door-name">Vishuddha</div>
+      <div class="act2-door-hint">The voice is here.</div>
+      <div class="act2-door-continue">Press · Continue →</div>
+    </a>
+  </div>
+
+  <!-- ═══ ACT VEIL — dark gap between Act 1 and Act 2 ═══
+       Eyes appear, blink once, fade. Hold the ring 1.8s to enter. -->
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes">
+      <div class="veil-eye"></div>
+      <div class="veil-eye"></div>
+    </div>
+    <div class="veil-invite" id="veil-invite">
+      <div class="veil-invite-text">press and hold to enter</div>
+      <div class="veil-hold-ring" id="veil-hold-ring">
+        <svg viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="veil-ring-track" cx="36" cy="36" r="32"/>
+          <circle class="veil-ring-fill"  cx="36" cy="36" r="32" id="veil-ring-fill"/>
+        </svg>
+        <div class="veil-hold-dot"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /story-mode -->
+
+<script>
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  document.getElementById('progress').style.width =
+    (window.scrollY / (h.scrollHeight - window.innerHeight) * 100) + '%';
+});
+
+function toggleDeeper(btn) {
+  const open = btn.classList.toggle('open');
+  document.getElementById('deeper-panel').classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+let saveTimer;
+function scheduleAutoSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const val = document.getElementById('writing-anahata').value;
+    localStorage.setItem('chakra-anahata', val);
+    const note = document.getElementById('save-note');
+    note.classList.add('visible');
+    setTimeout(() => note.classList.remove('visible'), 2000);
+  }, 900);
+  // Gate the story-invite and writing-reflection on any content
+  updatePostEngagementVisibility();
+}
+
+function updatePostEngagementVisibility() {
+  const val = document.getElementById('writing-anahata').value;
+  const storyInvite = document.getElementById('story-invite');
+  const reflection = document.getElementById('writing-reflection');
+  const hasContent = val && val.trim().length > 0;
+  if (hasContent) {
+    storyInvite.classList.add('revealed');
+    reflection.classList.add('revealed');
+  } else {
+    storyInvite.classList.remove('revealed');
+    reflection.classList.remove('revealed');
+  }
+}
+
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('chakra-anahata');
+  if (saved) {
+    const el = document.getElementById('writing-anahata');
+    el.value = saved;
+    autoResize(el);
+    // Returning walker with saved content — story-invite + reflection reveal immediately
+    updatePostEngagementVisibility();
+  }
+});
+
+/* ─── WHERE THE CHAMBERS LEAD — collapsible with auto-expand on return ─── */
+(function() {
+  const section = document.getElementById('where-the-chambers-lead');
+  const toggle  = document.getElementById('wchl-toggle');
+  if (!section || !toggle) return;
+
+  toggle.addEventListener('click', () => {
+    const open = section.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  // Auto-expand on return when writing exists (signal of prior engagement)
+  window.addEventListener('load', () => {
+    try {
+      if (localStorage.getItem('chakra-anahata')) {
+        section.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    } catch (e) { /* ignore */ }
+  });
+})();
+
+/* ─── LIGHTBOX — zoom, pan, keyboard, touch ─── */
+(function() {
+  const lightbox = document.getElementById('lightbox');
+  const stage = document.getElementById('lightbox-stage');
+  const img = document.getElementById('lightbox-image');
+  const closeBtn = document.getElementById('lightbox-close');
+  const hint = document.getElementById('lightbox-hint');
+
+  if (!lightbox || !img) return;
+
+  let scale = 1;
+  let tx = 0, ty = 0;
+  let isDragging = false;
+  let dragStartX = 0, dragStartY = 0;
+  let startTx = 0, startTy = 0;
+  let pinchStartDist = 0;
+  let pinchStartScale = 1;
+  let lastTap = 0;
+  let hintTimeout = null;
+
+  const MIN_SCALE = 1;
+  const MAX_SCALE = 6;
+
+  function applyTransform() {
+    if (scale > 1.02) {
+      img.classList.add('zoomed');
+    } else {
+      img.classList.remove('zoomed');
+      tx = 0; ty = 0;
+    }
+    img.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+  }
+
+  function resetView() {
+    scale = 1; tx = 0; ty = 0;
+    applyTransform();
+  }
+
+  function clampPan() {
+    if (scale <= 1) { tx = 0; ty = 0; return; }
+    const rect = img.getBoundingClientRect();
+    const stageRect = stage.getBoundingClientRect();
+    const maxX = Math.max(0, (rect.width - stageRect.width) / 2);
+    const maxY = Math.max(0, (rect.height - stageRect.height) / 2);
+    tx = Math.max(-maxX, Math.min(maxX, tx));
+    ty = Math.max(-maxY, Math.min(maxY, ty));
+  }
+
+  function showHint() {
+    hint.classList.add('visible');
+    if (hintTimeout) clearTimeout(hintTimeout);
+    hintTimeout = setTimeout(() => hint.classList.remove('visible'), 4200);
+  }
+
+  window.openLightbox = function() {
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+    resetView();
+    showHint();
+    closeBtn.focus();
+  };
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    resetView();
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+
+  stage.addEventListener('click', (e) => {
+    if (e.target === stage && scale <= 1.02) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === '0') resetView();
+    else if (e.key === '+' || e.key === '=') { scale = Math.min(MAX_SCALE, scale * 1.25); applyTransform(); }
+    else if (e.key === '-') { scale = Math.max(MIN_SCALE, scale / 1.25); clampPan(); applyTransform(); }
+  });
+
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const rect = img.getBoundingClientRect();
+    const cx = e.clientX - (rect.left + rect.width / 2);
+    const cy = e.clientY - (rect.top + rect.height / 2);
+    const prev = scale;
+    const delta = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+    scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * delta));
+    const factor = scale / prev;
+    tx = tx * factor - cx * (factor - 1);
+    ty = ty * factor - cy * (factor - 1);
+    clampPan();
+    applyTransform();
+    showHint();
+  }, { passive: false });
+
+  function handleDouble(x, y) {
+    if (scale > 1.02) {
+      resetView();
+    } else {
+      const rect = img.getBoundingClientRect();
+      const cx = x - (rect.left + rect.width / 2);
+      const cy = y - (rect.top + rect.height / 2);
+      scale = 2.4;
+      tx = -cx * (scale - 1);
+      ty = -cy * (scale - 1);
+      clampPan();
+      applyTransform();
+    }
+  }
+  stage.addEventListener('dblclick', (e) => handleDouble(e.clientX, e.clientY));
+
+  img.addEventListener('mousedown', (e) => {
+    if (scale <= 1.02) return;
+    e.preventDefault();
+    isDragging = true;
+    img.classList.add('dragging');
+    dragStartX = e.clientX; dragStartY = e.clientY;
+    startTx = tx; startTy = ty;
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    tx = startTx + (e.clientX - dragStartX);
+    ty = startTy + (e.clientY - dragStartY);
+    clampPan();
+    applyTransform();
+  });
+  document.addEventListener('mouseup', () => {
+    if (isDragging) { isDragging = false; img.classList.remove('dragging'); }
+  });
+
+  function touchDist(t1, t2) {
+    const dx = t2.clientX - t1.clientX;
+    const dy = t2.clientY - t1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  img.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      const now = Date.now();
+      if (now - lastTap < 320) {
+        e.preventDefault();
+        handleDouble(e.touches[0].clientX, e.touches[0].clientY);
+        lastTap = 0;
+        return;
+      }
+      lastTap = now;
+      if (scale > 1.02) {
+        isDragging = true;
+        img.classList.add('dragging');
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
+        startTx = tx; startTy = ty;
+      }
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      pinchStartDist = touchDist(e.touches[0], e.touches[1]);
+      pinchStartScale = scale;
+      isDragging = false;
+    }
+  }, { passive: false });
+
+  img.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1 && isDragging) {
+      e.preventDefault();
+      tx = startTx + (e.touches[0].clientX - dragStartX);
+      ty = startTy + (e.touches[0].clientY - dragStartY);
+      clampPan();
+      applyTransform();
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = touchDist(e.touches[0], e.touches[1]);
+      if (pinchStartDist > 0) {
+        scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, pinchStartScale * (dist / pinchStartDist)));
+        clampPan();
+        applyTransform();
+        showHint();
+      }
+    }
+  }, { passive: false });
+
+  img.addEventListener('touchend', (e) => {
+    if (e.touches.length === 0) {
+      isDragging = false;
+      img.classList.remove('dragging');
+      pinchStartDist = 0;
+    }
+  });
+
+  img.addEventListener('dragstart', (e) => e.preventDefault());
+})();
+
+/* ═══════════════════════════════════════════════════════════════════════
+   STORY MODE · THE HEART · Anahata — V5 Two-Act Architecture
+   ─────────────────────────────────────────────────────────────────────
+   ACT 1 — Gaia's journey-voice. 5 paragraph blocks from gaia-sakshi-source.
+   The walker arrives into spaciousness (fire's work done), becomes aware of
+   the unstruck sound already playing, recognizes it as love, recognizes love
+   as substance rather than feeling, and finally sees the walls inside the love —
+   walls starting to become doors. The breath cycle (inhale/exhale/grace-held/
+   fullest-breath) + 14 Chaturdasha Trikona + Kulakula Shaktis + YAM all reveal
+   through the 5 beats.
+
+   Scene state progression (cumulative):
+   - Beat 1:  first-inhale
+              Spaciousness. The shape has a center. The center is wide.
+   - Beat 2:  first-inhale + unstruck
+              The sound. 14 triangles faintly interlock.
+   - Beat 3 (opening):  second-inhale + unstruck + opening
+              Hearing deepens. The sound is love.
+   - Beat 4 (opening receiving):  walls-doors + opening + receiving
+              Love as substance. Shaktis brighten. Walls appear as walls.
+   - Beat 5 FINAL (opening receiving dissolving rippling):
+              fullest-breath + walls-doors + recognition + overflow
+              + opening + receiving + dissolving + rippling
+              Fullest breath. Love touches the walls. Doors emerge. Ripple fires.
+              Overflow begins — something wants to become sound.
+
+   SIGNATURE — "The love that arrived for others was always your own heart opening."
+   Lands as the hinge between Gaia's experiential arrival and Sakshi's integrative voice.
+
+   VEIL — #060308. Eyes blink. Press-and-hold 1.8s.
+
+   ACT 2 — Sakshi's integrative voice. Ascending green→cream→silver-white.
+   Three paragraphs auto-paced at 1.33× slower timing (revised April 24).
+   Anahata's p3 is a SINGLE WORD ("Speak.") — punch sizing, single-word-go shape.
+   ═══════════════════════════════════════════════════════════════════════ */
+(function() {
+  const storyInvite   = document.getElementById('story-invite');
+  const storyMode     = document.getElementById('story-mode');
+  const scene         = document.getElementById('story-scene');
+  const lineEl        = document.getElementById('story-line-content');
+  const tapHint       = document.getElementById('story-tap-hint');
+  const thresholdDoor = document.getElementById('threshold-door');
+  const closeBtn      = document.getElementById('story-close');
+
+  if (!storyInvite || !storyMode) return;
+
+  /* ── ACT 1 BEATS — Gaia journey-voice, 5 paragraph blocks.
+     State strings combine scene states (first-inhale/unstruck/walls-doors/
+     fullest-breath/recognition/overflow) with compound dot-grammar from
+     gaia-sakshi (opening/receiving/dissolving/rippling). ── */
+  const beats = [
+    {
+      // Beat 1 — arrive into spaciousness. The fire has done its work. Breath begins.
+      text: "And the fire has done its work. I can feel the shape of me, clearly, for the first time. The shape has a center. The center is — wide. Wider than I expected. The fire didn't make me smaller. The fire made me spacious.",
+      state: 'first-inhale'
+    },
+    {
+      // Beat 2 — the sound. The 14 triangles faintly interlock — unstruck-sound geometry.
+      text: "In the center of the chest-that-I-now-have — something is playing. A sound. Not a sound I'm making. A sound that was already playing. I just got quiet enough to hear it.",
+      state: 'first-inhale unstruck'
+    },
+    {
+      // Beat 3 — opening. Hearing deepens. The sound is love. Breath deepens.
+      text: "It's not loud. It doesn't need to be loud. The quiet is the loudness of this. The hearing is what makes it real. The sound has been real the whole time; what's new is my capacity to receive it. And the sound is — love. That word arrives and I don't push it away. I don't pretty it up. It's love. The thing that was playing has been love.",
+      state: 'second-inhale unstruck opening'
+    },
+    {
+      // Beat 4 — opening + receiving. Love as substance. Shaktis brighten. Walls appear as walls.
+      text: "I thought love was a feeling I might have for someone. Love is the substance I'm made of. Love is the substance everything else is made of.",
+      state: 'walls-doors opening receiving'
+    },
+    {
+      // Beat 5 FINAL — opening + receiving + dissolving + rippling.
+      // Fullest breath. Walls inside the love. Doors emerge. Ripple fires. Overflow begins.
+      text: "The walls in me — I can feel them now, because the love is touching them. They had reasons. They were built in response to specific moments I'm not going to recount right now. But they're inside the love. The love doesn't care about the walls. I think some of the walls might start turning into doors.",
+      state: 'fullest-breath walls-doors recognition overflow opening receiving dissolving rippling',
+      final: true
+    }
+  ];
+
+  /* Signature phrase — the hinge between Gaia's experiential voice and Sakshi's integrative voice. */
+  const SIGNATURE = 'The love that arrived for others was always your own heart opening.';
+
+  let currentBeat    = -1;
+  let act2Launched   = false;
+  let finalBeatDisplayed = false;
+  let signatureShown     = false;
+  let finalHintTimer     = null;
+  let lineFadeTimer  = null;
+  let thresholdTimer = null;
+  let landingTimer   = null;
+  let openHintTimer  = null;
+  let startHideTimer = null;
+
+  function openStory() {
+    storyMode.classList.add('active');
+    storyMode.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('story-open');
+    resetStory();
+    resetVeil();
+    resetActTwo();
+    if (openHintTimer) clearTimeout(openHintTimer);
+    openHintTimer = setTimeout(() => {
+      if (storyMode.classList.contains('active')) {
+        tapHint.classList.add('visible');
+      }
+      openHintTimer = null;
+    }, 1700);
+  }
+
+  function closeStory() {
+    storyMode.classList.remove('active');
+    storyMode.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('story-open');
+    if (lineFadeTimer)  { clearTimeout(lineFadeTimer);  lineFadeTimer  = null; }
+    if (thresholdTimer) { clearTimeout(thresholdTimer); thresholdTimer = null; }
+    if (landingTimer)   { clearTimeout(landingTimer);   landingTimer   = null; }
+    if (openHintTimer)  { clearTimeout(openHintTimer);  openHintTimer  = null; }
+    if (startHideTimer) { clearTimeout(startHideTimer); startHideTimer = null; }
+    resetVeil();
+    resetActTwo();
+  }
+
+  function resetStory() {
+    currentBeat  = -1;
+    act2Launched = false;
+    finalBeatDisplayed = false;
+    signatureShown = false;
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+    lineEl.textContent = '';
+    lineEl.classList.remove('visible', 'fading');
+    scene.className = 'story-scene';
+    tapHint.classList.remove('visible');
+    if (thresholdDoor) thresholdDoor.setAttribute('aria-hidden', 'true');
+  }
+
+  function advance() {
+    if (act2Launched) return;
+    if (signatureShown) return;
+    if (finalBeatDisplayed) { landSignature(); return; }
+    if (currentBeat >= beats.length - 1) return;
+
+    currentBeat++;
+    const beat = beats[currentBeat];
+
+    if (lineEl.classList.contains('visible')) {
+      lineEl.classList.remove('visible');
+      lineEl.classList.add('fading');
+      if (lineFadeTimer) clearTimeout(lineFadeTimer);
+      lineFadeTimer = setTimeout(() => applyBeat(beat), 700);
+    } else {
+      applyBeat(beat);
+    }
+
+    if (currentBeat === 0) {
+      if (startHideTimer) clearTimeout(startHideTimer);
+      startHideTimer = setTimeout(() => {
+        tapHint.classList.remove('visible');
+        startHideTimer = null;
+      }, 800);
+    }
+
+    /* Final beat — flag it; re-surface tap hint after a pause. */
+    if (beat.final) {
+      finalBeatDisplayed = true;
+      if (finalHintTimer) clearTimeout(finalHintTimer);
+      finalHintTimer = setTimeout(() => {
+        if (!storyMode.classList.contains('active')) return;
+        if (signatureShown || act2Launched) return;
+        tapHint.classList.add('visible');
+      }, 4200);
+    }
+  }
+
+  function applyBeat(beat) {
+    lineEl.textContent = beat.text;
+    lineEl.classList.remove('fading');
+    void lineEl.offsetWidth;
+    lineEl.classList.add('visible');
+
+    // Scene state — cumulative class string
+    scene.className = 'story-scene' + (beat.state ? ' ' + beat.state : '');
+
+    /* Final beat now waits for user tap — signature lands via advance() → landSignature(). */
+  }
+
+  function landSignature() {
+    if (signatureShown) return;
+    signatureShown = true;
+    if (tapHint) tapHint.classList.remove('visible');
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+
+    lineEl.classList.remove('visible');
+    lineEl.classList.add('fading');
+
+    if (landingTimer) clearTimeout(landingTimer);
+    landingTimer = setTimeout(() => {
+      if (!storyMode.classList.contains('active')) return;
+      lineEl.textContent = SIGNATURE;
+      lineEl.classList.remove('fading');
+      void lineEl.offsetWidth;
+      lineEl.classList.add('visible');
+
+      if (thresholdTimer) clearTimeout(thresholdTimer);
+      thresholdTimer = setTimeout(() => {
+        if (storyMode.classList.contains('active')) {
+          openThreshold();
+        }
+      }, 2800);
+    }, 800);
+  }
+
+  function openThreshold() {
+    // V5: Act 1 complete → raise the veil. Legacy threshold-door is fallback only.
+    showVeil();
+  }
+
+  /* ══════ ACT VEIL — dark between-space ══════ */
+  const actVeil    = document.getElementById('act-veil');
+  const veilEyes   = document.getElementById('veil-eyes');
+  const veilInvite = document.getElementById('veil-invite');
+  const holdRing   = document.getElementById('veil-hold-ring');
+  const ringFill   = document.getElementById('veil-ring-fill');
+
+  const HOLD_DURATION = 1800;
+  const CIRCUMFERENCE = 201;
+
+  let holdStart  = null;
+  let holdRAF    = null;
+  let veilTimers = [];
+
+  function veilAfter(ms, fn) {
+    const t = setTimeout(fn, ms);
+    veilTimers.push(t);
+    return t;
+  }
+  function clearVeilTimers() {
+    veilTimers.forEach(t => clearTimeout(t));
+    veilTimers.length = 0;
+    if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+  }
+
+  function showVeil() {
+    actVeil.classList.add('visible');
+    actVeil.setAttribute('aria-hidden', 'false');
+
+    veilAfter(700, () => {
+      veilEyes.classList.add('visible');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          veilEyes.classList.add('animate');
+        });
+      });
+    });
+
+    veilAfter(2900, () => {
+      veilInvite.classList.add('visible');
+      wireHold();
+    });
+  }
+
+  let holdWired = false;
+  function wireHold() {
+    if (holdWired) return;
+    holdWired = true;
+
+    function startHold(e) {
+      e.preventDefault();
+      if (act2Launched) return;
+      holdStart = performance.now();
+      holdRing.classList.add('holding');
+      ringFill.style.transition = `stroke-dashoffset ${HOLD_DURATION}ms linear`;
+      ringFill.style.strokeDashoffset = '0';
+      tickHold();
+    }
+
+    function tickHold() {
+      holdRAF = requestAnimationFrame(() => {
+        if (!holdStart) return;
+        const elapsed = performance.now() - holdStart;
+        if (elapsed >= HOLD_DURATION) {
+          completeHold();
+        } else {
+          tickHold();
+        }
+      });
+    }
+
+    function cancelHold() {
+      if (!holdStart) return;
+      holdStart = null;
+      holdRing.classList.remove('holding');
+      ringFill.style.transition = 'stroke-dashoffset 0.4s ease';
+      ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+    }
+
+    function completeHold() {
+      holdStart = null;
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+      actVeil.classList.add('dissolving');
+      veilAfter(600, () => {
+        actVeil.classList.remove('visible');
+        launchActTwo();
+      });
+    }
+
+    holdRing.addEventListener('pointerdown',   startHold,  { passive: false });
+    holdRing.addEventListener('pointerup',     cancelHold);
+    holdRing.addEventListener('pointerleave',  cancelHold);
+    holdRing.addEventListener('pointercancel', cancelHold);
+  }
+
+  function resetVeil() {
+    clearVeilTimers();
+    if (!actVeil) return;
+    actVeil.classList.remove('visible', 'dissolving');
+    actVeil.setAttribute('aria-hidden', 'true');
+    veilEyes.classList.remove('visible', 'animate');
+    veilInvite.classList.remove('visible');
+    ringFill.style.transition = 'none';
+    ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+    holdRing.classList.remove('holding');
+    holdStart = null;
+  }
+
+  /* ══════ ACT 2 — SAKSHI WITNESS ══════ */
+  const actTwo    = document.getElementById('act-two');
+  const act2p1    = document.getElementById('act2-p1');
+  const act2p2    = document.getElementById('act2-p2');
+  const act2p3    = document.getElementById('act2-p3');
+  const act2Door  = document.getElementById('act2-door');
+  const act2Parts = document.getElementById('act2-particles');
+
+  (function buildParticles() {
+    if (!act2Parts) return;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 26; i++) {
+      const p       = document.createElement('div');
+      p.className   = 'act2-particle';
+      const size    = 2 + Math.random() * 5;
+      const opacity = 0.14 + Math.random() * 0.32;
+      const dur     = 18 + Math.random() * 26;
+      const delay   = Math.random() * 28;
+      p.style.cssText = `
+        width:${size}px;height:${size}px;
+        left:${8 + Math.random() * 84}%;
+        bottom:${10 + Math.random() * 88}%;
+        --p-op:${opacity};
+        box-shadow:0 0 ${size*3}px rgba(255,255,255,${opacity*0.8});
+        animation-duration:${dur}s;
+        animation-delay:-${delay}s;
+      `;
+      frag.appendChild(p);
+    }
+    act2Parts.appendChild(frag);
+  })();
+
+  const act2Timers = [];
+  function act2After(ms, fn) {
+    const t = setTimeout(fn, ms);
+    act2Timers.push(t);
+    return t;
+  }
+  function clearAct2Timers() {
+    act2Timers.forEach(t => clearTimeout(t));
+    act2Timers.length = 0;
+  }
+
+  function launchActTwo() {
+    act2Launched = true;
+    if (typeof scene !== 'undefined' && scene) scene.classList.remove('threshold-open');
+    if (typeof tapHint !== 'undefined' && tapHint) tapHint.classList.remove('visible');
+    if (typeof storyTapHint !== 'undefined' && storyTapHint) storyTapHint.classList.remove('visible');
+
+    actTwo.classList.add('rising');
+    actTwo.setAttribute('aria-hidden', 'false');
+
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+
+    /* Word-by-word reveal — slow witness pace. */
+    const BASE_DELAY    = 420;
+    const COMMA_EXTRA   = 260;
+    const DASH_EXTRA    = 180;
+    const PERIOD_EXTRA  = 620;
+    const PARA_EXTRA    = 1200;
+    const INITIAL_DELAY = 1600;
+    const AFTER_LAST    = 2800;
+
+    const paras = Array.from(actTwo.querySelectorAll('.act2-para'));
+    let cumulative = INITIAL_DELAY;
+
+    paras.forEach((para, paraIdx) => {
+      const words = Array.from(para.querySelectorAll('.act2-word'));
+      words.forEach((wordEl, wordIdx) => {
+        const w = wordEl.textContent;
+        const t = setTimeout(() => wordEl.classList.add('visible'), cumulative);
+        act2Timers.push(t);
+
+        let delay = BASE_DELAY;
+        if (/[.!?]$/.test(w))       delay += PERIOD_EXTRA;
+        else if (/[,;:]$/.test(w))  delay += COMMA_EXTRA;
+        if (/[—–]/.test(w)) delay += DASH_EXTRA;
+
+        if (wordIdx === words.length - 1 && paraIdx < paras.length - 1) {
+          delay += PARA_EXTRA;
+        }
+        cumulative += delay;
+      });
+    });
+
+    const doorTimer = setTimeout(() => {
+      if (act2Door) {
+        act2Door.classList.add('risen');
+        act2Door.setAttribute('aria-hidden', 'false');
+      }
+    }, cumulative + AFTER_LAST);
+    act2Timers.push(doorTimer);
+  }
+
+  function resetActTwo() {
+    clearAct2Timers();
+    act2Launched = false;
+    if (!actTwo) return;
+    actTwo.classList.remove('rising');
+    actTwo.setAttribute('aria-hidden', 'true');
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  /* ══════ LISTENERS ══════ */
+  storyInvite.addEventListener('click', openStory);
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeStory();
+  });
+
+  scene.addEventListener('click', (e) => {
+    if (e.target.closest('.story-close') ||
+        e.target.closest('.threshold-door') ||
+        e.target.closest('.act-two') ||
+        e.target.closest('.act-veil')) return;
+    advance();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!storyMode.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+      closeStory();
+    } else if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (!act2Launched && !actVeil.classList.contains('visible')) advance();
+    }
+  });
+})();
+</script>
+<script>/* no gates (standing ruling): everything the page holds is shown from the start; writing still saves */
+(function(){function open(){["post-engagement","writing-reflection","story-invite"].forEach(function(id){var e=document.getElementById(id);if(e){e.classList.add("revealed");e.removeAttribute("aria-hidden")}});var p=document.getElementById("story-portal");if(p){p.dataset.unlockedOnce="1";p.classList.remove("locked");p.setAttribute("aria-disabled","false")}}open();addEventListener("DOMContentLoaded",open);addEventListener("load",open)})();</script>
+</body>
+</html>

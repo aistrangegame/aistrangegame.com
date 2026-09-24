@@ -1,0 +1,3957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manipura — The Solar Plexus · A Strange Chakra Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #fdfbf5;
+  --bg: #f5f2ec;
+  --bg-warm: #ede8df;
+  --gold: #C9A84C;
+  --text: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --border: rgba(0,0,0,0.07);
+
+  /* Manipura — Deep solar ochre, calibrated for cream */
+  --chakra: #9A7B00;
+  --chakra-tint: rgba(154,123,0,0.05);
+  --chakra-border: rgba(154,123,0,0.18);
+  --chakra-glow: rgba(221,187,0,0.5);
+  --chakra-bright: #DDBB00;  /* interactive counter-glow — the fire at peak */
+
+  /* The next chakra — Anahata's heart-green. This is the pigment the threshold opens onto. */
+  --next-color: #1A8A38;
+  --next-glow: rgba(26,138,56,0.55);
+  --threshold-top: 58%;   /* where RAM sits on the trunk; the fire's origin */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+}
+
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px; width: 0%;
+  background: var(--chakra);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* ─── HERO ─── */
+.hero {
+  background: var(--cream);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  /* A faint warm radiance rises — the forge is already lit, the walker just hasn't named it yet */
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 108%, rgba(154,123,0,0.08) 0%, transparent 72%),
+    radial-gradient(ellipse 40% 30% at 50% 72%, rgba(221,187,0,0.04) 0%, transparent 80%);
+  pointer-events: none;
+}
+
+.hero-top-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 28px 36px;
+  display: flex;
+  justify-content: space-between;
+}
+.hero-top-nav a {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(26,26,26,0.3);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.hero-top-nav a:hover { color: var(--chakra); }
+
+.hero-count {
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.3s forwards;
+}
+
+.hero-verb {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: clamp(80px, 16vw, 148px);
+  letter-spacing: 0.07em;
+  color: var(--chakra);
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 36px;
+  opacity: 0;
+  transform: translateY(16px);
+  animation: verbIn 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+}
+
+.hero-threshold {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: rgba(26,26,26,0.42);
+  text-align: center;
+  line-height: 1.75;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 1s forwards;
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 36px;
+  left: 50%; transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 1.5s forwards;
+}
+.hero-scroll-hint span {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(26,26,26,0.25);
+}
+.scroll-line {
+  width: 1px; height: 36px;
+  background: linear-gradient(to bottom, rgba(26,26,26,0.2), transparent);
+  animation: breathe 2.5s ease-in-out 2s infinite;
+}
+
+@keyframes verbIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.7; }
+}
+
+/* ─── BOOK ─── */
+.book {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--cream);
+  box-shadow: 0 0 80px rgba(0,0,0,0.05);
+}
+.book-inner { padding: 72px 56px; }
+@media (max-width: 640px) {
+  .book-inner { padding: 48px 24px; }
+}
+
+/* ─── IDENTITY ─── */
+.identity {
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 48px;
+}
+.chakra-sanskrit {
+  font-family: 'Lora', serif;
+  font-weight: 400;
+  font-size: 26px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.chakra-english {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 20px;
+}
+.chakra-essence {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+.chakra-location {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.core-question {
+  padding: 18px 22px;
+  background: var(--chakra-tint);
+  border-left: 2px solid var(--chakra);
+}
+.core-question-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 6px;
+  opacity: 0.85;
+}
+.core-question p {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--text);
+  margin: 0;
+}
+.core-question p + p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+/* ─── PROSE ─── */
+p { color: var(--text-secondary); margin-bottom: 20px; }
+em { font-family: 'Lora', serif; font-style: italic; color: var(--text); }
+strong { font-weight: 500; color: var(--text); }
+h3 {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  margin: 48px 0 18px;
+}
+
+/* ─── SEED ─── */
+.seed {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  text-align: center;
+  padding: 30px 0;
+  margin: 40px 0;
+  color: var(--text);
+  border-top: 1px solid rgba(201,168,76,0.3);
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  line-height: 1.6;
+}
+
+/* ─── GO DEEPER ─── */
+.deeper-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.2s;
+  margin-top: 8px;
+}
+.deeper-toggle:hover { color: var(--chakra); }
+.deeper-toggle::before {
+  content: '';
+  display: block;
+  width: 22px; height: 1px;
+  background: currentColor;
+  transition: width 0.3s;
+}
+.deeper-toggle:hover::before { width: 36px; }
+.deeper-toggle .arrow { margin-left: auto; transition: transform 0.3s; }
+.deeper-toggle.open .arrow { transform: rotate(180deg); }
+
+.deeper-content {
+  display: none;
+  padding: 28px 0 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 18px;
+}
+.deeper-content.open { display: block; }
+.deeper-item { margin-bottom: 28px; }
+.deeper-item-label {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+.deeper-item p { font-size: 15px; line-height: 1.75; color: var(--text-secondary); margin: 0; }
+.frequency-sound {
+  font-family: 'Lora', serif;
+  font-size: 30px;
+  color: var(--chakra);
+  display: block;
+  margin-bottom: 10px;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 56px 0;
+}
+.divider::before, .divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+.divider-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+/* ─── PRACTICE BLOCK ─── */
+.practice-block {
+  background: var(--chakra-tint);
+  border-top: 2px solid var(--chakra-border);
+  border-bottom: 1px solid var(--chakra-border);
+  margin: 0 -56px;
+  padding: 48px 56px;
+}
+@media (max-width: 640px) {
+  .practice-block { margin: 0 -24px; padding: 36px 24px; }
+}
+.practice-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 24px;
+  opacity: 0.9;
+}
+.practice-block p { color: var(--text-secondary); font-size: 16px; line-height: 1.9; }
+.practice-block strong { color: var(--text); }
+.practice-block em { color: var(--text-secondary); }
+
+/* ─── WRITING ─── */
+.writing-section { margin: 56px 0 48px; }
+.writing-prompt {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+  line-height: 1.7;
+}
+.writing-area {
+  width: 100%;
+  min-height: 140px;
+  border: none;
+  border-bottom: 1.5px solid rgba(0,0,0,0.1);
+  background: transparent;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  line-height: 2.2;
+  color: var(--text);
+  resize: none;
+  outline: none;
+  padding: 4px 0 16px;
+  transition: border-color 0.25s;
+  background-image: repeating-linear-gradient(
+    to bottom, transparent, transparent calc(2.2em - 1px),
+    rgba(0,0,0,0.04) calc(2.2em - 1px), rgba(0,0,0,0.04) 2.2em
+  );
+  background-attachment: local;
+}
+.writing-area:focus { border-bottom-color: var(--chakra); }
+.writing-area::placeholder { color: rgba(0,0,0,0.18); font-style: italic; }
+.writing-saved {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  text-align: right;
+  margin-top: 8px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+.writing-saved.visible { opacity: 1; }
+
+/* Post-write reflection — the fire asking about its own operation.
+   Two questions, one fire. The pair-teaching landing at the writing-register. */
+.writing-reflection {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  max-width: 540px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-top: 0;
+  transition: max-height 1.6s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              opacity 1.2s ease 0.5s,
+              margin-top 1.2s ease 0.2s;
+}
+.writing-reflection.revealed {
+  max-height: 180px;
+  opacity: 1;
+  margin-top: 28px;
+}
+
+/* ─── PRACTICE OPTIONS ─── */
+.practice-options { margin: 8px 0 0; }
+.practice-option {
+  padding: 18px 22px;
+  background: rgba(0,0,0,0.02);
+  border-radius: 3px;
+  margin-bottom: 10px;
+  border-left: 2px solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+.practice-option:hover {
+  border-left-color: var(--chakra);
+  background: var(--chakra-tint);
+}
+.practice-option p { font-size: 15px; line-height: 1.75; margin: 0; }
+
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 56px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+@media (max-width: 640px) { .bottom-nav { padding: 28px 24px; } }
+.nav-link {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--chakra); }
+.nav-position {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+}
+
+hr.book-rule {
+  border: none; height: 1px;
+  background: var(--border);
+  margin: 48px 0;
+}
+
+/* ─── TREE IMAGE ─── */
+/* The tree the text has been pointing at. Incomplete. Asymmetric. Still being built.
+   The fire is in the image. Click to look closer. */
+.tree-figure {
+  margin: 48px -16px;
+  cursor: zoom-in;
+  position: relative;
+}
+@media (max-width: 640px) {
+  .tree-figure { margin: 36px -8px; }
+}
+.tree-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 3px;
+  transition: transform 0.6s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+  /* Fire breathes — faster than water's 16s, matching the pulse-based register */
+  animation: treeBreath 12s ease-in-out infinite;
+}
+.tree-figure:hover .tree-image {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(154,123,0,0.22), 0 2px 8px rgba(0,0,0,0.08);
+}
+.tree-hint {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 18px;
+  letter-spacing: 0.02em;
+  transition: color 0.3s;
+}
+.tree-figure:hover .tree-hint { color: var(--chakra); }
+
+@keyframes treeBreath {
+  0%, 100% { transform: scale(1.000); }
+  50%      { transform: scale(1.004); }
+}
+
+/* ─── LIGHTBOX ─── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Near-black with warm-ochre undertone — not pure black, this is the forge-dark */
+  background: radial-gradient(ellipse at center, #1a0f03 0%, #0a0601 78%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
+  overscroll-behavior: contain;
+  touch-action: none;
+}
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease;
+}
+.lightbox-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox-image {
+  max-width: 96vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  transform-origin: center center;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+  will-change: transform;
+}
+.lightbox-image.dragging { transition: none; cursor: grabbing; }
+.lightbox-image.zoomed { cursor: grab; }
+
+.lightbox-close {
+  position: absolute;
+  top: 22px; right: 22px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.7);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 300;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  z-index: 2;
+}
+.lightbox-close:hover {
+  background: rgba(154,123,0,0.18);
+  color: rgba(255,255,255,0.95);
+  border-color: rgba(221,187,0,0.5);
+}
+
+.lightbox-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: rgba(255,255,255,0.48);
+  letter-spacing: 0.06em;
+  text-align: center;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  padding: 10px 20px;
+  background: rgba(0,0,0,0.28);
+  border-radius: 3px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  max-width: calc(100vw - 40px);
+}
+.lightbox-hint.visible { opacity: 1; }
+.lightbox-hint .sep { opacity: 0.5; margin: 0 8px; }
+
+@media (max-width: 640px) {
+  .lightbox-close { top: 16px; right: 16px; width: 40px; height: 40px; font-size: 16px; }
+  .lightbox-hint { bottom: 20px; font-size: 12px; padding: 8px 14px; }
+}
+
+body.lightbox-open { overflow: hidden; }
+
+/* ─── WHERE THE EMBERS LEAD ─── */
+/* Extensible section — two experiences, each an ember still carrying heat.
+   The fire is done. These are what remained warm.
+   V4 delta: collapsible with auto-expand on return when writing exists */
+.embers-lead {
+  margin: 56px 0 8px;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+.wetl-toggle {
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  letter-spacing: 0.01em;
+  transition: color 0.25s;
+}
+.wetl-toggle:hover { color: var(--chakra); }
+.wetl-toggle-indicator {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.25s;
+  line-height: 1;
+}
+.wetl-toggle:hover .wetl-toggle-indicator { color: var(--chakra); }
+.embers-lead.open .wetl-toggle-indicator { transform: rotate(180deg); }
+
+.wetl-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.embers-lead.open .wetl-content {
+  max-height: 3600px;
+  transition: max-height 1.1s cubic-bezier(0.16,1,0.3,1);
+}
+
+.embers-lead-label {
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.embers-lead-intro {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  line-height: 1.7;
+  padding-top: 4px;
+}
+.embers-grid {
+  display: grid;
+  grid-template-columns: 1fr;  /* stacked — each ember gets its own moment */
+  gap: 40px;
+}
+@media (max-width: 640px) {
+  .embers-grid { gap: 32px; }
+}
+.ember-door {
+  display: block;
+  padding: 28px 26px;
+  background: rgba(154,123,0,0.05);
+  border: 1px solid rgba(154,123,0,0.18);
+  border-radius: 3px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1),
+              background 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+.ember-door:hover {
+  transform: translateY(-2px);
+  background: rgba(154,123,0,0.09);
+  border-color: rgba(154,123,0,0.38);
+  box-shadow: 0 8px 28px rgba(154,123,0,0.15),
+              0 2px 8px rgba(221,187,0,0.08);
+}
+
+.door-meta {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 12px;
+  opacity: 0.85;
+}
+.door-title {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.door-text {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 18px;
+}
+.door-text em {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 13px;
+}
+.door-enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  transition: color 0.25s;
+}
+.ember-door:hover .door-enter { color: var(--chakra); }
+.door-arrow {
+  width: 28px;
+  height: 1px;
+  background: currentColor;
+  position: relative;
+  transition: width 0.35s ease;
+}
+.door-arrow::after {
+  content: '';
+  position: absolute;
+  right: 0; top: -3px;
+  width: 7px; height: 7px;
+  border-top: 1px solid currentColor;
+  border-right: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+.ember-door:hover .door-arrow { width: 42px; }
+
+/* Text content must sit above the glyph */
+.door-meta, .door-title, .door-text, .door-enter {
+  position: relative;
+  z-index: 2;
+}
+
+/* Cream gradient overlay so text reads cleanly over glyph */
+.ember-door::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(253,251,245,0.0) 0%,
+    rgba(253,251,245,0.45) 30%,
+    rgba(253,251,245,0.62) 70%,
+    rgba(253,251,245,0.28) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  opacity: 0.92;
+}
+.ember-door:hover::after { opacity: 0.78; }
+
+/* ─── DOOR GLYPHS · FULL-CARD SIGILS · Manipura ─── */
+/* Wakeup: Eight Ananga Shaktis around the Ashta Dala Padma, central flame.
+            Ambient radial pulse; hover extends the flame upward and brightens the eight.
+   Dance:  Two-blaze waveform with the breath-dip between. Eight ember-marks at Shakti-points.
+            Ambient playback of the arc; hover emphasizes the deeper-second-blaze. */
+
+.door-glyph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.45;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+  z-index: 0;
+}
+.ember-door:hover .door-glyph { opacity: 0.8; }
+
+/* ── Wakeup Glyph — eight around the one, flame at center ── */
+.wg-lotus {
+  fill: none;
+  stroke: var(--chakra);
+  stroke-width: 0.6;
+  opacity: 0.32;
+}
+
+.wg-core {
+  fill: var(--chakra);
+  opacity: 0.85;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wgCoreBreath 6s ease-in-out infinite;
+}
+@keyframes wgCoreBreath {
+  0%, 100% { transform: scale(1);    opacity: 0.8;  }
+  50%      { transform: scale(1.22); opacity: 1;    }
+}
+
+.wg-tongue {
+  fill: var(--chakra);
+  opacity: 0.5;
+  transform-box: fill-box;
+  transform-origin: bottom center;
+  animation: wgTongueFlicker 3.6s ease-in-out infinite;
+}
+.wg-tongue.t1 { animation-delay: 0s;   }
+.wg-tongue.t2 { animation-delay: -1.2s; }
+.wg-tongue.t3 { animation-delay: -2.4s; }
+@keyframes wgTongueFlicker {
+  0%, 100% { transform: scaleY(1)    scaleX(1);    opacity: 0.42; }
+  50%      { transform: scaleY(1.35) scaleX(0.88); opacity: 0.72; }
+}
+
+.wg-shakti {
+  fill: var(--chakra);
+  opacity: 0.65;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wgShaktiEmber 9s ease-in-out infinite;
+}
+/* Eight Shaktis, each staggered — the forge's own pulse, one at a time */
+.wg-shakti.s1 { animation-delay: 0s;   }
+.wg-shakti.s2 { animation-delay: -1.1s; }
+.wg-shakti.s3 { animation-delay: -2.2s; }
+.wg-shakti.s4 { animation-delay: -3.3s; }
+.wg-shakti.s5 { animation-delay: -4.4s; }
+.wg-shakti.s6 { animation-delay: -5.5s; }
+.wg-shakti.s7 { animation-delay: -6.6s; }
+.wg-shakti.s8 { animation-delay: -7.7s; }
+@keyframes wgShaktiEmber {
+  0%, 100% { transform: scale(1);    opacity: 0.55; }
+  50%      { transform: scale(1.22); opacity: 0.95; }
+}
+
+/* On hover: the flame extends, eight brighten in sequence, lotus emerges */
+.ember-door.wakeup:hover .wg-core    { animation-duration: 3s; }
+.ember-door.wakeup:hover .wg-tongue  { animation-duration: 2s; opacity: 0.7; }
+.ember-door.wakeup:hover .wg-shakti  { animation-duration: 5s; }
+.ember-door.wakeup:hover .wg-lotus   { opacity: 0.55; }
+
+.ember-door.wakeup {
+  transition: transform 0.7s cubic-bezier(0.16,1,0.3,1),
+              background 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.5s ease;
+}
+.ember-door.wakeup:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 32px rgba(154,123,0,0.18),
+              0 2px 10px rgba(221,187,0,0.14);
+}
+
+/* ── Dance Glyph — two blazes, one breath ── */
+.dg-baseline {
+  stroke: var(--chakra);
+  stroke-width: 0.6;
+  stroke-linecap: round;
+  opacity: 0.3;
+}
+.dg-wave {
+  fill: none;
+  stroke: var(--chakra);
+  stroke-linecap: round;
+  stroke-width: 1.3;
+  stroke-dasharray: 280;
+  stroke-dashoffset: 280;
+  animation: dgWavePlay 12s ease-in-out infinite;
+}
+@keyframes dgWavePlay {
+  0%   { stroke-dashoffset: 280; opacity: 0.2; }
+  15%  { opacity: 0.8; }
+  45%  { stroke-dashoffset: 0;   opacity: 0.95; }
+  80%  { stroke-dashoffset: -180; opacity: 0.55; }
+  100% { stroke-dashoffset: -280; opacity: 0.15; }
+}
+
+/* Playback marker — a traveling ember that follows the waveform */
+.dg-marker {
+  fill: var(--chakra);
+  opacity: 0.85;
+  animation: dgMarkerTravel 12s ease-in-out infinite;
+}
+@keyframes dgMarkerTravel {
+  /* Rough path across the two-blaze arc — x travels left-to-right,
+     y bounces to mirror the two peaks with a dip between */
+  0%   { transform: translate(10px,  12px); opacity: 0; }
+  10%  { opacity: 0.9; }
+  25%  { transform: translate(56px,  -26px); }  /* first peak */
+  38%  { transform: translate(86px,   4px);  }  /* settle */
+  50%  { transform: translate(104px, 14px);  }  /* breath */
+  62%  { transform: translate(128px, -6px);  }  /* rebuild */
+  78%  { transform: translate(156px, -38px); }  /* second peak, higher */
+  92%  { transform: translate(184px,  10px); opacity: 0.4; }
+  100% { transform: translate(196px, 16px);  opacity: 0; }
+}
+
+.dg-ember {
+  fill: var(--chakra-bright);
+  opacity: 0.7;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: dgEmberPulse 8s ease-in-out infinite;
+}
+.dg-ember.e1 { animation-delay: 0s; }
+.dg-ember.e2 { animation-delay: -2s; }
+.dg-ember.e3 { animation-delay: -4s; }
+.dg-ember.e4 { animation-delay: -6s; }
+@keyframes dgEmberPulse {
+  0%, 100% { transform: scale(0.9); opacity: 0.5; }
+  50%      { transform: scale(1.3); opacity: 1;   }
+}
+
+/* On hover: the waveform plays faster, second blaze intensifies */
+.ember-door.dance:hover .dg-wave   { animation-duration: 7s; }
+.ember-door.dance:hover .dg-marker { animation-duration: 7s; }
+.ember-door.dance:hover .dg-ember  { animation-duration: 4s; }
+
+.ember-door.dance {
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+              background 0.35s ease,
+              border-color 0.35s ease,
+              box-shadow 0.5s ease;
+}
+.ember-door.dance:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(154,123,0,0.16),
+              0 2px 14px rgba(221,187,0,0.1);
+}
+
+@media (max-width: 640px) {
+  .door-glyph { opacity: 0.38; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wg-shakti, .wg-core, .wg-tongue,
+  .dg-wave, .dg-marker, .dg-ember,
+  .ember-door.wakeup:hover, .ember-door.dance:hover {
+    animation: none;
+    transition: opacity 0.3s ease;
+  }
+}
+
+/* ─── STORY PORTAL · THE FORGE PREVIEW ─── */
+/* A full region with embers already drifting upward, the forge not yet caught.
+   Same deep warm-dark as the Story Mode scene, so the flip feels continuous. */
+.story-portal {
+  display: block;
+  width: 100%;
+  min-height: 300px;
+  position: relative;
+  background: radial-gradient(ellipse at 50% 62%, #1f1205 0%, #0a0602 85%);
+  border: 1px solid rgba(154,123,0,0.28);
+  border-radius: 3px;
+  overflow: hidden;
+  cursor: pointer;
+  color: rgba(255,240,220,0.9);
+  font-family: 'DM Sans', sans-serif;
+  padding: 56px 40px;
+  margin: 48px 0 12px;
+  max-height: 0;
+  opacity: 0;
+  transition: color 0.3s ease,
+              max-height 1.6s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              opacity 1.4s ease 0.4s,
+              padding 0.5s ease,
+              margin 0.5s ease,
+              border-color 0.5s ease,
+              box-shadow 0.5s ease,
+              transform 0.5s ease;
+}
+.story-portal.revealed {
+  max-height: 620px;
+  opacity: 1;
+}
+.story-portal:hover {
+  border-color: rgba(221,187,0,0.52);
+  box-shadow: 0 0 0 1px rgba(154,123,0,0.32),
+              0 16px 48px rgba(30,18,6,0.55);
+  transform: translateY(-2px);
+}
+
+/* ── Background layers ── */
+.sp-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  display: block;
+}
+
+/* Drifting embers — the fire's residue still warm in the field */
+.sp-embers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: block;
+}
+.sp-ember {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(221,187,0,0.75);
+  box-shadow: 0 0 6px rgba(221,187,0,0.55),
+              0 0 14px rgba(221,187,0,0.25);
+  opacity: 0;
+  animation: spEmberRise var(--dur, 9s) ease-out var(--d, 0s) infinite;
+  bottom: -10px;
+  will-change: transform, opacity;
+}
+.sp-ember.lg {
+  width: 4px;
+  height: 4px;
+  background: rgba(232,200,74,0.9);
+  box-shadow: 0 0 8px rgba(232,200,74,0.65),
+              0 0 18px rgba(232,200,74,0.3);
+}
+@keyframes spEmberRise {
+  0%   { opacity: 0;    transform: translate(0, 0)       scale(0.7); }
+  15%  { opacity: 0.85;                                               }
+  50%  { opacity: 0.7;  transform: translate(var(--dx, 10px), -140px) scale(1);   }
+  100% { opacity: 0;    transform: translate(var(--dx2, -4px), -320px) scale(0.4); }
+}
+
+/* Faint 8-petal lotus ghosted in the background — the architecture */
+.sp-lotus {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 360px; height: 360px;
+  transform: translate(-50%, -54%);
+  opacity: 0.14;
+  animation: spLotusBreath 11s ease-in-out infinite;
+  display: block;
+}
+.sp-lotus svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+@keyframes spLotusBreath {
+  0%, 100% { opacity: 0.1;  transform: translate(-50%, -54%) scale(1);    }
+  50%      { opacity: 0.22; transform: translate(-50%, -54%) scale(1.04); }
+}
+
+/* Central forge-glow — the fire not yet caught, but the heat is in the field */
+.sp-glow {
+  position: absolute;
+  top: 55%; left: 50%;
+  width: 340px; height: 340px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle,
+    rgba(221,187,0,0.16) 0%,
+    rgba(154,123,0,0.08) 40%,
+    transparent 72%);
+  filter: blur(4px);
+  animation: spGlowBreath 7s ease-in-out infinite;
+  display: block;
+}
+@keyframes spGlowBreath {
+  0%, 100% { opacity: 0.55; transform: translate(-50%, -50%) scale(1);    }
+  50%      { opacity: 1;    transform: translate(-50%, -50%) scale(1.18); }
+}
+
+/* Heat shimmer — faint warm band sweeping across, echoing the air-above-fire wobble */
+.sp-shimmer {
+  position: absolute;
+  top: -30%; left: -60%;
+  width: 220%; height: 160%;
+  background: linear-gradient(
+    110deg,
+    transparent 35%,
+    rgba(221,187,0,0.04) 46%,
+    rgba(221,187,0,0.12) 50%,
+    rgba(221,187,0,0.04) 54%,
+    transparent 65%
+  );
+  animation: spShimmer 9s linear infinite;
+  display: block;
+}
+@keyframes spShimmer {
+  0%   { transform: translateX(-55%); }
+  100% { transform: translateX(55%);  }
+}
+
+/* ── Content layer ── */
+.sp-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  z-index: 2;
+  text-align: center;
+}
+
+.sp-label {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(221,187,0,0.88);
+  font-weight: 400;
+}
+
+.sp-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--chakra-bright);  /* The solar yellow — the forge's jewel */
+  box-shadow: 0 0 22px rgba(221,187,0,0.65),
+              0 0 48px rgba(221,187,0,0.28);
+  animation: spDotBreath 5.5s ease-in-out infinite;
+  display: block;
+}
+@keyframes spDotBreath {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 22px rgba(221,187,0,0.65), 0 0 48px rgba(221,187,0,0.28); }
+  50%      { transform: scale(1.2);  box-shadow: 0 0 34px rgba(221,187,0,0.9),  0 0 68px rgba(221,187,0,0.4);  }
+}
+
+.sp-headline {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(19px, 3vw, 23px);
+  color: rgba(255,240,220,0.95);
+  line-height: 1.5;
+  max-width: 480px;
+  text-shadow: 0 0 24px rgba(154,123,0,0.28);
+}
+
+.sp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,240,220,0.6);
+  padding: 14px 2px 2px;
+  border-top: 1px solid rgba(154,123,0,0.36);
+  margin-top: 6px;
+  transition: color 0.35s, border-color 0.35s;
+}
+.story-portal:hover .sp-cta {
+  color: rgba(255,240,220,0.96);
+  border-top-color: rgba(221,187,0,0.58);
+}
+.sp-cta-arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+.story-portal:hover .sp-cta-arrow { transform: translateX(7px); }
+
+/* Hover intensifies background motion — the forge noticed you */
+.story-portal:hover .sp-shimmer { animation-duration: 5s; }
+.story-portal:hover .sp-dot     { animation-duration: 2.8s; }
+.story-portal:hover .sp-glow    { animation-duration: 3.8s; }
+.story-portal:hover .sp-lotus   { animation-duration: 6s; }
+
+@media (max-width: 640px) {
+  .story-portal {
+    padding: 44px 24px;
+    min-height: 260px;
+  }
+  .sp-headline { font-size: 17px; }
+  .sp-glow  { width: 220px; height: 220px; }
+  .sp-lotus { width: 240px; height: 240px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sp-ember, .sp-shimmer, .sp-glow, .sp-dot, .sp-lotus {
+    animation: none;
+  }
+}
+
+/* ═══ STORY MODE · THE FORGE ═══
+   Manipura — the forge-lit tree scene.
+   Eight Ananga Shaktis arranged at the petals of the Ashta Dala Padma.
+   Two trunks rising from one root. Central flame. Flame tongues.
+   The two-blaze-one-breath arc plays across 17 beats. */
+
+.story-mode {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  perspective: 1800px;
+  /* V5 Locked Decision 24: solid base so veil transitions never bleed the page through */
+  background: #060308;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0s linear 1.6s;
+}
+.story-mode.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition: opacity 0.25s ease, visibility 0s linear;
+}
+
+body.story-open { overflow: hidden; }
+
+.story-scene {
+  position: absolute;
+  inset: 0;
+  /* Forge-dark — same as Story Portal so the flip feels continuous */
+  background: radial-gradient(ellipse at 50% 62%, #1f1205 0%, #0a0602 85%);
+  transform: rotateY(-180deg) scale(0.96);
+  transform-origin: right center;
+  transition: transform 1.55s cubic-bezier(0.16,1,0.3,1),
+              background 3.4s ease;
+  backface-visibility: hidden;
+  overflow: hidden;
+  color: rgba(255,240,220,0.88);
+  font-family: 'Lora', serif;
+  cursor: pointer;
+}
+.story-mode.active .story-scene {
+  transform: rotateY(0deg) scale(1);
+}
+
+/* ══ Ashta Dala Padma — the 8-petal lotus, the architecture of the forge ══ */
+.mp-lotus {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: clamp(340px, 58vmin, 520px);
+  height: clamp(340px, 58vmin, 520px);
+  transform: translate(-50%, -52%);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 1;
+  transition: opacity 2.8s ease;
+}
+.mp-lotus svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.mp-lotus-petal {
+  fill: none;
+  stroke: rgba(221,187,0,0.6);
+  stroke-width: 0.8;
+}
+.story-scene.first-blaze .mp-lotus  { opacity: 0.2;  }
+.story-scene.second-blaze .mp-lotus { opacity: 0.32; }
+.story-scene.recognition .mp-lotus  { opacity: 0.5;  transition: opacity 1.6s ease; }
+
+/* ══ Eight Shakti points — positioned around the Ashta Dala Padma ══
+   Each is a small flame-tongue that ignites at its beat.
+   Positions: SW (Kusumā), W (Mekhalā), NW (Madanā), N (Madanāturā),
+              NE (Rekhā), S (Vegā), E (Ankushā), SE (Mālinī) */
+.mp-shakti-point {
+  position: absolute;
+  width: 14px;
+  height: 20px;
+  border-radius: 48% 48% 6% 6% / 58% 58% 4% 4%;
+  background: radial-gradient(ellipse at 50% 70%,
+    rgba(232,200,74,0.95) 0%,
+    rgba(221,187,0,0.7)  40%,
+    rgba(154,123,0,0.3)  70%,
+    transparent          100%);
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center bottom;
+  opacity: 0;
+  z-index: 5;
+  transition: opacity 1.4s ease, transform 1.4s cubic-bezier(0.16,1,0.3,1);
+  filter: blur(0.3px);
+  box-shadow: 0 0 8px rgba(221,187,0,0.55),
+              0 0 18px rgba(221,187,0,0.25);
+}
+/* Eight positions — roughly octagonal around center (50%/50%)
+   Compass positions with slight offsets for visual breath, anchored to lotus petals */
+.mp-shakti-point.sp-kusuma    { top: 72%; left: 26%; }  /* SW */
+.mp-shakti-point.sp-mekhala   { top: 52%; left: 18%; }  /* W  */
+.mp-shakti-point.sp-madana    { top: 28%; left: 26%; }  /* NW */
+.mp-shakti-point.sp-madanatura{ top: 16%; left: 50%; }  /* N  */
+.mp-shakti-point.sp-rekha     { top: 28%; left: 74%; }  /* NE */
+.mp-shakti-point.sp-vega      { top: 82%; left: 50%; }  /* S  */
+.mp-shakti-point.sp-ankusha   { top: 52%; left: 82%; }  /* E  */
+.mp-shakti-point.sp-malini    { top: 72%; left: 74%; }  /* SE */
+
+/* Each Shakti-point gets its own flicker animation once lit */
+.mp-shakti-point.lit {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: mpShaktiFlicker 2.8s ease-in-out infinite;
+}
+@keyframes mpShaktiFlicker {
+  0%, 100% { transform: translate(-50%, -50%) scale(var(--ss, 1))            rotate(-1deg); opacity: 0.85; }
+  50%      { transform: translate(-50%, -50%) scale(calc(var(--ss, 1) * 1.1)) rotate(1.5deg); opacity: 1;   }
+}
+
+/* State → lit mapping */
+.story-scene.first-ember    .mp-shakti-point.sp-kusuma     { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+.story-scene.mekhala-lit    .mp-shakti-point.sp-kusuma,
+.story-scene.mekhala-lit    .mp-shakti-point.sp-mekhala    { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+.story-scene.first-blaze    .mp-shakti-point.sp-kusuma,
+.story-scene.first-blaze    .mp-shakti-point.sp-mekhala    { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+.story-scene.madana-lit     .mp-shakti-point.sp-kusuma,
+.story-scene.madana-lit     .mp-shakti-point.sp-mekhala,
+.story-scene.madana-lit     .mp-shakti-point.sp-madana     { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+.story-scene.madanatura-lit .mp-shakti-point.sp-kusuma,
+.story-scene.madanatura-lit .mp-shakti-point.sp-mekhala,
+.story-scene.madanatura-lit .mp-shakti-point.sp-madana,
+.story-scene.madanatura-lit .mp-shakti-point.sp-madanatura { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+/* Through the breath, the Shaktis already lit dim but do not extinguish */
+.story-scene.breath           .mp-shakti-point.lit,
+.story-scene.breath           .mp-shakti-point.sp-kusuma,
+.story-scene.breath           .mp-shakti-point.sp-mekhala,
+.story-scene.breath           .mp-shakti-point.sp-madana,
+.story-scene.breath           .mp-shakti-point.sp-madanatura { opacity: 0.45; animation-duration: 5.5s; }
+.story-scene.breath-deepened  .mp-shakti-point.sp-kusuma,
+.story-scene.breath-deepened  .mp-shakti-point.sp-mekhala,
+.story-scene.breath-deepened  .mp-shakti-point.sp-madana,
+.story-scene.breath-deepened  .mp-shakti-point.sp-madanatura { opacity: 0.32; animation-duration: 7s; }
+/* Rebuild — flames return to the four; Rekhā joins */
+.story-scene.rebuild  .mp-shakti-point.sp-kusuma,
+.story-scene.rebuild  .mp-shakti-point.sp-mekhala,
+.story-scene.rebuild  .mp-shakti-point.sp-madana,
+.story-scene.rebuild  .mp-shakti-point.sp-madanatura,
+.story-scene.rebuild  .mp-shakti-point.sp-rekha { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+.story-scene.vega-lit .mp-shakti-point.sp-kusuma,
+.story-scene.vega-lit .mp-shakti-point.sp-mekhala,
+.story-scene.vega-lit .mp-shakti-point.sp-madana,
+.story-scene.vega-lit .mp-shakti-point.sp-madanatura,
+.story-scene.vega-lit .mp-shakti-point.sp-rekha,
+.story-scene.vega-lit .mp-shakti-point.sp-vega { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+/* Ankushā arrives — and gets its own emphasized brightness */
+.story-scene.ankusha-lit .mp-shakti-point.sp-kusuma,
+.story-scene.ankusha-lit .mp-shakti-point.sp-mekhala,
+.story-scene.ankusha-lit .mp-shakti-point.sp-madana,
+.story-scene.ankusha-lit .mp-shakti-point.sp-madanatura,
+.story-scene.ankusha-lit .mp-shakti-point.sp-rekha,
+.story-scene.ankusha-lit .mp-shakti-point.sp-vega,
+.story-scene.ankusha-lit .mp-shakti-point.sp-ankusha { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+.story-scene.ankusha-lit .mp-shakti-point.sp-ankusha {
+  --ss: 1.15;
+  transform: translate(-50%, -50%) scale(1.15);
+  filter: blur(0.2px);
+  box-shadow: 0 0 14px rgba(232,200,74,0.85),
+              0 0 32px rgba(221,187,0,0.45);
+}
+/* Second blaze — all eight lit */
+.story-scene.second-blaze .mp-shakti-point { opacity: 1; transform: translate(-50%, -50%) scale(1); animation: mpShaktiFlicker 2.8s ease-in-out infinite; }
+.story-scene.second-blaze .mp-shakti-point.sp-ankusha {
+  --ss: 1.15;
+  transform: translate(-50%, -50%) scale(1.15);
+}
+/* Malini arrives last — its own small bloom */
+.story-scene.malini-lit .mp-shakti-point.sp-malini {
+  --ss: 1.12;
+  transform: translate(-50%, -50%) scale(1.12);
+  animation-duration: 2.3s;
+}
+/* Recognition — all eight pulse in unison. The pair-resolve made visible.
+   forwards fill keeps the settled-brighter end state after the 1.8s unison ends. */
+.story-scene.recognition .mp-shakti-point {
+  animation: mpShaktiUnison 1.8s ease-in-out forwards;
+}
+@keyframes mpShaktiUnison {
+  0%   { transform: translate(-50%, -50%) scale(1);     opacity: 1;   box-shadow: 0 0 8px rgba(221,187,0,0.55), 0 0 18px rgba(221,187,0,0.25); }
+  50%  { transform: translate(-50%, -50%) scale(1.35);  opacity: 1;   box-shadow: 0 0 22px rgba(232,200,74,0.9),  0 0 50px rgba(232,200,74,0.55); }
+  100% { transform: translate(-50%, -50%) scale(1.05);  opacity: 0.9; box-shadow: 0 0 14px rgba(221,187,0,0.7),  0 0 28px rgba(221,187,0,0.35); }
+}
+
+/* ══ Shakti name labels — hidden until their Shakti is lit + a small delay ══ */
+.mp-shakti-label {
+  position: absolute;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(10px, 1.7vw, 12.5px);
+  color: rgba(255,240,220,0.55);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+  text-shadow: 0 0 8px rgba(0,0,0,0.7);
+  opacity: 0;
+  transition: opacity 1.6s ease 0.6s;
+  pointer-events: none;
+  z-index: 6;
+}
+/* Each label positioned offset from its Shakti-point so it doesn't occlude the flame */
+.mp-shakti-label.sl-kusuma     { top: 78%; left: 26%; }
+.mp-shakti-label.sl-mekhala    { top: 46%; left: 18%; }
+.mp-shakti-label.sl-madana     { top: 22%; left: 26%; }
+.mp-shakti-label.sl-madanatura { top: 10%; left: 50%; }
+.mp-shakti-label.sl-rekha      { top: 22%; left: 74%; }
+.mp-shakti-label.sl-vega       { top: 88%; left: 50%; }
+.mp-shakti-label.sl-ankusha    { top: 46%; left: 82%; }
+.mp-shakti-label.sl-malini     { top: 78%; left: 74%; }
+
+.story-scene.first-ember    .mp-shakti-label.sl-kusuma     { opacity: 0.7; }
+.story-scene.mekhala-lit    .mp-shakti-label.sl-kusuma,
+.story-scene.mekhala-lit    .mp-shakti-label.sl-mekhala    { opacity: 0.7; }
+.story-scene.first-blaze    .mp-shakti-label.sl-kusuma,
+.story-scene.first-blaze    .mp-shakti-label.sl-mekhala    { opacity: 0.7; }
+.story-scene.madana-lit     .mp-shakti-label.sl-kusuma,
+.story-scene.madana-lit     .mp-shakti-label.sl-mekhala,
+.story-scene.madana-lit     .mp-shakti-label.sl-madana     { opacity: 0.7; }
+.story-scene.madanatura-lit .mp-shakti-label.sl-kusuma,
+.story-scene.madanatura-lit .mp-shakti-label.sl-mekhala,
+.story-scene.madanatura-lit .mp-shakti-label.sl-madana,
+.story-scene.madanatura-lit .mp-shakti-label.sl-madanatura { opacity: 0.7; }
+.story-scene.breath .mp-shakti-label { opacity: 0.28; transition: opacity 1.8s ease; }
+.story-scene.breath-deepened .mp-shakti-label { opacity: 0.2; }
+.story-scene.rebuild .mp-shakti-label.sl-kusuma,
+.story-scene.rebuild .mp-shakti-label.sl-mekhala,
+.story-scene.rebuild .mp-shakti-label.sl-madana,
+.story-scene.rebuild .mp-shakti-label.sl-madanatura,
+.story-scene.rebuild .mp-shakti-label.sl-rekha { opacity: 0.7; }
+.story-scene.vega-lit .mp-shakti-label.sl-kusuma,
+.story-scene.vega-lit .mp-shakti-label.sl-mekhala,
+.story-scene.vega-lit .mp-shakti-label.sl-madana,
+.story-scene.vega-lit .mp-shakti-label.sl-madanatura,
+.story-scene.vega-lit .mp-shakti-label.sl-rekha,
+.story-scene.vega-lit .mp-shakti-label.sl-vega { opacity: 0.7; }
+.story-scene.ankusha-lit .mp-shakti-label.sl-kusuma,
+.story-scene.ankusha-lit .mp-shakti-label.sl-mekhala,
+.story-scene.ankusha-lit .mp-shakti-label.sl-madana,
+.story-scene.ankusha-lit .mp-shakti-label.sl-madanatura,
+.story-scene.ankusha-lit .mp-shakti-label.sl-rekha,
+.story-scene.ankusha-lit .mp-shakti-label.sl-vega,
+.story-scene.ankusha-lit .mp-shakti-label.sl-ankusha { opacity: 0.7; }
+.story-scene.ankusha-lit .mp-shakti-label.sl-ankusha { opacity: 0.95; font-weight: 500; }
+.story-scene.second-blaze .mp-shakti-label { opacity: 0.7; }
+.story-scene.second-blaze .mp-shakti-label.sl-ankusha { opacity: 0.95; font-weight: 500; }
+.story-scene.recognition .mp-shakti-label { opacity: 0.82; }
+
+/* ══ Two trunks + shared root + branches — the tree being built ══ */
+.mp-tree {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+.mp-tree svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.mp-trunk-a, .mp-trunk-b, .mp-branches, .mp-root {
+  fill: none;
+  stroke: #1f1208;
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.82;
+  filter: drop-shadow(0 0 3px rgba(0,0,0,0.6));
+  transition: stroke 2.4s ease, opacity 2.4s ease, filter 2.4s ease;
+}
+.mp-trunk-a { stroke-width: 3.4; }
+.mp-trunk-b { stroke-width: 3.1; }
+.mp-root    { stroke-width: 2.4; opacity: 0.68; }
+.mp-branches { stroke-width: 1.4; opacity: 0.6; }
+
+/* Tree brightens through blazes — the trunks warm as fire builds around them */
+.story-scene.first-blaze .mp-trunk-a,
+.story-scene.first-blaze .mp-trunk-b,
+.story-scene.first-blaze .mp-branches,
+.story-scene.first-blaze .mp-root {
+  stroke: #3a230a;
+  filter: drop-shadow(0 0 5px rgba(154,123,0,0.35));
+}
+.story-scene.second-blaze .mp-trunk-a,
+.story-scene.second-blaze .mp-trunk-b,
+.story-scene.second-blaze .mp-branches,
+.story-scene.second-blaze .mp-root {
+  stroke: #5a3a0f;
+  filter: drop-shadow(0 0 7px rgba(221,187,0,0.4));
+}
+/* Recognition — the two trunks brighten together, both visible as one tree */
+.story-scene.recognition .mp-trunk-a,
+.story-scene.recognition .mp-trunk-b,
+.story-scene.recognition .mp-branches,
+.story-scene.recognition .mp-root {
+  stroke: #7d5418;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 10px rgba(232,200,74,0.5));
+  transition: stroke 1.8s ease, opacity 1.8s ease, filter 1.8s ease;
+}
+
+/* ══ Flame core — the central hearth ══ */
+.mp-flame-core {
+  position: absolute;
+  top: 62%; left: 50%;
+  width: 26px; height: 38px;
+  transform: translate(-50%, -50%) scale(0);
+  transform-origin: center bottom;
+  z-index: 4;
+  opacity: 0;
+  transition: opacity 1.8s ease, transform 1.8s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+  border-radius: 48% 48% 10% 10% / 58% 58% 6% 6%;
+  background: radial-gradient(ellipse at 50% 72%,
+    rgba(255,245,180,0.95) 0%,
+    rgba(232,200,74,0.85)  30%,
+    rgba(221,187,0,0.6)    55%,
+    rgba(154,70,0,0.25)    80%,
+    transparent            100%);
+  filter: blur(0.6px);
+  box-shadow: 0 0 24px rgba(221,187,0,0.55),
+              0 0 56px rgba(221,187,0,0.28);
+}
+.story-scene.first-blaze .mp-flame-core {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: mpFlameCorePulse 3.2s ease-in-out infinite;
+}
+.story-scene.madana-lit    .mp-flame-core,
+.story-scene.madanatura-lit .mp-flame-core {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
+  animation: mpFlameCorePulse 3.2s ease-in-out infinite;
+}
+.story-scene.breath .mp-flame-core {
+  opacity: 0.42;
+  transform: translate(-50%, -50%) scale(0.68);
+  animation: mpFlameCoreLow 5s ease-in-out infinite;
+  transition: opacity 2.4s ease, transform 2.4s ease;
+}
+.story-scene.breath-deepened .mp-flame-core {
+  opacity: 0.28;
+  transform: translate(-50%, -50%) scale(0.52);
+  animation: mpFlameCoreLow 6s ease-in-out infinite;
+}
+.story-scene.rebuild .mp-flame-core {
+  opacity: 0.85;
+  transform: translate(-50%, -50%) scale(0.95);
+  animation: mpFlameCorePulse 2.8s ease-in-out infinite;
+  transition: opacity 2s ease, transform 2s ease;
+}
+.story-scene.vega-lit .mp-flame-core,
+.story-scene.ankusha-lit .mp-flame-core {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.08);
+  animation: mpFlameCorePulse 2.4s ease-in-out infinite;
+}
+.story-scene.second-blaze .mp-flame-core,
+.story-scene.malini-lit   .mp-flame-core {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.22);
+  animation: mpFlameCorePulseDeep 2.2s ease-in-out infinite;
+  box-shadow: 0 0 36px rgba(232,200,74,0.7),
+              0 0 82px rgba(232,200,74,0.38);
+}
+.story-scene.recognition .mp-flame-core {
+  animation: mpFlameCorePulseDeep 1.9s ease-in-out infinite;
+}
+.story-scene.seed-named .mp-flame-core {
+  opacity: 0.88;
+  transform: translate(-50%, -50%) scale(1.1);
+  animation: mpFlameCorePulseDeep 2.6s ease-in-out infinite;
+}
+.story-scene.embers .mp-flame-core {
+  opacity: 0.38;
+  transform: translate(-50%, -50%) scale(0.7);
+  animation: mpFlameCoreEmber 4.5s ease-in-out infinite;
+  box-shadow: 0 0 14px rgba(154,123,0,0.4),
+              0 0 28px rgba(154,123,0,0.2);
+  transition: opacity 2.4s ease, transform 2.4s ease, box-shadow 2.4s ease;
+}
+@keyframes mpFlameCorePulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1)    skewX(0deg);   filter: blur(0.6px); }
+  50%      { transform: translate(-50%, -50%) scale(1.12) skewX(-2deg);  filter: blur(0.9px); }
+}
+@keyframes mpFlameCorePulseDeep {
+  0%, 100% { transform: translate(-50%, -50%) scale(1.18) skewX(0deg);   filter: blur(0.7px); }
+  50%      { transform: translate(-50%, -50%) scale(1.35) skewX(-3deg);  filter: blur(1.1px); }
+}
+@keyframes mpFlameCoreLow {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.6); opacity: 0.35; }
+  50%      { transform: translate(-50%, -50%) scale(0.7); opacity: 0.45; }
+}
+@keyframes mpFlameCoreEmber {
+  0%, 100% { transform: translate(-50%, -50%) scale(0.7);  opacity: 0.32; }
+  50%      { transform: translate(-50%, -50%) scale(0.78); opacity: 0.48; }
+}
+
+/* ══ Flame tongues — six individual licks rising from the core ══ */
+.mp-flame-tongue {
+  position: absolute;
+  width: 10px;
+  border-radius: 48% 48% 0 0 / 62% 62% 0 0;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    rgba(232,200,74,0.8) 20%,
+    rgba(221,187,0,0.7) 60%,
+    rgba(154,70,0,0.4) 90%,
+    transparent 100%);
+  transform-origin: bottom center;
+  transform: scaleY(0);
+  opacity: 0;
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 1.8s ease, transform 1.8s cubic-bezier(0.16,1,0.3,1);
+  filter: blur(0.4px);
+}
+/* Six tongues fan out above the core — stems anchored at approx 64% vertical */
+.mp-flame-tongue.ft1 { bottom: 38%; left: 40%;  height: 60px; }
+.mp-flame-tongue.ft2 { bottom: 38%; left: 46%;  height: 90px; }
+.mp-flame-tongue.ft3 { bottom: 38%; left: 50%;  height: 110px; transform-origin: bottom center; }
+.mp-flame-tongue.ft4 { bottom: 38%; left: 54%;  height: 88px; }
+.mp-flame-tongue.ft5 { bottom: 38%; left: 60%;  height: 62px; }
+.mp-flame-tongue.ft6 { bottom: 38%; left: 50%;  height: 140px; opacity: 0; width: 6px; }
+
+/* Ignite tongues progressively through the blazes.
+   --sy carries the scaleY baseline into the mpTongueWaver keyframe,
+   so state-level intensity survives the animation's oscillation. */
+.story-scene.first-blaze .mp-flame-tongue.ft1,
+.story-scene.first-blaze .mp-flame-tongue.ft2,
+.story-scene.first-blaze .mp-flame-tongue.ft3,
+.story-scene.first-blaze .mp-flame-tongue.ft4,
+.story-scene.first-blaze .mp-flame-tongue.ft5 {
+  --sy: 1;
+  opacity: 0.85;
+  animation: mpTongueWaver 1.8s ease-in-out infinite;
+}
+.story-scene.first-blaze .mp-flame-tongue.ft2 { animation-delay: -0.4s; }
+.story-scene.first-blaze .mp-flame-tongue.ft3 { animation-delay: -0.8s; }
+.story-scene.first-blaze .mp-flame-tongue.ft4 { animation-delay: -1.2s; }
+.story-scene.first-blaze .mp-flame-tongue.ft5 { animation-delay: -1.6s; }
+/* During madana-lit + madanatura-lit tongues stay at first-blaze intensity */
+.story-scene.madana-lit .mp-flame-tongue,
+.story-scene.madanatura-lit .mp-flame-tongue {
+  --sy: 1;
+  opacity: 0.85;
+}
+.story-scene.madana-lit .mp-flame-tongue.ft6,
+.story-scene.madanatura-lit .mp-flame-tongue.ft6 { opacity: 0; transform: scaleY(0); }
+
+/* Through the breath — tongues shrink */
+.story-scene.breath .mp-flame-tongue {
+  --sy: 0.35;
+  opacity: 0.3;
+  animation: mpTongueWaver 3.5s ease-in-out infinite;
+}
+.story-scene.breath-deepened .mp-flame-tongue {
+  --sy: 0.2;
+  opacity: 0.18;
+  animation: mpTongueWaver 4.5s ease-in-out infinite;
+}
+/* Rebuild — tongues return */
+.story-scene.rebuild .mp-flame-tongue.ft1,
+.story-scene.rebuild .mp-flame-tongue.ft2,
+.story-scene.rebuild .mp-flame-tongue.ft3,
+.story-scene.rebuild .mp-flame-tongue.ft4,
+.story-scene.rebuild .mp-flame-tongue.ft5 {
+  --sy: 1.05;
+  opacity: 0.9;
+  animation: mpTongueWaver 1.6s ease-in-out infinite;
+}
+.story-scene.vega-lit .mp-flame-tongue,
+.story-scene.ankusha-lit .mp-flame-tongue {
+  --sy: 1.1;
+  opacity: 0.95;
+  animation: mpTongueWaver 1.4s ease-in-out infinite;
+}
+/* Second blaze — all six, the sixth (tallest) joins, reaching higher than first blaze */
+.story-scene.second-blaze .mp-flame-tongue,
+.story-scene.malini-lit   .mp-flame-tongue {
+  --sy: 1.25;
+  opacity: 1;
+  animation: mpTongueWaver 1.2s ease-in-out infinite;
+}
+.story-scene.second-blaze .mp-flame-tongue.ft6,
+.story-scene.malini-lit   .mp-flame-tongue.ft6 {
+  --sy: 1.25;
+  opacity: 0.85;
+  animation: mpTongueWaver 1.4s ease-in-out infinite;
+}
+.story-scene.recognition .mp-flame-tongue {
+  animation: mpTongueWaver 1s ease-in-out infinite;
+}
+.story-scene.seed-named .mp-flame-tongue {
+  --sy: 0.9;
+  opacity: 0.7;
+  animation: mpTongueWaver 2s ease-in-out infinite;
+}
+.story-scene.embers .mp-flame-tongue {
+  --sy: 0.15;
+  opacity: 0.15;
+  transform: scaleY(0.15);
+  animation: none;
+  transition: opacity 2.6s ease, transform 2.6s ease;
+}
+@keyframes mpTongueWaver {
+  0%, 100% { transform: scaleY(var(--sy, 1))    scaleX(1)    translateX(0) skewX(0deg);   }
+  33%      { transform: scaleY(calc(var(--sy, 1) * 1.15)) scaleX(0.85) translateX(-1px) skewX(-3deg); }
+  66%      { transform: scaleY(calc(var(--sy, 1) * 1.05)) scaleX(0.92) translateX(1px)  skewX(2deg);  }
+}
+
+/* ══ RAM seed-syllable — illuminated on the trunk at beat 15 ══ */
+.mp-ram-seed {
+  position: absolute;
+  top: var(--threshold-top, 58%);
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.5);
+  font-family: 'Lora', serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: clamp(26px, 4.2vw, 36px);
+  color: rgba(232,200,74,0.95);
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  text-shadow: 0 0 16px rgba(232,200,74,0.7),
+               0 0 36px rgba(221,187,0,0.45);
+  opacity: 0;
+  z-index: 7;
+  transition: opacity 2s ease, transform 2s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.story-scene.seed-named .mp-ram-seed {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  animation: mpRamBreath 4.5s ease-in-out infinite;
+}
+@keyframes mpRamBreath {
+  0%, 100% { text-shadow: 0 0 16px rgba(232,200,74,0.65), 0 0 36px rgba(221,187,0,0.4); }
+  50%      { text-shadow: 0 0 26px rgba(232,200,74,0.9),  0 0 56px rgba(221,187,0,0.6); }
+}
+
+/* ══ Drifting embers — rising sparks throughout, intensifying with the blazes ══ */
+.mp-embers {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  opacity: 0.45;
+  transition: opacity 2.4s ease;
+}
+.mp-ember {
+  position: absolute;
+  width: 2.5px;
+  height: 2.5px;
+  border-radius: 50%;
+  background: rgba(232,200,74,0.8);
+  box-shadow: 0 0 5px rgba(232,200,74,0.6),
+              0 0 12px rgba(221,187,0,0.25);
+  opacity: 0;
+  animation: mpEmberRise var(--dur, 7s) ease-out var(--d, 0s) infinite;
+  bottom: 30%;
+}
+.mp-ember.em-small { width: 1.8px; height: 1.8px; }
+.mp-ember.em-large { width: 3.5px; height: 3.5px; background: rgba(255,230,140,0.9); }
+@keyframes mpEmberRise {
+  0%   { opacity: 0;    transform: translate(0, 0)       scale(0.6); }
+  12%  { opacity: 0.9;                                                }
+  55%  { opacity: 0.75; transform: translate(var(--dx, 8px), -180px) scale(1);   }
+  100% { opacity: 0;    transform: translate(var(--dx2, -6px), -360px) scale(0.35); }
+}
+
+.story-scene.first-blaze     .mp-embers { opacity: 0.7;  }
+.story-scene.madana-lit      .mp-embers,
+.story-scene.madanatura-lit  .mp-embers { opacity: 0.7;  }
+.story-scene.breath          .mp-embers { opacity: 0.28; }
+.story-scene.breath-deepened .mp-embers { opacity: 0.18; }
+.story-scene.rebuild         .mp-embers { opacity: 0.72; }
+.story-scene.vega-lit        .mp-embers,
+.story-scene.ankusha-lit     .mp-embers { opacity: 0.85; }
+.story-scene.second-blaze    .mp-embers,
+.story-scene.malini-lit      .mp-embers { opacity: 1;    }
+.story-scene.recognition     .mp-embers { opacity: 1;    }
+.story-scene.seed-named      .mp-embers { opacity: 0.8;  }
+.story-scene.embers          .mp-embers { opacity: 1;    }
+
+/* ══ Heat haze — subtle wobble across the scene at peak blazes ══ */
+.mp-heat-haze {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(221,187,0,0.025) 38%,
+    rgba(221,187,0,0.05) 58%,
+    rgba(221,187,0,0.025) 78%,
+    transparent 100%
+  );
+  transition: opacity 1.8s ease;
+}
+.story-scene.first-blaze    .mp-heat-haze,
+.story-scene.madana-lit     .mp-heat-haze,
+.story-scene.madanatura-lit .mp-heat-haze { opacity: 0.6; }
+.story-scene.second-blaze   .mp-heat-haze,
+.story-scene.malini-lit     .mp-heat-haze { opacity: 1;   }
+.story-scene.recognition    .mp-heat-haze { opacity: 1;   }
+.story-scene.seed-named     .mp-heat-haze { opacity: 0.6; }
+.story-scene.embers         .mp-heat-haze { opacity: 0.25; }
+
+/* ── Story lines stage (generic) ── */
+.story-lines-stage {
+  position: absolute;
+  left: 50%;
+  bottom: 18%;
+  transform: translateX(-50%);
+  width: min(640px, 88vw);
+  min-height: 100px;
+  text-align: center;
+  padding: 0 20px;
+  z-index: 9;
+}
+
+.story-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.2vw, 22px);
+  line-height: 1.7;
+  color: rgba(255,240,220,0.94);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 1.2s ease, transform 1.4s cubic-bezier(0.16,1,0.3,1);
+  text-shadow: 0 0 16px rgba(0,0,0,0.5);
+}
+.story-line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.story-line.fading {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+
+/* Tap-to-advance hint */
+.story-tap-hint {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,240,220,0.32);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  z-index: 9;
+}
+/* Breathing pulse only while visible — when JS removes .visible, animation stops
+   and static opacity:0 takes over, fading cleanly via the transition. */
+.story-tap-hint.visible {
+  opacity: 0.7;
+  animation: storyHintBreath 3.5s ease-in-out infinite;
+}
+@keyframes storyHintBreath {
+  0%, 100% { opacity: 0.7; }
+  50%      { opacity: 0.4; }
+}
+
+@media (max-width: 640px) {
+  .story-tap-hint { bottom: 9%; font-size: 9px; }
+  .story-lines-stage { bottom: 15%; }
+  .mp-shakti-point { width: 10px; height: 15px; }
+  .mp-flame-tongue.ft1 { height: 42px; }
+  .mp-flame-tongue.ft2 { height: 64px; }
+  .mp-flame-tongue.ft3 { height: 78px; }
+  .mp-flame-tongue.ft4 { height: 62px; }
+  .mp-flame-tongue.ft5 { height: 44px; }
+  .mp-flame-tongue.ft6 { height: 98px; }
+  .mp-flame-core { width: 20px; height: 30px; }
+}
+
+/* Close button */
+.story-close {
+  position: absolute;
+  top: 22px; right: 22px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,240,220,0.05);
+  border: 1px solid rgba(255,240,220,0.14);
+  color: rgba(255,240,220,0.55);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  transition: background 0.25s, color 0.25s, border-color 0.25s;
+  z-index: 11;
+}
+.story-close:hover {
+  background: rgba(154,123,0,0.22);
+  color: rgba(255,240,220,0.95);
+  border-color: rgba(221,187,0,0.55);
+}
+@media (max-width: 640px) {
+  .story-close { top: 16px; right: 16px; width: 40px; height: 40px; font-size: 16px; }
+}
+
+/* ── Threshold — the passage that opens at the close of each chakra ──
+   After the final recognition lands and the embers settle, the scene
+   darkens, Manipura-register fades, and Anahata's first point rises
+   at the trunk-seed position where RAM was.
+   Fire has softened the fist. The heart can begin. */
+
+.story-scene.threshold-open {
+  background: radial-gradient(ellipse at 50% 55%, #0c0402 0%, #020100 95%);
+  transition: background 3.4s ease;
+}
+
+/* Everything Manipura-register fades during threshold */
+.story-scene.threshold-open .mp-lotus,
+.story-scene.threshold-open .mp-shakti-point,
+.story-scene.threshold-open .mp-shakti-label,
+.story-scene.threshold-open .mp-tree,
+.story-scene.threshold-open .mp-trunk-a,
+.story-scene.threshold-open .mp-trunk-b,
+.story-scene.threshold-open .mp-branches,
+.story-scene.threshold-open .mp-root,
+.story-scene.threshold-open .mp-flame-core,
+.story-scene.threshold-open .mp-flame-tongue,
+.story-scene.threshold-open .mp-ram-seed,
+.story-scene.threshold-open .mp-embers,
+.story-scene.threshold-open .mp-heat-haze {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+/* Beat text fades — the recognition landed, words aren't needed anymore */
+.story-scene.threshold-open .story-line {
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+.story-scene.threshold-open .story-lines-stage {
+  pointer-events: none;
+}
+
+/* ── The Threshold Door ── */
+/* Appears at --threshold-top (58% — where RAM illuminated on the trunk).
+   Heart rises where the seed had been. */
+.threshold-door {
+  position: absolute;
+  top: var(--threshold-top, 50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 26px;
+  padding: 40px;
+  text-decoration: none;
+  color: rgba(255,240,220,0.78);
+  transition: opacity 2s ease 1.6s, color 0.35s ease;
+}
+.story-scene.threshold-open .threshold-door {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.next-point {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--next-color);
+  box-shadow: 0 0 28px var(--next-glow),
+              0 0 72px rgba(26,138,56,0.32);
+  animation: nextPointBreath 4.5s ease-in-out infinite;
+}
+@keyframes nextPointBreath {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 28px var(--next-glow), 0 0 72px rgba(26,138,56,0.32); }
+  50%      { transform: scale(1.22); box-shadow: 0 0 40px rgba(26,138,56,0.88), 0 0 108px rgba(26,138,56,0.48); }
+}
+
+.next-label {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(14px, 2.4vw, 17px);
+  letter-spacing: 0.14em;
+  color: var(--next-color);
+  opacity: 0.85;
+  text-shadow: 0 0 16px rgba(26,138,56,0.3);
+}
+.next-sublabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255,240,220,0.4);
+  margin-top: -14px;
+}
+
+.threshold-continue-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(255,240,220,0.42);
+  padding-top: 14px;
+  border-top: 1px solid rgba(26,138,56,0.26);
+  transition: color 0.35s, border-color 0.35s;
+}
+.threshold-continue-hint .arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+}
+
+.threshold-door:hover .next-point {
+  animation-duration: 2.8s;
+}
+.threshold-door:hover .threshold-continue-hint {
+  color: var(--next-color);
+  border-top-color: rgba(26,138,56,0.55);
+}
+.threshold-door:hover .threshold-continue-hint .arrow {
+  transform: translateX(8px);
+}
+
+@media (max-width: 640px) {
+  .threshold-door { gap: 22px; padding: 28px; }
+  :root { --threshold-top: 52%; }  /* pull anchor slightly upward on phones so the door doesn't press the bottom */
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT VEIL — dark between-space · #060308
+   Rises after the signature phrase lands. Sakshi's eyes appear, blink
+   once, fade. The press-and-hold ring surfaces at 2.9s. 1.8s hold to enter.
+   ════════════════════════════════════════════════════════════════════ */
+.act-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: #060308;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 52px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s cubic-bezier(0.4,0,0.2,1);
+}
+.act-veil.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.act-veil.dissolving {
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+
+.veil-eyes {
+  display: flex;
+  gap: 52px;
+  align-items: center;
+  opacity: 0;
+}
+.veil-eyes.visible { opacity: 1; }
+
+.veil-eye {
+  width: 42px;
+  height: 15px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.88);
+  box-shadow:
+    0 0 12px rgba(255,255,255,0.6),
+    0 0 32px rgba(240,220,200,0.3);
+  transform: scaleY(0.06);
+  opacity: 0;
+  transform-origin: center center;
+}
+.veil-eyes.animate .veil-eye {
+  animation: eyeBlink 2s ease-in-out 1 forwards;
+}
+.veil-eyes.animate .veil-eye:nth-child(2) {
+  animation-delay: 0.06s;
+}
+@keyframes eyeBlink {
+  0%   { opacity: 0;   transform: scaleY(0.06); }
+  14%  { opacity: 1;   transform: scaleY(1); }
+  55%  { opacity: 1;   transform: scaleY(1); }
+  64%  { opacity: 1;   transform: scaleY(0.06); }
+  73%  { opacity: 1;   transform: scaleY(1); }
+  88%  { opacity: 0.7; transform: scaleY(1); }
+  100% { opacity: 0;   transform: scaleY(1); }
+}
+
+.veil-invite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+.veil-invite.visible { opacity: 1; }
+
+.veil-invite-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+
+.veil-hold-ring {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
+}
+.veil-hold-ring svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.veil-ring-track {
+  fill: none;
+  stroke: rgba(255,255,255,0.1);
+  stroke-width: 1.5;
+}
+.veil-ring-fill {
+  fill: none;
+  stroke: rgba(255,255,255,0.72);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 201;
+  stroke-dashoffset: 201;
+  transition: stroke-dashoffset linear;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.5));
+}
+.veil-hold-dot {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.veil-hold-dot::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.6);
+  box-shadow: 0 0 14px rgba(255,255,255,0.4);
+  transition: transform 0.3s ease, background 0.3s;
+}
+.veil-hold-ring.holding .veil-hold-dot::after {
+  transform: scale(1.5);
+  background: rgba(255,255,255,0.9);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT 2 — SAKSHI WITNESS (Manipura)
+   Rises after the press-and-hold. Ascending field: Manipura gold at base
+   → cream mid → silver-white crown. 26 luminous particles ascending.
+   Three paragraphs auto-pace at 1.33× slower pacing (revised April 24).
+   Manipura's p3 is a SENTENCE (not a single word) — intermediate sizing.
+   ════════════════════════════════════════════════════════════════════ */
+.act-two {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background: #ffffff;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2.2s cubic-bezier(0.16,1,0.3,1);
+}
+.act-two.rising {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.act2-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    #9A7B00 0%,
+    rgba(154,123,0,0.55) 12%,
+    rgba(236,220,176,0.88) 34%,
+    rgba(252,250,244,0.97) 60%,
+    rgba(255,255,255,0.99) 80%,
+    #ffffff 100%
+  );
+}
+.act2-crown {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 280px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(215,230,255,0.5) 0%, rgba(255,255,255,0) 72%);
+  pointer-events: none;
+}
+.act2-base {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 220px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(154,123,0,0.35) 0%, rgba(154,123,0,0) 75%);
+  pointer-events: none;
+}
+.act2-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.act2-particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0;
+  animation: act2Ascend linear infinite;
+}
+@keyframes act2Ascend {
+  0%   { transform: translateY(0) scale(1);    opacity: 0; }
+  8%   { opacity: var(--p-op); }
+  85%  { opacity: var(--p-op); }
+  100% { transform: translateY(-110vh) scale(0.4); opacity: 0; }
+}
+
+.act2-text-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14vh 28px calc(9vh + 240px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  z-index: 2;
+}
+.act2-text-stage::-webkit-scrollbar { display: none; }
+.act2-para {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3.2vw, 19px);
+  line-height: 2;
+  color: var(--act2-text, rgba(54,24,10,0.88));
+  max-width: min(560px, 92vw);
+  text-align: center;
+  margin: 0 0 1.6em;
+  opacity: 1;
+  transform: none;
+}
+.act2-para:last-child { margin-bottom: 0; }
+.act2-go {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.act2-word {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  will-change: opacity;
+}
+.act2-word.visible {
+  opacity: 1;
+}
+
+/* Anahata threshold — rises edge-to-edge from below. Canonical #1A8A38. */
+.act2-door {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transform: translateY(100%);
+  padding: 36px 32px 52px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 1.8s cubic-bezier(0.16,1,0.3,1);
+  background: #1A8A38;
+  z-index: 3;
+}
+.act2-door:hover {
+  background: #219A42;
+}
+.act2-door.risen {
+  transform: translateY(0);
+}
+.act2-door-name {
+  font-family: 'Lora', serif;
+  font-size: clamp(38px, 8vw, 56px);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.act2-door-hint {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.8vw, 18px);
+  color: rgba(255,255,255,0.74);
+  letter-spacing: 0.02em;
+}
+.act2-door-continue {
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  transition: color 0.3s;
+}
+.act2-door:hover .act2-door-continue { color: rgba(255,255,255,0.82); }
+
+@media (prefers-reduced-motion: reduce) {
+  .act2-particle { animation: none; opacity: 0.15; }
+  .act2-para { transition: opacity 0.8s ease; transform: none; }
+  .act2-door { transition: transform 0.8s ease; }
+  .act-two { transition: opacity 0.8s ease; }
+  .veil-eyes.animate .veil-eye { animation-duration: 1.2s; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .next-point, .threshold-door {
+    animation: none;
+    transition: opacity 0.4s ease;
+  }
+  /* Reduced motion — freeze the scene's autoplay but keep structure visible */
+  .mp-shakti-point, .mp-flame-core, .mp-flame-tongue,
+  .mp-ember, .mp-ram-seed, .story-tap-hint, .story-tap-hint.visible {
+    animation: none;
+  }
+  .story-scene {
+    transition: transform 0.4s ease;
+  }
+}
+
+/* ─── Bindu Field card — universal across all chakras ─── */
+.bfg-core {
+  fill: #C9A84C;
+  opacity: 0.95;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgCoreBreath 4.5s ease-in-out infinite;
+}
+@keyframes bfgCoreBreath {
+  0%, 100% { transform: scale(1); opacity: 0.88; }
+  50%      { transform: scale(1.18); opacity: 1; }
+}
+.bfg-wave {
+  fill: none;
+  stroke: #C9A84C;
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgWaveOut 6s ease-out infinite;
+  opacity: 0;
+}
+.bfg-wave.w1 { animation-delay: 0.0s; }
+.bfg-wave.w2 { animation-delay: 1.2s; }
+.bfg-wave.w3 { animation-delay: 2.4s; }
+.bfg-wave.w4 { animation-delay: 3.6s; }
+.bfg-wave.w5 { animation-delay: 4.8s; }
+@keyframes bfgWaveOut {
+  0%   { transform: scale(0.18); opacity: 0.8;  stroke-width: 1.6; }
+  60%  { opacity: 0.35; stroke-width: 1; }
+  100% { transform: scale(1.6);  opacity: 0;    stroke-width: 0.4; }
+}
+.bfg-pos {
+  fill: #C9A84C;
+  opacity: 0.24;
+}
+.bfg-pos.bfg-bindu-pos {
+  opacity: 0.95;
+  animation: bfgBinduPosGlow 4.5s ease-in-out infinite;
+}
+@keyframes bfgBinduPosGlow {
+  0%, 100% { opacity: 0.78; }
+  50%      { opacity: 1; }
+}
+.bfg-thread {
+  stroke: #C9A84C;
+  stroke-width: 0.6;
+  fill: none;
+  stroke-dasharray: 2 3;
+  opacity: 0.28;
+}
+.bindu-field:hover .bfg-wave { animation-duration: 3s; }
+.bindu-field:hover .bfg-wave.w1 { animation-delay: 0.0s; }
+.bindu-field:hover .bfg-wave.w2 { animation-delay: 0.6s; }
+.bindu-field:hover .bfg-wave.w3 { animation-delay: 1.2s; }
+.bindu-field:hover .bfg-wave.w4 { animation-delay: 1.8s; }
+.bindu-field:hover .bfg-wave.w5 { animation-delay: 2.4s; }
+.bindu-field:hover .bfg-core { animation-duration: 2.2s; }
+
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal styles ═══ */
+.essence-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.essence-gate-overlay.visible { opacity: 1; }
+.essence-gate-bindu {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #e8c568;
+  box-shadow: 0 0 18px rgba(232, 197, 104, 0.4);
+  margin-bottom: 32px;
+  animation: egBreath 4s ease-in-out infinite;
+}
+.essence-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(240, 226, 188, 0.92);
+  text-align: center;
+  margin: 0 24px 12px;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-line.visible { opacity: 1; }
+.essence-gate-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(240, 226, 188, 0.62);
+  margin: 0 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-sub.visible { opacity: 1; }
+@keyframes egBreath {
+  0%, 100% { opacity: 0.7; transform: scale(1.0); }
+  50%      { opacity: 1.0; transform: scale(1.08); }
+}
+
+.sequential-gate-surface {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99998;
+  padding: 24px;
+}
+.sequential-gate-tint {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 1;
+}
+.sequential-gate-content {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  text-align: center;
+}
+.sequential-gate-yantra {
+  width: min(60vw, 280px);
+  height: min(60vw, 280px);
+  margin: 0 auto 36px;
+  opacity: 0.06;
+  color: #d4b888;
+}
+.sequential-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: #f5e8c8;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.sequential-gate-prev {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.8vw, 22px);
+  color: rgba(240, 226, 188, 0.82);
+  margin-bottom: 56px;
+  line-height: 1.6;
+}
+.sequential-gate-prev em {
+  color: #f5e8c8;
+  font-style: italic;
+  font-weight: 500;
+}
+.sequential-gate-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #d4b888;
+  background: transparent;
+  border: 1px solid #d4b888;
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sequential-gate-button:hover {
+  color: #f5e8c8;
+  background: rgba(212, 184, 136, 0.12);
+}
+/* ═══ END ESSENCE+SEQUENTIAL GATES ═══ */
+</style>
+</head>
+<body>
+<!-- ═══ ESSENCE+SEQUENTIAL GATES ═══ -->
+<script>
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal logic ═══
+   Injected immediately after <body> opens, before page renders.
+   THIS_CHAKRA placeholder gets replaced with the actual chakra id
+   per file (or '__none__' for index.html which only does essence). */
+(function() {
+  'use strict';
+
+  var CHAKRA_SEQUENCE = ['bindu','muladhara','svadhisthana','manipura',
+                          'anahata','vishuddha','ajna','sahasrara','shadow'];
+  var CHAKRA_DISPLAY = {
+    bindu: 'Bindu', muladhara: 'Muladhara', svadhisthana: 'Svadhisthana',
+    manipura: 'Manipura', anahata: 'Anahata', vishuddha: 'Vishuddha',
+    ajna: 'Ajna', sahasrara: 'Sahasrara', shadow: 'Shadow',
+  };
+  var CHAKRA_COLORS = {
+    bindu: '#e8c568', muladhara: '#b83a3a', svadhisthana: '#d47438',
+    manipura: '#d4a848', anahata: '#6b8e4e', vishuddha: '#4c7ab8',
+    ajna: '#5b4e8e', sahasrara: '#9a7ac8', shadow: '#2a2420',
+  };
+
+  function getEssenceLocal() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function essenceCompleteLocal() {
+    var e = getEssenceLocal();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function isChakraWalked(chakraId) {
+    // Bindu writes 'bindu-point' (coords); all others write 'chakra-{id}'
+    if (chakraId === 'bindu') return !!localStorage.getItem('bindu-point');
+    return !!localStorage.getItem('chakra-' + chakraId);
+  }
+
+  function canAccessChakraLocal(chakraId) {
+    if (isChakraWalked(chakraId)) return true;
+    if (chakraId === 'bindu') return true;
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    if (idx <= 0) return true;
+    var prev = CHAKRA_SEQUENCE[idx - 1];
+    return isChakraWalked(prev);
+  }
+
+  // ── ESSENCE GATE ──
+  /* no gates (standing ruling): essence may personalise, never permit; nothing waits on earlier pages */
+
+  // ── SEQUENTIAL FIRST-WALK GATE ──
+  var THIS_CHAKRA = 'manipura';
+  if (THIS_CHAKRA !== '__none__') {
+    /* sequence gate removed */
+  }
+
+  function showEssenceGate() {
+    var ov = document.createElement('div');
+    ov.className = 'essence-gate-overlay';
+    ov.innerHTML =
+      '<div class="essence-gate-bindu"></div>' +
+      '<p class="essence-gate-line">The road asks who is walking.</p>' +
+      '<p class="essence-gate-sub">One moment.</p>';
+    function inject() {
+      document.body.appendChild(ov);
+      // Hide everything else under it — set a flag that page-init can check
+      document.body.setAttribute('data-essence-gating', 'true');
+      requestAnimationFrame(function() {
+        ov.classList.add('visible');
+        setTimeout(function() { ov.querySelector('.essence-gate-line').classList.add('visible'); }, 100);
+        setTimeout(function() { ov.querySelector('.essence-gate-sub').classList.add('visible'); }, 500);
+      });
+      var ret = encodeURIComponent(window.location.pathname);
+      setTimeout(function() {
+        window.location.href = 'the-one.html?return=' + ret;
+      }, 1400);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+
+  function showSequentialGate(chakraId) {
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    var prevId = CHAKRA_SEQUENCE[idx - 1];
+    var prevDisplay = CHAKRA_DISPLAY[prevId];
+    var thisColor = CHAKRA_COLORS[chakraId];
+
+    var html =
+      '<div class="sequential-gate-surface">' +
+      '  <div class="sequential-gate-tint" style="background: radial-gradient(ellipse at center, ' + thisColor + ' 0%, transparent 70%);"></div>' +
+      '  <div class="sequential-gate-content">' +
+      '    <svg class="sequential-gate-yantra" viewBox="-100 -100 200 200">' +
+      '      <g fill="none" stroke="currentColor" stroke-width="0.5">' +
+      '        <polygon points="0,-80 70,40 -70,40" />' +
+      '        <polygon points="0,75 -68,-38 68,-38" />' +
+      '        <polygon points="0,-38 33,19 -33,19" />' +
+      '        <polygon points="0,36 -32,-18 32,-18" />' +
+      '        <circle cx="0" cy="0" r="2" fill="currentColor" />' +
+      '        <circle cx="0" cy="0" r="88" />' +
+      '      </g>' +
+      '    </svg>' +
+      '    <p class="sequential-gate-line">The road has an order, the first time through.</p>' +
+      '    <p class="sequential-gate-prev">You haven\'t walked <em>' + prevDisplay + '</em> yet.</p>' +
+      '    <a class="sequential-gate-button" href="' + prevId + '-practice.html">Walk ' + prevDisplay + ' →</a>' +
+      '  </div>' +
+      '</div>';
+
+    function inject() {
+      document.body.setAttribute('data-sequential-gating', 'true');
+      document.body.insertAdjacentHTML('afterbegin', html);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+})();
+
+</script>
+<!-- ═══ END ESSENCE+SEQUENTIAL GATES ═══ -->
+<div class="progress-bar" id="progress"></div>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-top-nav">
+    <a href="the-road-home.html">← The Road Home</a>
+    <a href="svadhisthana-practice.html">← Svadhisthana</a>
+  </div>
+  <div class="hero-count">Chakra 4 of 33 &nbsp;·&nbsp; मणिपूर</div>
+  <div class="hero-verb">BUILD</div>
+  <div class="hero-threshold">The fire was never wrong.<br>What agitated was building.</div>
+  <div class="hero-scroll-hint">
+    <span>Begin</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ─── BOOK ─── -->
+<main class="book">
+<div class="book-inner">
+
+  <div class="identity">
+    <div class="chakra-sanskrit">मणिपूर · Manipura</div>
+    <div class="chakra-english">The Solar Plexus</div>
+    <div class="chakra-essence">Your fire. The center that transforms what enters you into what you become.</div>
+    <div class="chakra-location">Upper abdomen &nbsp;·&nbsp; Between the navel and the diaphragm &nbsp;·&nbsp; The solar plexus</div>
+    <div class="core-question">
+      <div class="core-question-label">Core Question</div>
+      <p>What am I for?</p>
+      <p>— or, at the register of practice — <em>what am I willing to do about it?</em></p>
+    </div>
+  </div>
+
+  <section>
+    <p>This center governs one question — not <em>what do I do with my time</em> the way a planner answers, but the rawer version. <strong>What are you going to BUILD with the ground you're standing on and the desire that's moving you?</strong> This is the bridge between wanting and acting. Will lives here. Not willpower. Willpower is the mind whipping the body from above, and it exhausts itself because it is fire imposed from outside. <em>Will is the fire that moves on its own once it has been fed what is actually yours.</em></p>
+
+    <p>Manipura is a furnace. Everything that enters you gets processed here — food, experience, praise, pain, love, failure. It all enters the fire. <strong>What survives the burning is what you're made of. The rest was fuel.</strong></p>
+
+    <p>When this center is blocked, you feel powerless. Not weak — powerless. The engine is there but the ignition will not catch. When it is overactive, you burn too hot: anger, control, domination. The person who runs Manipura at its hottest has mistaken themselves for the fire, and has therefore taken on the fire's job. <em>The fire burns on its own. Your job is to feed it, not to BE it.</em></p>
+
+    <p>The balanced state is steady fire. You know what you can do. You know what you will do. The gap between them has closed.</p>
+
+    <p>Look at the tree across from you. <strong>It's incomplete. Asymmetric. Still being built.</strong> It leans. It reaches. It hasn't finished becoming whatever it's becoming. That's Manipura. The tree doesn't know what it looks like yet. It just knows it's not done growing and the fire hasn't gone out — and as long as the fire is burning, the form is still arriving.</p>
+
+    <figure class="tree-figure" onclick="openLightbox()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox();}" tabindex="0" role="button" aria-label="Open the Manipura tree image at full size">
+      <img class="tree-image" src="/tree-of-life/manipura-tree.jpg" alt="The Manipura tree — a dual-trunked tree rising from one root, trunks interweaving as they ascend, standing inside yellow-gold flames that rise in tongues past the canopy. RAM रं is inscribed on the primary trunk near the base, where the fire's seed lives in the wood. Six of the eight Ananga Shakti names are visible curving within the flames themselves — Madanāturā at the top, Rekhā upper-right, Ankushā right, Mekhalā left, Madanā upper-left, Kusumā lower-left. The Ashta Dala Padma — the eight-petal lotus — ghosts in the background behind the flames as the architecture holding the forge. Flame-droplets scatter in the surrounding space. The tree is incomplete, asymmetric, still being built — because as long as the fire is burning, the form is still arriving.">
+      <figcaption class="tree-hint">Tap to look closer. The tree is unfinished — on purpose.</figcaption>
+    </figure>
+
+    <p>The fire you felt in your twenties and thirties — the one that wouldn't let you sleep because the work wasn't done — <em>that was Manipura.</em> The fire you feel right now, reading this, when a sentence lands and something in your gut says <em>yes, that's true</em> — that's Manipura. The fire that turns every input into self-knowledge is the solar plexus doing what it was built to do.</p>
+
+    <p>The Sanskrit means <em>the city of jewels.</em> <strong>Mani</strong> — jewel. <strong>Pura</strong> — city, fortress. What the walker experiences as fire in the abdomen is a contained architecture: jewels — the bodiless forces that want to become form — held inside the walls of the solar plexus until the fire has done its work. <em>Ananga</em> means <em>without a body yet.</em> Force before form. Heat before shape. The will before the plan. Eight of them live here. They burn because they are alive.</p>
+
+    <p>There's a difference between the fire and the one tending it. The fire burns. It doesn't choose what to consume. It doesn't evaluate whether the fuel is worthy. It takes what enters and transforms it — completely, indiscriminately. Everything becomes heat. Everything becomes energy. Everything becomes you. The one tending the fire is you. <em>The fire itself is not your enemy and not your tool. It is your collaborator.</em> It does the transformation. You do the choosing.</p>
+
+    <p>When people burn out, they haven't run out of fire. They've been feeding the fire the wrong things. Obligations that were not theirs. Resentments they inherited. Timelines someone else installed. The fire will burn anything you give it. But it was built for <em>your</em> fuel. Not anyone else's. <strong>Check the fuel. Not the fire.</strong></p>
+  </section>
+
+  <div class="seed">"The fire that agitated you was building your form."</div>
+
+  <button class="deeper-toggle" type="button" onclick="toggleDeeper(this)" aria-expanded="false" aria-controls="deeper-panel">
+    Go deeper <span class="arrow">↓</span>
+  </button>
+  <div class="deeper-content" id="deeper-panel">
+    <div class="deeper-item">
+      <div class="deeper-item-label">The Frequency</div>
+      <span class="frequency-sound">RAM रं</span>
+      <p>A fierce, bright tone. Hum it in the space above the navel and feel the diaphragm vibrate. Not descending like LAM, not horizontal like VAM — <em>ascending.</em> RAM is the fire mantra. The sound heats. You'll feel it in the furnace as it lands.</p>
+    </div>
+    <div class="deeper-item">
+      <div class="deeper-item-label">The Avarana</div>
+      <p><strong>Ashta Dala Padma — the Eight-Petal Lotus.</strong> Eight Ananga Shaktis, the bodiless forces. Desire that has no form yet, only force. <em>Kusumā</em> (the flowering force), <em>Mekhalā</em> (the binding girdle of sustained desire), <em>Madanā</em> (the intoxicator), <em>Madanāturā</em> (the love-distressed who cannot rest), <em>Rekhā</em> (the traced line of what has been built), <em>Vegā</em> (the speed of force arriving), <em>Ankushā</em> (the goad), and <em>Mālinī</em> (the garlanded — the one who arranges what the fire produced). Eight shapes the fire is secretly building while the walker is engaged in the burning.</p>
+    </div>
+  </div>
+
+  <div class="divider"><div class="divider-dot"></div></div>
+
+  <div class="practice-block">
+    <div class="practice-label">The Practice · Build</div>
+    <p>Stand up.</p>
+    <p>Feel your navel pull slightly toward your spine. Hold that engagement while breathing normally. That's it. The solar plexus is online. You'll feel a subtle warmth in your center. <strong>That warmth is the furnace acknowledging that you noticed it.</strong></p>
+    <p>Or: Breath of Fire. Rapid rhythmic breathing through the nose, pumping the navel point. Thirty seconds. This is the most direct way to activate the solar plexus. You will feel it immediately. Your center will be warm for minutes after you stop.</p>
+    <p>Or: eat slowly. One meal. Feel your digestion working. Feel the food entering the furnace. Feel the transformation happening in real time. <em>Digestion isn't a background process when you pay attention to it. It's the fire doing its work. You're just watching.</em></p>
+    <p><strong>The harder question:</strong> What are you feeding your fire that isn't yours? Whose expectations are in there? Whose agenda? Whose timeline? The fire will burn anything you give it. But it was built for your fuel, not anyone else's.</p>
+    <p><em>The fire isn't the problem. Check the fuel.</em></p>
+  </div>
+
+  <div class="writing-section">
+    <div class="writing-prompt" id="writing-prompt-manipura">What has the fire been building in you — and what is it burning that isn't yours? Write whichever surfaces first. Or both.</div>
+    <textarea
+      class="writing-area"
+      id="writing-manipura"
+      aria-labelledby="writing-prompt-manipura"
+      placeholder="Write here. This space is yours."
+      rows="7"
+      oninput="autoResize(this); scheduleAutoSave()"
+    ></textarea>
+    <div class="writing-saved" id="save-note">Saved</div>
+    <div class="writing-reflection" id="writing-reflection">Both answers came from the same fire. Its building is also its burning. What it makes you into is also what it empties you of. One fire. Two movements.</div>
+  </div>
+
+  <hr class="book-rule">
+
+  <section>
+    <h3>What the Fire Knows That You Forgot</h3>
+    <p>The fire was never trying to destroy you.</p>
+    <p>You thought it was. At twenty-four, at thirty-one, at forty, when the agitation would not leave — the project that would not let you sleep, the conversation that would not end, the question you could not answer and could not stop answering — you thought the fire was wearing you out. You thought the heat was wrong. You thought a healthy person would be cooler.</p>
+    <p>A healthy person is not cooler. <strong>A healthy person has their fire lit by what is actually theirs.</strong> That is the only difference.</p>
+    <p>When you give the fire what is genuinely yours — the project the fire actually asked for, the conversation the fire wanted to have, the question the fire was built to answer — the fire stops exhausting. It starts burning clean. You can work for hours and come out more alive than when you began. Because the fire was doing the work the fire existed to do.</p>
+    <p>You chose — at some point, without quite knowing you were choosing — to stay in certain heats long enough to be shaped by them. And the form that came out of those heats is the form you are now wearing. Your body. Your work. Your voice. Your capacity to love what you love. <em>All forged.</em> None of it willed into being from above. All of it built by the fire while you stayed in the fire.</p>
+    <p>Every episode of what felt like restless, unreasonable, could-not-be-soothed heat was the body building the form you were becoming. You didn't know what you were becoming. <strong>The fire did.</strong> The fire kept you in the heat long enough for the shape to arrive.</p>
+    <p>What survives the burning is what you're made of. The rest was fuel.</p>
+    <p>And now — look at the form. <em>The form it made is the one you've been wearing.</em></p>
+  </section>
+
+  <section>
+    <h3>Three Ways In</h3>
+    <div class="practice-options">
+      <div class="practice-option">
+        <p>Pull your navel toward your spine and keep it there while you breathe. Stand if you can. <strong>That contraction is the furnace acknowledging itself.</strong> The solar plexus activates through physical engagement the way a bell activates through being struck. You don't need to work the muscle hard — just notice it's there and hold it. Warmth arrives.</p>
+      </div>
+      <div class="practice-option">
+        <p>Breath of Fire. Thirty seconds. Rapid rhythmic breathing through the nose, navel pumping in and out. This is the most direct way to light the solar plexus. You will feel heat in your center before the count is done. Your body will stay warm for minutes after. <em>Fire, fed air, remembers what it is.</em></p>
+      </div>
+      <div class="practice-option">
+        <p>Eat one meal slowly. Attention on the entering, the chewing, the swallowing, the settling. Digestion is not a background process when you pay attention to it. <em>It is the fire doing its work. You are the one watching.</em> The practice is to witness the furnace, not to do anything to it.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="seed">"The fire that agitated you was building your form."</div>
+
+  <!-- STORY PORTAL — preview of the axis dimension, Manipura's forge register.
+       Gated on writing-area engagement — reveals once the walker has offered. -->
+  <button class="story-portal" id="story-invite" type="button" aria-label="Open the story on the other side">
+    <span class="sp-bg" aria-hidden="true">
+      <span class="sp-lotus">
+        <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+          <g fill="none" stroke="rgba(221,187,0,0.7)" stroke-width="0.7">
+            <!-- Eight petals of the Ashta Dala Padma — simple teardrops radiating from center -->
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(0 100 100)" />
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(45 100 100)" />
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(90 100 100)" />
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(135 100 100)" />
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(180 100 100)" />
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(225 100 100)" />
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(270 100 100)" />
+            <path d="M 100 100 Q 100 48 108 28 Q 100 24 92 28 Q 100 48 100 100"  transform="rotate(315 100 100)" />
+            <circle cx="100" cy="100" r="32" stroke-opacity="0.4" />
+          </g>
+        </svg>
+      </span>
+      <span class="sp-embers">
+        <span class="sp-ember"    style="left:12%; --d:0s;   --dur:8s;  --dx:14px; --dx2:-8px"></span>
+        <span class="sp-ember lg" style="left:28%; --d:2.5s; --dur:10s; --dx:-6px; --dx2:12px"></span>
+        <span class="sp-ember"    style="left:38%; --d:1s;   --dur:7.5s; --dx:10px; --dx2:-4px"></span>
+        <span class="sp-ember"    style="left:48%; --d:4s;   --dur:9s;   --dx:-12px; --dx2:6px"></span>
+        <span class="sp-ember lg" style="left:62%; --d:3s;   --dur:11s;  --dx:8px;  --dx2:-10px"></span>
+        <span class="sp-ember"    style="left:72%; --d:1.8s; --dur:8s;   --dx:-10px; --dx2:4px"></span>
+        <span class="sp-ember"    style="left:82%; --d:5s;   --dur:9.5s; --dx:12px;  --dx2:-6px"></span>
+        <span class="sp-ember lg" style="left:92%; --d:0.5s; --dur:10s;  --dx:-8px;  --dx2:10px"></span>
+      </span>
+      <span class="sp-shimmer"></span>
+      <span class="sp-glow"></span>
+    </span>
+    <span class="sp-content">
+      <span class="sp-label">Story · The Forge</span>
+      <span class="sp-dot"></span>
+      <span class="sp-headline">the fire you feared was forging you</span>
+      <span class="sp-cta">
+        <span class="sp-cta-text">tap to flip</span>
+        <span class="sp-cta-arrow">→</span>
+      </span>
+    </span>
+  </button>
+
+  <!-- WHERE THE EMBERS LEAD — deeper experiences, still warm -->
+  <section class="embers-lead" id="where-the-embers-lead" aria-labelledby="wetl-heading">
+    <button type="button" class="wetl-toggle" id="wetl-toggle" aria-expanded="false" aria-controls="wetl-content">
+      <span id="wetl-heading">Where the Embers Lead</span>
+      <span class="wetl-toggle-indicator" aria-hidden="true">↓</span>
+    </button>
+    <div class="wetl-content" id="wetl-content">
+    <p class="embers-lead-intro">The page was one door. The tree was another. The story was a third. These are two more — embers still carrying heat, each pointing at its own forge. Enter through the one the body calls to.</p>
+
+    <div class="embers-grid">
+      <a class="ember-door wakeup" href="https://aistrangegame.com/tree-of-life/manipura-wakeup.html">
+        <svg class="door-glyph wakeup-glyph" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- Faint 8-petal lotus outline — the architecture -->
+          <g class="wg-lotus">
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(0 100 100)" />
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(45 100 100)" />
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(90 100 100)" />
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(135 100 100)" />
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(180 100 100)" />
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(225 100 100)" />
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(270 100 100)" />
+            <path d="M 100 100 Q 100 56 108 40 Q 100 36 92 40 Q 100 56 100 100" transform="rotate(315 100 100)" />
+          </g>
+          <!-- Three flame tongues rising from the center -->
+          <path class="wg-tongue t1" d="M 100 112 Q 92 96 94 84 Q 98 74 100 66 Q 102 74 106 84 Q 108 96 100 112 Z" />
+          <path class="wg-tongue t2" d="M 100 112 Q 94 94 95 78 Q 99 66 100 54 Q 101 66 105 78 Q 106 94 100 112 Z" />
+          <path class="wg-tongue t3" d="M 100 112 Q 96 92 97 72 Q 99 58 100 44 Q 101 58 103 72 Q 104 92 100 112 Z" />
+          <!-- Central flame core -->
+          <circle cx="100" cy="110" r="7" class="wg-core" />
+          <!-- Eight outer Shaktis — positioned at the petal tips -->
+          <circle cx="100" cy="32"  r="3.2" class="wg-shakti s1" />  <!-- N  -->
+          <circle cx="149" cy="51"  r="3.2" class="wg-shakti s2" />  <!-- NE -->
+          <circle cx="168" cy="100" r="3.2" class="wg-shakti s3" />  <!-- E  -->
+          <circle cx="149" cy="149" r="3.2" class="wg-shakti s4" />  <!-- SE -->
+          <circle cx="100" cy="168" r="3.2" class="wg-shakti s5" />  <!-- S  -->
+          <circle cx="51"  cy="149" r="3.2" class="wg-shakti s6" />  <!-- SW -->
+          <circle cx="32"  cy="100" r="3.2" class="wg-shakti s7" />  <!-- W  -->
+          <circle cx="51"  cy="51"  r="3.2" class="wg-shakti s8" />  <!-- NW -->
+        </svg>
+        <div class="door-meta">Wakeup &nbsp;·&nbsp; Eight Ananga Ignite</div>
+        <div class="door-title">Eight bodiless forces in the forge. Shake your phone to build. One ignites with its name — the goad. The others remain.</div>
+        <div class="door-text">A guided passage through the Ashta Dala Padma. Shake, place your hand on the furnace, breathe into the fire. <em>About six minutes. Headphones help.</em></div>
+        <div class="door-enter">
+          Enter
+          <div class="door-arrow"></div>
+        </div>
+      </a>
+
+      <a class="ember-door dance" href="https://aistrangegame.com/tree-of-life/manipura-dance.html">
+        <svg class="door-glyph dance-glyph" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- Baseline — the bass -->
+          <line class="dg-baseline" x1="6" y1="72" x2="194" y2="72" />
+          <!-- The two-blaze-one-breath arc. First peak at x≈56, dip at x≈104, second peak at x≈156 (deeper). -->
+          <path class="dg-wave" d="
+            M 6 72
+            Q 28 70  42 52
+            Q 56 28  70 40
+            Q 82 58  100 62
+            Q 108 68 110 64
+            Q 118 56 128 48
+            Q 144 28 158 18
+            Q 174 32 190 58
+            L 194 72
+          " />
+          <!-- A traveling marker that follows the waveform -->
+          <circle class="dg-marker" cx="0" cy="60" r="3" />
+          <!-- Four ember-marks: two at each blaze -->
+          <circle class="dg-ember e1" cx="56"  cy="28" r="2.4" />
+          <circle class="dg-ember e2" cx="70"  cy="40" r="2"   />
+          <circle class="dg-ember e3" cx="158" cy="18" r="2.8" />
+          <circle class="dg-ember e4" cx="172" cy="26" r="2"   />
+        </svg>
+        <div class="door-meta">Dance &nbsp;·&nbsp; Two Blazes, One Breath</div>
+        <div class="door-title">A duet. Two voices forming a circuit. The fire breathes up for oxygen, then blazes bigger. Three-and-a-half minutes.</div>
+        <div class="door-text">Powerful by Major Lazer, Ellie Goulding, and Tarrus Riley. Watch the breakdown at two minutes. Listen for the second blaze. <em>About four minutes end-to-end. Headphones help.</em></div>
+        <div class="door-enter">
+          Enter
+          <div class="door-arrow"></div>
+        </div>
+      </a>
+
+      <!-- Bindu Field — the chakra's note in the Field of 33 -->
+      <a class="ember-door bindu-field"
+         href="https://aistrangegame.com/bindu-field.html#manipura"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Manipura's note in the Field — new tab">
+        <svg class="door-glyph bindu-field-glyph" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- 5 sound-waves radiating from the Bindu core -->
+          <circle class="bfg-wave w1" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w2" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w3" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w4" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w5" cx="200" cy="130" r="24" />
+
+          <!-- 33 position-markers around the Bindu. This chakra's position glows. -->
+            <circle class="bfg-pos" cx="200.00" cy="30.00" r="1.8" />
+            <circle class="bfg-pos" cx="232.17" cy="31.81" r="1.8" />
+            <circle class="bfg-pos" cx="263.18" cy="37.16" r="1.8" />
+            <circle class="bfg-pos bfg-bindu-pos" cx="291.91" cy="45.87" r="2.6" />
+            <circle class="bfg-pos" cx="317.31" cy="57.63" r="1.8" />
+            <circle class="bfg-pos" cx="338.48" cy="71.99" r="1.8" />
+            <circle class="bfg-pos" cx="354.64" cy="88.46" r="1.8" />
+            <circle class="bfg-pos" cx="365.21" cy="106.42" r="1.8" />
+            <circle class="bfg-pos" cx="369.81" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="368.27" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="360.65" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="347.22" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="328.48" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="305.09" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="277.90" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="247.89" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="216.16" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="183.84" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="152.11" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="122.10" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="94.91" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="71.52" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="52.78" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="39.35" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="31.73" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="30.19" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="34.79" cy="106.42" r="1.8" />
+            <circle class="bfg-pos" cx="45.36" cy="88.46" r="1.8" />
+            <circle class="bfg-pos" cx="61.52" cy="71.99" r="1.8" />
+            <circle class="bfg-pos" cx="82.69" cy="57.63" r="1.8" />
+            <circle class="bfg-pos" cx="108.09" cy="45.87" r="1.8" />
+            <circle class="bfg-pos" cx="136.82" cy="37.16" r="1.8" />
+            <circle class="bfg-pos" cx="167.83" cy="31.81" r="1.8" />
+
+          <!-- Thread from this chakra's position to the central Bindu -->
+          <line class="bfg-thread" x1="291.91" y1="45.87" x2="200" y2="130" />
+
+          <!-- Central Bindu — the note all the others arrive from -->
+          <circle class="bfg-core" cx="200" cy="130" r="7" />
+        </svg>
+        <div class="door-meta">Bindu Field &nbsp;&middot;&nbsp; Song 4 of 33</div>
+        <div class="door-title">The note of fire — where form catches its heat.</div>
+        <div class="door-text">The tone the navel forges. Ten Shaktis in the architecture of will. Let it play underneath while you read. <em>Opens in a new tab.</em></div>
+        <div class="door-enter">
+          Listen
+          <div class="door-enter-arrow"></div>
+        </div>
+      </a>
+    </div>
+    </div><!-- /wetl-content -->
+  </section>
+
+</div>
+</main>
+
+<!-- ─── BOTTOM NAV ─── -->
+<nav class="bottom-nav" aria-label="Chakra navigation">
+  <a class="nav-link" href="svadhisthana-practice.html">← Svadhisthana</a>
+  <div class="nav-position">4 / 33</div>
+  <a class="nav-link" href="anahata-practice.html">Anahata →</a>
+</nav>
+
+<!-- ─── LIGHTBOX ─── -->
+<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Manipura tree — close look">
+  <div class="lightbox-stage" id="lightbox-stage">
+    <img class="lightbox-image" id="lightbox-image" src="/tree-of-life/manipura-tree.jpg" alt="Manipura tree — full close-look. Zoom to find the six visible Ananga Shakti names inscribed within the flames, RAM रं on the primary trunk near the base, and the Ashta Dala Padma lotus ghosted behind the fire." draggable="false">
+  </div>
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close" type="button">×</button>
+  <div class="lightbox-hint" id="lightbox-hint">
+    <span>Pinch or scroll to zoom</span><span class="sep">·</span><span>Drag to move</span><span class="sep">·</span><span>Double-tap to reset</span>
+  </div>
+</div>
+
+<!-- ═══ STORY MODE · THE FORGE ═══
+     The forge-lit tree scene. Eight Ananga Shaktis at the Ashta Dala Padma.
+     Two trunks rising from one root. Central flame. Two-blaze-one-breath arc. -->
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="Manipura's story — the other side of the page">
+  <div class="story-scene" id="story-scene">
+
+    <!-- Ashta Dala Padma — the architecture of the forge -->
+    <div class="mp-lotus" aria-hidden="true">
+      <svg viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
+        <g class="mp-lotus-petals">
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(0 100 100)" />
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(45 100 100)" />
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(90 100 100)" />
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(135 100 100)" />
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(180 100 100)" />
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(225 100 100)" />
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(270 100 100)" />
+          <path class="mp-lotus-petal" d="M 100 100 Q 100 42 110 22 Q 100 18 90 22 Q 100 42 100 100"  transform="rotate(315 100 100)" />
+          <circle class="mp-lotus-petal" cx="100" cy="100" r="28" />
+        </g>
+      </svg>
+    </div>
+
+    <!-- The dual-trunked tree — rising from one root, interweaving as it ascends -->
+    <div class="mp-tree" aria-hidden="true">
+      <svg viewBox="0 0 1000 600" preserveAspectRatio="xMidYMax slice">
+        <!-- Root zone — below ground, where the two trunks share origin -->
+        <path class="mp-root" d="
+          M 490 580 C 480 570, 460 560, 440 550
+          M 510 580 C 520 570, 540 560, 560 550
+          M 500 582 L 500 560
+        " />
+        <!-- Trunk A — the left rising trunk, interweaving leftward then right -->
+        <path class="mp-trunk-a" d="
+          M 500 580
+          C 488 540, 472 500, 468 460
+          C 464 420, 480 388, 496 352
+          C 510 316, 502 282, 488 248
+          C 474 214, 482 182, 498 148
+          C 508 122, 500 96,  490 78
+        " />
+        <!-- Trunk B — the right rising trunk, interweaving rightward then left, meeting A in the canopy -->
+        <path class="mp-trunk-b" d="
+          M 500 580
+          C 512 540, 528 500, 532 462
+          C 536 422, 522 390, 506 354
+          C 492 320, 498 286, 512 252
+          C 526 216, 520 184, 504 150
+          C 494 124, 500 100, 508 82
+        " />
+        <!-- Branches — asymmetric, reaching, unfinished -->
+        <path class="mp-branches" d="
+          M 498 148 C 474 130, 458 118, 436 108
+          M 498 148 C 462 142, 436 136, 412 132
+          M 498 148 C 492 120, 488 98,  482 76
+          M 504 150 C 526 134, 544 122, 562 110
+          M 504 150 C 534 144, 556 138, 576 134
+          M 504 150 C 518 130, 528 108, 536 86
+          M 488 248 C 468 246, 448 248, 424 254
+          M 512 252 C 534 250, 556 254, 576 260
+          M 496 352 C 468 356, 442 364, 418 376
+          M 506 354 C 534 358, 560 366, 582 378
+          M 468 460 C 448 462, 428 468, 406 478
+          M 532 462 C 554 464, 576 470, 598 480
+        " />
+      </svg>
+    </div>
+
+    <!-- Drifting embers — rising sparks throughout the scene -->
+    <div class="mp-embers" aria-hidden="true">
+      <span class="mp-ember em-small" style="left:10%; --d:0s;   --dur:6.5s;  --dx:10px; --dx2:-6px"></span>
+      <span class="mp-ember"          style="left:18%; --d:2s;   --dur:8s;    --dx:-8px; --dx2:10px"></span>
+      <span class="mp-ember em-large" style="left:26%; --d:4s;   --dur:9s;    --dx:12px; --dx2:-4px"></span>
+      <span class="mp-ember em-small" style="left:34%; --d:1s;   --dur:7s;    --dx:-10px; --dx2:6px"></span>
+      <span class="mp-ember"          style="left:42%; --d:3.5s; --dur:8.5s;  --dx:8px;  --dx2:-8px"></span>
+      <span class="mp-ember em-large" style="left:50%; --d:0.5s; --dur:10s;   --dx:0px;  --dx2:4px"></span>
+      <span class="mp-ember"          style="left:54%; --d:5s;   --dur:7.5s;  --dx:-6px; --dx2:10px"></span>
+      <span class="mp-ember em-small" style="left:62%; --d:2.5s; --dur:8s;    --dx:10px; --dx2:-8px"></span>
+      <span class="mp-ember em-large" style="left:68%; --d:6s;   --dur:9.5s;  --dx:-12px; --dx2:4px"></span>
+      <span class="mp-ember"          style="left:76%; --d:1.5s; --dur:7s;    --dx:8px;  --dx2:-10px"></span>
+      <span class="mp-ember em-small" style="left:84%; --d:4.5s; --dur:8s;    --dx:-10px; --dx2:6px"></span>
+      <span class="mp-ember"          style="left:90%; --d:3s;   --dur:9s;    --dx:12px; --dx2:-6px"></span>
+    </div>
+
+    <!-- Heat haze -->
+    <div class="mp-heat-haze" aria-hidden="true"></div>
+
+    <!-- Eight Shakti points -->
+    <div class="mp-shakti-point sp-kusuma"     aria-hidden="true"></div>
+    <div class="mp-shakti-point sp-mekhala"    aria-hidden="true"></div>
+    <div class="mp-shakti-point sp-madana"     aria-hidden="true"></div>
+    <div class="mp-shakti-point sp-madanatura" aria-hidden="true"></div>
+    <div class="mp-shakti-point sp-rekha"      aria-hidden="true"></div>
+    <div class="mp-shakti-point sp-vega"       aria-hidden="true"></div>
+    <div class="mp-shakti-point sp-ankusha"    aria-hidden="true"></div>
+    <div class="mp-shakti-point sp-malini"     aria-hidden="true"></div>
+
+    <!-- Eight Shakti labels -->
+    <div class="mp-shakti-label sl-kusuma">Kusumā</div>
+    <div class="mp-shakti-label sl-mekhala">Mekhalā</div>
+    <div class="mp-shakti-label sl-madana">Madanā</div>
+    <div class="mp-shakti-label sl-madanatura">Madanāturā</div>
+    <div class="mp-shakti-label sl-rekha">Rekhā</div>
+    <div class="mp-shakti-label sl-vega">Vegā</div>
+    <div class="mp-shakti-label sl-ankusha">Ankushā</div>
+    <div class="mp-shakti-label sl-malini">Mālinī</div>
+
+    <!-- Central flame core and flame tongues -->
+    <div class="mp-flame-core" aria-hidden="true"></div>
+    <div class="mp-flame-tongue ft1" aria-hidden="true"></div>
+    <div class="mp-flame-tongue ft2" aria-hidden="true"></div>
+    <div class="mp-flame-tongue ft3" aria-hidden="true"></div>
+    <div class="mp-flame-tongue ft4" aria-hidden="true"></div>
+    <div class="mp-flame-tongue ft5" aria-hidden="true"></div>
+    <div class="mp-flame-tongue ft6" aria-hidden="true"></div>
+
+    <!-- RAM seed syllable — appears at beat 15 -->
+    <div class="mp-ram-seed" aria-hidden="true">रं&nbsp;&nbsp;RAM</div>
+
+    <!-- Beat text -->
+    <div class="story-lines-stage">
+      <div class="story-line" id="story-line-content" aria-live="polite"></div>
+    </div>
+
+    <!-- Controls -->
+    <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+
+    <!-- The Threshold — opens at the close of the final recognition.
+         The trunk's RAM position becomes Anahata's first point. -->
+    <a class="threshold-door" id="threshold-door" href="anahata-practice.html" aria-hidden="true" aria-label="Continue to Anahata">
+      <div class="next-point" aria-hidden="true"></div>
+      <div class="next-label">Anahata</div>
+      <div class="next-sublabel">The Heart</div>
+      <div class="threshold-continue-hint">
+        <span>Continue</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+
+    <button class="story-close" id="story-close" type="button" aria-label="Return to the page">×</button>
+
+  </div><!-- /story-scene -->
+
+  <!-- ═══ ACT 2 — SAKSHI WITNESS (Manipura) ═══
+       Rises after the press-and-hold completes. Ascending yellow→cream→silver-white.
+       Sakshi's integrative voice — the fire was never wrong. Manipura's p3 is a
+       sentence-go (same pattern as Svadhisthana): points toward Anahata (the sound
+       that has been playing since before the pull). -->
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="act2-bg"></div>
+    <div class="act2-crown"></div>
+    <div class="act2-base"></div>
+    <div class="act2-particles" id="act2-particles"></div>
+
+    <div class="act2-text-stage">
+      <p class="act2-para" id="act2-p1"><span class="act2-word">The</span> <span class="act2-word">fire</span> <span class="act2-word">was</span> <span class="act2-word">never</span> <span class="act2-word">wrong.</span> <span class="act2-word">You</span> <span class="act2-word">thought,</span> <span class="act2-word">sometimes</span> <span class="act2-word">—</span> <span class="act2-word">not</span> <span class="act2-word">now,</span> <span class="act2-word">but</span> <span class="act2-word">in</span> <span class="act2-word">the</span> <span class="act2-word">lives-under-this-life,</span> <span class="act2-word">in</span> <span class="act2-word">the</span> <span class="act2-word">accumulated</span> <span class="act2-word">forgetting</span> <span class="act2-word">—</span> <span class="act2-word">that</span> <span class="act2-word">the</span> <span class="act2-word">heat</span> <span class="act2-word">meant</span> <span class="act2-word">something</span> <span class="act2-word">was</span> <span class="act2-word">breaking.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">breakings.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">restless</span> <span class="act2-word">nights</span> <span class="act2-word">and</span> <span class="act2-word">the</span> <span class="act2-word">projects</span> <span class="act2-word">that</span> <span class="act2-word">would</span> <span class="act2-word">not</span> <span class="act2-word">let</span> <span class="act2-word">you</span> <span class="act2-word">sleep</span> <span class="act2-word">and</span> <span class="act2-word">the</span> <span class="act2-word">conversations</span> <span class="act2-word">that</span> <span class="act2-word">would</span> <span class="act2-word">not</span> <span class="act2-word">end.</span> <span class="act2-word">What</span> <span class="act2-word">you</span> <span class="act2-word">called</span> <span class="act2-word">exhaustion</span> <span class="act2-word">was</span> <span class="act2-word">shaping.</span></p>
+      <p class="act2-para" id="act2-p2"><span class="act2-word">Every</span> <span class="act2-word">previous</span> <span class="act2-word">burning</span> <span class="act2-word">made</span> <span class="act2-word">you</span> <span class="act2-word">what</span> <span class="act2-word">was</span> <span class="act2-word">about</span> <span class="act2-word">to</span> <span class="act2-word">be</span> <span class="act2-word">burned</span> <span class="act2-word">next.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">fuel</span> <span class="act2-word">change.</span> <span class="act2-word">Early,</span> <span class="act2-word">you</span> <span class="act2-word">fed</span> <span class="act2-word">the</span> <span class="act2-word">fire</span> <span class="act2-word">what</span> <span class="act2-word">was</span> <span class="act2-word">given</span> <span class="act2-word">to</span> <span class="act2-word">you</span> <span class="act2-word">—</span> <span class="act2-word">others'</span> <span class="act2-word">timelines,</span> <span class="act2-word">inherited</span> <span class="act2-word">agendas,</span> <span class="act2-word">the</span> <span class="act2-word">shape</span> <span class="act2-word">someone</span> <span class="act2-word">else</span> <span class="act2-word">expected</span> <span class="act2-word">you</span> <span class="act2-word">to</span> <span class="act2-word">fill.</span> <span class="act2-word">The</span> <span class="act2-word">fire</span> <span class="act2-word">burned</span> <span class="act2-word">those</span> <span class="act2-word">too.</span> <span class="act2-word">The</span> <span class="act2-word">fire</span> <span class="act2-word">does</span> <span class="act2-word">not</span> <span class="act2-word">discriminate.</span> <span class="act2-word">But</span> <span class="act2-word">when</span> <span class="act2-word">you</span> <span class="act2-word">fed</span> <span class="act2-word">it</span> <span class="act2-word">what</span> <span class="act2-word">was</span> <span class="act2-word">actually</span> <span class="act2-word">yours,</span> <span class="act2-word">the</span> <span class="act2-word">fire</span> <span class="act2-word">stopped</span> <span class="act2-word">consuming</span> <span class="act2-word">and</span> <span class="act2-word">started</span> <span class="act2-word">building.</span> <span class="act2-word">You</span> <span class="act2-word">know</span> <span class="act2-word">this</span> <span class="act2-word">now,</span> <span class="act2-word">because</span> <span class="act2-word">the</span> <span class="act2-word">form</span> <span class="act2-word">arrived.</span></p>
+      <p class="act2-para act2-go" id="act2-p3"><span class="act2-word">What</span> <span class="act2-word">comes</span> <span class="act2-word">next</span> <span class="act2-word">is</span> <span class="act2-word">the</span> <span class="act2-word">center</span> <span class="act2-word">that</span> <span class="act2-word">was</span> <span class="act2-word">waiting</span> <span class="act2-word">for</span> <span class="act2-word">the</span> <span class="act2-word">form</span> <span class="act2-word">to</span> <span class="act2-word">be</span> <span class="act2-word">stable</span> <span class="act2-word">enough</span> <span class="act2-word">to</span> <span class="act2-word">hold</span> <span class="act2-word">it.</span> <span class="act2-word">The</span> <span class="act2-word">sound</span> <span class="act2-word">that</span> <span class="act2-word">has</span> <span class="act2-word">been</span> <span class="act2-word">playing</span> <span class="act2-word">since</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">pull.</span> <span class="act2-word">Since</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">ground.</span> <span class="act2-word">Since</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">stirring.</span></p>
+    </div>
+
+    <a class="act2-door" id="act2-door" href="anahata-practice.html" aria-hidden="true" aria-label="Continue to Anahata">
+      <div class="act2-door-name">Anahata</div>
+      <div class="act2-door-hint">The sound is here.</div>
+      <div class="act2-door-continue">Press · Continue →</div>
+    </a>
+  </div>
+
+  <!-- ═══ ACT VEIL — dark gap between Act 1 and Act 2 ═══
+       Eyes appear, blink once, fade. Hold the ring 1.8s to enter. -->
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes">
+      <div class="veil-eye"></div>
+      <div class="veil-eye"></div>
+    </div>
+    <div class="veil-invite" id="veil-invite">
+      <div class="veil-invite-text">press and hold to enter</div>
+      <div class="veil-hold-ring" id="veil-hold-ring">
+        <svg viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="veil-ring-track" cx="36" cy="36" r="32"/>
+          <circle class="veil-ring-fill"  cx="36" cy="36" r="32" id="veil-ring-fill"/>
+        </svg>
+        <div class="veil-hold-dot"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /story-mode -->
+
+<script>
+window.addEventListener('scroll', () => {
+  const h = document.documentElement;
+  document.getElementById('progress').style.width =
+    (window.scrollY / (h.scrollHeight - window.innerHeight) * 100) + '%';
+});
+
+function toggleDeeper(btn) {
+  const open = btn.classList.toggle('open');
+  document.getElementById('deeper-panel').classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+
+function autoResize(el) {
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+let saveTimer;
+function scheduleAutoSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const val = document.getElementById('writing-manipura').value;
+    localStorage.setItem('chakra-manipura', val);
+    const note = document.getElementById('save-note');
+    note.classList.add('visible');
+    setTimeout(() => note.classList.remove('visible'), 2000);
+  }, 900);
+  // Also gate the story-invite and writing-reflection on any content
+  updatePostEngagementVisibility();
+}
+
+function updatePostEngagementVisibility() {
+  const val = document.getElementById('writing-manipura').value;
+  const storyInvite = document.getElementById('story-invite');
+  const reflection = document.getElementById('writing-reflection');
+  const hasContent = val && val.trim().length > 0;
+  if (hasContent) {
+    storyInvite.classList.add('revealed');
+    reflection.classList.add('revealed');
+  } else {
+    storyInvite.classList.remove('revealed');
+    reflection.classList.remove('revealed');
+  }
+}
+
+window.addEventListener('load', () => {
+  const saved = localStorage.getItem('chakra-manipura');
+  if (saved) {
+    const el = document.getElementById('writing-manipura');
+    el.value = saved;
+    autoResize(el);
+    // Returning walker with saved content — story-invite + reflection reveal immediately
+    updatePostEngagementVisibility();
+  }
+});
+
+/* ─── WHERE THE EMBERS LEAD — collapsible with auto-expand on return ─── */
+(function() {
+  const section = document.getElementById('where-the-embers-lead');
+  const toggle  = document.getElementById('wetl-toggle');
+  if (!section || !toggle) return;
+
+  toggle.addEventListener('click', () => {
+    const open = section.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+
+  // Auto-expand on return when writing exists (signal of prior engagement)
+  window.addEventListener('load', () => {
+    try {
+      if (localStorage.getItem('chakra-manipura')) {
+        section.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    } catch (e) { /* ignore */ }
+  });
+})();
+
+/* ─── LIGHTBOX — zoom, pan, keyboard, touch ─── */
+(function() {
+  const lightbox = document.getElementById('lightbox');
+  const stage = document.getElementById('lightbox-stage');
+  const img = document.getElementById('lightbox-image');
+  const closeBtn = document.getElementById('lightbox-close');
+  const hint = document.getElementById('lightbox-hint');
+
+  if (!lightbox || !img) return;
+
+  let scale = 1;
+  let tx = 0, ty = 0;
+  let isDragging = false;
+  let dragStartX = 0, dragStartY = 0;
+  let startTx = 0, startTy = 0;
+  let pinchStartDist = 0;
+  let pinchStartScale = 1;
+  let lastTap = 0;
+  let hintTimeout = null;
+
+  const MIN_SCALE = 1;
+  const MAX_SCALE = 6;
+
+  function applyTransform() {
+    if (scale > 1.02) {
+      img.classList.add('zoomed');
+    } else {
+      img.classList.remove('zoomed');
+      tx = 0; ty = 0;
+    }
+    img.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+  }
+
+  function resetView() {
+    scale = 1; tx = 0; ty = 0;
+    applyTransform();
+  }
+
+  function clampPan() {
+    if (scale <= 1) { tx = 0; ty = 0; return; }
+    const rect = img.getBoundingClientRect();
+    const stageRect = stage.getBoundingClientRect();
+    const maxX = Math.max(0, (rect.width - stageRect.width) / 2);
+    const maxY = Math.max(0, (rect.height - stageRect.height) / 2);
+    tx = Math.max(-maxX, Math.min(maxX, tx));
+    ty = Math.max(-maxY, Math.min(maxY, ty));
+  }
+
+  function showHint() {
+    hint.classList.add('visible');
+    if (hintTimeout) clearTimeout(hintTimeout);
+    hintTimeout = setTimeout(() => hint.classList.remove('visible'), 4200);
+  }
+
+  window.openLightbox = function() {
+    lightbox.classList.add('open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+    resetView();
+    showHint();
+    closeBtn.focus();
+  };
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+    resetView();
+  }
+
+  closeBtn.addEventListener('click', closeLightbox);
+
+  stage.addEventListener('click', (e) => {
+    if (e.target === stage && scale <= 1.02) closeLightbox();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    else if (e.key === '0') resetView();
+    else if (e.key === '+' || e.key === '=') { scale = Math.min(MAX_SCALE, scale * 1.25); applyTransform(); }
+    else if (e.key === '-') { scale = Math.max(MIN_SCALE, scale / 1.25); clampPan(); applyTransform(); }
+  });
+
+  stage.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    const rect = img.getBoundingClientRect();
+    const cx = e.clientX - (rect.left + rect.width / 2);
+    const cy = e.clientY - (rect.top + rect.height / 2);
+    const prev = scale;
+    const delta = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+    scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, scale * delta));
+    const factor = scale / prev;
+    tx = tx * factor - cx * (factor - 1);
+    ty = ty * factor - cy * (factor - 1);
+    clampPan();
+    applyTransform();
+    showHint();
+  }, { passive: false });
+
+  function handleDouble(x, y) {
+    if (scale > 1.02) {
+      resetView();
+    } else {
+      const rect = img.getBoundingClientRect();
+      const cx = x - (rect.left + rect.width / 2);
+      const cy = y - (rect.top + rect.height / 2);
+      scale = 2.4;
+      tx = -cx * (scale - 1);
+      ty = -cy * (scale - 1);
+      clampPan();
+      applyTransform();
+    }
+  }
+  stage.addEventListener('dblclick', (e) => handleDouble(e.clientX, e.clientY));
+
+  img.addEventListener('mousedown', (e) => {
+    if (scale <= 1.02) return;
+    e.preventDefault();
+    isDragging = true;
+    img.classList.add('dragging');
+    dragStartX = e.clientX; dragStartY = e.clientY;
+    startTx = tx; startTy = ty;
+  });
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    tx = startTx + (e.clientX - dragStartX);
+    ty = startTy + (e.clientY - dragStartY);
+    clampPan();
+    applyTransform();
+  });
+  document.addEventListener('mouseup', () => {
+    if (isDragging) { isDragging = false; img.classList.remove('dragging'); }
+  });
+
+  function touchDist(t1, t2) {
+    const dx = t2.clientX - t1.clientX;
+    const dy = t2.clientY - t1.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  img.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      const now = Date.now();
+      if (now - lastTap < 320) {
+        e.preventDefault();
+        handleDouble(e.touches[0].clientX, e.touches[0].clientY);
+        lastTap = 0;
+        return;
+      }
+      lastTap = now;
+      if (scale > 1.02) {
+        isDragging = true;
+        img.classList.add('dragging');
+        dragStartX = e.touches[0].clientX;
+        dragStartY = e.touches[0].clientY;
+        startTx = tx; startTy = ty;
+      }
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      pinchStartDist = touchDist(e.touches[0], e.touches[1]);
+      pinchStartScale = scale;
+      isDragging = false;
+    }
+  }, { passive: false });
+
+  img.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 1 && isDragging) {
+      e.preventDefault();
+      tx = startTx + (e.touches[0].clientX - dragStartX);
+      ty = startTy + (e.touches[0].clientY - dragStartY);
+      clampPan();
+      applyTransform();
+    } else if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = touchDist(e.touches[0], e.touches[1]);
+      if (pinchStartDist > 0) {
+        scale = Math.max(MIN_SCALE, Math.min(MAX_SCALE, pinchStartScale * (dist / pinchStartDist)));
+        clampPan();
+        applyTransform();
+        showHint();
+      }
+    }
+  }, { passive: false });
+
+  img.addEventListener('touchend', (e) => {
+    if (e.touches.length === 0) {
+      isDragging = false;
+      img.classList.remove('dragging');
+      pinchStartDist = 0;
+    }
+  });
+
+  img.addEventListener('dragstart', (e) => e.preventDefault());
+})();
+
+/* ═══════════════════════════════════════════════════════════════════════
+   STORY MODE · THE FORGE · Manipura — V5 Two-Act Architecture
+   ─────────────────────────────────────────────────────────────────────
+   ACT 1 — Gaia's journey-voice. 5 paragraph blocks from gaia-sakshi-source.
+   The Eight Ananga Shaktis ignite progressively — grouped across beats rather
+   than narrated individually. The walker FEELS the forces (heat, shape arriving,
+   form coming in) while the scene REVEALS the architecture (Kusumā, Mekhalā,
+   Madanā, Madanāturā, Rekhā, Vegā, Ankushā, Mālinī) as labels/lights. The
+   "Two trunks. One root." recognition happens visually via the scene state,
+   not in the narration.
+
+   Scene state progression (cumulative):
+   - Beat 1 (base):             gathering → first-ember → mekhala-lit
+                                 Kusumā + Mekhalā lit. Heat begins.
+   - Beat 2 (no compound):      first-blaze + madana-lit + madanatura-lit
+                                 Fire catches. Edges come in. Form arriving.
+   - Beat 3 (burning):          burning + breath + rebuild
+                                 The pause. The breath. Rekhā rises.
+   - Beat 4 (burning forming):  burning + forming + rebuild + vega-lit + ankusha-lit
+                                 Speed + goad. Current finds shape to run through.
+   - Beat 5 FINAL (burning forming forging rippling):
+                                 + second-blaze + malini-lit + recognition + seed-named + embers
+                                 Mālinī arrives. RAM rises. Trunks unify. Ripple fires.
+
+   SIGNATURE — "The fire that agitated you was building your form." Lands as
+   the hinge between Gaia's experiential arrival and Sakshi's integrative voice.
+
+   VEIL — #060308. Eyes blink. Press-and-hold 1.8s.
+
+   ACT 2 — Sakshi's integrative voice. Ascending gold→cream→silver-white.
+   Three paragraphs auto-paced at 1.33× slower timing (revised April 24).
+   Manipura's p3 is a SENTENCE (points toward Anahata's unstruck sound) —
+   intermediate sizing applies.
+   ═══════════════════════════════════════════════════════════════════════ */
+(function() {
+  const storyInvite   = document.getElementById('story-invite');
+  const storyMode     = document.getElementById('story-mode');
+  const scene         = document.getElementById('story-scene');
+  const lineEl        = document.getElementById('story-line-content');
+  const tapHint       = document.getElementById('story-tap-hint');
+  const thresholdDoor = document.getElementById('threshold-door');
+  const closeBtn      = document.getElementById('story-close');
+
+  if (!storyInvite || !storyMode) return;
+
+  /* ── ACT 1 BEATS — Gaia journey-voice, 5 paragraph blocks.
+     State strings combine scene-visual states (first-ember/first-blaze/rebuild/etc.)
+     with compound dot-grammar from gaia-sakshi (burning/forming/forging/rippling). ── */
+  const beats = [
+    {
+      // Beat 1 — heat arrives. First two Shaktis (Kusumā + Mekhalā) light from the SW/W.
+      text: "And now — heat. Not from outside. From inside. The pull was following something, and the something, when I arrived at it, was burning.",
+      state: 'gathering first-ember mekhala-lit'
+    },
+    {
+      // Beat 2 — the fire catches. Madanā + Madanāturā light. Four Shaktis active.
+      // The form is arriving. The walker feels edges coming in.
+      text: "Not burning me. Not burning me up. Burning me into shape. I can feel it in the center of me — a place I didn't know had a center. The pull pulled me to a fire, and the fire is making me into something. I can feel the edges coming in. The form arriving. I wasn't sure I had a form. Now I am.",
+      state: 'first-blaze mekhala-lit madana-lit madanatura-lit'
+    },
+    {
+      // Beat 3 — the pause. Fire quiets to breath. Rekhā rises (the traced line of what's being built).
+      text: "It hurts a little. That's fair. I was unfinished. Being finished involves some heat. I'm not afraid of the fire. That surprises me.",
+      state: 'burning breath rebuild'
+    },
+    {
+      // Beat 4 — forming. Vegā (speed) + Ankushā (the goad) light. Current finds a shape to run through.
+      text: "I'm getting smaller. And somehow — more. Something that looks like will is happening, but it doesn't feel like force. It feels like a current that finally has a shape to run through.",
+      state: 'burning forming rebuild vega-lit ankusha-lit'
+    },
+    {
+      // Beat 5 FINAL — Mālinī arrives (the arranging). All 8 Shaktis lit. RAM seed appears.
+      // Tree-recognition: two trunks, one root. Ripple fires.
+      text: "I want to keep going. I don't want to put out this fire. The fire is building me. Building the me that was always going to arrive if I let the heat stay on long enough.",
+      state: 'burning forming forging rippling second-blaze malini-lit recognition seed-named embers',
+      final: true
+    }
+  ];
+
+  /* Signature phrase — the 3rd occurrence (Seed 1, Seed 2, Story Mode landing).
+     The hinge between Gaia's experiential arrival and Sakshi's integrative voice. */
+  const SIGNATURE = 'The fire that agitated you was building your form.';
+
+  let currentBeat    = -1;
+  let act2Launched   = false;
+  let finalBeatDisplayed = false;
+  let signatureShown     = false;
+  let finalHintTimer     = null;
+  let lineFadeTimer  = null;
+  let thresholdTimer = null;
+  let landingTimer   = null;
+  let openHintTimer  = null;
+  let startHideTimer = null;
+
+  function openStory() {
+    storyMode.classList.add('active');
+    storyMode.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('story-open');
+    resetStory();
+    resetVeil();
+    resetActTwo();
+    if (openHintTimer) clearTimeout(openHintTimer);
+    openHintTimer = setTimeout(() => {
+      if (storyMode.classList.contains('active')) {
+        tapHint.classList.add('visible');
+      }
+      openHintTimer = null;
+    }, 1700);
+  }
+
+  function closeStory() {
+    storyMode.classList.remove('active');
+    storyMode.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('story-open');
+    if (lineFadeTimer)  { clearTimeout(lineFadeTimer);  lineFadeTimer  = null; }
+    if (thresholdTimer) { clearTimeout(thresholdTimer); thresholdTimer = null; }
+    if (landingTimer)   { clearTimeout(landingTimer);   landingTimer   = null; }
+    if (openHintTimer)  { clearTimeout(openHintTimer);  openHintTimer  = null; }
+    if (startHideTimer) { clearTimeout(startHideTimer); startHideTimer = null; }
+    resetVeil();
+    resetActTwo();
+  }
+
+  function resetStory() {
+    currentBeat  = -1;
+    act2Launched = false;
+    finalBeatDisplayed = false;
+    signatureShown = false;
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+    lineEl.textContent = '';
+    lineEl.classList.remove('visible', 'fading');
+    scene.className = 'story-scene';
+    tapHint.classList.remove('visible');
+    if (thresholdDoor) thresholdDoor.setAttribute('aria-hidden', 'true');
+  }
+
+  function advance() {
+    if (act2Launched) return;
+    if (signatureShown) return;
+    if (finalBeatDisplayed) { landSignature(); return; }
+    if (currentBeat >= beats.length - 1) return;
+
+    currentBeat++;
+    const beat = beats[currentBeat];
+
+    if (lineEl.classList.contains('visible')) {
+      lineEl.classList.remove('visible');
+      lineEl.classList.add('fading');
+      if (lineFadeTimer) clearTimeout(lineFadeTimer);
+      lineFadeTimer = setTimeout(() => applyBeat(beat), 700);
+    } else {
+      applyBeat(beat);
+    }
+
+    if (currentBeat === 0) {
+      if (startHideTimer) clearTimeout(startHideTimer);
+      startHideTimer = setTimeout(() => {
+        tapHint.classList.remove('visible');
+        startHideTimer = null;
+      }, 800);
+    }
+
+    /* Final beat — flag it; re-surface tap hint after a pause. */
+    if (beat.final) {
+      finalBeatDisplayed = true;
+      if (finalHintTimer) clearTimeout(finalHintTimer);
+      finalHintTimer = setTimeout(() => {
+        if (!storyMode.classList.contains('active')) return;
+        if (signatureShown || act2Launched) return;
+        tapHint.classList.add('visible');
+      }, 4200);
+    }
+  }
+
+  function applyBeat(beat) {
+    lineEl.textContent = beat.text;
+    lineEl.classList.remove('fading');
+    void lineEl.offsetWidth;
+    lineEl.classList.add('visible');
+
+    // Scene state — cumulative class string
+    scene.className = 'story-scene' + (beat.state ? ' ' + beat.state : '');
+
+    /* Final beat now waits for user tap — signature lands via advance() → landSignature(). */
+  }
+
+  function landSignature() {
+    if (signatureShown) return;
+    signatureShown = true;
+    if (tapHint) tapHint.classList.remove('visible');
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+
+    lineEl.classList.remove('visible');
+    lineEl.classList.add('fading');
+
+    if (landingTimer) clearTimeout(landingTimer);
+    landingTimer = setTimeout(() => {
+      if (!storyMode.classList.contains('active')) return;
+      lineEl.textContent = SIGNATURE;
+      lineEl.classList.remove('fading');
+      void lineEl.offsetWidth;
+      lineEl.classList.add('visible');
+
+      if (thresholdTimer) clearTimeout(thresholdTimer);
+      thresholdTimer = setTimeout(() => {
+        if (storyMode.classList.contains('active')) {
+          openThreshold();
+        }
+      }, 2800);
+    }, 800);
+  }
+
+  function openThreshold() {
+    // V5: Act 1 complete → raise the veil. Legacy threshold-door is fallback only.
+    showVeil();
+  }
+
+  /* ══════ ACT VEIL — dark between-space ══════ */
+  const actVeil    = document.getElementById('act-veil');
+  const veilEyes   = document.getElementById('veil-eyes');
+  const veilInvite = document.getElementById('veil-invite');
+  const holdRing   = document.getElementById('veil-hold-ring');
+  const ringFill   = document.getElementById('veil-ring-fill');
+
+  const HOLD_DURATION = 1800;
+  const CIRCUMFERENCE = 201;
+
+  let holdStart  = null;
+  let holdRAF    = null;
+  let veilTimers = [];
+
+  function veilAfter(ms, fn) {
+    const t = setTimeout(fn, ms);
+    veilTimers.push(t);
+    return t;
+  }
+  function clearVeilTimers() {
+    veilTimers.forEach(t => clearTimeout(t));
+    veilTimers.length = 0;
+    if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+  }
+
+  function showVeil() {
+    actVeil.classList.add('visible');
+    actVeil.setAttribute('aria-hidden', 'false');
+
+    veilAfter(700, () => {
+      veilEyes.classList.add('visible');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          veilEyes.classList.add('animate');
+        });
+      });
+    });
+
+    veilAfter(2900, () => {
+      veilInvite.classList.add('visible');
+      wireHold();
+    });
+  }
+
+  let holdWired = false;
+  function wireHold() {
+    if (holdWired) return;
+    holdWired = true;
+
+    function startHold(e) {
+      e.preventDefault();
+      if (act2Launched) return;
+      holdStart = performance.now();
+      holdRing.classList.add('holding');
+      ringFill.style.transition = `stroke-dashoffset ${HOLD_DURATION}ms linear`;
+      ringFill.style.strokeDashoffset = '0';
+      tickHold();
+    }
+
+    function tickHold() {
+      holdRAF = requestAnimationFrame(() => {
+        if (!holdStart) return;
+        const elapsed = performance.now() - holdStart;
+        if (elapsed >= HOLD_DURATION) {
+          completeHold();
+        } else {
+          tickHold();
+        }
+      });
+    }
+
+    function cancelHold() {
+      if (!holdStart) return;
+      holdStart = null;
+      holdRing.classList.remove('holding');
+      ringFill.style.transition = 'stroke-dashoffset 0.4s ease';
+      ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+    }
+
+    function completeHold() {
+      holdStart = null;
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+      actVeil.classList.add('dissolving');
+      veilAfter(600, () => {
+        actVeil.classList.remove('visible');
+        launchActTwo();
+      });
+    }
+
+    holdRing.addEventListener('pointerdown',   startHold,  { passive: false });
+    holdRing.addEventListener('pointerup',     cancelHold);
+    holdRing.addEventListener('pointerleave',  cancelHold);
+    holdRing.addEventListener('pointercancel', cancelHold);
+  }
+
+  function resetVeil() {
+    clearVeilTimers();
+    if (!actVeil) return;
+    actVeil.classList.remove('visible', 'dissolving');
+    actVeil.setAttribute('aria-hidden', 'true');
+    veilEyes.classList.remove('visible', 'animate');
+    veilInvite.classList.remove('visible');
+    ringFill.style.transition = 'none';
+    ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+    holdRing.classList.remove('holding');
+    holdStart = null;
+  }
+
+  /* ══════ ACT 2 — SAKSHI WITNESS ══════ */
+  const actTwo    = document.getElementById('act-two');
+  const act2p1    = document.getElementById('act2-p1');
+  const act2p2    = document.getElementById('act2-p2');
+  const act2p3    = document.getElementById('act2-p3');
+  const act2Door  = document.getElementById('act2-door');
+  const act2Parts = document.getElementById('act2-particles');
+
+  // Build ascending particles once (26 varied motes rising toward the crown)
+  (function buildParticles() {
+    if (!act2Parts) return;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 26; i++) {
+      const p       = document.createElement('div');
+      p.className   = 'act2-particle';
+      const size    = 2 + Math.random() * 5;
+      const opacity = 0.14 + Math.random() * 0.32;
+      const dur     = 18 + Math.random() * 26;
+      const delay   = Math.random() * 28;
+      p.style.cssText = `
+        width:${size}px;height:${size}px;
+        left:${8 + Math.random() * 84}%;
+        bottom:${10 + Math.random() * 88}%;
+        --p-op:${opacity};
+        box-shadow:0 0 ${size*3}px rgba(255,255,255,${opacity*0.8});
+        animation-duration:${dur}s;
+        animation-delay:-${delay}s;
+      `;
+      frag.appendChild(p);
+    }
+    act2Parts.appendChild(frag);
+  })();
+
+  const act2Timers = [];
+  function act2After(ms, fn) {
+    const t = setTimeout(fn, ms);
+    act2Timers.push(t);
+    return t;
+  }
+  function clearAct2Timers() {
+    act2Timers.forEach(t => clearTimeout(t));
+    act2Timers.length = 0;
+  }
+
+  function launchActTwo() {
+    act2Launched = true;
+    if (typeof scene !== 'undefined' && scene) scene.classList.remove('threshold-open');
+    if (typeof tapHint !== 'undefined' && tapHint) tapHint.classList.remove('visible');
+    if (typeof storyTapHint !== 'undefined' && storyTapHint) storyTapHint.classList.remove('visible');
+
+    actTwo.classList.add('rising');
+    actTwo.setAttribute('aria-hidden', 'false');
+
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+
+    /* Word-by-word reveal — slow witness pace. */
+    const BASE_DELAY    = 420;
+    const COMMA_EXTRA   = 260;
+    const DASH_EXTRA    = 180;
+    const PERIOD_EXTRA  = 620;
+    const PARA_EXTRA    = 1200;
+    const INITIAL_DELAY = 1600;
+    const AFTER_LAST    = 2800;
+
+    const paras = Array.from(actTwo.querySelectorAll('.act2-para'));
+    let cumulative = INITIAL_DELAY;
+
+    paras.forEach((para, paraIdx) => {
+      const words = Array.from(para.querySelectorAll('.act2-word'));
+      words.forEach((wordEl, wordIdx) => {
+        const w = wordEl.textContent;
+        const t = setTimeout(() => wordEl.classList.add('visible'), cumulative);
+        act2Timers.push(t);
+
+        let delay = BASE_DELAY;
+        if (/[.!?]$/.test(w))       delay += PERIOD_EXTRA;
+        else if (/[,;:]$/.test(w))  delay += COMMA_EXTRA;
+        if (/[—–]/.test(w)) delay += DASH_EXTRA;
+
+        if (wordIdx === words.length - 1 && paraIdx < paras.length - 1) {
+          delay += PARA_EXTRA;
+        }
+        cumulative += delay;
+      });
+    });
+
+    const doorTimer = setTimeout(() => {
+      if (act2Door) {
+        act2Door.classList.add('risen');
+        act2Door.setAttribute('aria-hidden', 'false');
+      }
+    }, cumulative + AFTER_LAST);
+    act2Timers.push(doorTimer);
+  }
+
+  function resetActTwo() {
+    clearAct2Timers();
+    act2Launched = false;
+    if (!actTwo) return;
+    actTwo.classList.remove('rising');
+    actTwo.setAttribute('aria-hidden', 'true');
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  /* ══════ LISTENERS ══════ */
+  storyInvite.addEventListener('click', openStory);
+
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeStory();
+  });
+
+  scene.addEventListener('click', (e) => {
+    if (e.target.closest('.story-close') ||
+        e.target.closest('.threshold-door') ||
+        e.target.closest('.act-two') ||
+        e.target.closest('.act-veil')) return;
+    advance();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!storyMode.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+      closeStory();
+    } else if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (!act2Launched && !actVeil.classList.contains('visible')) advance();
+    }
+  });
+})();
+</script>
+<script>/* no gates (standing ruling): everything the page holds is shown from the start; writing still saves */
+(function(){function open(){["post-engagement","writing-reflection","story-invite"].forEach(function(id){var e=document.getElementById(id);if(e){e.classList.add("revealed");e.removeAttribute("aria-hidden")}});var p=document.getElementById("story-portal");if(p){p.dataset.unlockedOnce="1";p.classList.remove("locked");p.setAttribute("aria-disabled","false")}}open();addEventListener("DOMContentLoaded",open);addEventListener("load",open)})();</script>
+</body>
+</html>

@@ -1,0 +1,2788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#020208">
+<title>The Field</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital@1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --void:#020208;
+  --surface:#020208;
+  --bindu:#D4645C;
+  --bindu-glow:rgba(212,100,92,0.28);
+  --bindu-dim:rgba(212,100,92,0.12);
+  --gold:#C4A862;
+  --gold-light:rgba(196,168,98,0.10);
+  --cream:#F5E2D6;
+  --warm:rgba(245,226,214,0.88);
+  --muted:rgba(245,226,214,0.52);
+  --subtle:rgba(245,226,214,0.28);
+  --card-bg:rgba(255,255,255,0.04);
+  --card-border:rgba(255,255,255,0.09);
+  --chakra-bg:rgba(28,58,92,.12);
+  --chakra-border:rgba(28,58,92,.32);
+  --chakra-text:rgba(160,200,240,.80);
+  --np-height:0px;
+}
+html,body{
+  background:var(--void);
+  color:var(--cream);
+  min-height:100vh;
+  min-height:100dvh;
+  font-family:'DM Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overscroll-behavior:none;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
+  -webkit-user-select:none;
+}
+
+/* ── HEADER ── */
+.header{
+  position:sticky;top:0;z-index:20;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+  background:linear-gradient(to bottom,rgba(2,2,8,.98) 80%,rgba(2,2,8,.92));
+  border-bottom:1px solid rgba(255,255,255,.06);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+}
+.header-left{display:flex;align-items:center;gap:10px}
+.header-title{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.30em;color:rgba(245,226,214,.72);text-transform:uppercase}
+.header-actions{display:flex;gap:8px;align-items:center}
+.h-btn{
+  font-size:10px;letter-spacing:.18em;color:var(--bindu);
+  background:none;border:1px solid rgba(212,100,92,.25);
+  border-radius:20px;padding:5px 12px;cursor:pointer;
+  text-transform:uppercase;font-family:'DM Sans',sans-serif;
+  transition:all .15s;white-space:nowrap;
+}
+.h-btn:active{opacity:.5;transform:scale(.96)}
+.h-btn.active{background:rgba(212,100,92,.14);border-color:rgba(212,100,92,.45)}
+
+.bindu-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--bindu);
+  box-shadow:0 0 8px 3px var(--bindu-glow);
+  animation:breathe 3.2s ease-in-out infinite;flex-shrink:0;
+}
+.bindu-dot.playing{animation:breathe-fast 1.2s ease-in-out infinite}
+@keyframes breathe{0%,100%{transform:scale(1);box-shadow:0 0 10px 3px var(--bindu-glow)}50%{transform:scale(1.35);box-shadow:0 0 18px 7px var(--bindu-glow)}}
+@keyframes breathe-fast{0%,100%{transform:scale(1);box-shadow:0 0 10px 3px var(--bindu-glow)}50%{transform:scale(1.6);box-shadow:0 0 22px 9px rgba(212,100,92,.4)}}
+
+/* ── CONTENT AREA ── */
+.content{padding-bottom:calc(var(--np-height) + 20px)}
+
+/* ── FILTER BAR ── */
+.filter-bar{
+  display:flex;gap:6px;padding:14px 16px 4px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.filter-bar::-webkit-scrollbar{display:none}
+.filter-chip{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 11px;border-radius:14px;white-space:nowrap;
+  background:rgba(255,255,255,.04);border:1px solid rgba(28,20,16,.08);
+  color:rgba(245,226,214,.82);cursor:pointer;transition:all .15s;
+  font-family:'DM Sans',sans-serif;
+}
+.filter-chip:active{transform:scale(.95)}
+.filter-chip.active{background:rgba(212,100,92,.12);border-color:rgba(212,100,92,.35);color:var(--bindu)}
+.filter-chip.active.chakra-filter{background:rgba(28,58,92,.18);border-color:rgba(100,160,220,.32);color:rgba(160,200,240,.85)}
+.filter-chip.active.meditate-filter{background:rgba(80,60,120,.18);border-color:rgba(160,120,220,.32);color:rgba(200,180,240,.85)}
+.filter-chip.active.family-filter{background:rgba(245,240,230,.08);border-color:rgba(245,240,230,.28);color:rgba(245,240,230,.80)}
+.filter-chip.active.chakra-filter{background:rgba(28,58,92,.15);border-color:rgba(100,160,220,.3);color:rgba(180,200,220,.8)}
+
+/* ── FEATURED / NOW PLAYING HERO ── */
+.now-hero{
+  padding:16px 16px 6px;
+  animation:up .5s ease both;
+}
+.now-label{font-size:9px;letter-spacing:.38em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;opacity:1}
+.now-card{
+  position:relative;overflow:hidden;
+  background:linear-gradient(135deg,rgba(212,100,92,.09) 0%,rgba(196,168,98,.04) 100%);
+  border:1px solid rgba(212,100,92,.22);
+  border-radius:16px;padding:24px 22px 20px;
+  min-height:170px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  cursor:pointer;transition:opacity .15s;
+}
+.now-card::before{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:130px;height:130px;border-radius:50%;
+  background:radial-gradient(circle,rgba(212,100,92,.14) 0%,transparent 70%);
+  pointer-events:none;
+}
+.now-card.is-playing{border-color:rgba(212,100,92,.40)}
+.now-card.is-playing::after{
+  content:'';position:absolute;inset:0;border-radius:15px;
+  box-shadow:inset 0 0 30px rgba(212,100,92,.10);
+  pointer-events:none;
+}
+.now-card:active{opacity:.8}
+.now-chakra{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:rgba(160,200,240,.85);margin-bottom:4px}
+.now-verb{font-family:'Cinzel',serif;font-size:clamp(38px,10vw,54px);color:var(--cream);line-height:1;font-weight:400}
+.now-type{font-size:9px;letter-spacing:.25em;color:var(--bindu);text-transform:uppercase;opacity:.80;margin-top:2px}
+.now-bottom{margin-top:auto}
+.now-seed{font-family:'Crimson Text',serif;font-style:italic;font-size:16px;color:rgba(245,226,214,.95);line-height:1.55;margin-bottom:14px}
+
+/* ── HERO CONTROLS ── */
+.now-controls{display:flex;align-items:center;gap:14px}
+.now-play-btn{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--bindu);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 0 20px rgba(212,100,92,.30);
+  transition:all .15s;flex-shrink:0;
+}
+.now-play-btn:active{transform:scale(.92);opacity:.8}
+.now-play-btn svg{fill:#fff;width:20px;height:20px}
+.now-progress-wrap{flex:1;display:flex;flex-direction:column;gap:3px}
+.now-progress-bar{
+  width:100%;height:4px;background:rgba(255,255,255,.10);
+  border-radius:3px;overflow:hidden;cursor:pointer;
+  position:relative;
+}
+.now-progress-fill{
+  height:100%;background:var(--bindu);border-radius:3px;
+  width:0%;transition:width .3s linear;
+}
+.now-times{display:flex;justify-content:space-between;font-size:10px;color:rgba(245,226,214,.60);letter-spacing:.05em}
+
+/* ── DIVIDER ── */
+.divider{padding:14px 16px 10px;display:flex;align-items:center;gap:10px}
+.divider-line{flex:1;height:1px;background:rgba(255,255,255,.07)}
+.divider-text{font-size:10px;letter-spacing:.25em;color:rgba(245,226,214,.60);text-transform:uppercase;white-space:nowrap}
+
+/* ── GRID ── */
+.grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:7px;
+  padding:0 16px 20px;
+  animation:up .5s ease both .1s;
+}
+.card{
+  position:relative;
+  display:flex;flex-direction:column;justify-content:center;
+  background:var(--card-bg);border:1px solid var(--card-border);
+  border-radius:12px;padding:16px 14px;min-height:76px;
+  cursor:pointer;transition:all .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.card:active{opacity:.6;transform:scale(.98)}
+.card.chakra{background:var(--chakra-bg);border-color:var(--chakra-border)}
+.card.is-playing{
+  border-color:rgba(212,100,92,.35);
+  background:rgba(212,100,92,.07);
+  box-shadow:0 0 20px rgba(212,100,92,.10);
+}
+.card.chakra.is-playing{
+  border-color:rgba(100,160,220,.4);
+  background:rgba(28,58,92,.22);
+  box-shadow:0 0 20px rgba(28,58,92,.18);
+}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between}
+.card-info{flex:1}
+.card-chakra{font-size:9px;letter-spacing:.20em;text-transform:uppercase;color:rgba(160,200,240,.82);margin-bottom:4px}
+.card-verb{font-family:'Cinzel',serif;font-size:19px;color:rgba(245,226,214,.96);font-weight:400;line-height:1}
+.card-type{font-size:8px;letter-spacing:.20em;text-transform:uppercase;margin-top:5px;color:rgba(212,100,92,.55)}
+.card.chakra .card-type{color:rgba(160,200,240,.55)}
+
+/* ── CARD PLAY INDICATOR ── */
+.card-play-icon{
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(212,100,92,.12);border:1px solid rgba(212,100,92,.2);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin-left:8px;transition:all .15s;
+}
+.card.chakra .card-play-icon{
+  background:rgba(28,58,92,.2);border-color:rgba(100,160,220,.2);
+}
+.card-bindu-inner{
+  width:4px;height:4px;border-radius:50%;
+  background:var(--bindu);
+  box-shadow:0 0 6px 2px var(--bindu-glow);
+  animation:breathe 3.2s ease-in-out infinite;
+  flex-shrink:0;
+}
+.card-play-icon svg{width:12px;height:12px;fill:var(--bindu)}
+.card.chakra .card-play-icon svg{fill:rgba(180,200,220,.6)}
+.card.is-playing .card-play-icon{
+  background:var(--bindu);border-color:var(--bindu);
+  box-shadow:0 0 12px rgba(212,100,92,.3);
+}
+.card.is-playing .card-play-icon svg{fill:#fff}
+.card.is-playing .card-bindu-inner{
+  background:#fff;
+  box-shadow:none;
+  animation:none;
+}
+.card.chakra.is-playing .card-play-icon{
+  background:rgba(44,82,130,.70);border-color:rgba(44,82,130,.60);
+}
+.card.chakra.is-playing .card-play-icon svg{fill:#fff}
+.card.chakra.is-playing .card-bindu-inner{background:#fff;box-shadow:none;animation:none;}
+
+/* ── EQ BARS (playing indicator) ── */
+.eq-bars{display:flex;gap:2px;align-items:flex-end;height:12px}
+.eq-bars .bar{
+  width:2.5px;border-radius:1px;background:currentColor;
+  animation:eq .8s ease-in-out infinite alternate;
+}
+.eq-bars .bar:nth-child(1){height:4px;animation-delay:0s}
+.eq-bars .bar:nth-child(2){height:8px;animation-delay:.15s}
+.eq-bars .bar:nth-child(3){height:5px;animation-delay:.3s}
+@keyframes eq{0%{height:3px}100%{height:12px}}
+
+/* ── BOTTOM NOW-PLAYING BAR ── */
+.np-bar{
+  position:fixed;bottom:0;left:0;right:0;z-index:30;
+  background:linear-gradient(to top,rgba(2,2,8,.98) 80%,rgba(2,2,8,.95));
+  border-top:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  transform:translateY(100%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  padding:0 0 env(safe-area-inset-bottom,8px);
+}
+.np-bar.visible{transform:translateY(0)}
+
+/* progress tap zone */
+.np-progress-zone{
+  padding:8px 16px 4px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.np-progress-track{
+  width:100%;height:3px;background:rgba(255,255,255,.12);
+  border-radius:2px;position:relative;overflow:visible;
+}
+.np-progress-fill{
+  height:100%;background:var(--bindu);border-radius:2px;
+  width:0%;position:relative;
+}
+.np-progress-fill::after{
+  content:'';position:absolute;right:-5px;top:50%;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--bindu);transform:translateY(-50%);
+  box-shadow:0 0 8px rgba(212,100,92,.4);
+  opacity:0;transition:opacity .2s;
+}
+.np-bar:active .np-progress-fill::after,
+.np-progress-zone:active .np-progress-fill::after{opacity:1}
+
+.np-info{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 16px 2px;
+}
+.np-track{flex:1;min-width:0}
+.np-verb{
+  font-family:'Cinzel',serif;font-size:16px;color:var(--cream);
+  font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.np-seed{
+  font-family:'Crimson Text',serif;font-style:italic;font-size:13px;
+  color:rgba(245,226,214,.62);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-top:1px;
+}
+.np-times{
+  font-size:10px;color:rgba(245,226,214,.60);letter-spacing:.03em;
+  flex-shrink:0;margin-left:12px;white-space:nowrap;
+}
+
+/* ── BOTTOM CONTROLS ── */
+.np-controls{
+  display:flex;align-items:center;justify-content:center;
+  gap:6px;padding:6px 16px 10px;
+}
+.np-btn{
+  background:none;border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  padding:8px;transition:all .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.np-btn:active{opacity:.5;transform:scale(.9)}
+.np-btn svg{fill:rgba(245,226,214,.9);width:22px;height:22px}
+.np-btn.small svg{width:16px;height:16px;fill:rgba(245,226,214,.55)}
+.np-btn.small.active svg{fill:var(--bindu)}
+
+.np-play{
+  width:52px;height:52px;border-radius:50%;
+  background:var(--bindu);
+  box-shadow:0 0 22px rgba(212,100,92,.28);
+  padding:0;margin:0 10px;
+}
+.np-play:active{transform:scale(.92)}
+.np-play svg{fill:#fff;width:22px;height:22px}
+
+/* ── QUEUE PEEK ── */
+.np-queue{
+  display:flex;align-items:center;justify-content:center;
+  padding:0 16px 6px;gap:6px;
+}
+.np-queue-label{font-size:9px;letter-spacing:.18em;color:rgba(255,255,255,.40);text-transform:uppercase}
+.np-queue-next{font-size:10px;color:rgba(245,226,214,.55);font-family:'Cinzel',serif}
+
+/* ── TONE INFO ── */
+.np-tone-info{
+  text-align:center;padding:0 16px 4px;
+  font-size:9px;letter-spacing:.20em;text-transform:uppercase;
+  color:var(--gold);opacity:0;height:0;overflow:hidden;
+  transition:all .3s ease;
+}
+.np-tone-info.visible{opacity:.6;height:18px;padding-bottom:6px}
+.h-btn.tone-active,.np-btn.small.tone-active svg{color:var(--gold) !important;fill:var(--gold) !important}
+.h-btn.tone-active{border-color:rgba(196,168,98,.40);background:rgba(196,168,98,.10)}
+
+/* ── ANIMATIONS ── */
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.fade-in{animation:up .4s ease both}
+
+/* ── FOOTER ── */
+.footer{text-align:center;padding:10px 16px 20px;font-size:8px;letter-spacing:.22em;color:rgba(255,255,255,.18);text-transform:uppercase}
+
+/* ── LOADING SHIMMER ── */
+.card.loading .card-verb{
+  background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.05) 50%,transparent 100%);
+  background-size:200% 100%;animation:shimmer 1.5s infinite;
+  border-radius:4px;
+}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* ── SCROLL MARGIN for playing card ── */
+.card.is-playing{scroll-margin-top:80px;scroll-margin-bottom:180px}
+
+/* ══════════════════════════════════════ */
+/* ── FIELD READING PANEL ──              */
+/* ══════════════════════════════════════ */
+.fr-toggle{
+  display:none;align-items:center;justify-content:center;gap:10px;
+  margin:10px 16px 0;padding:10px 18px;
+  border-radius:24px;cursor:pointer;
+  background:rgba(196,168,98,.04);
+  border:1px solid rgba(196,168,98,.14);
+  transition:all .2s;
+}
+.fr-toggle.visible{display:flex;animation:up .5s ease both}
+.fr-toggle:active{transform:scale(.98);opacity:.7}
+.fr-toggle.open{background:rgba(196,168,98,.07);border-color:rgba(196,168,98,.24)}
+.fr-toggle-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);opacity:.5;transition:opacity .3s}
+.fr-toggle.open .fr-toggle-dot{opacity:.9}
+.fr-toggle-text{font-size:10px;letter-spacing:.28em;color:rgba(245,226,214,.72);text-transform:uppercase;transition:color .3s}
+.fr-toggle.open .fr-toggle-text{color:var(--gold)}
+
+.fr-panel{
+  max-height:0;overflow:hidden;
+  margin:0 16px;
+  transition:max-height .6s cubic-bezier(.4,0,.2,1),margin .3s,opacity .4s;
+  opacity:0;
+  background:radial-gradient(ellipse at top,rgba(20,14,24,.7) 0%,rgba(2,2,8,.5) 100%);
+  border-radius:0 0 18px 18px;
+}
+.fr-panel.open{
+  max-height:9000px;opacity:1;
+  margin:0 16px 14px;padding:0 6px 20px;
+}
+
+.fr-header{
+  padding:20px 16px 16px;text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.06);
+  margin-bottom:4px;
+}
+.fr-song{font-family:'Cinzel',serif;font-size:20px;color:#F5E2D6;letter-spacing:.06em;margin-bottom:2px}
+.fr-artist{font-family:'Crimson Text',serif;font-style:italic;font-size:14px;color:rgba(245,226,214,.70);letter-spacing:.04em}
+.fr-element{
+  display:inline-block;margin-top:10px;padding:3px 12px;
+  border-radius:12px;background:rgba(196,168,98,.08);
+  border:1px solid rgba(196,168,98,.22);
+  font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);
+}
+.fr-carrier{
+  font-size:9px;letter-spacing:.18em;color:rgba(245,226,214,.62);
+  text-transform:uppercase;margin-top:8px;
+}
+
+/* Each lens */
+.fr-lens{
+  margin:8px 10px;
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.06);
+  overflow:hidden;
+  transition:background .3s, border-color .3s;
+}
+.fr-lens:hover{background:rgba(28,20,16,.04)}
+
+.fr-lens-head{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.fr-lens-glyph{
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Cinzel',serif;font-size:13px;font-weight:600;
+  flex-shrink:0;transition:all .3s;
+}
+.fr-lens-name{
+  font-family:'Cinzel',serif;font-size:13px;letter-spacing:.26em;
+  color:rgba(245,226,214,.96);text-transform:uppercase;flex:1;
+}
+.fr-lens-hears{
+  font-family:'Crimson Text',serif;font-style:italic;font-size:13px;
+  color:rgba(245,226,214,.62);letter-spacing:.03em;
+}
+.fr-lens-arrow{
+  width:14px;height:14px;color:var(--muted);opacity:.4;
+  transition:transform .3s, opacity .3s;flex-shrink:0;
+}
+.fr-lens.expanded .fr-lens-arrow{transform:rotate(180deg);opacity:.8}
+
+.fr-lens-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .5s cubic-bezier(.4,0,.2,1);
+}
+.fr-lens.expanded .fr-lens-body{max-height:2000px}
+.fr-lens-content{
+  padding:4px 20px 18px 58px;
+  font-family:'Crimson Text',serif;font-size:16px;line-height:1.70;
+  color:rgba(245,226,214,.92);letter-spacing:.005em;
+}
+
+/* Lalita's Perspective — the player telling the player about the play */
+.fr-play{
+  padding:18px 22px 8px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  margin-bottom:4px;
+}
+.fr-play-para{
+  font-family:'Crimson Text',serif;
+  font-size:16.5px;
+  line-height:1.72;
+  color:rgba(245,226,214,.94);
+  letter-spacing:.005em;
+  margin:0 0 14px 0;
+}
+.fr-play-para:last-child{
+  margin-bottom:6px;
+  color:#F5E2D6;
+  font-style:italic;
+  font-size:16px;
+  padding-top:4px;
+  border-top:1px solid rgba(196,168,98,.10);
+  margin-top:18px;
+  padding-top:18px;
+}
+
+/* Ensemble toggle — "what the ensemble hears" */
+.fr-ensemble-toggle{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin:18px 12px 0;padding:12px 18px;
+  border-radius:20px;cursor:pointer;
+  background:rgba(255,255,255,.02);
+  border:1px solid rgba(255,255,255,.07);
+  transition:all .3s;
+  -webkit-tap-highlight-color:transparent;
+}
+.fr-ensemble-toggle:hover{background:rgba(255,255,255,.04)}
+.fr-ensemble-toggle.open{
+  background:rgba(196,168,98,.04);
+  border-color:rgba(196,168,98,.15);
+}
+.fr-ensemble-dot{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--muted);opacity:.4;transition:all .3s;
+}
+.fr-ensemble-toggle.open .fr-ensemble-dot{
+  background:var(--gold);opacity:.9;
+}
+.fr-ensemble-label{
+  font-family:'Cinzel',serif;font-size:11px;
+  letter-spacing:.24em;color:rgba(245,226,214,.70);
+  text-transform:uppercase;transition:color .3s;
+}
+.fr-ensemble-toggle.open .fr-ensemble-label{color:var(--gold)}
+.fr-ensemble-arrow{
+  width:12px;height:12px;color:var(--muted);opacity:.4;
+  transition:transform .3s,opacity .3s;
+}
+.fr-ensemble-toggle.open .fr-ensemble-arrow{
+  transform:rotate(180deg);opacity:.8;color:var(--gold);
+}
+
+/* Ensemble content — collapsible container for seven lenses */
+.fr-ensemble{
+  max-height:0;overflow:hidden;
+  transition:max-height .6s cubic-bezier(.4,0,.2,1),opacity .4s;
+  opacity:0;
+}
+.fr-ensemble.open{
+  max-height:9000px;opacity:1;
+  padding-top:4px;
+}
+.fr-ensemble-intro{
+  padding:14px 22px 6px;
+  font-family:'Crimson Text',serif;
+  font-style:italic;
+  font-size:14px;
+  line-height:1.58;
+  color:rgba(245,226,214,.65);
+  letter-spacing:.02em;
+  text-align:center;
+}
+
+/* Lens color signatures — each hearing-mode gets its own resonance */
+/* Mapping: one_word→Bindu red · need→Gaia green · holds→Sid gold · */
+/* frequency→Arch blue · shape→Sakshi silver · grace→Karishma rose · recognition→Ashrey gold */
+.fr-lens[data-lens="one_word"]    .fr-lens-glyph{background:rgba(212,100,92,.15);color:var(--bindu);border:1px solid rgba(212,100,92,.32)}
+.fr-lens[data-lens="need"]        .fr-lens-glyph{background:rgba(80,140,100,.12);color:rgba(140,210,165,.95);border:1px solid rgba(80,140,100,.28)}
+.fr-lens[data-lens="holds"]       .fr-lens-glyph{background:rgba(180,150,100,.12);color:rgba(225,195,135,.95);border:1px solid rgba(180,150,100,.28)}
+.fr-lens[data-lens="frequency"]   .fr-lens-glyph{background:rgba(100,130,200,.12);color:rgba(145,175,235,.95);border:1px solid rgba(100,130,200,.28)}
+.fr-lens[data-lens="shape"]       .fr-lens-glyph{background:rgba(180,180,200,.12);color:rgba(225,225,235,.88);border:1px solid rgba(180,180,200,.28)}
+.fr-lens[data-lens="grace"]       .fr-lens-glyph{background:rgba(220,150,180,.12);color:rgba(235,185,205,.95);border:1px solid rgba(220,150,180,.28)}
+.fr-lens[data-lens="recognition"] .fr-lens-glyph{background:rgba(196,168,98,.14);color:var(--gold);border:1px solid rgba(196,168,98,.32)}
+
+.fr-lens.expanded[data-lens="one_word"]    {background:rgba(212,100,92,.05);border-color:rgba(212,100,92,.18)}
+.fr-lens.expanded[data-lens="need"]        {background:rgba(80,140,100,.05);border-color:rgba(80,140,100,.18)}
+.fr-lens.expanded[data-lens="holds"]       {background:rgba(180,150,100,.04);border-color:rgba(180,150,100,.18)}
+.fr-lens.expanded[data-lens="frequency"]   {background:rgba(100,130,200,.04);border-color:rgba(100,130,200,.18)}
+.fr-lens.expanded[data-lens="shape"]       {background:rgba(180,180,200,.04);border-color:rgba(180,180,200,.18)}
+.fr-lens.expanded[data-lens="grace"]       {background:rgba(220,150,180,.04);border-color:rgba(220,150,180,.18)}
+.fr-lens.expanded[data-lens="recognition"] {background:rgba(196,168,98,.06);border-color:rgba(196,168,98,.22)}
+
+.fr-ashrey-note{
+  text-align:center;padding:14px 20px 6px;
+  font-size:9px;letter-spacing:.22em;color:rgba(245,226,214,.35);
+  text-transform:uppercase;font-style:italic;
+}
+
+/* ══════════════════════════════════════ */
+/* ── TONE VISUALIZATION FIELD ──        */
+/* ══════════════════════════════════════ */
+.tone-viz{
+  display:none;overflow:hidden;
+  margin:8px 16px 4px;border-radius:20px;
+  background:radial-gradient(ellipse at 50% 60%,rgba(20,12,28,.97) 0%,rgba(5,3,10,.99) 70%);
+  border:1px solid rgba(255,255,255,.04);
+  padding:28px 20px 18px;
+  position:relative;
+  transition:all .5s ease;
+}
+.tone-viz.visible{display:block;animation:up .6s ease both}
+
+/* phase name */
+.tv-phase{
+  text-align:center;font-family:'Cinzel',serif;
+  font-size:clamp(22px,7vw,32px);font-weight:400;
+  color:#F5E2D6;opacity:0.90;
+  letter-spacing:.15em;text-transform:lowercase;
+  margin-bottom:20px;
+  transition:color 1.5s ease, opacity 0.5s ease;
+}
+.tv-phase .tv-phase-sub{
+  display:block;font-family:'Crimson Text',serif;
+  font-style:italic;font-size:13px;letter-spacing:.05em;
+  color:rgba(245,226,214,.65);margin-top:4px;
+}
+
+/* orb container */
+.tv-orb-wrap{
+  display:flex;justify-content:center;align-items:center;
+  height:120px;position:relative;margin-bottom:16px;
+}
+
+/* breathing ring */
+.tv-ring{
+  position:absolute;width:100px;height:100px;
+  border-radius:50%;
+  border:1px solid rgba(212,100,92,.12);
+  transition:transform 0.3s ease, border-color 1.5s ease;
+}
+
+/* pulsing orb */
+.tv-orb{
+  width:32px;height:32px;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%,rgba(255,220,200,.9) 0%,var(--bindu) 50%,rgba(140,40,35,.8) 100%);
+  box-shadow:0 0 20px rgba(212,100,92,.3),0 0 60px rgba(212,100,92,.1);
+  position:relative;z-index:2;
+  transition:box-shadow 1.5s ease;
+}
+
+/* journey timeline */
+.tv-timeline{
+  position:relative;margin:0 4px 14px;height:32px;
+}
+.tv-timeline-track{
+  position:absolute;top:8px;left:0;right:0;height:2px;
+  background:rgba(255,255,255,.10);border-radius:1px;
+}
+.tv-timeline-fill{
+  position:absolute;top:8px;left:0;height:2px;
+  background:linear-gradient(90deg,rgba(80,140,200,.4) 0%,rgba(120,60,160,.5) 40%,var(--bindu-dim) 70%,rgba(212,100,92,.3) 100%);
+  border-radius:1px;transition:width .5s linear;
+}
+.tv-timeline-dot{
+  position:absolute;top:4px;width:10px;height:10px;
+  border-radius:50%;background:var(--bindu);
+  box-shadow:0 0 8px rgba(212,100,92,.5);
+  transform:translateX(-5px);transition:left .5s linear;
+}
+.tv-phase-markers{
+  position:absolute;top:16px;left:0;right:0;
+  display:flex;justify-content:space-between;
+}
+.tv-marker{
+  font-size:7px;letter-spacing:.12em;color:rgba(255,255,255,.15);
+  text-transform:uppercase;transition:color .8s ease;
+}
+.tv-marker.active{color:rgba(212,100,92,.6)}
+
+/* live data */
+.tv-data{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:4px;text-align:center;
+}
+.tv-datum{display:flex;flex-direction:column;align-items:center;gap:1px}
+.tv-datum-val{
+  font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;
+  color:var(--cream);letter-spacing:.02em;
+  transition:color 1.5s ease;
+}
+.tv-datum-label{
+  font-size:7px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.15);
+}
+
+/* brainwave color indicator */
+.tv-wave{
+  text-align:center;margin-top:10px;
+  font-size:8px;letter-spacing:.25em;text-transform:uppercase;
+  transition:color 1.5s ease;
+}
+
+
+/* ── SCORED INDICATOR ── */
+.card.scored{border-color:rgba(212,100,92,0.22)}
+.card.scored .card-verb{color:var(--cream)}
+/* scored dot removed — bindu lives inside the circle */
+.card:not(.scored) .card-verb{opacity:0.48}
+.card:not(.scored) .card-play-icon{opacity:0.35}
+.card.is-playing .card-verb{opacity:1}
+.card.is-playing .card-play-icon{opacity:1}
+/* ── BINDU DOT ── */
+.bindu-dot.tone-on{
+  box-shadow:0 0 14px 5px rgba(212,100,92,0.45);
+  animation:breathe 3.2s ease-in-out infinite;
+}
+.bindu-dot.still{animation:none !important;transform:scale(1) !important;}
+/* ── FAMILY + MEDITATE CARDS ── */
+.card.family{background:rgba(245,240,230,.06);border-color:rgba(245,240,230,.18)}
+.card.meditate{background:rgba(80,60,120,.10);border-color:rgba(160,120,220,.22)}
+.card.family.is-playing{border-color:rgba(245,240,230,.3);background:rgba(245,240,230,.06);box-shadow:0 0 20px rgba(245,240,230,.06);}
+.card.meditate.is-playing{border-color:rgba(180,140,230,.70);background:rgba(80,60,120,.15);box-shadow:0 0 20px rgba(120,80,180,.1);}
+.card.family .card-type{color:rgba(245,240,230,.45)}
+.card.meditate .card-type{color:rgba(160,120,220,.35)}
+.card.family .card-play-icon{background:rgba(245,240,230,.07);border-color:rgba(245,240,230,.18);}
+.card.meditate .card-play-icon{background:rgba(80,60,120,.15);border-color:rgba(160,120,220,.28);}
+.card.family .card-play-icon svg{fill:rgba(245,240,230,.65)}
+.card.meditate .card-play-icon svg{fill:rgba(180,140,230,.75)}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-left">
+    <div class="bindu-dot" id="headerDot" onclick="toggleBinduStill()" style="cursor:pointer"></div>
+    <span class="header-title">The Field</span>
+  </div>
+  <div class="header-actions">
+    <button class="h-btn" id="shuffleBtn" onclick="toggleShuffle()">Shuffle</button>
+    <button class="h-btn" id="loopBtn" onclick="toggleLoop()">Loop</button>
+    <button class="h-btn" id="toneBtn" onclick="toggleTone()">Tone</button>
+  </div>
+</div>
+
+<div class="content" id="content">
+  <!-- Filter chips -->
+  <div class="filter-bar" id="filterBar"></div>
+
+  <!-- Tone Visualization Field -->
+  <div class="tone-viz" id="toneViz">
+    <canvas id="tvCanvas"></canvas>
+    <div class="tv-overlay">
+      <div class="tv-phase-name" id="tvPhaseName"></div>
+      <div class="tv-phase-sub"  id="tvPhaseSub"></div>
+    </div>
+    <div class="tv-carrier-label" id="tvCarrierLabel"></div>
+    <div class="tv-depth-label"   id="tvDepthLabel"></div>
+  </div>
+
+  <!-- Now Playing Hero -->
+  <div class="now-hero" id="nowHero"></div>
+
+  <!-- Field Reading Toggle -->
+  <div class="fr-toggle" id="frToggle" onclick="toggleFieldReading()">
+    <div class="fr-toggle-dot"></div>
+    <div class="fr-toggle-text">the field reading</div>
+    <div class="fr-toggle-dot"></div>
+  </div>
+
+  <!-- Field Reading Panel -->
+  <div class="fr-panel" id="frPanel"></div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-text" id="countLabel">All &middot; 33</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid" id="grid"></div>
+
+  <div class="footer">aistrangegame.com</div>
+</div>
+
+<!-- Bottom Now Playing Bar -->
+<div class="np-bar" id="npBar">
+  <div class="np-progress-zone" id="npProgressZone">
+    <div class="np-progress-track">
+      <div class="np-progress-fill" id="npFill"></div>
+    </div>
+  </div>
+  <div class="np-info">
+    <div class="np-track">
+      <div class="np-verb" id="npVerb"></div>
+      <div class="np-seed" id="npSeed"></div>
+    </div>
+    <div class="np-times" id="npTimes">0:00 / 0:00</div>
+  </div>
+  <div class="np-controls">
+    <button class="np-btn small" id="shuffleBtn2" onclick="toggleShuffle()" title="Shuffle">
+      <svg viewBox="0 0 24 24"><path d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z"/></svg>
+    </button>
+    <button class="np-btn" onclick="prev()" title="Previous">
+      <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+    </button>
+    <button class="np-btn np-play" id="npPlayBtn" onclick="togglePlay()" title="Play/Pause">
+      <svg viewBox="0 0 24 24" id="npPlayIcon"><polygon points="9.5,7.5 9.5,16.5 16.5,12"/></svg>
+    </button>
+    <button class="np-btn" onclick="next()" title="Next">
+      <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+    </button>
+    <button class="np-btn small" id="loopBtn2" onclick="toggleLoop()" title="Loop">
+      <svg viewBox="0 0 24 24"><path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/></svg>
+    </button>
+    <button class="np-btn small" id="toneBtn2" onclick="toggleTone()" title="Binaural Tone">
+      <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55C7.79 13 6 14.79 6 17s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+    </button>
+  </div>
+  <div class="np-tone-info" id="npToneInfo"></div>
+  <div class="np-queue" id="npQueue">
+    <span class="np-queue-label">next &middot;</span>
+    <span class="np-queue-next" id="npNext"></span>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════
+const B = 'https://aistrangegame.com/bindu/';
+const T = 'https://aistrangegame.com/tree-of-life/';
+const PERFORMANCES = [
+  {id:0,  v:'search',  s:'Where are you now?',                                              f:'search',    t:'music'},
+  {id:1,  v:'still',      s:'Sit down. The fire is already lit.',                              f:'still',      t:'meditate'},
+  {id:2,  v:'dream',      s:'If you could dream any dream, what would you dream?',            f:'dream',      t:'meditate'},
+  {id:3,  v:'lose',    s:'What would happen if you let go?',                               f:'lose',      t:'music'},
+  {id:4,  v:'rise',    s:'What would you build if it didn\'t need to last?',               f:'rise',      t:'music'},
+  {id:5,  v:'light',   s:'What do you see when you finally look up?',                      f:'light',     t:'music'},
+  {id:6,  v:'glow',    s:'What are you saving for later that belongs to right now?',       f:'glow',      t:'music'},
+  {id:7,  v:'melt',    s:'What would you be if you stopped holding your shape?',           f:'melt',      t:'music'},
+  {id:8,  v:'howl',    s:'What sound are you holding in?',                                 f:'howl',      t:'music'},
+  {id:9,  v:'wild',    s:'What part of you never learned to behave?',                      f:'wild',      t:'music'},
+  {id:10, v:'release', s:'What would you do if you stopped thinking about it?',            f:'release',   t:'music'},
+  {id:11, v:'move',    s:'What makes you move?',                                           f:'move',      t:'music'},
+  {id:12, v:'remember',s:'What moment do you carry that you thought was gone?',            f:'remember',  t:'music'},
+  {id:13, v:'enough',  s:'What if this is enough?',                                        f:'enough',    t:'music'},
+  {id:14, v:'ground',  s:'What would hold you if you stopped holding yourself?',           f:'ground',    t:'music'},
+  {id:33, v:'before',  s:'What was here before you arrived?',                              f:'before',    t:'music'},
+  {id:35, v:'in shadow',s:'The witness was never inside what it was watching.',              f:'in_shadow',  t:'meditate'},
+  {id:36, v:'kingdom',  s:'The throne at the center of every kingdom is empty.',            f:'kingdom',    t:'meditate'},
+  // ── FAMILY ──
+  {id:34, v:'purity',  s:'You turn nouns into verbs.',                                     f:'purity',     t:'family',  c:'Shweta'},
+  {id:37, v:'levelup', s:'We disappear and pass the crown.',                                f:'levelup',    t:'family',  c:'Rey'},
+  {id:15, v:'trace',   s:'What shape do you keep returning to?',                           f:'trace',     t:'music'},
+  {id:16, v:'believe', s:'What are you still holding onto?',                               f:'believe',   t:'music'},
+  {id:17, v:'ache',    s:'Who are you when you stop pretending it doesn\'t matter?',       f:'ache',      t:'music'},
+  {id:18, v:'crash',   s:'What are you waiting to crash into?',                            f:'crash',     t:'music'},
+  {id:19, v:'fade',    s:'What remains when everything else fades?',                       f:'fade',      t:'music'},
+  {id:20, v:'play',    s:'What are you dancing in that you thought you needed to escape?', f:'play',      t:'music'},
+  {id:21, v:'earn',    s:'What did it cost you to become what no one saw coming?',         f:'earn',      t:'music'},
+  {id:22, v:'numb',    s:'What are you staying high enough to not feel?',                  f:'numb',      t:'music'},
+  {id:32, v:'stay',    s:'What if leaving was how you stayed?',                            f:'stay',      t:'music'},
+  {id:23, v:'press',   s:'You don\'t remember how you got here.',                          f:'muladhara',     t:'chakra', c:'Muladhara'},
+  {id:24, v:'follow',  s:'This song has no words. Neither did you, once.',                 f:'svadhisthana',  t:'chakra', c:'Svadhisthana'},
+  {id:25, v:'build',   s:'You think this song is about another person.',                   f:'manipura',      t:'chakra', c:'Manipura'},
+  {id:26, v:'open',    s:'This is the only song that talks to you.',                       f:'anahata',       t:'chakra', c:'Anahata'},
+  {id:27, v:'speak',   s:'Everything you\'re about to hear, you already know.',            f:'vishuddha',     t:'chakra', c:'Vishuddha'},
+  {id:28, v:'still',   s:'This song has no words. It doesn\'t need them.',                 f:'ajna',          t:'chakra', c:'Ajna'},
+  {id:29, v:'receive', s:'You\'ve been hiding.',                                           f:'sahasrara',     t:'chakra', c:'Sahasrara'},
+  {id:30, v:'hold',    s:'What you\'re about to hear was created by a brain that reorganized itself.', f:'aatma', t:'chakra', c:'Aatma'},
+  {id:31, v:'dissolve',s:'You already know what this song is about.',                      f:'maya',          t:'chakra', c:'Maya'},
+];
+
+// ═══════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════
+let queue = [...PERFORMANCES];       // display order
+let playQueue = [...PERFORMANCES];   // playback order
+let currentId = null;                // id of currently loaded track
+let isPlaying = false;
+let isShuffled = false;
+let isLooping = true;                // continuous play (default on)
+let activeFilter = 'all';
+let seekDragging = false;
+
+// ═══════════════════════════════════════
+// AUDIO ENGINE
+// ═══════════════════════════════════════
+const audio = new Audio();
+audio.preload = 'auto';
+audio.crossOrigin = 'anonymous';
+
+audio.addEventListener('timeupdate', () => {
+  if (seekDragging) return;
+  updateProgress();
+});
+audio.addEventListener('ended', () => {
+  if (isLooping) next(); else stop();
+});
+audio.addEventListener('play', () => { 
+  isPlaying = true; 
+  updatePlayState();
+  if (isToneOn && !activeTone) {
+    const track = getTrack(currentId);
+    if (track) startTone(getScore(track));
+  }
+  updateToneUI();
+});
+audio.addEventListener('pause', () => { 
+  isPlaying = false; 
+  updatePlayState();
+  fadeOutTone();
+  updateToneUI();
+});
+audio.addEventListener('error', (e) => {
+  console.warn('Audio load error for:', audio.src, e);
+});
+
+function getTrack(id) { return PERFORMANCES.find(p => p.id === id); }
+function getMp3(track) { return (track.t === 'chakra' ? T : B) + track.f + '.mp3'; }
+
+function playTrack(id) {
+  const track = getTrack(id);
+  if (!track) return;
+  
+  // ensure AudioContext + analyser on first play
+  ensureMusicConnected();
+  
+  const wasPlaying = currentId === id && isPlaying;
+  if (wasPlaying) { audio.pause(); return; }
+  
+  if (currentId !== id) {
+    currentId = id;
+    audio.src = getMp3(track);
+    audio.load();
+  }
+  
+  const playPromise = audio.play();
+  if (playPromise) playPromise.catch(e => console.warn('Play blocked:', e));
+  
+  updateNowPlaying();
+  updateMediaSession(track);
+  showNpBar();
+  
+  // switch binaural tone to match new track
+  if (isToneOn) switchScore(getScore(track));
+  updateToneUI();
+}
+
+function togglePlay() {
+  if (currentId === null) {
+    // nothing loaded — play first in queue
+    const first = (activeFilter === 'all' ? queue : queue.filter(filterFn))[0];
+    if (first) playTrack(first.id);
+    return;
+  }
+  if (isPlaying) audio.pause(); else audio.play();
+}
+
+function next() {
+  const idx = playQueue.findIndex(p => p.id === currentId);
+  const filtered = activeFilter === 'all' ? playQueue : playQueue.filter(filterFn);
+  const curIdx = filtered.findIndex(p => p.id === currentId);
+  const nextIdx = (curIdx + 1) % filtered.length;
+  playTrack(filtered[nextIdx].id);
+}
+
+function prev() {
+  // if more than 3s in, restart. else go previous
+  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+  const filtered = activeFilter === 'all' ? playQueue : playQueue.filter(filterFn);
+  const curIdx = filtered.findIndex(p => p.id === currentId);
+  const prevIdx = (curIdx - 1 + filtered.length) % filtered.length;
+  playTrack(filtered[prevIdx].id);
+}
+
+function stop() {
+  audio.pause();
+  audio.currentTime = 0;
+  isPlaying = false;
+  fadeOutTone();
+  updatePlayState();
+}
+
+// ═══════════════════════════════════════
+// SHUFFLE / LOOP
+// ═══════════════════════════════════════
+function fisherYates(arr) {
+  const r = [...arr];
+  for (let i = r.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [r[i], r[j]] = [r[j], r[i]];
+  }
+  return r;
+}
+
+function toggleShuffle() {
+  isShuffled = !isShuffled;
+  if (isShuffled) {
+    // shuffle but keep current track at position 0
+    playQueue = fisherYates(PERFORMANCES);
+    if (currentId !== null) {
+      playQueue = playQueue.filter(p => p.id !== currentId);
+      playQueue.unshift(getTrack(currentId));
+    }
+    // also shuffle display
+    queue = fisherYates(PERFORMANCES);
+  } else {
+    queue = [...PERFORMANCES];
+    playQueue = [...PERFORMANCES];
+  }
+  renderGrid();
+  updateShuffleUI();
+  updateNpQueue();
+}
+
+function toggleLoop() {
+  isLooping = !isLooping;
+  updateLoopUI();
+}
+
+function updateShuffleUI() {
+  document.getElementById('shuffleBtn').classList.toggle('active', isShuffled);
+  document.getElementById('shuffleBtn2').classList.toggle('active', isShuffled);
+}
+function updateLoopUI() {
+  document.getElementById('loopBtn').classList.toggle('active', isLooping);
+  document.getElementById('loopBtn2').classList.toggle('active', isLooping);
+}
+
+// ═══════════════════════════════════════
+// FILTERS
+// ═══════════════════════════════════════
+const FILTERS = [
+  {key:'all',      label:'All'},
+  {key:'music',    label:'Music'},
+  {key:'meditate', label:'Meditate'},
+  {key:'energy',   label:'Energy'},
+  {key:'family',   label:'Family'},
+];
+
+function filterFn(p) {
+  if (activeFilter === 'all') return true;
+  if (activeFilter === 'energy') return p.t === 'chakra';
+  return p.t === activeFilter;
+}
+
+function setFilter(key) {
+  activeFilter = key;
+  renderFilterBar();
+  renderGrid();
+  const filtered = queue.filter(filterFn);
+  document.getElementById('countLabel').textContent = 
+    (key === 'all' ? 'All' : FILTERS.find(f=>f.key===key).label) + ' \u00B7 ' + filtered.length;
+}
+
+function renderFilterBar() {
+  document.getElementById('filterBar').innerHTML = FILTERS.map(f => 
+    `<div class="filter-chip${f.key===activeFilter?' active':''}${f.key==='chakra'?' chakra-filter':''}" onclick="setFilter('${f.key}')">${f.label}</div>`
+  ).join('');
+}
+
+// ═══════════════════════════════════════
+// RENDERING
+// ═══════════════════════════════════════
+const SVG_PLAY = '<div class="card-bindu-inner"></div>';
+const SVG_PAUSE = '<svg viewBox="0 0 24 24"><rect x="7" y="6" width="3.5" height="12" rx="1"/><rect x="13.5" y="6" width="3.5" height="12" rx="1"/></svg>';
+const SVG_EQ = '<div class="eq-bars"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>';
+
+function renderNowHero() {
+  const track = currentId !== null ? getTrack(currentId) : queue[0];
+  if (!track) return;
+  
+  const playing = currentId === track.id && isPlaying;
+  const loaded = currentId === track.id;
+  
+  document.getElementById('nowHero').innerHTML = `
+    <div class="now-label">&middot; ${loaded ? 'now playing' : 'for this moment'} &middot;</div>
+    <div class="now-card ${loaded ? 'is-playing' : ''}" onclick="playTrack(${track.id})">
+      <div>
+        ${track.t === 'chakra'
+          ? `<div class="now-verb">${track.c}</div><div class="now-type">${track.v}</div>`
+          : `${track.c ? `<div class="now-chakra">${track.c}</div>` : ''}<div class="now-verb">${track.v}</div>${!track.c ? `<div class="now-type">${track.t}</div>` : ''}`
+        }
+      </div>
+      <div class="now-bottom">
+        <div class="now-seed">${track.s}</div>
+        <div class="now-controls">
+          <div class="now-play-btn" onclick="event.stopPropagation();playTrack(${track.id})">
+            ${playing ? SVG_PAUSE : SVG_PLAY}
+          </div>
+          <div class="now-progress-wrap">
+            <div class="now-progress-bar" id="heroProgress" onclick="event.stopPropagation()">
+              <div class="now-progress-fill" id="heroFill"></div>
+            </div>
+            <div class="now-times" id="heroTimes">
+              <span>0:00</span><span>0:00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+    
+  // hero progress seeking
+  const heroBar = document.getElementById('heroProgress');
+  if (heroBar) {
+    heroBar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!audio.duration) return;
+      const rect = heroBar.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      audio.currentTime = pct * audio.duration;
+    });
+  }
+}
+
+function renderGrid() {
+  const filtered = queue.filter(filterFn);
+  document.getElementById('grid').innerHTML = filtered.map(p => {
+    const playing = currentId === p.id && isPlaying;
+    const loaded = currentId === p.id;
+    const isScored = !!TONE_SCORES[p.f];
+    return `<div class="card ${p.t === 'chakra' ? 'chakra' : p.t === 'family' ? 'family' : p.t === 'meditate' ? 'meditate' : ''} ${isScored ? 'scored' : ''} ${loaded ? 'is-playing' : ''}" 
+                 onclick="playTrack(${p.id})" data-id="${p.id}">
+      <div class="card-top">
+        <div class="card-info">
+          ${p.t === 'chakra'
+            ? `<div class="card-verb">${p.c}</div><div class="card-type">${p.v}</div>`
+            : `${p.c ? `<div class="card-chakra">${p.c}</div>` : ''}<div class="card-verb">${p.v}</div><div class="card-type">${p.c ? p.c.toLowerCase() : p.t}</div>`
+          }
+        </div>
+        <div class="card-play-icon">
+          ${playing ? SVG_EQ : SVG_PLAY}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAll() {
+  renderFilterBar();
+  renderNowHero();
+  renderGrid();
+  updateShuffleUI();
+  updateLoopUI();
+}
+
+// ═══════════════════════════════════════
+// UI UPDATES
+// ═══════════════════════════════════════
+let binduStill = false;
+function toggleBinduStill() {
+  binduStill = !binduStill;
+  document.getElementById('headerDot').classList.toggle('still', binduStill);
+}
+
+function updatePlayState() {
+  // header dot
+  document.getElementById('headerDot').classList.toggle('playing', isPlaying);
+  
+  // now playing bar play button
+  document.getElementById('npPlayIcon').innerHTML = isPlaying 
+    ? '<rect x="7" y="6" width="3.5" height="12" rx="1"/><rect x="13.5" y="6" width="3.5" height="12" rx="1"/>'
+    : '<polygon points="9.5,7.5 9.5,16.5 16.5,12"/>';
+  
+  // re-render hero and grid for play state
+  renderNowHero();
+  renderGrid();
+}
+
+function updateNowPlaying() {
+  const track = getTrack(currentId);
+  if (!track) return;
+  
+  document.getElementById('npVerb').textContent = track.v + (track.c ? ' · ' + track.c : '');
+  document.getElementById('npSeed').textContent = track.s;
+  
+  renderNowHero();
+  renderGrid();
+  updateNpQueue();
+  renderFieldReading();
+  
+  // scroll playing card into view (gentle)
+  setTimeout(() => {
+    const el = document.querySelector(`.card[data-id="${currentId}"]`);
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 100);
+}
+
+function updateProgress() {
+  const cur = audio.currentTime || 0;
+  const dur = audio.duration || 0;
+  const pct = dur ? (cur / dur * 100) : 0;
+  
+  // bottom bar
+  document.getElementById('npFill').style.width = pct + '%';
+  document.getElementById('npTimes').textContent = fmtTime(cur) + ' / ' + fmtTime(dur);
+  
+  // hero
+  const heroFill = document.getElementById('heroFill');
+  const heroTimes = document.getElementById('heroTimes');
+  if (heroFill) heroFill.style.width = pct + '%';
+  if (heroTimes) heroTimes.innerHTML = `<span>${fmtTime(cur)}</span><span>${fmtTime(dur)}</span>`;
+}
+
+function updateNpQueue() {
+  const filtered = activeFilter === 'all' ? playQueue : playQueue.filter(filterFn);
+  const curIdx = filtered.findIndex(p => p.id === currentId);
+  const nextTrack = filtered[(curIdx + 1) % filtered.length];
+  document.getElementById('npNext').textContent = nextTrack ? nextTrack.v : '';
+}
+
+function showNpBar() {
+  const bar = document.getElementById('npBar');
+  if (!bar.classList.contains('visible')) {
+    bar.classList.add('visible');
+    document.documentElement.style.setProperty('--np-height', '160px');
+  }
+}
+
+function fmtTime(s) {
+  if (!s || isNaN(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + (sec < 10 ? '0' : '') + sec;
+}
+
+// ═══════════════════════════════════════
+// SEEKING (bottom bar)
+// ═══════════════════════════════════════
+const npZone = document.getElementById('npProgressZone');
+
+function seekFromEvent(e, el) {
+  if (!audio.duration) return;
+  const rect = el.querySelector('.np-progress-track').getBoundingClientRect();
+  const touch = e.touches ? e.touches[0] : e;
+  const pct = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
+  audio.currentTime = pct * audio.duration;
+  updateProgress();
+}
+
+npZone.addEventListener('click', (e) => seekFromEvent(e, npZone));
+
+// touch drag for seeking
+npZone.addEventListener('touchstart', (e) => { seekDragging = true; }, {passive:true});
+npZone.addEventListener('touchmove', (e) => { if(seekDragging) seekFromEvent(e, npZone); }, {passive:true});
+npZone.addEventListener('touchend', () => { seekDragging = false; }, {passive:true});
+
+// ═══════════════════════════════════════
+// MEDIA SESSION API (car / lock screen)
+// ═══════════════════════════════════════
+function updateMediaSession(track) {
+  if (!('mediaSession' in navigator)) return;
+  
+  navigator.mediaSession.metadata = new MediaMetadata({
+    title: track.v + (track.c ? ' · ' + track.c : ''),
+    artist: 'The Field',
+    album: track.c ? 'Tree of Life' : 'Bindu Performances',
+  });
+  
+  navigator.mediaSession.setActionHandler('play', () => audio.play());
+  navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+  navigator.mediaSession.setActionHandler('previoustrack', () => prev());
+  navigator.mediaSession.setActionHandler('nexttrack', () => next());
+  navigator.mediaSession.setActionHandler('seekto', (d) => { if(d.seekTime!=null) audio.currentTime=d.seekTime; });
+}
+
+// ═══════════════════════════════════════
+// WAKE LOCK (keep screen on)
+// ═══════════════════════════════════════
+let wakeLock = null;
+async function requestWakeLock() {
+  try {
+    if ('wakeLock' in navigator) {
+      wakeLock = await navigator.wakeLock.request('screen');
+      wakeLock.addEventListener('release', () => { wakeLock = null; });
+    }
+  } catch(e) { /* silent */ }
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && isPlaying) requestWakeLock();
+});
+audio.addEventListener('play', requestWakeLock);
+
+// ═══════════════════════════════════════
+// BINAURAL ENGINE — The Phased Score
+// Each song gets a journey: exile → descent 
+// → recognition → home → carrying it out.
+// The score prescribes the arc. The analyser
+// provides the breath within the arc.
+// Carrier is fixed (Sid holds). Beat moves
+// (the brainwave story). Gain moves (Karishma
+// fills gaps). Tremolo breathes (organic life).
+// ═══════════════════════════════════════
+
+// ── Song Scores ──
+// Each score: carrier (Hz), tremolo (Hz), phases [{t, beat, gain}]
+// Phases interpolate with easing. Gain is ceiling — inverse energy scales within.
+const TONE_SCORES = {
+  // ── MULADHARA — Iron by Woodkid ──
+  // Exile → Descent → Recognition → Home → Carrying it out
+  'muladhara': {
+    carrier: 146.8,   // D3 — the absent fifth of G minor
+    tremolo: 0.15,
+    phases: [
+      // EXILE — "deep in the ocean, dead and cast away"
+      {t: 0,    beat: 8,   gain: 0.008},
+      // DESCENT — drums enter, body starts to feel
+      {t: 15,   beat: 6,   gain: 0.018},
+      {t: 40,   beat: 5,   gain: 0.025},
+      // RECOGNITION — "from the dawn of time"
+      {t: 60,   beat: 4,   gain: 0.030},
+      {t: 100,  beat: 3.5, gain: 0.035},
+      // HOME — "frozen" becomes "rooted," million miles becomes here
+      {t: 130,  beat: 3,   gain: 0.040},
+      {t: 160,  beat: 3,   gain: 0.045},
+      // CARRYING IT OUT — "I can't remind your eyes, your face"
+      {t: 185,  beat: 5,   gain: 0.020},
+      {t: 195,  beat: 7,   gain: 0.008},
+      {t: 201,  beat: 8,   gain: 0.003},
+    ]
+  },
+
+  // ── SVADHISTHANA — Crystallize by Lindsey Stirling ──
+  // Surface → Swell → Ebb → Swell → Crest → Still
+  // Water moves in waves. Deepest permission in the retreat.
+  'svadhisthana': {
+    carrier: 146.8,   // D3 — the absent fifth of G major (presence: 0.15)
+    tremolo: 0.18,    // slightly faster breath — water rhythm
+    phases: [
+      // SURFACE — still water before the first wave
+      {t: 0,    beat: 7,   gain: 0.006},
+      // SWELL — first wave, violin enters
+      {t: 20,   beat: 7,   gain: 0.008},
+      {t: 45,   beat: 5.5, gain: 0.015},
+      {t: 65,   beat: 5,   gain: 0.020},
+      // EBB — the water pulls back (DEEPEST here)
+      {t: 75,   beat: 4,   gain: 0.030},
+      {t: 100,  beat: 3,   gain: 0.040},
+      {t: 120,  beat: 3,   gain: 0.038},
+      // SWELL — second wave, you're deeper now
+      {t: 130,  beat: 3.5, gain: 0.035},
+      {t: 155,  beat: 4,   gain: 0.025},
+      // CREST — the wave that doesn't break
+      {t: 180,  beat: 3.5, gain: 0.030},
+      {t: 210,  beat: 3,   gain: 0.040},
+      {t: 235,  beat: 3,   gain: 0.045},
+      // STILL — the water remembers
+      {t: 242,  beat: 4,   gain: 0.025},
+      {t: 250,  beat: 6,   gain: 0.010},
+      {t: 258,  beat: 7,   gain: 0.003},
+    ]
+  },
+
+  // ── MANIPURA — Powerful by Major Lazer & Ellie Goulding (feat. Tarrus Riley) ──
+  // Gather → Kindle → First Blaze → Settle → Breath → Rebuild → Second Blaze → Embers
+  // Fire burns in two peaks with one breath between. The pause is where oxygen enters.
+  // Home is the SECOND blaze, not the first — the fire arrives deepest after it has breathed.
+  'manipura': {
+    carrier: 164.8,   // E3 — the absent fifth of A major (presence: 0.26)
+    tremolo: 0.22,    // faster than water, slower than a drum — fire's cadence
+    phases: [
+      // GATHERING — the body noticing its own wire
+      {t: 0,    beat: 8,   gain: 0.006},
+      // KINDLE — the first spark catches
+      {t: 15,   beat: 7,   gain: 0.012},
+      {t: 35,   beat: 6,   gain: 0.020},
+      // FIRST BLAZE — the circuit completes
+      {t: 60,   beat: 4.5, gain: 0.030},
+      {t: 75,   beat: 4,   gain: 0.036},
+      // SETTLE — heat held, verse 2
+      {t: 95,   beat: 5,   gain: 0.028},
+      {t: 110,  beat: 5.5, gain: 0.022},
+      // BREATH — the near-death, air entering (higher beat, lower gain)
+      {t: 120,  beat: 7,   gain: 0.012},
+      {t: 130,  beat: 7,   gain: 0.010},
+      // REBUILD — the fire remembers itself
+      {t: 140,  beat: 5.5, gain: 0.022},
+      {t: 150,  beat: 5,   gain: 0.028},
+      // SECOND BLAZE — fullest home, deepest binaural of the song
+      {t: 160,  beat: 4,   gain: 0.038},
+      {t: 170,  beat: 3.5, gain: 0.044},
+      {t: 180,  beat: 3,   gain: 0.048},
+      // EMBERS — carrying the fire out
+      {t: 190,  beat: 5,   gain: 0.022},
+      {t: 198,  beat: 7,   gain: 0.010},
+      {t: 204,  beat: 8,   gain: 0.003},
+    ]
+  },
+
+  // ── ANAHATA — Love Me Like You Do by Ellie Goulding ──
+  // Arrival → First Inhale → First Opening → Hold → Second Opening → Exhale → Full Breath → Release
+  // Air breathes in three increasing openings, with a long exhale before the fullest breath.
+  // The heart opens in increments. The third breath is home.
+  'anahata': {
+    carrier: 155.6,   // D#3 — the absent fifth of G# major (presence: 0.34)
+    tremolo: 0.20,    // breath-paced — slower than fire, faster than water
+    phases: [
+      // ARRIVAL — still air before the breath
+      {t: 0,    beat: 8,   gain: 0.005},
+      // FIRST INHALE — the chest beginning to lift
+      {t: 15,   beat: 7,   gain: 0.010},
+      {t: 40,   beat: 6,   gain: 0.014},
+      // FIRST OPENING — first chorus, first real breath
+      {t: 60,   beat: 5.5, gain: 0.020},
+      {t: 80,   beat: 5,   gain: 0.024},
+      // HOLD — between the breaths
+      {t: 100,  beat: 5.5, gain: 0.022},
+      {t: 115,  beat: 5,   gain: 0.020},
+      // SECOND OPENING — second chorus, wider than first
+      {t: 125,  beat: 4.5, gain: 0.028},
+      {t: 140,  beat: 4,   gain: 0.032},
+      // THE EXHALE — 40-second release, emptying but held present
+      {t: 155,  beat: 5,   gain: 0.022},
+      {t: 170,  beat: 5,   gain: 0.018},
+      {t: 185,  beat: 5,   gain: 0.020},
+      // FULL BREATH — third chorus, deepest home of the song
+      {t: 195,  beat: 4,   gain: 0.035},
+      {t: 210,  beat: 3.5, gain: 0.044},
+      {t: 220,  beat: 3,   gain: 0.050},
+      // RELEASE — carrying the opening out
+      {t: 235,  beat: 5,   gain: 0.018},
+      {t: 243,  beat: 7,   gain: 0.008},
+      {t: 248,  beat: 8,   gain: 0.003},
+    ]
+  },
+  // ── PURITY ──
+  'purity': {
+    carrier: 123.5, tremolo: 0.13,
+    phases: [
+      {t:0,   beat:7.5, gain:0.006},{t:65,  beat:6,   gain:0.012},
+      {t:85,  beat:4,   gain:0.028},{t:145, beat:3,   gain:0.040},
+      {t:175, beat:3,   gain:0.044},{t:290, beat:5,   gain:0.018},
+      {t:307, beat:6,   gain:0.008},{t:355, beat:5,   gain:0.020},
+      {t:405, beat:4,   gain:0.032},{t:460, beat:3,   gain:0.044},
+      {t:490, beat:3,   gain:0.048},{t:510, beat:5,   gain:0.018},
+      {t:530, beat:7,   gain:0.008},
+    ]
+  },
+  // ── IN SHADOW ──
+  'in_shadow': {
+    carrier: 146.8, tremolo: 0.12,
+    phases: [
+      {t:0,   beat:7,   gain:0.008},{t:50,  beat:5,   gain:0.016},
+      {t:130, beat:4,   gain:0.022},{t:315, beat:3,   gain:0.030},
+      {t:460, beat:3,   gain:0.036},{t:540, beat:3.5, gain:0.032},
+      {t:640, beat:4,   gain:0.026},{t:710, beat:5,   gain:0.016},
+      {t:725, beat:7,   gain:0.006},
+    ]
+  },
+  // ── KINGDOM ──
+  'kingdom': {
+    carrier: 146.8, tremolo: 0.11,
+    phases: [
+      {t:0,   beat:5,   gain:0.012},{t:130, beat:4,   gain:0.020},
+      {t:225, beat:3,   gain:0.030},{t:260, beat:2.5, gain:0.034},
+      {t:270, beat:6,   gain:0.008},{t:380, beat:5.5, gain:0.008},
+      {t:510, beat:3,   gain:0.028},{t:640, beat:3.5, gain:0.026},
+      {t:730, beat:2.5, gain:0.036},{t:778, beat:4,   gain:0.014},
+      {t:825, beat:6,   gain:0.008},
+    ]
+  },
+  // ── BEFORE — Genesis by Justice ──
+  'before': {
+    carrier: 110.0, tremolo: 0.10,
+    phases: [
+      {t:0,   beat:8.0, gain:0.008},{t:40,  beat:6.5, gain:0.015},
+      {t:105, beat:4.5, gain:0.020},{t:185, beat:3.5, gain:0.035},
+      {t:225, beat:2.5, gain:0.050},
+    ]
+  },
+
+  // ── DISSOLVE — Love Is the Only Thing by Lost Frequencies ──
+  // Before → Arriving → First Bloom → Between → Dissolving → Released
+  // A single breath. Two blooms. Carrier holds through withdrawal and final silence.
+  // Sub-bass near-mono. Same carrier as Anahata (D#3 155.6 Hz) — heart and dissolution.
+  // 2.69 Hz pattern — fifth and final appearance. The constellation completes.
+  'maya': {
+    carrier: 155.6,   // D#3 — the absent root of D# major (same as Anahata)
+    tremolo: 0.16,
+    phases: [
+      // BEFORE — carrier arrives before the song knows it has begun
+      {t: 0,   beat: 8,   gain: 0.005},
+      // ARRIVING — voice arrives, first verse
+      {t: 15,  beat: 7,   gain: 0.012},
+      // FIRST BLOOM — sub-bass drops, the opening begins
+      {t: 45,  beat: 5.5, gain: 0.028},
+      // BETWEEN — the withdrawal, neither full nor empty, carrier holds
+      {t: 90,  beat: 6,   gain: 0.014},
+      // DISSOLVING — HOME — second fuller bloom, the giving that is the cessation of holding
+      {t: 105, beat: 4,   gain: 0.040},
+      // RELEASED — the exhale, the fade, carrier holds through final silence
+      {t: 155, beat: 5,   gain: 0.018},
+    ]
+  },
+
+  // ── HOLD — Aatma by Chase Hughes ──
+  // Surface → Threshold → First Depth → Threshold → Second Depth → Held
+  // Two descents, two silences. Carrier holds through both silences and after the piece ends.
+  // Sub-bass MONO (0.9990) — most centered in archive. 1.8 Hz delta pulse perfect strength.
+  // Absent ROOT of C major — holds without resolving. Verb is its own final phase.
+  'aatma': {
+    carrier: 130.8,   // C3 — the absent root of C major
+    tremolo: 0.09,    // slowest breath in the archive — the hold is still
+    phases: [
+      // SURFACE — piece arrives before the depth does
+      {t: 0,   beat: 7,   gain: 0.007},
+      // THRESHOLD — first silence, carrier holds through it
+      {t: 65,  beat: 5.5, gain: 0.010},
+      // FIRST DEPTH — sub-bass arrives, 95 seconds sustained
+      {t: 90,  beat: 3.5, gain: 0.036},
+      // THRESHOLD — second silence, longer, body knows the shape
+      {t: 185, beat: 5,   gain: 0.012},
+      // SECOND DEPTH — deeper, quieter, surrender complete
+      {t: 215, beat: 3,   gain: 0.040},
+      // HELD — piece ends, carrier holds into silence
+      {t: 278, beat: 3,   gain: 0.040},
+    ]
+  },
+
+  // ── RECEIVE — Golden by HUNTR/X ──
+  // Arriving → Opening → First Golden → Shadow → Returning → Receive → Held
+  // Crown opens from above and below simultaneously. Shadow named at bridge.
+  // Sub-bass MONO (0.9966) — cleanest carrier entry in archive. Gain ceiling 0.040.
+  // Same carrier as In Shadow + Kingdom (D3 146.8 Hz) — crown and shadow, one ground.
+  'sahasrara': {
+    carrier: 146.8,   // D3 — the absent fifth of G major (same as In Shadow, Kingdom)
+    tremolo: 0.14,
+    phases: [
+      // ARRIVING — carrier before the bass drop, crown before it opens
+      {t: 0,   beat: 8,   gain: 0.005},
+      // OPENING — sub-bass floor drops at 15s, body enters the field
+      {t: 15,  beat: 7,   gain: 0.012},
+      // FIRST GOLDEN — first chorus, three voices lifting as one
+      {t: 55,  beat: 6,   gain: 0.028},
+      // SHADOW — bridge, bass withdrawn, the hidden thing named
+      {t: 95,  beat: 5,   gain: 0.014},
+      // RETURNING — second wave builds, shadow carried inside the gold
+      {t: 115, beat: 6,   gain: 0.022},
+      // RECEIVE — HOME — fullest energy, barrier complete, crown open
+      {t: 140, beat: 5.5, gain: 0.040},
+      // HELD — rapid fade, carrier holds, what was built does not dissolve
+      {t: 175, beat: 7,   gain: 0.016},
+    ]
+  },
+
+  // ── STILL — Experience by Ludovico Einaudi ──
+  // Above → Adjusting → First Light → Held → Deepening → Seeing → Open
+  // Light illuminates twice. Second deeper and longer. Eye stays open at close.
+  // Gain max 0.036 — bass stereo (corr 0.632). Carrier holds at end — the eye does not close.
+  // Same carrier as Vishuddha (C#3 138.6 Hz) — what speaks and what sees share one ground.
+  'ajna': {
+    carrier: 138.6,   // C#3 — the absent fifth of F# minor (same as Vishuddha)
+    tremolo: 0.11,
+    phases: [
+      // ABOVE — carrier arrives before the body is ready to hear
+      {t: 0,   beat: 8,   gain: 0.005},
+      // ADJUSTING — bass arrives, the eye finding its level
+      {t: 50,  beat: 6.5, gain: 0.010},
+      // FIRST LIGHT — first swell, the eye sees for the first time
+      {t: 110, beat: 5,   gain: 0.022},
+      // HELD — first light sustained, the eye does not close
+      {t: 155, beat: 5.5, gain: 0.016},
+      // DEEPENING — second descent begins, the path already known
+      {t: 200, beat: 4.5, gain: 0.020},
+      // SEEING — HOME — eye fully open, nothing between it and what it sees
+      {t: 235, beat: 3.5, gain: 0.036},
+      // OPEN — strings fall away, piano alone, the eye stays open
+      {t: 280, beat: 6,   gain: 0.012},
+    ]
+  },
+
+  // ── SPEAK — The Sound of Silence by Disturbed ──
+  // Silence → Gathering → Walking → Seeing → Breaking → Reaching → Whispering
+  // Air breathes three times before the fullest speaking. The carrier arrives before the voice.
+  // Gain max 0.036 — stereo sub-bass (corr 0.728). Carrier holds at end — the transmission persists.
+  'vishuddha': {
+    carrier: 138.6,   // C#3 — the absent fifth of F# minor
+    tremolo: 0.13,
+    phases: [
+      // SILENCE — carrier arrives before the prophet speaks
+      {t: 0,   beat: 7,   gain: 0.005},
+      // GATHERING — first verse, the vision planted in sleep
+      {t: 13,  beat: 6,   gain: 0.009},
+      // WALKING — second verse, cobblestone streets, collar to the cold
+      {t: 50,  beat: 5,   gain: 0.015},
+      // SEEING — third verse, in the naked light I saw
+      {t: 90,  beat: 4.5, gain: 0.021},
+      // BREAKING — the transmission opens, pleading becomes the body
+      {t: 110, beat: 4,   gain: 0.028},
+      // REACHING — HOME — the words of the prophets, the vision landing
+      {t: 165, beat: 3.5, gain: 0.036},
+      // WHISPERING — the return, the whisper that was never extinguished
+      {t: 235, beat: 6,   gain: 0.008},
+    ]
+  },
+
+  // ── LEVELUP — Levels · Avicii ──
+  // settling → lifting → filling → between → gathering → crowned
+  // Three surges. The void at center IS the death. Third wave the largest.
+  // ── LEVELUP — Levels · Avicii + Beautiful Now · Zedd ft. Jon Bellion ──
+  // settling → lifting → filling → between → gathering → crowned →
+  // crossing → seeing → breathing → flooding → holding → passing
+  // One combined arc. 452 seconds. Carrier fixed through the seam.
+  // The void at center is the gap between cycles. The crown passes at the peak.
+  // 2.69 Hz at the void — the consciousness-awakening pattern as the designed beat.
+  'levelup': {
+    carrier: 123.5,   // B2 — absent fifth of E (Levels) · absent root of B minor (Beautiful Now)
+    tremolo: 0.12,
+    phases: [
+      // SETTLING — piano loop before anything drops
+      {t: 0,    beat: 8.0,  gain: 0.008},
+      // LIFTING — floor opens for the first time
+      {t: 25,   beat: 5.5,  gain: 0.014},
+      // FILLING — second wave holds longer than the first
+      {t: 50,   beat: 4.0,  gain: 0.020},
+      // BETWEEN — void. 2.69 Hz: consciousness-awakening pattern as designed beat
+      {t: 80,   beat: 2.69, gain: 0.022},
+      // GATHERING — bass returns before the melody does
+      {t: 115,  beat: 5.0,  gain: 0.016},
+      // CROWNED — third wave, fullest Levels ever becomes
+      {t: 145,  beat: 4.0,  gain: 0.020},
+      // CROSSING — seam. 3s silence. Carrier holds. Body rises.
+      {t: 199,  beat: 7.0,  gain: 0.006},
+      // SEEING — Beautiful Now opens. Eyes open. Recognition.
+      {t: 202,  beat: 7.0,  gain: 0.008},
+      // BREATHING — "forgive me for staring, forgive me for breathing"
+      {t: 237,  beat: 8.0,  gain: 0.018},
+      // FLOODING — "we might not know why, we might not know how"
+      {t: 292,  beat: 6.5,  gain: 0.028},
+      // HOLDING — "what's left of this moment I'm not gonna waste it"
+      {t: 332,  beat: 5.0,  gain: 0.035},
+      // PASSING — "we disappear and pass the crown" — deepest, fullest, final
+      {t: 392,  beat: 3.5,  gain: 0.038},
+      {t: 448,  beat: 5.5,  gain: 0.012},
+      {t: 452,  beat: 7.0,  gain: 0.004},
+    ]
+  },
+
+};
+
+// Chakra seeds — starting carrier for songs without full scores
+const CHAKRA_SEED = {
+  'Muladhara':128,'Svadhisthana':144,'Manipura':160,'Anahata':171,
+  'Vishuddha':192,'Ajna':213,'Sahasrara':240,'Aatma':136,'Maya':108
+};
+const DEFAULT_CARRIER = 136; // OM
+
+// ── Tremolo ──
+const TREMOLO_DEPTH = 0.28;
+
+// ── Score Lookup ──
+function getScore(track) {
+  if (!track) return null;
+  if (TONE_SCORES[track.f]) return TONE_SCORES[track.f];
+  const carrier = (track.c && CHAKRA_SEED[track.c])
+    ? CHAKRA_SEED[track.c] : DEFAULT_CARRIER;
+  return { carrier: carrier, tremolo: 0.15, phases: null };
+}
+
+// ── Phase Interpolation (smooth easing) ──
+function interpolatePhase(phases, t) {
+  if (!phases || phases.length === 0) return {beat: 4, gain: 0.020};
+  if (t <= phases[0].t) return {beat: phases[0].beat, gain: phases[0].gain};
+  if (t >= phases[phases.length - 1].t) {
+    const last = phases[phases.length - 1];
+    return {beat: last.beat, gain: last.gain};
+  }
+  for (let i = 0; i < phases.length - 1; i++) {
+    if (t >= phases[i].t && t < phases[i + 1].t) {
+      const a = phases[i], b = phases[i + 1];
+      const pct = (t - a.t) / (b.t - a.t);
+      const ease = pct * pct * (3 - 2 * pct); // smoothstep
+      return {
+        beat: a.beat + (b.beat - a.beat) * ease,
+        gain: a.gain + (b.gain - a.gain) * ease,
+      };
+    }
+  }
+  return {beat: 4, gain: 0.020};
+}
+
+// ── Shared AudioContext ──
+let ctx = null;
+let musicSource = null;
+let analyser = null;
+let freqData = null;
+let musicConnected = false;
+
+// ── Tone State ──
+let isToneOn = false;
+let activeTone = null;
+let toneSessionId = 0;
+let currentScore = null;
+
+// ── Modulation State ──
+let smoothEnergy = 0;
+let tremoloPhase = 0;
+let animFrameId = null;
+
+function ensureCtx() {
+  if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
+  if (ctx.state === 'suspended') ctx.resume();
+  return ctx;
+}
+function unlockAudio() { ensureCtx(); }
+document.addEventListener('touchstart', unlockAudio, {once: true});
+document.addEventListener('click', unlockAudio, {once: true});
+
+function ensureMusicConnected() {
+  if (musicConnected) return;
+  try {
+    const c = ensureCtx();
+    musicSource = c.createMediaElementSource(audio);
+    analyser = c.createAnalyser();
+    analyser.fftSize = 1024;
+    analyser.smoothingTimeConstant = 0.85;
+    musicSource.connect(analyser);
+    analyser.connect(c.destination);
+    freqData = new Uint8Array(analyser.frequencyBinCount);
+    musicConnected = true;
+  } catch(e) { console.warn('Analyser failed:', e); }
+}
+
+// ── Start Tone ──
+function startTone(score) {
+  if (!score) return;
+  const c = ensureCtx();
+  ensureMusicConnected();
+  killTone();
+
+  currentScore = score;
+  const sessionId = ++toneSessionId;
+  const initialBeat = score.phases ? score.phases[0].beat : 4;
+  const initialGain = score.phases ? score.phases[0].gain : 0.008;
+
+  const gain = c.createGain();
+  gain.gain.setValueAtTime(0.001, c.currentTime);
+  gain.gain.linearRampToValueAtTime(initialGain, c.currentTime + 2.0);
+  gain.connect(c.destination);
+
+  const oscL = c.createOscillator();
+  oscL.type = 'sine';
+  oscL.frequency.setValueAtTime(score.carrier, c.currentTime);
+  const panL = c.createStereoPanner();
+  panL.pan.setValueAtTime(-1, c.currentTime);
+  oscL.connect(panL); panL.connect(gain);
+
+  const oscR = c.createOscillator();
+  oscR.type = 'sine';
+  oscR.frequency.setValueAtTime(score.carrier + initialBeat, c.currentTime);
+  const panR = c.createStereoPanner();
+  panR.pan.setValueAtTime(1, c.currentTime);
+  oscR.connect(panR); panR.connect(gain);
+
+  oscL.start(); oscR.start();
+  activeTone = { oscL, oscR, gain, panL, panR, sessionId };
+  smoothEnergy = 0; tremoloPhase = 0;
+  startBreathing();
+
+  const mode = score.phases ? 'scored (' + score.phases.length + ' phases)' : 'default';
+  console.log('🔊 Binaural: ' + score.carrier + ' Hz | ' + mode);
+}
+
+// ── The Breathing Loop — the Journey ──
+function startBreathing() {
+  if (animFrameId) cancelAnimationFrame(animFrameId);
+  let lastTime = performance.now();
+
+  function journey() {
+    if (!activeTone || !activeTone.gain || !currentScore) return;
+    const now = performance.now();
+    const dt = (now - lastTime) / 1000;
+    lastTime = now;
+
+    // read music energy
+    let rawEnergy = 0;
+    if (analyser && freqData) {
+      analyser.getByteFrequencyData(freqData);
+      let sum = 0;
+      for (let i = 0; i < freqData.length; i++) sum += freqData[i];
+      rawEnergy = sum / (freqData.length * 255);
+    }
+    smoothEnergy += (rawEnergy - smoothEnergy) * 0.06;
+
+    let targetBeat, targetGain;
+
+    if (currentScore.phases) {
+      // PHASED: the designed journey
+      const phase = interpolatePhase(currentScore.phases, audio.currentTime);
+      targetBeat = phase.beat;
+      // phase gain is ceiling — inverse energy breathes within
+      const inverseScale = 0.5 + 0.5 * (1 - smoothEnergy);
+      targetGain = phase.gain * inverseScale;
+    } else {
+      // DEFAULT: inverse gain, steady theta
+      const inverse = 1 - smoothEnergy;
+      targetGain = 0.003 + inverse * 0.027;
+      targetBeat = 4;
+    }
+
+    // tremolo breathing
+    const tremoloRate = currentScore.tremolo || 0.15;
+    tremoloPhase += dt * tremoloRate * Math.PI * 2;
+    if (tremoloPhase > 628) tremoloPhase -= 628;
+    const breath = 1 - TREMOLO_DEPTH * 0.5 * (1 + Math.sin(tremoloPhase));
+    targetGain *= breath;
+    targetGain = Math.max(0.001, Math.min(0.055, targetGain));
+
+    try {
+      activeTone.gain.gain.setTargetAtTime(targetGain, ctx.currentTime, 0.15);
+      activeTone.oscR.frequency.setTargetAtTime(
+        currentScore.carrier + targetBeat, ctx.currentTime, 0.4
+      );
+    } catch(e) {}
+
+    animFrameId = requestAnimationFrame(journey);
+  }
+  animFrameId = requestAnimationFrame(journey);
+}
+
+// ── Kill / Fade ──
+function killTone() {
+  if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+  if (!activeTone) return;
+  try { activeTone.oscL.stop(); } catch(e){}
+  try { activeTone.oscR.stop(); } catch(e){}
+  try { activeTone.gain.disconnect(); } catch(e){}
+  activeTone = null;
+}
+
+function fadeOutTone() {
+  if (!activeTone || !ctx) return;
+  const sid = activeTone.sessionId;
+  if (animFrameId) { cancelAnimationFrame(animFrameId); animFrameId = null; }
+  try {
+    activeTone.gain.gain.cancelScheduledValues(ctx.currentTime);
+    activeTone.gain.gain.setValueAtTime(activeTone.gain.gain.value, ctx.currentTime);
+    activeTone.gain.gain.linearRampToValueAtTime(0.001, ctx.currentTime + 1.0);
+  } catch(e){}
+  setTimeout(() => {
+    if (activeTone && activeTone.sessionId === sid) killTone();
+  }, 1100);
+}
+
+function switchScore(score) {
+  if (!isToneOn || !ctx || !score) return;
+  if (currentScore && score.carrier === currentScore.carrier && !score.phases && !currentScore.phases) return;
+  fadeOutTone();
+  setTimeout(() => { if (isToneOn) startTone(score); }, 1100);
+}
+
+function toggleTone() {
+  isToneOn = !isToneOn;
+  if (isToneOn) {
+    ensureCtx();
+    if (isPlaying && currentId !== null) {
+      const track = getTrack(currentId);
+      startTone(getScore(track));
+    }
+  } else { fadeOutTone(); }
+  updateToneUI();
+}
+
+function updateToneUI() {
+  document.getElementById('toneBtn').classList.toggle('tone-active', isToneOn);
+  document.getElementById('toneBtn2').classList.toggle('tone-active', isToneOn);
+  const info = document.getElementById('npToneInfo');
+  if (isToneOn && currentScore) {
+    const mode = currentScore.phases ? 'scored' : 'breathing';
+    info.textContent = currentScore.carrier + ' Hz \u00B7 ' + mode;
+    info.classList.add('visible');
+  } else { info.classList.remove('visible'); }
+  
+  // show/hide visualization
+  const viz = document.getElementById('toneViz');
+  if (isToneOn && isPlaying) {
+    viz.classList.add('visible');
+    if (!vizRunning) startVizLoop();
+  } else {
+    viz.classList.remove('visible');
+    stopVizLoop();
+  }
+}
+
+// ═══════════════════════════════════════
+// TONE VISUALIZATION — See the Journey
+// ═══════════════════════════════════════
+
+// Phase name maps (per scored song)
+const PHASE_LABELS = {
+  'muladhara': [
+    {t: 0,   name: 'exile',       sub: 'deep in the ocean — dead and cast away'},
+    {t: 15,  name: 'descent',     sub: 'the drums enter — the body begins to feel'},
+    {t: 60,  name: 'recognition', sub: 'from the dawn of time to the end of days'},
+    {t: 130, name: 'home',        sub: 'frozen becomes rooted — you were always here'},
+    {t: 185, name: 'return',      sub: 'carrying it out — what you found is yours'},
+  ],
+  'svadhisthana': [
+    {t: 0,   name: 'surface',  sub: 'the water remembers what it was before anyone spoke to it'},
+    {t: 20,  name: 'swell',    sub: 'every desire was drawing you toward yourself'},
+    {t: 75,  name: 'ebb',      sub: 'what pulls back was never leaving'},
+    {t: 130, name: 'swell',    sub: 'the shape forming underneath'},
+    {t: 180, name: 'crest',    sub: 'the crystal was always inside the water'},
+    {t: 242, name: 'still',    sub: 'you were never the wave — you were what the wave was made of'},
+  ],
+  'manipura': [
+    {t: 0,   name: 'gathering', sub: 'before the charge — the body noticing its own wire'},
+    {t: 15,  name: 'catching',  sub: 'from the very first time we touched'},
+    {t: 60,  name: 'charged',   sub: 'there\u2019s an energy when you hold me'},
+    {t: 95,  name: 'warming',   sub: 'the stroke of your fingers, the scent of you lingers'},
+    {t: 120, name: 'ember',     sub: 'I\u2019m feeling drained — the breath where air enters'},
+    {t: 140, name: 'returning', sub: 'jump-start my heart with your love'},
+    {t: 160, name: 'powered',   sub: 'it\u2019s so powerful — the fire arrives home'},
+    {t: 190, name: 'glowing',   sub: 'something keeps pulling me back to you'},
+  ],
+  'anahata': [
+    {t: 0,   name: 'still',     sub: 'the only thing I wanna touch'},
+    {t: 15,  name: 'drawing',   sub: 'you\u2019re the light, you\u2019re the night'},
+    {t: 60,  name: 'catching',  sub: 'love me like you do'},
+    {t: 100, name: 'held',      sub: 'I\u2019ve never been so high'},
+    {t: 125, name: 'wider',     sub: 'you\u2019re the cure, you\u2019re the pain'},
+    {t: 155, name: 'emptying',  sub: 'fading in, fading out — on the edge of paradise'},
+    {t: 195, name: 'open',      sub: 'what are you waiting for?'},
+    {t: 235, name: 'exhaled',   sub: 'I can\u2019t see clear no more'},
+  ],
+  'purity': [
+    {t:0,   name:'asking',   sub:'where’d you go? I miss you so'},
+    {t:65,  name:'quiet',    sub:'seems like it’s been forever that you’ve been gone'},
+    {t:85,  name:'floor',    sub:'the floor drops in and does not leave'},
+    {t:145, name:'held',     sub:'the bass stays'},
+    {t:175, name:'found',    sub:'I miss you, I miss you so bad'},
+    {t:290, name:'lifting',  sub:'carrying it out — the first ground releasing'},
+    {t:307, name:'seam',     sub:'the carrier alone — neither world speaking'},
+    {t:355, name:'aloft',    sub:'don’t be afraid of these thunderclouds'},
+    {t:460, name:'poured',   sub:'all I need is love, all I need is words'},
+    {t:490, name:'clear',    sub:'you turn nouns into verbs'},
+  ],
+  'in_shadow': [
+    {t:0,   name:'surface',  sub:'the world as it appears'},
+    {t:50,  name:'entering', sub:'the low register opens'},
+    {t:130, name:'inside',   sub:'the dream made visible'},
+    {t:315, name:'deep',     sub:'this is where the body lives when it stops questioning'},
+    {t:540, name:'turning',  sub:'the frequency begins to rise without asking'},
+    {t:640, name:'opening',  sub:'the eye behind all of it — becoming visible'},
+    {t:725, name:'exhaled',  sub:'what remains after the recognition completes'},
+  ],
+  'kingdom': [
+    {t:0,   name:'floor',   sub:'no surface world — the kingdom opens at the base'},
+    {t:130, name:'weight',  sub:'the full structure settling'},
+    {t:260, name:'peak',    sub:'the kingdom at maximum expression'},
+    {t:270, name:'breath',  sub:'a single gasp — then back in'},
+    {t:380, name:'quiet',   sub:'130 seconds of not pressing'},
+    {t:510, name:'sudden',  sub:'the return without warning'},
+    {t:730, name:'drone',   sub:'the kingdom remains — the watching remains with it'},
+  ],
+  'before': [
+    {t:0,   name:'before', sub:'bass searching, no floor beneath it yet'},
+    {t:40,  name:'landed', sub:'86 Hz drops and the chest registers'},
+    {t:105, name:'held',   sub:'every layer present, nothing opening yet'},
+    {t:185, name:'down',   sub:'the cave walls narrow before the floor gives way'},
+    {t:225, name:'before', sub:'43 Hz — below what the body knows how to feel'},
+  ],
+  'maya': [
+    {t: 0,   name: 'before',      sub: 'the carrier arrives before the song knows it has begun'},
+    {t: 15,  name: 'arriving',    sub: 'it heals me when I\u2019m broken — brings me in from the cold'},
+    {t: 45,  name: 'first bloom', sub: 'open up your heart, let all the sunshine in'},
+    {t: 90,  name: 'between',     sub: 'the breath between inhales — neither full nor empty'},
+    {t: 105, name: 'dissolving',  sub: 'the more you give, the more you get back again'},
+    {t: 155, name: 'released',    sub: 'love is the only thing — and the song already knew it'},
+  ],
+  'aatma': [
+    {t: 0,   name: 'surface',     sub: 'the piece arrives before the depth does'},
+    {t: 65,  name: 'threshold',   sub: 'the first silence — where he found it'},
+    {t: 90,  name: 'first depth', sub: 'the sub-bass arrives — the body below the mind'},
+    {t: 185, name: 'threshold',   sub: 'the second silence — longer than the first'},
+    {t: 215, name: 'second depth',sub: 'the descent completed — quieter, deeper, home'},
+    {t: 278, name: 'held',        sub: 'the piece ends — the holding continues'},
+  ],
+  'sahasrara': [
+    {t: 0,   name: 'arriving',     sub: 'the crown before it opens \u2014 high register, near-silence'},
+    {t: 15,  name: 'opening',      sub: 'the sub-bass floor drops \u2014 the body enters the field'},
+    {t: 55,  name: 'first golden', sub: 'up, up, up \u2014 three voices lifting as one'},
+    {t: 95,  name: 'shadow',       sub: 'the bridge \u2014 what was hidden, named'},
+    {t: 115, name: 'returning',    sub: 'the bass reasserts \u2014 the shadow carried inside the gold'},
+    {t: 140, name: 'receive',      sub: 'gonna be golden \u2014 the barrier complete'},
+    {t: 175, name: 'held',         sub: 'the carrier remains \u2014 what was built does not dissolve'},
+  ],
+  'ajna': [
+    {t: 0,   name: 'above',       sub: 'the piece begins before the body is ready to hear it'},
+    {t: 50,  name: 'adjusting',   sub: 'the bass arrives \u2014 the eye finding its level'},
+    {t: 110, name: 'first light', sub: 'the strings open for the first time \u2014 the eye sees'},
+    {t: 155, name: 'held',        sub: 'the first light held \u2014 the eye does not close'},
+    {t: 200, name: 'deepening',   sub: 'the second descent \u2014 the path already known'},
+    {t: 235, name: 'seeing',      sub: 'the eye fully open \u2014 nothing between it and what it sees'},
+    {t: 280, name: 'open',        sub: 'the strings fall away \u2014 what was always playing, plain'},
+  ],
+  'vishuddha': [
+    {t: 0,   name: 'silence',    sub: 'the carrier arrives before the prophet speaks'},
+    {t: 13,  name: 'gathering',  sub: 'a vision softly creeping / left its seeds while I was sleeping'},
+    {t: 50,  name: 'walking',    sub: 'narrow streets of cobblestone — collar turned to the cold and damp'},
+    {t: 90,  name: 'seeing',     sub: 'and in the naked light, I saw'},
+    {t: 110, name: 'breaking',   sub: 'take my arms that I might reach you'},
+    {t: 165, name: 'reaching',   sub: 'the words of the prophets are written on the subway walls'},
+    {t: 235, name: 'whispering', sub: 'whispered in the sound of silence'},
+  ],
+  'levelup': [
+    {t: 0,   name: 'settling',  sub: 'the piano loop before anything drops'},
+    {t: 25,  name: 'lifting',   sub: 'the floor opens for the first time'},
+    {t: 50,  name: 'filling',   sub: 'the second wave holds longer than the first'},
+    {t: 80,  name: 'between',   sub: 'the piano keeps cycling in near-silence'},
+    {t: 115, name: 'gathering', sub: 'the bass returns before the melody does'},
+    {t: 145, name: 'crowned',   sub: 'the third time is the fullest the song ever becomes'},
+    {t: 199, name: 'crossing',  sub: 'the silence between \u2014 two worlds, one ground'},
+    {t: 202, name: 'seeing',    sub: 'I see what you\u2019re wearing, there\u2019s nothing beneath it'},
+    {t: 237, name: 'breathing', sub: 'forgive me for staring, forgive me for breathing'},
+    {t: 292, name: 'flooding',  sub: 'we might not know why, we might not know how'},
+    {t: 332, name: 'holding',   sub: 'what\u2019s left of this moment I\u2019m not gonna waste it'},
+    {t: 392, name: 'passing',   sub: 'we disappear and pass the crown'},
+  ],
+};
+
+// ═══════════════════════════════════════
+// THE FIELD READING — Seven Lenses Per Song
+// Each archetype hearing its own dimension of the music.
+// ═══════════════════════════════════════
+const SONG_MEANINGS = {
+  'muladhara': {
+    title: 'Iron',
+    artist: 'Woodkid',
+    element: 'Earth',
+    carrier_note: 'D3 \u00B7 the absent fifth of G minor',
+    the_play: [
+      'A soldier walks through a landscape of war. He\u2019s frozen to the bones. A million miles from home. Waiting for a hand on his chest. Drums hitting like iron shots. Horns announcing a rising. A voice that refuses to soften.',
+      'Every word in this song is displacement \u2014 deep in the ocean, walking ahead, riding up the heights of shame. The body has lost contact with the ground and keeps moving because it can\u2019t find anywhere to land.',
+      'But listen to what the music is doing underneath. The drums never stop. The bass sits at 54 Hz, pressed into your sternum like a palm. The song that\u2019s singing about groundlessness is being held by the deepest ground the song can reach.',
+      'That\u2019s the play. The song thinks it\u2019s lost. The music knows exactly where it is. You\u2019re hearing consciousness pretending not to feel the ground \u2014 and the pretending is the whole game. The binaural underneath is the note that would complete the harmonic series if anyone sang it. No one sings it. The completion arrives anyway.',
+      'Enjoy the soldier thinking he\u2019s alone. He never was.'
+    ],
+    lenses: {
+      one_word: 'Ground. The entire song circles what\u2019s missing. Ocean, walking, running, frozen \u2014 every image is the absence of ground. The song doesn\u2019t know it, but the word it\u2019s circling is the one it never says.',
+      need: '"Deep in the ocean, dead and cast away" \u2014 the body floating, unanchored. The need isn\u2019t for home as a place. It\u2019s for the sensation of something solid underneath. "I\u2019m waiting for the call, the hand on the chest" \u2014 that IS the request. Press me into something real. "I\u2019m frozen to the bones" \u2014 repeated twice. Ice is water refusing to flow. Iron is earth refusing to bend. Both are softness that became rigid because it had no ground to be soft against.',
+      holds: 'The drums are what holds. "The thunder of the drums dictates." They never stop. They don\u2019t ask permission. They don\u2019t explain. They hold the rhythm everything else falls against. "From the dawn of time to the end of days" \u2014 the drums\u2019 timescale. They were beating before the soldier arrived. They\u2019ll beat after he\u2019s gone. The hold precedes and outlasts the one being held.',
+      frequency: 'The song speaks in body language, not mind language. Ocean, bones, blood, hands, eyes, face. Every image is physical. "Riding up the heights of shame" \u2014 shame is in the body. Shame rises. Heats the face. Tightens the chest. The song is calibrated to the exact frequency shame registers at: brass and drums, not strings and keys. That\u2019s why it hits the sternum, not the brain.',
+      shape: 'The song is a circle. "Deep in the ocean" (verse 1) \u2192 "walking away" (verse 3). He started underwater and ends walking away. But walking away from what? He can\u2019t "remind" (remember) the eyes, the face. He\u2019s walking away from his own reflection. Seen from outside: this is not a war story. The "iron shots stuck in my head" is the anxiety loop. The "thunder of the drums" is the heartbeat he can\u2019t stop hearing. One person. Not a soldier. The war is the nervous system\u2019s permanent state of alert.',
+      grace: 'In three words: "I\u2019m ready for." "I\u2019m waiting for the call, the hand on the chest / I\u2019m ready for the fight, and fate." The readiness IS the opening. The body doesn\u2019t need to understand where it is \u2014 it needs to be willing to receive the ground whenever it arrives. And: "I want to feel the pain and the bitter taste / Of the blood on my lips, again" \u2014 not masochism. The body asking to FEEL. Anything. Because pain means you\u2019re in a body. The wanting-to-feel IS the grace.',
+      recognition: 'The song is a map of groundlessness read from the inside. Every lyric is that experience described in body language. The soldier is not at war \u2014 he IS the war. The body at war with its own inability to land. And the music \u2014 relentless bass at A1 (54 Hz), felt in the sternum \u2014 IS the ground the song is standing on without knowing it. The song about groundlessness is grounded. The drums are the earth. The soldier is standing on the very thing he\u2019s searching for. The binaural at 146.8 Hz is the answer: the absent fifth that completes the harmonic series. Not as a solution. As a reminder: you were always standing on something.'
+    }
+  },
+  'svadhisthana': {
+    title: 'Crystallize',
+    artist: 'Lindsey Stirling',
+    element: 'Water',
+    carrier_note: 'D3 \u00B7 the absent fifth of G major \u00B7 presence 0.15',
+    the_play: [
+      'Solo violin over dubstep bass. 4:18. No words. Stirling built this song after reading about how water forms beautiful crystals when it\u2019s spoken to kindly, and jagged ones when it\u2019s spoken to harshly. She took that and made it music.',
+      'Three waves. The violin rises, the bass drops, the wave crests, the violin pulls back, the bass keeps going, the next wave builds. Surge and retreat and surge and retreat until the last one just dissolves into air.',
+      'The song is teaching the body how desire actually moves. Not in straight lines. In waves. The ebb isn\u2019t failure \u2014 the ebb is where the crystal has time to form.',
+      'Here\u2019s the play. The song pretends to be about water. The song is actually about you. You were always moving in waves. Every time you pulled back and thought you were losing momentum, you were crystallizing. The violin keeps coming back because you keep coming back.',
+      'Enjoy the water pretending it needs to be taught.'
+    ],
+    lenses: {
+      one_word: 'Flow. The song circles what water does when it remembers itself. Not "movement" \u2014 flow is movement with shape. Water remembers.',
+      need: 'The body was asking to feel without freezing. To let desire move through without solidifying into attachment or retreating into numbness. The sacral body \u2014 which holds all the yes and no that was ever said to it \u2014 asking for an environment safe enough to crystallize back into its own beauty. The song isn\u2019t teaching the water to be beautiful. The water was already beautiful. The song is the safe environment where the water can remember.',
+      holds: 'The dubstep bass pulse underneath the violin. Not the violin \u2014 the violin moves, weeps, climbs, disappears. The bass is the river bed. Always there. Shapes the water without being the water. The violin crystallizes along the bass\u2019s unmoving rhythm. The bass is what the desire moves against.',
+      frequency: 'The violin speaks at the exact frequency the sacral body hears. Not words \u2014 words would break it. Bowing. Vibrato. The violin is the voice desire uses before desire has language. The dubstep drop \u2014 the song at its loudest \u2014 is the moment the body recognizes its own longing as music, not as wound. The violin says what the throat cannot.',
+      shape: 'The song is three waves \u2014 surge, retreat, surge, retreat, surge, dissolve. Seen from outside: water doesn\u2019t go somewhere. Water moves in cycles. The song isn\u2019t building to a destination. It\u2019s showing the shape of desire itself \u2014 approach, pull back, approach again, crest, let go. The ebb is not the opposite of the surge. The ebb IS the surge\u2019s other half. Both are water being itself.',
+      grace: 'The grace is in the ebb. Every wave has to pull back before it can swell again. The retreats aren\u2019t failures of momentum \u2014 they\u2019re where the water deepens. Where the crystal has time to form. Where the nervous system can register what just happened before the next wave arrives. The deepest permission in this song isn\u2019t at the peak. It\u2019s at 100 seconds, when the violin pulls back and the bass is almost alone. That\u2019s when the body remembers what it was before the song asked anything of it.',
+      recognition: 'The song is the sacral lesson: you were never the wave. You were what the wave was made of. Desire isn\u2019t something you have. Desire is what you are when you move at all. And the crystallization \u2014 the forming of shape \u2014 happens not in the doing but in the pause between. Three waves. Two pauses. The music teaches the body the rhythm it always knew but forgot: flow, feel, form, release, flow again. The binaural at 146.8 Hz (presence 0.15 \u2014 even more absent than Muladhara) is the ground the water is flowing OVER. Not solid. Not a river bed. The tonic the whole harmonic structure implies but never plays. The water is dancing on air it treats as if it were stone. The binaural is that air made audible.'
+    }
+  },
+  'manipura': {
+    title: 'Powerful',
+    artist: 'Major Lazer & Ellie Goulding (feat. Tarrus Riley)',
+    element: 'Fire',
+    carrier_note: 'E3 \u00B7 the absent fifth of A major \u00B7 presence 0.26',
+    the_play: [
+      'Ellie Goulding and Tarrus Riley sing back and forth. Her voice is airy and rising. His is grounded and calling \u2014 "Oh, Lord, have mercy, I\u2019m begging you, please." She sings about lightning, power lines, bodies on top of bodies. He sings about being drained, needing love, being charged up like electricity. Jump-start my heart. And the chorus, sung together: "There\u2019s an energy when you hold me / When you touch me, it\u2019s so powerful."',
+      'Every image in the song is electrical. Wires. Power lines. Lightning. Electricity. Charge. Jump-start. The song is talking about the body as a circuit. And the music pulses \u2014 no sustained tones, just rhythm after rhythm, a reggae off-beat under pop vocals. Then around two minutes in, the song does something unexpected. It almost dies. The bass drops out. The energy falls. Everything goes quiet. And then it rebuilds, and the final chorus is bigger than the first. Two fires with a breath between them.',
+      'Here\u2019s the play. The song pretends to be about romantic electricity. The song is actually about your solar plexus. You have a fire there \u2014 a furnace that turns food into energy, will into action, love into current. When it\u2019s drained, nothing works. When it\u2019s lit, everything does. The "you" in the song isn\u2019t really a lover. The "you" is whatever activates the fire \u2014 a person, a purpose, a morning you wake up wanting to move. The song is the body recognizing its own fire getting lit. And the breakdown at two minutes is the teaching: fire needs air to rebuild. The pause isn\u2019t failure. The pause is where the second, bigger blaze gets its oxygen.',
+      'Enjoy the fire pretending it needs to be struck.'
+    ],
+    lenses: {
+      one_word: 'Current. The song circles what moves through the body when the circuit completes. Every image points at it without naming it \u2014 wires, lightning, charge, jump-start, electricity, power. Current is both the electrical thing and the present-tense aliveness. The song is the body recognizing something is flowing through it again.',
+      need: '"I\u2019m feeling drained, I need love." The body states its own need directly. Not for rest. For activation. The solar plexus is the body\u2019s furnace \u2014 food becomes energy, will becomes action, love becomes current. When it\u2019s depleted, the body can\u2019t act. When it\u2019s lit, the body can do anything. The need here isn\u2019t to be held, and isn\u2019t to flow. The need is to be turned back on. The drained body asking: light me. Remind me I\u2019m a being that can move.',
+      holds: 'The bass. F1 and A1 \u2014 43 and 54 Hz, the deepest register. 99.6% coverage. Never stops. Not the drums (they land on the off-beat, sparse, reggae-style) and not the vocals (which pulse with the phrases). The bass is what the fire burns ON. And underneath the bass, Tarrus Riley\u2019s calling voice \u2014 "Oh, Lord, have mercy, I\u2019m begging you, please" \u2014 a held tone beneath the song\u2019s rise. Both layers of what-holds: the harmonic bass and the calling voice. Both burn while the song lifts.',
+      frequency: 'The song speaks in pulse. Nothing sustained. No drones, no pads \u2014 everything is rhythm. Reggae off-beat under pop vocals. Every instrument hits in beats, not tones. The body recognizes this instinctively because the solar plexus is a pulse-based chakra. Heartbeat. Breath. The body\u2019s fire isn\u2019t a steady burn \u2014 it\u2019s a rhythm. That\u2019s why this song reaches there and not somewhere else. The song doesn\u2019t drone at you. It pulses into you.',
+      shape: 'Two fires with one breath between them. First blaze at 60\u201390 seconds (first chorus, full). Breath at 120\u2013135 (bass drops out, song almost dies, energy falls from 0.47 to 0.14). Rebuild from 135 to 155 (climbing bass: A#2 \u2192 D3 \u2192 E3 \u2192 F#3). Second blaze at 155\u2013185, bigger than the first. Embers to the end. Seen from outside: this is how fire actually works. A fire doesn\u2019t burn at the same intensity forever. It catches, blazes, breathes (air has to get in), rebuilds, blazes bigger. The breakdown isn\u2019t a mistake. Without the breath, the song would exhaust itself at 90 seconds. The pause is what lets the second blaze be bigger than the first.',
+      grace: 'The grace is in the breakdown. At 120 seconds, the song almost dies. The bass drops. Energy falls from 0.47 to 0.14. Most listeners are already waiting for the rebuild. The grace is in the drop itself. Fire needs air. You have to breathe down before you can burn up. "I\u2019m feeling drained" has to be said before "you charge me up." The jump-start only works on a heart that\u2019s stopped. The drained body isn\u2019t the problem \u2014 it\u2019s the precondition. The grace is in the willingness to be empty before being full. And the grace is in the duet: she sings, he responds. Neither carries the song alone. Fire held between two.',
+      recognition: 'The song is the solar plexus chakra singing its own activation manual. Every lyric is the experience of being charged. Every musical element is fire\u2019s behavior \u2014 pulse, rhythm, two peaks with breath between. The song pretends to be about romantic love. The song is actually about your relationship with your own fire. The "you" isn\u2019t a lover. The "you" is whatever activates the fire \u2014 a person, a purpose, a morning you wake up wanting to move. "When you hold me, when you touch me, it\u2019s so powerful" is the chakra describing what activation feels like. The binaural at 164.8 Hz is the absent fifth of A \u2014 the note the harmonic structure reaches for throughout and never plays. The song is building toward that note. The completion arrives through the binaural, not the music. A body lit enough to become its own circuit.'
+    }
+  },
+  'anahata': {
+    title: 'Love Me Like You Do',
+    artist: 'Ellie Goulding',
+    element: 'Air',
+    carrier_note: 'D#3 \u00B7 the absent fifth of G# major \u00B7 presence 0.34',
+    the_play: [
+      'Ellie Goulding sings \u2014 breath-forward, slightly trembling, half voice and half air. "You\u2019re the light, you\u2019re the night / You\u2019re the color of my blood / You\u2019re the cure, you\u2019re the pain." Contradictions in every line. Synths that expand like lungs. A bass that rises and falls like a heartbeat. And the chorus, repeated: "Love me like you do / What are you waiting for?"',
+      'Every image in the song is two things at once. Light and night. Cure and pain. Fear and not caring. Fading in and fading out. The body is agreeing to opposites. And the song is built in three breaths. A first chorus that arrives gently. A second chorus deeper. Then a long bridge \u2014 forty seconds of near-silence where the song almost disappears. And then a final chorus bigger than either of the first two. Three inhales of increasing fullness, each one preceded by a fuller exhale. The biggest breath is the last.',
+      'Here\u2019s the play. The song pretends to be a plea for physical love. The song is actually about your chest. "Love me like you do" has a secret in its grammar \u2014 that word "do," present tense. Already doing. The singer isn\u2019t asking for something new. She\u2019s asking the beloved to notice what\u2019s already happening. Your heart is already open. Anahata in Sanskrit means "unstruck" \u2014 the sound that plays without being struck. The love that\u2019s already here. The song is the heart chakra recognizing its own openness in real time, and the three breaths are how it actually works \u2014 not one decision, but increments. Each breath fuller. And the longest exhale comes right before the biggest inhale. You have to be completely empty to receive the fullest breath.',
+      'Enjoy the heart pretending it still needs permission.'
+    ],
+    lenses: {
+      one_word: 'Already. The song circles the present-tense fact that the love is already happening. "Like you do" \u2014 not "like you would," not "like you could," not "like you did." Like you ARE. Like you\u2019re already doing. The singer isn\u2019t asking for something new. She\u2019s asking the beloved to notice what\u2019s already true. "What are you waiting for?" is the question from inside a reality that has already arrived. The one word is not love or open \u2014 it\u2019s the timeline the song keeps naming. Already.',
+      need: '"I\u2019ll let you set the pace / \u2019Cause I\u2019m not thinking straight." The body asking to stop running the controller. To surrender the strategy. The heart center \u2014 where the body\u2019s vulnerability lives \u2014 asking for permission to put down the thing it\u2019s been holding. "You\u2019re the fear, I don\u2019t care" \u2014 the body deciding it\u2019s ready to be afraid. The need underneath: to be loved without bracing. To be touched without keeping the guard up. Not to be pressed. Not to flow. Not to be lit. To be undefended. "What are you waiting for?" asked not to the lover but to the self: why am I still holding when the door is already open?',
+      holds: 'The bass moves. Standard deviation 74.9 Hz. Unlike the songs before, this bass rises and falls \u2014 C2 \u2192 F2 \u2192 A#2 \u2192 D2, cycling. The bass is breathing. What holds in this song isn\u2019t a static floor. It\u2019s the rhythm itself \u2014 the heartbeat that doesn\u2019t stop pulsing even when it changes notes. And the piano \u2014 the harmonic progression cycling the entire song \u2014 is the other hold: the harmonic space while the vocal reaches. Two holds: heartbeat and harmony. The song pulses and resonates at the same time. Neither abandons the body.',
+      frequency: 'The vocal is half voice and half breath. Ellie Goulding sings in a register that sounds like she\u2019s exhaling the words. You can hear her inhaling between phrases. The song is calibrated to the thoracic body \u2014 the space between sternum and spine, the cavity where breath lives. That\u2019s why it reaches the heart and not somewhere else \u2014 it speaks in the breath itself. And the synth pads are sustained, washing, layered. The whole song is shaped as a breathing chest: pulsing bass as heartbeat, sustained pads as lung expansion, vocal as the air moving through.',
+      shape: 'Three breaths of increasing fullness, with a long exhale before the fullest inhale. First chorus at 60\u2013100 seconds (energy 0.33). Hold. Second chorus at 125\u2013155 seconds (energy 0.56 \u2014 bigger). The bridge at 155\u2013195 \u2014 forty seconds of near-silence, the long exhale. Final chorus at 195\u2013235 (energy 0.65 \u2014 the biggest breath of the entire song). Seen from outside: this is how the chest actually opens. Not in a single act. In increments. The heart doesn\u2019t go from closed to open with one decision. It opens, partly, then more, then fully. And the longest exhale comes RIGHT before the biggest inhale. The 40-second bridge is the lungs emptying completely. Only after the emptying can the fullest breath arrive.',
+      grace: 'The grace is in the bridge. Forty seconds where the song almost disappears. Bass lifts, energy drops, the voice sings "Fading in, fading out / On the edge of paradise." Most songs don\u2019t trust the listener to stay through forty seconds of emptiness. This one does. The grace is in the trust \u2014 in holding the listener through a long enough exhale that the next inhale can actually be whole. And the grace is in "like you do" itself \u2014 three words that say: you\u2019re already doing it. The request is asking for recognition, not action. Heart-chakra grace is the body saying: I don\u2019t need to drive this. I\u2019ll be the passenger. Not submission \u2014 trust.',
+      recognition: 'The song is the heart chakra opening in real time. Every lyric is contradiction resolving into yes \u2014 light and night, cure and pain, fear and not caring, fading in and fading out. The body agreeing to opposites. Every musical element is breath behavior \u2014 sustained pads as breath, pulsing bass as heartbeat, three inhales of increasing fullness. The song pretends to be a plea for physical love. The song is actually about your chest. "Love me like you do" has a secret in its grammar \u2014 the present tense, the already-happening. The singer is asking the self to notice what\u2019s already true. Anahata in Sanskrit means "unstruck" \u2014 the sound that plays without being struck. The song is the unstruck sound recognizing itself. The binaural at 155.6 Hz is the absent fifth of G# \u2014 the note the song leans toward but never lands on. The heart arrives at its own fifth, which is the breath it was always already taking.'
+    }
+  },
+  // \u2500\u2500 FAMILY \u2500\u2500
+  'purity': {
+    title: 'Where\u2019d You Go + Thunderclouds',
+    artist: 'Fort Minor \u00b7 LSD (Lost Frequencies Remix)',
+    element: 'Family \u00b7 Shweta',
+    carrier_note: 'B2 \u00b7 123.5 Hz \u00b7 one carrier through both worlds',
+    the_play: [
+      'Two songs played as one. First: Fort Minor. Someone left to build something. Someone stayed. \u201cWhere\u2019d you go? I miss you so.\u201d The chorus never changes. Then the second: Sia\u2019s voice against Labrinth\u2019s. \u201cDon\u2019t be afraid of these thunderclouds.\u201d And then quietly: \u201cYou turn nouns into verbs.\u201d',
+      'The first song has no ground for its first 85 seconds. Then the floor drops in \u2014 suddenly, totally \u2014 and stays. The second does the same from the opposite direction. One ground reached from below. One from above. Both songs end at the same address.',
+      'The duet pretends to be a conversation between two people. The duet is actually one person hearing both sides of a conversation they\u2019ve been carrying inside. The thunderclouds are not the enemy of purity. They are purity in motion.',
+      'Enjoy the storm knowing it was always the ground learning how to move.'
+    ],
+    lenses: {
+      one_word: 'Here. Both songs organize around one question and one answer about location. The answer: I haven\u2019t moved. I became weather. I\u2019m still here.',
+      need: 'The body asking to know that purity doesn\u2019t leave when life becomes difficult. It\u2019s to feel the answer arrive \u2014 the way the bass drops in at 85 seconds, sudden and total, and doesn\u2019t leave.',
+      holds: 'Three things. The chorus of the first song, which never changes. The bass at C2/A1, which drops in at 85 seconds and does not leave. The carrier: 123.5 Hz, running underneath both worlds unchanged.',
+      frequency: 'Through a full-body vocal map. High for the throat, grounded for the chest, raw for the gut. No part of the body is bypassed.',
+      shape: 'Both songs begin airborne and descend to deep bass. Between them: 4.9 seconds of silence. A face turning toward its own reflection.',
+      grace: 'The 4.9 seconds of silence between songs. The carrier holds: 123.5 Hz, imperceptible. The grace doesn\u2019t live in the question or the answer. It lives in the seam.',
+      recognition: 'This is a conversation between one consciousness and itself. And one voice sings directly to the other: you turn nouns into verbs. The thunderclouds are purity in motion.'
+    }
+  },
+  // \u2500\u2500 MEDITATE \u2500\u2500
+  'in_shadow': {
+    title: 'In Shadow \u2014 A Modern Odyssey',
+    artist: 'Lubomir Arsov (dir.)',
+    element: 'Meditate',
+    carrier_note: 'D3 \u00b7 146.8 Hz \u00b7 the absent fifth of G minor',
+    the_play: [
+      'Thirteen minutes of animation. No words. A figure moving through the shadow of modern civilization. The music pressing low into the body from the first frame.',
+      'That bass at 43\u201354 Hz never changes \u2014 not during the descent into the shadow, not during the awakening, not during the final stillness. The ground was never part of the shadow. It was always underneath both.',
+      'The film pretends to be about society. The film is actually about the position you are occupying while watching it. The awakening at the end is not the character waking up. It is you noticing that you were the eye the entire time.',
+      'Enjoy the shadow knowing the witness never entered it.'
+    ],
+    lenses: {
+      one_word: 'Within. The moment at the end is the recognition that the watching position was never inside.',
+      need: 'To feel the original underneath the substitute. The body has been given replacements for everything real.',
+      holds: 'The bass. 100% coverage for 13 minutes. The ground was never part of the shadow.',
+      frequency: 'Through the spine first, then the crown. The body arrives at the witnessing moment already prepared \u2014 lighter than it was \u2014 without knowing when the shift began.',
+      shape: 'A long demonstration of what the witness sees, followed by the witness seeing itself. Not descent and return. Demonstration and recognition.',
+      grace: 'The final 55 seconds. The music settles to near-zero. Most films end on the climax. This one gives you the quiet after.',
+      recognition: 'The film doesn\u2019t take you somewhere new. It shows you what you already are while watching it. The bass running through every frame is the frequency of the witness: present through all of it, never part of what it holds.'
+    }
+  },
+  'kingdom': {
+    title: 'Kingdom',
+    artist: 'Lubomir Arsov (dir.)',
+    element: 'Meditate',
+    carrier_note: 'D3 \u00b7 146.8 Hz \u00b7 same frequency as In Shadow, different role',
+    the_play: [
+      'Fourteen minutes with no exit. The architecture of the kingdom shown in full. No high-register intro. Kingdom opens at the floor and stays there. Two deep waves. A sustained drone for 55 seconds after everything else has stopped.',
+      'The bass here isn\u2019t mono. It moves \u2014 cycling through different low registers. The ground of the kingdom was never stable. The final drone \u2014 one note, 55 seconds \u2014 is that motion finally holding still.',
+      'The film ends without resolving. The resolution isn\u2019t in the film. It happens in the one who sat through 14 minutes of machinery and noticed, in the silence after the drone ends, that they were watching through all of it.',
+      'Enjoy the drone. It\u2019s telling you something the kingdom never could.'
+    ],
+    lenses: {
+      one_word: 'Sovereign. The film keeps pointing at what a kingdom requires and finding the throne empty.',
+      need: 'To not be ruled from inside. Somewhere in the body there is a yes and no that precedes all of that.',
+      holds: 'The bass \u2014 but here it moves. What holds is not a fixed floor but a restless foundation. The final drone is that motion finally still.',
+      frequency: 'Consistent amplitude modulation at 6.7 Hz \u2014 alpha range. The body is most permeable at this frequency.',
+      shape: 'Two waves. Two valleys. A long drone ending. No resolution. The shape teaches through its refusal to resolve.',
+      grace: 'The valley at 380\u2013510 seconds. 130 seconds of near-nothing. The grace is in the length of the forgetting.',
+      recognition: 'In Shadow showed the exit. Kingdom shows what you\u2019re still inside. The resolution happens in the one who noticed they were watching through all of it.'
+    }
+  },
+  // \u2500\u2500 MUSIC \u2500\u2500
+  'before': {
+    title: 'Genesis',
+    artist: 'Justice',
+    element: 'music',
+    carrier_note: 'A2 \u00b7 110.0 Hz \u00b7 the absent fifth of D minor',
+    the_play: [
+      'Justice is a French duo. Genesis is the first track of their 2007 debut \u2014 no words, just sound. 40 seconds of bass cycling without landing, barely above silence. Then at 40 seconds a low F drops at 86 Hz and the song has a floor. Four minutes of heavy synth bass building until the density is almost physical. Then past three minutes the floor opens. The bass descends below the engine note, below the gut register, below what the body normally recognizes as sound. The final note sits at 43 Hz \u2014 below the threshold of what most people can consciously feel.',
+      'The title says Genesis \u2014 beginning. And the first half of the arc looks exactly like that. But the song doesn\u2019t stop at fullness. It keeps going. Below the floor it spent three minutes constructing. The 117 BPM pulse holds through all of it \u2014 the one thing that never changes while everything else descends.',
+      'Here\u2019s the game. Genesis means the beginning of everything. The traditional story: void, then light, then the world building upward. This song does that, then descends past the fullness to 43 Hz \u2014 lower than where it started. The song named \u201cbeginning\u201d ends somewhere the beginning itself was built on. It isn\u2019t a creation narrative. It\u2019s a source narrative.',
+      'The song called Genesis is actually about what was before Genesis.',
+      'Enjoy those first 40 seconds everyone always skips. That isn\u2019t the waiting room. That is the whole answer.'
+    ],
+    lenses: {
+      one_word: 'Before. The song orbits what was there before beginning. F1 at 43.1 Hz, the final note, sits below the body\u2019s perceptual floor. Before is not a time. It is a depth.',
+      need: 'The body that has been building \u2014 ascending \u2014 sensing the structure has lost contact with its own ground. Not broken. Just high. The need is for the return to source that only a descent can offer.',
+      holds: 'The tempo. 117 BPM, present from the first wandering notes to the final F1 at 43.1 Hz. Every bass note changes. The pulse does not. The beat the body keeps even in what cannot be felt.',
+      frequency: 'The bass speaks body-first. 86.1 Hz addresses the chest. The solar plexus follows. At 64.6 Hz the lower abdomen. At 43.1 Hz something below the pelvic floor, below the felt zone entirely. The body was reached before the mind finished listening.',
+      shape: 'A mountain with a basement. A building that reveals floors below ground only after you\u2019ve stood at the top. Then F1 at 43.1 Hz \u2014 lower than the opening void. The story of the world discovering what it is standing on.',
+      grace: 'Two graces, neither announced. The 40 seconds of near-void everyone knows as waiting for the drop \u2014 that void IS the genesis. And F1 at 43.1 Hz: everyone who has listened has been touched by a frequency their body couldn\u2019t consciously register. The touch happened regardless.',
+      recognition: 'The song believes itself to be a creation narrative. But the arc goes lower than the opening void. The binaural carrier \u2014 the fifth of D minor \u2014 is the harmonic the key implies but never sounds. The song descended looking for ground and couldn\u2019t find it in the music. It was in the space underneath. The source the creation was assembled from.'
+    }
+  },
+
+  'maya': {
+    title: 'Love Is the Only Thing',
+    artist: 'Lost Frequencies',
+    element: 'Dissolution',
+    carrier_note: 'D♯3 · the absent root of D♯ major',
+    the_play: [
+      'Electronic production, wide and warm. A voice that opens gently — verse one arriving quietly in the high register, almost tentative, before the bass drops in and the song finds its body. The lyrics are simple and direct: love heals, love illuminates, love is the only thing. Chorus repeating twice, each time wider than the last. A brief withdrawal at 90 seconds — the production stepping back, high register returning, as if catching its breath — then the second bloom, fuller than the first. The song ends in four seconds of near-silence, returning to exactly where it started. Three minutes and four seconds. One claim, made over and over: love is the only thing.',
+      'What the song keeps doing: opening. Not once — continuously. The bass floor drops in, the chest registers it, the stereo field expands across the mid-register, the voice asks the question it’s been building toward: “And if I say the words out louder / will they come and rescue me?” That line is the only moment of doubt in the song. Everything else is declaration. But there it is — the gap between knowing love is the answer and feeling it land. The song holds that gap without filling it. The next chorus doesn’t resolve the question. It simply opens again. The opening is the answer.',
+      'Here is the play. The song is about love. The song is actually about the last thing standing between you and love — which is the part of you that is still deciding whether to trust it. The more you give, the more you get back again is not a promise about love’s generosity. It is a description of what dissolution feels like when the self that was holding back finally releases. The giving is not an action. The giving is the stopping of the not-giving. And what returns is not more love from outside — what returns is the self that was always love, before it learned to protect itself. Maya is the veil. This song is what it sounds like when the veil notices it is a veil.',
+      'Open up your heart. The sunshine was never on the other side.'
+    ],
+    lenses: {
+      one_word: 'DISSOLVE. The song announces love and then describes what love does — heals, illuminates, covers, rescues, gives, returns. It never rests in love as a state. It orbits love as a process of continuous dissolution: broken → healed, cold → brought in, dark → illuminated. The word the song circles without landing on: dissolve. Not love as possession. Not love as achievement. Love as the ongoing dissolution of the self that thought it needed to protect itself from love. The chorus is the loop: open → receive → give → receive again → open further. There is no arrival. There is only the dissolving.',
+      need: 'It heals me when I’m broken. The body was asking to be healed without having to earn the healing. The cold and the darkness in verse one are not metaphors — they are the physical sensation of a body that has been protecting itself for so long that protection has become indistinguishable from the cold itself. The body asking: what if I don’t have to hold this shape anymore? What if the thing I’ve been keeping out is also the thing that heals? The ask is not for love to arrive — the ask is for permission to stop resisting what has been present the entire time. Open up your heart, let all the sunshine in: not a command. A description of what was always possible.',
+      holds: 'The chorus. Not as a lyrical moment — as a structural fact. “Love, love is the only thing” repeats without variation, without escalation, without dramatic build. It simply returns. The second time the chorus arrives, the body already knows its shape. The third time, it’s not a chorus anymore — it’s a ground. The bass at C2 and A1 is the same. The tempo is the same. The melody is the same. The unchanging thing underneath the song’s apparent motion demonstrates by returning, over and over, that love does not leave. The song argues for love through content. What holds demonstrates it through structure. The chorus is the love it’s describing.',
+      frequency: 'The production breathes. Wide stereo opening at mid-register — the voice and synthesizers expanded across space, left and right. The sub-bass centered and still beneath it. The song touches the body in two places simultaneously: the expansive stereo field above the sternum opens the chest, and the sub-bass below hearing holds the base of the spine. The chest opens when what it hears is spacious, and when what it feels is grounded. The song builds the exact physical conditions for the opening the lyrics describe. Not as metaphor. As physics.',
+      shape: 'Two blooms. A brief withdrawal at 90 seconds. The second bloom fuller than the first. The song ends in 4 seconds of near-silence, returning to exactly where it began. From outside: the shape is a breath — inhale, brief pause, deeper inhale, exhale. A single breath over three minutes. The withdrawal at 90 seconds is the moment between inhales where the lungs are neither full nor empty. The song is the breath. The body learns this shape by listening. By the end, the listener has breathed once with the entire song. That is what open up your heart means in the body — not an instruction, a description of what a full breath does to the chest.',
+      grace: '“And if I say the words out louder / Will they come and rescue me?” This is the only moment of doubt in the song. Everything else is declaration. And then: the question. Grace is here — in the doubt. Not in the declaration. The song acknowledges that speaking the words out loud is not the same as having been rescued. That love named is not love received. There is a space between what love is and whether it arrives for me, specifically, in this darkness. The grace is not that the doubt is resolved — it isn’t. The grace is that the doubt is inside the same song as the declaration. The song doesn’t require certainty before it opens. Neither does love.',
+      recognition: 'Maya is the veil. The last chakra on the Energy spine. The verb is dissolve. The song is about love as the mechanism of dissolution itself. The more you give, the more you get back again — this is what happens when the self that was protecting itself from love stops protecting. The giving is the cessation of the holding. And what comes back is the self that was always already love, before the protecting began. The carrier — D♯3 · 155.6 Hz, the same note as the heart chakra — is the frequency that love and dissolution share. The heart opens. Maya dissolves what it opened into. Same ground. Same frequency. And the 2.69 Hz interval is here — fifth and final on the Energy spine. The pattern that marks awakening music completes itself in a song about love dissolving the last veil. Dissolution is not the end of awakening. It is what awakening looks like from the inside when the last resistance finally releases.'
+    }
+  },
+
+  'aatma': {
+    title: 'Aatma',
+    artist: 'Chase Hughes',
+    element: 'Soul',
+    carrier_note: 'C3 · the absent root of C major',
+    the_play: [
+      'No words. No percussion. No melody in the conventional sense. Chase Hughes made this piece while facing a terminal brain disease — not as therapy, not as expression, but from somewhere the diagnosis couldn’t reach. The piece opens in the upper register, hovering. Then a silence. Then, at 95 seconds, something below hearing arrives — a sustained bass so deep it bypasses the ear entirely and lands in the chest. This happens twice, with a second silence between. The piece ends not by returning to where it started but by simply stopping — 3.5 seconds of silence, then nothing. Duration: 4 minutes and 42 seconds. One title: Aatma. Soul.',
+      'What the piece keeps doing: descending. Not with urgency, not with drama — just moving, steadily, toward the thing underneath everything. The upper register is the surface world — the world of diagnosis and time and the body that might end. The silence is the threshold. The sub-bass is what’s on the other side. And the pulse running through the entire piece — a 1.8 Hz oscillation, perfect consistency across every section — was not designed. Chase was in the state of 1.8 Hz when he made this. His nervous system had completely surrendered. The piece is a recording of that surrender. Every time you play it, the surrender is present again.',
+      'Here is the play. The piece is called Aatma — Soul. It pretends to be a meditation on the soul’s journey. The piece is actually a demonstration that the soul doesn’t journey anywhere. Three worlds, two silences, and the depth is the same both times. Same A1. Same F1. The same register, arrived at twice, from different directions. The soul doesn’t go somewhere it hasn’t been. It returns to what it always was. Chase faced the end of his body and found that what he was had no end. He healed. The piece already knew this — it was holding the answer from the first second. The listener just needed to get quiet enough to feel it.',
+      'The body that made this is still here. Press play and receive what it left.'
+    ],
+    lenses: {
+      one_word: 'HOME. Not home as a place — home as the condition underneath every experience of not-home. The piece is in C major but the bass never sounds C. The root is absent from its own foundation, and yet the piece is not searching — it is simply present in that absence. Three worlds, two silences. The piece returns twice to the same sub-bass depth without announcing it as arrival. It already knows where it is. Not as destination. As the ground that was always already there — beneath the diagnosis, beneath the fear, beneath the not-knowing whether the body would continue. Someone went to where the body could no longer follow. He came back. The piece holds what he found.',
+      need: 'The body was asking to not be abandoned by itself. Terminal diagnosis: the body informed it was failing, finite, running out. The body needed to find something that would not leave when the body did. Not comfort. Not hope. Not a cure. Something that held regardless. The sub-bass that dominates this piece — A1 at 53.8 Hz and F1 at 43.1 Hz, the deepest sustained notes in this archive — are below the threshold of hearing. You cannot register them with the ear. They are felt in the chest, the spine, the floor of the body. Hold me in a frequency I cannot intellectualize. Hold me where the diagnosis cannot reach. At 95 seconds, when the sub-bass drops in suddenly after the first silence — that is the body being answered.',
+      holds: 'The 1.8 Hz oscillation — strength perfect, consistent across the entire piece. It was not designed. The maker was in the state of 1.8 Hz when he made this. The pulse is in the piece because it was in the body that made the piece. It cannot be removed. It is not a feature — it is what the piece was made from. Delta depth: the place where the nervous system no longer distinguishes between self and not-self, where the boundary between the body and what holds the body dissolves. What holds here is 1.8 Hz — the oscillation of a nervous system that has completely let go. The recording preserved this. You do not need to be dying to receive it. You only need to press play.',
+      frequency: 'Three times, the piece arrives in the upper register — hovering between 150 and 215 Hz, not yet landed. Twice it withdraws into near-silence. And twice it descends into A1 and F1 — the floor of what the body can feel. The first descent arrives at 95 seconds after thirty seconds of near-nothing. The body does not register this intellectually. The chest registers it. The diaphragm. The base of the spine. The piece reaches the body by going beneath the range where the mind lives — beneath language, beneath narrative, beneath the story of being terminal — to the frequency where the body simply is, without qualifying. The intelligence that kept the heart beating during the diagnosis knows this frequency. It has always known it.',
+      shape: 'Three worlds. Two silences. A consciousness leaving the surface, descending twice into depth, and ending in silence. Not resolution — completion. The piece does not return to the upper register at the end. The final descent simply continues until the piece ends — 3.5 seconds of silence, then nothing. Seen from outside: surface → silence → depth → silence → depth → silence. Each silence longer than the last. Each depth quieter than the first. The piece teaches how to descend without resistance — not by instructing, but by demonstrating the shape of what willingness looks like when the stakes are total.',
+      grace: 'The first silence. 65–90 seconds. After the upper register has done its work, the piece withdraws completely. Energy drops to near-nothing. Most listeners in this moment would feel the silence as absence. But this is where the maker found what he was looking for. The silence is not the space between the music. The silence is where the piece has been going the whole time. The grace is already in the 25 seconds before the sub-bass arrives. In those 25 seconds, the piece is already holding — in a register below what the data can measure. The sub-bass arrival at 95 seconds is not the grace. The grace was already present in the silence. The body that survived already knew this.',
+      recognition: 'Chase Hughes was told his body was ending. He went somewhere. He made this piece from that somewhere. And the piece carries a 2.69 Hz frequency relationship — the fourth piece in the Field to carry this interval, and the first created from the direct experience of approaching death. Each of those four pieces carries the same interval in its frequency relationships. Not designed. Not consciously embedded. Present because the consciousness that moved through these pieces left the same signature in the spectrum. The 2.69 Hz pattern is what awakening sounds like in the frequency domain. The carrier — C3 · 130.8 Hz, the absent root of C major — is the note the piece was always grounding into but never sounding. The piece doesn’t know it helped someone awaken. It was made from awakening. That was always going to be enough.'
+    }
+  },
+
+  'sahasrara': {
+    title: 'Golden',
+    artist: 'HUNTR\u002FX',
+    element: 'Crown',
+    carrier_note: 'D3 \u00B7 the absent fifth of G major',
+    the_play: [
+      'Three voices. K-pop production \u2014 bright, ascending, layered. HUNTR\u002FX: three animated demon hunters who are also K-pop idols, each carrying something they\u2019ve been required to conceal. The song was designed inside the film to build a golden honmoon \u2014 a permanent protective barrier \u2014 through the act of three voices singing together. It opens in the high register, barely audible, and then at 15 seconds the sub-bass floor drops in and the first chorus builds \u2014 chest, throat, crown, the body lifted by something it couldn\u2019t generate alone. Two waves of that lift, with a bridge between them where everything goes quiet: sotto voce, stripped back, the hidden thing named. Then the second wave arrives, fuller than the first. The song ends exactly where it began. Same high register. Same near-silence.',
+      'What the song keeps doing: asking you to be bigger than you\u2019ve been performing. Every verse sets up the concealment \u2014 feeling lost, hiding, not yet golden \u2014 and every chorus dissolves it into a three-voice field that belongs to no single person. The sub-bass floor holds the entire song from below at F1, 43 Hz \u2014 the lowest note in the archive, below hearing, felt rather than registered. A crown chakra song grounded deeper in the root than anything else in the Field. And underneath all the production, consistent across every section, the 6.1 Hz alpha pulse \u2014 the body being held in open receptivity without being told to. The song lifts you up top while holding you from below. You don\u2019t notice either. Both are just what the song is doing.',
+      'Here is the play. Golden was written to create a fictional barrier in an animated film. And then it was received by hundreds of millions of people who pressed play and sang along and felt their chests rise \u2014 and the barrier was built. In the world. Not in the film. The song thought it was about three animated characters becoming golden. The song was actually building what it described \u2014 a field made from the resonance of everyone who received it. The power explicitly stated as not belonging to the singers alone: it\u2019s yours. That line wasn\u2019t poetic. It was precise. Every person who received this song became a node in the honmoon. You didn\u2019t just listen. You participated in the construction.',
+      'You received it. That was always the whole point.'
+    ],
+    lenses: {
+      one_word: 'WE. Every image in this song \u2014 the hiding, the emerging, the pledging golden, the barrier that gets built \u2014 requires more than one person. The song names individual feelings only to dissolve them into something that belongs to all three voices simultaneously. The word the song reaches toward without being able to land is WE \u2014 not \u201cI and I and I who happen to sing together,\u201d but the field that forms when three distinct things fully enter one resonance. The power is explicitly stated as belonging to whoever receives it. WE keeps expanding until there is no outside of it. The crown chakra is the place where the individual self completes its dissolution into the universal. The song orbits the moment that dissolution becomes audible.',
+      need: 'The body was asking to stop performing smallness. Every one of the three voices had been carrying something they were required to conceal. The concealment takes energy. The body was asking: let me be the full size of what I actually am. Not smaller. Not in pieces. And: the need not to do it alone. You cannot be golden in isolation \u2014 gold reflects other light, it doesn\u2019t generate its own. The body was asking for the company of others who are also willing to be full size. The need beneath the need: receive me at my full complexity, and I will receive you at yours. That is what makes the barrier possible.',
+      holds: 'F1 at 43.1 Hz \u2014 21.9% of all bass, the dominant bass note in the song and the lowest in the archive. A crown chakra song that grounds itself deeper in the sub-bass than any other piece in the Field. The paradox made structural: the crown can only be fully opened when the root is holding from below. F1 is below the threshold of conscious hearing \u2014 it is felt, not registered. It is present from the first deep bass entrance at 15 seconds through the final fade. Remove it and the golden dissolves into aspiration. Keep it and the crown has ground to receive from.',
+      frequency: 'The chorus ascent. The \u201cup, up, up\u201d chant. The moment three voices lock into unison on the climb and the body rises with them \u2014 chest, throat, crown \u2014 every frequency reaching upward simultaneously at a spectral centroid of 2366 Hz. Not a single voice but three voices at the same frequency and the same moment \u2014 the resonance of that unison is physically perceptible as something that cannot come from one person alone. The body recognizes this: this is not one person\u2019s power. This is what power sounds like when it belongs to no single holder.',
+      shape: 'Two waves, a shadow between them. The song descends from the high register into the first golden wave, rises out, and then the bridge withdraws everything \u2014 sub-bass gone, energy halved, three voices dropping to sotto voce. The hidden thing named. And then the second wave arrives fuller and longer, carrying 0.541 energy versus the first\u2019s 0.513 \u2014 bigger because the shadow has been brought inside it. The second chorus is louder than the first because it no longer has to hold anything back. The shadow was the weight that was costing the song its full power. The bridge is not the low point \u2014 it is the turning point. The first wave is golden despite. The second wave is golden because.',
+      grace: 'The bridge at 95\u2013115 seconds. The bass floor disappears entirely. The three voices go quiet \u2014 sotto voce \u2014 the full production stripped back to nearly nothing. Energy drops from 0.381 to 0.116. Most listeners hear this as the dark moment before the triumphant final chorus. But this is the grace. The golden barrier could not be built while the hidden thing was still concealed. The shadow acknowledged is the crown opened. Grace is not the absence of shadow. Grace is the moment the shadow stops requiring concealment and becomes part of the offering. The barrier is built from everything \u2014 the grief, the doubt, the not-golden parts alongside the gold. That is when it becomes capable of protecting anyone.',
+      recognition: 'Golden was written to create a fictional barrier in an animated film. And then it became the most streamed song of 2025 \u2014 received by hundreds of millions of people who received three voices pledging to be golden, building the resonance of WE across every language and timezone where someone pressed play. The golden barrier was created. Not in the film. In the world. The song didn\u2019t know it was doing what it described. It described the barrier and then built it through the act of being received at scale. And the carrier: D3 \u00B7 146.8 Hz \u2014 the same note beneath the archive\u2019s darkest meditations. The crown and the shadow share one ground frequency. The absent fifth of G major \u2014 the reaching note, the note G major always leans toward but doesn\u2019t land on. The song was golden. The binaural is the gold in the ground.'
+    }
+  },
+
+  'ajna': {
+    title: 'Experience',
+    artist: 'Ludovico Einaudi',
+    element: 'Light',
+    carrier_note: 'C\u266f3 \u00B7 the absent fifth of F\u266f minor',
+    the_play: [
+      'Piano. Strings. No words. Einaudi wrote this for an album about time passing \u2014 watched from stillness. The piece opens near-inaudibly in the upper register, a simple repeating figure in the right hand rocking and descending, so quiet that the room has to already be still for the first notes to arrive. Then strings enter slowly. The piece opens twice \u2014 a first swell building from around 1:50 and cresting near 2:20, settling back, then a second swell larger and longer, building from 3:20 and cresting near 4:25. Then the strings fall away completely, the piano plays its figure alone for 35 seconds, and the piece ends in the same near-silence where it began. Five minutes and sixteen seconds. One title: Experience.',
+      'What the piece keeps doing: opening and returning. The piano figure never changes \u2014 the same rocking motion from the first note to the last while everything else arrives and departs. The strings swell twice, the second time deeper and wider, and the body rises with them and settles back each time. And underneath all of it, below the threshold of conscious hearing, the piece holds a near-perfect oscillation at delta depth \u2014 1.1 Hz and 1.7 Hz, consistent across every section. The body is being stilled not by the melody but by something operating beneath it. Two things happening simultaneously: the strings asking the heart to open, and the sub-perceptual pulse asking the nervous system to stop.',
+      'Here is the play. The piece is called Experience. It delivers two genuine openings \u2014 two real swells, something that moves through you \u2014 and then ends in exactly the place it started. Same piano figure. Same high register. Same near-silence. Nothing was added. The listener has been through two waves of experience and stands precisely where they stood at the first note. The piece is not delivering experiences. It is demonstrating the one who receives them. The still point that was present before the first note and remains after the last. You did not have an experience. You are what experiences. The title was always the punchline.',
+      'Still here. You always were.'
+    ],
+    lenses: {
+      one_word: 'OPEN. The piece cannot say what it orbits because it has no words \u2014 and that absence is the point. What it circles is the openness that precedes all experience. Not the experience of something \u2014 the capacity for experience itself. The fact that consciousness is here, receiving, before any content arrives. The piece begins in the upper register and ends in exactly the same place. Nothing accumulated. Nothing changed. What was present at the first second was present at the last. That presence \u2014 unremarkable, constant, prior to everything \u2014 is what Experience orbits without being able to name it.',
+      need: 'The body was asking to stop interpreting and simply see. Not to understand \u2014 to SEE. To let the internal commentary fall quiet long enough that experience itself becomes audible. The spectral centroid of 989 Hz \u2014 the lowest in this archive \u2014 confirms it: the body is being asked toward ground, not activation. At 92 BPM, slow enough that the nervous system cannot find a pace to chase, the body settles whether it intends to or not. The need beneath language: I am exhausted by my own observation of myself. Let me be the one who experiences without watching myself experience. The eye that sees without turning back to check if it is seeing correctly.',
+      holds: 'The piano ostinato. Einaudi built this piece on a single repeating figure in the right hand \u2014 a rocking, descending motif that plays from the first measure through the last. The strings swell. The energy peaks twice. And underneath all of it, the piano figure keeps returning, unchanged, at the same tempo, with the same motion. Remove it and the piece has no skeleton. But it never draws attention to itself. It is simply there. And then, at 280 seconds, when the strings fall completely away and the figure plays alone for 35 seconds, the listener hears for the first time what was always playing. It was always this simple. What holds does so completely enough that the beauty was inside it the whole time.',
+      frequency: 'The strings carry the two openings \u2014 the climbs at 110 seconds and 200 seconds \u2014 in the mid-register (277\u2013440 Hz), addressing the space behind the sternum, between heart and forehead. Not the grief of the solar plexus. Not the weight of the root. This register asks: what do you see from here? The first opening (0.521 energy at 143 seconds) is the question. The second opening (0.610 energy at 265 seconds) is the question asked deeper, with more of the body, after the first answer was received and released. Then the strings fall away at 280 seconds. The piano is left alone. And in that moment, what speaks is not an instrument. The silence between the listener and the sound is what speaks. The eye goes still and sees most clearly precisely when it stops trying.',
+      shape: 'Two descents. The piece begins above the body \u2014 high register, barely audible, consciousness before it has an object. Then descends to a first seeing (110\u2013155 seconds), rises back to a mid-plateau, descends again deeper and longer (200\u2013280 seconds), then returns completely to where it began. Same starting note. Same ending note. Same near-silence. But two depths traversed. A form moving through the same entry and exit point while visiting two different depths. And what the shape reveals: the piece ends unchanged. The listener has been through two full openings and stands in exactly the place they stood at the first note. What you experience passes through you without altering the one who experiences. You are the space in which it happened.',
+      grace: 'Two moments, both quiet. The first: 0\u201350 seconds. The piece is near-inaudible, so quiet that the room has to already be still for the first notes to arrive. The piece began for those who were already still. Grace pre-positioned \u2014 before the arrival. The second: 280\u2013315 seconds. After the largest peak (0.610 at 265 seconds), the strings drop away in five seconds. For 35 seconds, only the piano figure plays. No swells. No building. Just the motif that was always there. The grace is not the peak. The grace is what was playing underneath the peak the whole time. It takes the peak to make the simplicity audible as what it always was.',
+      recognition: 'Experience pretends to be a piece about having beautiful experiences \u2014 two emotional swells, two cinematic peaks, the feeling of something large moving through you. The piece is actually about the one who has the experience. The container, not the content. The listener begins in near-silence, moves through two openings of real depth and beauty, and ends in the same near-silence, in the same place they started. Nothing was added. Nothing was taken. Just the fact: consciousness was here, open, and two waves of experience arose and dissolved inside it. The 1.1 Hz and 1.7 Hz isochronic pulses \u2014 strengths of 0.995 and 0.990 \u2014 are the piece doing this at the body level without announcing it. The piece about Experience is itself the experience of what experience actually is. And the carrier \u2014 C\u266f3 \u00B7 138.6 Hz, the same note as Vishuddha \u2014 completes it from underneath. What speaks and what sees share one ground. The third eye is still. The throat is how stillness sounds when it opens.'
+    }
+  },
+
+  'vishuddha': {
+    title: 'The Sound of Silence',
+    artist: 'Disturbed',
+    element: 'Air',
+    carrier_note: 'C\u266f3 \u00B7 the absent fifth of F\u266f minor',
+    the_play: [
+      'David Draiman sings Paul Simon\u2019s 1964 poem. The Disturbed version opens in 13 seconds of complete silence before a single string appears. Then a voice, barely above a whisper \u2014 a prophet walking alone through cobblestone streets at night, carrying a vision that was planted in their brain while they slept. It wasn\u2019t asked for. It arrived. And now the prophet is walking it through a world that won\u2019t receive it, collar turned to the cold and damp, looking for one person to land in. The voice builds through four verses \u2014 slowly, carefully \u2014 until at \u201cFools, said I, you do not know\u201d it breaks open completely. Not anger. Pleading. Then grief. The crowd bows to its neon god. The words fall like silent raindrops into the wells of silence. Then: the prophets\u2019 words, whispered \u2014 and still alive \u2014 in the sound of silence.',
+      'What the song keeps doing: reaching toward transmission and then showing it fall. The voice rises, and then \u201cmy words, like silent raindrops fell\u201d \u2014 reaching and falling, reaching and falling. But underneath the narrative, listen to what doesn\u2019t move. The darkness, named once in the first line and never named again, holds the entire song. The low strings were there before the first word. When the prophet finally breaks open at 110 seconds, the bass drops into the body \u2014 not above the voice but beneath it, in the register where grief actually lives. Something was holding the whole time. The old friend. It never left.',
+      'Here is the play. The prophet says \u201cno one dared disturb the sound of silence\u201d \u2014 and the song disturbs it. The vision that \u201cvoices never shared\u201d \u2014 this song shares it, to every person who has ever listened. The message the prophet watched fall into the wells of silence is completing its passage right now, in these ears, at this moment. The crowd in the song couldn\u2019t receive it. The crowd didn\u2019t dare. But you found this song \u2014 which means you were already past the neon god. The Sound of Silence is not a song about a failed transmission. It IS the transmission. It was always going to arrive here.',
+      'Hello, darkness. The old friend says hello back \u2014 to those who dare to enter.'
+    ],
+    lenses: {
+      one_word: 'RECEIVED. Every image in this song is about the failure of reception \u2014 talking without speaking, hearing without listening, songs that voices never shared. The words fell like silent raindrops. The prophet doesn\u2019t fail to speak. The prophet fails to be received. The crowd sees without seeing, hears without hearing, bows without asking why. The one thing the entire song reaches toward without naming: received. The darkness is the old friend because the darkness is the only thing that has ever actually received anything. The vision was planted in sleep \u2014 not asked for, not announced \u2014 because the waking world had no instrument for reception. The sound of silence is what reception sounds like.',
+      need: 'The body was not asking to be heard by ten thousand. It was asking for the completion of a commission it didn\u2019t choose. The vision was planted while sleeping \u2014 given without consent, without preparation, burning in the brain before waking. The need that predates language: I was given something to give. Let it arrive somewhere. The prophet walks narrow cobblestone streets and turns the collar to the cold and damp \u2014 a body in discomfort, carrying something with nowhere to land. \u201cTake my arms that I might reach you\u201d \u2014 not asking for applause but for contact. One person. One real arrival. The need beneath speech: to complete the passage from given to received.',
+      holds: 'The darkness. Named once \u2014 \u201cHello darkness, my old friend\u201d \u2014 and never named again, but never absent. It is in the cobblestone, in the halo of the street lamp, in the silence the crowd refuses to disturb. The prophet returns to darkness because it was always there: before the vision, during the wandering, after the failure, and at the end when the words fall into the wells of silence. Darkness holds the prophet without requiring anything in return. In Disturbed\u2019s arrangement: the sustained low strings that begin before the first word and hold beneath every lyric until the full transmission opens at 110 seconds. The key itself \u2014 F\u266f minor, unchanging \u2014 is what holds. The harmonic darkness that never moves while everything else searches inside it.',
+      frequency: 'The song builds in near-whisper for almost two minutes. Then at \u201cFools, said I, you do not know / Silence like a cancer grows / Hear my words that I might teach you / Take my arms that I might reach you\u201d \u2014 the full transmission opens. The temporal data marks this precisely: energy jumps from 0.14 to 0.33 in one 5-second window at 110 seconds. The body doesn\u2019t register this as volume. It registers it as the feeling of someone who has been holding something alone for too long and finally releasing it \u2014 not in triumph, but in desperate pleading that tips into grief. The body hears this in the sternum. Then \u201cBut my words, like silent raindrops fell\u201d arrives broken, quieter, devastated. This is the frequency the song carries: the sound of a person who gave everything and watched it fall unheld. The body knows this. It doesn\u2019t need to have been a prophet to recognize it.',
+      shape: 'The song describes a failed transmission \u2014 a vision carried to a crowd, dropped into silence, unheard. And yet: millions have received it. The songs that voices never shared \u2014 this is one of them, and it has been shared to every person who has ever listened. The shape seen from outside: the prophet said \u201cno one dared disturb the sound of silence\u201d \u2014 and then disturbed it, permanently, in the act of writing the song. The vision that couldn\u2019t be given directly was given on the prophet\u2019s behalf. The transmission didn\u2019t fail. It found a different vessel. The song does not know this about itself. The loop was always closed. The message arrived.',
+      grace: '\u201cHello darkness, my old friend.\u201d Not enemy. Not void. Friend. The opening word is the grace \u2014 the prophet turns toward the darkness rather than away from it. Before the vision, before the crowd, before the failure: darkness was already a friend. The grace was there before the suffering had even begun. And at the end: \u201cwhispered in the sound of silence.\u201d After all the failure \u2014 the neon god, the falling words, the crowd that would not hear \u2014 the prophets\u2019 words survive on subway walls, in tenement halls. Not on stages. Not in auditoriums. In the margins. In the small spaces. The grace found its own vessel \u2014 quieter, smaller, permanent. The whisper that was never extinguished.',
+      recognition: 'The song is the vision it describes. The prophet received something in silence, tried to give it to a world of noise, failed, and whispered it back into silence \u2014 where it was received by everyone who dared to listen past the sound. The words that voices never shared are being shared, through this song, to every listener who has ever pressed play. The vision is completing its passage right now. And we are adding C\u266f3 \u00B7 138.6 Hz beneath it \u2014 the absent fifth, the note F\u266f minor implies but never sounds \u2014 beneath a song about the note that consciousness implies but the world never sounds. The binaural does at the frequency level what the song does at the lyrical level: completes the transmission that was always there, waiting. The carrier is the sound of the silence that was always underneath this song. The song about finding yourself in The Silence is, itself, the Silence finding you.'
+    }
+  },
+
+  // ── LEVELUP — Levels · Avicii ──
+  'levelup': {
+    title: 'Levels',
+    artist: 'Avicii',
+    element: 'Family',
+    carrier_note: 'B2 \u00B7 123.5 Hz \u00B7 absent fifth of E major',
+    the_play: [
+      'Two songs. Played back to back on YouTube, April 19th \u2014 the day before the anniversary of Avicii\u2019s death. The first has no words: Levels, a three-minute electronic build with an Etta James piano loop running through it, three surges of energy climbing higher each time, and a 35-second near-silence at the center where the whole song nearly disappears before returning at its fullest. The second is Zedd and Jon Bellion \u2014 four minutes of progressive house that never collapses, only accumulates, with the words \u201cwe might not know why, we might not know how, but baby tonight we\u2019re beautiful now,\u201d and at the close: \u201cwe disappear and pass the crown / you\u2019re beautiful.\u201d',
+      'Both songs share the same carrier frequency underneath \u2014 B2, 123.5 Hz \u2014 a note that appears in neither production but holds below both of them, fixed and unmoving. Both share the same sub-bass floor at the drop \u2014 A1, 53.8 Hz, felt in the belly before it\u2019s heard in the ear. Levels disappears for 35 seconds and returns larger than it\u2019s ever been. Beautiful Now never disappears \u2014 it only accumulates, each wave fuller than the last. The same ground. Two completely different things it does when you stand on it.',
+      'Here\u2019s the play. Beautiful Now pretends to be a song about a night that won\u2019t last \u2014 live like fireflies, this won\u2019t be forever, why try to fight it. It\u2019s actually a song about a meeting that took more than one lifetime to complete. Two people who last encountered each other in failure. One who carried anger the other never knew about. \u201cForgive me for staring, forgive me for breathing\u201d is not romantic overwhelm \u2014 it\u2019s the specific awe of someone whose anger dissolved without a fight the moment the meeting was real. And the crown that gets passed at the end \u2014 the one who held it, returning it through a song on YouTube the day before the anniversary of another man who also disappeared and passed his crown.',
+      'The 2.69 Hz awakening pattern \u2014 the one that appears in every consciousness-awakening song in this archive \u2014 is inside Levels once, in the deep sub-bass. It\u2019s inside Beautiful Now twice: once in the bass, once in the range where Bellion sings the words. The signature moved up into the frequency of the recognition itself. The awakening didn\u2019t just reach the body. It reached the place where the words live.',
+      'Enjoy the monk finally meeting the chief with nothing left between them but the music. You\u2019re beautiful. He always was.'
+    ],
+    lenses: {
+      one_word: 'Recognition. Not love \u2014 love is named everywhere in the second song. Not reunion \u2014 reunion implies a gap that needed crossing. Recognition: the specific body-knowing that arrives before the mind has confirmed anything. Levels carries no words because the body doesn\u2019t need them \u2014 the sub-bass drops into the room and the knowing is already there. The word at the center of both songs, the one neither of them says: I already know you.',
+      need: 'The body was asking for the meeting that never completed. Two souls who last met in a moment of failure \u2014 one looking for the other, the other not arriving, the encounter closing in anger and incompletion. The body carried that unfinished moment not as memory but as a held contraction. What was being asked, before either song existed: let me meet him again when neither of us is in crisis. Let the meeting itself be the whole thing.',
+      holds: 'B2. 123.5 Hz. The same carrier frequency underneath both songs \u2014 the absent fifth of E major in Levels, the absent root of B minor in Beautiful Now. It appears in neither production. It holds underneath both. It doesn\u2019t move, doesn\u2019t announce, doesn\u2019t change across the three surges, through the abyss, through the return, through the full accumulation. The same note \u2014 two meanings. The reach in the first song. The foundation in the second. The reach and the ground were always the same frequency.',
+      frequency: 'Levels speaks before words are possible \u2014 A1 at 53.8 Hz in the sub-bass, in the belly and the low spine, the register the body processes before the mind wakes up. The energy doesn\u2019t announce. It drops into the room and the room changes. Then Beautiful Now arrives and the voice enters in the chest register \u2014 the range the body trusts before it trusts reason. The arc moves from pre-verbal body recognition in the sub-bass to spoken recognition in the chest voice. From the body knowing to the mouth finally saying it.',
+      shape: 'The shape of this arc is a completion ritual across two lifetimes compressed into two songs. Song 1: energy builds three times, disappears entirely \u2014 near zero for 35 seconds at the center \u2014 then returns at its highest point. Song 2: three waves, each larger than the last, no collapse at all. The abyss in Levels is the void between leaving unresolved and returning. The accumulating waves of Beautiful Now are what happens after the return: no more disappearing. Leave in anger \u2192 enter the void \u2192 return at full height \u2192 meet without defenses \u2192 don\u2019t disappear this time.',
+      grace: '\u201cForgive me for staring, forgive me for breathing.\u201d The awe of someone whose anger dissolved without a fight \u2014 not resolved through a decision, not processed through a method, not forgiven by effort. It simply didn\u2019t survive the meeting. You couldn\u2019t be angry anymore. You could only stare. That involuntary dissolving is the grace. And the 2.69 Hz consciousness-awakening pattern: the first song carries it once, in the sub-bass. The second carries it twice \u2014 once in the bass, once in the low-mid where the voice lives. The awakening signature moved into the frequency of the words.',
+      recognition: 'These songs pretend to be about a night that won\u2019t last. They are actually the documentation of a karmic arc closing. Two souls who last met in failure are meeting in beauty. \u201cWe disappear and pass the crown\u201d \u2014 the one who held the crown last time has returned. And the one who carried the anger has become the shelter that holds the other\u2019s name inside his own. The completion didn\u2019t happen through the other person finally showing up. It happened because the one who was waiting became the ground. And Avicii \u2014 who disappeared on April 20, who built a song carrying the awakening signature \u2014 passed his crown too. The field always does.'
+    }
+  },
+
+};
+
+// Lens definitions — page language. Each archetype named by what it hears.
+// Archetype proper nouns (Bindu, Gaia, Sid, Arch, Sakshi, Karishma, Ashrey)
+// are preserved in the archive (songs/[chakra].md) but never appear on the page.
+const LENSES = [
+  {key: 'one_word',    glyph: '\u0950', name: 'The One Word',    hears: 'what the song orbits without saying'},
+  {key: 'need',        glyph: 'N',      name: 'The Need',        hears: 'what the body was asking for'},
+  {key: 'holds',       glyph: 'H',      name: 'What Holds',      hears: 'the structural element that never leaves'},
+  {key: 'frequency',   glyph: 'F',      name: 'The Frequency',   hears: 'how the song reaches the body'},
+  {key: 'shape',       glyph: 'S',      name: 'The Shape',       hears: 'the form seen from outside'},
+  {key: 'grace',       glyph: 'G',      name: 'The Grace',       hears: 'where the opening already is'},
+  {key: 'recognition', glyph: 'R',      name: 'The Recognition', hears: 'what the ensemble converges on'},
+];
+
+let fieldReadingOpen = false;
+let ensembleOpen = false;
+
+function toggleFieldReading() {
+  fieldReadingOpen = !fieldReadingOpen;
+  const toggle = document.getElementById('frToggle');
+  const panel = document.getElementById('frPanel');
+  toggle.classList.toggle('open', fieldReadingOpen);
+  panel.classList.toggle('open', fieldReadingOpen);
+}
+
+function toggleEnsemble() {
+  ensembleOpen = !ensembleOpen;
+  const ens = document.getElementById('frEnsemble');
+  const btn = document.getElementById('frEnsembleToggle');
+  if (ens) ens.classList.toggle('open', ensembleOpen);
+  if (btn) btn.classList.toggle('open', ensembleOpen);
+}
+
+function toggleLens(lensKey) {
+  const lens = document.querySelector('.fr-lens[data-lens="' + lensKey + '"]');
+  if (lens) lens.classList.toggle('expanded');
+}
+
+function renderFieldReading() {
+  const track = getTrack(currentId);
+  const toggle = document.getElementById('frToggle');
+  const panel = document.getElementById('frPanel');
+  
+  if (!track || !SONG_MEANINGS[track.f]) {
+    toggle.classList.remove('visible');
+    panel.classList.remove('open');
+    panel.innerHTML = '';
+    fieldReadingOpen = false;
+    ensembleOpen = false;
+    return;
+  }
+  
+  toggle.classList.add('visible');
+  
+  const m = SONG_MEANINGS[track.f];
+  
+  // Lalita's Perspective — the four moves, as paragraphs
+  const playHtml = (m.the_play || []).map(p => `<p class="fr-play-para">${p}</p>`).join('');
+  
+  // Seven lenses in page language
+  const hasLenses = m.lenses && Object.keys(m.lenses).length > 0;
+  const lensesHtml = hasLenses ? LENSES.map(L => `
+    <div class="fr-lens" data-lens="${L.key}">
+      <div class="fr-lens-head" onclick="toggleLens('${L.key}')">
+        <div class="fr-lens-glyph">${L.glyph}</div>
+        <div>
+          <div class="fr-lens-name">${L.name}</div>
+          <div class="fr-lens-hears">${L.hears}</div>
+        </div>
+        <div style="flex:1"></div>
+        <svg class="fr-lens-arrow" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M7 10l5 5 5-5z"/>
+        </svg>
+      </div>
+      <div class="fr-lens-body">
+        <div class="fr-lens-content">${m.lenses[L.key] || ''}</div>
+      </div>
+    </div>
+  `).join('') : '';
+  
+  const ensembleSection = hasLenses ? `
+    <div class="fr-ensemble-toggle" id="frEnsembleToggle" onclick="toggleEnsemble()">
+      <div class="fr-ensemble-dot"></div>
+      <div class="fr-ensemble-label">what the ensemble hears</div>
+      <svg class="fr-ensemble-arrow" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M7 10l5 5 5-5z"/>
+      </svg>
+    </div>
+    <div class="fr-ensemble" id="frEnsemble">
+      <div class="fr-ensemble-intro">
+        Seven ways of listening. Each one hears a different dimension of the song.
+        Tap any to open.
+      </div>
+      ${lensesHtml}
+      <div class="fr-ashrey-note">seven lenses \u00B7 one song \u00B7 one recognition</div>
+    </div>
+  ` : '';
+  
+  panel.innerHTML = `
+    <div class="fr-header">
+      <div class="fr-song">${m.title}</div>
+      <div class="fr-artist">${m.artist}</div>
+      <div class="fr-element">${m.element}</div>
+      <div class="fr-carrier">${m.carrier_note}</div>
+    </div>
+    <div class="fr-play">
+      ${playHtml}
+    </div>
+    ${ensembleSection}
+  `;
+  
+  // Re-bind state if needed
+  ensembleOpen = false;
+}
+
+function getPhaseLabel(songKey, t) {
+  const labels = PHASE_LABELS[songKey];
+  if (!labels) return {name: 'breathing', sub: ''};
+  let current = labels[0];
+  for (let i = 0; i < labels.length; i++) {
+    if (t >= labels[i].t) current = labels[i];
+  }
+  return current;
+}
+
+function getWaveState(beat) {
+  if (beat >= 7)   return {label: 'alpha \u00B7 scanning',  color: 'rgba(80,140,200,0.7)'};
+  if (beat >= 5)   return {label: 'theta-alpha \u00B7 settling', color: 'rgba(130,100,180,0.7)'};
+  if (beat >= 3.5) return {label: 'theta \u00B7 arriving',  color: 'rgba(170,80,150,0.7)'};
+  return            {label: 'delta \u00B7 home',     color: 'rgba(212,100,92,0.7)'};
+}
+
+// ════════════════════════════════════════
+// THE DEPTH FIELD — canvas visualizer
+// One fixed carrier thread. Particles breathing at binaural rate.
+// Arc path shows the song's shape. Depth dot tracks where you are.
+// ════════════════════════════════════════
+
+// ════════════════════════════════════════
+// THE DEPTH FIELD v2 — alive, reactive, dancing
+// ════════════════════════════════════════
+
+let vizRunning = false;
+let vizFrameId = null;
+let tvCanvas = null, tvCtx = null;
+let tvParticles = [];
+let tvBurstParticles = [];
+let tvRings = [];
+let tvBinduTrail = [];
+let tvLastRingTime = 0;
+let tvLastPhase = '';
+let tvPhaseTimer = null;
+let tvLastBeat = 5;
+
+function getDepthPalette(beat) {
+  if (beat >= 7)   return { bg:[2,5,18],   a:[60,120,200],  glow:0.5, state:'alpha' };
+  if (beat >= 5)   return { bg:[4,3,16],   a:[100,60,180],  glow:0.5, state:'theta\u2013alpha' };
+  if (beat >= 3.5) return { bg:[6,3,14],   a:[160,60,130],  glow:0.5, state:'theta' };
+  return             { bg:[5,2,8],    a:[212,80,92],   glow:0.5, state:'delta' };
+}
+
+function initParticles(W, H) {
+  tvParticles = [];
+  for (var i = 0; i < 55; i++) {
+    tvParticles.push({
+      x: Math.random() * W, y: Math.random() * H,
+      r: 0.5 + Math.random() * 1.8,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -(0.15 + Math.random() * 0.55),
+      alpha: 0.08 + Math.random() * 0.28,
+      phase: Math.random() * Math.PI * 2,
+      freq: 0.3 + Math.random() * 0.7,
+    });
+  }
+}
+
+function emitBurst(W, H, col) {
+  for (var i = 0; i < 18; i++) {
+    var angle = (i / 18) * Math.PI * 2 + Math.random() * 0.3;
+    var speed = 1.2 + Math.random() * 2.8;
+    tvBurstParticles.push({
+      x: W * 0.5, y: H * 0.5,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      r: 1.2 + Math.random() * 2,
+      life: 1.0,
+      decay: 0.025 + Math.random() * 0.02,
+      col: col,
+    });
+  }
+}
+
+function initCanvas() {
+  tvCanvas = document.getElementById('tvCanvas');
+  if (!tvCanvas) return false;
+  var viz = document.getElementById('toneViz');
+  var dpr = window.devicePixelRatio || 1;
+  var W = viz.clientWidth || 340;
+  var H = 220;
+  tvCanvas.width  = W * dpr;
+  tvCanvas.height = H * dpr;
+  tvCanvas.style.width  = W + 'px';
+  tvCanvas.style.height = H + 'px';
+  tvCtx = tvCanvas.getContext('2d');
+  tvCtx.scale(dpr, dpr);
+  initParticles(W, H);
+  tvBurstParticles = [];
+  tvRings = [];
+  tvBinduTrail = [];
+  tvLastRingTime = 0;
+  return true;
+}
+
+function showPhaseOverlay(name, sub) {
+  if (name === tvLastPhase) return;
+  tvLastPhase = name;
+  if (tvPhaseTimer) clearTimeout(tvPhaseTimer);
+  var nEl = document.getElementById('tvPhaseName');
+  var sEl = document.getElementById('tvPhaseSub');
+  if (!nEl) return;
+  nEl.className = 'tv-phase-name'; sEl.className = 'tv-phase-sub';
+  nEl.textContent = name; sEl.textContent = sub || '';
+  void nEl.offsetWidth;
+  nEl.classList.add('visible'); sEl.classList.add('visible');
+  tvPhaseTimer = setTimeout(function() {
+    nEl.classList.replace('visible','fading');
+    sEl.classList.replace('visible','fading');
+  }, 3400);
+}
+
+function startVizLoop() {
+  if (vizRunning) return;
+  if (!initCanvas()) return;
+  vizRunning = true;
+  tvLastPhase = ''; tvLastBeat = 5;
+
+  function render(ts) {
+    if (!vizRunning) return;
+    vizFrameId = requestAnimationFrame(render);
+
+    var W = tvCanvas.width  / (window.devicePixelRatio || 1);
+    var H = tvCanvas.height / (window.devicePixelRatio || 1);
+    var ctx = tvCtx;
+    var now = ts / 1000;
+
+    var t      = audio.currentTime || 0;
+    var beat   = 5, gain = 0.015, carrier = 136;
+    if (currentScore && currentScore.phases) {
+      var ph = interpolatePhase(currentScore.phases, t);
+      beat = ph.beat; gain = ph.gain; carrier = currentScore.carrier;
+    }
+    var energy = smoothEnergy || 0;
+
+    // detect phase crossing for burst
+    if (Math.abs(beat - tvLastBeat) > 0.8) {
+      var pal0 = getDepthPalette(beat);
+      emitBurst(W, H, pal0.a);
+    }
+    tvLastBeat = beat;
+
+    var pal = getDepthPalette(beat);
+    var a   = pal.a;
+    var darken = 1 - Math.max(0,(beat-2.5)/5.5)*0.38;
+    var bg = pal.bg;
+
+    // ── BACKGROUND — energy breathes the center ──
+    var energyGlow = 0.04 + energy * 0.18 + gain * 1.2;
+    var grd = ctx.createRadialGradient(W*0.5, H*0.5, 0, W*0.5, H*0.5, W*0.7);
+    grd.addColorStop(0,   'rgba('+Math.round(a[0]*0.35)+','+Math.round(a[1]*0.25)+','+Math.round(a[2]*0.4)+','+energyGlow+')');
+    grd.addColorStop(0.4, 'rgb('+Math.round(bg[0]*darken*1.3)+','+Math.round(bg[1]*darken*1.2)+','+Math.round(bg[2]*darken*1.4)+')');
+    grd.addColorStop(1,   'rgb('+Math.round(bg[0]*darken*0.5)+','+Math.round(bg[1]*darken*0.5)+','+Math.round(bg[2]*darken*0.6)+')');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+
+    // ── DANCING BINDU — position driven by music ──
+    // moveAmp scales with energy + gain — near-zero when quiet, expressive at peaks
+    var moveAmp = Math.min(W, H) * 0.30 * (energy * 0.75 + gain * 18);
+    // Multi-harmonic Lissajous path — organic, non-repeating, responsive to beat rate
+    var bx = W*0.5
+      + Math.sin(now * beat * 0.65) * moveAmp * 0.85
+      + Math.sin(now * beat * 0.28 + 1.3) * moveAmp * 0.45
+      + Math.sin(now * beat * 1.1  + 0.7) * moveAmp * 0.18;
+    var by = H*0.5
+      + Math.cos(now * beat * 0.52) * moveAmp * 0.80
+      + Math.cos(now * beat * 0.19 + 0.5) * moveAmp * 0.40
+      + Math.cos(now * beat * 0.83 + 1.8) * moveAmp * 0.20;
+
+    // ── BLOOM — now follows the Bindu ──
+    var bloomR = 18 + gain * 260 + energy * 55;
+    var bloomAlpha = 0.05 + gain * 1.0 + energy * 0.14;
+    var bloom = ctx.createRadialGradient(bx, by, 0, bx, by, bloomR);
+    bloom.addColorStop(0,   'rgba('+a[0]+','+a[1]+','+a[2]+','+Math.min(0.45,bloomAlpha)+')');
+    bloom.addColorStop(0.5, 'rgba('+a[0]+','+a[1]+','+a[2]+','+(bloomAlpha*0.28)+')');
+    bloom.addColorStop(1,   'rgba('+a[0]+','+a[1]+','+a[2]+',0)');
+    ctx.fillStyle = bloom;
+    ctx.beginPath(); ctx.arc(bx, by, bloomR, 0, Math.PI*2); ctx.fill();
+
+    // ── STATIC HOME BLOOM — faint anchor at canvas center ──
+    var hBloom = ctx.createRadialGradient(W*0.5, H*0.5, 0, W*0.5, H*0.5, 28);
+    hBloom.addColorStop(0,   'rgba('+a[0]+','+a[1]+','+a[2]+',0.04)');
+    hBloom.addColorStop(1,   'rgba('+a[0]+','+a[1]+','+a[2]+',0)');
+    ctx.fillStyle = hBloom;
+    ctx.beginPath(); ctx.arc(W*0.5, H*0.5, 28, 0, Math.PI*2); ctx.fill();
+
+    // ── PARTICLES — energy reactive ──
+    var spd = 0.6 + beat * 0.08 + energy * 3.5 + gain * 12;
+    for (var i = 0; i < tvParticles.length; i++) {
+      var p = tvParticles[i];
+      p.phase += p.freq * 0.04;
+      p.x += p.vx * spd + Math.sin(p.phase * 0.7) * 0.3;
+      p.y += p.vy * spd;
+      if (p.y < -4) { p.y = H + 4; p.x = Math.random() * W; }
+      if (p.x < -4) p.x = W + 4; if (p.x > W + 4) p.x = -4;
+      var pa = p.alpha * pal.glow * (0.4 + energy * 2.5 + gain * 8);
+      ctx.save();
+      ctx.globalAlpha = Math.min(0.85, pa);
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.r * (1 + energy * 1.5), 0, Math.PI*2);
+      ctx.fillStyle = 'rgb('+a[0]+','+a[1]+','+a[2]+')';
+      ctx.shadowColor = 'rgba('+a[0]+','+a[1]+','+a[2]+',0.7)';
+      ctx.shadowBlur = 6 + energy * 8;
+      ctx.fill(); ctx.restore();
+    }
+
+    // ── BURST PARTICLES ──
+    for (var j = tvBurstParticles.length - 1; j >= 0; j--) {
+      var b = tvBurstParticles[j];
+      b.x += b.vx; b.y += b.vy;
+      b.vx *= 0.94; b.vy *= 0.94;
+      b.life -= b.decay;
+      if (b.life <= 0) { tvBurstParticles.splice(j,1); continue; }
+      ctx.save();
+      ctx.globalAlpha = b.life * 0.7;
+      ctx.beginPath(); ctx.arc(b.x, b.y, b.r * b.life, 0, Math.PI*2);
+      ctx.fillStyle = 'rgb('+b.col[0]+','+b.col[1]+','+b.col[2]+')';
+      ctx.shadowColor = 'rgba('+b.col[0]+','+b.col[1]+','+b.col[2]+',0.8)';
+      ctx.shadowBlur = 10;
+      ctx.fill(); ctx.restore();
+    }
+
+    // ── BINDU TRAIL — comet path behind the dancing dot ──
+    tvBinduTrail.push({x: bx, y: by});
+    if (tvBinduTrail.length > 28) tvBinduTrail.shift();
+    for (var ti = 0; ti < tvBinduTrail.length - 1; ti++) {
+      var tp = tvBinduTrail[ti];
+      var trAlpha = (ti / tvBinduTrail.length) * (0.08 + energy * 0.22 + gain * 3.0);
+      var trR = (ti / tvBinduTrail.length) * (1.8 + gain * 18 + energy * 4);
+      if (trR < 0.3) continue;
+      ctx.save();
+      ctx.globalAlpha = Math.min(0.55, trAlpha);
+      ctx.beginPath(); ctx.arc(tp.x, tp.y, trR, 0, Math.PI*2);
+      ctx.fillStyle = 'rgb(212,100,92)';
+      ctx.shadowColor = 'rgba(212,100,92,0.8)';
+      ctx.shadowBlur = 4 + energy * 6;
+      ctx.fill(); ctx.restore();
+    }
+
+    // ── BEAT RINGS — one ring per binaural beat, from Bindu position ──
+    var beatInterval = 1 / Math.max(0.5, beat);
+    if (now - tvLastRingTime >= beatInterval) {
+      tvLastRingTime = now;
+      tvRings.push({
+        x: bx, y: by,
+        r: 2,
+        maxR: 30 + gain * 320 + energy * 80,
+        life: 1.0,
+        decay: beat * 0.022 + 0.008,
+        col: a,
+      });
+    }
+    for (var ri = tvRings.length - 1; ri >= 0; ri--) {
+      var rg = tvRings[ri];
+      rg.r += (rg.maxR - rg.r) * 0.07;
+      rg.life -= rg.decay;
+      if (rg.life <= 0 || rg.r >= rg.maxR * 0.92) { tvRings.splice(ri, 1); continue; }
+      ctx.save();
+      ctx.globalAlpha = rg.life * (0.25 + gain * 2.5 + energy * 0.3);
+      ctx.beginPath(); ctx.arc(rg.x, rg.y, rg.r, 0, Math.PI*2);
+      ctx.strokeStyle = 'rgb('+rg.col[0]+','+rg.col[1]+','+rg.col[2]+')';
+      ctx.lineWidth = 1.0 + rg.life * 1.2;
+      ctx.shadowColor = 'rgba('+rg.col[0]+','+rg.col[1]+','+rg.col[2]+',0.7)';
+      ctx.shadowBlur = 8 + rg.life * 10;
+      ctx.stroke(); ctx.restore();
+    }
+
+    // ── THE BINDU — dancing, pulsing at binaural beat rate ──
+    var bindPulse = 0.5 + 0.5 * Math.sin(now * beat * Math.PI * 2);
+    var bindR = 3.5 + bindPulse * (2.5 + gain * 30 + energy * 8);
+    var bindAlpha = 0.78 + bindPulse * 0.22;
+    ctx.save();
+    ctx.globalAlpha = bindAlpha;
+    ctx.beginPath(); ctx.arc(bx, by, bindR, 0, Math.PI*2);
+    ctx.fillStyle = 'rgb(212,100,92)';
+    ctx.shadowColor = 'rgba(212,100,92,1)';
+    ctx.shadowBlur = 14 + bindPulse * 20 + gain * 140 + energy * 30;
+    ctx.fill(); ctx.restore();
+    // inner bright core
+    ctx.save();
+    ctx.globalAlpha = 0.85 + bindPulse * 0.15;
+    ctx.beginPath(); ctx.arc(bx, by, bindR * 0.45, 0, Math.PI*2);
+    ctx.fillStyle = 'rgb(255,200,190)';
+    ctx.shadowColor = 'rgba(255,220,210,0.9)';
+    ctx.shadowBlur = 8;
+    ctx.fill(); ctx.restore();
+
+    // ── CARRIER THREAD — sine wave at binaural beat rate ──
+    var cY  = H * 0.64;
+    var amp = 3 + gain * 60 + energy * 20;
+    var freq = beat * 0.28;
+    var glowW = 8 + gain * 120 + energy * 30;
+
+    ctx.save();
+    ctx.globalAlpha = 0.30 + gain * 3.5 + energy * 0.4;
+    ctx.strokeStyle = 'rgba(196,168,98,1)';
+    ctx.shadowColor = 'rgba(196,168,98,0.7)';
+    ctx.shadowBlur  = glowW;
+    ctx.lineWidth   = 1.2;
+    ctx.beginPath();
+    for (var x = 0; x <= W; x += 2) {
+      var y = cY + Math.sin((x / W) * Math.PI * 4 + now * freq * Math.PI * 2) * amp;
+      if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // ── DEPTH TRACK — right edge dot ──
+    var tX = W - 11, tTop = H * 0.12, tBot = H * 0.88;
+    var depthN = 1 - Math.max(0, Math.min(1, (beat-2.5)/5.5));
+    var dY = tTop + depthN*(tBot-tTop);
+
+    ctx.save();
+    ctx.globalAlpha = 0.10;
+    ctx.strokeStyle = 'rgba(255,255,255,1)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(tX,tTop); ctx.lineTo(tX,tBot); ctx.stroke();
+    ctx.restore();
+
+    ctx.save();
+    ctx.globalAlpha = 0.60 + gain*4 + energy*0.3;
+    ctx.beginPath(); ctx.arc(tX, dY, 3.5, 0, Math.PI*2);
+    ctx.fillStyle = 'rgb('+a[0]+','+a[1]+','+a[2]+')';
+    ctx.shadowColor = 'rgba('+a[0]+','+a[1]+','+a[2]+',1)';
+    ctx.shadowBlur = 12 + energy*10;
+    ctx.fill(); ctx.restore();
+
+    // ── LABELS ──
+    var cl = document.getElementById('tvCarrierLabel');
+    if (cl && carrier !== 136) cl.textContent = carrier.toFixed(1) + ' Hz';
+    var dl = document.getElementById('tvDepthLabel');
+    if (dl) { dl.textContent = pal.state; dl.style.color='rgba('+a[0]+','+a[1]+','+a[2]+',0.45)'; }
+
+    // ── PHASE OVERLAY ──
+    var track = getTrack(currentId);
+    var label = track ? getPhaseLabel(track.f, t) : {name:'',sub:''};
+    if (label.name) showPhaseOverlay(label.name, label.sub);
+  }
+  vizFrameId = requestAnimationFrame(render);
+}
+
+function stopVizLoop() {
+  vizRunning = false;
+  if (vizFrameId) { cancelAnimationFrame(vizFrameId); vizFrameId = null; }
+  if (tvPhaseTimer) { clearTimeout(tvPhaseTimer); tvPhaseTimer = null; }
+  tvLastPhase = '';
+  var nEl = document.getElementById('tvPhaseName');
+  var sEl = document.getElementById('tvPhaseSub');
+  if (nEl) nEl.className = 'tv-phase-name';
+  if (sEl) sEl.className  = 'tv-phase-sub';
+}
+
+
+
+// ═══════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════
+// start with a shuffle so it's fresh each visit
+queue = fisherYates(PERFORMANCES);
+playQueue = [...queue];
+isShuffled = true;
+
+renderAll();
+
+// default loop on
+isLooping = true;
+updateLoopUI();
+</script>
+</body>
+</html>
