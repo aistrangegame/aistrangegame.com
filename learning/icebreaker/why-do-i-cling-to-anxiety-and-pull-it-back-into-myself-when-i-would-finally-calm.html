@@ -198,4 +198,6 @@ document.querySelectorAll('[data-flick]').forEach(c=>{let x0=null,drag=false;
    if(t){scrollTo({top:t.offsetTop,behavior:'instant'});window.__sync&&window.__sync()}}};
  addEventListener('pointerup',end);addEventListener('pointercancel',()=>{x0=null;
   c.classList.remove('dragging');c.style.setProperty('--dx','0px');c.style.setProperty('--tilt','0deg')})});})();</script>
+<script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
+(function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p);if(cs.overflowY!=="visible"||!s.offsetHeight)return;var z=parseFloat(cs.zoom)||1;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
 </body></html>
