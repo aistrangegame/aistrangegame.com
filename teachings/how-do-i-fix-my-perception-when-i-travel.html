@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Feeling Unsettled When You Travel — a teaching</title><meta name="description" content="Travel strips away the routines and familiar cues your body reads as safe — same bed, same streets, same faces. A spike of disorientation, tiredness, or mild dread in a new place isn&#x27;t a flaw in you. It&#x27;s what a routine-tuned body does when the routine disappears."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Feeling Unsettled When You Travel — a teaching</title><meta name="description" content="Travel strips away the routines and familiar cues your body reads as safe — same bed, same streets, same faces. A spike of disorientation, tiredness, or mild dread in a new place isn&#x27;t a flaw in you. It&#x27;s what a routine-tuned body does when the routine disappears."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap" rel="stylesheet">
+<style>
 /* gen_v2 · topic: How do I fix my perception when I travel? · teaching/mind-body · pool all → #b8a3d0 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
@@ -200,9 +201,33 @@ body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-ar
 @media (max-height:780px),(max-width:374px){body[data-move] .step .piece{zoom:.93}}
 @media (max-height:700px){body[data-move] .step .piece{zoom:.86}}
 @media (prefers-reduced-motion:reduce){.sigil{transition:none}}
+/* DOORS — kit/DOORS.css */
+.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
+.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
+  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
+  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
+.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
+.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
+.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
+.dg svg{width:36px;height:36px;overflow:visible}
+.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.dg svg .s{fill:var(--to);stroke:none}
+.dg svg .dim{opacity:.6}
+.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
+.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
+.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
+.page .door{border-top-color:rgba(34,29,24,.16)}
+.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
+.page .dk,.page .da{color:rgba(34,29,24,.7)}
+/* the handover: the world leans toward the next page's accent */
+.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
+body.leaving .w::before{opacity:.55}
+body.leaving .piece{opacity:.2;transition:opacity .5s ease}
+@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 .care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
-</style><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap" rel="stylesheet">
-</head>
+</style></head>
 <body data-move="1" data-title="classic" class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.8310" style="--from:1;--soft:85;--wonk:0;--tw:346">
 <div class="w" id="w" aria-hidden="true"></div>
 <div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:92;--syn:84;--s0:321;--spin:0;--so:0.143"><svg viewBox="-100 -100 200 200"><circle cx="2.0" cy="6.6" r="13.4"/><circle cx="1.7" cy="5.7" r="26.9" class="b"/><circle cx="1.4" cy="4.7" r="40.3"/><circle cx="1.1" cy="3.8" r="53.7"/><circle cx="0.9" cy="2.8" r="67.1"/><circle cx="0.6" cy="1.9" r="80.6"/><circle cx="0.3" cy="0.9" r="94.0"/></svg></div></div>
