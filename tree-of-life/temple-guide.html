@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>The Temple</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #E8E4DF;
+  --text: #2C2C2C;
+  --text-soft: rgba(44, 44, 44, 0.6);
+  --text-whisper: rgba(44, 44, 44, 0.35);
+  --bindu: #C0392B;
+  --gold: #D4A948;
+  --gold-soft: rgba(212, 169, 72, 0.4);
+  --channel: rgba(212, 169, 72, 0.15);
+}
+
+html, body {
+  width: 100%; min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 28px;
+  position: relative;
+}
+
+.page-divider {
+  width: 1px;
+  height: 60px;
+  background: var(--text-whisper);
+  margin: 0 auto;
+}
+
+.page-title {
+  font: 300 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-whisper);
+  margin-bottom: 40px;
+}
+
+.heading {
+  font: italic 500 1.25rem/1.5 'Lora', serif;
+  color: var(--text);
+  text-align: center;
+  max-width: 320px;
+  margin-bottom: 32px;
+}
+
+.body-text {
+  font: 300 0.9375rem/1.75 'DM Sans', sans-serif;
+  color: var(--text-soft);
+  text-align: center;
+  max-width: 310px;
+  margin-bottom: 24px;
+}
+
+.sacred-text {
+  font: italic 400 1rem/1.7 'Lora', serif;
+  color: var(--text);
+  text-align: center;
+  max-width: 300px;
+  margin-bottom: 28px;
+}
+
+.whisper {
+  font: italic 400 0.875rem/1.6 'Lora', serif;
+  color: var(--text-whisper);
+  text-align: center;
+  max-width: 300px;
+}
+
+.emphasis { color: var(--text); font-weight: 400; }
+
+/* ─── TEMPLE VISUALIZATION ─── */
+
+.temple-visual {
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto 32px;
+  position: relative;
+}
+
+.temple-svg {
+  width: 100%;
+  height: auto;
+}
+
+/* Triangle pulse animation */
+.triangle-line {
+  animation: triPulse 4s ease-in-out infinite;
+}
+@keyframes triPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.9; }
+}
+
+/* Antenna glow animation */
+.antenna-beam {
+  animation: antennaFlow 5s ease-in-out infinite;
+}
+@keyframes antennaFlow {
+  0%, 100% { opacity: 0.08; }
+  50% { opacity: 0.2; }
+}
+
+/* Heart bindu pulse */
+.heart-bindu {
+  animation: binduPulse 3s ease-in-out infinite;
+}
+@keyframes binduPulse {
+  0%, 100% { r: 4; opacity: 0.7; }
+  50% { r: 6; opacity: 1; }
+}
+
+/* Higher self descending */
+.higher-self-dot {
+  animation: descend 6s ease-in-out infinite;
+}
+@keyframes descend {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.7; transform: translateY(6px); }
+}
+
+/* Vertex label styling */
+.vertex-label {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+/* ─── STEP INSTRUCTIONS ─── */
+
+.step-list {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 36px;
+}
+
+.step-item {
+  font: italic 400 1rem/1.6 'Lora', serif;
+  color: var(--text);
+  text-align: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(44, 44, 44, 0.06);
+}
+.step-item:last-child { border-bottom: none; }
+
+/* ─── BREATH SECTION ─── */
+
+.breath-section {
+  width: 100%;
+  max-width: 320px;
+  margin-bottom: 32px;
+}
+
+.breath-item { margin-bottom: 24px; }
+
+.breath-label {
+  font: 300 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-whisper);
+  margin-bottom: 8px;
+}
+
+.breath-question {
+  font: italic 400 0.9375rem/1.6 'Lora', serif;
+  color: var(--text);
+}
+
+.breath-shakti {
+  font: 300 0.75rem/1 'DM Sans', sans-serif;
+  color: var(--gold);
+  letter-spacing: 1px;
+  margin-top: 4px;
+}
+
+.bindu-dot {
+  width: 8px; height: 8px;
+  background: var(--bindu);
+  border-radius: 50%;
+  margin: 28px auto;
+  opacity: 0.5;
+}
+
+.closing {
+  margin-top: 16px;
+  padding-top: 28px;
+  border-top: 1px solid rgba(44, 44, 44, 0.08);
+  max-width: 300px;
+}
+
+.closing-text {
+  font: italic 400 0.9375rem/1.7 'Lora', serif;
+  color: var(--text-soft);
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.seed-final {
+  font: italic 400 0.875rem/1.6 'Lora', serif;
+  color: var(--text-whisper);
+  text-align: center;
+}
+
+/* ─── PERSISTENT BINDU ─── */
+
+.persistent-bindu {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #C0392B;
+  opacity: 0.3;
+  z-index: 150;
+  pointer-events: none;
+}
+
+/* ─── ZOOM ─── */
+
+.zoom-controls {
+  position: fixed;
+  bottom: 16px; left: 16px;
+  display: flex; gap: 6px;
+  z-index: 200;
+  opacity: 0.35;
+  transition: opacity 0.3s ease;
+}
+.zoom-controls:hover, .zoom-controls:active { opacity: 0.8; }
+.zoom-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(44,44,44,0.1);
+  background: rgba(44,44,44,0.05);
+  color: var(--text-soft);
+  font: 500 0.75rem/1 'DM Sans', sans-serif;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  min-height: 44px;
+  min-width: 44px;
+}
+
+</style>
+</head>
+<body>
+
+<!-- PERSISTENT BINDU -->
+<div class="persistent-bindu" id="persistentBindu"></div>
+
+<!-- ZOOM -->
+<div class="zoom-controls">
+  <button class="zoom-btn" id="zoomOut" aria-label="Decrease font size">A−</button>
+  <button class="zoom-btn" id="zoomIn" aria-label="Increase font size">A+</button>
+</div>
+
+<script>
+let fontScale = 1;
+document.getElementById('zoomIn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  fontScale = Math.min(fontScale + 0.1, 1.45);
+  document.documentElement.style.fontSize = (fontScale * 100) + '%';
+});
+document.getElementById('zoomOut').addEventListener('click', (e) => {
+  e.stopPropagation();
+  fontScale = Math.max(fontScale - 0.1, 0.85);
+  document.documentElement.style.fontSize = (fontScale * 100) + '%';
+});
+</script>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 1 — THE TEMPLE
+     ═══════════════════════════════════════════ -->
+
+<div class="page">
+
+  <div class="page-title">the temple</div>
+
+  <div class="heading">Nine panels. One body position.</div>
+
+  <div class="body-text">
+    The position you formed in the eighth panel was not an exercise. It was an activation. Your body completed a circuit that connects the earth beneath you to the infinite above you.
+  </div>
+
+  <!-- ─── TEMPLE BODY + TRIANGLE VISUALIZATION ─── -->
+
+  <div class="temple-visual">
+    <svg class="temple-svg" viewBox="0 0 300 420" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Antenna beam — channel opening upward from crown -->
+      <defs>
+        <linearGradient id="antennaGrad" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="rgba(212,169,72,0.3)"/>
+          <stop offset="100%" stop-color="rgba(212,169,72,0)"/>
+        </linearGradient>
+        <radialGradient id="binduGlow">
+          <stop offset="0%" stop-color="rgba(192,57,43,0.5)"/>
+          <stop offset="100%" stop-color="rgba(192,57,43,0)"/>
+        </radialGradient>
+        <radialGradient id="higherSelfGlow">
+          <stop offset="0%" stop-color="rgba(212,169,72,0.6)"/>
+          <stop offset="100%" stop-color="rgba(212,169,72,0)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Antenna beam expanding upward -->
+      <path class="antenna-beam" d="M140,100 L120,10 L180,10 Z" fill="url(#antennaGrad)" opacity="0.15"/>
+      <path class="antenna-beam" d="M138,95 L110,0 L190,0 Z" fill="url(#antennaGrad)" opacity="0.08" style="animation-delay: 1s;"/>
+
+      <!-- Higher self descending — gold dot above -->
+      <g class="higher-self-dot">
+        <circle cx="150" cy="28" r="12" fill="url(#higherSelfGlow)"/>
+        <circle cx="150" cy="28" r="3" fill="#D4A948" opacity="0.7"/>
+      </g>
+
+      <!-- Body silhouette — Temple position -->
+      <!-- Arms out, hands at waist/belly level, palms up, fingers curving toward crown -->
+      <!-- Triangle vertices: left hand + right hand (below heart) + crown (above heart) -->
+      <!-- Heart sits INSIDE the triangle -->
+      <g stroke="#2C2C2C" stroke-width="1.2" fill="none" opacity="0.3">
+        <!-- Head -->
+        <circle cx="150" cy="120" r="16"/>
+        <!-- Neck -->
+        <line x1="150" y1="136" x2="150" y2="148"/>
+        <!-- Torso -->
+        <line x1="150" y1="148" x2="150" y2="275"/>
+        <!-- Left arm — shoulder down and outward to hand at waist level -->
+        <path d="M150,165 L118,195 L80,230" stroke-linecap="round"/>
+        <!-- Left palm indicator (horizontal line = palm facing up) -->
+        <line x1="72" y1="230" x2="88" y2="230" stroke-linecap="round" stroke-width="1.5"/>
+        <!-- Left fingers — curving upward from palm toward crown -->
+        <path d="M80,230 L76,215 L78,198 L84,182" stroke-linecap="round" opacity="0.45" stroke-width="1"/>
+        <!-- Right arm — shoulder down and outward to hand at waist level -->
+        <path d="M150,165 L182,195 L220,230" stroke-linecap="round"/>
+        <!-- Right palm indicator -->
+        <line x1="212" y1="230" x2="228" y2="230" stroke-linecap="round" stroke-width="1.5"/>
+        <!-- Right fingers — curving upward from palm toward crown -->
+        <path d="M220,230 L224,215 L222,198 L216,182" stroke-linecap="round" opacity="0.45" stroke-width="1"/>
+        <!-- Left leg -->
+        <line x1="150" y1="275" x2="130" y2="370"/>
+        <!-- Right leg -->
+        <line x1="150" y1="275" x2="170" y2="370"/>
+        <!-- Feet -->
+        <line x1="130" y1="370" x2="118" y2="372"/>
+        <line x1="170" y1="370" x2="182" y2="372"/>
+      </g>
+
+      <!-- Grounding lines from feet -->
+      <line x1="130" y1="372" x2="130" y2="408" stroke="#2C2C2C" stroke-width="0.5" opacity="0.1"/>
+      <line x1="170" y1="372" x2="170" y2="408" stroke="#2C2C2C" stroke-width="0.5" opacity="0.1"/>
+      <text x="150" y="420" text-anchor="middle" fill="#2C2C2C" opacity="0.2" font-size="8" font-family="'DM Sans', sans-serif" letter-spacing="3" font-weight="300">EARTH</text>
+
+      <!-- THE TRIANGLE — hands (below heart) + crown (above heart) -->
+      <!-- Heart is enclosed INSIDE at the geometric center -->
+      <g class="triangle-line">
+        <!-- Left hand → Right hand (base, below heart) -->
+        <line x1="80" y1="230" x2="220" y2="230" stroke="#D4A948" stroke-width="1" opacity="0.5"/>
+        <!-- Right hand → Crown -->
+        <line x1="220" y1="230" x2="150" y2="98" stroke="#D4A948" stroke-width="1" opacity="0.5"/>
+        <!-- Crown → Left hand -->
+        <line x1="150" y1="98" x2="80" y2="230" stroke="#D4A948" stroke-width="1" opacity="0.5"/>
+      </g>
+
+      <!-- Vertex dots at hands and crown -->
+      <circle cx="80" cy="230" r="4" fill="#D4A948" opacity="0.7"/>
+      <circle cx="220" cy="230" r="4" fill="#D4A948" opacity="0.7"/>
+      <circle cx="150" cy="98" r="4" fill="#D4A948" opacity="0.7"/>
+
+      <!-- Vertex labels -->
+      <text x="52" y="245" text-anchor="middle" class="vertex-label" fill="#D4A948" font-size="8" opacity="0.8">WILL</text>
+      <text x="52" y="256" text-anchor="middle" class="vertex-label" fill="#2C2C2C" font-size="6.5" opacity="0.3">Kāmeshvarī</text>
+
+      <text x="248" y="245" text-anchor="middle" class="vertex-label" fill="#D4A948" font-size="8" opacity="0.8">ACTION</text>
+      <text x="248" y="256" text-anchor="middle" class="vertex-label" fill="#2C2C2C" font-size="6.5" opacity="0.3">Bhagamālinī</text>
+
+      <text x="150" y="88" text-anchor="middle" class="vertex-label" fill="#D4A948" font-size="8" opacity="0.8">KNOWLEDGE</text>
+      <text x="150" y="78" text-anchor="middle" class="vertex-label" fill="#2C2C2C" font-size="6.5" opacity="0.3">Vajreshvarī</text>
+
+      <!-- HEART BINDU — geometric center of the triangle -->
+      <!-- Centroid: x=(80+220+150)/3=150, y=(230+230+98)/3=186 -->
+      <circle cx="150" cy="186" r="12" fill="url(#binduGlow)"/>
+      <circle class="heart-bindu" cx="150" cy="186" r="4" fill="#C0392B"/>
+
+      <!-- Channel line — heart to crown (the receiving antenna) -->
+      <line x1="150" y1="180" x2="150" y2="105" stroke="#D4A948" stroke-width="0.8" opacity="0.2" stroke-dasharray="3,4"/>
+
+    </svg>
+  </div>
+
+  <div class="sacred-text">Your body is the triangle.</div>
+
+  <div class="body-text">
+    Your left hand holds Will. Your right hand holds Action. Your crown holds Knowledge — the knowing that descends. And at the center, enclosed by all three — your heart. The Bindu. The still point where everything meets.
+  </div>
+
+  <div class="bindu-dot"></div>
+
+  <div class="sacred-text">What the Temple does.</div>
+
+  <div class="body-text">
+    Your higher self — the part of you that exists outside of time, that has been guiding you long before you knew it was there — has always been above. Waiting for you to <span class="emphasis">open</span>.
+  </div>
+
+  <div class="body-text">
+    The Temple <span class="emphasis">expands your receiving antenna</span>. When you form the position, you widen the channel between the body you inhabit and the consciousness that chose to inhabit it.
+  </div>
+
+  <div class="body-text">
+    The higher self does not need to be called. It needs to be <span class="emphasis">received</span>. The position — arms open, palms to the sky, fingers curling toward crown — is the body becoming the shape of permission.
+  </div>
+
+  <div class="sacred-text">This was always the design.</div>
+
+  <div class="body-text">
+    We are entering the era of Satya Yuga — the age of truth. The veils that once separated the ordinary from the divine are thinning. What was available only to seekers at mountain tops is becoming available to anyone who stands, opens, and receives.
+  </div>
+
+  <div class="body-text">
+    The Temple is the technology for this era. Not built from silicon. Built from your own body — the oldest technology there is.
+  </div>
+
+  <div class="whisper">Every time you form the Temple, the antenna expands a little further.</div>
+
+</div>
+
+
+<div class="page-divider"></div>
+
+
+<!-- ═══════════════════════════════════════════
+     PAGE 2 — THE PRACTICE
+     ═══════════════════════════════════════════ -->
+
+<div class="page">
+
+  <div class="page-title">the practice</div>
+
+  <div class="heading">Return whenever you need to.</div>
+
+  <div class="body-text">
+    No room. No phone. No panel. Your kitchen. Your backyard. The same earth. The same sky. The same heart between them.
+  </div>
+
+  <div class="step-list">
+    <div class="step-item">Stand.</div>
+    <div class="step-item">Open your arms, palms to the sky.</div>
+    <div class="step-item">Let your fingers curl back toward the crown of your head.</div>
+    <div class="step-item">Close your eyes.</div>
+  </div>
+
+  <!-- Mini triangle reminder -->
+  <div class="temple-visual" style="max-width: 160px; margin: 0 auto 28px;">
+    <svg viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg">
+      <line x1="10" y1="80" x2="150" y2="80" stroke="#D4A948" stroke-width="0.8" opacity="0.4"/>
+      <line x1="150" y1="80" x2="80" y2="15" stroke="#D4A948" stroke-width="0.8" opacity="0.4"/>
+      <line x1="80" y1="15" x2="10" y2="80" stroke="#D4A948" stroke-width="0.8" opacity="0.4"/>
+      <circle cx="10" cy="80" r="3" fill="#D4A948" opacity="0.5"/>
+      <circle cx="150" cy="80" r="3" fill="#D4A948" opacity="0.5"/>
+      <circle cx="80" cy="15" r="3" fill="#D4A948" opacity="0.5"/>
+      <circle cx="80" cy="62" r="3" fill="#C0392B" opacity="0.6"/>
+      <text x="10" y="95" text-anchor="middle" font-size="6" fill="#D4A948" opacity="0.6" font-family="'DM Sans',sans-serif" letter-spacing="1" font-weight="300">WILL</text>
+      <text x="150" y="95" text-anchor="middle" font-size="6" fill="#D4A948" opacity="0.6" font-family="'DM Sans',sans-serif" letter-spacing="1" font-weight="300">ACTION</text>
+      <text x="80" y="8" text-anchor="middle" font-size="6" fill="#D4A948" opacity="0.6" font-family="'DM Sans',sans-serif" letter-spacing="1" font-weight="300">KNOWLEDGE</text>
+    </svg>
+  </div>
+
+  <div class="sacred-text">Three breaths. One per question.</div>
+
+  <div class="breath-section">
+    <div class="breath-item">
+      <div class="breath-label">first breath</div>
+      <div class="breath-question">What would I spend the rest of my life doing?</div>
+      <div class="breath-shakti">Kāmeshvarī · Will</div>
+    </div>
+
+    <div class="breath-item">
+      <div class="breath-label">second breath</div>
+      <div class="breath-question">What have I always known about myself that I have not fully claimed?</div>
+      <div class="breath-shakti">Vajreshvarī · Knowledge</div>
+    </div>
+
+    <div class="breath-item">
+      <div class="breath-label">third breath</div>
+      <div class="breath-question">What is the one thing only I can do?</div>
+      <div class="breath-shakti">Bhagamālinī · Action</div>
+    </div>
+  </div>
+
+  <div class="body-text">
+    Don't answer. Hold. Breathe. Release.
+  </div>
+
+  <div class="bindu-dot"></div>
+
+  <div class="closing">
+    <div class="closing-text">
+      The Temple is yours now. It does not belong to a tradition. It does not require belief. It requires only that you stand, open, and receive.
+    </div>
+
+    <div class="closing-text">
+      The design was waiting for the era. The era is here.
+    </div>
+
+    <div class="seed-final">
+      There is never anything to fear.<br>
+      There is only You, playing.
+    </div>
+  </div>
+
+</div>
+
+
+</body>
+</html>

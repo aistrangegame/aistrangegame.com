@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0" />
+<title>The One · A Strange Game</title>
+<meta name="description" content="The threshold ceremony — where you give your name, your arrival, and meet your higher self." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   THE ONE · the threshold ceremony · aistrangegame.com/tree-of-life/the-one.html
+
+   The experiencer arrives. They are received. They give:
+     - their everyday name
+     - their date of birth
+     - their higher self's name (surfaced through closed-eye discovery)
+
+   These three become bindu-essence — the origin coordinate.
+
+   Two pages, one URL: first-arrival (full ceremony) and return (settled view).
+   Branch on data presence at load.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Atmosphere — matched to the ecosystem */
+  --void:         #100a08;
+  --void-deep:    #0a0604;
+  --stone:        #1a1410;
+  --stone-edge:   #261e18;
+  --text:         rgba(240, 226, 188, 1.00);
+  --text-soft:    rgba(240, 226, 188, 0.82);
+  --text-whisper: rgba(240, 226, 188, 0.60);
+  --cream:        #f5e8c8;
+  --cream-soft:   rgba(245, 232, 200, 0.82);
+  --trace:        #d4b888;
+  --trace-soft:   rgba(212, 184, 136, 0.62);
+  --gold:         #c9a84c;
+  --gold-glow:    rgba(201, 168, 76, 0.3);
+  --c-bindu:      #e8c568;
+  --c-bindu-glow: rgba(232, 197, 104, 0.4);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overscroll-behavior-y: none;
+  transition: background 1.4s ease;
+}
+
+body.register-light {
+  background: var(--void);
+}
+body.register-deep {
+  background: var(--void-deep);
+}
+body.register-white {
+  background: #ffffff;
+  color: #1a1410;
+  transition: background 1.2s ease, color 1.2s ease;
+}
+
+/* ═══ ATMOSPHERE LAYERS ═══ */
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.atmosphere-yantra {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(95vw, 820px);
+  height: min(95vw, 820px);
+  opacity: 0.025;
+  pointer-events: none;
+  color: var(--trace);
+  transition: opacity 1.4s ease;
+}
+body.register-light .atmosphere-yantra { opacity: 0.030; }
+body.register-deep .atmosphere-yantra { opacity: 0; }
+body.register-white .atmosphere-yantra { opacity: 0; }
+body.register-white .atmosphere-grain { opacity: 0; }
+body.register-white .atmosphere-warmth { opacity: 0; }
+
+.atmosphere-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image:
+    radial-gradient(circle at 10% 20%, rgba(212,184,136,0.4) 0.5px, transparent 1px),
+    radial-gradient(circle at 70% 80%, rgba(212,184,136,0.3) 0.5px, transparent 1px),
+    radial-gradient(circle at 40% 50%, rgba(212,184,136,0.3) 0.5px, transparent 1px);
+  background-size: 180px 180px, 240px 240px, 140px 140px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+  transition: opacity 1.4s ease;
+}
+body.register-deep .atmosphere-grain { opacity: 0.020; }
+
+.atmosphere-warmth {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50vh;
+  background: linear-gradient(to top, rgba(201, 168, 76, 0.06), transparent);
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  pointer-events: none;
+}
+body.register-light .atmosphere-warmth { opacity: 1; }
+
+/* ═══ PAGE SHELL ═══ */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 56px 24px;
+  padding-bottom: calc(56px + env(safe-area-inset-bottom));
+}
+
+/* ═══ ACTS — base structure ═══ */
+.act {
+  display: none;
+  width: 100%;
+  max-width: 640px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1.0s ease;
+}
+.act.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 1;
+}
+.act.fading {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* ═══ PAGE TITLE (top, transforms at Stage 5) ═══ */
+.page-title {
+  position: fixed;
+  top: max(18px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(14px, 2.6vw, 17px);
+  letter-spacing: 0.28em;
+  color: var(--text-soft);
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.page-title.visible { opacity: 1; }
+.page-title.transitioning { opacity: 0; }
+.page-title .eye-char {
+  color: var(--c-bindu);
+  display: inline-block;
+  font-size: 0.92em;
+  vertical-align: middle;
+  margin: 0 0.1em;
+  filter: drop-shadow(0 0 4px rgba(232, 197, 104, 0.4));
+}
+
+/* ═══ ACT 00 — PRE-ACT (browser gesture, audio permission) ═══ */
+.pre-act {
+  display: none;
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+.pre-act.active { display: flex; }
+.pre-act-bindu {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--c-bindu);
+  box-shadow: 0 0 18px var(--c-bindu-glow);
+  margin-bottom: 36px;
+  animation: binduBreath 4s ease-in-out infinite;
+  opacity: 0;
+  animation: binduBreath 4s ease-in-out infinite, preActFadeIn 1.0s ease 0.4s forwards;
+}
+.pre-act-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--text-soft);
+  line-height: 1.6;
+  opacity: 0;
+  animation: preActFadeIn 1.0s ease 1.4s forwards;
+  letter-spacing: 0.01em;
+}
+@keyframes preActFadeIn {
+  to { opacity: 1; }
+}
+.pre-act-tap-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  cursor: pointer;
+  background: transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ═══ ACT 0A — THE EYE (white ground, 11.3s video) ═══ */
+.eye-stage {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  background: #ffffff;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.eye-stage.active { display: flex; }
+.eye-stage.visible { opacity: 1; }
+.eye-stage.fading { opacity: 0; transition: opacity 1.5s ease; }
+.eye-video {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  background: transparent;
+  pointer-events: none;
+}
+
+/* ═══ ACT 0 — ARRIVAL & APPRECIATION ═══ */
+.act-0-welcome {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(28px, 6vw, 36px);
+  color: var(--cream);
+  margin-bottom: 32px;
+  opacity: 0;
+}
+.act-0-meeting {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 36px;
+  max-width: 520px;
+  opacity: 0;
+}
+.act-0-prose {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--text);
+  line-height: 1.7;
+  margin-bottom: 18px;
+  max-width: 520px;
+  opacity: 0;
+}
+.act-0-prose-emphasis {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: var(--cream);
+  line-height: 1.7;
+  margin-bottom: 56px;
+  max-width: 520px;
+  letter-spacing: 0.01em;
+  font-weight: 500;
+  opacity: 0;
+}
+.act-0-cue {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(15px, 2.8vw, 17px);
+  color: var(--text-soft);
+  margin-bottom: 28px;
+  opacity: 0;
+}
+
+/* ═══ ACT I — THRESHOLD ═══ */
+.act-1-line {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(26px, 5.5vw, 36px);
+  color: var(--cream);
+  letter-spacing: 0.10em;
+  line-height: 1.5;
+  text-shadow: 0 0 32px rgba(245, 232, 200, 0.18);
+  margin-bottom: 24px;
+  opacity: 0;
+}
+
+/* ═══ ACT II — NAME & DATE ═══ */
+.act-2-section {
+  display: none;
+  width: 100%;
+  max-width: 480px;
+}
+.act-2-section.active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.act-2-label {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--text);
+  margin-bottom: 32px;
+}
+.act-2-input {
+  width: 100%;
+  max-width: 380px;
+  padding: 14px 18px;
+  border: 1px solid var(--trace-soft);
+  border-radius: 2px;
+  background: rgba(26, 20, 16, 0.4);
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  color: var(--cream);
+  text-align: center;
+  letter-spacing: 0.01em;
+  margin-bottom: 14px;
+  transition: border-color 0.4s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.act-2-input:focus {
+  outline: none;
+  border-color: var(--trace);
+}
+.act-2-input::placeholder {
+  color: var(--text-whisper);
+  font-style: italic;
+  font-size: 16px;
+}
+.act-2-sublabel {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-style: italic;
+  color: var(--text-whisper);
+  margin-bottom: 36px;
+  letter-spacing: 0.02em;
+}
+.act-2-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--trace);
+  background: transparent;
+  border: 1px solid var(--trace-soft);
+  padding: 14px 32px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0.4;
+  pointer-events: none;
+}
+.act-2-button.ready {
+  opacity: 1;
+  pointer-events: auto;
+}
+.act-2-button.ready:hover {
+  color: var(--cream);
+  border-color: var(--trace);
+  background: rgba(212, 184, 136, 0.08);
+}
+.act-2-input[type="date"] {
+  font-family: 'Lora', serif;
+  color: var(--cream);
+  color-scheme: dark;
+}
+
+/* ═══ ACT III STAGES ═══ */
+.stage {
+  display: none;
+  width: 100%;
+  max-width: 580px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}
+.stage.active { display: flex; }
+
+/* Stage 1 — Held entry prose */
+.stage-1-heading {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(26px, 5.5vw, 32px);
+  color: var(--cream);
+  margin-bottom: 28px;
+  line-height: 1.5;
+  opacity: 0;
+}
+.stage-1-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.6;
+  opacity: 0;
+}
+.stage-1-named {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 26px);
+  color: var(--cream);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1.7;
+  margin-bottom: 4px;
+  opacity: 0;
+}
+.stage-1-final {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--text);
+  line-height: 1.7;
+  margin-top: 24px;
+  margin-bottom: 56px;
+  max-width: 480px;
+  opacity: 0;
+}
+
+/* Stage 2 — breath visualization */
+.stage-2-breath {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--c-bindu);
+  box-shadow: 0 0 32px var(--c-bindu-glow);
+  margin: 80px auto 60px;
+  animation: binduSlow 8s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 1.0s ease;
+}
+.stage-2-breath.active { opacity: 1; }
+.stage-2-prompt {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--text);
+  margin-bottom: 36px;
+  opacity: 0;
+}
+.stage-2-continue {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--trace);
+  background: transparent;
+  border: 1px solid var(--trace-soft);
+  padding: 12px 28px;
+  cursor: pointer;
+  min-height: 44px;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+}
+.stage-2-continue:hover {
+  color: var(--cream);
+  border-color: var(--trace);
+  background: rgba(212, 184, 136, 0.08);
+}
+
+/* Stage 3 — silence */
+.stage-3-bindu {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--c-bindu);
+  box-shadow: 0 0 20px var(--c-bindu-glow);
+  margin: 38vh auto 0;
+  animation: binduSilent 12s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 2.0s ease;
+}
+.stage-3-bindu.active { opacity: 1; }
+.stage-3-affordance {
+  position: fixed;
+  bottom: calc(40px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-soft);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  padding: 16px 32px;
+  min-height: 44px;
+  letter-spacing: 0.02em;
+  opacity: 0;
+  transition: opacity 2.0s ease;
+  animation: stage3Pulse 6s ease-in-out infinite;
+  z-index: 10;
+}
+.stage-3-affordance.active { opacity: 0.55; }
+
+/* Stage 4 — reception */
+.stage-4-bindu {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--c-bindu);
+  box-shadow: 0 0 14px var(--c-bindu-glow);
+  margin-bottom: 60px;
+  animation: binduBreath 4s ease-in-out infinite;
+  opacity: 0;
+  transition: opacity 1.0s ease;
+}
+.stage-4-bindu.active { opacity: 1; }
+.stage-4-prompt {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 26px);
+  color: var(--cream);
+  margin-bottom: 36px;
+  opacity: 0;
+}
+.stage-4-input {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 44px;
+  padding: 16px 12px;
+  border: none;
+  border-bottom: 1px solid var(--trace-soft);
+  background: transparent;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 28px;
+  color: var(--cream);
+  text-align: center;
+  letter-spacing: 0.01em;
+  transition: border-color 0.4s ease;
+  -webkit-appearance: none;
+  appearance: none;
+  opacity: 0;
+}
+.stage-4-input:focus {
+  outline: none;
+  border-bottom-color: var(--c-bindu);
+}
+.stage-4-input::placeholder {
+  color: var(--text-whisper);
+  font-style: italic;
+  font-size: 18px;
+}
+.stage-4-affordances {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  opacity: 0;
+}
+.stage-4-listen-again {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-soft);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 18px;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  letter-spacing: 0.01em;
+  text-decoration: underline;
+  text-decoration-color: var(--trace-soft);
+  text-underline-offset: 4px;
+  transition: color 0.3s ease;
+}
+.stage-4-listen-again:hover { color: var(--cream); }
+
+/* Stage 5 — return register */
+.stage-5-line {
+  font-family: 'Lora', serif;
+  font-size: clamp(22px, 4.4vw, 26px);
+  color: var(--cream);
+  margin-bottom: 28px;
+  line-height: 1.6;
+  opacity: 0;
+}
+.stage-5-final {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(20px, 4vw, 22px);
+  color: var(--text);
+  margin-top: 36px;
+  margin-bottom: 56px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0;
+}
+.stage-5-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--trace);
+  background: transparent;
+  border: 1px solid var(--trace);
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+}
+.stage-5-button:hover {
+  color: var(--cream);
+  background: rgba(212, 184, 136, 0.12);
+}
+
+/* ═══ HOLD-GATE — universal pulse-gate pattern ═══ */
+.hold-gate {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 1.0s ease;
+}
+.hold-gate.active { opacity: 1; }
+
+.hold-gate .bindu {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 28px; height: 28px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--c-bindu);
+  box-shadow: 0 0 18px var(--c-bindu-glow);
+  animation: binduBreath 4s ease-in-out infinite;
+  pointer-events: none;
+}
+.hold-gate .progress-ring {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+.progress-track {
+  fill: none;
+  stroke: rgba(212, 184, 136, 0.18);
+  stroke-width: 1.5;
+}
+.progress-fill {
+  fill: none;
+  stroke: var(--c-bindu);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 226;
+  stroke-dashoffset: 226;
+  transition: stroke-dashoffset 0.1s linear;
+  filter: drop-shadow(0 0 4px rgba(232, 197, 104, 0.5));
+}
+.hold-gate.holding .bindu {
+  animation: binduHold 1.8s ease-in-out forwards;
+}
+.hold-label {
+  display: block;
+  margin-top: 18px;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--text-soft);
+  text-align: center;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+/* ═══ RETURN PAGE — settled view ═══ */
+.return-page {
+  display: none;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 0;
+}
+.return-page.active { display: flex; }
+.return-header {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.6vw, 28px);
+  color: var(--cream);
+  margin-bottom: 56px;
+  letter-spacing: 0.01em;
+}
+.return-block {
+  font-family: 'Lora', serif;
+  font-size: clamp(20px, 4vw, 24px);
+  color: var(--cream);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+.return-edit-block {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.return-edit-block.editing {
+  background: rgba(26, 20, 16, 0.4);
+  border: 1px solid var(--trace-soft);
+  padding: 24px;
+  border-radius: 4px;
+}
+.return-edit-toggle {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-whisper);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px 14px;
+  min-height: 44px;
+  transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  margin-top: 8px;
+}
+.return-edit-toggle:hover { color: var(--trace); }
+
+.return-edit-input {
+  width: 100%;
+  max-width: 380px;
+  padding: 14px 18px;
+  border: 1px solid var(--trace-soft);
+  border-radius: 2px;
+  background: rgba(16, 10, 8, 0.6);
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  color: var(--cream);
+  text-align: center;
+  letter-spacing: 0.01em;
+  margin: 12px auto;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.return-edit-input:focus {
+  outline: none;
+  border-color: var(--trace);
+}
+.return-edit-actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 12px;
+}
+.return-edit-action {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--trace-soft);
+  padding: 10px 22px;
+  cursor: pointer;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.3s ease;
+  color: var(--trace);
+}
+.return-edit-action:hover {
+  color: var(--cream);
+  border-color: var(--trace);
+}
+.return-edit-action.primary {
+  color: var(--c-bindu);
+  border-color: var(--c-bindu);
+}
+
+.return-divider {
+  width: 60px;
+  height: 1px;
+  background: var(--trace-soft);
+  margin: 36px auto;
+  opacity: 0.5;
+}
+.return-rewalk {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-whisper);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 12px 14px;
+  min-height: 44px;
+  margin-bottom: 36px;
+  transition: color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.return-rewalk:hover { color: var(--trace); }
+
+.return-continue {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--trace);
+  background: transparent;
+  border: 1px solid var(--trace);
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.return-continue:hover {
+  color: var(--cream);
+  background: rgba(212, 184, 136, 0.12);
+}
+
+/* ═══ RE-WALK COMPLETION — keep/replace choice ═══ */
+.rewalk-choice {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+  width: 100%;
+  max-width: 520px;
+}
+.rewalk-choice.active { display: flex; }
+.rewalk-choice-prose {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.8vw, 21px);
+  color: var(--text);
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+.rewalk-choice-prose strong {
+  color: var(--cream);
+  font-weight: 500;
+}
+.rewalk-choice-actions {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.rewalk-choice-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  background: transparent;
+  border: 1px solid var(--trace-soft);
+  padding: 14px 28px;
+  cursor: pointer;
+  min-height: 44px;
+  -webkit-tap-highlight-color: transparent;
+  transition: all 0.3s ease;
+  color: var(--trace);
+}
+.rewalk-choice-button:hover {
+  color: var(--cream);
+  border-color: var(--trace);
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes binduBreath {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.0); }
+  50%      { opacity: 1.0; transform: translate(-50%, -50%) scale(1.08); }
+}
+@keyframes binduSlow {
+  0%, 100% { opacity: 0.4; transform: scale(1.0); }
+  50%      { opacity: 0.85; transform: scale(1.15); }
+}
+@keyframes binduSilent {
+  0%, 100% { opacity: 0.55; transform: scale(1.0); }
+  50%      { opacity: 0.95; transform: scale(1.10); }
+}
+@keyframes binduHold {
+  0%   { transform: translate(-50%, -50%) scale(1.0); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 1.0; }
+}
+@keyframes stage3Pulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.7; }
+}
+@keyframes wordIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fadeIn { animation: wordIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+/* ═══ Reduced motion ═══ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 200ms !important;
+  }
+  .stage-2-breath { animation: binduBreath 4s ease-in-out infinite !important; }
+  .stage-3-bindu { animation: binduBreath 4s ease-in-out infinite !important; }
+  .hold-gate .bindu { animation: binduBreath 4s ease-in-out infinite !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ ATMOSPHERE ═══ -->
+<div class="atmosphere" aria-hidden="true">
+  <svg class="atmosphere-yantra" viewBox="-100 -100 200 200" preserveAspectRatio="xMidYMid meet">
+    <g fill="none" stroke="currentColor" stroke-width="0.25">
+      <polygon points="0,-80 70,40 -70,40" />
+      <polygon points="0,-55 48,28 -48,28" />
+      <polygon points="0,-38 33,19 -33,19" />
+      <polygon points="0,-22 19,11 -19,11" />
+      <polygon points="0,75 -68,-38 68,-38" />
+      <polygon points="0,52 -47,-26 47,-26" />
+      <polygon points="0,36 -32,-18 32,-18" />
+      <polygon points="0,20 -18,-10 18,-10" />
+      <polygon points="0,8 -8,-5 8,-5" />
+      <circle cx="0" cy="0" r="1.4" fill="currentColor" />
+      <circle cx="0" cy="0" r="88" />
+      <circle cx="0" cy="0" r="90" />
+    </g>
+  </svg>
+  <div class="atmosphere-grain"></div>
+  <div class="atmosphere-warmth"></div>
+</div>
+
+<!-- ═══ PAGE TITLE (top) ═══ -->
+<div class="page-title" id="page-title" aria-hidden="true">A Strange <span class="eye-char" id="page-title-center">👁</span> Game</div>
+
+<!-- ═══ ACT 0A — THE EYE (white ground, 11.3s video) ═══ -->
+<div class="eye-stage" id="eye-stage" aria-label="The eye of consciousness">
+  <video class="eye-video" id="eye-video" playsinline preload="auto">
+    <source src="gaia-soul.mp4" type="video/mp4" />
+  </video>
+</div>
+
+<!-- ═══ PAGE ═══ -->
+<main class="page" id="page">
+
+  <!-- ═══ ACT 00 — PRE-ACT (browser gesture for audio) ═══ -->
+  <section class="pre-act" id="pre-act" aria-label="Tap to begin">
+    <div class="pre-act-bindu" aria-hidden="true"></div>
+    <p class="pre-act-line">Begin when you're ready.</p>
+  </section>
+  <button class="pre-act-tap-layer" id="pre-act-tap-layer" type="button" aria-label="Begin"></button>
+
+  <!-- ═══ ACT 0 — ARRIVAL & APPRECIATION ═══ -->
+  <section class="act" id="act-0" aria-label="Welcome">
+    <p class="act-0-welcome" id="act-0-welcome">Welcome.</p>
+    <p class="act-0-meeting" id="act-0-meeting">In a moment, you will meet your higher self.</p>
+    <p class="act-0-prose" id="act-0-prose-1">Before you do — take a moment to appreciate the one who arrived here.</p>
+    <p class="act-0-prose" id="act-0-prose-2">The one who showed up. Who was curious enough. Who said yes.</p>
+    <p class="act-0-prose-emphasis" id="act-0-emphasis">You are worthy of this meeting.</p>
+    <p class="act-0-cue" id="act-0-cue">When you're ready to begin, hold the circle.</p>
+    <button class="hold-gate" id="hold-act-0" data-hold="1800" aria-label="Hold to begin">
+      <span class="bindu"></span>
+      <svg class="progress-ring" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="36" class="progress-track" />
+        <circle cx="40" cy="40" r="36" class="progress-fill" />
+      </svg>
+      <span class="hold-label">Begin</span>
+    </button>
+  </section>
+
+  <!-- ═══ ACT I — THRESHOLD ═══ -->
+  <section class="act" id="act-1" aria-label="Threshold">
+    <p class="act-1-line" id="act-1-line">The road asks who is walking.</p>
+  </section>
+
+  <!-- ═══ ACT II — NAME & DATE ═══ -->
+  <section class="act" id="act-2" aria-label="Name and date">
+    <!-- Field 1 — name -->
+    <div class="act-2-section active" id="act-2-name">
+      <label for="input-name" class="act-2-label">What name do you go by?</label>
+      <input type="text" id="input-name" class="act-2-input"
+             placeholder="the name the world calls you"
+             autocomplete="given-name" autocapitalize="words" maxlength="60" />
+      <button class="act-2-button" id="btn-name-continue" type="button">Continue</button>
+    </div>
+    <!-- Field 2 — date -->
+    <div class="act-2-section" id="act-2-date">
+      <label for="input-date" class="act-2-label">When did you arrive?</label>
+      <input type="date" id="input-date" class="act-2-input" />
+      <p class="act-2-sublabel">the day you stepped into a body</p>
+      <button class="act-2-button" id="btn-date-continue" type="button">Continue</button>
+    </div>
+  </section>
+
+  <!-- ═══ ACT III STAGE 1 — HELD ENTRY ═══ -->
+  <section class="act" id="act-3-stage-1" aria-label="The listening">
+    <p class="stage-1-heading" id="stage-1-heading">A name is already in you.</p>
+    <p class="stage-1-line" id="stage-1-line-1">You don't have to invent it.</p>
+    <p class="stage-1-line" id="stage-1-line-2">You just have to be still and listen.</p>
+    <p class="stage-1-named" id="stage-1-named-1">Listen to Your Self.</p>
+    <p class="stage-1-named" id="stage-1-named-2">Your Higher Self.</p>
+    <p class="stage-1-final" id="stage-1-final">The name will arrive in the pause of the Silence.</p>
+    <button class="hold-gate" id="hold-stage-1" data-hold="1800" aria-label="Hold to listen">
+      <span class="bindu"></span>
+      <svg class="progress-ring" viewBox="0 0 80 80" aria-hidden="true">
+        <circle cx="40" cy="40" r="36" class="progress-track" />
+        <circle cx="40" cy="40" r="36" class="progress-fill" />
+      </svg>
+      <span class="hold-label">I'm ready</span>
+    </button>
+  </section>
+
+  <!-- ═══ ACT III STAGE 2 — BREATH ═══ -->
+  <section class="act" id="act-3-stage-2" aria-label="Breathe">
+    <div class="stage-2-breath" id="stage-2-breath"></div>
+    <p class="stage-2-prompt" id="stage-2-prompt">Close your eyes when you're ready.</p>
+    <button class="stage-2-continue" id="stage-2-continue" type="button">Continue</button>
+  </section>
+
+  <!-- ═══ ACT III STAGE 3 — SILENCE ═══ -->
+  <section class="act" id="act-3-stage-3" aria-label="The silence">
+    <div class="stage-3-bindu" id="stage-3-bindu"></div>
+    <button class="stage-3-affordance" id="stage-3-continue" type="button">Continue when you've heard</button>
+  </section>
+
+  <!-- ═══ ACT III STAGE 4 — RECEPTION ═══ -->
+  <section class="act" id="act-3-stage-4" aria-label="Receive the name">
+    <div class="stage-4-bindu" id="stage-4-bindu"></div>
+    <p class="stage-4-prompt" id="stage-4-prompt">What name surfaced?</p>
+    <input type="text" id="input-higher-self" class="stage-4-input"
+           placeholder="whatever arrived"
+           autocomplete="off" autocapitalize="words" maxlength="40" />
+    <div class="stage-4-affordances" id="stage-4-affordances">
+      <button class="stage-4-listen-again" id="btn-listen-again" type="button">Listen again</button>
+      <button class="hold-gate" id="hold-receive" data-hold="1800" aria-label="Hold to receive">
+        <span class="bindu"></span>
+        <svg class="progress-ring" viewBox="0 0 80 80" aria-hidden="true">
+          <circle cx="40" cy="40" r="36" class="progress-track" />
+          <circle cx="40" cy="40" r="36" class="progress-fill" />
+        </svg>
+        <span class="hold-label">Receive</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══ ACT III STAGE 5 — RETURN REGISTER ═══ -->
+  <section class="act" id="act-3-stage-5" aria-label="Reflection and the road">
+    <p class="stage-5-line" id="stage-5-line-1"></p>
+    <p class="stage-5-line" id="stage-5-line-2"></p>
+    <p class="stage-5-line" id="stage-5-line-3"></p>
+    <p class="stage-5-final" id="stage-5-final">The road has been waiting.</p>
+    <a class="stage-5-button" id="stage-5-button" href="bindu-practice.html">Begin the road →</a>
+  </section>
+
+  <!-- ═══ RETURN PAGE — settled view ═══ -->
+  <section class="return-page" id="return-page" aria-label="You have already been received">
+    <p class="return-header">You have already been received.</p>
+
+    <!-- Name block -->
+    <div class="return-edit-block" id="edit-block-name">
+      <p class="return-block" id="display-name">You are <span id="display-name-value"></span>.</p>
+      <button class="return-edit-toggle" id="toggle-edit-name" type="button">Edit name</button>
+    </div>
+
+    <!-- Date block -->
+    <div class="return-edit-block" id="edit-block-date">
+      <p class="return-block" id="display-date">You arrived on <span id="display-date-value"></span>.</p>
+      <button class="return-edit-toggle" id="toggle-edit-date" type="button">Edit date</button>
+    </div>
+
+    <!-- Higher self block -->
+    <div class="return-edit-block">
+      <p class="return-block" id="display-higher-self">Your higher self is called <span id="display-higher-self-value"></span>.</p>
+    </div>
+
+    <div class="return-divider"></div>
+
+    <button class="return-rewalk" id="btn-rewalk" type="button">Re-walk the discovery</button>
+    <a class="return-continue" id="btn-continue" href="the-road-home.html">Continue your road →</a>
+  </section>
+
+</main>
+
+<script>
+(function() {
+  'use strict';
+
+  // ══════════════════════════════════════════════════════════
+  // 1 · STORAGE HELPERS — bindu-essence
+  // ══════════════════════════════════════════════════════════
+  function getEssence() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+
+  function essenceComplete() {
+    var e = getEssence();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function setEssence(updates) {
+    var current = getEssence() || { version: 1 };
+    for (var k in updates) {
+      if (updates.hasOwnProperty(k)) current[k] = updates[k];
+    }
+    current.lastUpdatedAt = Date.now();
+    if (essenceCompleteFromObject(current) && !current.completedAt) {
+      current.completedAt = Date.now();
+    }
+    try {
+      localStorage.setItem('bindu-essence', JSON.stringify(current));
+      return true;
+    } catch (e) { return false; }
+  }
+
+  function essenceCompleteFromObject(e) {
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function getReturnUrl() {
+    var match = window.location.search.match(/[?&]return=([^&]+)/);
+    if (!match) return null;
+    try { return decodeURIComponent(match[1]); } catch (e) { return null; }
+  }
+
+  function formatDateLong(iso) {
+    if (!iso) return '';
+    var parts = iso.split('-');
+    if (parts.length !== 3) return iso;
+    var months = ['January','February','March','April','May','June',
+                  'July','August','September','October','November','December'];
+    var y = parseInt(parts[0], 10);
+    var m = parseInt(parts[1], 10) - 1;
+    var d = parseInt(parts[2], 10);
+    if (isNaN(y) || isNaN(m) || isNaN(d) || m < 0 || m > 11) return iso;
+    return months[m] + ' ' + d + ', ' + y;
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 2 · HOLD-GATE — universal pulse-gate utility
+  // ══════════════════════════════════════════════════════════
+  function attachHold(btn, durationMs, onComplete) {
+    if (!btn) return;
+    var hold = false, start = 0, frameId = null;
+    var fill = btn.querySelector('.progress-fill');
+    var bindu = btn.querySelector('.bindu');
+    var CIRC = 226;
+
+    function tick() {
+      if (!hold) return;
+      var elapsed = Date.now() - start;
+      var progress = Math.min(elapsed / durationMs, 1);
+      if (fill) fill.style.strokeDashoffset = (CIRC * (1 - progress)).toFixed(1);
+      if (progress >= 1) {
+        hold = false;
+        if (navigator.vibrate) { try { navigator.vibrate(40); } catch(e){} }
+        btn.classList.remove('holding');
+        onComplete();
+        return;
+      }
+      frameId = requestAnimationFrame(tick);
+    }
+    function startHold(e) {
+      if (e && e.preventDefault) e.preventDefault();
+      if (hold) return;
+      hold = true;
+      start = Date.now();
+      btn.classList.add('holding');
+      if (fill) fill.style.transition = 'stroke-dashoffset 0.1s linear';
+      tick();
+    }
+    function endHold() {
+      if (!hold) return;
+      hold = false;
+      btn.classList.remove('holding');
+      if (frameId) cancelAnimationFrame(frameId);
+      if (fill) {
+        fill.style.transition = 'stroke-dashoffset 0.4s ease-out';
+        fill.style.strokeDashoffset = CIRC;
+      }
+    }
+    btn.addEventListener('touchstart', startHold, { passive: false });
+    btn.addEventListener('touchend',   endHold);
+    btn.addEventListener('touchcancel', endHold);
+    btn.addEventListener('mousedown',  startHold);
+    btn.addEventListener('mouseup',    endHold);
+    btn.addEventListener('mouseleave', endHold);
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 3 · DOM HELPERS
+  // ══════════════════════════════════════════════════════════
+  function $(id) { return document.getElementById(id); }
+  function show(el) {
+    if (typeof el === 'string') el = $(el);
+    if (el) el.classList.add('active');
+  }
+  function hide(el) {
+    if (typeof el === 'string') el = $(el);
+    if (el) el.classList.remove('active');
+  }
+  function fadeOutAct(act, then) {
+    var el = typeof act === 'string' ? $(act) : act;
+    if (!el) { if (then) then(); return; }
+    el.classList.add('fading');
+    setTimeout(function() {
+      el.classList.remove('active');
+      el.classList.remove('fading');
+      el.style.display = '';
+      if (then) then();
+    }, 600);
+  }
+  function setOpacity(el, opacity, delay) {
+    if (typeof el === 'string') el = $(el);
+    if (!el) return;
+    setTimeout(function() {
+      el.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+      el.style.opacity = opacity;
+      el.style.transform = 'translateY(0)';
+    }, delay || 0);
+  }
+
+  function setRegister(name) {
+    document.body.classList.remove('register-light', 'register-deep', 'register-white');
+    if (name === 'light') document.body.classList.add('register-light');
+    if (name === 'deep')  document.body.classList.add('register-deep');
+    if (name === 'white') document.body.classList.add('register-white');
+    // 'held' is the default — no class
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 4 · ROUTING — first-arrival vs return
+  // ══════════════════════════════════════════════════════════
+  function route() {
+    if (essenceComplete()) {
+      renderReturnPage();
+    } else {
+      runFirstArrival();
+    }
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 5 · FIRST ARRIVAL — full ceremony
+  // ══════════════════════════════════════════════════════════
+  function runFirstArrival() {
+    // Start in dark register with Act 00 (pre-act)
+    setRegister('held');
+    runAct00();
+  }
+
+  // ─── Act 00 — pre-act: tap gesture to authorize audio ───
+  function runAct00() {
+    show('pre-act');
+    var tapLayer = $('pre-act-tap-layer');
+    var preAct = $('pre-act');
+
+    function startCeremony() {
+      // Remove tap listener so it doesn't re-fire
+      tapLayer.removeEventListener('click', startCeremony);
+      tapLayer.style.display = 'none';
+
+      // Fade out pre-act
+      preAct.style.transition = 'opacity 0.6s ease';
+      preAct.style.opacity = '0';
+
+      setTimeout(function() {
+        hide('pre-act');
+        preAct.style.opacity = '';
+        preAct.style.transition = '';
+
+        // Transition body to white register for Act 0a
+        setRegister('white');
+
+        // Small delay to let the background fade begin, then show eye stage
+        setTimeout(function() { runAct0a(); }, 400);
+      }, 600);
+    }
+
+    tapLayer.addEventListener('click', startCeremony);
+    // Also allow touchstart for faster mobile response
+    tapLayer.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+      startCeremony();
+    }, { passive: false });
+  }
+
+  // ─── Act 0a — the eye (white ground, 11.3s video) ───
+  function runAct0a() {
+    var stage = $('eye-stage');
+    var video = $('eye-video');
+
+    // Show the stage (display: flex)
+    stage.classList.add('active');
+
+    // Wait a tick for layout, then fade in
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        stage.classList.add('visible');
+      });
+    });
+
+    // Attempt to play the video
+    // If autoplay fails (rare after user gesture), we still advance after timeout
+    var videoStarted = false;
+    var advanceScheduled = false;
+
+    function scheduleAdvance(delayMs) {
+      if (advanceScheduled) return;
+      advanceScheduled = true;
+      setTimeout(runAct0Transition, delayMs);
+    }
+
+    video.addEventListener('ended', function() {
+      // Video ended naturally — hold final frame 1.7s, then transition
+      scheduleAdvance(1700);
+    });
+
+    video.addEventListener('error', function() {
+      // Video error — skip to transition after a short hold
+      console.warn('Eye video error — proceeding without it');
+      scheduleAdvance(2000);
+    });
+
+    // Fallback: if video never fires 'ended' (e.g. blocked, missing file),
+    // advance after 15 seconds total
+    setTimeout(function() { scheduleAdvance(0); }, 15000);
+
+    // Start playback after stage is visible
+    setTimeout(function() {
+      var playPromise = video.play();
+      if (playPromise && playPromise.catch) {
+        playPromise.catch(function(err) {
+          console.warn('Eye video play failed:', err);
+          scheduleAdvance(2000);
+        });
+      }
+    }, 1200);
+  }
+
+  // ─── Transition from Act 0a (white) to Act 0 (dark) ───
+  function runAct0Transition() {
+    var stage = $('eye-stage');
+    stage.classList.remove('visible');
+    stage.classList.add('fading');
+
+    // 1.5s white-to-dark transition
+    setRegister('held');
+
+    setTimeout(function() {
+      stage.classList.remove('active', 'fading');
+      // Now show page title (appears after transition completes)
+      $('page-title').classList.add('visible');
+      // Show Act 0 (appreciation)
+      show('act-0');
+      runAct0();
+    }, 1500);
+  }
+
+  // ─── Act 0b — arrival & appreciation ───
+  // (renamed from runAct0 but keeps same function name for existing references)
+  function runAct0() {
+    setOpacity('act-0-welcome', 1, 600);
+    setOpacity('act-0-meeting', 1, 2200);
+    setOpacity('act-0-prose-1', 1, 4000);
+    setOpacity('act-0-prose-2', 1, 5400);
+    setOpacity('act-0-emphasis', 1, 7200);
+    setOpacity('act-0-cue', 1, 9400);
+    setTimeout(function() { $('hold-act-0').classList.add('active'); }, 9400);
+
+    attachHold($('hold-act-0'), 1800, function() {
+      fadeOutAct('act-0', function() {
+        show('act-1');
+        runActI();
+      });
+    });
+  }
+
+  // ─── Act I — threshold line ───
+  function runActI() {
+    setOpacity('act-1-line', 1, 400);
+    setTimeout(function() {
+      fadeOutAct('act-1', function() {
+        setRegister('light');
+        show('act-2');
+        runActII();
+      });
+    }, 4200);
+  }
+
+  // ─── Act II — name & date ───
+  function runActII() {
+    var nameInput = $('input-name');
+    var nameBtn = $('btn-name-continue');
+    var dateInput = $('input-date');
+    var dateBtn = $('btn-date-continue');
+
+    // Name field is shown active by default
+    setTimeout(function() { nameInput.focus(); }, 800);
+
+    function checkNameReady() {
+      if (nameInput.value.trim().length > 0) nameBtn.classList.add('ready');
+      else nameBtn.classList.remove('ready');
+    }
+    nameInput.addEventListener('input', checkNameReady);
+    nameInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && nameInput.value.trim().length > 0) {
+        e.preventDefault();
+        advanceToDate();
+      }
+    });
+    nameBtn.addEventListener('click', advanceToDate);
+
+    function advanceToDate() {
+      var name = nameInput.value.trim();
+      if (!name) return;
+      setEssence({ name: name });
+      hide('act-2-name');
+      show('act-2-date');
+      setTimeout(function() {
+        // Cannot reliably auto-focus a date input, but try
+        try { dateInput.focus(); } catch(e) {}
+      }, 400);
+    }
+
+    function checkDateReady() {
+      if (dateInput.value) dateBtn.classList.add('ready');
+      else dateBtn.classList.remove('ready');
+    }
+    dateInput.addEventListener('input', checkDateReady);
+    dateInput.addEventListener('change', checkDateReady);
+    dateBtn.addEventListener('click', function() {
+      var date = dateInput.value;
+      if (!date) return;
+      setEssence({ dateOfBirth: date });
+      fadeOutAct('act-2', function() {
+        setRegister('deep');
+        show('act-3-stage-1');
+        runStage1();
+      });
+    });
+  }
+
+  // ─── Stage 1 — held entry ───
+  function runStage1() {
+    setOpacity('stage-1-heading', 1, 600);
+    setOpacity('stage-1-line-1', 1, 2200);
+    setOpacity('stage-1-line-2', 1, 3400);
+    setOpacity('stage-1-named-1', 1, 5200);
+    setOpacity('stage-1-named-2', 1, 6400);
+    setOpacity('stage-1-final', 1, 8400);
+    setTimeout(function() { $('hold-stage-1').classList.add('active'); }, 10200);
+
+    attachHold($('hold-stage-1'), 1800, function() {
+      fadeOutAct('act-3-stage-1', function() {
+        show('act-3-stage-2');
+        runStage2();
+      });
+    });
+  }
+
+  // ─── Stage 2 — breath ───
+  function runStage2() {
+    var breath = $('stage-2-breath');
+    var prompt = $('stage-2-prompt');
+    var cont = $('stage-2-continue');
+
+    setTimeout(function() { breath.classList.add('active'); }, 400);
+    // Three full breath cycles = 24s. Then prompt fades in.
+    setTimeout(function() { setOpacity('stage-2-prompt', 1, 0); }, 24400);
+    // Continue affordance arrives 2s after prompt
+    setTimeout(function() { setOpacity('stage-2-continue', 1, 0); }, 26400);
+
+    cont.addEventListener('click', function() {
+      fadeOutAct('act-3-stage-2', function() {
+        show('act-3-stage-3');
+        runStage3();
+      });
+    });
+  }
+
+  // ─── Stage 3 — silence ───
+  function runStage3() {
+    var bindu = $('stage-3-bindu');
+    var aff = $('stage-3-continue');
+
+    setTimeout(function() { bindu.classList.add('active'); }, 600);
+    // 30 seconds of silence before affordance fades in
+    setTimeout(function() { aff.classList.add('active'); }, 30000);
+
+    aff.addEventListener('click', function() {
+      fadeOutAct('act-3-stage-3', function() {
+        show('act-3-stage-4');
+        runStage4();
+      });
+    });
+  }
+
+  // ─── Stage 4 — reception ───
+  function runStage4() {
+    setRegister('held');  // lift slightly out of deep
+    var bindu = $('stage-4-bindu');
+    var input = $('input-higher-self');
+    var affordances = $('stage-4-affordances');
+    var listenAgain = $('btn-listen-again');
+    var receive = $('hold-receive');
+
+    setTimeout(function() { bindu.classList.add('active'); }, 600);
+    setOpacity('stage-4-prompt', 1, 1400);
+    setOpacity('input-higher-self', 1, 2400);
+    setOpacity('stage-4-affordances', 1, 3000);
+    setTimeout(function() { input.focus(); }, 3200);
+
+    listenAgain.addEventListener('click', function() {
+      fadeOutAct('act-3-stage-4', function() {
+        // Reset the input so a re-listen starts clean for a new attempt
+        input.value = '';
+        // Reset stage-4 visual state for next entry
+        bindu.classList.remove('active');
+        $('stage-4-prompt').style.opacity = 0;
+        input.style.opacity = 0;
+        affordances.style.opacity = 0;
+        setRegister('deep');
+        show('act-3-stage-3');
+        // Reset stage-3 affordance so it gets the 30s wait again
+        $('stage-3-bindu').classList.remove('active');
+        $('stage-3-continue').classList.remove('active');
+        runStage3();
+      });
+    });
+
+    attachHold(receive, 1800, function() {
+      var name = input.value.trim();
+      if (!name) {
+        // Walker held without typing — pulse prompt to invite
+        var promptEl = $('stage-4-prompt');
+        if (promptEl) {
+          promptEl.style.transition = 'color 0.3s ease';
+          promptEl.style.color = 'var(--c-bindu)';
+          setTimeout(function() { promptEl.style.color = ''; }, 800);
+        }
+        input.focus();
+        return;
+      }
+      // Check if this is a re-walk (essence already had a higherSelfName)
+      var existing = getEssence();
+      var hadPrevious = existing && existing.higherSelfName;
+      if (hadPrevious && existing.higherSelfName !== name) {
+        // Show the keep/replace choice within Stage 5
+        runStage5(name, existing.higherSelfName);
+      } else {
+        // First-time receive, or same name typed — commit and run normally
+        setEssence({ higherSelfName: name });
+        runStage5(name, null);
+      }
+    });
+  }
+
+  // ─── Stage 5 — return register, reflection, road button ───
+  function runStage5(higherSelfName, previousName) {
+    fadeOutAct('act-3-stage-4', function() {
+      setRegister('light');
+      var essence = getEssence();
+      // If commit hasn't happened yet (because of re-walk choice path), don't commit until choice is made
+      // For first-time receive, essence already has higherSelfName set
+      var nameToShow = previousName ? previousName : (essence ? essence.higherSelfName : higherSelfName);
+      var displayHigher = previousName ? previousName : higherSelfName;
+
+      if (!essence) essence = {};
+
+      // Build the three reflection lines
+      $('stage-5-line-1').textContent = 'You are ' + (essence.name || '') + '.';
+      $('stage-5-line-2').textContent = 'You arrived on ' + formatDateLong(essence.dateOfBirth) + '.';
+      $('stage-5-line-3').textContent = 'Your higher self is called ' + (previousName ? higherSelfName : higherSelfName) + '.';
+
+      show('act-3-stage-5');
+      setOpacity('stage-5-line-1', 1, 800);
+      setOpacity('stage-5-line-2', 1, 2600);
+      setOpacity('stage-5-line-3', 1, 4400);
+
+      // Title transformation — about 2s after line-3 appears
+      // Only fire for first-time receive (not re-walk with previousName, where title is already correct)
+      if (!previousName) {
+        setTimeout(function() {
+          transformTitle(higherSelfName);
+        }, 6400);
+      }
+
+      if (previousName) {
+        // Re-walk: insert the keep/replace choice instead of the road button
+        var choiceHtml =
+          '<div class="rewalk-choice active" id="rewalk-choice">' +
+          '  <p class="rewalk-choice-prose">You named it <strong>' + escapeHtml(previousName) + '</strong> before. ' +
+          'You named it <strong>' + escapeHtml(higherSelfName) + '</strong> now.<br><br>' +
+          'Both are honored. Which would you like to keep?</p>' +
+          '  <div class="rewalk-choice-actions">' +
+          '    <button class="rewalk-choice-button" id="keep-previous" type="button">Keep ' + escapeHtml(previousName) + '</button>' +
+          '    <button class="rewalk-choice-button" id="keep-new" type="button">Keep ' + escapeHtml(higherSelfName) + '</button>' +
+          '  </div>' +
+          '</div>';
+        var stage5 = $('act-3-stage-5');
+        // Hide the default final + button while choice is active
+        $('stage-5-final').style.display = 'none';
+        $('stage-5-button').style.display = 'none';
+        stage5.insertAdjacentHTML('beforeend', choiceHtml);
+        setTimeout(function() {
+          var chc = $('rewalk-choice');
+          if (chc) chc.style.opacity = 0, chc.style.transition = 'opacity 1.2s ease', requestAnimationFrame(function(){ chc.style.opacity = 1; });
+        }, 6400);
+
+        $('keep-previous').addEventListener('click', function() {
+          // Don't change essence — previous name is kept (it was already stored)
+          finalizeStage5(previousName, true);
+        });
+        $('keep-new').addEventListener('click', function() {
+          setEssence({ higherSelfName: higherSelfName });
+          finalizeStage5(higherSelfName, true);
+        });
+      } else {
+        // First-time receive — show the final and button
+        setOpacity('stage-5-final', 1, 7400);
+        setOpacity('stage-5-button', 1, 9400);
+
+        // Adapt button if there's a return URL
+        var returnUrl = getReturnUrl();
+        if (returnUrl) {
+          var btn = $('stage-5-button');
+          btn.textContent = 'Continue your road →';
+          btn.href = returnUrl;
+        }
+      }
+    });
+  }
+
+  // After re-walk choice resolved, transition to the road
+  function finalizeStage5(chosenName, fromRewalk) {
+    var rewalkChoice = $('rewalk-choice');
+    if (rewalkChoice) {
+      rewalkChoice.style.transition = 'opacity 0.6s ease';
+      rewalkChoice.style.opacity = 0;
+      setTimeout(function() {
+        if (rewalkChoice.parentNode) rewalkChoice.parentNode.removeChild(rewalkChoice);
+        $('stage-5-line-3').textContent = 'Your higher self is called ' + chosenName + '.';
+        $('stage-5-final').style.display = '';
+        $('stage-5-button').style.display = '';
+        $('stage-5-button').textContent = 'Continue your road →';
+        $('stage-5-button').href = 'the-road-home.html';
+        setOpacity('stage-5-final', 1, 200);
+        setOpacity('stage-5-button', 1, 1600);
+
+        // If the title's current name doesn't match the chosen name, transform it
+        var title = $('page-title');
+        if (title) {
+          var currentTitleText = title.textContent || '';
+          if (currentTitleText.indexOf(chosenName) === -1) {
+            transformTitle(chosenName);
+          }
+        }
+      }, 700);
+    }
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function(c) {
+      return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+    });
+  }
+
+  // ─── Title transformation: "A Strange 👁 Game" → "A Strange [HigherSelf] Game" ───
+  function transformTitle(higherSelfName) {
+    var title = $('page-title');
+    if (!title) return;
+
+    // Fade out (1.2s)
+    title.classList.add('transitioning');
+
+    setTimeout(function() {
+      // Replace content
+      title.innerHTML = 'A Strange <span class="eye-char">' + escapeHtml(higherSelfName) + '</span> Game';
+      // Fade back in (1.2s)
+      title.classList.remove('transitioning');
+      // Also update the browser tab title
+      document.title = 'The One · A Strange ' + higherSelfName + ' Game';
+    }, 1200);
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 6 · RETURN PAGE — settled view
+  // ══════════════════════════════════════════════════════════
+  function renderReturnPage() {
+    setRegister('light');
+    var essence = getEssence();
+    if (!essence) { runFirstArrival(); return; }
+
+    // Show the title with the experiencer's higher-self name already populated
+    var title = $('page-title');
+    if (title && essence.higherSelfName) {
+      title.innerHTML = 'A Strange <span class="eye-char">' + escapeHtml(essence.higherSelfName) + '</span> Game';
+      title.classList.add('visible');
+      document.title = 'The One · A Strange ' + essence.higherSelfName + ' Game';
+    }
+
+    $('display-name-value').textContent = essence.name || '';
+    $('display-date-value').textContent = formatDateLong(essence.dateOfBirth);
+    $('display-higher-self-value').textContent = essence.higherSelfName || '';
+
+    show('return-page');
+
+    // Edit name interactions
+    var nameBlock = $('edit-block-name');
+    var dateBlock = $('edit-block-date');
+
+    $('toggle-edit-name').addEventListener('click', function() {
+      enterEditMode(nameBlock, 'name', essence.name, 'text');
+    });
+    $('toggle-edit-date').addEventListener('click', function() {
+      enterEditMode(dateBlock, 'dateOfBirth', essence.dateOfBirth, 'date');
+    });
+
+    // Re-walk routes back to the discovery (Acts I, II skipped; jump to Stage 1)
+    $('btn-rewalk').addEventListener('click', function() {
+      hide('return-page');
+      setRegister('deep');
+      // Reset Stage 4 input so the previous name doesn't pre-populate
+      $('input-higher-self').value = '';
+      show('act-3-stage-1');
+      runStage1();
+    });
+
+    // Continue button — use return URL if present
+    var returnUrl = getReturnUrl();
+    if (returnUrl) {
+      $('btn-continue').href = returnUrl;
+    }
+  }
+
+  function enterEditMode(block, field, currentValue, inputType) {
+    if (block.classList.contains('editing')) return;
+    var displayP = block.querySelector('.return-block');
+    var toggleBtn = block.querySelector('.return-edit-toggle');
+    displayP.style.display = 'none';
+    toggleBtn.style.display = 'none';
+    block.classList.add('editing');
+
+    var inputId = 'edit-input-' + field;
+    var html =
+      '<input type="' + inputType + '" class="return-edit-input" id="' + inputId + '" value="' + escapeHtml(currentValue || '') + '" />' +
+      '<div class="return-edit-actions">' +
+      '  <button class="return-edit-action" data-act="cancel" type="button">Cancel</button>' +
+      '  <button class="return-edit-action primary" data-act="save" type="button">Save</button>' +
+      '</div>';
+    block.insertAdjacentHTML('beforeend', html);
+
+    var input = $(inputId);
+    setTimeout(function() { input.focus(); }, 80);
+
+    function cleanup() {
+      var actions = block.querySelector('.return-edit-actions');
+      if (input && input.parentNode) input.parentNode.removeChild(input);
+      if (actions && actions.parentNode) actions.parentNode.removeChild(actions);
+      displayP.style.display = '';
+      toggleBtn.style.display = '';
+      block.classList.remove('editing');
+    }
+
+    block.querySelector('[data-act="cancel"]').addEventListener('click', cleanup);
+    block.querySelector('[data-act="save"]').addEventListener('click', function() {
+      var newValue = input.value.trim();
+      if (!newValue) return;
+      var update = {};
+      update[field] = newValue;
+      setEssence(update);
+      // Refresh the display
+      if (field === 'name') $('display-name-value').textContent = newValue;
+      if (field === 'dateOfBirth') $('display-date-value').textContent = formatDateLong(newValue);
+      cleanup();
+    });
+    input.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        block.querySelector('[data-act="save"]').click();
+      } else if (e.key === 'Escape') {
+        cleanup();
+      }
+    });
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 7 · INITIALIZE
+  // ══════════════════════════════════════════════════════════
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', route);
+  } else {
+    route();
+  }
+})();
+</script>
+
+</body>
+</html>

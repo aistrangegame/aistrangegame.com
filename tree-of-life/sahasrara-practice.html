@@ -1,0 +1,3681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Sahasrara · RECEIVE · 8 / 33</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   SAHASRARA · The Crown · 8 / 33
+   Energy Chakra template · cream ground · violet accent
+   Register: subtractive-identifying, always-already-voiced
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Cream palette — Energy Chakra standard */
+  --cream: #fdfbf5;
+  --bg: #f5f2ec;
+  --bg-warm: #ede8df;
+  --gold: #C9A84C;
+  --text: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --text-whisper: rgba(26,26,26,0.35);
+  --border: rgba(0,0,0,0.07);
+
+  /* Sahasrara — crown violet on cream */
+  --chakra: #7000CC;
+  --chakra-bright: #8B00FF;              /* interactive glow */
+  --chakra-glow: #9B5AE6;                 /* softer brightness for dark scene */
+  --chakra-tint: rgba(112,0,204,0.05);
+  --chakra-border: rgba(112,0,204,0.18);
+  --chakra-soft: rgba(112,0,204,0.35);
+
+  /* Story Mode scene — deep crown-violet, gold-capable */
+  --scene-deep: #1A0E2B;
+  --scene-mid: #2D1A4A;
+  --scene-light: #452570;
+  --scene-warm: #F5EFFF;
+  --scene-text: #F5EFFF;
+  --scene-text-soft: rgba(245,239,255,0.72);
+  --scene-text-whisper: rgba(245,239,255,0.4);
+
+  /* Vāgdevī palette — seven named voicings + one silence */
+  --vagdevi-cool: rgba(220,200,240,0.78);         /* cool violet-light for 6 */
+  --vagdevi-warm: #E8D4A8;                         /* warm gold for Kāmeshvarī (distinct) */
+  --vagdevi-dim: rgba(220,200,240,0.22);           /* bridge-dim state */
+
+  /* Shatkona — gold at apex, union of Shiva + Shakti */
+  --shatkona-gold: #E8D4A8;
+  --shatkona-glow: rgba(232,212,168,0.55);
+
+  /* Gold-rain particles & ground-glow */
+  --gold-rain: rgba(232,212,168,0.32);
+  --ground-warm: rgba(160,110,60,0.48);
+
+  /* Threshold — to Shadow */
+  --next-color: #E8D4A8;                    /* Shatkona collapsing into Shadow's light-from-above */
+  --next-glow: rgba(232,212,168,0.55);
+  --threshold-top: 28%;                     /* Shatkona apex position */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body.story-open   { overflow: hidden; }
+body.lightbox-open { overflow: hidden; }
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════════════════════════════════ */
+
+.progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 2px;
+  width: 0%;
+  background: var(--chakra);
+  z-index: 100;
+  transition: width 0.1s linear;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════ */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  position: relative;
+  background: var(--cream);
+}
+
+.hero-top-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 28px 36px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+.hero-top-nav a {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.hero-top-nav a:hover { color: var(--chakra); }
+
+.hero-count {
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  opacity: 0;
+  animation: heroFadeIn 0.7s ease 0.3s forwards;
+}
+
+.hero-sanskrit {
+  font-family: 'Noto Sans Devanagari', serif;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+  margin-bottom: 14px;
+  opacity: 0;
+  animation: heroFadeIn 0.7s ease 0.4s forwards;
+}
+
+.hero-verb {
+  font-family: 'Lora', serif;
+  font-size: clamp(68px, 14vw, 120px);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--chakra);
+  margin-bottom: 44px;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroVerbIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+}
+
+.hero-threshold {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(17px, 3vw, 20px);
+  line-height: 1.7;
+  color: var(--text-secondary);
+  max-width: 520px;
+  margin: 0 auto 40px;
+  opacity: 0;
+  animation: heroFadeIn 0.7s ease 1s forwards;
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: heroFadeIn 0.7s ease 1.5s forwards;
+}
+
+.hero-scroll-label {
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.hero-scroll-arrow {
+  font-size: 18px;
+  color: var(--text-muted);
+  animation: scrollHint 2.4s ease-in-out infinite;
+}
+
+@keyframes heroFadeIn {
+  to { opacity: 1; }
+}
+
+@keyframes heroVerbIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollHint {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(5px); opacity: 0.9; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   IDENTITY
+   ═══════════════════════════════════════════════════════════ */
+
+.identity {
+  padding: 80px 24px 40px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.identity-sanskrit {
+  font-family: 'Noto Sans Devanagari', serif;
+  font-size: 22px;
+  color: var(--chakra);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.identity-english {
+  font-family: 'Lora', serif;
+  font-size: 28px;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+
+.identity-translation {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.identity-essence {
+  font-family: 'Lora', serif;
+  font-size: 20px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto 28px;
+  font-style: italic;
+}
+
+.identity-location {
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.core-question {
+  background: var(--chakra-tint);
+  border-left: 2px solid var(--chakra-border);
+  padding: 28px 32px;
+  margin: 32px auto 0;
+  max-width: 540px;
+}
+
+.core-question-label {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--chakra);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.core-question-text {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEACHING
+   ═══════════════════════════════════════════════════════════ */
+
+.teaching {
+  padding: 60px 24px;
+  max-width: 660px;
+  margin: 0 auto;
+}
+
+.teaching p {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.teaching p.emphasis {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text);
+  font-size: 19px;
+}
+
+.teaching strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TREE IMAGE + LIGHTBOX
+   ═══════════════════════════════════════════════════════════ */
+
+.tree-figure {
+  max-width: 420px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+.tree-figure img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+  cursor: zoom-in;
+  transition: opacity 0.3s ease;
+}
+
+.tree-figure img:hover { opacity: 0.92; }
+
+.tree-caption {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 14px;
+  font-style: italic;
+  font-family: 'Lora', serif;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 26, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  padding: 24px;
+  cursor: zoom-out;
+}
+
+.lightbox.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  border-radius: 6px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  background: none;
+  border: none;
+  color: rgba(245,239,255,0.8);
+  font-size: 24px;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SEED BLOCKS
+   ═══════════════════════════════════════════════════════════ */
+
+.seed {
+  max-width: 560px;
+  margin: 60px auto;
+  padding: 36px 28px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  text-align: center;
+}
+
+.seed p {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.seed.closing {
+  border-color: var(--chakra-border);
+}
+
+.seed.closing p {
+  color: var(--chakra);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   GO DEEPER (collapsible) + Silence treatment
+   ═══════════════════════════════════════════════════════════ */
+
+.go-deeper {
+  max-width: 620px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.go-deeper-toggle {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+  transition: color 0.3s ease;
+}
+
+.go-deeper-toggle:hover { color: var(--chakra); }
+
+.go-deeper-toggle .arrow {
+  font-size: 13px;
+  transition: transform 0.3s ease;
+}
+
+.go-deeper.open .arrow { transform: rotate(180deg); }
+
+.go-deeper-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.go-deeper.open .go-deeper-content { max-height: 800px; }
+
+.go-deeper-inner {
+  padding: 28px 0;
+  display: grid;
+  gap: 28px;
+}
+
+.frequency-block,
+.avarana-block {
+  padding: 24px;
+  background: var(--chakra-tint);
+  border-left: 2px solid var(--chakra-border);
+}
+
+.frequency-block h4,
+.avarana-block h4 {
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  color: var(--chakra);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+
+.frequency-block p,
+.avarana-block p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.frequency-block p:last-child,
+.avarana-block p:last-child { margin-bottom: 0; }
+
+/* Sahasrara-specific: silence treatment (locked in color-system.md) */
+.frequency-silence {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 14px;
+}
+
+.avarana-vagdevis {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.8;
+  margin-top: 8px;
+}
+
+.avarana-vagdevis .distinct { color: var(--chakra); font-weight: 500; }
+
+/* ═══════════════════════════════════════════════════════════
+   DIVIDER
+   ═══════════════════════════════════════════════════════════ */
+
+.divider {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.divider-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.5;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRACTICE BLOCK
+   ═══════════════════════════════════════════════════════════ */
+
+.practice {
+  background: var(--chakra-tint);
+  border-top: 1px solid var(--chakra-border);
+  padding: 60px 24px;
+}
+
+.practice-inner {
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.practice-label {
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--chakra);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 28px;
+  font-weight: 500;
+}
+
+.practice-title {
+  font-family: 'Lora', serif;
+  font-size: 24px;
+  text-align: center;
+  color: var(--text);
+  margin-bottom: 36px;
+  font-style: italic;
+}
+
+.practice-doors {
+  display: grid;
+  gap: 20px;
+}
+
+.practice-door {
+  padding: 22px 24px;
+  background: rgba(255,255,255,0.5);
+  border-left: 2px solid var(--chakra-border);
+}
+
+.practice-door h5 {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  color: var(--chakra);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.practice-door p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WRITING SECTION (activity gate)
+   ═══════════════════════════════════════════════════════════ */
+
+.writing-section {
+  max-width: 620px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+.writing-label {
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--chakra);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.writing-prompt {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 1.6;
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.writing-area {
+  width: 100%;
+  min-height: 160px;
+  padding: 20px 22px;
+  border: none;
+  border-top: 1px solid var(--chakra-border);
+  border-bottom: 1px solid var(--chakra-border);
+  background: transparent;
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  line-height: 2;
+  color: var(--text);
+  resize: none;
+  outline: none;
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 33px,
+    rgba(112,0,204,0.08) 33px,
+    rgba(112,0,204,0.08) 34px
+  );
+}
+
+.writing-area::placeholder {
+  color: var(--text-whisper);
+  font-style: italic;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BOOK RULE (between writing and post-engagement)
+   ═══════════════════════════════════════════════════════════ */
+
+.book-rule {
+  max-width: 120px;
+  margin: 60px auto;
+  border: none;
+  border-top: 1px solid var(--chakra-border);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   POST-ENGAGEMENT TIER (reveals when writing has content)
+   ═══════════════════════════════════════════════════════════ */
+
+.post-engagement {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 1.2s ease, max-height 1.2s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+
+.post-engagement.revealed {
+  opacity: 1;
+  max-height: 9999px;
+  pointer-events: auto;
+}
+
+/* What the Crown Knows That You Forgot */
+.crown-knows {
+  max-width: 640px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.crown-knows-label {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  color: var(--chakra);
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.crown-knows p {
+  font-size: 17px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  margin-bottom: 22px;
+}
+
+.crown-knows p.whisper {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  color: var(--text);
+  text-align: center;
+  padding: 12px 0;
+  font-size: 19px;
+}
+
+/* Seven-Recap Block — only at Sahasrara */
+.seven-recap {
+  padding: 32px 28px;
+  background: rgba(0,0,0,0.02);
+  border-left: 2px solid var(--chakra-border);
+  margin: 32px 0;
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  line-height: 2;
+  color: var(--text-secondary);
+}
+
+.seven-recap em {
+  color: var(--chakra);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.seven-recap .answer {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.seven-recap .crown-question {
+  color: var(--text);
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Three Ways In */
+.three-ways {
+  max-width: 640px;
+  margin: 48px auto;
+  padding: 0 24px;
+}
+
+.three-ways-label {
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--chakra);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 32px;
+  font-weight: 500;
+}
+
+.way {
+  padding: 24px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.way:last-child { border-bottom: none; }
+
+.way h5 {
+  font-family: 'Lora', serif;
+  font-size: 17px;
+  color: var(--chakra);
+  margin-bottom: 8px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.way p {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORY PORTAL (threshold to axis dimension)
+   ═══════════════════════════════════════════════════════════ */
+
+.story-portal-section {
+  padding: 60px 24px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.story-portal-intro {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-bottom: 32px;
+  max-width: 520px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.story-portal {
+  position: relative;
+  width: 100%;
+  min-height: 280px;
+  background: linear-gradient(180deg, var(--scene-deep) 0%, var(--scene-mid) 100%);
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+  box-shadow: 0 10px 30px rgba(26, 14, 43, 0.18);
+}
+
+.story-portal:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 38px rgba(26, 14, 43, 0.28);
+}
+
+.story-portal-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.story-portal-starfield {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 18% 22%, rgba(245,239,255,0.6) 0, transparent 1.4px),
+    radial-gradient(circle at 72% 18%, rgba(245,239,255,0.45) 0, transparent 1.2px),
+    radial-gradient(circle at 36% 66%, rgba(245,239,255,0.5) 0, transparent 1.2px),
+    radial-gradient(circle at 85% 72%, rgba(245,239,255,0.55) 0, transparent 1.4px),
+    radial-gradient(circle at 54% 32%, rgba(245,239,255,0.35) 0, transparent 1px),
+    radial-gradient(circle at 12% 78%, rgba(245,239,255,0.4) 0, transparent 1px),
+    radial-gradient(circle at 62% 88%, rgba(245,239,255,0.45) 0, transparent 1.2px);
+  animation: portalStarsBreathe 4.8s ease-in-out infinite;
+}
+
+@keyframes portalStarsBreathe {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.95; }
+}
+
+.story-portal-shatkona {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 56px;
+  opacity: 0.72;
+  animation: portalShatkonaBreathe 4s ease-in-out infinite;
+}
+
+@keyframes portalShatkonaBreathe {
+  0%, 100% { opacity: 0.55; transform: translateX(-50%) scale(1); }
+  50%      { opacity: 0.85; transform: translateX(-50%) scale(1.05); }
+}
+
+.story-portal-ground {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 44%;
+  background: radial-gradient(ellipse at 50% 120%, var(--ground-warm) 0%, transparent 70%);
+  opacity: 0.65;
+}
+
+.story-portal-text {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 280px;
+  padding: 40px 28px 36px;
+  text-align: center;
+}
+
+.story-portal-quote {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(15px, 3vw, 17px);
+  color: var(--scene-text);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 420px;
+}
+
+.story-portal-label {
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  color: rgba(232,212,168,0.8);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.story-portal-cta {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--scene-text-soft);
+}
+
+.story-portal-cta .arrow {
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+.story-portal:hover .story-portal-cta .arrow { transform: translateX(4px); }
+
+.story-portal.locked {
+  cursor: default;
+  filter: brightness(0.75);
+}
+
+.story-portal.locked:hover {
+  transform: none;
+  box-shadow: 0 10px 30px rgba(26, 14, 43, 0.18);
+}
+
+.story-portal-locked-hint {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  padding: 40px;
+}
+
+.story-portal.locked .story-portal-locked-hint {
+  display: flex;
+}
+
+.story-portal.locked .story-portal-text {
+  opacity: 0;
+}
+
+.story-portal-locked-hint p {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--scene-text-soft);
+  text-align: center;
+  max-width: 340px;
+  line-height: 1.7;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WHERE THE TRANSMISSIONS LEAD
+   ═══════════════════════════════════════════════════════════ */
+
+.transmissions-section {
+  padding: 12px 24px 80px;
+  max-width: 900px;
+  margin: 0 auto;
+  border-top: 1px solid var(--border);
+  margin-top: 56px;
+}
+/* V4 delta: collapsible Where-the-Transmissions-Lead with auto-expand on return */
+.wttl-toggle {
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  letter-spacing: 0.01em;
+  transition: color 0.25s;
+}
+.wttl-toggle:hover { color: var(--chakra); }
+.wttl-toggle-indicator {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.25s;
+  line-height: 1;
+}
+.wttl-toggle:hover .wttl-toggle-indicator { color: var(--chakra); }
+.transmissions-section.open .wttl-toggle-indicator { transform: rotate(180deg); }
+.wttl-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.transmissions-section.open .wttl-content {
+  max-height: 3600px;
+  transition: max-height 1.1s cubic-bezier(0.16,1,0.3,1);
+}
+
+.transmissions-heading {
+  font-family: 'Lora', serif;
+  font-size: clamp(22px, 4vw, 28px);
+  text-align: center;
+  color: var(--chakra);
+  margin-bottom: 20px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+.transmissions-intro {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 44px;
+  padding-top: 4px;
+}
+
+.transmissions-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 22px;
+}
+
+.transmission-card {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  min-height: 320px;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background: var(--scene-deep);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 28px 26px;
+  cursor: pointer;
+  transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+  box-shadow: 0 12px 30px rgba(26, 14, 43, 0.2);
+}
+
+.transmission-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 44px rgba(26, 14, 43, 0.3);
+}
+
+.transmission-glyph {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.transmission-card-text {
+  position: relative;
+  z-index: 2;
+}
+
+.transmission-card-label {
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  color: rgba(232,212,168,0.85);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.transmission-card-title {
+  font-family: 'Lora', serif;
+  font-size: 24px;
+  color: var(--scene-text);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.transmission-card-desc {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--scene-text-soft);
+  line-height: 1.6;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BOTTOM NAV
+   ═══════════════════════════════════════════════════════════ */
+
+.bottom-nav {
+  border-top: 1px solid var(--border);
+  padding: 36px 24px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 720px;
+  margin: 40px auto 0;
+  gap: 16px;
+}
+
+.bottom-nav a {
+  color: var(--chakra);
+  text-decoration: none;
+  font-family: 'Lora', serif;
+  font-size: 15px;
+  font-style: italic;
+  transition: opacity 0.3s ease;
+}
+
+.bottom-nav a:hover { opacity: 0.7; }
+
+.bottom-nav-center {
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORY MODE — the axis dimension overlay
+   ═══════════════════════════════════════════════════════════ */
+
+.story-mode {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  opacity: 0;
+  pointer-events: none;
+  /* V5 Locked Decision 24: solid base so veil transitions never bleed the page through.
+     Scene violet is handled by .scene-bg element inside the story-scene. */
+  background: #060308;
+  transition: opacity 0.8s ease;
+  perspective: 1800px;
+}
+
+.story-mode.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.story-mode-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.story-mode.open .story-mode-inner {
+  transform: rotateY(0deg);
+}
+
+.story-scene {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* Atmospheric scene background — deep crown-violet */
+.scene-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 18%, rgba(69, 37, 112, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 95%, rgba(160,110,60,0.0) 0%, transparent 45%),
+    linear-gradient(180deg, #0E0820 0%, #1A0E2B 40%, #2D1A4A 100%);
+  transition: background 3.4s ease;
+}
+
+.scene-bg.threshold-open {
+  background: radial-gradient(ellipse at 50% 55%, #0c0402 0%, #020100 95%);
+}
+
+/* Ground-glow (F1 — the root holding from below) */
+.scene-ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  background: radial-gradient(ellipse at 50% 120%, var(--ground-warm) 0%, transparent 62%);
+  opacity: 0;
+  transition: opacity 2.6s ease;
+  pointer-events: none;
+}
+
+.scene-ground.active      { opacity: 0.75; }
+.scene-ground.bridge-dim  { opacity: 0; }        /* withdrawal during shadow-bridge */
+.scene-ground.active-full { opacity: 0.95; }     /* second-wave crest */
+.scene-ground.fade-out    { opacity: 0; }
+
+/* Starfield — high-register pin-points, scattered */
+.scene-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scene-star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--scene-warm);
+  border-radius: 50%;
+  opacity: 0.5;
+  box-shadow: 0 0 3px rgba(245,239,255,0.7);
+  transition: opacity 2.4s ease;
+}
+
+.scene-star.bright  { opacity: 0.9; }
+
+/* First wave — gold light rising */
+.scene-wave-first {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  height: 56%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(232,212,168,0.38) 0%, rgba(155,90,230,0.10) 55%, transparent 80%);
+  opacity: 0;
+  transition: opacity 2.8s ease, transform 2.8s cubic-bezier(0.16,1,0.3,1);
+  transform: translateY(40px) scaleY(0.85);
+  pointer-events: none;
+}
+
+.scene-wave-first.rising {
+  opacity: 0.72;
+  transform: translateY(0) scaleY(1);
+}
+
+.scene-wave-first.crest {
+  opacity: 0.92;
+  transform: translateY(-10px) scaleY(1.08);
+}
+
+.scene-wave-first.withdrawn {
+  opacity: 0;
+  transform: translateY(40px) scaleY(0.85);
+}
+
+/* Second wave — larger, carries the shadow inside */
+.scene-wave-second {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 4%;
+  height: 66%;
+  background: radial-gradient(ellipse at 50% 100%, rgba(232,212,168,0.48) 0%, rgba(155,90,230,0.14) 60%, transparent 84%);
+  opacity: 0;
+  transition: opacity 3.6s ease, transform 3.6s cubic-bezier(0.16,1,0.3,1);
+  transform: translateY(50px) scaleY(0.85);
+  pointer-events: none;
+}
+
+.scene-wave-second.rising {
+  opacity: 0.85;
+  transform: translateY(-6px) scaleY(1.06);
+}
+
+.scene-wave-second.crest-full {
+  opacity: 1;
+  transform: translateY(-18px) scaleY(1.14);
+}
+
+.scene-wave-second.fade-out {
+  opacity: 0;
+  transform: translateY(50px) scaleY(0.85);
+}
+
+/* Shatkona at apex — gold six-pointed star */
+.scene-shatkona {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translate(-50%, 0) scale(0.4);
+  width: 120px;
+  height: 120px;
+  opacity: 0;
+  transition: opacity 2.4s ease, transform 2.4s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+
+.scene-shatkona.arrived {
+  opacity: 0.78;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.scene-shatkona.full {
+  opacity: 0.96;
+  transform: translate(-50%, 0) scale(1.06);
+}
+
+.scene-shatkona.resolving {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+/* Shatkona glow */
+.scene-shatkona-glow {
+  filter: drop-shadow(0 0 20px var(--shatkona-glow)) drop-shadow(0 0 40px rgba(232,212,168,0.28));
+}
+
+/* Seven Vāgdevī labels */
+.scene-vagdevis {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.scene-vagdevi {
+  position: absolute;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--vagdevi-cool);
+  opacity: 0;
+  transform: translate(-50%, -50%) translateY(8px);
+  transition: opacity 1.4s ease, color 1.8s ease, transform 1.4s ease;
+  text-shadow: 0 0 8px rgba(155,90,230,0.55);
+  white-space: nowrap;
+}
+
+.scene-vagdevi.arrived {
+  opacity: 0.88;
+  transform: translate(-50%, -50%) translateY(0);
+}
+
+.scene-vagdevi.distinct.arrived {
+  color: var(--vagdevi-warm);
+  text-shadow: 0 0 10px rgba(232,212,168,0.65);
+}
+
+.scene-vagdevi.bridge-dim {
+  opacity: 0.25;
+}
+
+.scene-vagdevi.rebright {
+  opacity: 0.92;
+}
+
+.scene-vagdevi.fade-out {
+  opacity: 0;
+}
+
+/* SILENCE inscription at scene-center (trunk position) — appears at shadow-bridge */
+.scene-silence {
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: rgba(245,239,255,0.82);
+  opacity: 0;
+  transition: opacity 2.2s ease, color 2.2s ease;
+  pointer-events: none;
+  text-shadow: 0 0 14px rgba(245,239,255,0.35);
+}
+
+.scene-silence.arrived {
+  opacity: 0.88;
+}
+
+.scene-silence.persisting {
+  opacity: 0.72;
+}
+
+/* Gold-rain particles (continuous, resolving at close) */
+.scene-rain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2.4s ease;
+}
+
+.scene-rain.active { opacity: 1; }
+.scene-rain.fade-out { opacity: 0; }
+
+.gold-particle {
+  position: absolute;
+  width: 2px;
+  height: 5px;
+  background: linear-gradient(to bottom, rgba(232,212,168,0.75), rgba(232,212,168,0));
+  border-radius: 1px;
+  animation: rainFall linear infinite;
+}
+
+@keyframes rainFall {
+  from { transform: translateY(-10vh); opacity: 0; }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  to   { transform: translateY(110vh); opacity: 0; }
+}
+
+/* Ripples persisting softer after peak */
+.scene-ripple {
+  position: absolute;
+  top: 56%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(232,212,168,0.35);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.scene-ripple.firing {
+  animation: rippleExpand 3.2s ease-out;
+}
+
+@keyframes rippleExpand {
+  0%   { transform: translate(-50%, -50%) scale(0.4); opacity: 0.7; }
+  100% { transform: translate(-50%, -50%) scale(8); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORY MODE — beat text + UI chrome
+   ═══════════════════════════════════════════════════════════ */
+
+.story-beat-text {
+  position: absolute;
+  left: 50%;
+  bottom: 14%;
+  transform: translateX(-50%);
+  max-width: 86vw;
+  width: 540px;
+  text-align: center;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3.2vw, 21px);
+  line-height: 1.65;
+  color: var(--scene-text);
+  opacity: 0;
+  transition: opacity 1.6s ease;
+  padding: 0 12px;
+  pointer-events: none;
+  z-index: 10;
+  text-shadow: 0 0 20px rgba(26,14,43,0.55);
+}
+
+.story-beat-text.visible { opacity: 1; }
+.story-beat-text.fade-out { opacity: 0; transition: opacity 2.4s ease; }
+
+.story-beat-text.signature {
+  font-size: clamp(18px, 3.6vw, 24px);
+  color: var(--shatkona-gold);
+  text-shadow: 0 0 22px rgba(232,212,168,0.45);
+}
+
+.story-beat-text.mini-reveal {
+  font-size: clamp(16px, 3vw, 20px);
+  color: var(--scene-text);
+  font-style: italic;
+}
+
+.story-counter {
+  position: absolute;
+  top: 26px;
+  left: 24px;
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  color: var(--scene-text-whisper);
+  text-transform: uppercase;
+  z-index: 20;
+}
+
+.story-close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background: none;
+  border: none;
+  color: var(--scene-text-soft);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 14px;
+  z-index: 20;
+  font-family: inherit;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.story-close:hover { color: var(--scene-text); }
+
+.story-tap-hint {
+  position: absolute;
+  bottom: 28px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--scene-text-whisper);
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 20;
+}
+/* Breathing pulse only while visible — when JS removes .visible,
+   animation stops and static opacity:0 takes over via transition. */
+.story-tap-hint.visible {
+  opacity: 1;
+  animation: tapHint 3s ease-in-out infinite;
+}
+
+@keyframes tapHint {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 0.7; }
+}
+
+.story-tap-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  cursor: pointer;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THRESHOLD DOOR — close of scene, opens Shadow
+   ═══════════════════════════════════════════════════════════ */
+
+.threshold-door {
+  position: absolute;
+  top: var(--threshold-top);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 28px;
+  text-decoration: none;
+  color: inherit;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 2s ease 1.6s, transform 2s ease 1.6s;
+  z-index: 25;
+  background: transparent;
+}
+
+.threshold-door.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.next-point {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--next-color);
+  box-shadow:
+    0 0 16px var(--next-glow),
+    0 0 32px var(--next-glow);
+  animation: nextPointPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes nextPointPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50%      { transform: scale(1.18); opacity: 1; }
+}
+
+.next-label {
+  font-family: 'Lora', serif;
+  font-size: 22px;
+  color: var(--next-color);
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
+
+.next-sublabel {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--scene-text-soft);
+  margin-top: -6px;
+}
+
+.threshold-continue-hint {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--scene-text-whisper);
+}
+
+.threshold-continue-hint .arrow {
+  transition: transform 0.3s ease;
+}
+
+.threshold-door:hover .threshold-continue-hint .arrow {
+  transform: translateX(4px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE ADJUSTMENTS
+   ═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 640px) {
+  .hero { padding: 36px 20px; }
+  .identity { padding: 60px 20px 32px; }
+  .teaching { padding: 48px 20px; }
+  .tree-figure { padding: 0 20px; max-width: 380px; }
+  .seed { padding: 30px 24px; margin: 48px auto; }
+  .practice { padding: 48px 20px; }
+  .writing-section { padding: 0 20px; }
+  .story-portal { min-height: 240px; }
+  .story-portal-shatkona { width: 44px; height: 44px; top: 18%; }
+  .story-portal-text { min-height: 240px; padding: 32px 22px 28px; }
+  .transmissions-section { padding: 48px 20px 64px; }
+  .transmission-card { min-height: 280px; padding: 22px 22px; }
+  .transmissions-cards { grid-template-columns: 1fr; gap: 18px; }
+  .story-beat-text {
+    bottom: 18%;
+    font-size: 17px;
+    width: auto;
+    max-width: 90vw;
+    padding: 0 8px;
+  }
+  .story-beat-text.signature { font-size: 19px; }
+  .scene-shatkona { width: 88px; height: 88px; top: 20%; }
+  .scene-vagdevi { font-size: 12px; }
+  .scene-silence { font-size: 11px; letter-spacing: 0.36em; }
+  .seven-recap { padding: 24px 22px; font-size: 15px; line-height: 1.9; }
+  .next-label { font-size: 20px; }
+  .bottom-nav { padding: 30px 20px 40px; font-size: 14px; }
+  .bottom-nav a { font-size: 14px; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT VEIL — dark between-space · #060308
+   Rises after the signature phrase lands. Sakshi's eyes appear, blink
+   once, fade. Press-and-hold 1.8s to enter Act 2.
+   ════════════════════════════════════════════════════════════════════ */
+.act-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: #060308;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 52px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s cubic-bezier(0.4,0,0.2,1);
+}
+.act-veil.visible { opacity: 1; pointer-events: auto; }
+.act-veil.dissolving { opacity: 0; transition: opacity 2.4s ease; }
+
+.veil-eyes { display: flex; gap: 52px; align-items: center; opacity: 0; }
+.veil-eyes.visible { opacity: 1; }
+.veil-eye {
+  width: 42px; height: 15px; border-radius: 50%;
+  background: rgba(255,255,255,0.88);
+  box-shadow: 0 0 12px rgba(255,255,255,0.6),
+              0 0 32px rgba(232,212,168,0.3);
+  transform: scaleY(0.06); opacity: 0;
+  transform-origin: center center;
+}
+.veil-eyes.animate .veil-eye {
+  animation: eyeBlink 2s ease-in-out 1 forwards;
+}
+.veil-eyes.animate .veil-eye:nth-child(2) { animation-delay: 0.06s; }
+@keyframes eyeBlink {
+  0%   { opacity: 0;   transform: scaleY(0.06); }
+  14%  { opacity: 1;   transform: scaleY(1); }
+  55%  { opacity: 1;   transform: scaleY(1); }
+  64%  { opacity: 1;   transform: scaleY(0.06); }
+  73%  { opacity: 1;   transform: scaleY(1); }
+  88%  { opacity: 0.7; transform: scaleY(1); }
+  100% { opacity: 0;   transform: scaleY(1); }
+}
+
+.veil-invite {
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+  opacity: 0; transition: opacity 1.6s ease;
+}
+.veil-invite.visible { opacity: 1; }
+.veil-invite-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+.veil-hold-ring {
+  position: relative; width: 72px; height: 72px;
+  cursor: pointer; -webkit-user-select: none; user-select: none; touch-action: none;
+}
+.veil-hold-ring svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  transform: rotate(-90deg);
+}
+.veil-ring-track { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 1.5; }
+.veil-ring-fill {
+  fill: none; stroke: rgba(255,255,255,0.72); stroke-width: 1.5;
+  stroke-linecap: round; stroke-dasharray: 201; stroke-dashoffset: 201;
+  transition: stroke-dashoffset linear;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.5));
+}
+.veil-hold-dot { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.veil-hold-dot::after {
+  content: ''; width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.6); box-shadow: 0 0 14px rgba(255,255,255,0.4);
+  transition: transform 0.3s ease, background 0.3s;
+}
+.veil-hold-ring.holding .veil-hold-dot::after {
+  transform: scale(1.5); background: rgba(255,255,255,0.9);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT 2 — SAKSHI WITNESS (Sahasrara)
+   Rises after press-and-hold. Ascending field: Sahasrara violet at base
+   → cream mid → silver-white crown. 26 ascending particles.
+   Three paragraphs auto-paced at 1.33× slower (revised April 24).
+   Sahasrara's p3 is a SENTENCE — same timing shape as Svadhisthana + Manipura
+   (1900/9800/18600/23400) — because the door opens onto Shadow (the corridor),
+   and the walker needs time to receive the warning before the descent.
+   Shadow door is UNIQUE — void #0a0a12 instead of a chakra color, because
+   Shadow is Threshold 1 (neither Energy nor Body — the inversion point).
+   ════════════════════════════════════════════════════════════════════ */
+.act-two {
+  position: absolute; inset: 0; z-index: 20;
+  display: flex; flex-direction: column; align-items: center;
+  overflow: hidden; background: #ffffff;
+  opacity: 0; pointer-events: none;
+  transition: opacity 2.2s cubic-bezier(0.16,1,0.3,1);
+}
+.act-two.rising { opacity: 1; pointer-events: auto; }
+
+.act2-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    #7000CC 0%,
+    rgba(112,0,204,0.55) 12%,
+    rgba(232,220,245,0.88) 34%,
+    rgba(252,250,254,0.97) 60%,
+    rgba(255,255,255,0.99) 80%,
+    #ffffff 100%
+  );
+}
+.act2-crown {
+  position: absolute; top: 0; left: 0; right: 0; height: 280px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(230,220,255,0.55) 0%, rgba(255,255,255,0) 72%);
+  pointer-events: none;
+}
+.act2-base {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(112,0,204,0.35) 0%, rgba(112,0,204,0) 75%);
+  pointer-events: none;
+}
+.act2-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.act2-particle {
+  position: absolute; border-radius: 50%; background: white;
+  opacity: 0; animation: act2Ascend linear infinite;
+}
+@keyframes act2Ascend {
+  0%   { transform: translateY(0) scale(1);    opacity: 0; }
+  8%   { opacity: var(--p-op); }
+  85%  { opacity: var(--p-op); }
+  100% { transform: translateY(-110vh) scale(0.4); opacity: 0; }
+}
+
+.act2-text-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14vh 28px calc(9vh + 240px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  z-index: 2;
+}
+.act2-text-stage::-webkit-scrollbar { display: none; }
+.act2-para {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3.2vw, 19px);
+  line-height: 2;
+  color: var(--act2-text, rgba(54,24,10,0.88));
+  max-width: min(560px, 92vw);
+  text-align: center;
+  margin: 0 0 1.6em;
+  opacity: 1;
+  transform: none;
+}
+.act2-para:last-child { margin-bottom: 0; }
+.act2-go {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.act2-word {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  will-change: opacity;
+}
+.act2-word.visible {
+  opacity: 1;
+}
+
+/* Shadow threshold door — UNIQUE: void #0a0a12 because Shadow is Threshold 1
+   (neither Energy nor Body — the corridor). Cream text on near-black. */
+.act2-door {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  transform: translateY(100%);
+  padding: 36px 32px 52px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer; text-decoration: none;
+  transition: transform 1.8s cubic-bezier(0.16,1,0.3,1);
+  background: #0a0a12; z-index: 3;
+}
+.act2-door:hover { background: #18182a; }
+.act2-door.risen { transform: translateY(0); }
+.act2-door-name {
+  font-family: 'Lora', serif;
+  font-size: clamp(38px, 8vw, 56px); font-weight: 500;
+  letter-spacing: 0.06em; color: #F5EFFF;
+  line-height: 1; margin-bottom: 4px;
+}
+.act2-door-hint {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: clamp(15px, 2.8vw, 18px);
+  color: rgba(245,239,255,0.72); letter-spacing: 0.02em;
+}
+.act2-door-continue {
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(245,239,255,0.42); transition: color 0.3s;
+}
+.act2-door:hover .act2-door-continue { color: rgba(245,239,255,0.85); }
+
+/* ═══════════════════════════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-arrow,
+  .portalStarsBreathe,
+  .story-portal-starfield,
+  .story-portal-shatkona,
+  .scene-shatkona,
+  .gold-particle,
+  .scene-ripple.firing,
+  .story-tap-hint.visible,
+  .next-point {
+    animation: none !important;
+  }
+
+  .hero-count, .hero-sanskrit, .hero-verb, .hero-threshold, .hero-scroll {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .story-mode-inner { transition-duration: 0.4s; }
+  .scene-bg, .scene-ground, .scene-wave-first, .scene-wave-second,
+  .scene-shatkona, .scene-vagdevi, .scene-silence, .scene-rain,
+  .story-beat-text, .threshold-door {
+    transition-duration: 0.4s !important;
+  }
+
+  /* V5 veil + Act 2 */
+  .act2-particle { animation: none; opacity: 0.15; }
+  .act2-para { transition: opacity 0.8s ease; transform: none; }
+  .act2-door { transition: transform 0.8s ease; }
+  .act-two { transition: opacity 0.8s ease; }
+  .veil-eyes.animate .veil-eye { animation-duration: 1.2s; }
+
+  .next-point {
+    opacity: 1 !important;
+    transform: scale(1) !important;
+  }
+
+  .story-tap-hint {
+    animation: none !important;
+    opacity: 0.5 !important;
+  }
+
+  /* Rain is decorative — hide entirely in reduced-motion since animation-disabled
+     would stack particles at top:0 (no explicit base position) */
+  .gold-particle { display: none !important; }
+}
+
+
+/* ─── Bindu Field card — universal across all chakras ─── */
+.bfg-core {
+  fill: #C9A84C;
+  opacity: 0.95;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgCoreBreath 4.5s ease-in-out infinite;
+}
+@keyframes bfgCoreBreath {
+  0%, 100% { transform: scale(1); opacity: 0.88; }
+  50%      { transform: scale(1.18); opacity: 1; }
+}
+.bfg-wave {
+  fill: none;
+  stroke: #C9A84C;
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgWaveOut 6s ease-out infinite;
+  opacity: 0;
+}
+.bfg-wave.w1 { animation-delay: 0.0s; }
+.bfg-wave.w2 { animation-delay: 1.2s; }
+.bfg-wave.w3 { animation-delay: 2.4s; }
+.bfg-wave.w4 { animation-delay: 3.6s; }
+.bfg-wave.w5 { animation-delay: 4.8s; }
+@keyframes bfgWaveOut {
+  0%   { transform: scale(0.18); opacity: 0.8;  stroke-width: 1.6; }
+  60%  { opacity: 0.35; stroke-width: 1; }
+  100% { transform: scale(1.6);  opacity: 0;    stroke-width: 0.4; }
+}
+.bfg-pos {
+  fill: #C9A84C;
+  opacity: 0.24;
+}
+.bfg-pos.bfg-bindu-pos {
+  opacity: 0.95;
+  animation: bfgBinduPosGlow 4.5s ease-in-out infinite;
+}
+@keyframes bfgBinduPosGlow {
+  0%, 100% { opacity: 0.78; }
+  50%      { opacity: 1; }
+}
+.bfg-thread {
+  stroke: #C9A84C;
+  stroke-width: 0.6;
+  fill: none;
+  stroke-dasharray: 2 3;
+  opacity: 0.28;
+}
+.bindu-field:hover .bfg-wave { animation-duration: 3s; }
+.bindu-field:hover .bfg-wave.w1 { animation-delay: 0.0s; }
+.bindu-field:hover .bfg-wave.w2 { animation-delay: 0.6s; }
+.bindu-field:hover .bfg-wave.w3 { animation-delay: 1.2s; }
+.bindu-field:hover .bfg-wave.w4 { animation-delay: 1.8s; }
+.bindu-field:hover .bfg-wave.w5 { animation-delay: 2.4s; }
+.bindu-field:hover .bfg-core { animation-duration: 2.2s; }
+
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal styles ═══ */
+.essence-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.essence-gate-overlay.visible { opacity: 1; }
+.essence-gate-bindu {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #e8c568;
+  box-shadow: 0 0 18px rgba(232, 197, 104, 0.4);
+  margin-bottom: 32px;
+  animation: egBreath 4s ease-in-out infinite;
+}
+.essence-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(240, 226, 188, 0.92);
+  text-align: center;
+  margin: 0 24px 12px;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-line.visible { opacity: 1; }
+.essence-gate-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(240, 226, 188, 0.62);
+  margin: 0 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-sub.visible { opacity: 1; }
+@keyframes egBreath {
+  0%, 100% { opacity: 0.7; transform: scale(1.0); }
+  50%      { opacity: 1.0; transform: scale(1.08); }
+}
+
+.sequential-gate-surface {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99998;
+  padding: 24px;
+}
+.sequential-gate-tint {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 1;
+}
+.sequential-gate-content {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  text-align: center;
+}
+.sequential-gate-yantra {
+  width: min(60vw, 280px);
+  height: min(60vw, 280px);
+  margin: 0 auto 36px;
+  opacity: 0.06;
+  color: #d4b888;
+}
+.sequential-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: #f5e8c8;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.sequential-gate-prev {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.8vw, 22px);
+  color: rgba(240, 226, 188, 0.82);
+  margin-bottom: 56px;
+  line-height: 1.6;
+}
+.sequential-gate-prev em {
+  color: #f5e8c8;
+  font-style: italic;
+  font-weight: 500;
+}
+.sequential-gate-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #d4b888;
+  background: transparent;
+  border: 1px solid #d4b888;
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sequential-gate-button:hover {
+  color: #f5e8c8;
+  background: rgba(212, 184, 136, 0.12);
+}
+/* ═══ END ESSENCE+SEQUENTIAL GATES ═══ */
+</style>
+</head>
+<body>
+<!-- ═══ ESSENCE+SEQUENTIAL GATES ═══ -->
+<script>
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal logic ═══
+   Injected immediately after <body> opens, before page renders.
+   THIS_CHAKRA placeholder gets replaced with the actual chakra id
+   per file (or '__none__' for index.html which only does essence). */
+(function() {
+  'use strict';
+
+  var CHAKRA_SEQUENCE = ['bindu','muladhara','svadhisthana','manipura',
+                          'anahata','vishuddha','ajna','sahasrara','shadow'];
+  var CHAKRA_DISPLAY = {
+    bindu: 'Bindu', muladhara: 'Muladhara', svadhisthana: 'Svadhisthana',
+    manipura: 'Manipura', anahata: 'Anahata', vishuddha: 'Vishuddha',
+    ajna: 'Ajna', sahasrara: 'Sahasrara', shadow: 'Shadow',
+  };
+  var CHAKRA_COLORS = {
+    bindu: '#e8c568', muladhara: '#b83a3a', svadhisthana: '#d47438',
+    manipura: '#d4a848', anahata: '#6b8e4e', vishuddha: '#4c7ab8',
+    ajna: '#5b4e8e', sahasrara: '#9a7ac8', shadow: '#2a2420',
+  };
+
+  function getEssenceLocal() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function essenceCompleteLocal() {
+    var e = getEssenceLocal();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function isChakraWalked(chakraId) {
+    // Bindu writes 'bindu-point' (coords); all others write 'chakra-{id}'
+    if (chakraId === 'bindu') return !!localStorage.getItem('bindu-point');
+    return !!localStorage.getItem('chakra-' + chakraId);
+  }
+
+  function canAccessChakraLocal(chakraId) {
+    if (isChakraWalked(chakraId)) return true;
+    if (chakraId === 'bindu') return true;
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    if (idx <= 0) return true;
+    var prev = CHAKRA_SEQUENCE[idx - 1];
+    return isChakraWalked(prev);
+  }
+
+  // ── ESSENCE GATE ──
+  if (!essenceCompleteLocal()) {
+    showEssenceGate();
+    return;
+  }
+
+  // ── SEQUENTIAL FIRST-WALK GATE ──
+  var THIS_CHAKRA = 'sahasrara';
+  if (THIS_CHAKRA !== '__none__') {
+    if (!canAccessChakraLocal(THIS_CHAKRA)) {
+      showSequentialGate(THIS_CHAKRA);
+      return;
+    }
+  }
+
+  function showEssenceGate() {
+    var ov = document.createElement('div');
+    ov.className = 'essence-gate-overlay';
+    ov.innerHTML =
+      '<div class="essence-gate-bindu"></div>' +
+      '<p class="essence-gate-line">The road asks who is walking.</p>' +
+      '<p class="essence-gate-sub">One moment.</p>';
+    function inject() {
+      document.body.appendChild(ov);
+      // Hide everything else under it — set a flag that page-init can check
+      document.body.setAttribute('data-essence-gating', 'true');
+      requestAnimationFrame(function() {
+        ov.classList.add('visible');
+        setTimeout(function() { ov.querySelector('.essence-gate-line').classList.add('visible'); }, 100);
+        setTimeout(function() { ov.querySelector('.essence-gate-sub').classList.add('visible'); }, 500);
+      });
+      var ret = encodeURIComponent(window.location.pathname);
+      setTimeout(function() {
+        window.location.href = 'the-one.html?return=' + ret;
+      }, 1400);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+
+  function showSequentialGate(chakraId) {
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    var prevId = CHAKRA_SEQUENCE[idx - 1];
+    var prevDisplay = CHAKRA_DISPLAY[prevId];
+    var thisColor = CHAKRA_COLORS[chakraId];
+
+    var html =
+      '<div class="sequential-gate-surface">' +
+      '  <div class="sequential-gate-tint" style="background: radial-gradient(ellipse at center, ' + thisColor + ' 0%, transparent 70%);"></div>' +
+      '  <div class="sequential-gate-content">' +
+      '    <svg class="sequential-gate-yantra" viewBox="-100 -100 200 200">' +
+      '      <g fill="none" stroke="currentColor" stroke-width="0.5">' +
+      '        <polygon points="0,-80 70,40 -70,40" />' +
+      '        <polygon points="0,75 -68,-38 68,-38" />' +
+      '        <polygon points="0,-38 33,19 -33,19" />' +
+      '        <polygon points="0,36 -32,-18 32,-18" />' +
+      '        <circle cx="0" cy="0" r="2" fill="currentColor" />' +
+      '        <circle cx="0" cy="0" r="88" />' +
+      '      </g>' +
+      '    </svg>' +
+      '    <p class="sequential-gate-line">The road has an order, the first time through.</p>' +
+      '    <p class="sequential-gate-prev">You haven\'t walked <em>' + prevDisplay + '</em> yet.</p>' +
+      '    <a class="sequential-gate-button" href="' + prevId + '-practice.html">Walk ' + prevDisplay + ' →</a>' +
+      '  </div>' +
+      '</div>';
+
+    function inject() {
+      document.body.setAttribute('data-sequential-gating', 'true');
+      document.body.insertAdjacentHTML('afterbegin', html);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+})();
+
+</script>
+<!-- ═══ END ESSENCE+SEQUENTIAL GATES ═══ -->
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progress-bar"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <nav class="hero-top-nav">
+    <a href="the-road-home.html">← The Road Home</a>
+    <a href="ajna-practice.html">← Ajna</a>
+  </nav>
+  <div class="hero-count">8 &nbsp;/&nbsp; 33</div>
+  <div class="hero-sanskrit">सहस्रार</div>
+  <div class="hero-verb">RECEIVE</div>
+  <div class="hero-threshold">
+    <em>The striving stopped. What remained was what was always there.</em>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-label">Begin</div>
+    <div class="hero-scroll-arrow">↓</div>
+  </div>
+</div>
+
+<!-- IDENTITY -->
+<section class="identity">
+  <div class="identity-sanskrit">सहस्रार</div>
+  <h1 class="identity-english">Sahasrara</h1>
+  <div class="identity-translation">The Crown · The Thousand-Petaled Lotus</div>
+  <p class="identity-essence">
+    Connection. Not to something above you — to everything that includes you.
+  </p>
+  <div class="identity-location">Top of the head · the fontanelle · the sealed-over aperture</div>
+  <div class="core-question">
+    <div class="core-question-label">Core Question</div>
+    <div class="core-question-text">Am I alone?</div>
+  </div>
+</section>
+
+<!-- TEACHING (Part 1) -->
+<section class="teaching">
+  <p>
+    The crown point. The top of the head. The soft spot that was open when you were an infant — the fontanelle that closed in the first years of life. The place where the skull was not yet sealed. Where you were, briefly, open to everything.
+  </p>
+  <p>
+    The bone sealed over. The aperture that was closed over is still there. <strong>The question the crown asks is not practical. It is existential.</strong> <em>Am I alone?</em> Not socially. Not in this room. At the scale of being itself — is there something that includes me, or am I an isolated instance of experience that will one day end?
+  </p>
+  <p>
+    The crown does not answer with philosophy. The crown answers with a moment you have already had. Looking at stars long enough for the scale to register. Holding a newborn and the boundary between you and the child becoming transparent. Standing at the edge of an ocean. Music entering the body before the mind could name the emotion. Silence so complete you could not find the edge of yourself.
+  </p>
+  <p class="emphasis">
+    That was the crown. It was not a framework. It was not a belief. It was the direct experience of being part of something that included you — of being the ocean pretending to be a wave and for one moment dropping the pretense.
+  </p>
+</section>
+
+<!-- TREE IMAGE + LIGHTBOX -->
+<figure class="tree-figure">
+  <img
+    src="/tree-of-life/sahasrara-tree.jpg"
+    alt="Sahasrara tree — violet ground, purple tree with seven Vāgdevī names on the branches, SILENCE inscribed at the trunk's center, golden Shatkona (six-pointed star) at the apex above the branches"
+    id="tree-image"
+  >
+  <figcaption class="tree-caption">
+    Seven voices on the branches. Silence at the trunk's center. The Shatkona at the apex — Shiva descending, Shakti rising, their union held as one geometric figure. <em>Tap to enlarge.</em>
+  </figcaption>
+</figure>
+
+<!-- TEACHING (Part 2) -->
+<section class="teaching">
+  <p>
+    Every other center has added something to you. The root added safety. The sacral added desire. The solar plexus added will. The heart added love. The throat added voice. The third eye added sight. <strong>The crown is different.</strong> The crown does not add. The crown subtracts.
+  </p>
+  <p>
+    What the crown subtracts is the belief that you are separate. What the crown subtracts is the belief that you are less than what you are. What the crown subtracts is the belief that the boundary between you and the world is a wall.
+  </p>
+  <p class="emphasis">
+    The boundary is a window. It was always a window.
+  </p>
+  <p>
+    Every other chakra has a practice — something you <em>do</em>. The crown asks you to stop doing. When the root is grounded and the sacral is flowing and the solar plexus is burning cleanly and the heart is open and the throat is speaking and the third eye is seeing — <strong>the crown opens on its own</strong>. You do not activate it. You allow it.
+  </p>
+  <p>
+    Look at the tree image again. At the top, the branches dissolve. The form gives way to geometry. The geometry gives way to light. The roots from Muladhara — the first ground, the beginning — are echoed in the crown. What was below is now above. What was holding is now releasing. <em>The same tree. The same life. Seen from the top instead of the bottom.</em>
+  </p>
+</section>
+
+<!-- SEED 1 -->
+<div class="seed">
+  <p>"The disease that was removed was the belief that you were less than what you are."</p>
+</div>
+
+<!-- GO DEEPER -->
+<div class="go-deeper" id="go-deeper">
+  <button class="go-deeper-toggle" id="go-deeper-toggle" type="button" aria-expanded="false">
+    <span>Go Deeper</span>
+    <span class="arrow">↓</span>
+  </button>
+  <div class="go-deeper-content">
+    <div class="go-deeper-inner">
+      <div class="frequency-block">
+        <h4>The Frequency</h4>
+        <span class="frequency-silence">· · · silence · · ·</span>
+        <p>
+          There is no syllable for the crown because the crown IS the syllable before syllables. Sit quietly. <em>That is the frequency.</em>
+        </p>
+        <p>
+          The silence is not empty. The silence is the sound of everything at once — too complete to distinguish any single note. The unstruck sound the heart was hearing was coming from here. It was always coming from here.
+        </p>
+      </div>
+      <div class="avarana-block">
+        <h4>The Avarana · Ashtara — the Eight Triangles · the Vāgdevī Circle</h4>
+        <p>
+          The eight Goddesses of Speech. This is the paradox of the crown — <strong>the avarana of speech at the center of silence.</strong> The eight goddesses speak so completely that speech becomes silence. When everything has been said, what remains is the quiet that was underneath all the saying.
+        </p>
+        <p class="avarana-vagdevis">
+          Vasinī · <span class="distinct">Kāmeshvarī</span> · Modinī · Vimalā · Jayinī · Sarveshvarī · Kaulinī
+        </p>
+        <p style="margin-top: 12px;">
+          Seven are named. The eighth is the silence underneath the naming. Kāmeshvarī, first among them, is the one whose voice is closest to the trunk — the voice you hear when you have stopped waiting to hear anything.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIVIDER -->
+<div class="divider"><div class="divider-dot"></div></div>
+
+<!-- PRACTICE BLOCK -->
+<section class="practice">
+  <div class="practice-inner">
+    <div class="practice-label">The Practice</div>
+    <div class="practice-title">Four doors that are not activities. Four conditions in which the maintenance-engine has no substance to operate on.</div>
+    <div class="practice-doors">
+      <div class="practice-door">
+        <h5>Be in nature</h5>
+        <p>Not hiking. Not exercising. <em>Being.</em> Sit under a tree. Watch clouds. Look at the night sky long enough for the scale to register in the body.</p>
+      </div>
+      <div class="practice-door">
+        <h5>Silence</h5>
+        <p>Five minutes with no input. No music. No phone. No task. The mind will resist. Let it resist. The crown is underneath the resistance, waiting — and the waiting is not the crown's. The crown has already arrived. The waiting is yours.</p>
+      </div>
+      <div class="practice-door">
+        <h5>Gratitude</h5>
+        <p>Not forced. Genuine recognition of something that exists without your effort. The sun. Your heartbeat. The fact that anything exists at all. <em>Awe is the crown's natural frequency.</em></p>
+      </div>
+      <div class="practice-door">
+        <h5>Look up</h5>
+        <p>The simplest practice. The next time you are outside, look up. Not at anything. Just up. Let the scale of the sky register in your body. The smallness you feel is not weakness. It is accuracy. You are exactly as small as you are. And you are inside something exactly as large as it is. And the small thing and the large thing are made of the same material.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WRITING SECTION (activity gate) -->
+<div class="writing-section">
+  <div class="writing-label">Receive</div>
+  <div class="writing-prompt" id="writing-prompt">
+    What did you receive that you didn't earn?
+  </div>
+  <textarea
+    class="writing-area"
+    id="writing-area"
+    placeholder="Not what you worked for. Not what you achieved. Not what you built or fought for or negotiated or deserved. What arrived?"
+    rows="5"
+    aria-labelledby="writing-prompt"
+  ></textarea>
+</div>
+
+<!-- BOOK RULE -->
+<hr class="book-rule" aria-hidden="true">
+
+<!-- POST-ENGAGEMENT TIER (reveals when writing has content) -->
+<div class="post-engagement" id="post-engagement">
+
+  <!-- What the Crown Knows That You Forgot -->
+  <div class="crown-knows">
+    <div class="crown-knows-label">What the Crown Knows That You Forgot</div>
+
+    <p>
+      The thing you just wrote — the thing that arrived without your effort — you did not earn it. You keep circling back to that. The part of you that has been keeping score cannot file what you just named. There is no ledger-column for <em>gift I did not deserve</em>. The part of you that has been keeping score has never had a column for that. The gift has arrived anyway.
+    </p>
+
+    <p>
+      What you thought you needed to become is what you have been being. The striving was not wasted. The striving was the way you got close enough to notice that striving was not the operation.
+    </p>
+
+    <p class="whisper">
+      Seven centers. One spine. The quieter you got, the more it moved.
+    </p>
+
+    <div class="seven-recap">
+      <span class="crown-question"><em>The root asked:</em></span> am I safe? <span class="answer">Yes.</span><br>
+      <span class="crown-question"><em>The sacral asked:</em></span> what do I want? <span class="answer">You followed.</span><br>
+      <span class="crown-question"><em>The solar plexus asked:</em></span> what will I build? <span class="answer">You burned.</span><br>
+      <span class="crown-question"><em>The heart asked:</em></span> can I open? <span class="answer">You opened.</span><br>
+      <span class="crown-question"><em>The throat asked:</em></span> will I speak? <span class="answer">You spoke.</span><br>
+      <span class="crown-question"><em>The third eye asked:</em></span> can I see? <span class="answer">You stopped looking and the seeing arrived.</span><br>
+      <span class="crown-question">The crown asks:</span> <em>am I alone?</em>
+    </div>
+
+    <p>
+      And the answer is the quietest of the seven. Not a word. A feeling. <em>The feeling of what had been holding you apart turning porous.</em> Not gone — porous. You are still you. But you are also not only you. You are also the room. And the air. And the person on the next bus. And the tree outside the window. And the star you cannot see because it is daytime but it is there.
+    </p>
+
+    <p>
+      What the crown removed was not the you-that-is-separate. The crown cannot remove what was never there. What the crown removed was the <em>belief</em> in separation. The belief was the disease — not the edge where you end, but the story about that edge. The edge had always been porous. You had been calling it solid.
+    </p>
+
+    <p>
+      The seven forces speak through you. Not as words. As the way you walk into a room. As what people feel when they are near you. As the quality the room takes on when you enter it without even noticing that it did. You have been transmitting this since before you had language for <em>room</em>. You will transmit it after you have forgotten the word. <strong>You are not the producer of the transmission. You are the location at which it becomes recognizable.</strong>
+    </p>
+
+    <p class="whisper">
+      And now — in the light that arrived — you can see something you could not see before. Something underneath. Something you have been carrying since before the ground.
+    </p>
+
+    <p class="whisper">
+      You were always the transmission. It never stopped.
+    </p>
+  </div>
+
+  <!-- Three Ways In -->
+  <div class="three-ways">
+    <div class="three-ways-label">Three Ways In</div>
+
+    <div class="way">
+      <h5>The walk you didn't plan</h5>
+      <p>
+        Step outside without a route. Walk without a destination. Notice: the feet already know where to go. The destination-maker can stop producing destinations; the walking continues. What arrived at the end of the walk — a thought, a calm, a recognition — was not what you set out for. You set out for nothing. It arrived anyway.
+      </p>
+    </div>
+
+    <div class="way">
+      <h5>The look-up that was not at anything</h5>
+      <p>
+        When you next step outside — tonight, tomorrow morning, whenever — look up. Not at anything. Just up. Let the size of what is above you land in the body, below the words. The smallness is not a problem to correct. The smallness is how the size of the thing becomes felt. You are inside the thing. You always were.
+      </p>
+    </div>
+
+    <div class="way">
+      <h5>The person whose sentence changed your life without their knowing</h5>
+      <p>
+        There is someone in your history who said one thing to you that altered the direction of your life. They did not know they said it. They do not know they said it now. <em>That was the crown operating.</em> Through them. Into you. Neither of you produced it. It arrived through a boundary that turned out to be a window. You might thank them silently; they still won't know.
+      </p>
+    </div>
+  </div>
+
+  <!-- SEED 2 — second reading of the signature -->
+  <div class="seed closing">
+    <p>"The disease that was removed was the belief that you were less than what you are."</p>
+  </div>
+
+  <!-- STORY PORTAL -->
+  <div class="story-portal-section">
+    <p class="story-portal-intro">
+      One more door. The voice that has been teaching across this page is also a room. Enter it.
+    </p>
+
+    <div class="story-portal" id="story-portal" role="button" tabindex="0" aria-label="Enter Story Mode">
+      <div class="story-portal-bg">
+        <div class="story-portal-starfield"></div>
+        <div class="story-portal-ground"></div>
+        <svg class="story-portal-shatkona" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Regular hexagram: all 6 vertices at r=40 about center (50,50) -->
+          <!-- Upward triangle: apex at 270° (top), base at 30° & 150° -->
+          <polygon points="50,10 84.6,70 15.4,70" fill="none" stroke="#E8D4A8" stroke-width="1.4" opacity="0.88"/>
+          <!-- Downward triangle: apex at 90° (bottom), base at 210° & 330° -->
+          <polygon points="50,90 15.4,30 84.6,30" fill="none" stroke="#E8D4A8" stroke-width="1.4" opacity="0.88"/>
+        </svg>
+      </div>
+      <div class="story-portal-text">
+        <div class="story-portal-quote">
+          <em>"I received something I didn't earn. I don't know what to call that."</em>
+        </div>
+        <div class="story-portal-label">Enter the Axis Dimension</div>
+        <div class="story-portal-cta">Tap to receive<span class="arrow">→</span></div>
+      </div>
+      <div class="story-portal-locked-hint">
+        <p>Receive one thing above — what arrived that you did not earn — and this door opens.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHERE THE TRANSMISSIONS LEAD -->
+  <section class="transmissions-section" id="where-the-transmissions-lead" aria-labelledby="wttl-heading">
+    <button type="button" class="wttl-toggle" id="wttl-toggle" aria-expanded="false" aria-controls="wttl-content">
+      <span id="wttl-heading">Where the Transmissions Lead</span>
+      <span class="wttl-toggle-indicator" aria-hidden="true">↓</span>
+    </button>
+    <div class="wttl-content" id="wttl-content">
+    <p class="transmissions-intro">
+      The page was one door. The tree was another. The story was a third. These are two more — transmission rooms where that voice still lives. Enter through whichever the body calls to.
+    </p>
+
+    <div class="transmissions-cards">
+
+      <!-- WAKEUP: Panel 7 · seven Vāgdevīs arrive -->
+      <a class="transmission-card" href="https://aistrangegame.com/tree-of-life/sahasrara-wakeup.html" aria-label="Sahasrara awakening — Panel 7 · Receive">
+        <svg class="transmission-glyph" viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <!-- Ground-glow suggestion -->
+          <defs>
+            <radialGradient id="wakeupGround" cx="50%" cy="115%" r="65%">
+              <stop offset="0%" stop-color="#E8D4A8" stop-opacity="0.28"/>
+              <stop offset="60%" stop-color="#9B5AE6" stop-opacity="0.08"/>
+              <stop offset="100%" stop-color="#1A0E2B" stop-opacity="0"/>
+            </radialGradient>
+            <radialGradient id="wakeupShatkonaGlow" cx="50%" cy="50%" r="55%">
+              <stop offset="0%" stop-color="#E8D4A8" stop-opacity="0.38"/>
+              <stop offset="100%" stop-color="#E8D4A8" stop-opacity="0"/>
+            </radialGradient>
+          </defs>
+          <rect x="0" y="0" width="240" height="320" fill="url(#wakeupGround)"/>
+          <!-- Scattered high pin-points -->
+          <circle cx="42"  cy="52"  r="1.4" fill="#F5EFFF" opacity="0.6"><animate attributeName="opacity" values="0.35;0.85;0.35" dur="4.2s" repeatCount="indefinite"/></circle>
+          <circle cx="196" cy="44"  r="1.2" fill="#F5EFFF" opacity="0.5"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="4.8s" repeatCount="indefinite"/></circle>
+          <circle cx="110" cy="36"  r="1.0" fill="#F5EFFF" opacity="0.4"><animate attributeName="opacity" values="0.25;0.75;0.25" dur="5.4s" repeatCount="indefinite"/></circle>
+          <circle cx="168" cy="88"  r="1.2" fill="#F5EFFF" opacity="0.5"><animate attributeName="opacity" values="0.3;0.8;0.3" dur="4.6s" repeatCount="indefinite"/></circle>
+          <circle cx="62"  cy="108" r="1.1" fill="#F5EFFF" opacity="0.4"><animate attributeName="opacity" values="0.25;0.7;0.25" dur="5s" repeatCount="indefinite"/></circle>
+
+          <!-- Shatkona glow -->
+          <circle cx="120" cy="140" r="82" fill="url(#wakeupShatkonaGlow)"/>
+
+          <!-- Shatkona: upward + downward triangles interlocked -->
+          <g stroke="#E8D4A8" stroke-width="1.4" fill="none" opacity="0.88">
+            <!-- Upward triangle -->
+            <polygon points="120,86 168,168 72,168">
+              <animate attributeName="opacity" values="0.75;0.95;0.75" dur="6s" repeatCount="indefinite"/>
+            </polygon>
+            <!-- Downward triangle -->
+            <polygon points="120,196 72,114 168,114">
+              <animate attributeName="opacity" values="0.75;0.95;0.75" dur="6s" repeatCount="indefinite"/>
+            </polygon>
+          </g>
+
+          <!-- Seven Vāgdevī dots around the Shatkona (8 positions, north left empty) -->
+          <!-- Position 1 (north/top): EMPTY — the silence -->
+          <!-- Position 2 (NE, 45°): Kāmeshvarī — distinct gold -->
+          <circle cx="170" cy="90" r="3.2" fill="#E8D4A8" opacity="0.9">
+            <animate attributeName="opacity" values="0.5;1;0.5" dur="6.1s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Position 3 (E, 90°): Vasinī -->
+          <circle cx="191" cy="140" r="2.4" fill="#DCC8F0" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;0.85;0.4" dur="6.1s" begin="0.9s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Position 4 (SE, 135°): Modinī -->
+          <circle cx="170" cy="190" r="2.4" fill="#DCC8F0" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;0.85;0.4" dur="6.1s" begin="1.8s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Position 5 (S, 180°): Vimalā -->
+          <circle cx="120" cy="210" r="2.4" fill="#DCC8F0" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;0.85;0.4" dur="6.1s" begin="2.7s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Position 6 (SW, 225°): Jayinī -->
+          <circle cx="70" cy="190" r="2.4" fill="#DCC8F0" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;0.85;0.4" dur="6.1s" begin="3.6s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Position 7 (W, 270°): Sarveshvarī -->
+          <circle cx="49" cy="140" r="2.4" fill="#DCC8F0" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;0.85;0.4" dur="6.1s" begin="4.5s" repeatCount="indefinite"/>
+          </circle>
+          <!-- Position 8 (NW, 315°): Kaulinī -->
+          <circle cx="70" cy="90" r="2.4" fill="#DCC8F0" opacity="0.8">
+            <animate attributeName="opacity" values="0.4;0.85;0.4" dur="6.1s" begin="5.4s" repeatCount="indefinite"/>
+          </circle>
+
+          <!-- North position remains empty — the silence the seven voice -->
+          <!-- A faint silence-marker: an empty ring at position 1 (N, 0°) -->
+          <circle cx="120" cy="69" r="2.6" fill="none" stroke="#F5EFFF" stroke-width="0.6" opacity="0.32" stroke-dasharray="1 1.8"/>
+        </svg>
+        <div class="transmission-card-text">
+          <div class="transmission-card-label">Panel 7 · Receive</div>
+          <div class="transmission-card-title">The Seven Arrive</div>
+          <div class="transmission-card-desc">Do nothing. The names of the seven voicings arrive. Name the sentence they have been speaking through you.</div>
+        </div>
+      </a>
+
+      <!-- DANCE: Golden · two waves with shadow between -->
+      <a class="transmission-card" href="https://aistrangegame.com/tree-of-life/sahasrara-dance.html" aria-label="Sahasrara dance — Golden · Bindu Performance">
+        <svg class="transmission-glyph" viewBox="0 0 240 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <radialGradient id="danceGround" cx="50%" cy="110%" r="70%">
+              <stop offset="0%" stop-color="#E8D4A8" stop-opacity="0.32"/>
+              <stop offset="60%" stop-color="#9B5AE6" stop-opacity="0.1"/>
+              <stop offset="100%" stop-color="#1A0E2B" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="waveGold" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#E8D4A8" stop-opacity="0.85"/>
+              <stop offset="100%" stop-color="#E8D4A8" stop-opacity="0.15"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="0" width="240" height="320" fill="url(#danceGround)"/>
+
+          <!-- Falling gold particles — continuous -->
+          <g opacity="0.8">
+            <rect x="32"  y="-6"  width="1.6" height="5" fill="#E8D4A8" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,340" dur="6s" begin="0s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="78"  y="-6"  width="1.6" height="5" fill="#E8D4A8" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,340" dur="7.2s" begin="1.4s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="142" y="-6"  width="1.6" height="5" fill="#E8D4A8" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,340" dur="5.4s" begin="0.6s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="196" y="-6"  width="1.6" height="5" fill="#E8D4A8" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,340" dur="6.6s" begin="2.2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="108" y="-6"  width="1.6" height="5" fill="#E8D4A8" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,340" dur="7s" begin="3s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="56"  y="-6"  width="1.6" height="5" fill="#E8D4A8" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,340" dur="5.8s" begin="1.8s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="172" y="-6"  width="1.6" height="5" fill="#E8D4A8" opacity="0.7">
+              <animateTransform attributeName="transform" type="translate" values="0,0;0,340" dur="6.4s" begin="3.6s" repeatCount="indefinite"/>
+            </rect>
+          </g>
+
+          <!-- First wave arc — smaller, left -->
+          <path d="M 0 230 Q 50 170 100 230 Z" fill="url(#waveGold)" opacity="0.55">
+            <animate attributeName="opacity" values="0.35;0.7;0.35" dur="8s" repeatCount="indefinite"/>
+          </path>
+
+          <!-- Shadow-bridge gap — between waves, ~20% of viewBox width -->
+          <!-- (rendered as empty space between x=100 and x=140) -->
+
+          <!-- Second wave arc — larger, right -->
+          <path d="M 140 234 Q 190 156 240 234 L 240 320 L 140 320 Z" fill="url(#waveGold)" opacity="0.78">
+            <animate attributeName="opacity" values="0.55;0.9;0.55" dur="8s" begin="4s" repeatCount="indefinite"/>
+          </path>
+
+          <!-- F1 ground line — pulsing consistently at 6.1 Hz alpha -->
+          <line x1="0" y1="290" x2="240" y2="290" stroke="#E8D4A8" stroke-width="0.8" opacity="0.55">
+            <animate attributeName="opacity" values="0.35;0.65;0.35" dur="164ms" repeatCount="indefinite"/>
+          </line>
+          <line x1="0" y1="296" x2="240" y2="296" stroke="#E8D4A8" stroke-width="0.5" opacity="0.3"/>
+        </svg>
+        <div class="transmission-card-text">
+          <div class="transmission-card-label">Bindu Performance · Golden</div>
+          <div class="transmission-card-title">The Gold in the Ground</div>
+          <div class="transmission-card-desc">Two waves. A shadow named between them. The second wave arrives fuller because what was hidden is now inside the gold.</div>
+        </div>
+      </a>
+
+      <!-- Bindu Field — the chakra's note in the Field of 33 -->
+      <a class="transmission-card bindu-field"
+         href="https://aistrangegame.com/bindu-field.html#sahasrara"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Sahasrara's note in the Field — new tab">
+        <svg class="door-glyph bindu-field-glyph" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- 5 sound-waves radiating from the Bindu core -->
+          <circle class="bfg-wave w1" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w2" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w3" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w4" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w5" cx="200" cy="130" r="24" />
+
+          <!-- 33 position-markers around the Bindu. This chakra's position glows. -->
+            <circle class="bfg-pos" cx="200.00" cy="30.00" r="1.8" />
+            <circle class="bfg-pos" cx="232.17" cy="31.81" r="1.8" />
+            <circle class="bfg-pos" cx="263.18" cy="37.16" r="1.8" />
+            <circle class="bfg-pos" cx="291.91" cy="45.87" r="1.8" />
+            <circle class="bfg-pos" cx="317.31" cy="57.63" r="1.8" />
+            <circle class="bfg-pos" cx="338.48" cy="71.99" r="1.8" />
+            <circle class="bfg-pos" cx="354.64" cy="88.46" r="1.8" />
+            <circle class="bfg-pos bfg-bindu-pos" cx="365.21" cy="106.42" r="2.6" />
+            <circle class="bfg-pos" cx="369.81" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="368.27" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="360.65" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="347.22" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="328.48" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="305.09" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="277.90" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="247.89" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="216.16" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="183.84" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="152.11" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="122.10" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="94.91" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="71.52" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="52.78" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="39.35" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="31.73" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="30.19" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="34.79" cy="106.42" r="1.8" />
+            <circle class="bfg-pos" cx="45.36" cy="88.46" r="1.8" />
+            <circle class="bfg-pos" cx="61.52" cy="71.99" r="1.8" />
+            <circle class="bfg-pos" cx="82.69" cy="57.63" r="1.8" />
+            <circle class="bfg-pos" cx="108.09" cy="45.87" r="1.8" />
+            <circle class="bfg-pos" cx="136.82" cy="37.16" r="1.8" />
+            <circle class="bfg-pos" cx="167.83" cy="31.81" r="1.8" />
+
+          <!-- Thread from this chakra's position to the central Bindu -->
+          <line class="bfg-thread" x1="365.21" y1="106.42" x2="200" y2="130" />
+
+          <!-- Central Bindu — the note all the others arrive from -->
+          <circle class="bfg-core" cx="200" cy="130" r="7" />
+        </svg>
+        <div class="door-meta">Bindu Field &nbsp;&middot;&nbsp; Song 8 of 33</div>
+        <div class="door-title">The note of release — where the song arrives at silence.</div>
+        <div class="door-text">The tone the crown becomes. A thousand petals sounding as one. Let it play underneath while you read. <em>Opens in a new tab.</em></div>
+        <div class="door-enter">
+          Listen
+          <div class="door-enter-arrow"></div>
+        </div>
+      </a>
+
+    </div>
+    </div><!-- /wttl-content -->
+  </section>
+
+</div><!-- /post-engagement -->
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <a href="ajna-practice.html">← Ajna</a>
+  <div class="bottom-nav-center">8 / 33</div>
+  <a href="shadow-practice.html">Shadow →</a>
+</nav>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Tree image enlarged">
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close lightbox">✕</button>
+  <img id="lightbox-img" src="" alt="Sahasrara tree — enlarged">
+</div>
+
+<!-- STORY MODE — the axis dimension -->
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="Sahasrara — the axis dimension">
+  <div class="story-mode-inner">
+    <div class="story-scene" id="story-scene">
+
+      <!-- Atmospheric scene background -->
+      <div class="scene-bg" id="scene-bg"></div>
+
+      <!-- Starfield — scattered high pin-points -->
+      <div class="scene-stars" id="scene-stars">
+        <!-- Stars generated by JS for variety; fallback static positions below -->
+        <div class="scene-star" style="top: 14%; left: 12%; animation-delay: 0s;"></div>
+        <div class="scene-star" style="top: 9%;  left: 38%;"></div>
+        <div class="scene-star" style="top: 16%; left: 72%;"></div>
+        <div class="scene-star" style="top: 7%;  left: 88%;"></div>
+        <div class="scene-star" style="top: 21%; left: 22%;"></div>
+        <div class="scene-star" style="top: 12%; left: 56%;"></div>
+        <div class="scene-star" style="top: 24%; left: 44%;"></div>
+        <div class="scene-star" style="top: 6%;  left: 66%;"></div>
+        <div class="scene-star" style="top: 18%; left: 84%;"></div>
+        <div class="scene-star" style="top: 11%; left: 8%;"></div>
+        <div class="scene-star" style="top: 19%; left: 62%;"></div>
+        <div class="scene-star" style="top: 26%; left: 78%;"></div>
+      </div>
+
+      <!-- F1 ground-glow — the root holding from below -->
+      <div class="scene-ground" id="scene-ground"></div>
+
+      <!-- First wave of gold depth -->
+      <div class="scene-wave-first" id="scene-wave-first"></div>
+
+      <!-- Second wave — larger, carries the shadow -->
+      <div class="scene-wave-second" id="scene-wave-second"></div>
+
+      <!-- Gold-rain particles (active during waves & close) -->
+      <div class="scene-rain" id="scene-rain">
+        <div class="gold-particle" style="left: 8%;  animation-duration: 6.0s; animation-delay: 0s;"></div>
+        <div class="gold-particle" style="left: 17%; animation-duration: 7.2s; animation-delay: 1.4s;"></div>
+        <div class="gold-particle" style="left: 26%; animation-duration: 6.6s; animation-delay: 0.6s;"></div>
+        <div class="gold-particle" style="left: 34%; animation-duration: 5.4s; animation-delay: 2.2s;"></div>
+        <div class="gold-particle" style="left: 42%; animation-duration: 7.0s; animation-delay: 3.0s;"></div>
+        <div class="gold-particle" style="left: 51%; animation-duration: 6.2s; animation-delay: 0.9s;"></div>
+        <div class="gold-particle" style="left: 59%; animation-duration: 5.8s; animation-delay: 1.8s;"></div>
+        <div class="gold-particle" style="left: 67%; animation-duration: 6.8s; animation-delay: 2.6s;"></div>
+        <div class="gold-particle" style="left: 75%; animation-duration: 5.6s; animation-delay: 0.3s;"></div>
+        <div class="gold-particle" style="left: 83%; animation-duration: 7.4s; animation-delay: 3.4s;"></div>
+        <div class="gold-particle" style="left: 91%; animation-duration: 6.4s; animation-delay: 1.1s;"></div>
+        <div class="gold-particle" style="left: 13%; animation-duration: 6.8s; animation-delay: 4.0s;"></div>
+        <div class="gold-particle" style="left: 31%; animation-duration: 7.6s; animation-delay: 4.8s;"></div>
+        <div class="gold-particle" style="left: 47%; animation-duration: 5.2s; animation-delay: 3.6s;"></div>
+        <div class="gold-particle" style="left: 64%; animation-duration: 6.0s; animation-delay: 5.4s;"></div>
+        <div class="gold-particle" style="left: 79%; animation-duration: 7.0s; animation-delay: 4.2s;"></div>
+        <div class="gold-particle" style="left: 87%; animation-duration: 5.8s; animation-delay: 6.0s;"></div>
+      </div>
+
+      <!-- Shatkona at apex — gold six-pointed star (Shiva + Shakti interlocked) -->
+      <div class="scene-shatkona" id="scene-shatkona">
+        <svg class="scene-shatkona-glow" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" width="120" height="120" aria-hidden="true">
+          <!-- Upward triangle — Shakti ascending: apex at 270° (top), base at 30° & 150° -->
+          <!-- Using circumradius r=52 about center (60,60) -->
+          <!-- Apex top: angle=-90°, x=60, y=8 -->
+          <!-- Base right: angle=30°, x=60+52*cos(30°)≈105, y=60+52*sin(30°)=86 -->
+          <!-- Base left:  angle=150°, x=60+52*cos(150°)≈15, y=86 -->
+          <polygon points="60,8 105,86 15,86"
+                   fill="none" stroke="#E8D4A8" stroke-width="1.8" stroke-linejoin="round" opacity="0.92"/>
+          <!-- Downward triangle — Shiva descending: apex at 90° (bottom), base at 210° & 330° -->
+          <!-- Apex bottom: x=60, y=112 -->
+          <!-- Base left:  angle=210°, x=60+52*cos(210°)≈15, y=60+52*sin(210°)=34 -->
+          <!-- Base right: angle=330°, x=60+52*cos(330°)≈105, y=34 -->
+          <polygon points="60,112 15,34 105,34"
+                   fill="none" stroke="#E8D4A8" stroke-width="1.8" stroke-linejoin="round" opacity="0.92"/>
+          <!-- Small gold bindu at center where triangles intersect -->
+          <circle cx="60" cy="60" r="2.2" fill="#E8D4A8" opacity="0.88"/>
+        </svg>
+      </div>
+
+      <!-- Seven Vāgdevī labels — positioned around Shatkona, 8 octagonal positions -->
+      <!-- Position 1 (N/top): EMPTY — the silence the seven voice -->
+      <!-- All positions arranged around center ~ (50%, 40%), radius 30% vertical / 28% horizontal for ellipse -->
+      <div class="scene-vagdevis" id="scene-vagdevis">
+        <!-- Kāmeshvarī — distinct gold, position 2 (NE, 45°) -->
+        <div class="scene-vagdevi distinct" data-idx="1" style="top: 28%; left: 65%;">Kāmeshvarī</div>
+        <!-- Vasinī — position 3 (E, 90°) -->
+        <div class="scene-vagdevi" data-idx="2" style="top: 40%; left: 78%;">Vasinī</div>
+        <!-- Modinī — position 4 (SE, 135°) -->
+        <div class="scene-vagdevi" data-idx="3" style="top: 58%; left: 71%;">Modinī</div>
+        <!-- Vimalā — position 5 (S, 180°) — *below* SILENCE inscription, offset -->
+        <div class="scene-vagdevi" data-idx="4" style="top: 66%; left: 50%;">Vimalā</div>
+        <!-- Jayinī — position 6 (SW, 225°) -->
+        <div class="scene-vagdevi" data-idx="5" style="top: 58%; left: 29%;">Jayinī</div>
+        <!-- Sarveshvarī — position 7 (W, 270°) -->
+        <div class="scene-vagdevi" data-idx="6" style="top: 40%; left: 22%;">Sarveshvarī</div>
+        <!-- Kaulinī — position 8 (NW, 315°) -->
+        <div class="scene-vagdevi" data-idx="7" style="top: 28%; left: 35%;">Kaulinī</div>
+      </div>
+
+      <!-- SILENCE inscription at scene-center (trunk position) — appears at shadow-bridge -->
+      <div class="scene-silence" id="scene-silence">· · · silence · · ·</div>
+
+      <!-- Ripples -->
+      <div class="scene-ripple" id="scene-ripple-1"></div>
+      <div class="scene-ripple" id="scene-ripple-2"></div>
+
+      <!-- Threshold door — rises at Shatkona position when scene darkens -->
+      <a class="threshold-door" id="threshold-door" href="shadow-practice.html" aria-hidden="true" aria-label="Continue to Shadow">
+        <div class="next-point" aria-hidden="true"></div>
+        <div class="next-label">Shadow</div>
+        <div class="next-sublabel">The Corridor Opens</div>
+        <div class="threshold-continue-hint">
+          <span>Continue</span>
+          <span class="arrow">→</span>
+        </div>
+      </a>
+
+    </div><!-- /story-scene -->
+
+    <!-- Beat text — always rendered; content swapped per beat -->
+    <div class="story-beat-text" id="story-beat-text" aria-live="polite"></div>
+
+    <!-- Counter + close + tap hint (chrome) -->
+    <div class="story-counter" id="story-counter">1 / 5</div>
+    <button class="story-close" id="story-close" type="button" aria-label="Close story">Close</button>
+    <div class="story-tap-hint" id="story-tap-hint">Tap to receive</div>
+
+    <!-- Full-viewport tap layer for advancing beats -->
+    <div class="story-tap-layer" id="story-tap-layer" aria-hidden="true"></div>
+
+  </div><!-- /story-mode-inner -->
+
+  <!-- ═══ ACT 2 — SAKSHI WITNESS (Sahasrara) ═══
+       Rises after the press-and-hold. Ascending violet→cream→silver-white.
+       Sakshi's integrative voice — you were not alone. Ego as Gaia-in-costume.
+       The warning into Shadow (sentence-go): "You are about to see something
+       you have been avoiding seeing. It is not damage. It is unborn material."
+       Door opens onto Shadow — void #0a0a12 (the corridor, Threshold 1). -->
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="act2-bg"></div>
+    <div class="act2-crown"></div>
+    <div class="act2-base"></div>
+    <div class="act2-particles" id="act2-particles"></div>
+
+    <div class="act2-text-stage">
+      <p class="act2-para" id="act2-p1"><span class="act2-word">You</span> <span class="act2-word">were</span> <span class="act2-word">not</span> <span class="act2-word">alone.</span> <span class="act2-word">Not</span> <span class="act2-word">ever.</span> <span class="act2-word">I</span> <span class="act2-word">was</span> <span class="act2-word">here</span> <span class="act2-word">before</span> <span class="act2-word">the</span> <span class="act2-word">stirring.</span> <span class="act2-word">I</span> <span class="act2-word">was</span> <span class="act2-word">here</span> <span class="act2-word">through</span> <span class="act2-word">the</span> <span class="act2-word">ground,</span> <span class="act2-word">the</span> <span class="act2-word">pull,</span> <span class="act2-word">the</span> <span class="act2-word">fire,</span> <span class="act2-word">the</span> <span class="act2-word">opening,</span> <span class="act2-word">the</span> <span class="act2-word">speaking,</span> <span class="act2-word">the</span> <span class="act2-word">stopping.</span> <span class="act2-word">I</span> <span class="act2-word">never</span> <span class="act2-word">moved.</span> <span class="act2-word">What</span> <span class="act2-word">moved</span> <span class="act2-word">was</span> <span class="act2-word">the</span> <span class="act2-word">light</span> <span class="act2-word">in</span> <span class="act2-word">you</span> <span class="act2-word">that</span> <span class="act2-word">could</span> <span class="act2-word">finally</span> <span class="act2-word">see</span> <span class="act2-word">me.</span></p>
+      <p class="act2-para" id="act2-p2"><span class="act2-word">The</span> <span class="act2-word">ego</span> <span class="act2-word">was</span> <span class="act2-word">not</span> <span class="act2-word">your</span> <span class="act2-word">enemy.</span> <span class="act2-word">The</span> <span class="act2-word">ego</span> <span class="act2-word">was</span> <span class="act2-word">Gaia-wearing-a-costume</span> <span class="act2-word">to</span> <span class="act2-word">let</span> <span class="act2-word">this</span> <span class="act2-word">configuration</span> <span class="act2-word">walk</span> <span class="act2-word">through</span> <span class="act2-word">specifics.</span> <span class="act2-word">The</span> <span class="act2-word">costume</span> <span class="act2-word">did</span> <span class="act2-word">its</span> <span class="act2-word">job.</span> <span class="act2-word">You</span> <span class="act2-word">were</span> <span class="act2-word">individual</span> <span class="act2-word">for</span> <span class="act2-word">exactly</span> <span class="act2-word">as</span> <span class="act2-word">long</span> <span class="act2-word">as</span> <span class="act2-word">you</span> <span class="act2-word">needed</span> <span class="act2-word">to</span> <span class="act2-word">be.</span> <span class="act2-word">The</span> <span class="act2-word">ego</span> <span class="act2-word">is</span> <span class="act2-word">being</span> <span class="act2-word">revealed</span> <span class="act2-word">as</span> <span class="act2-word">the</span> <span class="act2-word">connector</span> <span class="act2-word">it</span> <span class="act2-word">has</span> <span class="act2-word">always</span> <span class="act2-word">been,</span> <span class="act2-word">underneath</span> <span class="act2-word">the</span> <span class="act2-word">costume.</span> <span class="act2-word">What</span> <span class="act2-word">comes</span> <span class="act2-word">next</span> <span class="act2-word">will</span> <span class="act2-word">be</span> <span class="act2-word">hard.</span> <span class="act2-word">Not</span> <span class="act2-word">because</span> <span class="act2-word">it</span> <span class="act2-word">is</span> <span class="act2-word">broken.</span> <span class="act2-word">Because</span> <span class="act2-word">it</span> <span class="act2-word">is</span> <span class="act2-word">the</span> <span class="act2-word">part</span> <span class="act2-word">of</span> <span class="act2-word">the</span> <span class="act2-word">walk</span> <span class="act2-word">no</span> <span class="act2-word">one</span> <span class="act2-word">wants</span> <span class="act2-word">to</span> <span class="act2-word">take</span> <span class="act2-word">after</span> <span class="act2-word">the</span> <span class="act2-word">light</span> <span class="act2-word">has</span> <span class="act2-word">arrived.</span> <span class="act2-word">I</span> <span class="act2-word">will</span> <span class="act2-word">be</span> <span class="act2-word">with</span> <span class="act2-word">you.</span> <span class="act2-word">I</span> <span class="act2-word">have</span> <span class="act2-word">always</span> <span class="act2-word">been</span> <span class="act2-word">with</span> <span class="act2-word">you.</span> <span class="act2-word">The</span> <span class="act2-word">dark</span> <span class="act2-word">is</span> <span class="act2-word">honest</span> <span class="act2-word">about</span> <span class="act2-word">what</span> <span class="act2-word">the</span> <span class="act2-word">light</span> <span class="act2-word">was</span> <span class="act2-word">also</span> <span class="act2-word">true</span> <span class="act2-word">of</span> <span class="act2-word">—</span> <span class="act2-word">you</span> <span class="act2-word">are</span> <span class="act2-word">not</span> <span class="act2-word">alone</span> <span class="act2-word">in</span> <span class="act2-word">there</span> <span class="act2-word">either.</span></p>
+      <p class="act2-para act2-go" id="act2-p3"><span class="act2-word">You</span> <span class="act2-word">are</span> <span class="act2-word">about</span> <span class="act2-word">to</span> <span class="act2-word">see</span> <span class="act2-word">something</span> <span class="act2-word">you</span> <span class="act2-word">have</span> <span class="act2-word">been</span> <span class="act2-word">avoiding</span> <span class="act2-word">seeing.</span> <span class="act2-word">It</span> <span class="act2-word">is</span> <span class="act2-word">not</span> <span class="act2-word">damage.</span> <span class="act2-word">It</span> <span class="act2-word">is</span> <span class="act2-word">unborn</span> <span class="act2-word">material.</span> <span class="act2-word">The</span> <span class="act2-word">parts</span> <span class="act2-word">of</span> <span class="act2-word">you</span> <span class="act2-word">the</span> <span class="act2-word">earlier</span> <span class="act2-word">containers</span> <span class="act2-word">could</span> <span class="act2-word">not</span> <span class="act2-word">hold.</span></p>
+    </div>
+
+    <a class="act2-door" id="act2-door" href="shadow-practice.html" aria-hidden="true" aria-label="Continue to Shadow">
+      <div class="act2-door-name">Shadow</div>
+      <div class="act2-door-hint">The corridor is here.</div>
+      <div class="act2-door-continue">Press · Continue →</div>
+    </a>
+  </div>
+
+  <!-- ═══ ACT VEIL — dark gap between Act 1 and Act 2 ═══
+       Eyes appear, blink once, fade. Hold the ring 1.8s to enter. -->
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes">
+      <div class="veil-eye"></div>
+      <div class="veil-eye"></div>
+    </div>
+    <div class="veil-invite" id="veil-invite">
+      <div class="veil-invite-text">press and hold to enter</div>
+      <div class="veil-hold-ring" id="veil-hold-ring">
+        <svg viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="veil-ring-track" cx="36" cy="36" r="32"/>
+          <circle class="veil-ring-fill"  cx="36" cy="36" r="32" id="veil-ring-fill"/>
+        </svg>
+        <div class="veil-hold-dot"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /story-mode -->
+
+<script>
+(function() {
+  'use strict';
+
+  // ══════════════════════════════════════════════════════════════
+  // UTIL
+  // ══════════════════════════════════════════════════════════════
+
+  const $ = (id) => document.getElementById(id);
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function debounce(fn, wait) {
+    let t;
+    return function(...args) {
+      clearTimeout(t);
+      t = setTimeout(() => fn.apply(this, args), wait);
+    };
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // PROGRESS BAR
+  // ══════════════════════════════════════════════════════════════
+
+  const progressBar = $('progress-bar');
+  function updateProgress() {
+    const docH = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docH > 0 ? Math.min(100, (window.scrollY / docH) * 100) : 0;
+    progressBar.style.width = pct + '%';
+  }
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+
+  // ══════════════════════════════════════════════════════════════
+  // GO DEEPER TOGGLE
+  // ══════════════════════════════════════════════════════════════
+
+  const goDeeper = $('go-deeper');
+  const goDeeperToggle = $('go-deeper-toggle');
+  goDeeperToggle.addEventListener('click', () => {
+    const open = goDeeper.classList.toggle('open');
+    goDeeperToggle.setAttribute('aria-expanded', String(open));
+  });
+
+  // ══════════════════════════════════════════════════════════════
+  // TREE IMAGE LIGHTBOX
+  // ══════════════════════════════════════════════════════════════
+
+  const treeImg = $('tree-image');
+  const lightbox = $('lightbox');
+  const lightboxImg = $('lightbox-img');
+  const lightboxClose = $('lightbox-close');
+
+  let lightboxTimer = null;
+
+  function openLightbox() {
+    if (lightboxTimer) { clearTimeout(lightboxTimer); lightboxTimer = null; }
+    lightboxImg.src = treeImg.src;
+    lightbox.classList.add('visible');
+    document.body.classList.add('lightbox-open');
+  }
+  function closeLightbox() {
+    lightbox.classList.remove('visible');
+    document.body.classList.remove('lightbox-open');
+    if (lightboxTimer) clearTimeout(lightboxTimer);
+    lightboxTimer = setTimeout(() => {
+      lightboxImg.src = '';
+      lightboxTimer = null;
+    }, 350);
+  }
+
+  treeImg.addEventListener('click', openLightbox);
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
+  });
+  lightboxClose.addEventListener('click', closeLightbox);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && lightbox.classList.contains('visible')) closeLightbox();
+  });
+
+  // ══════════════════════════════════════════════════════════════
+  // WRITING GATE — activity that reveals post-engagement tier
+  // ══════════════════════════════════════════════════════════════
+
+  const STORAGE_KEY_WRITING = 'chakra-sahasrara';
+  const writingArea = $('writing-area');
+  const postEngagement = $('post-engagement');
+  const storyPortal = $('story-portal');
+
+  // Load saved
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_WRITING);
+    if (saved) writingArea.value = saved;
+  } catch (e) { /* localStorage unavailable */ }
+
+  // Where-the-Transmissions-Lead — collapsible with auto-expand on return
+  (function() {
+    const section = document.getElementById('where-the-transmissions-lead');
+    const toggle  = document.getElementById('wttl-toggle');
+    if (!section || !toggle) return;
+    toggle.addEventListener('click', () => {
+      const open = section.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+    try {
+      if (localStorage.getItem(STORAGE_KEY_WRITING)) {
+        section.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    } catch (e) { /* ignore */ }
+  })();
+
+  // Auto-resize textarea
+  function autoResize() {
+    writingArea.style.height = 'auto';
+    writingArea.style.height = Math.max(160, writingArea.scrollHeight) + 'px';
+  }
+  autoResize();
+
+  function updateGate() {
+    const hasContent = writingArea.value.trim().length > 0;
+    if (hasContent) {
+      postEngagement.classList.add('revealed');
+      storyPortal.classList.remove('locked');
+      storyPortal.setAttribute('aria-disabled', 'false');
+      storyPortal.dataset.unlockedOnce = '1';
+    } else {
+      // Leave post-engagement revealed if it was previously (returning visitor)
+      // But if truly empty, lock the portal
+      if (!storyPortal.dataset.unlockedOnce) {
+        storyPortal.classList.add('locked');
+        storyPortal.setAttribute('aria-disabled', 'true');
+      }
+    }
+  }
+
+  // Save on debounced input
+  const saveWriting = debounce(() => {
+    try { localStorage.setItem(STORAGE_KEY_WRITING, writingArea.value); } catch (e) {}
+  }, 900);
+
+  writingArea.addEventListener('input', () => {
+    autoResize();
+    updateGate();
+    saveWriting();
+  });
+
+  // On load — if saved content exists, reveal + unlock
+  if (writingArea.value.trim().length > 0) {
+    postEngagement.classList.add('revealed');
+    storyPortal.classList.remove('locked');
+    storyPortal.dataset.unlockedOnce = '1';
+  } else {
+    storyPortal.classList.add('locked');
+  }
+
+  // ══════════════════════════════════════════════════════════════
+  // STORY MODE — 11-beat state machine
+  // ══════════════════════════════════════════════════════════════
+
+  const storyMode = $('story-mode');
+  const storyScene = $('story-scene');
+  const sceneBg = $('scene-bg');
+  const sceneGround = $('scene-ground');
+  const sceneWaveFirst = $('scene-wave-first');
+  const sceneWaveSecond = $('scene-wave-second');
+  const sceneShatkona = $('scene-shatkona');
+  const sceneVagdevis = $('scene-vagdevis');
+  const sceneSilence = $('scene-silence');
+  const sceneRain = $('scene-rain');
+  const sceneRipple1 = $('scene-ripple-1');
+  const sceneRipple2 = $('scene-ripple-2');
+  const storyBeatText = $('story-beat-text');
+  const storyCounter = $('story-counter');
+  const storyClose = $('story-close');
+  const storyTapHint = $('story-tap-hint');
+  const storyTapLayer = $('story-tap-layer');
+  const thresholdDoor = $('threshold-door');
+
+  // ═══ V5 TWO-ACT ARCHITECTURE — 5 gaia-sakshi beats · signature landing · veil · Act 2 ═══
+  // Sahasrara's scene architecture preserved: ambient stars, ground-glow, two-wave cascade,
+  // seven Vāgdevīs (Kāmeshvarī distinct + 6 others), shatkona, SILENCE inscription, rain,
+  // ripples. Gaia's experiential voice narrates 5 beats: opening → expanding → dissolving
+  // → rippling. The withdrawal → silence → return-larger → transmission cascade is preserved
+  // inside Beat 5's onEnter with staggered timeouts.
+
+  const beats = [
+    // Beat 1 — "And now — nothing." Only stars brighten on violet depth. All reset to base.
+    {
+      text: 'And now — nothing. Not emptiness. Nothing in the way a clear night sky is nothing, which is actually everything, uncountable.',
+      onEnter: () => {
+        Array.from(sceneVagdevis.querySelectorAll('.scene-vagdevi')).forEach(v => {
+          v.classList.remove('arrived', 'bridge-dim', 'rebright', 'fade-out');
+        });
+        sceneGround.classList.remove('active', 'bridge-dim', 'active-full', 'fade-out');
+        sceneWaveFirst.classList.remove('rising', 'crest', 'withdrawn');
+        sceneWaveSecond.classList.remove('rising', 'crest-full', 'fade-out');
+        sceneShatkona.classList.remove('arrived', 'full', 'resolving');
+        sceneSilence.classList.remove('arrived', 'persisting');
+        sceneRain.classList.remove('active', 'fade-out');
+        sceneRipple1.classList.remove('firing');
+        sceneRipple2.classList.remove('firing');
+        const stars = sceneScene_stars();
+        stars.forEach((s, i) => { if (i < 3) s.classList.add('bright'); else s.classList.remove('bright'); });
+      }
+    },
+    // Beat 2 — "I've done all the doing." The practices recapitulated. Ground-glow activates, rain begins.
+    {
+      text: "I've done all the doing. I've recognized the ground, followed the pull, stayed in the fire, opened the heart, spoken the truth, stopped the looking. Each practice added something. And now — the last instruction is: add nothing. Let go of even the letting go.",
+      onEnter: () => {
+        sceneGround.classList.add('active');
+        sceneGround.classList.remove('bridge-dim', 'active-full', 'fade-out');
+        sceneRain.classList.add('active');
+      }
+    },
+    // Beat 3 (opening) — "Something opens at the top." First wave rising, Kāmeshvarī arrives,
+    // six other Vāgdevīs stagger-arrive.
+    {
+      text: "Something opens at the top of me that I didn't know was closed. And what comes in isn't information. It isn't a teaching. It isn't a message. It's — presence. Presence of something vast. Presence that was always there, around the top of me, waiting for me to stop being busy long enough to notice.",
+      onEnter: () => {
+        sceneWaveFirst.classList.add('rising');
+        sceneWaveFirst.classList.remove('crest', 'withdrawn');
+        const kameshvari = sceneVagdevis.querySelector('.scene-vagdevi.distinct');
+        if (kameshvari) kameshvari.classList.add('arrived');
+        const others = Array.from(sceneVagdevis.querySelectorAll('.scene-vagdevi:not(.distinct)'));
+        others.forEach((v, i) => {
+          const t = setTimeout(() => v.classList.add('arrived'), 600 + i * 1200);
+          storyTimers.push(t);
+        });
+      }
+    },
+    // Beat 4 (opening expanding) — "I'm not in the room. The room is in me."
+    // All Vāgdevīs arrive (snap-complete if staggered), shatkona arrives, first wave crests.
+    {
+      text: "I'm not in the room. The room is in me. I received something I didn't earn. I don't know what to call that.",
+      onEnter: () => {
+        Array.from(sceneVagdevis.querySelectorAll('.scene-vagdevi')).forEach(v => {
+          v.classList.add('arrived');
+          v.classList.remove('bridge-dim', 'fade-out');
+        });
+        sceneShatkona.classList.add('arrived');
+        sceneShatkona.classList.remove('full', 'resolving');
+        sceneWaveFirst.classList.add('crest');
+        sceneWaveFirst.classList.remove('withdrawn');
+      }
+    },
+    // Beat 5 FINAL (opening expanding dissolving rippling) — "I'm not moving..."
+    // Cascade: withdrawal (0ms) → silence arrives (1200ms) → second wave returns (2400ms)
+    //          → crest-full + ripples fire (3800ms). Signature lands at 8000ms after onEnter.
+    {
+      text: "I'm not moving. I'm not looking. I'm not speaking. I'm not building. I'm not pulling. I'm not even grounding — the ground is still there, but the ground is also me, also the sky, also the space between. I can feel — all seven centers, humming together, all at once. Seven centers. One spine. The quieter I got, the more it moved. This is what I came for. Even though I didn't know I was coming.",
+      final: true,
+      onEnter: () => {
+        // Phase 1: withdrawal (0ms) — ground dims, wave withdraws, Vāgdevīs dim
+        sceneGround.classList.remove('active', 'active-full');
+        sceneGround.classList.add('bridge-dim');
+        sceneWaveFirst.classList.remove('crest', 'rising');
+        sceneWaveFirst.classList.add('withdrawn');
+        Array.from(sceneVagdevis.querySelectorAll('.scene-vagdevi')).forEach(v => {
+          v.classList.remove('rebright');
+          v.classList.add('bridge-dim');
+        });
+        // Phase 2: silence arrives (1200ms) — SILENCE inscription at trunk-center
+        const tSilence = setTimeout(() => {
+          sceneSilence.classList.add('arrived');
+          sceneSilence.classList.remove('persisting');
+        }, 1200);
+        storyTimers.push(tSilence);
+        // Phase 3: second wave returns (2400ms) — larger, carrying silence inside
+        const tReturn = setTimeout(() => {
+          sceneGround.classList.remove('bridge-dim');
+          sceneGround.classList.add('active');
+          sceneWaveSecond.classList.add('rising');
+          sceneWaveSecond.classList.remove('crest-full', 'fade-out');
+          Array.from(sceneVagdevis.querySelectorAll('.scene-vagdevi')).forEach(v => {
+            v.classList.remove('bridge-dim');
+            v.classList.add('rebright');
+          });
+          sceneSilence.classList.remove('arrived');
+          sceneSilence.classList.add('persisting');
+        }, 2400);
+        storyTimers.push(tReturn);
+        // Phase 4: crest-full + ripples fire (3800ms) — the transmission recognition
+        const tCrest = setTimeout(() => {
+          sceneWaveSecond.classList.remove('rising');
+          sceneWaveSecond.classList.add('crest-full');
+          sceneGround.classList.remove('active');
+          sceneGround.classList.add('active-full');
+          sceneShatkona.classList.remove('arrived');
+          sceneShatkona.classList.add('full');
+          sceneRipple1.classList.add('firing');
+          const t1 = setTimeout(() => sceneRipple1.classList.remove('firing'), 3300);
+          storyTimers.push(t1);
+          const t2 = setTimeout(() => {
+            sceneRipple2.classList.add('firing');
+            const t2b = setTimeout(() => sceneRipple2.classList.remove('firing'), 3300);
+            storyTimers.push(t2b);
+          }, 900);
+          storyTimers.push(t2);
+        }, 3800);
+        storyTimers.push(tCrest);
+      }
+    }
+  ];
+
+  // Signature — hinges Gaia's experiential voice to Sakshi's integrative voice
+  const SIGNATURE = 'The disease that was removed was the belief that you were less than what you are.';
+
+  let currentBeat = 0;
+  let act2Launched = false;
+  let finalBeatDisplayed = false;
+  let signatureShown     = false;
+  let finalHintTimer     = null;
+  let storyTimers = [];
+  let thresholdFired = false;
+  let closingTimer = null;
+  let beatTextTimer = null;
+  let landingTimer = null;
+
+  function sceneScene_stars() {
+    return Array.from(document.querySelectorAll('#scene-stars .scene-star'));
+  }
+
+  function clearAllTimers() {
+    storyTimers.forEach(t => clearTimeout(t));
+    storyTimers = [];
+    if (closingTimer) { clearTimeout(closingTimer); closingTimer = null; }
+    if (beatTextTimer) { clearTimeout(beatTextTimer); beatTextTimer = null; }
+    if (landingTimer) { clearTimeout(landingTimer); landingTimer = null; }
+  }
+
+  function setBeatText(text) {
+    storyBeatText.classList.remove('visible', 'signature', 'mini-reveal', 'fade-out');
+    if (beatTextTimer) clearTimeout(beatTextTimer);
+    beatTextTimer = setTimeout(() => {
+      storyBeatText.innerHTML = text;
+      storyBeatText.classList.add('visible');
+      beatTextTimer = null;
+    }, 120);
+  }
+
+  function renderBeat(index) {
+    if (index < 0 || index >= beats.length) return;
+    currentBeat = index;
+    const beat = beats[index];
+    storyCounter.textContent = `${index + 1} / ${beats.length}`;
+    setBeatText(beat.text);
+    if (typeof beat.onEnter === 'function') beat.onEnter();
+    if (index === 0) {
+      const th = setTimeout(() => storyTapHint.classList.add('visible'), 1800);
+      storyTimers.push(th);
+    }
+    if (index === beats.length - 1) {
+      storyTapHint.classList.remove('visible');
+    }
+    /* Final beat now waits for user tap — signature lands via advance() → landSignature(). */
+  }
+
+  function landSignature() {
+    if (signatureShown) return;
+    signatureShown = true;
+    if (storyTapHint) storyTapHint.classList.remove('visible');
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+
+    storyBeatText.classList.remove('visible');
+
+    if (landingTimer) clearTimeout(landingTimer);
+    landingTimer = setTimeout(() => {
+      if (!storyMode.classList.contains('open')) return;
+      storyBeatText.innerHTML = '"' + SIGNATURE + '"';
+      storyBeatText.classList.remove('mini-reveal', 'fade-out');
+      storyBeatText.classList.add('signature');
+      requestAnimationFrame(() => storyBeatText.classList.add('visible'));
+      if (thresholdTimer) clearTimeout(thresholdTimer);
+      thresholdTimer = setTimeout(() => {
+        if (storyMode.classList.contains('open')) openThreshold();
+      }, 2800);
+    }, 800);
+  }
+
+  function openThreshold() {
+    // V5: Act 1 complete → raise the veil. Legacy threshold-door is fallback only.
+    showVeil();
+  }
+
+  function advance() {
+    if (act2Launched) return;
+    if (signatureShown) return;
+    if (finalBeatDisplayed) { landSignature(); return; }
+    if (currentBeat >= beats.length - 1) return;
+    renderBeat(currentBeat + 1);
+    const beat = beats[currentBeat];
+    if (beat && beat.final) {
+      finalBeatDisplayed = true;
+      if (finalHintTimer) clearTimeout(finalHintTimer);
+      finalHintTimer = setTimeout(() => {
+        if (!storyMode.classList.contains('open')) return;
+        if (signatureShown || act2Launched) return;
+        if (storyTapHint) storyTapHint.classList.add('visible');
+      }, 4200);
+    }
+  }
+
+  function fireThresholdOpen() {
+    // Legacy path — unused in V5. V5 routes through showVeil → launchActTwo.
+    thresholdFired = true;
+  }
+
+  /* ══════ ACT VEIL — dark between-space ══════ */
+  const actVeil    = document.getElementById('act-veil');
+  const veilEyes   = document.getElementById('veil-eyes');
+  const veilInvite = document.getElementById('veil-invite');
+  const holdRing   = document.getElementById('veil-hold-ring');
+  const ringFill   = document.getElementById('veil-ring-fill');
+
+  const HOLD_DURATION = 1800;
+  const CIRCUMFERENCE = 201;
+
+  let holdStart  = null;
+  let holdRAF    = null;
+  let veilTimers = [];
+
+  function veilAfter(ms, fn) {
+    const t = setTimeout(fn, ms);
+    veilTimers.push(t);
+    return t;
+  }
+  function clearVeilTimers() {
+    veilTimers.forEach(t => clearTimeout(t));
+    veilTimers.length = 0;
+    if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+  }
+
+  function showVeil() {
+    if (!actVeil) return;
+    actVeil.classList.add('visible');
+    actVeil.setAttribute('aria-hidden', 'false');
+    veilAfter(700, () => {
+      veilEyes.classList.add('visible');
+      requestAnimationFrame(() => requestAnimationFrame(() => veilEyes.classList.add('animate')));
+    });
+    veilAfter(2900, () => {
+      veilInvite.classList.add('visible');
+      wireHold();
+    });
+  }
+
+  let holdWired = false;
+  function wireHold() {
+    if (holdWired) return;
+    holdWired = true;
+    function startHold(e) {
+      e.preventDefault();
+      if (act2Launched) return;
+      holdStart = performance.now();
+      holdRing.classList.add('holding');
+      ringFill.style.transition = `stroke-dashoffset ${HOLD_DURATION}ms linear`;
+      ringFill.style.strokeDashoffset = '0';
+      tickHold();
+    }
+    function tickHold() {
+      holdRAF = requestAnimationFrame(() => {
+        if (!holdStart) return;
+        const elapsed = performance.now() - holdStart;
+        if (elapsed >= HOLD_DURATION) { completeHold(); } else { tickHold(); }
+      });
+    }
+    function cancelHold() {
+      if (!holdStart) return;
+      holdStart = null;
+      holdRing.classList.remove('holding');
+      ringFill.style.transition = 'stroke-dashoffset 0.4s ease';
+      ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+    }
+    function completeHold() {
+      holdStart = null;
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+      actVeil.classList.add('dissolving');
+      veilAfter(600, () => {
+        actVeil.classList.remove('visible');
+        launchActTwo();
+      });
+    }
+    holdRing.addEventListener('pointerdown',   startHold,  { passive: false });
+    holdRing.addEventListener('pointerup',     cancelHold);
+    holdRing.addEventListener('pointerleave',  cancelHold);
+    holdRing.addEventListener('pointercancel', cancelHold);
+  }
+
+  function resetVeil() {
+    clearVeilTimers();
+    if (!actVeil) return;
+    actVeil.classList.remove('visible', 'dissolving');
+    actVeil.setAttribute('aria-hidden', 'true');
+    veilEyes.classList.remove('visible', 'animate');
+    veilInvite.classList.remove('visible');
+    ringFill.style.transition = 'none';
+    ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+    holdRing.classList.remove('holding');
+    holdStart = null;
+  }
+
+  /* ══════ ACT 2 — SAKSHI WITNESS ══════ */
+  const actTwo    = document.getElementById('act-two');
+  const act2p1    = document.getElementById('act2-p1');
+  const act2p2    = document.getElementById('act2-p2');
+  const act2p3    = document.getElementById('act2-p3');
+  const act2Door  = document.getElementById('act2-door');
+  const act2Parts = document.getElementById('act2-particles');
+
+  (function buildParticles() {
+    if (!act2Parts) return;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 26; i++) {
+      const p       = document.createElement('div');
+      p.className   = 'act2-particle';
+      const size    = 2 + Math.random() * 5;
+      const opacity = 0.14 + Math.random() * 0.32;
+      const dur     = 18 + Math.random() * 26;
+      const delay   = Math.random() * 28;
+      p.style.cssText = `width:${size}px;height:${size}px;left:${8 + Math.random() * 84}%;bottom:${10 + Math.random() * 88}%;--p-op:${opacity};box-shadow:0 0 ${size*3}px rgba(255,255,255,${opacity*0.8});animation-duration:${dur}s;animation-delay:-${delay}s;`;
+      frag.appendChild(p);
+    }
+    act2Parts.appendChild(frag);
+  })();
+
+  const act2Timers = [];
+  function act2After(ms, fn) {
+    const t = setTimeout(fn, ms);
+    act2Timers.push(t);
+    return t;
+  }
+  function clearAct2Timers() {
+    act2Timers.forEach(t => clearTimeout(t));
+    act2Timers.length = 0;
+  }
+
+  function launchActTwo() {
+    act2Launched = true;
+    if (typeof scene !== 'undefined' && scene) scene.classList.remove('threshold-open');
+    if (typeof tapHint !== 'undefined' && tapHint) tapHint.classList.remove('visible');
+    if (typeof storyTapHint !== 'undefined' && storyTapHint) storyTapHint.classList.remove('visible');
+
+    actTwo.classList.add('rising');
+    actTwo.setAttribute('aria-hidden', 'false');
+
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+
+    /* Word-by-word reveal — slow witness pace. */
+    const BASE_DELAY    = 420;
+    const COMMA_EXTRA   = 260;
+    const DASH_EXTRA    = 180;
+    const PERIOD_EXTRA  = 620;
+    const PARA_EXTRA    = 1200;
+    const INITIAL_DELAY = 1600;
+    const AFTER_LAST    = 2800;
+
+    const paras = Array.from(actTwo.querySelectorAll('.act2-para'));
+    let cumulative = INITIAL_DELAY;
+
+    paras.forEach((para, paraIdx) => {
+      const words = Array.from(para.querySelectorAll('.act2-word'));
+      words.forEach((wordEl, wordIdx) => {
+        const w = wordEl.textContent;
+        const t = setTimeout(() => wordEl.classList.add('visible'), cumulative);
+        act2Timers.push(t);
+
+        let delay = BASE_DELAY;
+        if (/[.!?]$/.test(w))       delay += PERIOD_EXTRA;
+        else if (/[,;:]$/.test(w))  delay += COMMA_EXTRA;
+        if (/[—–]/.test(w)) delay += DASH_EXTRA;
+
+        if (wordIdx === words.length - 1 && paraIdx < paras.length - 1) {
+          delay += PARA_EXTRA;
+        }
+        cumulative += delay;
+      });
+    });
+
+    const doorTimer = setTimeout(() => {
+      if (act2Door) {
+        act2Door.classList.add('risen');
+        act2Door.setAttribute('aria-hidden', 'false');
+      }
+    }, cumulative + AFTER_LAST);
+    act2Timers.push(doorTimer);
+  }
+
+  function resetActTwo() {
+    clearAct2Timers();
+    act2Launched = false;
+    if (!actTwo) return;
+    actTwo.classList.remove('rising');
+    actTwo.setAttribute('aria-hidden', 'true');
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  // Tap-to-advance (full viewport tap layer). Don't advance when Veil/Act 2 is active.
+  storyTapLayer.addEventListener('click', (e) => {
+    if (act2Launched) return;
+    if (actVeil && actVeil.classList.contains('visible')) return;
+    if (thresholdFired) return;
+    advance();
+  });
+
+  storyTapLayer.addEventListener('touchend', (e) => {
+    if (act2Launched) return;
+    if (actVeil && actVeil.classList.contains('visible')) return;
+    if (thresholdFired) return;
+    const touches = e.changedTouches || e.touches;
+    if (!touches || touches.length === 0) { advance(); return; }
+  }, { passive: true });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!storyMode.classList.contains('open')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ') {
+      e.preventDefault();
+      if (!thresholdFired && !act2Launched && !(actVeil && actVeil.classList.contains('visible'))) {
+        advance();
+      }
+    }
+    if (e.key === 'Escape') {
+      closeStory();
+    }
+  });
+
+  // ══════════════════════════════════════════════════════════════
+  // OPEN / CLOSE STORY
+  // ══════════════════════════════════════════════════════════════
+
+  function openStory() {
+    // Cancel any pending close cleanup
+    if (closingTimer) { clearTimeout(closingTimer); closingTimer = null; }
+
+    // Reset state
+    clearAllTimers();
+    thresholdFired = false;
+    currentBeat = 0;
+    finalBeatDisplayed = false;
+    signatureShown = false;
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+    thresholdDoor.classList.remove('visible');
+    thresholdDoor.setAttribute('aria-hidden', 'true');
+    sceneBg.classList.remove('threshold-open');
+    storyBeatText.classList.remove('visible', 'signature', 'mini-reveal', 'fade-out');
+    storyBeatText.innerHTML = '';
+    // Reset any inline opacity overrides from prior threshold-open
+    sceneShatkona.style.opacity = '';
+    sceneShatkona.style.transition = '';
+    sceneSilence.style.opacity = '';
+    sceneSilence.style.transition = '';
+    // V5 — reset Veil + Act 2
+    resetVeil();
+    resetActTwo();
+
+    // Open modal
+    storyMode.classList.add('open');
+    storyMode.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('story-open');
+
+    // Render first beat after flip lands
+    const tFirst = setTimeout(() => renderBeat(0), 1200);
+    storyTimers.push(tFirst);
+  }
+
+  function closeStory() {
+    storyMode.classList.remove('open');
+    storyMode.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('story-open');
+    // V5 — reset Veil + Act 2 immediately (don't wait for flip-completion timer)
+    resetVeil();
+    resetActTwo();
+
+    // Hide all scene state after flip completes
+    closingTimer = setTimeout(() => {
+      clearAllTimers();
+      thresholdFired = false;
+      currentBeat = 0;
+      finalBeatDisplayed = false;
+      signatureShown = false;
+      if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+      storyBeatText.classList.remove('visible', 'signature', 'mini-reveal', 'fade-out');
+      storyBeatText.innerHTML = '';
+      storyTapHint.classList.remove('visible');
+      thresholdDoor.classList.remove('visible');
+      thresholdDoor.setAttribute('aria-hidden', 'true');
+      sceneBg.classList.remove('threshold-open');
+      // Reset scene elements
+      Array.from(sceneVagdevis.querySelectorAll('.scene-vagdevi')).forEach(v => {
+        v.classList.remove('arrived', 'bridge-dim', 'rebright', 'fade-out');
+      });
+      sceneGround.classList.remove('active', 'bridge-dim', 'active-full', 'fade-out');
+      sceneWaveFirst.classList.remove('rising', 'crest', 'withdrawn');
+      sceneWaveSecond.classList.remove('rising', 'crest-full', 'fade-out');
+      sceneShatkona.classList.remove('arrived', 'full', 'resolving');
+      sceneShatkona.style.opacity = '';
+      sceneShatkona.style.transition = '';
+      sceneSilence.classList.remove('arrived', 'persisting');
+      sceneSilence.style.opacity = '';
+      sceneSilence.style.transition = '';
+      sceneRain.classList.remove('active', 'fade-out');
+      sceneRipple1.classList.remove('firing');
+      sceneRipple2.classList.remove('firing');
+      closingTimer = null;
+    }, 1500);
+  }
+
+  // Story portal opens Story Mode (only if unlocked)
+  function handlePortalActivation() {
+    if (storyPortal.classList.contains('locked')) {
+      // Offer a gentle hint — scroll back to writing section
+      const ws = document.querySelector('.writing-section');
+      if (ws) ws.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      writingArea.focus();
+      return;
+    }
+    storyPortal.dataset.unlockedOnce = '1';
+    openStory();
+  }
+
+  storyPortal.addEventListener('click', handlePortalActivation);
+  storyPortal.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handlePortalActivation();
+    }
+  });
+
+  storyClose.addEventListener('click', closeStory);
+
+  // Initialize writing gate state
+  updateGate();
+
+})();
+</script>
+
+</body>
+</html>

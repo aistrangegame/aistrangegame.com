@@ -1,0 +1,3369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#030306" />
+<title>Shadow — A Strange Chakra Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   SHADOW — THE CORRIDOR
+   Threshold Corridor V2 — First-Person Walk
+   Doom/Wolf 3D style: stone corridor, scrolls hang in the air,
+   walker swipes forward to traverse each corridor segment
+   between scrolls. Ends at a mirror that reflects the walker's
+   own word, with the invitation: "please come back home."
+   ============================================================ */
+
+:root {
+  --void:         #030306;
+  --void-deep:    #000000;
+  --stone:        #1a1612;
+  --stone-edge:   #2a2420;
+  --text:         rgba(232, 224, 210, 0.92);
+  --text-soft:    rgba(232, 224, 210, 0.62);
+  --text-whisper: rgba(232, 224, 210, 0.32);
+  --trace:        #e8d8a8;   /* warm parchment gold */
+  --trace-soft:   rgba(232, 216, 168, 0.55);
+  --cream:        #f5ecd6;
+  --cream-soft:   rgba(245, 236, 214, 0.8);
+  --gold:         rgba(201, 168, 76, 0.85);
+  --gold-glow:    rgba(201, 168, 76, 0.18);
+  --gold-faint:   rgba(201, 168, 76, 0.08);
+
+  --panel-bg:     rgba(245, 236, 214, 0.03);
+  --panel-edge:   rgba(245, 236, 214, 0.22);
+  --panel-edge-strong: rgba(245, 236, 214, 0.4);
+
+  --mirror-frame: #d4c99c;
+  --mirror-glow:  rgba(245, 236, 214, 0.35);
+
+  /* Next-color rhyme — Soles */
+  --soles-red:    rgba(184, 58, 58, 0.55);
+  --soles-red-strong: rgba(184, 58, 58, 0.8);
+  --soles-cyan:   rgba(76, 176, 180, 0.35);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  position: fixed;
+  overscroll-behavior: none;
+}
+
+body {
+  position: fixed;
+  inset: 0;
+}
+
+/* ============================================================
+   SCENE — Corridor with forced-perspective walls (clip-path trapezoids)
+   Four walls converge to a vanishing point at screen center.
+   Walking = scale the whole corridor up, fading as we "pass through"
+   ============================================================ */
+.scene {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 50% 50%,
+      rgba(48, 38, 22, 0.28) 0%,
+      rgba(28, 22, 14, 0.6) 18%,
+      rgba(14, 11, 8, 0.9) 45%,
+      rgba(4, 3, 3, 1) 80%);
+}
+
+.corridor {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  transform: scale(1);
+  will-change: transform, opacity;
+}
+
+.corridor.walking {
+  animation: walk-forward 1800ms cubic-bezier(0.35, 0.05, 0.65, 1) forwards;
+}
+
+.corridor.walking-long {
+  animation: walk-forward 2400ms cubic-bezier(0.4, 0.05, 0.6, 1) forwards;
+}
+
+/* Contemplative walk — the longest, for the final approach into practice.
+   Used for the transition from Scroll 11 ("Room Full of Light") into
+   Scroll 12 ("LOOK"). The walker has been told what waits. Now they arrive. */
+.corridor.walking-contemplative {
+  animation: walk-forward 3200ms cubic-bezier(0.3, 0.05, 0.55, 1) forwards;
+}
+
+@keyframes walk-forward {
+  0%   { transform: scale(1);   opacity: 1; }
+  70%  { transform: scale(3.2); opacity: 0.45; }
+  100% { transform: scale(1);   opacity: 1; }
+}
+
+.wall {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Left wall — trapezoid pointing into vanishing point */
+.wall-left {
+  background: linear-gradient(
+    to right,
+    rgba(26, 20, 14, 0.98) 0%,
+    rgba(30, 23, 15, 0.85) 25%,
+    rgba(34, 26, 16, 0.55) 55%,
+    rgba(24, 18, 12, 0.2) 85%,
+    transparent 100%);
+  clip-path: polygon(0% 0%, 50% 42%, 50% 58%, 0% 100%);
+}
+
+.wall-left::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      transparent 6%,
+      rgba(62, 48, 30, 0.22) 6%,
+      rgba(62, 48, 30, 0.22) calc(6% + 1px)),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 110px,
+      rgba(50, 38, 24, 0.25) 110px,
+      rgba(50, 38, 24, 0.25) 112px);
+  clip-path: polygon(0% 0%, 50% 42%, 50% 58%, 0% 100%);
+  opacity: 0.7;
+}
+
+/* Right wall */
+.wall-right {
+  background: linear-gradient(
+    to left,
+    rgba(26, 20, 14, 0.98) 0%,
+    rgba(30, 23, 15, 0.85) 25%,
+    rgba(34, 26, 16, 0.55) 55%,
+    rgba(24, 18, 12, 0.2) 85%,
+    transparent 100%);
+  clip-path: polygon(50% 42%, 100% 0%, 100% 100%, 50% 58%);
+}
+
+.wall-right::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to left,
+      transparent 0px,
+      transparent 6%,
+      rgba(62, 48, 30, 0.22) 6%,
+      rgba(62, 48, 30, 0.22) calc(6% + 1px)),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 110px,
+      rgba(50, 38, 24, 0.25) 110px,
+      rgba(50, 38, 24, 0.25) 112px);
+  clip-path: polygon(50% 42%, 100% 0%, 100% 100%, 50% 58%);
+  opacity: 0.7;
+}
+
+/* Ceiling */
+.wall-ceiling {
+  background: linear-gradient(
+    to bottom,
+    rgba(18, 14, 10, 0.98) 0%,
+    rgba(22, 17, 12, 0.85) 25%,
+    rgba(28, 22, 14, 0.55) 55%,
+    rgba(20, 15, 10, 0.2) 85%,
+    transparent 100%);
+  clip-path: polygon(0% 0%, 100% 0%, 50% 42%);
+}
+
+.wall-ceiling::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 6%,
+      rgba(55, 42, 28, 0.2) 6%,
+      rgba(55, 42, 28, 0.2) calc(6% + 1px));
+  clip-path: polygon(0% 0%, 100% 0%, 50% 42%);
+  opacity: 0.65;
+}
+
+/* Floor */
+.wall-floor {
+  background: linear-gradient(
+    to top,
+    rgba(14, 11, 8, 1) 0%,
+    rgba(20, 15, 10, 0.9) 25%,
+    rgba(26, 19, 12, 0.55) 55%,
+    rgba(18, 14, 8, 0.2) 85%,
+    transparent 100%);
+  clip-path: polygon(0% 100%, 50% 58%, 100% 100%);
+}
+
+.wall-floor::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      to top,
+      transparent 0px,
+      transparent 7%,
+      rgba(68, 54, 36, 0.22) 7%,
+      rgba(68, 54, 36, 0.22) calc(7% + 1px));
+  clip-path: polygon(0% 100%, 50% 58%, 100% 100%);
+  opacity: 0.7;
+}
+
+/* ============================================================
+   END GLOW — warm gold at the vanishing point
+   The light at the end of the corridor, always present
+   ============================================================ */
+.end-glow {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(680px, 90vw);
+  height: min(380px, 60vh);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(201, 168, 76, 0.22) 0%,
+    rgba(201, 168, 76, 0.12) 25%,
+    rgba(201, 168, 76, 0.05) 50%,
+    transparent 75%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.9;
+  animation: end-glow-breath 8s ease-in-out infinite;
+}
+
+@keyframes end-glow-breath {
+  0%, 100% { opacity: 0.75; }
+  50%      { opacity: 0.95; }
+}
+
+/* Breathing corridor — walls slowly brighten and dim together.
+   Very subtle — 19 second cycle. The stone is alive. */
+.wall-left::before,
+.wall-right::before,
+.wall-ceiling::before,
+.wall-floor::before {
+  animation: wall-breath 19s ease-in-out infinite;
+}
+
+@keyframes wall-breath {
+  0%, 100% { opacity: 0.58; }
+  50%      { opacity: 0.82; }
+}
+
+/* ============================================================
+   GLOW FROM ABOVE — crown light persisting
+   ============================================================ */
+.glow-from-above {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(900px, 120vw);
+  height: 240px;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    var(--gold-glow) 0%,
+    rgba(201, 168, 76, 0.08) 30%,
+    rgba(201, 168, 76, 0.02) 60%,
+    transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ============================================================
+   DUST MOTES — slow drift, flow during walking
+   ============================================================ */
+.dust-field {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  overflow: hidden;
+}
+
+.mote {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: rgba(232, 216, 168, 0.5);
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(232, 216, 168, 0.3);
+  top: var(--y, 50%);
+  left: var(--x, 50%);
+  opacity: 0;
+  animation: mote-drift var(--dur, 14s) linear infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.mote.small {
+  width: 1px;
+  height: 1px;
+  box-shadow: 0 0 2px rgba(232, 216, 168, 0.25);
+}
+
+@keyframes mote-drift {
+  0%   { opacity: 0; transform: translate(0, 0); }
+  15%  { opacity: var(--peak, 0.5); }
+  85%  { opacity: var(--peak, 0.5); }
+  100% { opacity: 0; transform: translate(var(--dx, 10px), var(--dy, 80px)); }
+}
+
+.dust-field.walking .mote {
+  animation: mote-rush 1.8s linear;
+}
+
+@keyframes mote-rush {
+  0%   { transform: translate(0, 0) scale(1); opacity: var(--peak, 0.5); }
+  100% { transform: translate(calc(var(--rush-dx, 0px)), calc(var(--rush-dy, 120px))) scale(1.4); opacity: 0; }
+}
+
+/* ============================================================
+   PROGRESS INDICATOR — dots, diminished presence
+   ============================================================ */
+.progress {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 7px;
+  z-index: 40;
+  opacity: 0.45;
+  transition: opacity 0.8s ease;
+  max-width: 90vw;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.progress.hidden { opacity: 0; pointer-events: none; }
+
+.progress-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(232, 216, 168, 0.25);
+  transition: background 0.6s ease, transform 0.6s ease;
+}
+
+.progress-dot.active {
+  background: var(--trace);
+  transform: scale(1.3);
+}
+
+.progress-dot.passed {
+  background: rgba(232, 216, 168, 0.55);
+}
+
+.progress-dot.mirror {
+  width: 8px;
+  height: 8px;
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.progress-dot.mirror.active {
+  background: var(--cream);
+  transform: rotate(45deg) scale(1.15);
+}
+
+/* ============================================================
+   UI OVERLAY — hosts all the readable stages
+   ============================================================ */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 6vh, 48px) clamp(20px, 5vw, 36px);
+  pointer-events: none;
+}
+
+.overlay > * { pointer-events: auto; }
+
+/* ============================================================
+   STAGE — a single readable block (arrival, scroll, mirror, one)
+   ============================================================ */
+.stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 6vh, 48px) clamp(20px, 5vw, 36px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+}
+
+.stage.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.stage.fading {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+/* ============================================================
+   ARRIVAL — first-person opening breath
+   ============================================================ */
+.arrival-text {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(17px, 4.2vw, 22px);
+  line-height: 2;
+  color: var(--text);
+  text-align: center;
+  max-width: 500px;
+}
+
+.arrival-text .line {
+  display: block;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 1.4s ease, transform 1.4s ease;
+  margin-bottom: 12px;
+}
+
+.arrival-text .line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   SCROLL — the parchment panel at the end of the corridor
+   ============================================================ */
+.scroll-card {
+  position: relative;
+  width: 100%;
+  max-width: 540px;
+  padding: clamp(32px, 6vh, 56px) clamp(24px, 6vw, 44px);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(245, 236, 214, 0.025) 0%,
+      rgba(245, 236, 214, 0.055) 30%,
+      rgba(245, 236, 214, 0.055) 70%,
+      rgba(245, 236, 214, 0.025) 100%);
+  border-top: 1px solid var(--panel-edge);
+  border-bottom: 1px solid var(--panel-edge);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  max-height: 82vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.scroll-card::-webkit-scrollbar { display: none; }
+
+/* Parchment edge ornaments — subtle horizontal lines at top/bottom */
+.scroll-card::before,
+.scroll-card::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--panel-edge-strong) 50%,
+    transparent 100%);
+}
+
+.scroll-card::before { top: 14px; }
+.scroll-card::after  { bottom: 14px; }
+
+/* Scroll number (9 / 33) — only on scroll 1 */
+.scroll-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.38em;
+  color: var(--text-whisper);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+/* ALL hero — cycles between ALL and ALONE without shifting AL */
+.hero-all {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  /* Reduced from the previous clamp so ALONE always fits comfortably on mobile */
+  font-size: clamp(54px, 13vw, 124px);
+  letter-spacing: 0.08em;
+  color: var(--trace);
+  text-align: center;
+  margin-bottom: 36px;
+  display: flex;
+  gap: 0.04em;
+  justify-content: center;
+  align-items: baseline;
+  line-height: 1;
+  max-width: 94vw;
+}
+
+.hero-all .letter {
+  display: inline-block;
+  opacity: 0.85;
+  will-change: opacity;
+  flex-shrink: 0;
+}
+
+/* Third slot — reserves ONE's width permanently via an invisible spacer.
+   The visible character (L or ONE) is absolute-positioned at the slot's left
+   edge, so "AL" never shifts regardless of what the slot contains. */
+.third-slot {
+  display: inline-block;
+  position: relative;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.slot-spacer {
+  display: inline-block;
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
+  line-height: 1;
+  /* Contains "ONE" — reserves exactly that width for the slot */
+}
+
+.slot-char {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-block;
+  opacity: 0.85;
+  white-space: nowrap;
+  line-height: 1;
+  transition:
+    opacity 900ms cubic-bezier(0.4, 0, 0.6, 1),
+    filter 900ms ease,
+    transform 900ms ease;
+  will-change: opacity, filter, transform;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.slot-char.fading {
+  opacity: 0;
+  filter: blur(3px);
+  transform: translateY(2px);
+}
+
+/* SHADOW naming hero */
+.hero-naming {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.hero-naming-word {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(40px, 8.5vw, 64px);
+  letter-spacing: 0.08em;
+  color: var(--trace);
+  margin-bottom: 8px;
+  line-height: 1.1;
+}
+
+.hero-naming-role {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: var(--text-soft);
+  text-transform: uppercase;
+}
+
+/* LOOK verb (fallback for non-eye renders) */
+.hero-verb {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(44px, 9vw, 64px);
+  letter-spacing: 0.14em;
+  color: var(--trace);
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+/* ============================================================
+   LOOK with eyes — the two Os become watching eyes.
+   After everything loads, 13 seconds later, they blink.
+   The shadow looking back at the walker.
+   ============================================================ */
+.hero-verb-look {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(68px, 14vw, 104px);
+  letter-spacing: 0.02em;
+  color: var(--trace);
+  text-align: center;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  line-height: 1;
+  gap: 0.04em;
+  filter: drop-shadow(0 0 12px rgba(232, 216, 168, 0.22));
+}
+
+.look-char {
+  display: inline-block;
+  line-height: 1;
+}
+
+.look-eye {
+  position: relative;
+  display: inline-block;
+  width: 0.76em;
+  height: 0.76em;
+  overflow: hidden;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin: 0 0.02em;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    rgba(12, 10, 8, 0.92) 0%,
+    rgba(8, 6, 5, 0.98) 60%,
+    rgba(4, 3, 3, 1) 100%);
+}
+
+.eye-ring {
+  position: absolute;
+  inset: 0;
+  border: 0.055em solid currentColor;
+  border-radius: 50%;
+  box-sizing: border-box;
+  box-shadow:
+    inset 0 0 6px rgba(232, 216, 168, 0.15),
+    0 0 3px rgba(232, 216, 168, 0.1);
+}
+
+.eye-pupil {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22%;
+  height: 22%;
+  background: currentColor;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 8px rgba(232, 216, 168, 0.5),
+    0 0 16px rgba(232, 216, 168, 0.25);
+  /* Very subtle attention — the barely-perceptible breathing pulse */
+  animation: pupil-attention 6s ease-in-out infinite;
+}
+
+@keyframes pupil-attention {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow:
+      0 0 8px rgba(232, 216, 168, 0.5),
+      0 0 16px rgba(232, 216, 168, 0.25);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.92);
+    box-shadow:
+      0 0 10px rgba(232, 216, 168, 0.6),
+      0 0 20px rgba(232, 216, 168, 0.3);
+  }
+}
+
+.eye-lid {
+  position: absolute;
+  top: -4%;
+  left: -5%;
+  right: -5%;
+  height: 112%;
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 15, 10, 1) 0%,
+    rgba(22, 17, 12, 1) 50%,
+    rgba(24, 18, 12, 0.95) 100%);
+  transform: translateY(-100%);
+  z-index: 2;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.look-eye.blinking .eye-lid {
+  animation: eye-blink 320ms cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+@keyframes eye-blink {
+  0%   { transform: translateY(-100%); }
+  42%  { transform: translateY(0); }
+  58%  { transform: translateY(0); }
+  100% { transform: translateY(-100%); }
+}
+
+/* Centerpiece — "Same tree." on Scroll 5 */
+.centerpiece {
+  font-family: 'Cinzel', serif;
+  font-style: italic;
+  font-size: clamp(26px, 5.5vw, 36px);
+  text-align: center;
+  color: var(--cream);
+  margin: 32px auto;
+  padding: 24px 20px;
+  max-width: 380px;
+  letter-spacing: 0.02em;
+  border-top: 1px solid var(--panel-edge);
+  border-bottom: 1px solid var(--panel-edge);
+  opacity: 0;
+  transform: scale(0.96);
+  transition: opacity 1.6s ease, transform 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.centerpiece.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Reveal text — word by word */
+.reveal-block {
+  font-family: 'Lora', serif;
+  font-size: clamp(16px, 3.8vw, 19px);
+  line-height: 1.95;
+  color: var(--text);
+  text-align: center;
+  max-width: 460px;
+  margin: 0 auto;
+}
+
+.reveal-line {
+  margin-bottom: 18px;
+  display: block;
+}
+
+.reveal-line:last-child { margin-bottom: 0; }
+
+.reveal-word {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(3px);
+  transition: opacity 900ms ease, filter 900ms ease;
+}
+
+.reveal-word.visible {
+  opacity: 1;
+  filter: blur(0);
+}
+
+.reveal-word.emphasis { color: var(--trace); font-style: italic; }
+.reveal-word.strong   { color: var(--cream); font-weight: 500; }
+
+/* ============================================================
+   WRITING SURFACE (Scroll 6)
+   ============================================================ */
+.writing-void {
+  margin: 36px auto 0;
+  width: 100%;
+  max-width: 460px;
+  background: rgba(8, 6, 5, 0.5);
+  border: 1px solid var(--panel-edge);
+  border-radius: 2px;
+  padding: 22px;
+  min-height: 140px;
+  transition: border-color 0.8s ease, background 0.8s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 1.2s ease, transform 1.2s ease, border-color 0.6s ease, background 0.6s ease;
+}
+
+.writing-void.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.writing-void:focus-within {
+  border-color: var(--panel-edge-strong);
+  background: rgba(8, 6, 5, 0.7);
+}
+
+.writing-textarea {
+  width: 100%;
+  min-height: 100px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3.4vw, 18px);
+  line-height: 1.8;
+  resize: none;
+  caret-color: var(--trace);
+}
+
+.writing-textarea::placeholder {
+  color: var(--text-whisper);
+  font-style: italic;
+}
+
+/* Continue button on the writing scroll */
+.writing-continue {
+  display: block;
+  margin: 28px auto 0;
+  padding: 14px 32px;
+  background: transparent;
+  border: 1px solid var(--panel-edge);
+  color: var(--trace);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(14px, 3vw, 16px);
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 1s ease, transform 1s ease, border-color 0.4s ease, background 0.4s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.writing-continue.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.writing-continue:hover,
+.writing-continue:focus {
+  border-color: var(--panel-edge-strong);
+  background: rgba(245, 236, 214, 0.04);
+  outline: none;
+}
+
+.writing-continue:active {
+  background: rgba(245, 236, 214, 0.08);
+}
+
+/* ============================================================
+   ADVANCE HINT — "swipe up" / "tap" prompt
+   ============================================================ */
+.advance-hint {
+  position: fixed;
+  bottom: clamp(50px, 9vh, 80px);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.42em;
+  color: var(--text-whisper);
+  text-transform: uppercase;
+  text-align: center;
+  z-index: 45;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s ease;
+}
+
+.advance-hint.visible {
+  opacity: 0.7;
+  animation: hint-breath 3s ease-in-out 1s infinite;
+}
+
+.advance-hint.pressing {
+  animation: none;
+  opacity: 1;
+}
+
+/* Press-and-hold progress bar — fills as walker holds, signals when advance fires */
+.advance-hint-bar {
+  display: block;
+  margin: 11px auto 0;
+  width: 88px;
+  height: 1px;
+  background: rgba(232, 216, 168, 0.16);
+  position: relative;
+  overflow: hidden;
+}
+
+.advance-hint-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: var(--trace);
+  transition: width 0s linear;
+}
+
+.advance-hint.pressing .advance-hint-fill {
+  width: 100%;
+  transition: width 700ms linear;
+}
+
+@keyframes hint-breath {
+  0%, 100% { opacity: 0.45; }
+  50%      { opacity: 0.9; }
+}
+
+/* ============================================================
+   INVERSION SPACE — "please come back home" revealed backwards
+   Its own entire space. Teaches Gaia Inversion — reading backwards
+   to find meaning. The mirror's final instruction.
+   ============================================================ */
+.stage-inversion-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  max-width: 92vw;
+}
+
+.inversion-text {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(26px, 6.5vw, 42px);
+  letter-spacing: 0.14em;
+  color: var(--cream);
+  line-height: 1.45;
+  text-align: center;
+  max-width: 100%;
+  word-break: keep-all;
+  text-shadow:
+    0 0 18px rgba(245, 236, 214, 0.22),
+    0 0 48px rgba(245, 236, 214, 0.08);
+}
+
+.inversion-letter {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(4px);
+  transform: translateY(3px);
+  transition:
+    opacity 1000ms cubic-bezier(0.2, 0.6, 0.2, 1),
+    filter 1000ms ease,
+    transform 1000ms ease;
+}
+
+.inversion-letter.visible {
+  opacity: 0.92;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+.inversion-letter.space {
+  display: inline-block;
+  width: 0.5em;
+}
+
+/* ============================================================
+   MIRROR — the cream-silvered frame at the end
+   ============================================================ */
+.mirror-frame {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  aspect-ratio: 3 / 4.2;
+  padding: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(212, 201, 156, 0.25) 0%,
+    rgba(245, 236, 214, 0.45) 40%,
+    rgba(212, 201, 156, 0.3) 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 0 60px rgba(245, 236, 214, 0.15),
+    0 0 140px rgba(245, 236, 214, 0.08),
+    inset 0 0 30px rgba(245, 236, 214, 0.12);
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 2.4s ease, transform 2.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mirror-frame.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.mirror-frame.dissolving {
+  animation: mirror-dissolve 2.4s cubic-bezier(0.4, 0, 0.6, 1) forwards;
+}
+
+@keyframes mirror-dissolve {
+  0%   { opacity: 1; transform: scale(1); filter: blur(0); }
+  40%  { opacity: 0.9; transform: scale(1.04); filter: blur(2px); }
+  100% { opacity: 0; transform: scale(1.3); filter: blur(18px); }
+}
+
+.mirror-glass {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      ellipse at 50% 40%,
+      rgba(40, 32, 22, 0.4) 0%,
+      rgba(20, 16, 12, 0.6) 40%,
+      rgba(10, 8, 6, 0.75) 100%);
+  border-radius: 2px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 5vw, 36px) clamp(20px, 4.5vw, 28px);
+  text-align: center;
+}
+
+.mirror-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 236, 214, 0.08) 0%,
+    transparent 30%,
+    transparent 70%,
+    rgba(245, 236, 214, 0.04) 100%);
+  pointer-events: none;
+  animation: mirror-shimmer 7s ease-in-out infinite;
+}
+
+@keyframes mirror-shimmer {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+/* Light-catch — one-time diagonal sweep when mirror first arrives.
+   Real mirrors catch light when light finds them. This acknowledges
+   the glass before the teaching is spoken through it. */
+.mirror-glass::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  left: -60%;
+  width: 45%;
+  height: 140%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(245, 236, 214, 0.02) 20%,
+    rgba(245, 236, 214, 0.22) 48%,
+    rgba(245, 236, 214, 0.35) 50%,
+    rgba(245, 236, 214, 0.22) 52%,
+    rgba(245, 236, 214, 0.02) 80%,
+    transparent 100%);
+  pointer-events: none;
+  transform: translateX(0) skewX(-18deg);
+  filter: blur(6px);
+  opacity: 0;
+}
+
+.mirror-frame.visible .mirror-glass::after {
+  animation: mirror-light-catch 2200ms cubic-bezier(0.4, 0, 0.3, 1) 1400ms forwards;
+}
+
+@keyframes mirror-light-catch {
+  0%   { opacity: 0;    transform: translateX(0)     skewX(-18deg); }
+  15%  { opacity: 0.9; }
+  50%  { opacity: 1; }
+  85%  { opacity: 0.6; }
+  100% { opacity: 0;    transform: translateX(340%)  skewX(-18deg); }
+}
+
+.mirror-text {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3.6vw, 19px);
+  line-height: 1.9;
+  color: var(--cream-soft);
+  margin-bottom: 24px;
+  z-index: 1;
+  position: relative;
+}
+
+.mirror-word-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.48em;
+  color: rgba(245, 236, 214, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  z-index: 1;
+  position: relative;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+.mirror-word-label.visible { opacity: 1; }
+
+.mirror-word {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 5.5vw, 30px);
+  color: var(--cream);
+  line-height: 1.3;
+  margin-bottom: 28px;
+  z-index: 1;
+  position: relative;
+  max-width: 90%;
+  word-break: break-word;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 2s ease, transform 2s ease;
+  text-shadow: 0 0 18px rgba(245, 236, 214, 0.3);
+}
+
+.mirror-word.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.mirror-bottom {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(17px, 4vw, 21px);
+  color: var(--cream);
+  line-height: 1.5;
+  z-index: 1;
+  position: relative;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.mirror-bottom.visible { opacity: 1; }
+
+/* ============================================================
+   ONE + SOLES DOOR
+   ============================================================ */
+.one-section {
+  text-align: center;
+}
+
+.one-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.42em;
+  color: var(--text-whisper);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.one-label.visible { opacity: 0.7; }
+
+.one-word {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  /* Smaller than old single-word "ONE" because we now reveal "ALL IS ONE" */
+  font-size: clamp(42px, 11vw, 92px);
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  line-height: 1.15;
+  margin-bottom: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  max-width: 92vw;
+  text-shadow: 0 0 30px rgba(245, 236, 214, 0.22);
+}
+
+.one-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: scale(1.18);
+  filter: blur(10px);
+  transition:
+    opacity 1400ms ease,
+    transform 1400ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 1400ms ease;
+  will-change: opacity, transform, filter;
+}
+
+.one-letter.visible {
+  opacity: 0.95;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+.one-space {
+  display: inline-block;
+  width: 0.45em;
+}
+
+.one-whisper {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(14px, 3vw, 16px);
+  color: var(--text-soft);
+  line-height: 1.7;
+  max-width: 360px;
+  margin: 0 auto 56px;
+  opacity: 0;
+  transition: opacity 1.6s ease 0.8s;
+}
+
+.one-whisper.visible { opacity: 1; }
+
+/* ─── THE PERMISSION — the release that opens the descent ───
+   Two verbs, two answers. Let / ALL... / Be / ALL...
+   The verbs are the focus and the action — upright, cream,
+   held. The frame lines lean (italic) — the objects the
+   verbs release and restore. Call and response. */
+.one-permission {
+  max-width: 560px;
+  margin: 0 auto 56px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.one-permission-verb {
+  /* The focus. The action. Upright while everything leans. */
+  font-family: 'Lora', serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: clamp(28px, 6vw, 36px);
+  line-height: 1;
+  color: var(--cream);
+  letter-spacing: 0.06em;
+  padding: 22px 0 18px;
+  opacity: 0;
+  transition: opacity 2.4s ease;
+  text-shadow: 0 0 24px rgba(245, 236, 214, 0.2);
+}
+
+.one-permission-verb.visible { opacity: 1; }
+
+.one-permission-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(15px, 3.2vw, 18px);
+  line-height: 1.7;
+  color: var(--trace);
+  letter-spacing: 0.005em;
+  max-width: 520px;
+  margin: 0 auto;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.one-permission-line.visible { opacity: 0.88; }
+
+.soles-door {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 24px 36px;
+  border-top: 1px solid var(--soles-cyan);
+  border-bottom: 1px solid var(--soles-red);
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(76, 176, 180, 0.05) 30%,
+    rgba(245, 236, 214, 0.05) 50%,
+    rgba(184, 58, 58, 0.12) 80%,
+    rgba(184, 58, 58, 0.18) 100%);
+  text-decoration: none;
+  position: relative;
+  max-width: 360px;
+  overflow: hidden;
+  opacity: 0;
+  /* The door starts distant: small, slightly blurred, pushed back into the corridor.
+     As it approaches, it grows, clarifies, and settles into full presence. */
+  transform: translateY(14px) scale(0.58);
+  filter: blur(6px) brightness(0.7);
+  transition:
+    opacity    2.4s cubic-bezier(0.25, 0.1, 0.25, 1) 1.2s,
+    transform  2.4s cubic-bezier(0.25, 0.1, 0.25, 1) 1.2s,
+    filter     2.4s cubic-bezier(0.25, 0.1, 0.25, 1) 1.2s,
+    background 0.5s ease;
+  transform-origin: 50% 60%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.soles-door.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0) brightness(1);
+}
+
+.soles-door::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 38%;
+  background: radial-gradient(ellipse at 50% 0%, var(--soles-cyan) 0%, transparent 75%);
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.soles-door::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 85%; height: 52%;
+  background: radial-gradient(
+    ellipse at 50% 100%,
+    var(--soles-red-strong) 0%,
+    rgba(184, 58, 58, 0.18) 40%,
+    transparent 80%);
+  opacity: 0.9;
+  pointer-events: none;
+  animation: door-rise 5s ease-in-out infinite;
+}
+
+@keyframes door-rise {
+  0%, 100% { opacity: 0.55; transform: translateX(-50%) translateY(3px); }
+  50%      { opacity: 0.9;  transform: translateX(-50%) translateY(0); }
+}
+
+.soles-door:hover {
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(76, 176, 180, 0.08) 30%,
+    rgba(245, 236, 214, 0.08) 50%,
+    rgba(184, 58, 58, 0.2) 80%,
+    rgba(184, 58, 58, 0.28) 100%);
+}
+
+.soles-door-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.42em;
+  color: var(--cream-soft);
+  text-transform: uppercase;
+  position: relative;
+  z-index: 2;
+}
+
+.soles-door-text {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(17px, 3.6vw, 21px);
+  color: var(--cream);
+  letter-spacing: 0.1em;
+  position: relative;
+  z-index: 2;
+}
+
+.soles-door-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  color: var(--cream-soft);
+  opacity: 0.8;
+  position: relative;
+  z-index: 2;
+}
+
+/* Beacon dims as band takes over — the door resolving into ground */
+.soles-door.dimming {
+  opacity: 0.14;
+  filter: blur(1px);
+  transition: opacity 1.8s ease, filter 1.8s ease;
+  pointer-events: none;
+}
+
+/* ─── THE SOLES BAND — the door resolved into ground ───
+   After the beacon approaches from corridor depth (V2 signature),
+   the band rises from below the viewport to fill the floor.
+   The threshold made into the body's color.
+   Cyan top — the sky / crown light we're leaving.
+   Cream middle — the threshold itself (Shadow's color).
+   Red bottom — the earth / body we're entering.
+   The walker steps from cyan through cream into red. */
+.soles-band {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 26px 24px 30px;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  transform: translateY(100%);
+  transition: transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+  background: linear-gradient(
+    to bottom,
+    rgba(76, 176, 180, 0.24) 0%,
+    rgba(245, 236, 214, 0.10) 42%,
+    rgba(184, 58, 58, 0.32) 80%,
+    rgba(184, 58, 58, 0.48) 100%);
+  border-top: 1px solid rgba(76, 176, 180, 0.55);
+  z-index: 5;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.soles-band.risen { transform: translateY(0); }
+
+.soles-band:hover {
+  background: linear-gradient(
+    to bottom,
+    rgba(76, 176, 180, 0.32) 0%,
+    rgba(245, 236, 214, 0.14) 42%,
+    rgba(184, 58, 58, 0.38) 80%,
+    rgba(184, 58, 58, 0.56) 100%);
+}
+
+.soles-band-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.42em;
+  color: rgba(245, 236, 214, 0.72);
+  text-transform: uppercase;
+}
+
+.soles-band-name {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(34px, 7.6vw, 50px);
+  letter-spacing: 0.1em;
+  color: var(--cream);
+  line-height: 1;
+  margin: 4px 0 2px;
+  text-shadow: 0 0 28px rgba(245, 236, 214, 0.22);
+}
+
+.soles-band-hint {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(13px, 2.6vw, 16px);
+  color: rgba(245, 236, 214, 0.7);
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+.soles-band-continue {
+  margin-top: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(245, 236, 214, 0.42);
+  transition: color 0.3s;
+}
+
+.soles-band:hover .soles-band-continue {
+  color: rgba(245, 236, 214, 0.88);
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .corridor.walking,
+  .corridor.walking-long {
+    animation: none !important;
+    transform: translateZ(0) !important;
+  }
+  .reveal-word {
+    transition: opacity 0.4s ease, filter 0.4s ease !important;
+  }
+  .slot-char {
+    transition: opacity 0.4s ease !important;
+    filter: none !important;
+    transform: none !important;
+  }
+  .dust-field .mote {
+    animation-duration: 20s !important;
+  }
+  .one-permission-verb,
+  .one-permission-line {
+    transition: opacity 0.6s ease !important;
+  }
+  .soles-band {
+    transition: transform 0.8s ease !important;
+  }
+  .soles-door.dimming {
+    transition: opacity 0.6s ease, filter 0.6s ease !important;
+  }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 560px) {
+  .scroll-card {
+    padding: 36px 22px;
+  }
+  .advance-hint {
+    bottom: 44px;
+  }
+  .progress {
+    bottom: 16px;
+  }
+}
+
+@media (max-height: 640px) {
+  .scroll-card {
+    max-height: 78vh;
+  }
+  .advance-hint {
+    bottom: 28px;
+  }
+}
+
+/* ─── ESCAPE HATCH — subtle corner link back to the Map ───
+   The corridor is still the committed path. This is kindness
+   for walkers who arrived by accident or aren't ready today.
+   Very dim. Top-left corner. Becomes gently legible on hover. */
+.escape-hatch {
+  position: fixed;
+  top: 20px;
+  left: 22px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(232, 216, 168, 0.22);
+  text-decoration: none;
+  z-index: 20;
+  transition: color 0.4s ease, opacity 0.4s ease;
+  padding: 6px 8px;
+  -webkit-tap-highlight-color: transparent;
+}
+.escape-hatch:hover,
+.escape-hatch:focus-visible {
+  color: rgba(232, 216, 168, 0.72);
+  outline: none;
+}
+@media (max-width: 560px) {
+  .escape-hatch {
+    font-size: 9px;
+    top: 14px;
+    left: 14px;
+    letter-spacing: 0.22em;
+  }
+}
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal styles ═══ */
+.essence-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.essence-gate-overlay.visible { opacity: 1; }
+.essence-gate-bindu {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #e8c568;
+  box-shadow: 0 0 18px rgba(232, 197, 104, 0.4);
+  margin-bottom: 32px;
+  animation: egBreath 4s ease-in-out infinite;
+}
+.essence-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(240, 226, 188, 0.92);
+  text-align: center;
+  margin: 0 24px 12px;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-line.visible { opacity: 1; }
+.essence-gate-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(240, 226, 188, 0.62);
+  margin: 0 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-sub.visible { opacity: 1; }
+@keyframes egBreath {
+  0%, 100% { opacity: 0.7; transform: scale(1.0); }
+  50%      { opacity: 1.0; transform: scale(1.08); }
+}
+
+.sequential-gate-surface {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99998;
+  padding: 24px;
+}
+.sequential-gate-tint {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 1;
+}
+.sequential-gate-content {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  text-align: center;
+}
+.sequential-gate-yantra {
+  width: min(60vw, 280px);
+  height: min(60vw, 280px);
+  margin: 0 auto 36px;
+  opacity: 0.06;
+  color: #d4b888;
+}
+.sequential-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: #f5e8c8;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.sequential-gate-prev {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.8vw, 22px);
+  color: rgba(240, 226, 188, 0.82);
+  margin-bottom: 56px;
+  line-height: 1.6;
+}
+.sequential-gate-prev em {
+  color: #f5e8c8;
+  font-style: italic;
+  font-weight: 500;
+}
+.sequential-gate-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #d4b888;
+  background: transparent;
+  border: 1px solid #d4b888;
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sequential-gate-button:hover {
+  color: #f5e8c8;
+  background: rgba(212, 184, 136, 0.12);
+}
+/* ═══ END ESSENCE+SEQUENTIAL GATES ═══ */
+</style>
+</head>
+<body>
+<!-- ═══ ESSENCE+SEQUENTIAL GATES ═══ -->
+<script>
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal logic ═══
+   Injected immediately after <body> opens, before page renders.
+   THIS_CHAKRA placeholder gets replaced with the actual chakra id
+   per file (or '__none__' for index.html which only does essence). */
+(function() {
+  'use strict';
+
+  var CHAKRA_SEQUENCE = ['bindu','muladhara','svadhisthana','manipura',
+                          'anahata','vishuddha','ajna','sahasrara','shadow'];
+  var CHAKRA_DISPLAY = {
+    bindu: 'Bindu', muladhara: 'Muladhara', svadhisthana: 'Svadhisthana',
+    manipura: 'Manipura', anahata: 'Anahata', vishuddha: 'Vishuddha',
+    ajna: 'Ajna', sahasrara: 'Sahasrara', shadow: 'Shadow',
+  };
+  var CHAKRA_COLORS = {
+    bindu: '#e8c568', muladhara: '#b83a3a', svadhisthana: '#d47438',
+    manipura: '#d4a848', anahata: '#6b8e4e', vishuddha: '#4c7ab8',
+    ajna: '#5b4e8e', sahasrara: '#9a7ac8', shadow: '#2a2420',
+  };
+
+  function getEssenceLocal() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function essenceCompleteLocal() {
+    var e = getEssenceLocal();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function isChakraWalked(chakraId) {
+    // Bindu writes 'bindu-point' (coords); all others write 'chakra-{id}'
+    if (chakraId === 'bindu') return !!localStorage.getItem('bindu-point');
+    return !!localStorage.getItem('chakra-' + chakraId);
+  }
+
+  function canAccessChakraLocal(chakraId) {
+    if (isChakraWalked(chakraId)) return true;
+    if (chakraId === 'bindu') return true;
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    if (idx <= 0) return true;
+    var prev = CHAKRA_SEQUENCE[idx - 1];
+    return isChakraWalked(prev);
+  }
+
+  // ── ESSENCE GATE ──
+  if (!essenceCompleteLocal()) {
+    showEssenceGate();
+    return;
+  }
+
+  // ── SEQUENTIAL FIRST-WALK GATE ──
+  var THIS_CHAKRA = 'shadow';
+  if (THIS_CHAKRA !== '__none__') {
+    if (!canAccessChakraLocal(THIS_CHAKRA)) {
+      showSequentialGate(THIS_CHAKRA);
+      return;
+    }
+  }
+
+  function showEssenceGate() {
+    var ov = document.createElement('div');
+    ov.className = 'essence-gate-overlay';
+    ov.innerHTML =
+      '<div class="essence-gate-bindu"></div>' +
+      '<p class="essence-gate-line">The road asks who is walking.</p>' +
+      '<p class="essence-gate-sub">One moment.</p>';
+    function inject() {
+      document.body.appendChild(ov);
+      // Hide everything else under it — set a flag that page-init can check
+      document.body.setAttribute('data-essence-gating', 'true');
+      requestAnimationFrame(function() {
+        ov.classList.add('visible');
+        setTimeout(function() { ov.querySelector('.essence-gate-line').classList.add('visible'); }, 100);
+        setTimeout(function() { ov.querySelector('.essence-gate-sub').classList.add('visible'); }, 500);
+      });
+      var ret = encodeURIComponent(window.location.pathname);
+      setTimeout(function() {
+        window.location.href = 'the-one.html?return=' + ret;
+      }, 1400);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+
+  function showSequentialGate(chakraId) {
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    var prevId = CHAKRA_SEQUENCE[idx - 1];
+    var prevDisplay = CHAKRA_DISPLAY[prevId];
+    var thisColor = CHAKRA_COLORS[chakraId];
+
+    var html =
+      '<div class="sequential-gate-surface">' +
+      '  <div class="sequential-gate-tint" style="background: radial-gradient(ellipse at center, ' + thisColor + ' 0%, transparent 70%);"></div>' +
+      '  <div class="sequential-gate-content">' +
+      '    <svg class="sequential-gate-yantra" viewBox="-100 -100 200 200">' +
+      '      <g fill="none" stroke="currentColor" stroke-width="0.5">' +
+      '        <polygon points="0,-80 70,40 -70,40" />' +
+      '        <polygon points="0,75 -68,-38 68,-38" />' +
+      '        <polygon points="0,-38 33,19 -33,19" />' +
+      '        <polygon points="0,36 -32,-18 32,-18" />' +
+      '        <circle cx="0" cy="0" r="2" fill="currentColor" />' +
+      '        <circle cx="0" cy="0" r="88" />' +
+      '      </g>' +
+      '    </svg>' +
+      '    <p class="sequential-gate-line">The road has an order, the first time through.</p>' +
+      '    <p class="sequential-gate-prev">You haven\'t walked <em>' + prevDisplay + '</em> yet.</p>' +
+      '    <a class="sequential-gate-button" href="' + prevId + '-practice.html">Walk ' + prevDisplay + ' →</a>' +
+      '  </div>' +
+      '</div>';
+
+    function inject() {
+      document.body.setAttribute('data-sequential-gating', 'true');
+      document.body.insertAdjacentHTML('afterbegin', html);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+})();
+
+</script>
+<!-- ═══ END ESSENCE+SEQUENTIAL GATES ═══ -->
+<!-- Subtle escape hatch — present but not announced -->
+<a class="escape-hatch" href="the-road-home.html" aria-label="Return to the Road Home">← The Road Home</a>
+
+<!-- 3D Scene: stone corridor with perspective -->
+<div class="scene" aria-hidden="true">
+  <div class="corridor" id="corridor">
+    <div class="wall wall-floor"></div>
+    <div class="wall wall-ceiling"></div>
+    <div class="wall wall-left"></div>
+    <div class="wall wall-right"></div>
+  </div>
+  <div class="end-glow"></div>
+</div>
+
+<!-- Crown light persisting from above -->
+<div class="glow-from-above" aria-hidden="true"></div>
+
+<!-- Dust motes -->
+<div class="dust-field" id="dust-field" aria-hidden="true"></div>
+
+<!-- Progress dots -->
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- Advance hint -->
+<div class="advance-hint" id="advance-hint" role="status" aria-live="polite">
+  hold to walk forward
+  <span class="advance-hint-bar" aria-hidden="true"><span class="advance-hint-fill"></span></span>
+</div>
+
+<!-- UI overlay: stages render here -->
+<div class="overlay">
+
+  <!-- Stage 0: ARRIVAL — opening breath, first-person -->
+  <div class="stage" id="stage-arrival">
+    <div class="arrival-text">
+      <span class="line" id="arrival-line-0">Something I haven't looked at yet.</span>
+      <span class="line" id="arrival-line-1">I'm afraid.</span>
+      <span class="line" id="arrival-line-2">And I'm going to look anyway.</span>
+    </div>
+  </div>
+
+  <!-- Stages 1-6: SCROLLS (rendered dynamically into stage-scroll) -->
+  <div class="stage" id="stage-scroll">
+    <div class="scroll-card" id="scroll-card">
+      <!-- injected content -->
+    </div>
+  </div>
+
+  <!-- Stage 7: MIRROR -->
+  <div class="stage" id="stage-mirror">
+    <div class="mirror-frame" id="mirror-frame">
+      <div class="mirror-glass">
+        <div class="mirror-text" id="mirror-text"></div>
+        <div class="mirror-word-label" id="mirror-word-label">you named</div>
+        <div class="mirror-word" id="mirror-word"></div>
+        <div class="mirror-bottom" id="mirror-bottom"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 7.5: INVERSION — "please come back home" revealed backwards -->
+  <div class="stage" id="stage-inversion">
+    <div class="stage-inversion-wrap">
+      <div class="inversion-text" id="inversion-text" aria-label="please come back home, revealed as its mirror"></div>
+    </div>
+  </div>
+
+  <!-- Stage 8: ONE + Soles door -->
+  <div class="stage" id="stage-one">
+    <div class="one-section">
+      <div class="one-label" id="one-label">at the end of the corridor</div>
+      <div class="one-word" id="one-word" role="heading" aria-level="1" aria-label="ALL IS ONE"></div>
+      <p class="one-whisper" id="one-whisper">
+        The dark narrows toward singularity.<br/>
+        You arrive by walking through.
+      </p>
+      <div class="one-permission" id="one-permission" aria-label="Let all the aspects and perspectives of the One. Be all the aspects and perspectives of the One.">
+        <div class="one-permission-verb" id="one-perm-let">Let</div>
+        <div class="one-permission-line" id="one-perm-1">ALL the Aspects and Perspectives of the ONE</div>
+        <div class="one-permission-verb" id="one-perm-be">Be</div>
+        <div class="one-permission-line" id="one-perm-2">ALL the Aspects and Perspectives of the ONE</div>
+      </div>
+      <a class="soles-door" id="soles-door" href="soles-practice.html" aria-label="Continue into Soles, the first body chakra">
+        <div class="soles-door-label">Section 2 &middot; The Body</div>
+        <div class="soles-door-text">Soles &middot; Press</div>
+        <div class="soles-door-sub"><em>The corridor opens into the body.</em></div>
+      </a>
+    </div>
+
+    <!-- ─── THE SOLES BAND — full-viewport floor the threshold resolves into.
+         Beacon approaches from corridor depth (V2 signature). Band then rises
+         from below to fill the viewport bottom — the door becomes the ground. ─── -->
+    <a class="soles-band" id="soles-band" href="soles-practice.html" aria-hidden="true" tabindex="-1" aria-label="Continue into Soles, the first body chakra. Section 2, the body.">
+      <div class="soles-band-label">Section 2 &middot; The Body</div>
+      <div class="soles-band-name">Soles</div>
+      <div class="soles-band-hint"><em>The corridor opens into the body.</em></div>
+      <div class="soles-band-continue">Press &middot; Continue &rarr;</div>
+    </a>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const $ = (id) => document.getElementById(id);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  // ============================================================
+  // STATE
+  // ============================================================
+  const STATE = {
+    phase: 'init',          // 'init' | 'arrival' | 'reading' | 'walking' | 'writing' | 'mirror-reveal' | 'mirror-complete' | 'crossing' | 'one' | 'done'
+    stepIndex: 0,           // which scroll (0 = arrival, 1-6 = scrolls, 7 = mirror, 8 = one)
+    revealComplete: false,
+    walkerWord: '',
+    timers: [],
+  };
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ============================================================
+  // SCROLL CONTENT (12 scrolls + arrival + mirror + inversion + one)
+  // Each scroll: hero (optional) + reveal lines
+  // Full emergence — no compression.
+  // ============================================================
+  const SCROLLS = [
+    // Scroll 1 — ALL + signature announcement
+    {
+      type: 'all',
+      number: '9 &middot; 33',
+      letters: ['A', 'L', 'L'],
+      dissolvingIndex: 2,
+      lines: [
+        [{t: 'The corridor was never a dead end.'}],
+        [{t: 'It was always leading somewhere.'}]
+      ]
+    },
+
+    // Scroll 2 — Shadow · The Corridor (naming)
+    {
+      type: 'naming',
+      word: 'Shadow',
+      role: 'The Corridor',
+      lines: [
+        [{t: 'What you haven\'t looked at yet.'}],
+        [{t: 'Not because it\'s dark —'}],
+        [{t: 'because you weren\'t ready.', emphasis: true}]
+      ]
+    },
+
+    // Scroll 3 — Between Two Trees (the threshold named)
+    {
+      type: 'teaching',
+      lines: [
+        [{t: 'Shadow is not a location in the body.'}],
+        [{t: 'It is not part of any system.'}],
+        [{t: 'It is the threshold between the tree you just traveled —'}],
+        [{t: 'the Soul Tree, ascending through seven centers of stillness.', emphasis: true}],
+        [{t: 'And the tree you\'re about to enter —'}],
+        [{t: 'the Bindu Tree, radiating through ten points of movement.', emphasis: true}]
+      ]
+    },
+
+    // Scroll 4 — The Light That Came Back
+    {
+      type: 'teaching',
+      lines: [
+        [{t: 'The crown opened. Light arrived.'}],
+        [{t: 'And in the light, for the first time,'}],
+        [{t: 'you can see what was always underneath.'}],
+        [{t: 'Not because it was hiding.'}],
+        [{t: 'Because you needed enough light to see it.', emphasis: true}],
+        [{t: 'You couldn\'t see what was in the dark'}],
+        [{t: 'until you had traveled far enough upward'}],
+        [{t: 'to carry the light back down.', strong: true}]
+      ]
+    },
+
+    // Scroll 5 — Pushed Underground (+ corridor coda)
+    {
+      type: 'teaching',
+      lines: [
+        [{t: 'Shadow is what was compressed, denied, pushed underground.'}],
+        [{t: 'But not because it was wrong.'}],
+        [{t: 'Not because it was bad.'}],
+        [{t: 'Because you weren\'t ready to carry it.', emphasis: true}],
+        [{t: 'What looks like your darkness is —'}],
+        [{t: 'a corridor.', strong: true}],
+        [{t: 'Not a dead end.'}],
+        [{t: 'A corridor.', strong: true}]
+      ]
+    },
+
+    // Scroll 6 — What Was Too Much & The Bigger Container
+    {
+      type: 'teaching',
+      lines: [
+        [{t: 'The parts of you that were told "too much"'}],
+        [{t: 'at an age when "too much" meant dangerous.'}],
+        [{t: 'The creativity that was impractical.'}],
+        [{t: 'The sensitivity that was weakness.'}],
+        [{t: 'The anger that was unacceptable.'}],
+        [{t: 'The ambition that was greedy.'}],
+        [{t: 'The softness that was liability.'}],
+        [{t: 'The wildness that was chaos.'}],
+        [{t: 'None of it was wrong.'}],
+        [{t: 'All of it was too large for the container you were living in at the time.', emphasis: true}],
+        [{t: 'So it went underground.'}],
+        [{t: 'Not destroyed. Compressed. Stored.'}],
+        [{t: 'Waiting for a bigger container.', emphasis: true}],
+        [{t: 'You are a bigger container now.', strong: true}]
+      ]
+    },
+
+    // Scroll 7 — Same Tree (roots/canopy + core question)
+    {
+      type: 'teaching-with-centerpiece',
+      linesBefore: [
+        [{t: 'The roots you\'re looking at —'}],
+        [{t: 'deeper than the canopy was tall.'}],
+        [{t: 'What\'s below is more vast than what was above.'}],
+        [{t: 'That\'s been true the entire time.'}],
+        [{t: 'The Soul Tree showed you the canopy.'}],
+        [{t: 'The shadow shows you the roots.', emphasis: true}]
+      ],
+      centerpiece: 'Same tree.',
+      linesAfter: [
+        [{t: 'The shadow asks one thing:'}],
+        [{t: 'Can you hold what you see without flinching?', emphasis: true}]
+      ]
+    },
+
+    // Scroll 8 — Will You Go All the Way Down? (seven-chakra cascade)
+    {
+      type: 'teaching-with-centerpiece',
+      linesBefore: [
+        [{t: 'The root held you.'}],
+        [{t: 'The sacral moved you.'}],
+        [{t: 'The fire built you.'}],
+        [{t: 'The heart opened you.'}],
+        [{t: 'The throat spoke you.'}],
+        [{t: 'The eye saw you.'}],
+        [{t: 'The crown connected you.'}]
+      ],
+      centerpiece: 'And now the shadow asks:\nwill you go all the way down?',
+      linesAfter: []
+    },
+
+    // Scroll 9 — Future Knocking (the reframe)
+    {
+      type: 'teaching-with-centerpiece',
+      linesBefore: [
+        [{t: 'The shadow material you encounter in this threshold —'}],
+        [{t: 'whatever surfaced when you stood in front of the door —'}],
+        [{t: 'is not evidence of damage.'}],
+        [{t: 'It\'s evidence of capacity that hasn\'t been expressed yet.', strong: true}],
+        [{t: 'The trigger you feel when someone says the thing that makes your jaw clench?'}],
+        [{t: 'That\'s not unresolved pain.'}],
+        [{t: 'That\'s future capacity announcing itself.', emphasis: true}]
+      ],
+      centerpiece: 'The shadow is not your past coming back to haunt you.\nThe shadow is your future coming to find you.\nIt\'s knocking on the door from the inside.',
+      linesAfter: []
+    },
+
+    // Scroll 10 — Notice (the practice)
+    {
+      type: 'teaching',
+      lines: [
+        [{t: 'There is no body practice for the shadow.'}],
+        [{t: 'The shadow doesn\'t live in a specific location.'}],
+        [{t: 'It lives everywhere the light hasn\'t been pointed yet.', emphasis: true}],
+        [{t: 'The practice is simple and hard:'}],
+        [{t: 'notice.', strong: true}],
+        [{t: 'Notice what you avoid.'}],
+        [{t: 'Notice what makes you defensive.'}],
+        [{t: 'Notice what you dismiss quickly in others —'}],
+        [{t: 'because seeing it in them would mean seeing it in yourself.', emphasis: true}],
+        [{t: 'Don\'t fix it. Don\'t heal it. Don\'t process it.'}],
+        [{t: 'Just notice it.', emphasis: true}],
+        [{t: 'The noticing IS the light.'}],
+        [{t: 'The noticing IS the corridor opening.'}],
+        [{t: 'Every time you notice without flinching,'}],
+        [{t: 'the corridor gets shorter.', strong: true}]
+      ]
+    },
+
+    // Scroll 11 — The Room Full of Light (destination foreshadowed)
+    {
+      type: 'teaching',
+      lines: [
+        [{t: 'The room at the end —'}],
+        [{t: 'the room this corridor is leading to —'}],
+        [{t: 'is not what you expect.', emphasis: true}],
+        [{t: 'It\'s not a room full of your worst fears realized.'}],
+        [{t: 'It\'s a room full of light.', strong: true}],
+        [{t: 'The kind of light that exists on the other side of every honest look.'}],
+        [{t: 'That room has a name.'}],
+        [{t: 'You\'ll find it after the next tree.', emphasis: true}]
+      ]
+    },
+
+    // Scroll 12 — LOOK + writing (with watching eyes)
+    {
+      type: 'writing',
+      verb: 'LOOK',
+      lines: [
+        [{t: 'What are you afraid to look at?'}],
+        [{t: 'Not the fear itself.'}],
+        [{t: 'What\'s behind the fear.', emphasis: true}],
+        [{t: 'What the fear is protecting you from seeing.'}],
+        [{t: 'You know what it is.'}],
+        [{t: 'You\'ve known for a long time.'}],
+        [{t: 'Maybe your whole life.', emphasis: true}],
+        [{t: 'The thing you don\'t talk about.'}],
+        [{t: 'The thing you don\'t think about because thinking about it'}],
+        [{t: 'opens a door you\'re not sure you can close again.'}],
+        [{t: 'You don\'t have to open the door right now.'}],
+        [{t: 'But can you stand in front of it?'}],
+        [{t: 'Can you acknowledge that the door exists?'}],
+        [{t: 'That you know where it is?'}],
+        [{t: 'The corridor doesn\'t need you to run through it.'}],
+        [{t: 'It needs you to admit you can see it.', strong: true}]
+      ],
+      placeholder: 'a word. a name. a shape. anything honest.',
+      continueLabel: 'walk forward with this'
+    }
+  ];
+
+  const LAST_SCROLL_INDEX = SCROLLS.length; // = 12; stepIndex for the last scroll
+
+  const MIRROR = {
+    opening: 'The corridor was never a dead end.',
+    middle: 'It was always leading somewhere.',
+    closing: 'please come back home.'
+  };
+
+  // ============================================================
+  // DUST MOTES — subtle drift through corridor
+  // ============================================================
+  function buildDustMotes() {
+    const field = $('dust-field');
+    if (!field) return;
+    field.innerHTML = '';
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+    const count = Math.floor((W * H) / 9000);
+    const frag = document.createDocumentFragment();
+
+    for (let i = 0; i < count; i++) {
+      const m = document.createElement('div');
+      m.className = 'mote' + (Math.random() < 0.6 ? '' : ' small');
+      const x = Math.random() * 100;
+      const y = Math.random() * 110 - 10;
+      m.style.setProperty('--x', x + '%');
+      m.style.setProperty('--y', y + '%');
+      // Slight outward drift — toward edges
+      const dx = (x - 50) * 0.8 + (Math.random() - 0.5) * 30;
+      const dy = 60 + Math.random() * 100;
+      m.style.setProperty('--dx', dx + 'px');
+      m.style.setProperty('--dy', dy + 'px');
+      m.style.setProperty('--dur', (10 + Math.random() * 10).toFixed(1) + 's');
+      m.style.setProperty('--delay', (Math.random() * 14).toFixed(1) + 's');
+      m.style.setProperty('--peak', (0.25 + Math.random() * 0.4).toFixed(2));
+      // For walk-rush: direction from current position outward
+      const rushDx = (x - 50) * 8 + (Math.random() - 0.5) * 120;
+      const rushDy = (y - 50) * 8 + 80;
+      m.style.setProperty('--rush-dx', rushDx + 'px');
+      m.style.setProperty('--rush-dy', rushDy + 'px');
+      frag.appendChild(m);
+    }
+    field.appendChild(frag);
+  }
+
+  let resizeTimeout;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(buildDustMotes, 250);
+  });
+
+  // ============================================================
+  // PROGRESS — update dots
+  // ============================================================
+  function updateProgress() {
+    const dots = $$('.progress-dot');
+    // Map STATE.stepIndex (0=arrival, 1..LAST=scrolls, LAST+1=mirror/inversion, LAST+2=one) to dot indices
+    // Dots: arrival + N scrolls + mirror (last)
+    const mirrorIdx = LAST_SCROLL_INDEX + 1;
+    let activeIdx;
+    if (STATE.phase === 'arrival') activeIdx = 0;
+    else if (STATE.stepIndex >= 1 && STATE.stepIndex <= LAST_SCROLL_INDEX) activeIdx = STATE.stepIndex;
+    else if (STATE.phase === 'mirror-reveal' || STATE.phase === 'mirror-complete') activeIdx = mirrorIdx;
+    else if (STATE.phase === 'inversion-reveal' || STATE.phase === 'inversion-complete') activeIdx = mirrorIdx;
+    else if (STATE.phase === 'crossing' || STATE.phase === 'one' || STATE.phase === 'done') activeIdx = mirrorIdx;
+    else activeIdx = 0;
+
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === activeIdx);
+      d.classList.toggle('passed', i < activeIdx);
+    });
+  }
+
+  function hideProgress() { $('progress').classList.add('hidden'); }
+  function showProgress() { $('progress').classList.remove('hidden'); }
+
+  // ============================================================
+  // ADVANCE HINT
+  // ============================================================
+  function showHint(text) {
+    const hint = $('advance-hint');
+    hint.firstChild.nodeValue = text + ' ';
+    hint.classList.add('visible');
+  }
+
+  function hideHint() {
+    $('advance-hint').classList.remove('visible');
+  }
+
+  // ============================================================
+  // WORD-BY-WORD REVEAL
+  // Base: 440ms per word. Period: +720ms. Comma: +220ms. Line: +560ms.
+  // ============================================================
+  const TIMING = prefersReducedMotion ? {
+    word: 80, period: 120, comma: 40, line: 140, lineGap: 120
+  } : {
+    word: 440, period: 720, comma: 220, line: 560, lineGap: 480
+  };
+
+  function splitWordsPreservingPunct(text) {
+    // Split text into tokens: word, space, punctuation stays attached to its word
+    const tokens = [];
+    const words = text.split(/\s+/);
+    for (const w of words) {
+      if (w.length) tokens.push(w);
+    }
+    return tokens;
+  }
+
+  function buildLineHTML(lineData) {
+    // lineData is array of {t: '...', emphasis?: bool, strong?: bool}
+    const parts = [];
+    for (const seg of lineData) {
+      const cls = ['reveal-word'];
+      if (seg.emphasis) cls.push('emphasis');
+      if (seg.strong) cls.push('strong');
+      const words = splitWordsPreservingPunct(seg.t);
+      words.forEach((w, i) => {
+        parts.push(`<span class="${cls.join(' ')}">${escapeHTML(w)}</span>`);
+        if (i < words.length - 1) parts.push(' ');
+      });
+    }
+    return parts.join('');
+  }
+
+  function escapeHTML(s) {
+    return s.replace(/[&<>"']/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // Reveal words across multiple lines with cadenced timing
+  function revealLines(container, lines, onComplete) {
+    // Build DOM
+    container.innerHTML = '';
+    const lineEls = [];
+    lines.forEach((lineData, li) => {
+      const lineEl = document.createElement('span');
+      lineEl.className = 'reveal-line';
+      lineEl.innerHTML = buildLineHTML(lineData);
+      container.appendChild(lineEl);
+      lineEls.push(lineEl);
+    });
+
+    // Cadence through all words
+    let delay = 0;
+    const allWords = $$('.reveal-word', container);
+    let wordPointer = 0;
+
+    lines.forEach((lineData, li) => {
+      const lineEl = lineEls[li];
+      const wordsInLine = $$('.reveal-word', lineEl);
+
+      wordsInLine.forEach((wEl, wi) => {
+        const t = setTimeout(() => wEl.classList.add('visible'), delay);
+        STATE.timers.push(t);
+
+        const text = wEl.textContent;
+        delay += TIMING.word;
+        if (/\.\s*$|\.$|\?\s*$|\?$|!\s*$|!$|:\s*$|:$/.test(text)) {
+          delay += TIMING.period;
+        } else if (/,$|;$|—$/.test(text)) {
+          delay += TIMING.comma;
+        }
+      });
+
+      delay += TIMING.line;
+    });
+
+    const done = setTimeout(() => {
+      STATE.revealComplete = true;
+      if (onComplete) onComplete();
+    }, delay + 200);
+    STATE.timers.push(done);
+  }
+
+  function clearPageTimers() {
+    while (STATE.timers.length) clearTimeout(STATE.timers.pop());
+  }
+
+  // ============================================================
+  // ALL ↔ ALONE — the cycling play of the third slot
+  // "AL" stays constant. The third character alternates between
+  // "L" and "ONE", making the word breathe between ALL and ALONE.
+  // Cycle: ALL → AL_ → ALONE → AL_ → ALL → ...
+  // ============================================================
+  const CYCLE_HOLD    = prefersReducedMotion ?  700 : 3000; // dwell while visible (each word held)
+  const CYCLE_FADE    = prefersReducedMotion ?  180 :  900; // fade duration
+  const CYCLE_GAP     = prefersReducedMotion ?  120 :  500; // empty slot pause (AL_ held alone)
+  const CYCLE_INITIAL = prefersReducedMotion ?  900 : 2200; // first hold before cycle begins
+
+  let cycleToken = 0; // invalidates stale cycle closures after navigation
+
+  function startALLtoALONECycle() {
+    cycleToken++;
+    const myToken = cycleToken;
+    let current = 'L';
+
+    function halfCycle() {
+      // Bail if the slot has been removed (walker moved forward) or a new cycle started
+      if (myToken !== cycleToken) return;
+      const slot = document.getElementById('third-slot');
+      if (!slot || !slot.isConnected) return;
+
+      const char = slot.querySelector('.slot-char');
+      if (!char) return;
+
+      // Fade out current
+      char.classList.add('fading');
+
+      const tOut = setTimeout(() => {
+        if (myToken !== cycleToken) return;
+        const s = document.getElementById('third-slot');
+        if (!s || !s.isConnected) return;
+
+        // Remove only the visible slot-char — keep the invisible spacer
+        // so the slot maintains its reserved width throughout the transition.
+        const existing = s.querySelector('.slot-char');
+        if (existing) existing.remove();
+
+        const tIn = setTimeout(() => {
+          if (myToken !== cycleToken) return;
+          const s2 = document.getElementById('third-slot');
+          if (!s2 || !s2.isConnected) return;
+
+          // Swap and introduce the new char.
+          // When ONE is shown: joins with "AL" to read ALONE (all-one realization).
+          // When L is shown: joins with "AL" to read ALL (the ordinary).
+          // The third position is the door between the two.
+          const next = (current === 'L') ? 'ONE' : 'L';
+          current = next;
+
+          const newChar = document.createElement('span');
+          newChar.className = 'slot-char fading';
+          newChar.textContent = next;
+          s2.appendChild(newChar);
+
+          // Trigger fade-in on the next frame so the browser sees the .fading state first
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              if (myToken !== cycleToken) return;
+              newChar.classList.remove('fading');
+            });
+          });
+
+          // After fade-in + hold, schedule next half-cycle
+          const tHold = setTimeout(halfCycle, CYCLE_FADE + CYCLE_HOLD);
+          STATE.timers.push(tHold);
+        }, CYCLE_GAP);
+        STATE.timers.push(tIn);
+      }, CYCLE_FADE);
+      STATE.timers.push(tOut);
+    }
+
+    // Initial hold — walker reads "ALL" once at full opacity before the first fade
+    const tStart = setTimeout(halfCycle, CYCLE_INITIAL);
+    STATE.timers.push(tStart);
+  }
+
+  // ============================================================
+  // LOOK EYES — blinking logic (13s initial, then irregular)
+  // ============================================================
+  function blinkLookEyes() {
+    const eyes = $$('.look-eye');
+    if (!eyes.length) return; // walker has moved on
+
+    eyes.forEach(eye => {
+      eye.classList.remove('blinking');
+      // Force reflow so the animation restarts
+      void eye.offsetWidth;
+      eye.classList.add('blinking');
+    });
+
+    // Clean up the class after animation ends
+    const cleanup = setTimeout(() => {
+      const stillEyes = $$('.look-eye');
+      stillEyes.forEach(eye => eye.classList.remove('blinking'));
+    }, 360);
+    STATE.timers.push(cleanup);
+
+    // Schedule next blink — irregular cadence between 4.5 and 11 seconds
+    scheduleNextLookBlink();
+  }
+
+  function scheduleNextLookBlink() {
+    const eyes = $$('.look-eye');
+    if (!eyes.length) return;
+    const next = 4500 + Math.random() * 6500;
+    const t = setTimeout(blinkLookEyes, next);
+    STATE.timers.push(t);
+  }
+
+  // Occasional double-blink (about 1 in 5) — feels more alive
+  // (Handled inline within blinkLookEyes if desired later.)
+
+  // ============================================================
+  // STAGE MANAGEMENT
+  // ============================================================
+  function showStage(stageId) {
+    const stages = ['stage-arrival', 'stage-scroll', 'stage-mirror', 'stage-inversion', 'stage-one'];
+    stages.forEach(id => {
+      const el = $(id);
+      if (!el) return;
+      if (id === stageId) {
+        el.classList.remove('fading');
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    });
+  }
+
+  function fadeOutStage(stageId, cb) {
+    const el = $(stageId);
+    if (!el) { if (cb) cb(); return; }
+    el.classList.add('fading');
+    el.classList.remove('visible');
+    const t = setTimeout(() => { if (cb) cb(); }, 520);
+    STATE.timers.push(t);
+  }
+
+  // ============================================================
+  // ARRIVAL — first-person opening breath
+  // ============================================================
+  function startArrival() {
+    STATE.phase = 'arrival';
+    STATE.stepIndex = 0;
+    updateProgress();
+    showStage('stage-arrival');
+
+    const lines = $$('#stage-arrival .line');
+    // Reveal each line with a breath's pause
+    const delays = prefersReducedMotion ? [200, 900, 1700] : [600, 2600, 5400];
+    lines.forEach((l, i) => {
+      const t = setTimeout(() => l.classList.add('visible'), delays[i]);
+      STATE.timers.push(t);
+    });
+
+    // Show hint after all lines have landed
+    const hintDelay = (prefersReducedMotion ? 2500 : 7800);
+    const t = setTimeout(() => {
+      STATE.revealComplete = true;
+      showHint('hold · walk forward');
+    }, hintDelay);
+    STATE.timers.push(t);
+  }
+
+  // ============================================================
+  // SCROLL RENDERING
+  // ============================================================
+  function renderScroll(index) {
+    const scroll = SCROLLS[index - 1]; // stepIndex 1 = SCROLLS[0]
+    if (!scroll) return;
+
+    const card = $('scroll-card');
+    card.innerHTML = '';
+
+    // Hero block
+    if (scroll.type === 'all') {
+      const num = document.createElement('div');
+      num.className = 'scroll-number';
+      num.innerHTML = scroll.number;
+      card.appendChild(num);
+
+      const hero = document.createElement('div');
+      hero.className = 'hero-all';
+      hero.setAttribute('role', 'heading');
+      hero.setAttribute('aria-level', '1');
+      hero.setAttribute('aria-label', 'ALL — cycling between ALL and ALONE');
+
+      // First two letters (A, L) stay constant
+      ['A', 'L'].forEach((ch) => {
+        const span = document.createElement('span');
+        span.className = 'letter';
+        span.textContent = ch;
+        hero.appendChild(span);
+      });
+
+      // Third slot — alternates between L and ONE without shifting AL.
+      // An invisible spacer reserves ONE's width permanently.
+      // The visible slot-char is absolute-positioned at the slot's left edge.
+      // ALL → (L dissolves) → AL_ → (ONE emerges) → ALONE → (ONE dissolves) → AL_ → (L returns) → ALL
+      const slot = document.createElement('span');
+      slot.className = 'third-slot';
+      slot.id = 'third-slot';
+      slot.setAttribute('aria-hidden', 'true');
+
+      // Invisible spacer — reserves width of "ONE" (the widest option)
+      const spacer = document.createElement('span');
+      spacer.className = 'slot-spacer';
+      spacer.textContent = 'ONE';
+      slot.appendChild(spacer);
+
+      // Visible character (starts as L — completing "ALL")
+      const initialChar = document.createElement('span');
+      initialChar.className = 'slot-char';
+      initialChar.textContent = 'L';
+      slot.appendChild(initialChar);
+      hero.appendChild(slot);
+
+      card.appendChild(hero);
+
+      // Start the cycle after the walker has had time to read "ALL" once
+      startALLtoALONECycle();
+    } else if (scroll.type === 'naming') {
+      const naming = document.createElement('div');
+      naming.className = 'hero-naming';
+      naming.innerHTML = `
+        <div class="hero-naming-word">${escapeHTML(scroll.word)}</div>
+        <div class="hero-naming-role">${escapeHTML(scroll.role)}</div>
+      `;
+      card.appendChild(naming);
+    } else if (scroll.type === 'writing') {
+      // LOOK with eyes — the two Os watch back
+      const verbWrap = document.createElement('div');
+      verbWrap.className = 'hero-verb-look';
+      verbWrap.setAttribute('role', 'heading');
+      verbWrap.setAttribute('aria-level', '1');
+      verbWrap.setAttribute('aria-label', scroll.verb);
+      verbWrap.innerHTML = `
+        <span class="look-char">L</span>
+        <span class="look-eye" aria-hidden="true">
+          <span class="eye-ring"></span>
+          <span class="eye-pupil"></span>
+          <span class="eye-lid"></span>
+        </span>
+        <span class="look-eye" aria-hidden="true">
+          <span class="eye-ring"></span>
+          <span class="eye-pupil"></span>
+          <span class="eye-lid"></span>
+        </span>
+        <span class="look-char">K</span>
+      `;
+      card.appendChild(verbWrap);
+    }
+
+    // Reveal block — for teaching/naming/all/writing (linesBefore/lines)
+    const revealBlock = document.createElement('div');
+    revealBlock.className = 'reveal-block';
+    card.appendChild(revealBlock);
+
+    if (scroll.type === 'teaching-with-centerpiece') {
+      // Before lines → centerpiece → (optional) after lines
+      revealLines(revealBlock, scroll.linesBefore, () => {
+        const cp = document.createElement('div');
+        cp.className = 'centerpiece';
+        // Multi-line centerpieces use \n as line breaks
+        cp.innerHTML = escapeHTML(scroll.centerpiece).replace(/\n/g, '<br>');
+        card.appendChild(cp);
+        // next frame to trigger transition
+        requestAnimationFrame(() => {
+          const t = setTimeout(() => cp.classList.add('visible'), 50);
+          STATE.timers.push(t);
+        });
+
+        // After centerpiece breath, second reveal (if any)
+        const hasLinesAfter = Array.isArray(scroll.linesAfter) && scroll.linesAfter.length > 0;
+        const centerpieceBreath = prefersReducedMotion ? 900 : 3200;
+
+        const t = setTimeout(() => {
+          if (hasLinesAfter) {
+            const revealBlock2 = document.createElement('div');
+            revealBlock2.className = 'reveal-block';
+            card.appendChild(revealBlock2);
+            revealLines(revealBlock2, scroll.linesAfter, () => {
+              onRevealComplete();
+            });
+          } else {
+            // No lines after — centerpiece stands alone as the closing
+            onRevealComplete();
+          }
+        }, centerpieceBreath);
+        STATE.timers.push(t);
+      });
+    } else if (scroll.type === 'writing') {
+      revealLines(revealBlock, scroll.lines, () => {
+        // Fade in writing surface
+        const writingWrap = document.createElement('div');
+        writingWrap.className = 'writing-void';
+        writingWrap.innerHTML = `
+          <textarea
+            class="writing-textarea"
+            id="writing-area"
+            placeholder="${escapeHTML(scroll.placeholder)}"
+            aria-label="Write what you see. Your writing is private and stays on this device."
+            rows="3"
+          ></textarea>
+        `;
+        card.appendChild(writingWrap);
+
+        const continueBtn = document.createElement('button');
+        continueBtn.type = 'button';
+        continueBtn.className = 'writing-continue';
+        continueBtn.textContent = scroll.continueLabel;
+        continueBtn.id = 'writing-continue';
+        card.appendChild(continueBtn);
+
+        // Load prior writing
+        const textarea = $('writing-area');
+        try {
+          const prior = localStorage.getItem('chakra-shadow');
+          if (prior) textarea.value = prior;
+        } catch (e) {}
+
+        // Save on input
+        let saveTimer = null;
+        textarea.addEventListener('input', () => {
+          if (saveTimer) clearTimeout(saveTimer);
+          saveTimer = setTimeout(() => {
+            try { localStorage.setItem('chakra-shadow', textarea.value); } catch (e) {}
+          }, 600);
+          STATE.timers.push(saveTimer);
+        });
+
+        // Continue button triggers walk to mirror
+        continueBtn.addEventListener('click', onWritingContinue);
+
+        requestAnimationFrame(() => {
+          const t1 = setTimeout(() => writingWrap.classList.add('visible'), 200);
+          const t2 = setTimeout(() => continueBtn.classList.add('visible'), 1000);
+          STATE.timers.push(t1, t2);
+        });
+
+        // Eyes begin blinking 13 seconds after everything loads.
+        // Before that: they stare. After: they blink on irregular intervals.
+        const eyesStartTimer = setTimeout(() => {
+          blinkLookEyes();
+        }, 13000);
+        STATE.timers.push(eyesStartTimer);
+
+        STATE.phase = 'writing';
+        STATE.revealComplete = true;
+        hideHint(); // no swipe hint while writing
+      });
+    } else {
+      revealLines(revealBlock, scroll.lines, () => {
+        onRevealComplete();
+      });
+    }
+
+    // Reset scroll position
+    card.scrollTop = 0;
+  }
+
+  function onRevealComplete() {
+    STATE.revealComplete = true;
+    STATE.phase = 'reading';
+    showHint('hold · walk forward');
+  }
+
+  function onWritingContinue() {
+    // Capture walker's word
+    const textarea = $('writing-area');
+    if (textarea) {
+      STATE.walkerWord = textarea.value.trim();
+      try { localStorage.setItem('chakra-shadow', textarea.value); } catch (e) {}
+    }
+    // Walk to mirror (long corridor)
+    walkToMirror();
+  }
+
+  // ============================================================
+  // WALKING — corridor animation between scrolls
+  // ============================================================
+  function walkForward() {
+    if (STATE.phase === 'walking') return;
+    STATE.phase = 'walking';
+    hideHint();
+    STATE.revealComplete = false;
+
+    const corridor = $('corridor');
+    const dust = $('dust-field');
+
+    // Transition from Scroll 11 ("The Room Full of Light") into Scroll 12 ("LOOK")
+    // is the final approach before the practice. Walk slower here.
+    const isContemplative = (STATE.stepIndex === 11);
+    const walkClass = isContemplative ? 'walking-contemplative' : 'walking';
+    const walkDuration = isContemplative ? 3250 : 1850;
+
+    // Fade current scroll out
+    fadeOutStage('stage-scroll', () => {
+      // After fade, advance to next scroll
+      STATE.stepIndex++;
+      updateProgress();
+      if (STATE.stepIndex <= LAST_SCROLL_INDEX) {
+        renderScroll(STATE.stepIndex);
+        showStage('stage-scroll');
+      }
+    });
+
+    // Run corridor walk animation
+    if (!prefersReducedMotion) {
+      corridor.classList.remove('walking', 'walking-long', 'walking-contemplative');
+      void corridor.offsetWidth;
+      corridor.classList.add(walkClass);
+
+      dust.classList.remove('walking');
+      void dust.offsetWidth;
+      dust.classList.add('walking');
+
+      const t = setTimeout(() => {
+        corridor.classList.remove(walkClass);
+        dust.classList.remove('walking');
+      }, walkDuration);
+      STATE.timers.push(t);
+    }
+  }
+
+  function walkToMirror() {
+    STATE.phase = 'crossing';
+    hideHint();
+
+    const corridor = $('corridor');
+    const dust = $('dust-field');
+    const writeContinue = $('writing-continue');
+    if (writeContinue) writeContinue.disabled = true;
+
+    // Fade scroll out
+    fadeOutStage('stage-scroll', () => {
+      STATE.stepIndex = 7; // mirror
+      updateProgress();
+      showStage('stage-mirror');
+      revealMirror();
+    });
+
+    if (!prefersReducedMotion) {
+      corridor.classList.remove('walking', 'walking-long');
+      void corridor.offsetWidth;
+      corridor.classList.add('walking-long');
+      dust.classList.remove('walking');
+      void dust.offsetWidth;
+      dust.classList.add('walking');
+
+      const t = setTimeout(() => {
+        corridor.classList.remove('walking-long');
+        dust.classList.remove('walking');
+      }, 2450);
+      STATE.timers.push(t);
+    }
+  }
+
+  // ============================================================
+  // MIRROR
+  // ============================================================
+  function revealMirror() {
+    STATE.phase = 'mirror-reveal';
+    const frame = $('mirror-frame');
+    const textEl = $('mirror-text');
+    const wordLabel = $('mirror-word-label');
+    const wordEl = $('mirror-word');
+    const bottomEl = $('mirror-bottom');
+
+    // Reset
+    textEl.innerHTML = '';
+    wordEl.textContent = '';
+    wordEl.classList.remove('visible');
+    wordLabel.classList.remove('visible');
+    bottomEl.textContent = '';
+    bottomEl.classList.remove('visible');
+    frame.classList.remove('dissolving');
+
+    // Fade mirror in
+    requestAnimationFrame(() => {
+      const t = setTimeout(() => frame.classList.add('visible'), 100);
+      STATE.timers.push(t);
+    });
+
+    // After mirror arrives, reveal signature word-by-word
+    const introDelay = prefersReducedMotion ? 500 : 1900;
+    const t1 = setTimeout(() => {
+      revealLines(textEl, [
+        [{t: MIRROR.opening}],
+        [{t: MIRROR.middle}]
+      ], () => {
+        // Long breath, then walker's word
+        const breath = prefersReducedMotion ? 500 : 1800;
+        const t2 = setTimeout(() => {
+          if (STATE.walkerWord && STATE.walkerWord.length > 0) {
+            wordLabel.classList.add('visible');
+            const t3 = setTimeout(() => {
+              wordEl.textContent = STATE.walkerWord;
+              wordEl.classList.add('visible');
+              // Long breath for reflection, then hint to continue
+              const t4 = setTimeout(() => {
+                completeMirror();
+              }, prefersReducedMotion ? 800 : 4200);
+              STATE.timers.push(t4);
+            }, prefersReducedMotion ? 200 : 900);
+            STATE.timers.push(t3);
+          } else {
+            // No word written — go to hint directly
+            const t3 = setTimeout(() => completeMirror(), 600);
+            STATE.timers.push(t3);
+          }
+        }, breath);
+        STATE.timers.push(t2);
+      });
+    }, introDelay);
+    STATE.timers.push(t1);
+  }
+
+  function completeMirror() {
+    STATE.phase = 'mirror-complete';
+    STATE.revealComplete = true;
+    showHint('hold · continue');
+  }
+
+  function advanceToInversion() {
+    if (STATE.phase !== 'mirror-complete') return;
+    STATE.phase = 'crossing';
+    STATE.revealComplete = false;
+    hideHint();
+
+    const frame = $('mirror-frame');
+    frame.classList.add('dissolving');
+
+    // Wait for mirror to dissolve, then show inversion stage
+    const dissolveDuration = prefersReducedMotion ? 500 : 2200;
+    const t = setTimeout(() => {
+      fadeOutStage('stage-mirror', () => {
+        showStage('stage-inversion');
+        revealInversion();
+      });
+    }, dissolveDuration);
+    STATE.timers.push(t);
+  }
+
+  function advanceToOne() {
+    if (STATE.phase !== 'inversion-complete') return;
+    STATE.phase = 'crossing';
+    STATE.revealComplete = false;
+    hideHint();
+
+    const corridor = $('corridor');
+    const dust = $('dust-field');
+
+    // Fade out inversion, walk corridor to ONE
+    fadeOutStage('stage-inversion', () => {
+      STATE.stepIndex = 8;
+      updateProgress();
+      hideProgress();
+      showStage('stage-one');
+      revealOne();
+    });
+
+    if (!prefersReducedMotion) {
+      corridor.classList.remove('walking', 'walking-long');
+      void corridor.offsetWidth;
+      corridor.classList.add('walking-long');
+      dust.classList.remove('walking');
+      void dust.offsetWidth;
+      dust.classList.add('walking');
+
+      const t = setTimeout(() => {
+        corridor.classList.remove('walking-long');
+        dust.classList.remove('walking');
+      }, 2450);
+      STATE.timers.push(t);
+    }
+  }
+
+  // ============================================================
+  // INVERSION — "please come back home" revealed letter-by-letter
+  // in REVERSE ORDER. The rightmost letter materializes first.
+  // "home" fully forms before "back" begins — destination appears
+  // before the plea. The walker learns Gaia Inversion: meaning
+  // hidden at the end is where meaning actually lives.
+  // ============================================================
+  const TARGET_STRING = 'please come back home';
+
+  const TIMING_INVERSION = prefersReducedMotion ? {
+    letter: 90, space: 60, wordGap: 140, endBreath: 900
+  } : {
+    letter: 520, space: 220, wordGap: 520, endBreath: 2800
+  };
+
+  function revealInversion() {
+    STATE.phase = 'inversion-reveal';
+    const container = $('inversion-text');
+    container.innerHTML = '';
+
+    // Build letter spans in FORWARD order (so layout reads correctly)
+    const chars = TARGET_STRING.split('');
+    const spans = [];
+    chars.forEach((ch) => {
+      const span = document.createElement('span');
+      if (ch === ' ') {
+        span.className = 'inversion-letter space';
+        span.innerHTML = '&nbsp;';
+      } else {
+        span.className = 'inversion-letter';
+        span.textContent = ch;
+      }
+      container.appendChild(span);
+      spans.push(span);
+    });
+
+    // Compute position range for each word
+    // "please come back home" → please: 0–5, come: 7–10, back: 12–15, home: 17–20
+    const words = TARGET_STRING.split(' ');
+    const ranges = [];
+    let pos = 0;
+    words.forEach((word) => {
+      ranges.push({ start: pos, end: pos + word.length - 1 });
+      pos += word.length + 1; // +1 for the trailing space
+    });
+
+    // Custom reveal order — the shadow return teaching:
+    //   home     (destination named)
+    //   come     → "come home" — the invitation
+    //   please   → "please come home" — the plea
+    //   back     → "please come back home" — reveals the walker has been away
+    //
+    // The final word is "back." Before it appears, "please come home" sounds
+    // like a first arrival. When "back" arrives in the middle, the whole phrase
+    // re-means itself: the walker has been home before and left. "Back" compresses
+    // the entire shadow teaching into one syllable — you've been away, come return.
+    //
+    // words array: ['please', 'come', 'back', 'home'] at indices [0, 1, 2, 3]
+    const REVEAL_ORDER = [3, 1, 0, 2]; // home, come, please, back
+
+    let delay = 500;
+    REVEAL_ORDER.forEach((wIdx, stepIdx) => {
+      const range = ranges[wIdx];
+      for (let i = range.start; i <= range.end; i++) {
+        const span = spans[i];
+        const t = setTimeout(() => span.classList.add('visible'), delay);
+        STATE.timers.push(t);
+        delay += TIMING_INVERSION.letter;
+      }
+      // Breath after each completed word, except the last
+      if (stepIdx < REVEAL_ORDER.length - 1) {
+        delay += TIMING_INVERSION.wordGap;
+      }
+    });
+
+    // After all letters, long breath, then show hint
+    const tFinal = setTimeout(() => {
+      STATE.phase = 'inversion-complete';
+      STATE.revealComplete = true;
+      showHint('hold · walk through');
+    }, delay + TIMING_INVERSION.endBreath);
+    STATE.timers.push(tFinal);
+  }
+
+  // ============================================================
+  // ONE — the arrival after the mirror + inversion
+  // Reveals "ALL IS ONE" letter by letter.
+  // A · L · L · (space) · I · S · (space) · O · N · E
+  // ============================================================
+  const ONE_WORDS = ['ALL', 'IS', 'ONE'];
+
+  function revealOne() {
+    STATE.phase = 'one';
+    const label = $('one-label');
+    const word = $('one-word');
+    const whisper = $('one-whisper');
+    const door = $('soles-door');
+
+    // Build "ALL IS ONE" as letter spans with spaces between words
+    word.innerHTML = '';
+    const letterSpans = [];
+    ONE_WORDS.forEach((w, wi) => {
+      if (wi > 0) {
+        const sp = document.createElement('span');
+        sp.className = 'one-space';
+        sp.innerHTML = '&nbsp;';
+        word.appendChild(sp);
+      }
+      for (const ch of w) {
+        const letter = document.createElement('span');
+        letter.className = 'one-letter';
+        letter.textContent = ch;
+        word.appendChild(letter);
+        letterSpans.push(letter);
+      }
+    });
+
+    // Timing
+    const LETTER_DELAY = prefersReducedMotion ? 120 : 460;
+    const WORD_GAP     = prefersReducedMotion ? 260 : 900;
+    const labelDelay   = prefersReducedMotion ? 100 : 600;
+    const wordStart    = prefersReducedMotion ? 300 : 1400;
+
+    // Label fades in first
+    const tLabel = setTimeout(() => label.classList.add('visible'), labelDelay);
+    STATE.timers.push(tLabel);
+
+    // Reveal letters one at a time. Breathe between words.
+    let delay = wordStart;
+    let letterIdx = 0;
+    ONE_WORDS.forEach((w, wi) => {
+      for (let i = 0; i < w.length; i++) {
+        const span = letterSpans[letterIdx++];
+        const t = setTimeout(() => span.classList.add('visible'), delay);
+        STATE.timers.push(t);
+        delay += LETTER_DELAY;
+      }
+      // Breath after each completed word
+      if (wi < ONE_WORDS.length - 1) {
+        delay += WORD_GAP;
+      }
+    });
+
+    // Whisper fades in after the phrase has fully landed
+    const whisperDelay = delay + (prefersReducedMotion ? 300 : 1400);
+    const tWhisper = setTimeout(() => whisper.classList.add('visible'), whisperDelay);
+    STATE.timers.push(tWhisper);
+
+    // ─── THE PERMISSION — the release that opens the descent ───
+    // Call and response. Let → ALL... / Be → ALL...
+    // Verbs land first (the focus, the action). Frame lines complete them.
+    const permLet  = $('one-perm-let');
+    const permLine1 = $('one-perm-1');
+    const permBe   = $('one-perm-be');
+    const permLine2 = $('one-perm-2');
+
+    // Let arrives after whisper has settled
+    const letDelay = whisperDelay + (prefersReducedMotion ? 400 : 2800);
+    const tLet = setTimeout(() => permLet.classList.add('visible'), letDelay);
+    STATE.timers.push(tLet);
+
+    // ALL the Aspects... (first answer — what Let releases)
+    const line1Delay = letDelay + (prefersReducedMotion ? 500 : 3400);
+    const tLine1 = setTimeout(() => permLine1.classList.add('visible'), line1Delay);
+    STATE.timers.push(tLine1);
+
+    // Breath between clauses — the teaching pivot
+    // Be arrives
+    const beDelay = line1Delay + (prefersReducedMotion ? 600 : 4000);
+    const tBe = setTimeout(() => permBe.classList.add('visible'), beDelay);
+    STATE.timers.push(tBe);
+
+    // ALL the Aspects... (second answer — what Be restores)
+    const line2Delay = beDelay + (prefersReducedMotion ? 500 : 3400);
+    const tLine2 = setTimeout(() => permLine2.classList.add('visible'), line2Delay);
+    STATE.timers.push(tLine2);
+
+    // Soles door approaches after the full permission has landed and held.
+    const doorDelay = line2Delay + (prefersReducedMotion ? 400 : 3400);
+    const tDoor = setTimeout(() => door.classList.add('visible'), doorDelay);
+    STATE.timers.push(tDoor);
+
+    // ─── THE RESOLUTION ───
+    // Beacon approaches, holds briefly (walker sees it arrive from corridor depth),
+    // then the full-width band rises from below — the threshold becoming the ground.
+    // Beacon dims as band takes over, resolving the approach into the floor.
+    const band = $('soles-band');
+    const bandDelay = doorDelay + (prefersReducedMotion ? 500 : 5200);
+    const tBand = setTimeout(() => {
+      if (band) {
+        band.classList.add('risen');
+        band.setAttribute('aria-hidden', 'false');
+        band.setAttribute('tabindex', '0');
+      }
+    }, bandDelay);
+    STATE.timers.push(tBand);
+
+    // Beacon dims as band rises — the door resolves into ground
+    const dimDelay = bandDelay + (prefersReducedMotion ? 100 : 600);
+    const tDim = setTimeout(() => {
+      door.classList.add('dimming');
+      door.setAttribute('aria-hidden', 'true');
+      door.setAttribute('tabindex', '-1');
+    }, dimDelay);
+    STATE.timers.push(tDim);
+
+    // Mark phase as done after band fully rises
+    const tDone = setTimeout(() => {
+      STATE.phase = 'done';
+    }, bandDelay + (prefersReducedMotion ? 500 : 2400));
+    STATE.timers.push(tDone);
+  }
+
+  // ============================================================
+  // ADVANCE — the primary interaction
+  // ============================================================
+  function advance() {
+    // Prevent re-entry
+    if (STATE.phase === 'walking' || STATE.phase === 'crossing') return;
+    if (!STATE.revealComplete) return;
+
+    if (STATE.phase === 'arrival') {
+      // Walk into Scroll 1
+      STATE.phase = 'walking';
+      STATE.revealComplete = false;
+      hideHint();
+
+      const corridor = $('corridor');
+      const dust = $('dust-field');
+
+      fadeOutStage('stage-arrival', () => {
+        STATE.stepIndex = 1;
+        updateProgress();
+        renderScroll(1);
+        showStage('stage-scroll');
+      });
+
+      if (!prefersReducedMotion) {
+        corridor.classList.remove('walking', 'walking-long');
+        void corridor.offsetWidth;
+        corridor.classList.add('walking');
+        dust.classList.remove('walking');
+        void dust.offsetWidth;
+        dust.classList.add('walking');
+
+        const t = setTimeout(() => {
+          corridor.classList.remove('walking');
+          dust.classList.remove('walking');
+        }, 1850);
+        STATE.timers.push(t);
+      }
+      return;
+    }
+
+    if (STATE.phase === 'reading') {
+      if (STATE.stepIndex < LAST_SCROLL_INDEX) {
+        walkForward();
+      } else if (STATE.stepIndex === LAST_SCROLL_INDEX) {
+        // Last scroll is the writing scroll — walker uses the continue button,
+        // not swipe. But fall through in case of desktop keyboard advance.
+        walkToMirror();
+      }
+      return;
+    }
+
+    if (STATE.phase === 'mirror-complete') {
+      advanceToInversion();
+      return;
+    }
+
+    if (STATE.phase === 'inversion-complete') {
+      advanceToOne();
+      return;
+    }
+  }
+
+  // ============================================================
+  // INPUT — press-and-hold (touch + mouse), keyboard
+  // Each advance requires a deliberate 700ms hold.
+  // Movement during the hold cancels it — so scrolling the scroll
+  // card never accidentally advances the walker.
+  // No tap-to-advance. No swipe.
+  // ============================================================
+  const LONG_PRESS_MS = 700;
+  const MOVE_CANCEL_PX = 10;
+
+  let pressStart = null; // { x, y, target }
+  let pressTimer = null;
+
+  function isInteractiveTarget(el) {
+    if (!el || !el.tagName) return false;
+    const tag = el.tagName;
+    return tag === 'TEXTAREA' || tag === 'BUTTON' || tag === 'A' || tag === 'INPUT' || tag === 'SELECT';
+  }
+
+  function beginPress(clientX, clientY, target) {
+    // Don't activate on interactive elements
+    if (isInteractiveTarget(target)) return;
+    // Don't activate during writing (walker uses continue button)
+    if (STATE.phase === 'writing') return;
+    // Don't activate while content is still revealing
+    if (!STATE.revealComplete) return;
+    // Don't activate during active transitions
+    if (STATE.phase === 'walking' || STATE.phase === 'crossing') return;
+    // Don't activate during the inversion reveal itself (only after complete)
+    if (STATE.phase === 'inversion-reveal' || STATE.phase === 'mirror-reveal') return;
+
+    pressStart = { x: clientX, y: clientY, target };
+
+    const hint = $('advance-hint');
+    if (hint) hint.classList.add('pressing');
+
+    pressTimer = setTimeout(() => {
+      pressTimer = null;
+      if (hint) hint.classList.remove('pressing');
+      advance();
+    }, LONG_PRESS_MS);
+  }
+
+  function movePress(clientX, clientY) {
+    if (!pressStart || !pressTimer) return;
+    const dx = Math.abs(clientX - pressStart.x);
+    const dy = Math.abs(clientY - pressStart.y);
+    if (dx > MOVE_CANCEL_PX || dy > MOVE_CANCEL_PX) {
+      // Walker is scrolling or moving — cancel the hold
+      endPress();
+    }
+  }
+
+  function endPress() {
+    if (pressTimer) {
+      clearTimeout(pressTimer);
+      pressTimer = null;
+    }
+    const hint = $('advance-hint');
+    if (hint) hint.classList.remove('pressing');
+    pressStart = null;
+  }
+
+  function onTouchStart(e) {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    beginPress(t.clientX, t.clientY, e.target);
+  }
+
+  function onTouchMove(e) {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    movePress(t.clientX, t.clientY);
+  }
+
+  function onTouchEnd() {
+    endPress();
+  }
+
+  function onMouseDown(e) {
+    // Left button only
+    if (e.button !== 0) return;
+    beginPress(e.clientX, e.clientY, e.target);
+  }
+
+  function onMouseMove(e) {
+    movePress(e.clientX, e.clientY);
+  }
+
+  function onMouseUp() {
+    endPress();
+  }
+
+  function onKeyDown(e) {
+    // Ignore if textarea is focused
+    if (document.activeElement && document.activeElement.tagName === 'TEXTAREA') return;
+
+    if (e.key === ' ' || e.key === 'Enter' || e.key === 'ArrowUp' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (STATE.revealComplete && STATE.phase !== 'writing' &&
+          STATE.phase !== 'walking' && STATE.phase !== 'crossing') {
+        advance();
+      }
+    }
+  }
+
+  function onContextMenu(e) {
+    // Prevent the native long-press context menu from fighting our press-and-hold
+    if (!isInteractiveTarget(e.target)) {
+      e.preventDefault();
+    }
+  }
+
+  // ============================================================
+  // INIT
+  // ============================================================
+  function init() {
+    buildProgressDots();
+    buildDustMotes();
+    updateProgress();
+
+    // Touch
+    document.addEventListener('touchstart', onTouchStart, { passive: true });
+    document.addEventListener('touchmove', onTouchMove, { passive: true });
+    document.addEventListener('touchend', onTouchEnd, { passive: true });
+    document.addEventListener('touchcancel', onTouchEnd, { passive: true });
+
+    // Mouse (desktop)
+    document.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mouseleave', endPress);
+
+    // Keyboard
+    document.addEventListener('keydown', onKeyDown);
+
+    // Suppress long-press context menu on non-interactive elements
+    document.addEventListener('contextmenu', onContextMenu);
+
+    // Begin
+    startArrival();
+  }
+
+  function buildProgressDots() {
+    const container = $('progress');
+    if (!container) return;
+    container.innerHTML = '';
+    // arrival + N scrolls + mirror
+    const totalDots = 1 + LAST_SCROLL_INDEX + 1;
+    for (let i = 0; i < totalDots; i++) {
+      const dot = document.createElement('div');
+      const isMirror = (i === totalDots - 1);
+      dot.className = isMirror ? 'progress-dot mirror' : 'progress-dot';
+      dot.dataset.step = i;
+      container.appendChild(dot);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+  window.addEventListener('beforeunload', clearPageTimers);
+})();
+</script>
+
+</body>
+</html>
