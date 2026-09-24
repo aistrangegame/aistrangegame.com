@@ -2153,18 +2153,12 @@ body.lightbox-open { overflow: hidden; }
   }
 
   // ── ESSENCE GATE ──
-  if (!essenceCompleteLocal()) {
-    showEssenceGate();
-    return;
-  }
+  /* no gates (standing ruling): essence may personalise, never permit; nothing waits on earlier pages */
 
   // ── SEQUENTIAL FIRST-WALK GATE ──
   var THIS_CHAKRA = 'sahasrara';
   if (THIS_CHAKRA !== '__none__') {
-    if (!canAccessChakraLocal(THIS_CHAKRA)) {
-      showSequentialGate(THIS_CHAKRA);
-      return;
-    }
+    /* sequence gate removed */
   }
 
   function showEssenceGate() {
@@ -3677,5 +3671,7 @@ body.lightbox-open { overflow: hidden; }
 })();
 </script>
 
+<script>/* no gates (standing ruling): everything the page holds is shown from the start; writing still saves */
+(function(){function open(){["post-engagement","writing-reflection","story-invite"].forEach(function(id){var e=document.getElementById(id);if(e){e.classList.add("revealed");e.removeAttribute("aria-hidden")}});var p=document.getElementById("story-portal");if(p){p.dataset.unlockedOnce="1";p.classList.remove("locked");p.setAttribute("aria-disabled","false")}}open();addEventListener("DOMContentLoaded",open);addEventListener("load",open)})();</script>
 </body>
 </html>
