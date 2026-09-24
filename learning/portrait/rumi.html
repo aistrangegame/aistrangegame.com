@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Rumi — a portrait</title><meta name="description" content="A scholar&#x27;s son whose family fled west from Central Asia as a child became a respected jurist in Konya — until a wandering dervish named Shams arrived in 1244 and turned him into a poet."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Rumi — a portrait</title><meta name="description" content="A scholar&#x27;s son whose family fled west from Central Asia as a child became a respected jurist in Konya — until a wandering dervish named Shams arrived in 1244 and turned him into a poet."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap" rel="stylesheet">
+<style>
 /* gen_v2 · topic: Rumi · portrait/poet · pool deep → #d8867d */
 
 /* ============ BASE_CSS ============ */
@@ -84,7 +85,29 @@ body[data-room="silence"] .w::before{content:"";position:absolute;left:50%;top:5
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
-/* DOORS — kit/DOORS.css */
+/* MOVES — engine/moves.py: this page's own type instance and sigil */
+body[data-move] h1,body[data-move] h2{font-family:'Fraunces',var(--serif);font-optical-sizing:auto;
+  font-variation-settings:"SOFT" var(--soft,50),"WONK" var(--wonk,0);font-weight:var(--tw,420);text-wrap:balance}
+body[data-title="grand"] section.step:first-of-type h1{font-size:clamp(36px,10.4vw,58px);line-height:1.04;letter-spacing:-.018em;font-weight:calc(var(--tw,420) + 80)}
+body[data-title="lean"] section.step:first-of-type h1{font-style:italic;font-weight:calc(var(--tw,420) - 110);letter-spacing:-.01em}
+.sigil-wrap{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+/* COVER: the page opens on its own mark, centred behind the title; by a sixth of the way in it has drifted to its corner */
+.sigil{--k:min(1, var(--p,0) * 6);position:absolute;width:min(150vmin,1100px);aspect-ratio:1;
+  left:calc(50% + (var(--sxn) - 50) * 1% * var(--k));top:calc(46% + (var(--syn) - 46) * 1% * var(--k));
+  color:var(--actext,var(--ac));opacity:calc(var(--so,.13) * (2.1 - 1.1 * var(--k)));
+  transition:left 1.6s cubic-bezier(.22,1,.36,1),top 1.6s cubic-bezier(.22,1,.36,1),opacity 1.6s ease,transform 1.6s cubic-bezier(.22,1,.36,1);
+  transform:translate(-50%,-50%) rotate(calc(var(--s0,0) * 1deg + var(--p,0) * var(--spin,0) * 1deg))}
+.sigil svg{width:100%;height:100%;overflow:visible;display:block}
+.sigil *{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke}
+.sigil .b{stroke-width:1.6}
+body[data-move] .fig,body[data-move] .step{overflow-x:clip}
+body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-area-inset-bottom,0px))}   /* audit: the 'you' line label sat on the hint */   /* audit: a fixed figure wider than the screen made the page scroll sideways */
+/* audit: Design drew for 390x800; on shorter or narrower phones the reading column keeps its proportions, a little smaller */
+@media (max-height:780px),(max-width:374px){body[data-move] .step .piece{zoom:.93}}
+@media (max-height:700px){body[data-move] .step .piece{zoom:.86}}
+@media (prefers-reduced-motion:reduce){.sigil{transition:none}}
+</style><style id="taps">/* taps: nav links reach 44px without moving (engine/moves.py) */
+.top a,.nav a,.foot a{--tp:calc(13px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}nav.tabs a,.scope button{box-sizing:border-box;min-height:44px}.links a{display:inline-flex;align-items:center;box-sizing:border-box;min-height:calc(44px / var(--fz,1))}.src a{display:inline-block;--tp:calc(12px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}/* DOORS — kit/DOORS.css */
 .door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
 .door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
   padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
@@ -110,8 +133,9 @@ body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
 </style></head>
-<body data-seed="0.6173" class="light" data-variant="sage" data-room="none" style="--from:.86">
+<body data-move="1" data-title="lean" data-seed="0.6173" class="light" data-variant="sage" data-room="none" style="--from:.86;--soft:34;--wonk:0;--tw:464">
 <div class="w" id="w" aria-hidden="true"></div>
+<div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:88;--syn:14;--s0:153;--spin:64;--so:0.218"><svg viewBox="-100 -100 200 200"><line x1="90.0" y1="0.0" x2="45.0" y2="77.9"/><line x1="90.0" y1="0.0" x2="-45.0" y2="77.9"/><line x1="45.0" y1="77.9" x2="-45.0" y2="77.9"/><line x1="45.0" y1="77.9" x2="-90.0" y2="0.0"/><line x1="-45.0" y1="77.9" x2="-90.0" y2="0.0"/><line x1="-45.0" y1="77.9" x2="-45.0" y2="-77.9"/><line x1="-90.0" y1="0.0" x2="-45.0" y2="-77.9"/><line x1="-90.0" y1="0.0" x2="45.0" y2="-77.9"/><line x1="-45.0" y1="-77.9" x2="45.0" y2="-77.9"/><line x1="-45.0" y1="-77.9" x2="90.0" y2="0.0"/><line x1="45.0" y1="-77.9" x2="90.0" y2="0.0"/><line x1="45.0" y1="-77.9" x2="45.0" y2="77.9"/><circle r="90" class="b"/></svg></div></div>
 <div class="fig" id="fig">
   <svg viewBox="0 0 520 56" aria-hidden="true">
     <line id="life" x1="40" y1="14" x2="480" y2="14"/>
@@ -182,4 +206,6 @@ function drop(e){if(!dragging)return;dragging=false;pt.classList.remove('grab');
  if(target){scrollTo({top:target.offsetTop,behavior:'instant'});sync()}}
 grip.addEventListener('pointerup',drop);grip.addEventListener('pointercancel',()=>{dragging=false;pt.classList.remove('grab')});
 })();</script>
+<script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
+(function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p),z=parseFloat(cs.zoom)||1;p.style.setProperty("--fz",z);var cs2=p.querySelectorAll("a[href],button,[data-choose],[data-done],[data-jump],[role=button]");function taps(){cs2.forEach(function(b){b.style.removeProperty("min-height");if(z>=1)return;var k=getComputedStyle(b);if(k.display==="inline")return;var e=k.boxSizing==="border-box"?0:parseFloat(k.paddingTop)+parseFloat(k.paddingBottom)+parseFloat(k.borderTopWidth)+parseFloat(k.borderBottomWidth);if(b.getBoundingClientRect().height<44)b.style.minHeight=(Math.ceil(44.5/z)-e)+"px"})}taps();if(cs.overflowY!=="visible"||!s.offsetHeight)return;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z;p.style.setProperty("--fz",z);taps()}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
 </body></html>

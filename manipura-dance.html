@@ -205,7 +205,8 @@ function ambientCrackle(totalBurnHeat){if(totalBurnHeat>100&&Math.random()<0.05)
 const cvs=document.getElementById('c');
 const ctx=cvs.getContext('2d');
 let W,HT,cx,cy,maxR,dpr;
-function resize(){dpr=window.devicePixelRatio||1;W=window.innerWidth;HT=window.innerHeight;cvs.width=W*dpr;cvs.height=HT*dpr;cvs.style.width=W+'px';cvs.style.height=HT+'px';ctx.setTransform(dpr,0,0,dpr,0,0);cx=W/2;cy=HT/2;maxR=Math.min(W,HT)*0.475;resizeBmScaled()}
+var bmReady=false;
+function resize(){dpr=window.devicePixelRatio||1;W=window.innerWidth;HT=window.innerHeight;cvs.width=W*dpr;cvs.height=HT*dpr;cvs.style.width=W+'px';cvs.style.height=HT+'px';ctx.setTransform(dpr,0,0,dpr,0,0);cx=W/2;cy=HT/2;maxR=Math.min(W,HT)*0.475;if(bmReady)resizeBmScaled()}   /* fix: resize() ran before bmScaled existed (TDZ) */
 resize();window.addEventListener('resize',resize);
 
 let hi=0,started=false,bloom=0,userWord='',wakeLock=null;
@@ -260,6 +261,7 @@ const bmCtx=bmCvs.getContext('2d');
 const bmScaled=document.createElement('canvas');
 const bmScaledCtx=bmScaled.getContext('2d');
 function resizeBmScaled(){bmScaled.width=W;bmScaled.height=HT;bmScaledCtx.imageSmoothingEnabled=true;bmScaledCtx.webkitImageSmoothingEnabled=true;bmScaledCtx.imageSmoothingQuality='high'}
+bmReady=true;resizeBmScaled();
 
 function renderBurnMap(){
   const imgData=bmCtx.createImageData(BM_COLS,BM_ROWS);const px=imgData.data;

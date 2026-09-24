@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Helpful Things to Say — a teaching</title><meta name="description" content="To someone who’s struggling"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Helpful Things to Say — a teaching</title><meta name="description" content="To someone who’s struggling"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap" rel="stylesheet">
+<style>
 /* gen_v2 · topic: 7. Helpful Things to Say · teaching/relationship · pool all → #e09258 */
 
 /* ============ BASE_CSS — kit/BASE.css ============
@@ -184,7 +185,30 @@ body[data-inphase="1"] .you .wave{stroke-width:3}
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
-/* DOORS — kit/DOORS.css */
+/* MOVES — engine/moves.py: this page's own type instance and sigil */
+body[data-move] h1,body[data-move] h2{font-family:'Fraunces',var(--serif);font-optical-sizing:auto;
+  font-variation-settings:"SOFT" var(--soft,50),"WONK" var(--wonk,0);font-weight:var(--tw,420);text-wrap:balance}
+body[data-title="grand"] section.step:first-of-type h1{font-size:clamp(36px,10.4vw,58px);line-height:1.04;letter-spacing:-.018em;font-weight:calc(var(--tw,420) + 80)}
+body[data-title="lean"] section.step:first-of-type h1{font-style:italic;font-weight:calc(var(--tw,420) - 110);letter-spacing:-.01em}
+.sigil-wrap{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+/* COVER: the page opens on its own mark, centred behind the title; by a sixth of the way in it has drifted to its corner */
+.sigil{--k:min(1, var(--p,0) * 6);position:absolute;width:min(150vmin,1100px);aspect-ratio:1;
+  left:calc(50% + (var(--sxn) - 50) * 1% * var(--k));top:calc(46% + (var(--syn) - 46) * 1% * var(--k));
+  color:var(--actext,var(--ac));opacity:calc(var(--so,.13) * (2.1 - 1.1 * var(--k)));
+  transition:left 1.6s cubic-bezier(.22,1,.36,1),top 1.6s cubic-bezier(.22,1,.36,1),opacity 1.6s ease,transform 1.6s cubic-bezier(.22,1,.36,1);
+  transform:translate(-50%,-50%) rotate(calc(var(--s0,0) * 1deg + var(--p,0) * var(--spin,0) * 1deg))}
+.sigil svg{width:100%;height:100%;overflow:visible;display:block}
+.sigil *{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke}
+.sigil .b{stroke-width:1.6}
+body[data-move] .fig,body[data-move] .step{overflow-x:clip}
+body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-area-inset-bottom,0px))}   /* audit: the 'you' line label sat on the hint */   /* audit: a fixed figure wider than the screen made the page scroll sideways */
+/* audit: Design drew for 390x800; on shorter or narrower phones the reading column keeps its proportions, a little smaller */
+@media (max-height:780px),(max-width:374px){body[data-move] .step .piece{zoom:.93}}
+@media (max-height:700px){body[data-move] .step .piece{zoom:.86}}
+@media (prefers-reduced-motion:reduce){.sigil{transition:none}}
+.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
+</style><style id="taps">/* taps: nav links reach 44px without moving (engine/moves.py) */
+.top a,.nav a,.foot a{--tp:calc(13px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}nav.tabs a,.scope button{box-sizing:border-box;min-height:44px}.links a{display:inline-flex;align-items:center;box-sizing:border-box;min-height:calc(44px / var(--fz,1))}.src a{display:inline-block;--tp:calc(12px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}/* DOORS — kit/DOORS.css */
 .door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
 .door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
   padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
@@ -209,10 +233,10 @@ body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
-.care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
 </style></head>
-<body class="dark" data-form="teaching" data-variant="relationship" data-seed="0.6256" style="--from:1">
+<body data-move="1" data-title="classic" class="dark" data-form="teaching" data-variant="relationship" data-seed="0.6256" style="--from:1;--soft:85;--wonk:0;--tw:365">
 <div class="w" id="w" aria-hidden="true"></div>
+<div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:10;--syn:86;--s0:143;--spin:0;--so:0.128"><svg viewBox="-100 -100 200 200"><circle cx="4.8" cy="12.6" r="18.8"/><circle cx="3.8" cy="10.1" r="37.6" class="b"/><circle cx="2.9" cy="7.6" r="56.4"/><circle cx="1.9" cy="5.0" r="75.2"/><circle cx="1.0" cy="2.5" r="94.0"/></svg></div></div>
 <div class="fig attune" id="fig" aria-hidden="true"><svg viewBox="0 -60 720 120" preserveAspectRatio="xMinYMid slice">
 <g transform="translate(0,-18)"><g class="them drift"><path class="wave" d="M0 0 L0 0.0 L10 -4.1 L20 -8.0 L30 -11.3 L40 -13.9 L50 -15.5 L60 -16.0 L70 -15.5 L80 -13.9 L90 -11.3 L100 -8.0 L110 -4.1 L120 -0.0 L130 4.1 L140 8.0 L150 11.3 L160 13.9 L170 15.5 L180 16.0 L190 15.5 L200 13.9 L210 11.3 L220 8.0 L230 4.1 L240 0.0 L250 -4.1 L260 -8.0 L270 -11.3 L280 -13.9 L290 -15.5 L300 -16.0 L310 -15.5 L320 -13.9 L330 -11.3 L340 -8.0 L350 -4.1 L360 -0.0 L370 4.1 L380 8.0 L390 11.3 L400 13.9 L410 15.5 L420 16.0 L430 15.5 L440 13.9 L450 11.3 L460 8.0 L470 4.1 L480 0.0 L490 -4.1 L500 -8.0 L510 -11.3 L520 -13.9 L530 -15.5 L540 -16.0 L550 -15.5 L560 -13.9 L570 -11.3 L580 -8.0 L590 -4.1 L600 -0.0 L610 4.1 L620 8.0 L630 11.3 L640 13.9 L650 15.5 L660 16.0 L670 15.5 L680 13.9 L690 11.3 L700 8.0 L710 4.1 L720 0.0 L730 -4.1 L740 -8.0 L750 -11.3 L760 -13.9 L770 -15.5 L780 -16.0 L790 -15.5 L800 -13.9 L810 -11.3 L820 -8.0 L830 -4.1 L840 -0.0 L850 4.1 L860 8.0 L870 11.3 L880 13.9 L890 15.5 L900 16.0 L910 15.5 L920 13.9 L930 11.3 L940 8.0 L950 4.1 L960 0.0 L970 -4.1 L980 -8.0 L990 -11.3 L1000 -13.9 L1010 -15.5 L1020 -16.0 L1030 -15.5 L1040 -13.9 L1050 -11.3 L1060 -8.0 L1070 -4.1 L1080 -0.0 L1090 4.1 L1100 8.0 L1110 11.3 L1120 13.9 L1130 15.5 L1140 16.0 L1150 15.5 L1160 13.9 L1170 11.3 L1180 8.0 L1190 4.1 L1200 0.0 L1210 -4.1 L1220 -8.0 L1230 -11.3 L1240 -13.9 L1250 -15.5 L1260 -16.0 L1270 -15.5 L1280 -13.9 L1290 -11.3 L1300 -8.0 L1310 -4.1 L1320 -0.0 L1330 4.1 L1340 8.0 L1350 11.3 L1360 13.9 L1370 15.5 L1380 16.0 L1390 15.5 L1400 13.9 L1410 11.3 L1420 8.0 L1430 4.1 L1440 0.0"/></g></g>
 <g transform="translate(0,18)"><g class="you drift" id="you"><path class="wave" d="M0 0 L0 0.0 L10 -4.1 L20 -8.0 L30 -11.3 L40 -13.9 L50 -15.5 L60 -16.0 L70 -15.5 L80 -13.9 L90 -11.3 L100 -8.0 L110 -4.1 L120 -0.0 L130 4.1 L140 8.0 L150 11.3 L160 13.9 L170 15.5 L180 16.0 L190 15.5 L200 13.9 L210 11.3 L220 8.0 L230 4.1 L240 0.0 L250 -4.1 L260 -8.0 L270 -11.3 L280 -13.9 L290 -15.5 L300 -16.0 L310 -15.5 L320 -13.9 L330 -11.3 L340 -8.0 L350 -4.1 L360 -0.0 L370 4.1 L380 8.0 L390 11.3 L400 13.9 L410 15.5 L420 16.0 L430 15.5 L440 13.9 L450 11.3 L460 8.0 L470 4.1 L480 0.0 L490 -4.1 L500 -8.0 L510 -11.3 L520 -13.9 L530 -15.5 L540 -16.0 L550 -15.5 L560 -13.9 L570 -11.3 L580 -8.0 L590 -4.1 L600 -0.0 L610 4.1 L620 8.0 L630 11.3 L640 13.9 L650 15.5 L660 16.0 L670 15.5 L680 13.9 L690 11.3 L700 8.0 L710 4.1 L720 0.0 L730 -4.1 L740 -8.0 L750 -11.3 L760 -13.9 L770 -15.5 L780 -16.0 L790 -15.5 L800 -13.9 L810 -11.3 L820 -8.0 L830 -4.1 L840 -0.0 L850 4.1 L860 8.0 L870 11.3 L880 13.9 L890 15.5 L900 16.0 L910 15.5 L920 13.9 L930 11.3 L940 8.0 L950 4.1 L960 0.0 L970 -4.1 L980 -8.0 L990 -11.3 L1000 -13.9 L1010 -15.5 L1020 -16.0 L1030 -15.5 L1040 -13.9 L1050 -11.3 L1060 -8.0 L1070 -4.1 L1080 -0.0 L1090 4.1 L1100 8.0 L1110 11.3 L1120 13.9 L1130 15.5 L1140 16.0 L1150 15.5 L1160 13.9 L1170 11.3 L1180 8.0 L1190 4.1 L1200 0.0 L1210 -4.1 L1220 -8.0 L1230 -11.3 L1240 -13.9 L1250 -15.5 L1260 -16.0 L1270 -15.5 L1280 -13.9 L1290 -11.3 L1300 -8.0 L1310 -4.1 L1320 -0.0 L1330 4.1 L1340 8.0 L1350 11.3 L1360 13.9 L1370 15.5 L1380 16.0 L1390 15.5 L1400 13.9 L1410 11.3 L1420 8.0 L1430 4.1 L1440 0.0"/></g></g>
@@ -346,4 +370,6 @@ if(RK){
   });
 }
 })();</script>
+<script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
+(function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p),z=parseFloat(cs.zoom)||1;p.style.setProperty("--fz",z);var cs2=p.querySelectorAll("a[href],button,[data-choose],[data-done],[data-jump],[role=button]");function taps(){cs2.forEach(function(b){b.style.removeProperty("min-height");if(z>=1)return;var k=getComputedStyle(b);if(k.display==="inline")return;var e=k.boxSizing==="border-box"?0:parseFloat(k.paddingTop)+parseFloat(k.paddingBottom)+parseFloat(k.borderTopWidth)+parseFloat(k.borderBottomWidth);if(b.getBoundingClientRect().height<44)b.style.minHeight=(Math.ceil(44.5/z)-e)+"px"})}taps();if(cs.overflowY!=="visible"||!s.offsetHeight)return;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z;p.style.setProperty("--fz",z);taps()}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
 </body></html>
