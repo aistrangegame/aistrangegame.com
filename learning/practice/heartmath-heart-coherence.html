@@ -111,7 +111,8 @@ body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-ar
 @media (max-height:780px),(max-width:374px){body[data-move] .step .piece{zoom:.93}}
 @media (max-height:700px){body[data-move] .step .piece{zoom:.86}}
 @media (prefers-reduced-motion:reduce){.sigil{transition:none}}
-/* DOORS — kit/DOORS.css */
+</style><style id="taps">/* taps: nav links reach 44px without moving (engine/moves.py) */
+.top a,.nav a,.foot a{--tp:calc(13px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}nav.tabs a{box-sizing:border-box;min-height:44px}.links a{display:inline-flex;align-items:center;box-sizing:border-box;min-height:calc(44px / var(--fz,1))}.src a{display:inline-block;--tp:calc(12px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}/* DOORS — kit/DOORS.css */
 .door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
 .door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
   padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
@@ -209,5 +210,5 @@ hold.addEventListener('pointerdown',down);addEventListener('pointerup',up);addEv
 hold.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();down()}});
 hold.addEventListener('keyup',e=>{if(e.key===' '||e.key==='Enter')up()});})();</script>
 <script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
-(function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p);if(cs.overflowY!=="visible"||!s.offsetHeight)return;var z=parseFloat(cs.zoom)||1;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
+(function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p),z=parseFloat(cs.zoom)||1;p.style.setProperty("--fz",z);if(cs.overflowY!=="visible"||!s.offsetHeight)return;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z;p.style.setProperty("--fz",z)}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
 </body></html>

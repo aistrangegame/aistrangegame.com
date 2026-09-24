@@ -37,7 +37,8 @@ h1{font-weight:400;font-size:clamp(34px,9vw,54px);margin:14px 0 10px}
 .e b{display:block;font-weight:400;font-size:18px} .e span{display:block;font-family:var(--sans);font-size:12px;color:var(--muted);margin-top:2px}
 .e .pos{position:absolute;right:12px;top:10px;font-family:var(--sans);font-size:11px;color:var(--muted)}
 @media (prefers-reduced-motion: reduce){.die .pip,.die.rolling .pip{animation:none}.pick{transition:none}}
-</style></head><body>
+</style><style id="taps">/* taps: nav links reach 44px without moving (engine/moves.py) */
+.top a,.nav a,.foot a{--tp:calc(13px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}nav.tabs a{box-sizing:border-box;min-height:44px}.links a{display:inline-flex;align-items:center;box-sizing:border-box;min-height:calc(44px / var(--fz,1))}.src a{display:inline-block;--tp:calc(12px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}</style></head><body>
 <div class="top"><a href="/">← aistrangegame.com</a><a href="/guide/">the guidebook</a></div>
 <section class="door">
   <div class="kicker">The Door</div>
