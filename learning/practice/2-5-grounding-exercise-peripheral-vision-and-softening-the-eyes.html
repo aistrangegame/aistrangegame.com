@@ -142,10 +142,33 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
    moving the chrome (negative margin absorbs the extra height). */
 .top a{display:inline-flex;align-items:center;min-height:44px;margin:-13px 0}
 .links a,.nav a,.src a{display:inline-flex;align-items:center;min-height:44px}
+/* MOVES — engine/moves.py: this page's own type instance and sigil */
+body[data-move] h1,body[data-move] h2{font-family:'Fraunces',var(--serif);font-optical-sizing:auto;
+  font-variation-settings:"SOFT" var(--soft,50),"WONK" var(--wonk,0);font-weight:var(--tw,420);text-wrap:balance}
+body[data-title="grand"] section.step:first-of-type h1{font-size:clamp(36px,10.4vw,58px);line-height:1.04;letter-spacing:-.018em;font-weight:calc(var(--tw,420) + 80)}
+body[data-title="lean"] section.step:first-of-type h1{font-style:italic;font-weight:calc(var(--tw,420) - 110);letter-spacing:-.01em}
+.sigil-wrap{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+/* COVER: the page opens on its own mark, centred behind the title; by a sixth of the way in it has drifted to its corner */
+.sigil{--k:min(1, var(--p,0) * 6);position:absolute;width:min(150vmin,1100px);aspect-ratio:1;
+  left:calc(50% + (var(--sxn) - 50) * 1% * var(--k));top:calc(46% + (var(--syn) - 46) * 1% * var(--k));
+  color:var(--actext,var(--ac));opacity:calc(var(--so,.13) * (2.1 - 1.1 * var(--k)));
+  transition:left 1.6s cubic-bezier(.22,1,.36,1),top 1.6s cubic-bezier(.22,1,.36,1),opacity 1.6s ease,transform 1.6s cubic-bezier(.22,1,.36,1);
+  transform:translate(-50%,-50%) rotate(calc(var(--s0,0) * 1deg + var(--p,0) * var(--spin,0) * 1deg))}
+.sigil svg{width:100%;height:100%;overflow:visible;display:block}
+.sigil *{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke}
+.sigil .b{stroke-width:1.6}
+body[data-move] .fig,body[data-move] .step{overflow-x:clip}
+body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-area-inset-bottom,0px))}   /* audit: the 'you' line label sat on the hint */   /* audit: a fixed figure wider than the screen made the page scroll sideways */
+/* audit: Design drew for 390x800; on shorter or narrower phones the reading column keeps its proportions, a little smaller */
+@media (max-height:780px),(max-width:374px){body[data-move] .step .piece{zoom:.93}}
+@media (max-height:700px){body[data-move] .step .piece{zoom:.86}}
+@media (prefers-reduced-motion:reduce){.sigil{transition:none}}
 .care{max-width:30em;margin:0 auto;padding-top:16px;border-top:1px solid color-mix(in oklab,currentColor 28%,transparent);font-family:var(--sans,system-ui,sans-serif);font-size:15px;line-height:1.6;color:var(--ink);text-align:center;text-wrap:pretty}
-</style></head>
-<body class="dark" data-variant="senses" data-form="practice" data-seed="0.0343" style="--from:1">
+</style><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap" rel="stylesheet">
+</head>
+<body data-move="1" data-title="lean" class="dark" data-variant="senses" data-form="practice" data-seed="0.0343" style="--from:1;--soft:97;--wonk:0;--tw:378">
 <div class="w" id="w" aria-hidden="true"></div>
+<div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:88;--syn:14;--s0:296;--spin:0;--so:0.145"><svg viewBox="-100 -100 200 200"><circle cx="-11.3" cy="9.8" r="13.4"/><circle cx="-9.7" cy="8.4" r="26.9" class="b"/><circle cx="-8.1" cy="7.0" r="40.3"/><circle cx="-6.5" cy="5.6" r="53.7"/><circle cx="-4.9" cy="4.2" r="67.1"/><circle cx="-3.2" cy="2.8" r="80.6"/><circle cx="-1.6" cy="1.4" r="94.0"/></svg></div></div>
 
 <div class="top"><a href="/learning/">← Learning</a><span>Practice card</span></div>
 <section class="step" ><div class="piece"><h1>Softening the Eyes</h1><p class="sub">A practice card</p><p class="sum" style="margin-top:22px">Letting your gaze go soft and wide instead of sharp and narrow, so you notice what's at the edges of your vision, not just what's ahead.</p></div></section>

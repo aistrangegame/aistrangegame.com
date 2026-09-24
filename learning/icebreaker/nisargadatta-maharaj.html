@@ -96,34 +96,32 @@ body.still *,body.still *::before,body.still *::after{animation-play-state:pause
 .asklist li.handed::after{opacity:1}
 .term{padding-left:14px;border-left:1px solid var(--faint)}
 .term b{color:var(--actext)}
-/* DOORS — kit/DOORS.css */
-.door{margin-top:26px;padding-top:18px;border-top:1px solid var(--faint)}
-.door a{display:grid;grid-template-columns:52px 1fr auto;gap:14px;align-items:center;min-height:64px;
-  padding:10px 14px 10px 10px;border-radius:14px;border:1px solid var(--faint);background:var(--card);
-  color:var(--ink);transition:border-color .5s ease,transform .5s cubic-bezier(.22,1,.36,1)}
-.door a:hover,.door a:focus-visible{border-color:var(--to);transform:translateX(3px);outline:none}
-.door a:focus-visible{box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--to)}
-.dg{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 0 0 1.5px var(--ac);background:radial-gradient(circle, color-mix(in oklab, var(--to) 20%, transparent), transparent 70%)}
-.dg svg{width:36px;height:36px;overflow:visible}
-.dg svg *{fill:none;stroke:var(--to);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
-.dg svg .s{fill:var(--to);stroke:none}
-.dg svg .dim{opacity:.6}
-.dt{display:flex;flex-direction:column;gap:3px;min-width:0}
-.dk{font-family:var(--sans);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
-.dn{font-size:16.5px;line-height:1.35;text-wrap:pretty}
-.da{font-family:var(--sans);font-size:15px;color:var(--muted)}
-.page .door{border-top-color:rgba(34,29,24,.16)}
-.page .door a{background:rgba(255,255,255,.35);border-color:rgba(34,29,24,.16);color:var(--paperink,#221D18)}
-.page .dk,.page .da{color:rgba(34,29,24,.7)}
-/* the handover: the world leans toward the next page's accent */
-.w::before{content:"";position:absolute;inset:0;background:var(--handto,transparent);opacity:0;transition:opacity .55s ease;z-index:3}
-body.leaving .w::before{opacity:.55}
-body.leaving .piece{opacity:.2;transition:opacity .5s ease}
-@media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
-</style></head>
-<body data-seed="0.7525" class="light" data-variant="any" style="--from:1">
+/* MOVES — engine/moves.py: this page's own type instance and sigil */
+body[data-move] h1,body[data-move] h2{font-family:'Fraunces',var(--serif);font-optical-sizing:auto;
+  font-variation-settings:"SOFT" var(--soft,50),"WONK" var(--wonk,0);font-weight:var(--tw,420);text-wrap:balance}
+body[data-title="grand"] section.step:first-of-type h1{font-size:clamp(36px,10.4vw,58px);line-height:1.04;letter-spacing:-.018em;font-weight:calc(var(--tw,420) + 80)}
+body[data-title="lean"] section.step:first-of-type h1{font-style:italic;font-weight:calc(var(--tw,420) - 110);letter-spacing:-.01em}
+.sigil-wrap{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+/* COVER: the page opens on its own mark, centred behind the title; by a sixth of the way in it has drifted to its corner */
+.sigil{--k:min(1, var(--p,0) * 6);position:absolute;width:min(150vmin,1100px);aspect-ratio:1;
+  left:calc(50% + (var(--sxn) - 50) * 1% * var(--k));top:calc(46% + (var(--syn) - 46) * 1% * var(--k));
+  color:var(--actext,var(--ac));opacity:calc(var(--so,.13) * (2.1 - 1.1 * var(--k)));
+  transition:left 1.6s cubic-bezier(.22,1,.36,1),top 1.6s cubic-bezier(.22,1,.36,1),opacity 1.6s ease,transform 1.6s cubic-bezier(.22,1,.36,1);
+  transform:translate(-50%,-50%) rotate(calc(var(--s0,0) * 1deg + var(--p,0) * var(--spin,0) * 1deg))}
+.sigil svg{width:100%;height:100%;overflow:visible;display:block}
+.sigil *{fill:none;stroke:currentColor;stroke-width:1;vector-effect:non-scaling-stroke}
+.sigil .b{stroke-width:1.6}
+body[data-move] .fig,body[data-move] .step{overflow-x:clip}
+body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-area-inset-bottom,0px))}   /* audit: the 'you' line label sat on the hint */   /* audit: a fixed figure wider than the screen made the page scroll sideways */
+/* audit: Design drew for 390x800; on shorter or narrower phones the reading column keeps its proportions, a little smaller */
+@media (max-height:780px),(max-width:374px){body[data-move] .step .piece{zoom:.93}}
+@media (max-height:700px){body[data-move] .step .piece{zoom:.86}}
+@media (prefers-reduced-motion:reduce){.sigil{transition:none}}
+</style><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&display=swap" rel="stylesheet">
+</head>
+<body data-move="1" data-title="lean" data-seed="0.7525" class="light" data-variant="any" style="--from:1;--soft:25;--wonk:0;--tw:449">
 <div class="w" id="w" aria-hidden="true"></div>
+<div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:92;--syn:84;--s0:291;--spin:60;--so:0.184"><svg viewBox="-100 -100 200 200"><ellipse rx="92" ry="50.0" transform="rotate(0.0)" class="b"/><ellipse rx="92" ry="50.0" transform="rotate(20.0)"/><ellipse rx="92" ry="50.0" transform="rotate(40.0)"/><ellipse rx="92" ry="50.0" transform="rotate(60.0)"/><ellipse rx="92" ry="50.0" transform="rotate(80.0)"/><ellipse rx="92" ry="50.0" transform="rotate(100.0)"/><ellipse rx="92" ry="50.0" transform="rotate(120.0)"/><ellipse rx="92" ry="50.0" transform="rotate(140.0)"/><ellipse rx="92" ry="50.0" transform="rotate(160.0)"/><circle r="5"/></svg></div></div>
 <div class="fig" id="fig" aria-hidden="true"></div>
 <div class="top"><a href="../index.html">← Learning</a><span>Icebreaker</span></div>
 
