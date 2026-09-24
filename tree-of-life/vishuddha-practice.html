@@ -1,0 +1,3527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Vishuddha · SPEAK · 6 / 33</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   VISHUDDHA · The Throat · 6 / 33
+   Energy Chakra template · cream ground · blue accent
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Cream palette — Energy Chakra standard */
+  --cream: #fdfbf5;
+  --bg: #f5f2ec;
+  --bg-warm: #ede8df;
+  --gold: #C9A84C;
+  --text: #1a1a1a;
+  --text-secondary: #4a4a4a;
+  --text-muted: #8a8a8a;
+  --text-whisper: rgba(26,26,26,0.35);
+  --border: rgba(0,0,0,0.07);
+
+  /* Vishuddha — deep blue on cream */
+  --chakra: #1A38B0;
+  --chakra-bright: #2244CC;       /* brighter blue, used for interactive glows on dark scene */
+  --chakra-glow: #2980B9;          /* cobalt bright blue, Panel 5 interactive counter-glow */
+  --chakra-tint: rgba(26,56,176,0.05);
+  --chakra-border: rgba(26,56,176,0.18);
+  --chakra-soft: rgba(26,56,176,0.35);
+
+  /* Story Mode scene — dark-blue immersive */
+  --scene-deep: #0E2840;
+  --scene-mid: #18426C;
+  --scene-light: #2E6B9E;
+  --scene-warm: #F0F5FF;
+  --scene-text: #F0F5FF;
+  --scene-text-soft: rgba(240,245,255,0.7);
+  --scene-text-whisper: rgba(240,245,255,0.4);
+
+  /* Threshold — to Ajna */
+  --next-color: #6B2EBF;           /* Ajna deep violet brightened for dark scene */
+  --next-glow: rgba(107,46,191,0.55);
+  --threshold-top: 50%;            /* HAM glyph is at scene-center; next-point rises there */
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--cream);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body.story-open {
+  overflow: hidden;
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════ */
+
+.hero {
+  min-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 28px 32px;
+  text-align: center;
+  position: relative;
+}
+
+.hero-top-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 28px 36px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+}
+.hero-top-nav a {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.hero-top-nav a:hover { color: var(--chakra); }
+
+.hero-count {
+  font: 500 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fadeUp 0.7s ease 0.3s forwards;
+}
+
+.hero-verb {
+  font: 300 clamp(5.5rem, 18vw, 9rem)/0.95 'Lora', serif;
+  font-style: italic;
+  color: var(--chakra);
+  margin: 36px 0 28px;
+  letter-spacing: -0.02em;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroVerb 0.9s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+}
+
+.hero-threshold {
+  font: italic 400 1.0625rem/1.7 'Lora', serif;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  opacity: 0;
+  animation: fadeUp 0.7s ease 1s forwards;
+}
+
+.hero-scroll {
+  margin-top: 48px;
+  font: 400 0.75rem/1 'DM Sans', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fadeUp 0.7s ease 1.5s forwards;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-scroll-arrow {
+  width: 1px;
+  height: 28px;
+  background: var(--text-muted);
+  opacity: 0.5;
+  animation: scrollHint 2.6s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroVerb {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollHint {
+  0%, 100% { transform: scaleY(0.6); opacity: 0.3; }
+  50% { transform: scaleY(1); opacity: 0.75; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════════════════════════════════ */
+
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--chakra);
+  z-index: 100;
+  transition: width 0.15s linear;
+  box-shadow: 0 0 8px var(--chakra-soft);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CONTENT WRAPPER
+   ═══════════════════════════════════════════════════════════ */
+
+.content-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+@media (max-width: 640px) {
+  .content-wrap {
+    padding: 0 24px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   IDENTITY BLOCK
+   ═══════════════════════════════════════════════════════════ */
+
+.identity {
+  padding: 72px 0 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.identity-sanskrit {
+  font: 400 2.125rem/1.15 'Noto Sans Devanagari', serif;
+  color: var(--chakra);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.identity-name {
+  font: 500 1.125rem/1.3 'DM Sans', sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.identity-english {
+  font: italic 400 1.0625rem/1.5 'Lora', serif;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.identity-essence {
+  font: 400 1.0625rem/1.75 'DM Sans', sans-serif;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.identity-location {
+  font: italic 400 0.9375rem/1.65 'Lora', serif;
+  color: var(--text-muted);
+  margin-bottom: 48px;
+}
+
+.core-question {
+  background: var(--chakra-tint);
+  border-left: 2px solid var(--chakra-border);
+  padding: 28px 32px;
+  margin: 32px 0 0;
+}
+
+.core-question-label {
+  font: 500 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 14px;
+  opacity: 0.85;
+}
+
+.core-question-text {
+  font: italic 400 1.375rem/1.5 'Lora', serif;
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TEACHING PROSE
+   ═══════════════════════════════════════════════════════════ */
+
+.teaching {
+  padding: 56px 0 48px;
+}
+
+.teaching p {
+  margin-bottom: 28px;
+  color: var(--text-secondary);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+
+.teaching p:last-child {
+  margin-bottom: 0;
+}
+
+.teaching strong {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.teaching em {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+.teaching-emphasis {
+  font: italic 500 1.125rem/1.6 'Lora', serif;
+  color: var(--chakra);
+  margin: 40px 0;
+  padding: 0 8px;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TREE IMAGE
+   ═══════════════════════════════════════════════════════════ */
+
+.tree-wrap {
+  margin: 48px -28px;
+  padding: 24px 28px;
+  background: linear-gradient(to bottom, transparent, var(--chakra-tint), transparent);
+}
+
+@media (max-width: 640px) {
+  .tree-wrap { margin: 48px -24px; padding: 24px; }
+}
+
+.tree-image {
+  max-width: 380px;
+  width: 100%;
+  height: auto;
+  cursor: zoom-in;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.tree-image:hover {
+  filter: drop-shadow(0 0 20px var(--chakra-soft));
+}
+
+.tree-caption {
+  font: italic 400 0.875rem/1.5 'Lora', serif;
+  color: var(--text-muted);
+  text-align: center;
+  margin-top: 16px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   LIGHTBOX
+   ═══════════════════════════════════════════════════════════ */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(14,40,64,0.96);
+  z-index: 9500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  touch-action: none;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-inner {
+  position: relative;
+  max-width: 92vw;
+  max-height: 92vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.lightbox-img {
+  max-width: 92vw;
+  max-height: 92vh;
+  transform-origin: center center;
+  transition: transform 0.15s ease-out;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: grab;
+}
+
+.lightbox-img.grabbing { cursor: grabbing; }
+
+.lightbox-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(240,245,255,0.3);
+  background: rgba(14,40,64,0.4);
+  color: rgba(240,245,255,0.85);
+  font: 300 1.5rem/1 sans-serif;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.lightbox-close:hover {
+  background: rgba(14,40,64,0.7);
+  border-color: rgba(240,245,255,0.6);
+  color: rgba(240,245,255,1);
+}
+
+.lightbox-hint {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font: italic 400 0.8125rem/1.5 'Lora', serif;
+  color: rgba(240,245,255,0.45);
+  letter-spacing: 0.08em;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SEED
+   ═══════════════════════════════════════════════════════════ */
+
+.seed {
+  margin: 64px 0;
+  padding: 44px 40px;
+  border-top: 1px solid var(--gold);
+  border-bottom: 1px solid var(--gold);
+  font: italic 500 1.3125rem/1.5 'Lora', serif;
+  color: var(--text);
+  text-align: center;
+  position: relative;
+}
+
+.seed::before,
+.seed::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.seed::before { top: -3.5px; }
+.seed::after { bottom: -3.5px; }
+
+/* ═══════════════════════════════════════════════════════════
+   GO DEEPER (collapsible)
+   ═══════════════════════════════════════════════════════════ */
+
+.go-deeper {
+  margin: 48px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.go-deeper-toggle {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 24px 0;
+  font: 400 0.8125rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.go-deeper-toggle:hover {
+  color: var(--chakra);
+}
+
+.go-deeper-arrow {
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.3s ease;
+  margin-bottom: 4px;
+}
+
+.go-deeper.open .go-deeper-arrow {
+  transform: rotate(-135deg);
+  margin-bottom: 0;
+  margin-top: 4px;
+}
+
+.go-deeper-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1);
+}
+
+.go-deeper.open .go-deeper-content {
+  max-height: 1000px;
+}
+
+.go-deeper-inner {
+  padding: 4px 0 36px;
+}
+
+.deeper-item {
+  margin-bottom: 32px;
+}
+
+.deeper-item:last-child { margin-bottom: 0; }
+
+.deeper-label {
+  font: 500 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 14px;
+  opacity: 0.85;
+}
+
+.deeper-sanskrit {
+  font: 500 1.75rem/1.2 'Noto Sans Devanagari', serif;
+  color: var(--chakra);
+  margin-bottom: 10px;
+}
+
+.deeper-item p {
+  color: var(--text-secondary);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.deeper-item strong {
+  color: var(--text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DIVIDER
+   ═══════════════════════════════════════════════════════════ */
+
+.gold-dot-divider {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0;
+}
+
+.gold-dot-divider::before {
+  content: '';
+  width: 4px;
+  height: 4px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PRACTICE BLOCK
+   ═══════════════════════════════════════════════════════════ */
+
+.practice-block {
+  background: var(--chakra-tint);
+  border-top: 2px solid var(--chakra-border);
+  margin: 36px -28px;
+  padding: 52px 32px;
+}
+
+@media (max-width: 640px) {
+  .practice-block { margin: 36px -24px; padding: 44px 28px; }
+}
+
+.practice-label {
+  font: 500 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 28px;
+  opacity: 0.9;
+}
+
+.practice-block p {
+  color: var(--text-secondary);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  margin-bottom: 24px;
+}
+
+.practice-block p:last-child { margin-bottom: 0; }
+
+.practice-block strong { color: var(--text); font-weight: 500; }
+.practice-block em { color: var(--text-secondary); font-style: italic; }
+
+/* ═══════════════════════════════════════════════════════════
+   WRITING SECTION (activity gate)
+   ═══════════════════════════════════════════════════════════ */
+
+.writing-section {
+  padding: 56px 0 40px;
+  border-top: 1px solid var(--border);
+}
+
+.writing-prompt {
+  font: italic 400 1.0625rem/1.65 'Lora', serif;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.writing-area {
+  width: 100%;
+  min-height: 180px;
+  padding: 20px 22px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--chakra-border);
+  font: italic 400 1.0625rem/1.9 'Lora', serif;
+  color: var(--text);
+  resize: none;
+  outline: none;
+  transition: border-bottom-color 0.2s ease;
+  background-image:
+    linear-gradient(transparent 36.4px, rgba(0,0,0,0.05) 36.4px, rgba(0,0,0,0.05) 37.4px, transparent 37.4px);
+  background-size: 100% 37.4px;
+  background-position: 0 2px;
+  background-attachment: local;
+}
+
+.writing-area:focus { border-bottom-color: var(--chakra); }
+.writing-area::placeholder { color: rgba(0,0,0,0.18); font-style: italic; }
+
+.writing-saved {
+  font: 400 0.75rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 12px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.writing-saved.visible { opacity: 0.6; }
+
+.writing-reflection {
+  font: italic 400 1.0625rem/1.75 'Lora', serif;
+  color: var(--text-secondary);
+  margin-top: 36px;
+  padding: 24px 28px;
+  background: var(--chakra-tint);
+  border-left: 2px solid var(--chakra-border);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: max-height 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              opacity 1.2s ease 0.6s,
+              transform 1.2s ease 0.6s,
+              padding 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s;
+}
+
+.writing-reflection.revealed {
+  max-height: 400px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BOOK RULE + REFLECTIVE SECTIONS
+   ═══════════════════════════════════════════════════════════ */
+
+.book-rule {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 56px 0;
+}
+
+section h3 {
+  font: 500 1rem/1.3 'DM Sans', sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 28px;
+  opacity: 0.9;
+}
+
+/* Adjacent sections need breathing room — no structural separator between them */
+section + section {
+  margin-top: 56px;
+}
+
+section p {
+  color: var(--text-secondary);
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  margin-bottom: 24px;
+}
+
+section p:last-child { margin-bottom: 0; }
+
+section strong { color: var(--text); font-weight: 500; }
+section em { color: var(--text-secondary); font-style: italic; }
+
+.practice-options {
+  margin: 0;
+}
+
+.practice-option {
+  padding: 22px 26px;
+  background: rgba(0,0,0,0.018);
+  border-radius: 3px;
+  margin-bottom: 12px;
+  border-left: 2px solid transparent;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+
+.practice-option:hover {
+  border-left-color: var(--chakra);
+  background: var(--chakra-tint);
+}
+
+.practice-option p {
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORY PORTAL
+   ═══════════════════════════════════════════════════════════ */
+
+.story-portal-wrap {
+  margin: 72px 0 8px;
+}
+
+.story-portal {
+  position: relative;
+  width: 100%;
+  max-height: 0;
+  min-height: 0;
+  padding: 0 32px;
+  border: 0 solid rgba(14,40,64,0.25);
+  border-radius: 4px;
+  background: var(--scene-deep);
+  overflow: hidden;
+  cursor: pointer;
+  color: var(--scene-text);
+  font-family: inherit;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  opacity: 0;
+  transition: max-height 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              min-height 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              opacity 1.2s ease 0.6s,
+              padding 1.4s cubic-bezier(0.16,1,0.3,1) 0.2s,
+              border-width 0s ease 0.2s,
+              transform 0.4s cubic-bezier(0.16,1,0.3,1),
+              box-shadow 0.4s ease;
+}
+
+.story-portal.revealed {
+  max-height: 480px;
+  min-height: 280px;
+  padding: 52px 32px 56px;
+  border-width: 1px;
+  opacity: 1;
+}
+
+.story-portal.revealed:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(14,40,64,0.22);
+}
+
+.sp-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.sp-shimmer {
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(ellipse 60% 60% at 30% 40%, rgba(41,128,185,0.18) 0%, transparent 60%),
+              radial-gradient(ellipse 50% 55% at 70% 60%, rgba(26,56,176,0.16) 0%, transparent 65%);
+  animation: spShimmer 8s ease-in-out infinite alternate;
+}
+
+@keyframes spShimmer {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.75; }
+  100% { transform: translate(2%, -2%) scale(1.06); opacity: 1; }
+}
+
+.sp-dot {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--chakra-glow);
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 28px var(--chakra-glow), 0 0 56px rgba(41,128,185,0.4);
+  animation: spDotPulse 4s ease-in-out infinite;
+}
+
+@keyframes spDotPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);   opacity: 0.85; }
+  50%      { transform: translate(-50%, -50%) scale(1.35); opacity: 1; }
+}
+
+.sp-ripple {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid rgba(41,128,185,0.4);
+  transform: translate(-50%, -50%);
+  animation: spRipple 4.8s ease-out infinite;
+}
+
+.sp-ripple.r2 { animation-delay: 1.6s; }
+.sp-ripple.r3 { animation-delay: 3.2s; }
+
+@keyframes spRipple {
+  0%   { width: 20px;  height: 20px;  opacity: 0.55; border-width: 1px; }
+  70%  { opacity: 0.08; border-width: 0.5px; }
+  100% { width: 240px; height: 240px; opacity: 0; }
+}
+
+.sp-content {
+  position: relative;
+  z-index: 2;
+  max-width: 440px;
+}
+
+.sp-headline {
+  font: italic 400 1.1875rem/1.55 'Lora', serif;
+  color: var(--scene-text);
+  margin-bottom: 32px;
+  opacity: 0.94;
+}
+
+.sp-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font: 500 0.75rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra-glow);
+  transition: color 0.3s ease;
+}
+
+.story-portal:hover .sp-cta { color: var(--scene-text); }
+
+.sp-cta-arrow {
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+.story-portal:hover .sp-cta-arrow { transform: translateX(6px); }
+.story-portal:hover .sp-shimmer { animation-duration: 5.5s; }
+.story-portal:hover .sp-dot     { animation-duration: 2.8s; }
+.story-portal:hover .sp-ripple  { animation-duration: 3.2s; }
+
+@media (max-width: 640px) {
+  .story-portal { padding: 44px 24px 48px; }
+  .sp-headline { font-size: 1.0625rem; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WHERE THE VOICES LEAD
+   ═══════════════════════════════════════════════════════════ */
+
+.voices-lead {
+  margin: 64px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+/* V4 delta: collapsible Where-the-Voices-Lead with auto-expand on return */
+.wvtl-toggle {
+  width: 100%;
+  background: none;
+  border: 0;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Lora', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  letter-spacing: 0.01em;
+  transition: color 0.25s;
+}
+.wvtl-toggle:hover { color: var(--chakra); }
+.wvtl-toggle-indicator {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), color 0.25s;
+  line-height: 1;
+}
+.wvtl-toggle:hover .wvtl-toggle-indicator { color: var(--chakra); }
+.voices-lead.open .wvtl-toggle-indicator { transform: rotate(180deg); }
+.wvtl-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.16,1,0.3,1);
+}
+.voices-lead.open .wvtl-content {
+  max-height: 3600px;
+  transition: max-height 1.1s cubic-bezier(0.16,1,0.3,1);
+}
+
+.voices-lead-label {
+  font: 500 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--chakra);
+  margin-bottom: 18px;
+  opacity: 0.85;
+  text-align: center;
+}
+
+.voices-lead-intro {
+  font: italic 400 1rem/1.75 'Lora', serif;
+  color: var(--text-secondary);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto 40px;
+  padding-top: 4px;
+}
+
+.doors {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 32px;
+}
+
+.door {
+  position: relative;
+  display: block;
+  min-height: 260px;
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--scene-deep);
+  color: var(--scene-text);
+  text-decoration: none;
+  transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.door:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 48px rgba(14,40,64,0.25);
+}
+
+.door-glyph {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.door-content {
+  position: relative;
+  z-index: 2;
+  padding: 48px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 260px;
+}
+
+.door-label {
+  font: 500 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(240,245,255,0.6);
+  margin-bottom: 16px;
+}
+
+.door-title {
+  font: italic 400 2rem/1.2 'Lora', serif;
+  color: var(--scene-text);
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+
+.door-sub {
+  font: italic 400 0.9375rem/1.55 'Lora', serif;
+  color: var(--scene-text-soft);
+  max-width: 280px;
+}
+
+.door-arrow {
+  align-self: flex-end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  font: 500 0.75rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra-glow);
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.door:hover .door-arrow {
+  color: var(--scene-text);
+  transform: translateX(6px);
+}
+
+/* ── Wakeup door glyph — HAM + Bahir Dashara ── */
+
+.wakeup-glyph svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wakeup-glyph .bd-triangle {
+  fill: none;
+  stroke: rgba(41,128,185,0.28);
+  stroke-width: 0.8;
+  transform-origin: 200px 200px;
+  animation: bdRotate 60s linear infinite;
+}
+
+.door:hover .wakeup-glyph .bd-triangle {
+  animation-duration: 40s;
+  stroke: rgba(41,128,185,0.42);
+}
+
+@keyframes bdRotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(-360deg); }
+}
+
+.wakeup-glyph .shakti-dot {
+  fill: rgba(41,128,185,0.55);
+  animation: shaktiBreathe 4s ease-in-out infinite;
+}
+
+@keyframes shaktiBreathe {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.85; }
+}
+
+.wakeup-glyph .ham-glyph-svg {
+  font: italic 500 64px 'Noto Sans Devanagari', serif;
+  fill: var(--chakra-glow);
+  text-anchor: middle;
+  dominant-baseline: central;
+  animation: hamPulse 4s ease-in-out infinite;
+}
+
+@keyframes hamPulse {
+  0%, 100% { opacity: 0.72; }
+  50%      { opacity: 1; }
+}
+
+.door:hover .wakeup-glyph .ham-glyph-svg { animation-duration: 2.4s; }
+
+.wakeup-glyph .voice-line {
+  stroke: rgba(90,158,206,0.45);
+  stroke-width: 0.8;
+  fill: none;
+  opacity: 0;
+  animation: voiceSweep 12s ease-in-out infinite;
+}
+
+@keyframes voiceSweep {
+  0%, 80%, 100% { opacity: 0; transform: translateX(-400px); }
+  85%           { opacity: 0.55; transform: translateX(0); }
+  95%           { opacity: 0; transform: translateX(400px); }
+}
+
+.door:hover .wakeup-glyph .voice-line { animation-duration: 6s; }
+
+/* ── Dance door glyph — silence rings + center dot ── */
+
+.dance-glyph svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dance-glyph .silence-ring {
+  fill: none;
+  stroke: rgba(90,158,206,0.4);
+  stroke-width: 0.8;
+  transform-origin: 200px 200px;
+  animation: silenceRipple 6s ease-out infinite;
+}
+
+.dance-glyph .silence-ring.r2 { animation-delay: 2s; }
+.dance-glyph .silence-ring.r3 { animation-delay: 4s; }
+
+.door:hover .dance-glyph .silence-ring { animation-duration: 4s; }
+
+@keyframes silenceRipple {
+  0%   { r: 20;  opacity: 0.55; stroke-width: 1.1; }
+  75%  { opacity: 0.12; stroke-width: 0.5; }
+  100% { r: 180; opacity: 0.02; stroke-width: 0.2; }
+}
+
+.dance-glyph .center-dot {
+  fill: var(--chakra-glow);
+  filter: drop-shadow(0 0 12px var(--chakra-glow));
+  animation: centerDotPulse 6s ease-in-out infinite;
+}
+
+@keyframes centerDotPulse {
+  0%, 100% { opacity: 0.7; r: 5; }
+  50%      { opacity: 1;   r: 6.2; }
+}
+
+.door:hover .dance-glyph .center-dot { animation-duration: 3s; }
+
+.dance-glyph .waveform-line {
+  stroke: rgba(90,158,206,0.3);
+  stroke-width: 0.6;
+  fill: none;
+  opacity: 0;
+  animation: waveformCross 14s ease-in-out infinite;
+}
+
+@keyframes waveformCross {
+  0%, 70%, 100% { opacity: 0; transform: translateX(-320px); }
+  80%           { opacity: 0.45; transform: translateX(0); }
+  95%           { opacity: 0; transform: translateX(320px); }
+}
+
+.door:hover .dance-glyph .waveform-line { animation-duration: 7s; }
+
+/* ═══════════════════════════════════════════════════════════
+   BOTTOM NAV
+   ═══════════════════════════════════════════════════════════ */
+
+.bottom-nav {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 56px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.bottom-nav .nav-link {
+  font: 500 0.75rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.bottom-nav .nav-link:hover { color: var(--chakra); }
+
+.bottom-nav .nav-position {
+  font: 500 0.75rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--chakra);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORY MODE — Axis Dimension Overlay
+   ═══════════════════════════════════════════════════════════ */
+
+.story-mode {
+  position: fixed;
+  inset: 0;
+  z-index: 9000;
+  perspective: 1600px;
+  /* V5 Locked Decision 24: solid base so veil transitions never bleed the page through */
+  background: #060308;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.story-mode.active {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.story-scene {
+  position: absolute;
+  inset: 0;
+  background: var(--scene-deep);
+  transform-origin: center center;
+  transform: rotateY(180deg);
+  transition: transform 1.4s cubic-bezier(0.16,1,0.3,1);
+  backface-visibility: hidden;
+  overflow: hidden;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.story-mode.active .story-scene {
+  transform: rotateY(0);
+}
+
+.story-scene.closing {
+  transform: rotateY(-180deg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORY SCENE ELEMENTS — Vishuddha register
+   Compressed form · Bahir Dashara · HAM · Shakti labels ·
+   Vibration ripples · Tree silhouette
+   ═══════════════════════════════════════════════════════════ */
+
+.scene-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* Background atmospheric gradient — deep scene */
+.scene-bg-gradient {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(41,128,185,0.10) 0%, transparent 70%),
+              radial-gradient(ellipse 100% 100% at 50% 100%, rgba(14,40,64,0.7) 0%, transparent 60%);
+  opacity: 0.9;
+}
+
+/* --- Bahir Dashara — ten outward triangles --- */
+
+.bd-svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(88vw, 520px);
+  height: min(88vw, 520px);
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.bd-svg.reveal-1 { opacity: 0.12; }
+.bd-svg.reveal-2 { opacity: 0.22; }
+.bd-svg.reveal-3 { opacity: 0.42; }
+.bd-svg.reveal-4 { opacity: 0.68; }
+
+.bd-triangle-scene {
+  fill: none;
+  stroke: rgba(90,158,206,0.6);
+  stroke-width: 0.4;
+  transition: stroke-width 1.2s ease, stroke 1.2s ease;
+}
+
+.story-scene.ham-present .bd-triangle-scene,
+.story-scene.voice-found .bd-triangle-scene,
+.story-scene.peak .bd-triangle-scene {
+  stroke: rgba(120,180,220,0.75);
+  stroke-width: 0.5;
+}
+
+/* --- Compressed form — the central knot --- */
+
+.compressed-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(52vw, 300px);
+  height: min(52vw, 300px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.cf-knot {
+  fill: none;
+  stroke: rgba(90,158,206,0.75);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transform-origin: 150px 150px;
+  transition: all 1.6s cubic-bezier(0.16,1,0.3,1);
+}
+
+.story-scene.compressed .cf-knot {
+  transform: scale(0.6);
+  stroke: rgba(90,158,206,0.9);
+  stroke-width: 2.2;
+}
+
+.story-scene.compressed.swallowing .cf-knot {
+  animation: knotPulse 3.4s ease-in-out infinite;
+}
+
+@keyframes knotPulse {
+  0%, 100% { transform: scale(0.6); }
+  50%      { transform: scale(0.63); }
+}
+
+.story-scene.loosening .cf-knot {
+  transform: scale(0.85);
+  stroke: rgba(120,180,220,0.6);
+  stroke-width: 1.2;
+  animation: none;
+}
+
+.story-scene.ham-present .cf-knot,
+.story-scene.voice-found .cf-knot,
+.story-scene.peak .cf-knot {
+  transform: scale(1.05);
+  stroke: rgba(140,200,240,0.35);
+  stroke-width: 0.8;
+}
+
+.story-scene.released .cf-knot {
+  transform: scale(1.15);
+  stroke: rgba(160,220,255,0.2);
+  stroke-width: 0.4;
+}
+
+/* --- HAM glyph at center --- */
+
+.ham-glyph {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font: italic 400 clamp(3.5rem, 11vw, 5.25rem)/1 'Noto Sans Devanagari', serif;
+  color: rgba(41,128,185,0);
+  transition: color 1.4s ease, text-shadow 1.4s ease, transform 1.4s ease;
+  text-shadow: 0 0 0 rgba(41,128,185,0);
+  pointer-events: none;
+  z-index: 3;
+}
+
+.story-scene.ham-present .ham-glyph {
+  color: rgba(120,200,240,0.6);
+  text-shadow: 0 0 20px rgba(41,128,185,0.4);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.story-scene.voice-found .ham-glyph,
+.story-scene.peak .ham-glyph {
+  color: rgba(160,220,255,0.95);
+  text-shadow: 0 0 36px rgba(41,128,185,0.7),
+               0 0 72px rgba(41,128,185,0.35);
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.story-scene.released .ham-glyph {
+  color: rgba(140,200,240,0.7);
+  text-shadow: 0 0 24px rgba(41,128,185,0.5);
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* --- Six Shakti labels --- */
+
+.shakti-label {
+  position: absolute;
+  font: italic 400 clamp(0.6875rem, 1.75vw, 0.8125rem)/1.3 'Lora', serif;
+  color: rgba(140,200,240,0);
+  text-align: center;
+  letter-spacing: 0.03em;
+  transition: color 1.6s ease, transform 1.6s cubic-bezier(0.16,1,0.3,1);
+  transform: translate(-50%, -50%) translateY(8px);
+  pointer-events: none;
+  white-space: nowrap;
+  max-width: 180px;
+  z-index: 2;
+}
+
+.shakti-label.visible {
+  color: rgba(140,200,240,0.85);
+  transform: translate(-50%, -50%) translateY(0);
+  text-shadow: 0 0 12px rgba(41,128,185,0.4);
+}
+
+/* Positions — matching tree-image distribution around HAM center */
+.shakti-label.sampatprada    { top: 26%; left: 28%; }
+.shakti-label.priyankari     { top: 26%; left: 72%; }
+.shakti-label.siddhiprada    { top: 44%; left: 18%; }
+.shakti-label.mangalakarini  { top: 44%; left: 82%; }
+.shakti-label.duhkhavimochini { top: 65%; left: 26%; }
+.shakti-label.kamaprada      { top: 65%; left: 74%; }
+
+@media (max-width: 640px) {
+  .shakti-label { font-size: 0.6875rem; max-width: 130px; }
+  .shakti-label.sampatprada    { top: 27%; left: 22%; }
+  .shakti-label.priyankari     { top: 27%; left: 78%; }
+  .shakti-label.siddhiprada    { top: 45%; left: 18%; }
+  .shakti-label.mangalakarini  { top: 45%; left: 82%; }
+  .shakti-label.duhkhavimochini { top: 66%; left: 22%; }
+  .shakti-label.kamaprada      { top: 66%; left: 78%; }
+}
+
+/* --- Vibration ripples — voice exiting --- */
+
+.vibration-ripples {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(92vw, 560px);
+  height: min(92vw, 560px);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.6s ease;
+}
+
+.story-scene.voice-found .vibration-ripples,
+.story-scene.peak .vibration-ripples {
+  opacity: 1;
+}
+
+.story-scene.released .vibration-ripples {
+  opacity: 0.3;
+}
+
+.vr-circle {
+  fill: none;
+  stroke: rgba(90,158,206,0.5);
+  stroke-width: 0.6;
+  transform-origin: 280px 280px;
+  animation: vrExpand 5s ease-out infinite;
+}
+
+.vr-circle.r2 { animation-delay: 1.2s; }
+.vr-circle.r3 { animation-delay: 2.4s; }
+.vr-circle.r4 { animation-delay: 3.6s; }
+
+@keyframes vrExpand {
+  0%   { r: 40;  opacity: 0.7; stroke-width: 0.9; }
+  70%  { opacity: 0.15; stroke-width: 0.4; }
+  100% { r: 280; opacity: 0.02; stroke-width: 0.2; }
+}
+
+/* --- Tree silhouette at bottom --- */
+
+.tree-silhouette {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(92vw, 640px);
+  height: 180px;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .tree-silhouette { height: 140px; opacity: 0.14; }
+}
+
+.ts-path {
+  fill: none;
+  stroke: rgba(140,200,240,0.9);
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+
+/* --- Story line (beat text) --- */
+
+.story-line-wrap {
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(88vw, 520px);
+  text-align: center;
+  padding: 0 24px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .story-line-wrap { bottom: 16%; }
+}
+
+.story-line {
+  font: italic 400 1.1875rem/1.6 'Lora', serif;
+  color: var(--scene-text);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  min-height: 4em;
+}
+
+.story-line.visible { opacity: 0.94; }
+.story-line.fading  { opacity: 0; transition: opacity 0.4s ease; }
+
+@media (max-width: 640px) {
+  .story-line { font-size: 1.0625rem; }
+}
+
+/* --- Story tap hint --- */
+
+.story-tap-hint {
+  position: absolute;
+  bottom: 6%;
+  left: 50%;
+  transform: translateX(-50%);
+  font: 400 0.75rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--scene-text-whisper);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+/* Pulse only while visible — static opacity:0 takes over when .visible removed. */
+.story-tap-hint.visible {
+  opacity: 1;
+  animation: tapHintPulse 3s ease-in-out infinite;
+}
+
+@keyframes tapHintPulse {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 0.95; }
+}
+
+/* --- Story close button --- */
+
+.story-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(240,245,255,0.25);
+  background: rgba(14,40,64,0.5);
+  color: rgba(240,245,255,0.75);
+  font: 300 1.25rem/1 sans-serif;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.story-close:hover {
+  background: rgba(14,40,64,0.85);
+  border-color: rgba(240,245,255,0.55);
+  color: rgba(240,245,255,1);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   THRESHOLD-OPEN — scene fade + next-chakra rise
+   ═══════════════════════════════════════════════════════════ */
+
+.story-scene.threshold-open .cf-knot,
+.story-scene.threshold-open .bd-triangle-scene,
+.story-scene.threshold-open .ham-glyph,
+.story-scene.threshold-open .shakti-label,
+.story-scene.threshold-open .vr-circle,
+.story-scene.threshold-open .ts-path,
+.story-scene.threshold-open .story-line,
+.story-scene.threshold-open .scene-bg-gradient {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+.story-scene.threshold-open .story-line-wrap {
+  opacity: 0;
+  transition: opacity 3s ease;
+}
+
+.threshold-door {
+  position: absolute;
+  top: var(--threshold-top);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 2s ease 1.2s;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.story-scene.threshold-open .threshold-door {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.next-point {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--next-color);
+  box-shadow: 0 0 32px var(--next-glow),
+              0 0 64px var(--next-glow);
+  animation: nextPointPulse 3.4s ease-in-out infinite;
+}
+
+@keyframes nextPointPulse {
+  0%, 100% { transform: scale(1);    opacity: 0.85; }
+  50%      { transform: scale(1.22); opacity: 1; }
+}
+
+.next-label {
+  font: italic 400 1.75rem/1.2 'Lora', serif;
+  color: var(--next-color);
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 20px var(--next-glow), 0 0 40px var(--next-glow);
+}
+
+.next-sublabel {
+  font: italic 400 0.9375rem/1.3 'Lora', serif;
+  color: rgba(240,245,255,0.7);
+  letter-spacing: 0.04em;
+}
+
+.threshold-continue-hint {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font: 500 0.6875rem/1 'DM Sans', sans-serif;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(240,245,255,0.55);
+  transition: color 0.3s ease;
+}
+
+.threshold-door:hover .threshold-continue-hint {
+  color: rgba(240,245,255,0.9);
+}
+
+.threshold-door:hover .next-label {
+  text-shadow: 0 0 28px var(--next-glow), 0 0 56px var(--next-glow), 0 0 96px var(--next-glow);
+}
+
+.threshold-continue-hint .arrow {
+  transition: transform 0.3s ease;
+}
+
+.threshold-door:hover .threshold-continue-hint .arrow {
+  transform: translateX(6px);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   STORY PORTAL — shimmering preview · gate-revealed
+   (redefined cleanly above; this block is for hover-only)
+   ═══════════════════════════════════════════════════════════ */
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT VEIL — dark between-space · #060308
+   Rises after the signature phrase lands. Sakshi's eyes appear,
+   blink once, fade. Press-and-hold 1.8s to enter Act 2.
+   ════════════════════════════════════════════════════════════════════ */
+.act-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: #060308;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 52px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.8s cubic-bezier(0.4,0,0.2,1);
+}
+.act-veil.visible { opacity: 1; pointer-events: auto; }
+.act-veil.dissolving { opacity: 0; transition: opacity 2.4s ease; }
+
+.veil-eyes { display: flex; gap: 52px; align-items: center; opacity: 0; }
+.veil-eyes.visible { opacity: 1; }
+.veil-eye {
+  width: 42px; height: 15px; border-radius: 50%;
+  background: rgba(255,255,255,0.88);
+  box-shadow: 0 0 12px rgba(255,255,255,0.6),
+              0 0 32px rgba(220,230,245,0.3);
+  transform: scaleY(0.06); opacity: 0;
+  transform-origin: center center;
+}
+.veil-eyes.animate .veil-eye {
+  animation: eyeBlink 2s ease-in-out 1 forwards;
+}
+.veil-eyes.animate .veil-eye:nth-child(2) { animation-delay: 0.06s; }
+@keyframes eyeBlink {
+  0%   { opacity: 0;   transform: scaleY(0.06); }
+  14%  { opacity: 1;   transform: scaleY(1); }
+  55%  { opacity: 1;   transform: scaleY(1); }
+  64%  { opacity: 1;   transform: scaleY(0.06); }
+  73%  { opacity: 1;   transform: scaleY(1); }
+  88%  { opacity: 0.7; transform: scaleY(1); }
+  100% { opacity: 0;   transform: scaleY(1); }
+}
+
+.veil-invite {
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+  opacity: 0; transition: opacity 1.6s ease;
+}
+.veil-invite.visible { opacity: 1; }
+.veil-invite-text {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; font-weight: 300;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: rgba(255,255,255,0.38);
+}
+.veil-hold-ring {
+  position: relative; width: 72px; height: 72px;
+  cursor: pointer; -webkit-user-select: none; user-select: none; touch-action: none;
+}
+.veil-hold-ring svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  transform: rotate(-90deg);
+}
+.veil-ring-track { fill: none; stroke: rgba(255,255,255,0.1); stroke-width: 1.5; }
+.veil-ring-fill {
+  fill: none; stroke: rgba(255,255,255,0.72); stroke-width: 1.5;
+  stroke-linecap: round; stroke-dasharray: 201; stroke-dashoffset: 201;
+  transition: stroke-dashoffset linear;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.5));
+}
+.veil-hold-dot { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+.veil-hold-dot::after {
+  content: ''; width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,0.6); box-shadow: 0 0 14px rgba(255,255,255,0.4);
+  transition: transform 0.3s ease, background 0.3s;
+}
+.veil-hold-ring.holding .veil-hold-dot::after {
+  transform: scale(1.5); background: rgba(255,255,255,0.9);
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   ACT 2 — SAKSHI WITNESS (Vishuddha)
+   Rises after press-and-hold. Ascending field: Vishuddha blue at base
+   → cream mid → silver-white crown. 26 ascending particles.
+   Three paragraphs auto-paced at 1.33× slower pacing (revised April 24).
+   Vishuddha's p3 is a SINGLE WORD ("Stop.") — punch sizing, same timing
+   shape as Bindu/Muladhara/Anahata (1900/8200/15200/18600).
+   ════════════════════════════════════════════════════════════════════ */
+.act-two {
+  position: absolute; inset: 0; z-index: 20;
+  display: flex; flex-direction: column; align-items: center;
+  overflow: hidden; background: #ffffff;
+  opacity: 0; pointer-events: none;
+  transition: opacity 2.2s cubic-bezier(0.16,1,0.3,1);
+}
+.act-two.rising { opacity: 1; pointer-events: auto; }
+
+.act2-bg {
+  position: absolute; inset: 0;
+  background: linear-gradient(
+    to top,
+    #1A38B0 0%,
+    rgba(26,56,176,0.55) 12%,
+    rgba(210,218,240,0.88) 34%,
+    rgba(250,251,254,0.97) 60%,
+    rgba(255,255,255,0.99) 80%,
+    #ffffff 100%
+  );
+}
+.act2-crown {
+  position: absolute; top: 0; left: 0; right: 0; height: 280px;
+  background: radial-gradient(ellipse at 50% 0%, rgba(215,230,255,0.5) 0%, rgba(255,255,255,0) 72%);
+  pointer-events: none;
+}
+.act2-base {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 220px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(26,56,176,0.35) 0%, rgba(26,56,176,0) 75%);
+  pointer-events: none;
+}
+.act2-particles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.act2-particle {
+  position: absolute; border-radius: 50%; background: white;
+  opacity: 0; animation: act2Ascend linear infinite;
+}
+@keyframes act2Ascend {
+  0%   { transform: translateY(0) scale(1);    opacity: 0; }
+  8%   { opacity: var(--p-op); }
+  85%  { opacity: var(--p-op); }
+  100% { transform: translateY(-110vh) scale(0.4); opacity: 0; }
+}
+
+.act2-text-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 14vh 28px calc(9vh + 240px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  z-index: 2;
+}
+.act2-text-stage::-webkit-scrollbar { display: none; }
+.act2-para {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3.2vw, 19px);
+  line-height: 2;
+  color: var(--act2-text, rgba(54,24,10,0.88));
+  max-width: min(560px, 92vw);
+  text-align: center;
+  margin: 0 0 1.6em;
+  opacity: 1;
+  transform: none;
+}
+.act2-para:last-child { margin-bottom: 0; }
+.act2-go {
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.act2-word {
+  opacity: 0;
+  transition: opacity 1.4s ease;
+  will-change: opacity;
+}
+.act2-word.visible {
+  opacity: 1;
+}
+
+/* Ajna threshold door — rises edge-to-edge. Canonical #3D0070 deep violet. */
+.act2-door {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  transform: translateY(100%);
+  padding: 36px 32px 52px;
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  cursor: pointer; text-decoration: none;
+  transition: transform 1.8s cubic-bezier(0.16,1,0.3,1);
+  background: #3D0070; z-index: 3;
+}
+.act2-door:hover { background: #4A0080; }
+.act2-door.risen { transform: translateY(0); }
+.act2-door-name {
+  font-family: 'Lora', serif;
+  font-size: clamp(38px, 8vw, 56px); font-weight: 500;
+  letter-spacing: 0.06em; color: #ffffff;
+  line-height: 1; margin-bottom: 4px;
+}
+.act2-door-hint {
+  font-family: 'Lora', serif; font-style: italic;
+  font-size: clamp(15px, 2.8vw, 18px);
+  color: rgba(255,255,255,0.74); letter-spacing: 0.02em;
+}
+.act2-door-continue {
+  margin-top: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45); transition: color 0.3s;
+}
+.act2-door:hover .act2-door-continue { color: rgba(255,255,255,0.82); }
+
+/* ═══════════════════════════════════════════════════════════
+   ACCESSIBILITY
+   ═══════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* <!-- [BODY_CONTENT] --> */
+
+
+/* ─── Bindu Field card — universal across all chakras ─── */
+.bfg-core {
+  fill: #C9A84C;
+  opacity: 0.95;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgCoreBreath 4.5s ease-in-out infinite;
+}
+@keyframes bfgCoreBreath {
+  0%, 100% { transform: scale(1); opacity: 0.88; }
+  50%      { transform: scale(1.18); opacity: 1; }
+}
+.bfg-wave {
+  fill: none;
+  stroke: #C9A84C;
+  stroke-width: 1.2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: bfgWaveOut 6s ease-out infinite;
+  opacity: 0;
+}
+.bfg-wave.w1 { animation-delay: 0.0s; }
+.bfg-wave.w2 { animation-delay: 1.2s; }
+.bfg-wave.w3 { animation-delay: 2.4s; }
+.bfg-wave.w4 { animation-delay: 3.6s; }
+.bfg-wave.w5 { animation-delay: 4.8s; }
+@keyframes bfgWaveOut {
+  0%   { transform: scale(0.18); opacity: 0.8;  stroke-width: 1.6; }
+  60%  { opacity: 0.35; stroke-width: 1; }
+  100% { transform: scale(1.6);  opacity: 0;    stroke-width: 0.4; }
+}
+.bfg-pos {
+  fill: #C9A84C;
+  opacity: 0.24;
+}
+.bfg-pos.bfg-bindu-pos {
+  opacity: 0.95;
+  animation: bfgBinduPosGlow 4.5s ease-in-out infinite;
+}
+@keyframes bfgBinduPosGlow {
+  0%, 100% { opacity: 0.78; }
+  50%      { opacity: 1; }
+}
+.bfg-thread {
+  stroke: #C9A84C;
+  stroke-width: 0.6;
+  fill: none;
+  stroke-dasharray: 2 3;
+  opacity: 0.28;
+}
+.bindu-field:hover .bfg-wave { animation-duration: 3s; }
+.bindu-field:hover .bfg-wave.w1 { animation-delay: 0.0s; }
+.bindu-field:hover .bfg-wave.w2 { animation-delay: 0.6s; }
+.bindu-field:hover .bfg-wave.w3 { animation-delay: 1.2s; }
+.bindu-field:hover .bfg-wave.w4 { animation-delay: 1.8s; }
+.bindu-field:hover .bfg-wave.w5 { animation-delay: 2.4s; }
+.bindu-field:hover .bfg-core { animation-duration: 2.2s; }
+
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal styles ═══ */
+.essence-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.essence-gate-overlay.visible { opacity: 1; }
+.essence-gate-bindu {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #e8c568;
+  box-shadow: 0 0 18px rgba(232, 197, 104, 0.4);
+  margin-bottom: 32px;
+  animation: egBreath 4s ease-in-out infinite;
+}
+.essence-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(240, 226, 188, 0.92);
+  text-align: center;
+  margin: 0 24px 12px;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-line.visible { opacity: 1; }
+.essence-gate-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(240, 226, 188, 0.62);
+  margin: 0 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-sub.visible { opacity: 1; }
+@keyframes egBreath {
+  0%, 100% { opacity: 0.7; transform: scale(1.0); }
+  50%      { opacity: 1.0; transform: scale(1.08); }
+}
+
+.sequential-gate-surface {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99998;
+  padding: 24px;
+}
+.sequential-gate-tint {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 1;
+}
+.sequential-gate-content {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  text-align: center;
+}
+.sequential-gate-yantra {
+  width: min(60vw, 280px);
+  height: min(60vw, 280px);
+  margin: 0 auto 36px;
+  opacity: 0.06;
+  color: #d4b888;
+}
+.sequential-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: #f5e8c8;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.sequential-gate-prev {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.8vw, 22px);
+  color: rgba(240, 226, 188, 0.82);
+  margin-bottom: 56px;
+  line-height: 1.6;
+}
+.sequential-gate-prev em {
+  color: #f5e8c8;
+  font-style: italic;
+  font-weight: 500;
+}
+.sequential-gate-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #d4b888;
+  background: transparent;
+  border: 1px solid #d4b888;
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sequential-gate-button:hover {
+  color: #f5e8c8;
+  background: rgba(212, 184, 136, 0.12);
+}
+/* ═══ END ESSENCE+SEQUENTIAL GATES ═══ */
+</style>
+</head>
+<body>
+<!-- ═══ ESSENCE+SEQUENTIAL GATES ═══ -->
+<script>
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal logic ═══
+   Injected immediately after <body> opens, before page renders.
+   THIS_CHAKRA placeholder gets replaced with the actual chakra id
+   per file (or '__none__' for index.html which only does essence). */
+(function() {
+  'use strict';
+
+  var CHAKRA_SEQUENCE = ['bindu','muladhara','svadhisthana','manipura',
+                          'anahata','vishuddha','ajna','sahasrara','shadow'];
+  var CHAKRA_DISPLAY = {
+    bindu: 'Bindu', muladhara: 'Muladhara', svadhisthana: 'Svadhisthana',
+    manipura: 'Manipura', anahata: 'Anahata', vishuddha: 'Vishuddha',
+    ajna: 'Ajna', sahasrara: 'Sahasrara', shadow: 'Shadow',
+  };
+  var CHAKRA_COLORS = {
+    bindu: '#e8c568', muladhara: '#b83a3a', svadhisthana: '#d47438',
+    manipura: '#d4a848', anahata: '#6b8e4e', vishuddha: '#4c7ab8',
+    ajna: '#5b4e8e', sahasrara: '#9a7ac8', shadow: '#2a2420',
+  };
+
+  function getEssenceLocal() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function essenceCompleteLocal() {
+    var e = getEssenceLocal();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function isChakraWalked(chakraId) {
+    // Bindu writes 'bindu-point' (coords); all others write 'chakra-{id}'
+    if (chakraId === 'bindu') return !!localStorage.getItem('bindu-point');
+    return !!localStorage.getItem('chakra-' + chakraId);
+  }
+
+  function canAccessChakraLocal(chakraId) {
+    if (isChakraWalked(chakraId)) return true;
+    if (chakraId === 'bindu') return true;
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    if (idx <= 0) return true;
+    var prev = CHAKRA_SEQUENCE[idx - 1];
+    return isChakraWalked(prev);
+  }
+
+  // ── ESSENCE GATE ──
+  /* no gates (standing ruling): essence may personalise, never permit; nothing waits on earlier pages */
+
+  // ── SEQUENTIAL FIRST-WALK GATE ──
+  var THIS_CHAKRA = 'vishuddha';
+  if (THIS_CHAKRA !== '__none__') {
+    /* sequence gate removed */
+  }
+
+  function showEssenceGate() {
+    var ov = document.createElement('div');
+    ov.className = 'essence-gate-overlay';
+    ov.innerHTML =
+      '<div class="essence-gate-bindu"></div>' +
+      '<p class="essence-gate-line">The road asks who is walking.</p>' +
+      '<p class="essence-gate-sub">One moment.</p>';
+    function inject() {
+      document.body.appendChild(ov);
+      // Hide everything else under it — set a flag that page-init can check
+      document.body.setAttribute('data-essence-gating', 'true');
+      requestAnimationFrame(function() {
+        ov.classList.add('visible');
+        setTimeout(function() { ov.querySelector('.essence-gate-line').classList.add('visible'); }, 100);
+        setTimeout(function() { ov.querySelector('.essence-gate-sub').classList.add('visible'); }, 500);
+      });
+      var ret = encodeURIComponent(window.location.pathname);
+      setTimeout(function() {
+        window.location.href = 'the-one.html?return=' + ret;
+      }, 1400);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+
+  function showSequentialGate(chakraId) {
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    var prevId = CHAKRA_SEQUENCE[idx - 1];
+    var prevDisplay = CHAKRA_DISPLAY[prevId];
+    var thisColor = CHAKRA_COLORS[chakraId];
+
+    var html =
+      '<div class="sequential-gate-surface">' +
+      '  <div class="sequential-gate-tint" style="background: radial-gradient(ellipse at center, ' + thisColor + ' 0%, transparent 70%);"></div>' +
+      '  <div class="sequential-gate-content">' +
+      '    <svg class="sequential-gate-yantra" viewBox="-100 -100 200 200">' +
+      '      <g fill="none" stroke="currentColor" stroke-width="0.5">' +
+      '        <polygon points="0,-80 70,40 -70,40" />' +
+      '        <polygon points="0,75 -68,-38 68,-38" />' +
+      '        <polygon points="0,-38 33,19 -33,19" />' +
+      '        <polygon points="0,36 -32,-18 32,-18" />' +
+      '        <circle cx="0" cy="0" r="2" fill="currentColor" />' +
+      '        <circle cx="0" cy="0" r="88" />' +
+      '      </g>' +
+      '    </svg>' +
+      '    <p class="sequential-gate-line">The road has an order, the first time through.</p>' +
+      '    <p class="sequential-gate-prev">You haven\'t walked <em>' + prevDisplay + '</em> yet.</p>' +
+      '    <a class="sequential-gate-button" href="' + prevId + '-practice.html">Walk ' + prevDisplay + ' →</a>' +
+      '  </div>' +
+      '</div>';
+
+    function inject() {
+      document.body.setAttribute('data-sequential-gating', 'true');
+      document.body.insertAdjacentHTML('afterbegin', html);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+})();
+
+</script>
+<!-- ═══ END ESSENCE+SEQUENTIAL GATES ═══ -->
+<!-- Progress bar -->
+<div class="progress-bar" id="progress-bar" aria-hidden="true"></div>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero">
+  <nav class="hero-top-nav">
+    <a href="the-road-home.html">← The Road Home</a>
+    <a href="anahata-practice.html">← Anahata</a>
+  </nav>
+  <div class="hero-count">Chakra 6 of 33</div>
+  <h1 class="hero-verb">speak</h1>
+  <p class="hero-threshold">The space between the branches is as carefully designed as the branches themselves.</p>
+  <div class="hero-scroll" aria-hidden="true">
+    <span>begin</span>
+    <span class="hero-scroll-arrow"></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     MAIN CONTENT
+     ═══════════════════════════════════════════ -->
+<div class="content-wrap">
+
+  <!-- Identity -->
+  <section class="identity">
+    <div class="identity-sanskrit">विशुद्ध</div>
+    <div class="identity-name">Vishuddha</div>
+    <div class="identity-english">The Throat</div>
+    <p class="identity-essence">The narrowest passage in the body. Where breath becomes voice. Where the interior meets what is not interior.</p>
+    <p class="identity-location">Between the jaw and the collarbones. The bottleneck by design.</p>
+    <div class="core-question">
+      <div class="core-question-label">The Question</div>
+      <p class="core-question-text">Will I say what I know?</p>
+    </div>
+  </section>
+
+  <!-- Teaching prose (main) -->
+  <section class="teaching">
+    <p>The root grounded you. The sacral moved you. The solar plexus built you. The heart opened you. Now the throat asks: <em>will you say what you know?</em></p>
+    <p>Not what you think. Not what sounds right. Not what would be safest to say. <strong>What you know.</strong> There is a difference between talking and speaking. Talking fills space. Speaking changes it.</p>
+    <p>The throat is a bottleneck by design. Everything that rises from the heart and gut must pass through this narrow channel. What gets through is what you choose to say. What gets blocked is what you are afraid to. Over time, the swallowed words become tension in the jaw, tightness in the neck, a voice that sounds smaller than the person behind it. <em>The throat remembers what was held in it.</em></p>
+    <p>This is the first center that involves another person by default. The centers below were your relationship with substance — ground, water, fire, air. The heart was the capacity for another. <strong>The throat is the contact.</strong> The exit point. The place where the interior meets what is not interior.</p>
+  </section>
+
+  <!-- Tree image -->
+  <div class="tree-wrap">
+    <img
+      src="/tree-of-life/vishuddha-tree.jpg"
+      alt="Vishuddha tree — the most spacious tree in the book"
+      class="tree-image"
+      id="tree-image"
+    />
+    <p class="tree-caption">Look at the tree. The most spacious tree in the book. More space than branch. More air than leaf.</p>
+  </div>
+
+  <!-- Teaching continued -->
+  <section class="teaching">
+    <p>What you don't say is as important as what you do. The silence between sentences. The pause before the true thing. The breath you take before you say the word that changes everything.</p>
+    <p>The Sanskrit means <em>purified</em> — not clean in the cosmetic sense, but <em>distilled.</em> The throat purifies by compression. The fire of the solar plexus is wild. The love of the heart is vast. The throat takes both and compresses them into something precise enough to exit the body and enter someone else's world.</p>
+    <p class="teaching-emphasis">The compression is the purification. The narrowness is the point.</p>
+    <p>When this center is open, you do not speak louder. You speak clearer. The person on the other end stops hearing words and starts hearing you. The sentences carry more weight than their word-count would suggest. Your voice becomes the register at which <em>who you are</em> becomes audible to the world.</p>
+  </section>
+
+  <!-- Seed 1 -->
+  <div class="seed">&ldquo;What you finally said out loud was what you always knew.&rdquo;</div>
+
+  <!-- Go Deeper -->
+  <div class="go-deeper" id="go-deeper">
+    <button class="go-deeper-toggle" id="go-deeper-toggle" type="button" aria-expanded="false" aria-controls="go-deeper-content">
+      <span>Go deeper</span>
+      <span class="go-deeper-arrow" aria-hidden="true"></span>
+    </button>
+    <div class="go-deeper-content" id="go-deeper-content">
+      <div class="go-deeper-inner">
+        <div class="deeper-item">
+          <div class="deeper-label">Frequency</div>
+          <div class="deeper-sanskrit">हं &middot; HAM</div>
+          <p>A vibrating, mid-range tone. Hum it at the natural pitch of your voice. Feel the vocal cords themselves vibrate. <em>HAM is the sound of the instrument becoming aware that it is an instrument.</em></p>
+        </div>
+        <div class="deeper-item">
+          <div class="deeper-label">Avarana</div>
+          <p><strong>Bahir Dashara</strong> &mdash; the Outer Ten Triangles. Ten outward-pointing triangles radiating from center. Expression emerging from the heart's interlocking into open space. What was internal becomes external. What was felt becomes heard. <em>Six of the ten are named on the tree &mdash; the specifically generous modes of what the throat bestows when it opens.</em></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gold dot divider -->
+  <div class="gold-dot-divider" aria-hidden="true"></div>
+
+  <!-- Practice block -->
+  <div class="practice-block">
+    <div class="practice-label">The Practice &middot; Speak</div>
+    <p>Say something true out loud.</p>
+    <p>Right now. To the empty room. Or the room that is not empty &mdash; it does not matter. The throat does not care who is listening. It needs <strong>you</strong> to hear it.</p>
+    <p>Not a confession. Not something dramatic. Something true. Something you have been thinking but have not said. Something small and honest. The kind of sentence that sits in your throat for weeks, waiting for you to let it out.</p>
+    <p>Say it.</p>
+    <p>Hear your own voice say it.</p>
+    <p><em>Notice what happens in your neck when the words leave. The release. The opening. The feeling of something that was compressed becoming air.</em></p>
+  </div>
+
+  <!-- Writing section (activity gate) -->
+  <div class="writing-section">
+    <div class="writing-prompt" id="writing-prompt-vishuddha">A small true thing. Or nothing at all &mdash; the throat knows what's ripening.</div>
+    <textarea
+      class="writing-area"
+      id="writing-vishuddha"
+      aria-labelledby="writing-prompt-vishuddha"
+      placeholder="Write here. This space is yours."
+      rows="6"
+      oninput="autoResize(this); scheduleAutoSave()"
+    ></textarea>
+    <div class="writing-saved" id="save-note" aria-live="polite">Saved</div>
+    <div class="writing-reflection" id="writing-reflection">The truth you offered was already formed. Your work was subtraction, not composition. The channel is clearer for the next one.</div>
+  </div>
+
+  <hr class="book-rule">
+
+  <!-- What the Throat Knows That You Forgot -->
+  <section>
+    <h3>What the Throat Knows That You Forgot</h3>
+    <p>You know exactly what you did not say.</p>
+    <p>Not the thing from yesterday. The thing from years ago. The sentence that formed in your throat and you swallowed it and it went back down and it stayed. In the jaw. In the neck. In the space between what you knew and what you were willing to let the world hear.</p>
+    <p>You had good reasons for swallowing it. The timing was wrong. The person was not ready. You were not ready. The sentence was too heavy. The sentence was too simple. The sentence would have changed something and you were not sure the change would be safe. <em>Those were good reasons.</em> And the sentence is still in your throat.</p>
+    <p>But notice what has been happening beneath the holding. The sentence did not decay. The sentence did not dissolve. The sentence ripened. It is more precisely itself than it was when you first formed it. <strong>The throat is not storage &mdash; the throat is a ripening chamber.</strong> What you have been holding has been becoming more exactly what it is.</p>
+    <p>And notice what it is costing you to hold. The jaw that does not fully release even when you sleep. The shoulders that rise when you imagine certain conversations. The way your voice, when you hear it back on a recording, sounds less like you than the person you know yourself to be. <em>Every swallowed true sentence adds to the weight.</em> The body has been carrying a ledger you did not know it was keeping.</p>
+    <p>The practice is not saying every true thing you have ever swallowed. That would be reckless &mdash; the narrowness of the channel is not a flaw to be widened. Some things need to wait. Some things are still ripening. The practice is simpler:</p>
+    <p><strong>The next time someone asks how you are, do not say &ldquo;good.&rdquo;</strong> Say something true. Even small truth opens this center. <em>I am tired. I am worried about something I cannot name. I am happy and it scares me.</em> Anything that crosses the border between what you know and what you are willing to let exit.</p>
+    <p>The throat does not need you to tell the world your deepest secret. The throat needs you to stop lying about the small things. <em>The small truths open the channel. The large truths follow when they are ready.</em></p>
+    <p>And then &mdash; notice what happens when you finally say one. Not the heaviest one. A medium one. The words leave the body. The air moves. The sentence enters the world. And you feel, at the base of the throat, something that had been waiting a long time finally go quiet. <strong>The liberation of speaking is proportional to how long the truth was held.</strong> Every year of silence added weight to the release.</p>
+    <p>This is a load-bearing recognition. You are no longer someone whose throat stores the unreleased. You are someone whose throat ripens what the body is forming and releases it at the rhythm of its readiness. <em>What you most need to say is already being heard.</em> The universe is porous. The truth finds its own receivers.</p>
+  </section>
+
+  <!-- Three Ways In -->
+  <section>
+    <h3>Three Ways In</h3>
+    <div class="practice-options">
+      <div class="practice-option">
+        <p><strong>Sing.</strong> Not for an audience &mdash; for the vibration. In the shower. In the car. Anywhere you are alone with your voice. Not performing &mdash; vibrating. The vocal cords are physical strings. When they vibrate, the throat opens. <em>It does not matter what you sing. It matters that you do.</em></p>
+      </div>
+      <div class="practice-option">
+        <p><strong>Read aloud.</strong> This page. Any page. Hear your own voice speaking words someone else wrote. Notice how your voice changes them &mdash; the emphasis, the pauses, the places where you slow down because something landed. <em>Your voice is an instrument. It makes everything it touches yours.</em></p>
+      </div>
+      <div class="practice-option">
+        <p><strong>Tell someone something true that you have been holding.</strong> Not the heaviest thing. Something medium. Something real. <em>I appreciate you and I don't say it enough. I've been worried about you. I miss how things were.</em> The throat opens when truth exits. The truth does not have to be hard. It just has to be true.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seed 2 -->
+  <div class="seed">&ldquo;What you finally said out loud was what you always knew.&rdquo;</div>
+
+  <!-- STORY PORTAL -->
+  <div class="story-portal-wrap">
+    <button class="story-portal" id="story-invite" type="button" aria-label="Open the story on the other side">
+      <span class="sp-bg" aria-hidden="true">
+        <span class="sp-shimmer"></span>
+        <span class="sp-ripple r1"></span>
+        <span class="sp-ripple r2"></span>
+        <span class="sp-ripple r3"></span>
+        <span class="sp-dot"></span>
+      </span>
+      <div class="sp-content">
+        <p class="sp-headline">something in your throat has been waiting a long time to exit.</p>
+        <div class="sp-cta">
+          <span>enter the story</span>
+          <span class="sp-cta-arrow" aria-hidden="true">→</span>
+        </div>
+      </div>
+    </button>
+  </div>
+
+  <!-- WHERE THE VOICES LEAD -->
+  <section class="voices-lead" id="where-the-voices-lead" aria-labelledby="wvtl-heading">
+    <button type="button" class="wvtl-toggle" id="wvtl-toggle" aria-expanded="false" aria-controls="wvtl-content">
+      <span id="wvtl-heading">Where the Voices Lead</span>
+      <span class="wvtl-toggle-indicator" aria-hidden="true">↓</span>
+    </button>
+    <div class="wvtl-content" id="wvtl-content">
+    <p class="voices-lead-intro">The page was one door. The tree was another. The story was a third. These are two more &mdash; voices where the throat still speaks. Enter through whichever the body calls to.</p>
+    <div class="doors">
+      <!-- Wakeup door — HAM + Bahir Dashara -->
+      <a class="door wakeup-door" href="https://aistrangegame.com/tree-of-life/vishuddha-wakeup.html" aria-label="Open the Wakeup — Panel 5">
+        <div class="door-glyph wakeup-glyph" aria-hidden="true">
+          <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <g class="bd-triangle-group">
+              <!-- Ten outward triangles at 36° intervals — apex r=180, base r=120 from center (200,200) -->
+              <!-- Triangle 1: angle 0° -->
+              <polygon class="bd-triangle" points="380.0,200.0 314.1,162.9 314.1,237.1" />
+              <!-- Triangle 2: angle 36° -->
+              <polygon class="bd-triangle" points="345.6,305.8 314.1,237.1 270.5,297.1" />
+              <!-- Triangle 3: angle 72° -->
+              <polygon class="bd-triangle" points="255.6,371.2 270.5,297.1 200.0,320.0" />
+              <!-- Triangle 4: angle 108° -->
+              <polygon class="bd-triangle" points="144.4,371.2 200.0,320.0 129.5,297.1" />
+              <!-- Triangle 5: angle 144° -->
+              <polygon class="bd-triangle" points="54.4,305.8 129.5,297.1 85.9,237.1" />
+              <!-- Triangle 6: angle 180° -->
+              <polygon class="bd-triangle" points="20.0,200.0 85.9,237.1 85.9,162.9" />
+              <!-- Triangle 7: angle 216° -->
+              <polygon class="bd-triangle" points="54.4,94.2 85.9,162.9 129.5,102.9" />
+              <!-- Triangle 8: angle 252° -->
+              <polygon class="bd-triangle" points="144.4,28.8 129.5,102.9 200.0,80.0" />
+              <!-- Triangle 9: angle 288° -->
+              <polygon class="bd-triangle" points="255.6,28.8 200.0,80.0 270.5,102.9" />
+              <!-- Triangle 10: angle 324° -->
+              <polygon class="bd-triangle" points="345.6,94.2 270.5,102.9 314.1,162.9" />
+            </g>
+            <!-- Six Shakti dots at chosen positions (matching tree image's six) -->
+            <circle class="shakti-dot" cx="140" cy="140" r="2.5" />
+            <circle class="shakti-dot" cx="260" cy="140" r="2.5" style="animation-delay: 0.6s" />
+            <circle class="shakti-dot" cx="100" cy="200" r="2.5" style="animation-delay: 1.2s" />
+            <circle class="shakti-dot" cx="300" cy="200" r="2.5" style="animation-delay: 1.8s" />
+            <circle class="shakti-dot" cx="150" cy="280" r="2.5" style="animation-delay: 2.4s" />
+            <circle class="shakti-dot" cx="250" cy="280" r="2.5" style="animation-delay: 3s" />
+            <!-- Voice sweep line -->
+            <line class="voice-line" x1="0" y1="200" x2="400" y2="200" />
+            <!-- HAM glyph at center -->
+            <text class="ham-glyph-svg" x="200" y="200">हं</text>
+          </svg>
+        </div>
+        <div class="door-content">
+          <div>
+            <div class="door-label">The Wakeup</div>
+            <div class="door-title">Panel 5</div>
+            <p class="door-sub">The ritual of letting the voice exit the body. The compressed form loosens. Something rises.</p>
+          </div>
+          <div class="door-arrow">
+            <span>enter</span>
+            <span aria-hidden="true">→</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Dance door — silence rings -->
+      <a class="door dance-door" href="https://aistrangegame.com/tree-of-life/vishuddha-dance.html" aria-label="Open the Dance — The Sound of Silence">
+        <div class="door-glyph dance-glyph" aria-hidden="true">
+          <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+            <!-- Silence rings -->
+            <circle class="silence-ring r1" cx="200" cy="200" r="20" />
+            <circle class="silence-ring r2" cx="200" cy="200" r="20" />
+            <circle class="silence-ring r3" cx="200" cy="200" r="20" />
+            <!-- Waveform line -->
+            <path class="waveform-line" d="M 0 200 Q 60 196, 90 200 T 150 200 T 210 200 T 270 200 T 330 200 T 400 200" />
+            <!-- Center dot -->
+            <circle class="center-dot" cx="200" cy="200" r="5" />
+          </svg>
+        </div>
+        <div class="door-content">
+          <div>
+            <div class="door-label">The Dance</div>
+            <div class="door-title">The Sound of Silence</div>
+            <p class="door-sub">The prophet's voice entering the silence. The silence persisting after. The carrier that does not fade to zero.</p>
+          </div>
+          <div class="door-arrow">
+            <span>enter</span>
+            <span aria-hidden="true">→</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Bindu Field — the chakra's note in the Field of 33 -->
+      <a class="door bindu-field"
+         href="https://aistrangegame.com/bindu-field.html#vishuddha"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Vishuddha's note in the Field — new tab">
+        <svg class="door-glyph bindu-field-glyph" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          <!-- 5 sound-waves radiating from the Bindu core -->
+          <circle class="bfg-wave w1" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w2" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w3" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w4" cx="200" cy="130" r="24" />
+          <circle class="bfg-wave w5" cx="200" cy="130" r="24" />
+
+          <!-- 33 position-markers around the Bindu. This chakra's position glows. -->
+            <circle class="bfg-pos" cx="200.00" cy="30.00" r="1.8" />
+            <circle class="bfg-pos" cx="232.17" cy="31.81" r="1.8" />
+            <circle class="bfg-pos" cx="263.18" cy="37.16" r="1.8" />
+            <circle class="bfg-pos" cx="291.91" cy="45.87" r="1.8" />
+            <circle class="bfg-pos" cx="317.31" cy="57.63" r="1.8" />
+            <circle class="bfg-pos bfg-bindu-pos" cx="338.48" cy="71.99" r="2.6" />
+            <circle class="bfg-pos" cx="354.64" cy="88.46" r="1.8" />
+            <circle class="bfg-pos" cx="365.21" cy="106.42" r="1.8" />
+            <circle class="bfg-pos" cx="369.81" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="368.27" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="360.65" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="347.22" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="328.48" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="305.09" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="277.90" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="247.89" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="216.16" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="183.84" cy="229.55" r="1.8" />
+            <circle class="bfg-pos" cx="152.11" cy="225.95" r="1.8" />
+            <circle class="bfg-pos" cx="122.10" cy="218.88" r="1.8" />
+            <circle class="bfg-pos" cx="94.91" cy="208.61" r="1.8" />
+            <circle class="bfg-pos" cx="71.52" cy="195.49" r="1.8" />
+            <circle class="bfg-pos" cx="52.78" cy="180.00" r="1.8" />
+            <circle class="bfg-pos" cx="39.35" cy="162.71" r="1.8" />
+            <circle class="bfg-pos" cx="31.73" cy="144.23" r="1.8" />
+            <circle class="bfg-pos" cx="30.19" cy="125.24" r="1.8" />
+            <circle class="bfg-pos" cx="34.79" cy="106.42" r="1.8" />
+            <circle class="bfg-pos" cx="45.36" cy="88.46" r="1.8" />
+            <circle class="bfg-pos" cx="61.52" cy="71.99" r="1.8" />
+            <circle class="bfg-pos" cx="82.69" cy="57.63" r="1.8" />
+            <circle class="bfg-pos" cx="108.09" cy="45.87" r="1.8" />
+            <circle class="bfg-pos" cx="136.82" cy="37.16" r="1.8" />
+            <circle class="bfg-pos" cx="167.83" cy="31.81" r="1.8" />
+
+          <!-- Thread from this chakra's position to the central Bindu -->
+          <line class="bfg-thread" x1="338.48" y1="71.99" x2="200" y2="130" />
+
+          <!-- Central Bindu — the note all the others arrive from -->
+          <circle class="bfg-core" cx="200" cy="130" r="7" />
+        </svg>
+        <div class="door-meta">Bindu Field &nbsp;&middot;&nbsp; Song 6 of 33</div>
+        <div class="door-title">The note of voice — where what was held inside finds speech.</div>
+        <div class="door-text">The tone the throat lets through. Sixteen vowels around the moon. Let it play underneath while you read. <em>Opens in a new tab.</em></div>
+        <div class="door-enter">
+          Listen
+          <div class="door-enter-arrow"></div>
+        </div>
+      </a>
+    </div>
+    </div><!-- /wvtl-content -->
+  </section>
+
+  <!-- Bottom nav -->
+  <nav class="bottom-nav" aria-label="Chakra navigation">
+    <a class="nav-link" href="anahata-practice.html">← Anahata</a>
+    <div class="nav-position">6 / 33</div>
+    <a class="nav-link" href="ajna-practice.html">Ajna →</a>
+  </nav>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     STORY MODE — Axis Dimension
+     ═══════════════════════════════════════════ -->
+<div class="story-mode" id="story-mode" aria-hidden="true" aria-modal="true" role="dialog" aria-label="Vishuddha's story — the other side of the page">
+  <div class="story-scene" id="story-scene">
+    <div class="scene-bg-gradient" aria-hidden="true"></div>
+
+    <!-- Bahir Dashara — ten outward triangles in Shri Yantra geometry -->
+    <svg class="bd-svg" id="bd-svg" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <g id="bd-triangles">
+        <!-- Ten triangles, each at 36° intervals, pointing outward from center (300,300) -->
+        <!-- Apex at r=270; base endpoints at r=180, at angles θ±18° from center -->
+        <!-- Triangle 1: centered at 0° -->
+        <polygon class="bd-triangle-scene" points="570.0,300.0 471.2,244.4 471.2,355.6" />
+        <!-- Triangle 2: centered at 36° -->
+        <polygon class="bd-triangle-scene" points="518.4,458.7 471.2,355.6 405.8,445.6" />
+        <!-- Triangle 3: centered at 72° -->
+        <polygon class="bd-triangle-scene" points="383.4,556.8 405.8,445.6 300.0,480.0" />
+        <!-- Triangle 4: centered at 108° -->
+        <polygon class="bd-triangle-scene" points="216.6,556.8 300.0,480.0 194.2,445.6" />
+        <!-- Triangle 5: centered at 144° -->
+        <polygon class="bd-triangle-scene" points="81.6,458.7 194.2,445.6 128.8,355.6" />
+        <!-- Triangle 6: centered at 180° -->
+        <polygon class="bd-triangle-scene" points="30.0,300.0 128.8,355.6 128.8,244.4" />
+        <!-- Triangle 7: centered at 216° -->
+        <polygon class="bd-triangle-scene" points="81.6,141.3 128.8,244.4 194.2,154.4" />
+        <!-- Triangle 8: centered at 252° -->
+        <polygon class="bd-triangle-scene" points="216.6,43.2 194.2,154.4 300.0,120.0" />
+        <!-- Triangle 9: centered at 288° -->
+        <polygon class="bd-triangle-scene" points="383.4,43.2 300.0,120.0 405.8,154.4" />
+        <!-- Triangle 10: centered at 324° -->
+        <polygon class="bd-triangle-scene" points="518.4,141.3 405.8,154.4 471.2,244.4" />
+      </g>
+    </svg>
+
+    <!-- Compressed form — a central coiled knot that loosens -->
+    <svg class="compressed-form" id="compressed-form" viewBox="0 0 300 300" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <!-- A coiled spiral — tight when compressed, opening as it loosens -->
+      <path class="cf-knot" d="
+        M 150 150
+        m -50, 0
+        a 50,50 0 1,1 100,0
+        a 50,50 0 1,1 -100,0
+        M 150 120
+        a 30,30 0 1,1 0,60
+        a 30,30 0 1,1 0,-60
+        M 150 138
+        a 12,12 0 1,1 0,24
+        a 12,12 0 1,1 0,-24
+      " />
+    </svg>
+
+    <!-- Vibration ripples — voice exiting -->
+    <svg class="vibration-ripples" id="vibration-ripples" viewBox="0 0 560 560" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <circle class="vr-circle r1" cx="280" cy="280" r="40" />
+      <circle class="vr-circle r2" cx="280" cy="280" r="40" />
+      <circle class="vr-circle r3" cx="280" cy="280" r="40" />
+      <circle class="vr-circle r4" cx="280" cy="280" r="40" />
+    </svg>
+
+    <!-- HAM glyph at center -->
+    <div class="ham-glyph" id="scene-ham" aria-hidden="true">हं</div>
+
+    <!-- Six Shakti labels -->
+    <div class="shakti-label sampatprada" id="shakti-sampatprada">Sarva Sampatpradā</div>
+    <div class="shakti-label priyankari" id="shakti-priyankari">Sarva Priyankari</div>
+    <div class="shakti-label siddhiprada" id="shakti-siddhiprada">Sarva Siddhipradā</div>
+    <div class="shakti-label mangalakarini" id="shakti-mangalakarini">Sarva Mangalakārini</div>
+    <div class="shakti-label duhkhavimochini" id="shakti-duhkhavimochini">Sarva Duḥkhavimochinī</div>
+    <div class="shakti-label kamaprada" id="shakti-kamaprada">Sarva Kāmapradā</div>
+
+    <!-- Tree silhouette at bottom — the spacious tree -->
+    <svg class="tree-silhouette" viewBox="0 0 640 180" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+      <!-- Spacious bare-branch tree silhouette — more space than branch -->
+      <path class="ts-path" d="
+        M 320 180
+        L 320 110
+        M 320 140 Q 300 130 285 115 Q 275 105 260 100
+        M 320 135 Q 340 125 355 110 Q 365 100 380 95
+        M 320 120 Q 295 108 275 90 Q 258 78 245 72
+        M 320 115 Q 345 103 365 85 Q 382 73 395 68
+        M 320 110 Q 310 100 302 88 Q 295 78 290 72
+        M 320 110 Q 330 100 338 88 Q 345 78 350 72
+      " />
+    </svg>
+
+    <!-- Story line (beat text) -->
+    <div class="story-line-wrap">
+      <div class="story-line" id="story-line-content" aria-live="polite"></div>
+    </div>
+
+    <!-- Tap hint -->
+    <div class="story-tap-hint" id="story-tap-hint">tap anywhere to continue</div>
+
+    <!-- Close button -->
+    <button class="story-close" id="story-close" type="button" aria-label="Return to the page">×</button>
+
+    <!-- Threshold door -->
+    <a class="threshold-door" id="threshold-door" href="ajna-practice.html" aria-hidden="true" aria-label="Continue to Ajna">
+      <div class="next-point" aria-hidden="true"></div>
+      <div class="next-label">Ajna</div>
+      <div class="next-sublabel">The Third Eye</div>
+      <div class="threshold-continue-hint">
+        <span>Continue</span>
+        <span class="arrow">→</span>
+      </div>
+    </a>
+  </div><!-- /story-scene -->
+
+  <!-- ═══ ACT 2 — SAKSHI WITNESS (Vishuddha) ═══
+       Rises after the press-and-hold. Ascending blue→cream→silver-white.
+       Sakshi's integrative voice — every truth you swallowed was preparation.
+       Vishuddha's p3 is a SINGLE WORD ("Stop.") — the speaking has happened;
+       what comes next (Ajna) is the seeing that was waiting for the voice. -->
+  <div class="act-two" id="act-two" aria-hidden="true">
+    <div class="act2-bg"></div>
+    <div class="act2-crown"></div>
+    <div class="act2-base"></div>
+    <div class="act2-particles" id="act2-particles"></div>
+
+    <div class="act2-text-stage">
+      <p class="act2-para" id="act2-p1"><span class="act2-word">Every</span> <span class="act2-word">truth</span> <span class="act2-word">you</span> <span class="act2-word">swallowed.</span> <span class="act2-word">Every</span> <span class="act2-word">sentence</span> <span class="act2-word">that</span> <span class="act2-word">formed</span> <span class="act2-word">in</span> <span class="act2-word">your</span> <span class="act2-word">throat</span> <span class="act2-word">and</span> <span class="act2-word">went</span> <span class="act2-word">back</span> <span class="act2-word">down</span> <span class="act2-word">and</span> <span class="act2-word">stayed.</span> <span class="act2-word">Every</span> <span class="act2-word">year</span> <span class="act2-word">of</span> <span class="act2-word">holding.</span> <span class="act2-word">I</span> <span class="act2-word">watched.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">jaw</span> <span class="act2-word">tighten.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">shoulders</span> <span class="act2-word">rise</span> <span class="act2-word">when</span> <span class="act2-word">certain</span> <span class="act2-word">conversations</span> <span class="act2-word">were</span> <span class="act2-word">imagined.</span> <span class="act2-word">I</span> <span class="act2-word">watched</span> <span class="act2-word">the</span> <span class="act2-word">voice</span> <span class="act2-word">on</span> <span class="act2-word">recordings</span> <span class="act2-word">sound</span> <span class="act2-word">smaller</span> <span class="act2-word">than</span> <span class="act2-word">the</span> <span class="act2-word">person</span> <span class="act2-word">I</span> <span class="act2-word">was</span> <span class="act2-word">sitting</span> <span class="act2-word">beside.</span></p>
+      <p class="act2-para" id="act2-p2"><span class="act2-word">None</span> <span class="act2-word">of</span> <span class="act2-word">the</span> <span class="act2-word">holding</span> <span class="act2-word">was</span> <span class="act2-word">waste.</span> <span class="act2-word">The</span> <span class="act2-word">throat</span> <span class="act2-word">is</span> <span class="act2-word">not</span> <span class="act2-word">a</span> <span class="act2-word">vault.</span> <span class="act2-word">The</span> <span class="act2-word">throat</span> <span class="act2-word">is</span> <span class="act2-word">a</span> <span class="act2-word">ripening</span> <span class="act2-word">chamber.</span> <span class="act2-word">What</span> <span class="act2-word">you</span> <span class="act2-word">held</span> <span class="act2-word">became</span> <span class="act2-word">more</span> <span class="act2-word">exactly</span> <span class="act2-word">what</span> <span class="act2-word">it</span> <span class="act2-word">is.</span> <span class="act2-word">When</span> <span class="act2-word">you</span> <span class="act2-word">finally</span> <span class="act2-word">released</span> <span class="act2-word">it,</span> <span class="act2-word">it</span> <span class="act2-word">was</span> <span class="act2-word">more</span> <span class="act2-word">true</span> <span class="act2-word">than</span> <span class="act2-word">it</span> <span class="act2-word">would</span> <span class="act2-word">have</span> <span class="act2-word">been</span> <span class="act2-word">years</span> <span class="act2-word">ago.</span> <span class="act2-word">The</span> <span class="act2-word">holding</span> <span class="act2-word">was</span> <span class="act2-word">the</span> <span class="act2-word">preparation.</span> <span class="act2-word">You</span> <span class="act2-word">have</span> <span class="act2-word">spoken</span> <span class="act2-word">now.</span> <span class="act2-word">Not</span> <span class="act2-word">everything.</span> <span class="act2-word">Some</span> <span class="act2-word">things</span> <span class="act2-word">are</span> <span class="act2-word">still</span> <span class="act2-word">ripening.</span> <span class="act2-word">That</span> <span class="act2-word">is</span> <span class="act2-word">also</span> <span class="act2-word">correct.</span> <span class="act2-word">The</span> <span class="act2-word">practice</span> <span class="act2-word">is</span> <span class="act2-word">not</span> <span class="act2-word">saying</span> <span class="act2-word">every</span> <span class="act2-word">true</span> <span class="act2-word">thing</span> <span class="act2-word">at</span> <span class="act2-word">once.</span> <span class="act2-word">The</span> <span class="act2-word">practice</span> <span class="act2-word">is</span> <span class="act2-word">no</span> <span class="act2-word">longer</span> <span class="act2-word">lying</span> <span class="act2-word">about</span> <span class="act2-word">the</span> <span class="act2-word">small</span> <span class="act2-word">things.</span></p>
+      <p class="act2-para act2-go" id="act2-p3"><span class="act2-word">Stop.</span></p>
+    </div>
+
+    <a class="act2-door" id="act2-door" href="ajna-practice.html" aria-hidden="true" aria-label="Continue to Ajna">
+      <div class="act2-door-name">Ajna</div>
+      <div class="act2-door-hint">The seeing is here.</div>
+      <div class="act2-door-continue">Press · Continue →</div>
+    </a>
+  </div>
+
+  <!-- ═══ ACT VEIL — dark gap between Act 1 and Act 2 ═══
+       Eyes appear, blink once, fade. Hold the ring 1.8s to enter. -->
+  <div class="act-veil" id="act-veil" aria-hidden="true">
+    <div class="veil-eyes" id="veil-eyes">
+      <div class="veil-eye"></div>
+      <div class="veil-eye"></div>
+    </div>
+    <div class="veil-invite" id="veil-invite">
+      <div class="veil-invite-text">press and hold to enter</div>
+      <div class="veil-hold-ring" id="veil-hold-ring">
+        <svg viewBox="0 0 72 72" aria-hidden="true">
+          <circle class="veil-ring-track" cx="36" cy="36" r="32"/>
+          <circle class="veil-ring-fill"  cx="36" cy="36" r="32" id="veil-ring-fill"/>
+        </svg>
+        <div class="veil-hold-dot"></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /story-mode -->
+
+<!-- ═══════════════════════════════════════════
+     LIGHTBOX — tree image
+     ═══════════════════════════════════════════ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Vishuddha tree — expanded" aria-hidden="true">
+  <div class="lightbox-inner">
+    <img class="lightbox-img" id="lightbox-img" src="" alt="Vishuddha tree — expanded view" />
+  </div>
+  <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Close expanded tree">×</button>
+  <div class="lightbox-hint">pinch to zoom · drag to pan · tap outside to close</div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// VISHUDDHA — The Throat — Practice Page
+// Cessation-as-reveal · compression-as-purification · the
+// channel that is always-open at baseline.
+// ═══════════════════════════════════════════════════════════
+
+(function() {
+  'use strict';
+
+  // ─────────────────────────────────────────────────────────
+  // PROGRESS BAR — tracks scroll through the page
+  // ─────────────────────────────────────────────────────────
+
+  const progressBar = document.getElementById('progress-bar');
+
+  function updateProgress() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    progressBar.style.width = progress + '%';
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress, { passive: true });
+  updateProgress();
+
+  // ─────────────────────────────────────────────────────────
+  // GO DEEPER — collapsible toggle
+  // ─────────────────────────────────────────────────────────
+
+  const goDeeper = document.getElementById('go-deeper');
+  const goDeeperToggle = document.getElementById('go-deeper-toggle');
+
+  goDeeperToggle.addEventListener('click', () => {
+    const isOpen = goDeeper.classList.toggle('open');
+    goDeeperToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // ─────────────────────────────────────────────────────────
+  // WRITING AREA — auto-resize + auto-save + gate
+  // Activity gate: any content in textarea reveals
+  // .writing-reflection and .story-portal
+  // ─────────────────────────────────────────────────────────
+
+  const STORAGE_KEY = 'chakra-vishuddha';
+  const writingArea = document.getElementById('writing-vishuddha');
+  const saveNote = document.getElementById('save-note');
+  const reflection = document.getElementById('writing-reflection');
+  const storyInvite = document.getElementById('story-invite');
+
+  let saveTimer = null;
+
+  window.autoResize = function(el) {
+    el.style.height = 'auto';
+    el.style.height = el.scrollHeight + 'px';
+  };
+
+  window.scheduleAutoSave = function() {
+    if (saveTimer) clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => {
+      const val = writingArea.value;
+      try {
+        localStorage.setItem(STORAGE_KEY, val);
+      } catch (e) {
+        // Storage may be unavailable in private browsing
+      }
+      if (val.length > 0) {
+        saveNote.classList.add('visible');
+        setTimeout(() => saveNote.classList.remove('visible'), 1400);
+        reflection.classList.add('revealed');
+        storyInvite.classList.add('revealed');
+      } else {
+        reflection.classList.remove('revealed');
+        storyInvite.classList.remove('revealed');
+      }
+    }, 900);
+  };
+
+  // Restore saved content on load
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      writingArea.value = saved;
+      window.autoResize(writingArea);
+      if (saved.length > 0) {
+        reflection.classList.add('revealed');
+        storyInvite.classList.add('revealed');
+      }
+    }
+  } catch (e) {
+    // Storage may be unavailable
+  }
+
+  // ─────────────────────────────────────────────────────────
+  // WHERE THE VOICES LEAD — collapsible with auto-expand on return
+  // ─────────────────────────────────────────────────────────
+  (function() {
+    const section = document.getElementById('where-the-voices-lead');
+    const toggle  = document.getElementById('wvtl-toggle');
+    if (!section || !toggle) return;
+
+    toggle.addEventListener('click', () => {
+      const open = section.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open);
+    });
+
+    // Auto-expand on return when writing exists (signal of prior engagement)
+    try {
+      if (localStorage.getItem(STORAGE_KEY)) {
+        section.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    } catch (e) { /* ignore */ }
+  })();
+
+  // ─────────────────────────────────────────────────────────
+  // LIGHTBOX — tree image
+  // Pinch-zoom, wheel-zoom, drag-pan, double-tap, keyboard
+  // ─────────────────────────────────────────────────────────
+
+  const treeImage = document.getElementById('tree-image');
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+
+  let lbScale = 1;
+  let lbTx = 0;
+  let lbTy = 0;
+  let lbMinScale = 1;
+  let lbMaxScale = 6;
+  let lbDragging = false;
+  let lbDragStart = { x: 0, y: 0 };
+  let lbTxStart = 0;
+  let lbTyStart = 0;
+  let lbPinchStartDist = 0;
+  let lbPinchStartScale = 1;
+  let lbPinchCenter = { x: 0, y: 0 };
+  let lbLastTap = 0;
+
+  function applyLbTransform() {
+    lbScale = Math.max(lbMinScale, Math.min(lbMaxScale, lbScale));
+    clampPan();
+    lightboxImg.style.transform = `translate(${lbTx}px, ${lbTy}px) scale(${lbScale})`;
+  }
+
+  function clampPan() {
+    if (lbScale <= 1) {
+      lbTx = 0;
+      lbTy = 0;
+      return;
+    }
+    const rect = lightboxImg.getBoundingClientRect();
+    const maxX = Math.max(0, (rect.width - window.innerWidth) / 2);
+    const maxY = Math.max(0, (rect.height - window.innerHeight) / 2);
+    lbTx = Math.max(-maxX, Math.min(maxX, lbTx));
+    lbTy = Math.max(-maxY, Math.min(maxY, lbTy));
+  }
+
+  function openLightbox() {
+    lightboxImg.src = treeImage.src;
+    lbScale = 1;
+    lbTx = 0;
+    lbTy = 0;
+    applyLbTransform();
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-open');
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-open');
+  }
+
+  treeImage.addEventListener('click', openLightbox);
+  lightboxClose.addEventListener('click', closeLightbox);
+
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  // Wheel zoom toward cursor
+  lightbox.addEventListener('wheel', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    e.preventDefault();
+    const delta = -e.deltaY * 0.002;
+    const newScale = Math.max(lbMinScale, Math.min(lbMaxScale, lbScale * (1 + delta)));
+    const ratio = newScale / lbScale;
+    const rect = lightboxImg.getBoundingClientRect();
+    const cx = e.clientX - rect.left - rect.width / 2;
+    const cy = e.clientY - rect.top - rect.height / 2;
+    lbTx -= cx * (ratio - 1);
+    lbTy -= cy * (ratio - 1);
+    lbScale = newScale;
+    applyLbTransform();
+  }, { passive: false });
+
+  // Mouse drag
+  lightboxImg.addEventListener('mousedown', (e) => {
+    if (lbScale <= 1) return;
+    e.preventDefault();
+    lbDragging = true;
+    lbDragStart = { x: e.clientX, y: e.clientY };
+    lbTxStart = lbTx;
+    lbTyStart = lbTy;
+    lightboxImg.classList.add('grabbing');
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!lbDragging) return;
+    lbTx = lbTxStart + (e.clientX - lbDragStart.x);
+    lbTy = lbTyStart + (e.clientY - lbDragStart.y);
+    applyLbTransform();
+  });
+
+  window.addEventListener('mouseup', () => {
+    lbDragging = false;
+    lightboxImg.classList.remove('grabbing');
+  });
+
+  // Touch handling — pinch + pan + double-tap
+  function touchDist(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.hypot(dx, dy);
+  }
+
+  function touchCenter(touches) {
+    return {
+      x: (touches[0].clientX + touches[1].clientX) / 2,
+      y: (touches[0].clientY + touches[1].clientY) / 2
+    };
+  }
+
+  lightboxImg.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      lbPinchStartDist = touchDist(e.touches);
+      lbPinchStartScale = lbScale;
+      lbPinchCenter = touchCenter(e.touches);
+    } else if (e.touches.length === 1 && lbScale > 1) {
+      lbDragging = true;
+      lbDragStart = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+      lbTxStart = lbTx;
+      lbTyStart = lbTy;
+    }
+  }, { passive: false });
+
+  lightboxImg.addEventListener('touchmove', (e) => {
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const dist = touchDist(e.touches);
+      const newScale = Math.max(lbMinScale, Math.min(lbMaxScale, lbPinchStartScale * (dist / lbPinchStartDist)));
+      lbScale = newScale;
+      applyLbTransform();
+    } else if (e.touches.length === 1 && lbDragging) {
+      lbTx = lbTxStart + (e.touches[0].clientX - lbDragStart.x);
+      lbTy = lbTyStart + (e.touches[0].clientY - lbDragStart.y);
+      applyLbTransform();
+    }
+  }, { passive: false });
+
+  lightboxImg.addEventListener('touchend', (e) => {
+    lbDragging = false;
+    // Double-tap detection
+    const now = Date.now();
+    if (now - lbLastTap < 300 && e.touches.length === 0) {
+      if (lbScale > 1) {
+        lbScale = 1;
+        lbTx = 0;
+        lbTy = 0;
+      } else {
+        lbScale = 2.4;
+      }
+      applyLbTransform();
+    }
+    lbLastTap = now;
+  });
+
+  // Keyboard controls in lightbox
+  window.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+      closeLightbox();
+    } else if (e.key === '0') {
+      lbScale = 1;
+      lbTx = 0;
+      lbTy = 0;
+      applyLbTransform();
+    } else if (e.key === '+' || e.key === '=') {
+      lbScale = Math.min(lbMaxScale, lbScale * 1.2);
+      applyLbTransform();
+    } else if (e.key === '-' || e.key === '_') {
+      lbScale = Math.max(lbMinScale, lbScale / 1.2);
+      applyLbTransform();
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────
+  // STORY MODE — axis dimension overlay
+  // 180° flip in/out. Tap-to-advance through 11 beats
+  // across the song's seven phases.
+  // ─────────────────────────────────────────────────────────
+
+  const storyMode = document.getElementById('story-mode');
+  const scene = document.getElementById('story-scene');
+  const storyClose = document.getElementById('story-close');
+  const lineEl = document.getElementById('story-line-content');
+  const tapHint = document.getElementById('story-tap-hint');
+  const bdSvg = document.getElementById('bd-svg');
+  const thresholdDoor = document.getElementById('threshold-door');
+
+  // Shakti label elements
+  const shaktiEls = {
+    duhkhavimochini: document.getElementById('shakti-duhkhavimochini'),
+    mangalakarini:   document.getElementById('shakti-mangalakarini'),
+    siddhiprada:     document.getElementById('shakti-siddhiprada'),
+    sampatprada:     document.getElementById('shakti-sampatprada'),
+    priyankari:      document.getElementById('shakti-priyankari'),
+    kamaprada:       document.getElementById('shakti-kamaprada')
+  };
+
+  // ═══ V5 TWO-ACT ARCHITECTURE — 5 gaia-sakshi beats · signature landing · veil · Act 2 ═══
+  // The scene preserves its architecture (Bahir Dashara triangle reveal + named Shakti
+  // labels + HAM seed + throat-form sequence). Gaia's experiential voice narrates the
+  // 5-beat arc: throat → truth swallowed → narrowing recognition → narrowing-opening →
+  // rippling recognition (voice as architecture). Signature lands at the hinge.
+  const beats = [
+    {
+      // Beat 1 — something in the throat, waiting. Opens with all prior chakras underneath.
+      text: "And now I want to speak. Something in my throat. It's been there a long time. I can feel it now because the heart opened and the fire is clean and the ground is still holding and the pull is still present. All those things are underneath this: something in my throat that was waiting.",
+      state: 'compressed',
+      bdLevel: 0,
+      shakti: null
+    },
+    {
+      // Beat 2 — truth swallowed. First Shakti reveals (duhkhavimochini — she who releases sorrow).
+      text: "Truth. That's what it is. Truth I swallowed. Truth I held because the holding was safer than the speaking. Truth I kept in the narrow place because I didn't know the world would be able to hold it if it got out.",
+      state: 'compressed swallowing held-for-good-reasons',
+      bdLevel: 1,
+      shakti: 'duhkhavimochini'
+    },
+    {
+      // Beat 3 (narrowing) — the recognition: the container has grown, the truth is the same size.
+      // Two Shaktis reveal (mangalakarini + siddhiprada — auspiciousness + accomplishment).
+      text: "The world is not the problem. I was the problem. I was the container that wasn't ready. I've gotten bigger. The truth is the same size it always was. I've changed. I can say it now.",
+      state: 'loosening seeing-cost truth-already-formed narrowing',
+      bdLevel: 2,
+      shakti: 'mangalakarini',
+      shaktiExtra: 'siddhiprada'
+    },
+    {
+      // Beat 4 (narrowing opening) — the bottleneck becomes a point; one small true thing exits.
+      // HAM enters. Two more Shaktis (sampatprada + priyankari — fulfillment + beloved).
+      text: "I don't want to say it all. Some of it is still ripening. Some of it needs to stay in the throat a little longer. But some of it — I can feel it — wants out. Wants to leave the body through the narrow passage. Wants to become air. I say one small true thing. Just to see. The room changes.",
+      state: 'loosening bottleneck-as-point ham-present release-imminent narrowing opening',
+      bdLevel: 3,
+      shakti: 'sampatprada',
+      shaktiExtra: 'priyankari'
+    },
+    {
+      // Beat 5 FINAL (narrowing opening resonating rippling) — voice as architecture.
+      // Full bdLevel (all 10 triangles visible). Final Shakti (kamaprada — desire-fulfiller,
+      // here the wish-that-becomes-sound). All scene states resolved: voice-found peak released.
+      text: "I didn't know the room was a room before I spoke. The speaking made it one. My voice makes rooms. My voice is a kind of architecture.",
+      state: 'ham-present voice-found peak released recognition mini-reveal narrowing opening resonating rippling',
+      bdLevel: 4,
+      shakti: 'kamaprada',
+      final: true
+    }
+  ];
+
+  /* Signature phrase — the hinge between Gaia's experiential voice and Sakshi's integrative voice.
+     Lands after the final beat; veil rises after. */
+  const SIGNATURE = 'What you finally said out loud was what you always knew.';
+
+  let currentBeat         = -1;
+  let act2Launched        = false;
+  let finalBeatDisplayed = false;
+  let signatureShown     = false;
+  let finalHintTimer     = null;
+  let lineFadeTimer       = null;
+  let thresholdTimer      = null;
+  let landingTimer        = null;
+  let openHintTimer       = null;
+  let startHideTimer      = null;
+  let storyTransitioning  = false;
+
+  function openStory() {
+    storyMode.classList.add('active');
+    storyMode.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('story-open');
+    resetStory();
+    resetVeil();
+    resetActTwo();
+    if (openHintTimer) clearTimeout(openHintTimer);
+    openHintTimer = setTimeout(() => {
+      if (storyMode.classList.contains('active')) {
+        tapHint.classList.add('visible');
+      }
+      openHintTimer = null;
+    }, 1700);
+  }
+
+  function closeStory() {
+    storyMode.classList.remove('active');
+    storyMode.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('story-open');
+    if (lineFadeTimer)  { clearTimeout(lineFadeTimer);  lineFadeTimer  = null; }
+    if (thresholdTimer) { clearTimeout(thresholdTimer); thresholdTimer = null; }
+    if (landingTimer)   { clearTimeout(landingTimer);   landingTimer   = null; }
+    if (openHintTimer)  { clearTimeout(openHintTimer);  openHintTimer  = null; }
+    if (startHideTimer) { clearTimeout(startHideTimer); startHideTimer = null; }
+    resetVeil();
+    resetActTwo();
+  }
+
+  function resetStory() {
+    currentBeat = -1;
+    act2Launched = false;
+    finalBeatDisplayed = false;
+    signatureShown = false;
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+    storyTransitioning = false;
+    lineEl.textContent = '';
+    lineEl.classList.remove('visible', 'fading');
+    tapHint.classList.remove('visible');
+    if (thresholdTimer) { clearTimeout(thresholdTimer); thresholdTimer = null; }
+    if (landingTimer)   { clearTimeout(landingTimer);   landingTimer   = null; }
+    // Strip all scene state classes (including threshold-open)
+    scene.className = 'story-scene';
+    // Reset Bahir Dashara reveal — SVG className is read-only, use setAttribute
+    bdSvg.setAttribute('class', 'bd-svg');
+    // Reset all Shakti labels
+    Object.values(shaktiEls).forEach(el => {
+      if (el) el.classList.remove('visible');
+    });
+    // Hide threshold door (legacy)
+    if (thresholdDoor) thresholdDoor.setAttribute('aria-hidden', 'true');
+  }
+
+  function applyBeat(idx) {
+    if (idx < 0 || idx >= beats.length) return;
+    const beat = beats[idx];
+
+    // Update scene state classes
+    scene.className = 'story-scene ' + beat.state;
+
+    // Update Bahir Dashara reveal level
+    bdSvg.setAttribute('class', 'bd-svg reveal-' + beat.bdLevel);
+
+    // Reveal the beat's Shakti (and any extra)
+    if (beat.shakti && shaktiEls[beat.shakti]) {
+      shaktiEls[beat.shakti].classList.add('visible');
+    }
+    if (beat.shaktiExtra && shaktiEls[beat.shaktiExtra]) {
+      shaktiEls[beat.shaktiExtra].classList.add('visible');
+    }
+
+    // Fade out the previous line, then fade in the new one
+    if (lineEl.classList.contains('visible')) {
+      lineEl.classList.remove('visible');
+      lineEl.classList.add('fading');
+      if (lineFadeTimer) clearTimeout(lineFadeTimer);
+      lineFadeTimer = setTimeout(() => {
+        lineEl.textContent = beat.text;
+        lineEl.classList.remove('fading');
+        lineEl.classList.add('visible');
+      }, 420);
+    } else {
+      lineEl.textContent = beat.text;
+      lineEl.classList.add('visible');
+    }
+
+    /* Final beat now waits for user tap — signature lands via advance() → landSignature(). */
+  }
+
+  function landSignature() {
+    if (signatureShown) return;
+    signatureShown = true;
+    if (tapHint) tapHint.classList.remove('visible');
+    if (finalHintTimer) { clearTimeout(finalHintTimer); finalHintTimer = null; }
+
+    lineEl.classList.remove('visible');
+    lineEl.classList.add('fading');
+
+    if (landingTimer) clearTimeout(landingTimer);
+    landingTimer = setTimeout(() => {
+      if (!storyMode.classList.contains('active')) return;
+      lineEl.textContent = SIGNATURE;
+      lineEl.classList.remove('fading');
+      void lineEl.offsetWidth;
+      lineEl.classList.add('visible');
+
+      if (thresholdTimer) clearTimeout(thresholdTimer);
+      thresholdTimer = setTimeout(() => {
+        if (storyMode.classList.contains('active')) {
+          openThreshold();
+        }
+      }, 2800);
+    }, 800);
+  }
+
+  function openThreshold() {
+    // V5: Act 1 complete → raise the veil. Legacy threshold-door is fallback only.
+    showVeil();
+  }
+
+  function advance() {
+    if (storyTransitioning) return;
+    if (act2Launched) return;
+    if (signatureShown) return;
+    if (finalBeatDisplayed) { landSignature(); return; }
+    if (!storyStarted_v5()) {
+      _markStarted();
+      if (startHideTimer) clearTimeout(startHideTimer);
+      startHideTimer = setTimeout(() => {
+        tapHint.classList.remove('visible');
+        startHideTimer = null;
+      }, 800);
+      currentBeat = 0;
+      applyBeat(currentBeat);
+      checkFinalBeat();
+      return;
+    }
+    if (currentBeat >= beats.length - 1) return;
+    storyTransitioning = true;
+    currentBeat++;
+    applyBeat(currentBeat);
+    checkFinalBeat();
+    setTimeout(() => { storyTransitioning = false; }, 600);
+  }
+
+  function checkFinalBeat() {
+    const beat = beats[currentBeat];
+    if (beat && beat.final) {
+      finalBeatDisplayed = true;
+      if (finalHintTimer) clearTimeout(finalHintTimer);
+      finalHintTimer = setTimeout(() => {
+        if (!storyMode.classList.contains('active')) return;
+        if (signatureShown || act2Launched) return;
+        tapHint.classList.add('visible');
+      }, 4200);
+    }
+  }
+  // Lightweight started-flag (currentBeat stays -1 before first tap)
+  function storyStarted_v5() { return currentBeat >= 0; }
+  function _markStarted() { /* currentBeat advance signals started */ }
+
+  /* ══════ ACT VEIL — dark between-space ══════ */
+  const actVeil    = document.getElementById('act-veil');
+  const veilEyes   = document.getElementById('veil-eyes');
+  const veilInvite = document.getElementById('veil-invite');
+  const holdRing   = document.getElementById('veil-hold-ring');
+  const ringFill   = document.getElementById('veil-ring-fill');
+
+  const HOLD_DURATION = 1800;
+  const CIRCUMFERENCE = 201;
+
+  let holdStart  = null;
+  let holdRAF    = null;
+  let veilTimers = [];
+
+  function veilAfter(ms, fn) {
+    const t = setTimeout(fn, ms);
+    veilTimers.push(t);
+    return t;
+  }
+  function clearVeilTimers() {
+    veilTimers.forEach(t => clearTimeout(t));
+    veilTimers.length = 0;
+    if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+  }
+
+  function showVeil() {
+    actVeil.classList.add('visible');
+    actVeil.setAttribute('aria-hidden', 'false');
+
+    veilAfter(700, () => {
+      veilEyes.classList.add('visible');
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          veilEyes.classList.add('animate');
+        });
+      });
+    });
+
+    veilAfter(2900, () => {
+      veilInvite.classList.add('visible');
+      wireHold();
+    });
+  }
+
+  let holdWired = false;
+  function wireHold() {
+    if (holdWired) return;
+    holdWired = true;
+
+    function startHold(e) {
+      e.preventDefault();
+      if (act2Launched) return;
+      holdStart = performance.now();
+      holdRing.classList.add('holding');
+      ringFill.style.transition = `stroke-dashoffset ${HOLD_DURATION}ms linear`;
+      ringFill.style.strokeDashoffset = '0';
+      tickHold();
+    }
+
+    function tickHold() {
+      holdRAF = requestAnimationFrame(() => {
+        if (!holdStart) return;
+        const elapsed = performance.now() - holdStart;
+        if (elapsed >= HOLD_DURATION) {
+          completeHold();
+        } else {
+          tickHold();
+        }
+      });
+    }
+
+    function cancelHold() {
+      if (!holdStart) return;
+      holdStart = null;
+      holdRing.classList.remove('holding');
+      ringFill.style.transition = 'stroke-dashoffset 0.4s ease';
+      ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+    }
+
+    function completeHold() {
+      holdStart = null;
+      if (holdRAF) { cancelAnimationFrame(holdRAF); holdRAF = null; }
+      actVeil.classList.add('dissolving');
+      veilAfter(600, () => {
+        actVeil.classList.remove('visible');
+        launchActTwo();
+      });
+    }
+
+    holdRing.addEventListener('pointerdown',   startHold,  { passive: false });
+    holdRing.addEventListener('pointerup',     cancelHold);
+    holdRing.addEventListener('pointerleave',  cancelHold);
+    holdRing.addEventListener('pointercancel', cancelHold);
+  }
+
+  function resetVeil() {
+    clearVeilTimers();
+    if (!actVeil) return;
+    actVeil.classList.remove('visible', 'dissolving');
+    actVeil.setAttribute('aria-hidden', 'true');
+    veilEyes.classList.remove('visible', 'animate');
+    veilInvite.classList.remove('visible');
+    ringFill.style.transition = 'none';
+    ringFill.style.strokeDashoffset = String(CIRCUMFERENCE);
+    holdRing.classList.remove('holding');
+    holdStart = null;
+  }
+
+  /* ══════ ACT 2 — SAKSHI WITNESS ══════ */
+  const actTwo    = document.getElementById('act-two');
+  const act2p1    = document.getElementById('act2-p1');
+  const act2p2    = document.getElementById('act2-p2');
+  const act2p3    = document.getElementById('act2-p3');
+  const act2Door  = document.getElementById('act2-door');
+  const act2Parts = document.getElementById('act2-particles');
+
+  (function buildParticles() {
+    if (!act2Parts) return;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 26; i++) {
+      const p       = document.createElement('div');
+      p.className   = 'act2-particle';
+      const size    = 2 + Math.random() * 5;
+      const opacity = 0.14 + Math.random() * 0.32;
+      const dur     = 18 + Math.random() * 26;
+      const delay   = Math.random() * 28;
+      p.style.cssText = `
+        width:${size}px;height:${size}px;
+        left:${8 + Math.random() * 84}%;
+        bottom:${10 + Math.random() * 88}%;
+        --p-op:${opacity};
+        box-shadow:0 0 ${size*3}px rgba(255,255,255,${opacity*0.8});
+        animation-duration:${dur}s;
+        animation-delay:-${delay}s;
+      `;
+      frag.appendChild(p);
+    }
+    act2Parts.appendChild(frag);
+  })();
+
+  const act2Timers = [];
+  function act2After(ms, fn) {
+    const t = setTimeout(fn, ms);
+    act2Timers.push(t);
+    return t;
+  }
+  function clearAct2Timers() {
+    act2Timers.forEach(t => clearTimeout(t));
+    act2Timers.length = 0;
+  }
+
+  function launchActTwo() {
+    act2Launched = true;
+    if (typeof scene !== 'undefined' && scene) scene.classList.remove('threshold-open');
+    if (typeof tapHint !== 'undefined' && tapHint) tapHint.classList.remove('visible');
+    if (typeof storyTapHint !== 'undefined' && storyTapHint) storyTapHint.classList.remove('visible');
+
+    actTwo.classList.add('rising');
+    actTwo.setAttribute('aria-hidden', 'false');
+
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+
+    /* Word-by-word reveal — slow witness pace. */
+    const BASE_DELAY    = 420;
+    const COMMA_EXTRA   = 260;
+    const DASH_EXTRA    = 180;
+    const PERIOD_EXTRA  = 620;
+    const PARA_EXTRA    = 1200;
+    const INITIAL_DELAY = 1600;
+    const AFTER_LAST    = 2800;
+
+    const paras = Array.from(actTwo.querySelectorAll('.act2-para'));
+    let cumulative = INITIAL_DELAY;
+
+    paras.forEach((para, paraIdx) => {
+      const words = Array.from(para.querySelectorAll('.act2-word'));
+      words.forEach((wordEl, wordIdx) => {
+        const w = wordEl.textContent;
+        const t = setTimeout(() => wordEl.classList.add('visible'), cumulative);
+        act2Timers.push(t);
+
+        let delay = BASE_DELAY;
+        if (/[.!?]$/.test(w))       delay += PERIOD_EXTRA;
+        else if (/[,;:]$/.test(w))  delay += COMMA_EXTRA;
+        if (/[—–]/.test(w)) delay += DASH_EXTRA;
+
+        if (wordIdx === words.length - 1 && paraIdx < paras.length - 1) {
+          delay += PARA_EXTRA;
+        }
+        cumulative += delay;
+      });
+    });
+
+    const doorTimer = setTimeout(() => {
+      if (act2Door) {
+        act2Door.classList.add('risen');
+        act2Door.setAttribute('aria-hidden', 'false');
+      }
+    }, cumulative + AFTER_LAST);
+    act2Timers.push(doorTimer);
+  }
+
+  function resetActTwo() {
+    clearAct2Timers();
+    act2Launched = false;
+    if (!actTwo) return;
+    actTwo.classList.remove('rising');
+    actTwo.setAttribute('aria-hidden', 'true');
+    const allWords = actTwo.querySelectorAll('.act2-word');
+    allWords.forEach(w => w.classList.remove('visible'));
+    if (act2Door) {
+      act2Door.classList.remove('risen');
+      act2Door.setAttribute('aria-hidden', 'true');
+    }
+  }
+
+  /* ══════ LISTENERS ══════ */
+  // Open story mode
+  storyInvite.addEventListener('click', openStory);
+
+  // Close button
+  storyClose.addEventListener('click', closeStory);
+
+  // Tap-to-advance — clicking anywhere on the scene (except close, threshold-door, Act 2, Veil)
+  scene.addEventListener('click', (e) => {
+    if (e.target.closest('.story-close')) return;
+    if (e.target.closest('.threshold-door')) return;
+    if (e.target.closest('.act-two')) return;
+    if (e.target.closest('.act-veil')) return;
+    advance();
+  });
+
+  // Keyboard controls
+  window.addEventListener('keydown', (e) => {
+    if (!storyMode.classList.contains('active')) return;
+    if (e.key === 'Escape') {
+      closeStory();
+    } else if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight') {
+      e.preventDefault();
+      if (!act2Launched && !actVeil.classList.contains('visible')) advance();
+    }
+  });
+
+  // ─────────────────────────────────────────────────────────
+  // Initial auto-resize (for any restored content)
+  // ─────────────────────────────────────────────────────────
+
+  if (writingArea.value.length > 0) {
+    window.autoResize(writingArea);
+  }
+
+})();
+</script>
+
+<script>/* no gates (standing ruling): everything the page holds is shown from the start; writing still saves */
+(function(){function open(){["post-engagement","writing-reflection","story-invite"].forEach(function(id){var e=document.getElementById(id);if(e){e.classList.add("revealed");e.removeAttribute("aria-hidden")}});var p=document.getElementById("story-portal");if(p){p.dataset.unlockedOnce="1";p.classList.remove("locked");p.setAttribute("aria-disabled","false")}}open();addEventListener("DOMContentLoaded",open);addEventListener("load",open)})();</script>
+</body>
+</html>

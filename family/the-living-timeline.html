@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The Living Timeline — AKAS Tex / Wazoodle Fabrics</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #F7F3EC;
+  --ink: #1E1A16;
+  --ink-s: #6B6259;
+  --ink-f: #9B9084;
+  --gold: #B8860B;
+  --gold-text: #8A6400;
+  --gold-s: rgba(184,134,11,0.12);
+  --line: #D0C2AA;
+  --sid: #1B3A5C;
+  --arch: #7A2F14;
+  --ash: #26421A;
+  --akas: #2A2520;
+  --waz: #8B5E3C;
+  --shared: #4A4238;
+  --ink-f: #706860;
+  --mw: 720px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:18px;line-height:1.85;-webkit-font-smoothing:antialiased}
+
+/* Hero */
+.hero{text-align:center;padding:18vh 24px 10vh;opacity:0;animation:fi 1.2s ease forwards}
+.hero h1{font-family:'Lora',serif;font-size:clamp(2rem,5.5vw,3rem);font-weight:400;letter-spacing:-0.02em;margin-bottom:.4em}
+.hero .sub{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-s);margin-bottom:1.5rem}
+.hero .intro{max-width:520px;margin:0 auto;font-size:.92rem;color:var(--ink-s);line-height:1.7}
+.hl{width:48px;height:1px;background:var(--gold);margin:2rem auto}
+
+/* Character Filters */
+.filters{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;padding:0 24px 3rem;opacity:0;animation:fi 1s .3s ease forwards}
+.fbtn{font-family:'DM Sans',sans-serif;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;padding:10px 18px;min-height:44px;border:1px solid var(--line);border-radius:20px;background:transparent;color:var(--ink-s);cursor:pointer;transition:all .3s}
+.fbtn:hover,.fbtn.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* Thread Container */
+.timeline{position:relative;max-width:var(--mw);margin:0 auto;padding:0 24px 6rem}
+
+/* The vertical thread line */
+.thread-line{position:absolute;left:38px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,transparent,var(--line) 40px,var(--line) calc(100% - 40px),transparent)}
+
+/* Connective prose between beats */
+.thread-text{position:relative;max-width:480px;margin:0 0 0 0;padding:2rem 0 2rem 56px;text-align:left;font-family:'Lora',serif;font-style:italic;font-size:.9rem;color:var(--ink-s);line-height:1.7;opacity:0;transform:translateY(16px);transition:opacity .8s,transform .8s}
+.thread-text.v{opacity:1;transform:translateY(0)}
+
+/* Beat nodes */
+.beat{position:relative;margin:0 auto;max-width:600px;padding:1.5rem 0;opacity:0;transform:translateY(16px);transition:opacity .7s,transform .7s}
+.beat.v{opacity:1;transform:translateY(0)}
+
+/* The stitch point */
+.stitch{position:relative;display:flex;align-items:center;justify-content:flex-start;cursor:pointer;padding:12px 0;padding-left:32px}
+.dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--line);background:var(--bg);position:relative;z-index:2;transition:all .3s;flex-shrink:0}
+.beat:hover .dot,.beat.open .dot{transform:scale(1.3)}
+.beat[data-c="shared"] .dot{border-color:var(--shared)}
+.beat[data-c="sid"] .dot{border-color:var(--sid)}
+.beat[data-c="arch"] .dot{border-color:var(--arch)}
+.beat[data-c="ash"] .dot{border-color:var(--ash)}
+.beat[data-c="akas"] .dot{border-color:var(--akas)}
+.beat[data-c="waz"] .dot{border-color:var(--waz)}
+.beat.open .dot{background:var(--gold);border-color:var(--gold)}
+
+/* Beat preview — visible on scroll */
+.preview{margin-left:20px;flex:1;text-align:left}
+.preview .year{font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-f);margin-bottom:2px}
+.preview .title{font-family:'Lora',serif;font-size:1.05rem;font-weight:400;color:var(--ink);margin-bottom:4px}
+.preview .conv{font-family:'Lora',serif;font-style:italic;font-size:.85rem;color:var(--ink-s);line-height:1.5}
+
+/* Expanded content — appears on tap/click */
+.expand{max-height:0;overflow:hidden;transition:max-height .6s ease,padding .4s ease;padding:0 0 0 52px}
+.beat.open .expand{max-height:2000px;padding:1.5rem 0 1.5rem 52px}
+.expand-inner{border-left:2px solid var(--gold-s);padding-left:20px}
+
+.story-label,.mirror-label{font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-f);margin-bottom:.5rem;margin-top:1.2rem}
+.story-label:first-child,.mirror-label:first-child{margin-top:0}
+.story-text,.mirror-text{font-size:.92rem;line-height:1.72;color:var(--ink);margin-bottom:0}
+.mirror-text{color:var(--ink-s)}
+.convergence{font-family:'Lora',serif;font-style:italic;font-size:.95rem;color:var(--gold-text);margin-top:1.2rem;padding-top:1rem;border-top:1px solid var(--gold-s)}
+
+/* Accolade gold mark */
+.accolade-mark{display:inline-block;background:var(--gold-s);color:var(--gold-text);font-size:.65rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:10px;margin-left:8px;vertical-align:middle}
+
+/* Bridge links */
+.bridge{display:block;margin-top:1.2rem;font-size:.78rem;color:var(--gold-text);text-decoration:none;letter-spacing:.08em;transition:opacity .3s}
+.bridge:hover{opacity:.7}
+.bridge::after{content:' →'}
+
+/* Colophon */
+.colophon{text-align:center;padding:4rem 24px;max-width:var(--mw);margin:0 auto}
+.colophon p{font-size:.82rem;color:var(--ink-f);line-height:1.7;margin-bottom:.5em}
+.colophon .sig{font-family:'Lora',serif;font-size:1rem;color:var(--ink-s);margin-bottom:1rem}
+.deep-links{display:flex;justify-content:center;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.deep-link{font-family:'Lora',serif;font-size:.92rem;color:var(--ink);text-decoration:none;padding:12px 24px;border:1px solid var(--line);border-radius:4px;transition:all .3s}
+.deep-link:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.deep-link small{display:block;font-family:'DM Sans',sans-serif;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-f);margin-top:4px}
+.deep-link:hover small{color:var(--bg);opacity:.7}
+
+@keyframes fi{to{opacity:1}}
+@media(max-width:600px){
+  .thread-line{left:28px}
+  .stitch{padding-left:22px}
+  .preview{margin-left:12px}
+  .expand{padding-left:42px}
+  .beat.open .expand{padding-left:42px}
+  .thread-text{padding-left:46px}
+}
+
+@keyframes stitchBreathe{0%,100%{box-shadow:0 0 0 0 rgba(208,194,170,0)}50%{box-shadow:0 0 0 6px rgba(208,194,170,.25)}}
+.dot{animation:stitchBreathe 4s ease infinite}
+.beat.open .dot{animation:none}
+
+.beat[data-c="arch"] .expand-inner{border-left-color:var(--arch);background:linear-gradient(135deg,rgba(245,226,214,.2),transparent)}
+.beat[data-c="sid"] .expand-inner{border-left-color:var(--sid);background:linear-gradient(135deg,rgba(212,228,242,.2),transparent)}
+.beat[data-c="ash"] .expand-inner{border-left-color:var(--ash);background:linear-gradient(135deg,rgba(214,235,206,.2),transparent)}
+.beat[data-c="waz"] .expand-inner{border-left-color:var(--waz);background:linear-gradient(135deg,rgba(218,195,168,.15),transparent)}
+.beat[data-c="akas"] .expand-inner{border-left-color:var(--akas);background:linear-gradient(135deg,rgba(200,195,188,.15),transparent)}
+.beat[data-c="shared"] .expand-inner{border-left-color:var(--shared);background:linear-gradient(135deg,rgba(208,194,170,.12),transparent)}
+
+.stitch::after{content:'';position:absolute;right:0;top:50%;width:20px;height:20px;border-right:2px solid var(--line);border-bottom:2px solid var(--line);transform:translateY(-60%) rotate(45deg) scale(.5);opacity:.3;transition:all .3s}
+.beat.open .stitch::after{transform:translateY(-40%) rotate(-135deg) scale(.5);opacity:.5}
+.beat:hover .stitch::after{opacity:.5}
+
+
+
+
+.zoom-ctrl{position:fixed;bottom:20px;right:20px;display:flex;gap:6px;z-index:100;opacity:.5;transition:opacity .3s}
+.zoom-ctrl:hover{opacity:1}
+.zoom-ctrl button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--ink-s,var(--ink-s,#5C5348));font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .3s;-webkit-tap-highlight-color:transparent;user-select:none}
+.zoom-ctrl button:active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+@media(max-width:600px){.zoom-ctrl{bottom:16px;right:16px}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>The Living Timeline</h1>
+  <div class="sub">AKAS Tex · Wazoodle Fabrics · SupAbsorb Tech</div>
+  <div class="hl"></div>
+  <p class="intro">One family. Four companies. Twenty-four thousand makers across eighty-one countries. This is how the threads connect — from a name that was already a word in Sanskrit, to the fabric in your hands today.</p>
+</div>
+
+<div class="filters">
+  <button class="fbtn active" data-f="all">All Threads</button>
+  <button class="fbtn" data-f="akas">AKAS Tex</button>
+  <button class="fbtn" data-f="waz">Wazoodle</button>
+  <button class="fbtn" data-f="arch">Archana</button>
+  <button class="fbtn" data-f="sid">Sidharth</button>
+  <button class="fbtn" data-f="ash">Ashrey</button>
+</div>
+
+<div class="timeline">
+  <div class="thread-line"></div>
+
+  <!-- BEAT 0 -->
+  <div class="beat" data-c="shared" data-p="shared">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">1956 – 1987</div>
+        <div class="title">The Name Before the Name</div>
+        <div class="conv">A company name that accidentally spells the Sanskrit word for the space in which all creation becomes real.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">April 13, 1956. A boy born in India — <em>Sidharth</em>, one whose purpose is already accomplished. August 21, 1957. A girl — <em>Archana</em>, devotional offering. They meet at a restaurant in Allahabad on May 30, 1980. Engaged the same day. March 3, 1982 — Karishma: miracle. March 3, 1987 — Ashrey: shelter. Same birthday. Five years apart. Four initials. AKAS. A word in Sanskrit before it was a company name.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You don't know our name yet. Most of our customers don't — across 6,696 reviews, almost no one says "AKAS Tex." They say the fabric. They say the store. They say the person who answered the phone. By the end of this story, you'll understand why that's not a failure of branding.</p>
+      <div class="convergence">A manufacturer that disappears into what it creates is not a company with a branding problem. It is an instrument so fully dedicated to its function that it has become indistinguishable from the music it produces.</div>
+    </div></div>
+  </div>
+
+  <div class="thread-text">The knowledge accumulated for decades before it had a name.</div>
+
+  <!-- BEAT 1 -->
+  <div class="beat" data-c="shared" data-p="shared">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">1978 – 2005</div>
+        <div class="title">Before America</div>
+        <div class="conv">Fifty years of textile engineering. A refusal muscle trained in circumstances where the refusal cost the most.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Twelve positions across seven material types. Every business attempt met a system requiring bribery. They failed repeatedly — not from lack of skill but from refusal to bend. Between 1988 and 1991, Sid was unemployed and Archana was the breadwinner. The expertise that had nowhere to go was being compressed rather than scattered.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You've built expertise the world hasn't asked for yet. You've refused shortcuts that would have made things easier. That compression you feel — the knowledge with nowhere to go — is not wasted time. It's preparation for the moment the world catches up.</p>
+      <div class="convergence">They did not know what they were carrying. They only knew it would not bend.</div>
+    </div></div>
+  </div>
+
+  <div class="thread-text">Green cards stamped April 2005. A country believed in before it believed in them.</div>
+
+  <!-- BEAT 2 -->
+  <div class="beat" data-c="shared" data-p="shared">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2005</div>
+        <div class="title">Immigration</div>
+        <div class="conv">Four people whose initials already spelled a word in Sanskrit arrived in a country they believed in before it believed in them.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Sid found work in a mill. Arch took a position in pharmaceutical quality. Karishma and Ashrey entered American schools. And the side work began almost immediately — specialty textiles for export, made in the margins, not yet a company. It was what an engineer and an operations expert do when their hands have hours left in the day.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">Maybe you're starting something in the margins too. Before the name. Before the catalog. Before anyone knows what you're building. The side project that starts after hours is often the one that lasts.</p>
+      <div class="convergence">The side work that starts after hours is often the work that lasts.</div>
+    </div></div>
+  </div>
+
+  <div class="thread-text">The part-time work expanded the way quiet work does — not visibly.</div>
+
+  <!-- BEAT 3 -->
+  <div class="beat" data-c="akas" data-p="akas sid">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">April 2007</div>
+        <div class="title">AKAS Tex Founded</div>
+        <div class="conv">No launch. No brand. No catalog. People started asking: do you have a fabric that does this?</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Part-time. Self-funded. No loans. People in the specialty textile community had begun asking Sid, one at a time: do you have a fabric that does this? He answered from fifty years of knowledge. A Fabric Finder operating as a person — years before the software version would exist.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">The best businesses start with someone answering a question. Not with a business plan. Not with funding. With knowledge that someone needs and the willingness to share it.</p>
+      <div class="convergence">A Fabric Finder that began as a person answering questions one at a time.</div>
+      <a class="bridge" href="/family/the-creator.html#s01">Read the full story in The Creator</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">Meanwhile, at his day job, the ground was about to shift.</div>
+
+  <!-- BEAT 4 -->
+  <div class="beat" data-c="shared" data-p="shared akas">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2009</div>
+        <div class="title">The Founding Refusal</div>
+        <div class="conv">Never build on ground you have poisoned. That's not a slogan. That's the founding moment.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Chemical waste in the ground beneath the factory where Sid worked as general manager. An EPA letter. Ten million dollars in liability the owners chose to evade. Sid knew. When he told Archana, there was no deliberation. The refusal was a reflex — the same refusal that had met corruption in India. The cost: a steady paycheck for a family with two children headed for college.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">When we say "chemical-free," it's not a label. It's the reason this company exists. A family chose unemployment over complicity — and that choice is woven into every yard you hold.</p>
+      <div class="convergence">Never build on ground you have poisoned. That's not a slogan. That's the founding moment.</div>
+      <a class="bridge" href="/family/the-creator.html#s02">Read the full story in The Creator</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">One year later, they built its opposite.</div>
+
+  <!-- BEAT 5 -->
+  <div class="beat" data-c="shared" data-p="shared akas">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">April 2010</div>
+        <div class="title">AKAS Tex Speaks</div>
+        <div class="conv">Three fabrics became seventy-five. The standard never changed.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">One family. Three fabrics. Self-funded, no loans. The first commercial lamination was thermal — heat, pressure, no adhesive, no solvent. The bond held without chemistry holding it. American mills that had been idle two days a week began running four. First revenue: $400,000 in six months. Not from marketing. From fabric that worked.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">Every fabric in this catalog was manufactured in American mills — many of them small, family-owned, revived by partnerships with this family. When you buy from Wazoodle, you're supporting a domestic manufacturing network built one partnership at a time.</p>
+      <div class="convergence">Three fabrics became seventy-five. The standard never changed.</div>
+      <a class="bridge" href="/family/the-creator.html#s03">Read the full story in The Creator</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">Five years earlier, a thousand miles north, a child had shouted a word at a family dinner.</div>
+
+  <!-- BEAT 6 -->
+  <div class="beat" data-c="waz" data-p="waz arch">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">August 2012</div>
+        <div class="title">The Wazoodle Arc</div>
+        <div class="conv">The lawyers said: you're buying a dud. Archana said: from this place, the only way is up.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Wazoodle Fabrics — founded 2002 in Canada by a word a child made up — had curdled into Wazoodle Hell. The owner competing with his own customers. Orders unfulfilled. The family flew to Toronto on a Thursday and began shipping orders from Pennsylvania on Tuesday. Archana's promise: every email through her. Every wronged customer made right. Refunds from the family's pocket. One email at a time.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You're trusting a name that was once broken. Here's what happened: the family that bought the broken name spent years making it right — one email, one order, one swatch at a time. Wazoodle Hell became Wazoodle Heaven not through marketing, but through accumulated evidence the community verified and shared voluntarily.</p>
+      <div class="convergence">The lawyers said: you're buying a dud. Archana said: from this place, the only way is up.</div>
+      <a class="bridge" href="/family/the-doorway.html#s03">Read the full story in The Doorway</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">The catalog grew because the conversation grew.</div>
+
+  <!-- BEAT 7 -->
+  <div class="beat" data-c="sid" data-p="akas sid">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2013 – 2014</div>
+        <div class="title">Sid Reads the Pattern</div>
+        <div class="conv">Every customer request that arrives is a design brief from the field.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Jen wanted Zorb that was thinner, softer, more absorbent. Three years of development became Zorb 3D — the fabric that, seven years later, would be validated by Northeastern University for pandemic use no one imagined. Megan wanted a ready-to-use diaper fabric. Ready-AbZORB was born. The community was engineering the product line by asking for what they needed.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">The fabric you need might not exist yet. If it doesn't, tell us what you're trying to build. The last time someone did that, it became our best-selling product.</p>
+      <div class="convergence">Every customer request that arrives is a design brief from the field.</div>
+      <a class="bridge" href="/family/the-creator.html#s05">Read the full story in The Creator</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">Seeds planted before the ground was ready.</div>
+
+  <!-- BEAT 8 -->
+  <div class="beat" data-c="shared" data-p="shared">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2013 – 2014</div>
+        <div class="title">Seeds Before the Ground Was Ready</div>
+        <div class="conv">Fifty yards of Zorb Silver became a thousand menstrual pads that kept 333 girls in school in Kenya.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Dianne Leach purchased fifty yards of Zorb Silver. She cut it into a thousand menstrual pads. Those pads kept three hundred and thirty-three girls in school in Kenya on days they would have stayed home. Days for Girls International distributed hygiene shields across eighty countries. Operation Christmas Child carried reusable products in shoeboxes across continents. The company never designed a humanitarian program. It designed fabrics durable enough to survive the conditions humanitarian work demands.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You might be buying fabric for a diaper, a pad, a garment. Someone else bought the same fabric and carried it across the world. The same materials. Different hands. Different purpose. Same source.</p>
+      <div class="convergence">Fifty yards of Zorb Silver became a thousand menstrual pads that kept 333 girls in school in Kenya.</div>
+      <a class="bridge" href="/family/the-doorway.html#s06">Read the full story in The Doorway</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">197 applications. None of them predicted. All of them real.</div>
+
+  <!-- BEAT 9 -->
+  <div class="beat" data-c="waz" data-p="waz ash">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2012 – present</div>
+        <div class="title">The Bridge: 1 to 197</div>
+        <div class="conv">The taxonomy came from the community, not from a product team.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">LED hoop covers. Dog show bait pocket liners. Grow pot liners. Duck diapers. Bread bags. One hundred and ninety-seven applications across twenty industries, discovered not by a product team but by twenty-four thousand makers experimenting with materials no previous supplier had made available to them. The Fabric Finder, the comparison charts, the Knowledge Base — each layer of the discovery system began as a conversation.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You might be application 198. The one nobody has tried yet. The Fabric Finder routes from what you're making to what you need — but if your application isn't listed, email us. It will be.</p>
+      <div class="convergence">The taxonomy came from the community, not from a product team.</div>
+      <a class="bridge" href="/family/the-doorway.html#s05">Read the full story in The Doorway</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">Then the pandemic arrived. And the infrastructure was already in place.</div>
+
+  <!-- BEAT 10 -->
+  <div class="beat" data-c="arch" data-p="arch akas">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">January 2020</div>
+        <div class="title">Silver Arch</div>
+        <div class="conv">The article existed before the search volume arrived.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Months before the pandemic was declared, Arch recognized the pattern in inquiries arriving from overseas. She researched CDC guidelines, FDA guidance, construction principles. In February 2020, she published what she knew — five design considerations for face masks, with a careful disclaimer. The article did not sell. It taught. It reached the world because the inquiries had reached her first.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">When the crisis hit, the guidance was already there. Written by someone who had gone to the primary sources personally and explained them in language anyone could follow. That's how Wazoodle operates — teaching first, always.</p>
+      <div class="convergence">The article existed before the search volume arrived.</div>
+      <a class="bridge" href="/family/the-creator.html#s06">Read the full story in The Creator</a>
+    </div></div>
+  </div>
+
+  <!-- BEAT 11 -->
+  <div class="beat" data-c="shared" data-p="shared akas waz">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">March 2020</div>
+        <div class="title">The Pandemic</div>
+        <div class="conv">The bridge that held during a pandemic holds for your Tuesday order too.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">One search result. A thousand orders on Saturday. A customer offering five times the price for exclusive access — declined on the spot. Eighteen-hour days for six months. Sid scaling production, negotiating new mill partnerships across other states, purchasing five knitting machines. Nancy Vaughan making forty-two isolation gowns. Lori Widmar sewing masks in honor of her organ donor. #becauseofbrooklyn. None of it designed for a pandemic. All of it ready for one.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">When everything shut down, you needed a source that was still open, still shipping, still answering the phone. That source existed — not because anyone designed it for a pandemic, but because a family had spent ten years building something with the integrity a pandemic would reveal.</p>
+      <div class="convergence">The bridge that held during a pandemic holds for your Tuesday order too. Same standard. Same family. Same answer.</div>
+      <span class="accolade-mark">ACS Nano · 72% &gt; N95</span>
+      <span class="accolade-mark">EXIM Exporter of the Year 2021</span>
+      <a class="bridge" href="/family/the-creator.html#s06">The Creator: What the World Confirmed</a>
+      <a class="bridge" href="/family/the-doorway.html#s08">The Doorway: The Doorway Held</a>
+    </div></div>
+  </div>
+
+  <!-- BEAT 11.1 -->
+  <div class="beat" data-c="sid" data-p="akas sid">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">Spring – Summer 2020</div>
+        <div class="title">The Manufacturing Pivot</div>
+        <div class="conv">A supply chain built on relationships is harder to break than one built on contracts.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Spring 2020. Pennsylvania mills shut by government order. Sid got on the phone. New states. New partnerships. Five knitting machines purchased. Container loads of yarn sourced across the country. Production scaled from 375,000 to 575,300 lbs per year — while the rest of the country was locked down. The distributed manufacturing model, built over a decade for quality, turned out to be resilient by design. When one node went dark, others absorbed the load. When the load doubled, new nodes were added.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">When your supply chain broke — when your usual sources went quiet and lead times stretched from weeks to months — you needed a source that hadn't broken. What kept AKAS running wasn't luck. It was an architecture built on relationships across ten years. When Pennsylvania closed, the work moved. What reached your door was uninterrupted.</p>
+      <div class="convergence">A supply chain built on relationships is harder to break than one built on contracts. When the contracts became unenforceable, the relationships held.</div>
+    </div></div>
+  </div>
+
+  <!-- BEAT 11.2 -->
+  <div class="beat" data-c="shared" data-p="shared">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">March – August 2020</div>
+        <div class="title">The Rhythm</div>
+        <div class="conv">The rhythm at your sewing machine and the rhythm at the warehouse were the same rhythm.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Six in the morning. Ten at night. Five months. Breakfast in the warehouse. Lunch in the warehouse. Staff, family, friends — everyone who could be there, was. The orders kept coming. The emails kept arriving. The inventory kept moving. It was not sustainable. It was also the only thing possible. The instrument doesn't run on manufacturing capacity alone. It runs on people who show up — who pack one box at a time, answer one email at a time, cut one yard at a time, carefully, because the gown or mask being made from it is going somewhere that matters.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You were sewing too. Maybe sixteen hours. Making things that needed to exist before the supply chain had scaled to meet the need. Someone at the other end was doing the same thing to make sure your fabric kept arriving. Not because anyone required it. Because the work required it.</p>
+      <div class="convergence">The rhythm at your sewing machine and the rhythm at the warehouse were the same rhythm. Both without a stopping point. Both necessary.</div>
+    </div></div>
+  </div>
+
+  <div class="thread-text">The makers mobilized.</div>
+
+  <!-- BEAT 11.3 -->
+  <div class="beat" data-c="waz" data-p="waz">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2020</div>
+        <div class="title">Nancy Vaughan</div>
+        <div class="conv">One maker documented her solution and passed it on. The company listened — and the solution became a product.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Wellness Administrator at The Hotchkiss School in Connecticut. One hundred yards of MediPUL. Forty-two isolation gowns — for a local hospital, a nursing home, ambulance squads. Under an hour each once she found the rhythm. The knit cuffs she sourced separately made the gown adaptable across a wide size range — her own field engineering. She documented the full methodology and shared it with other schools so they could do the same. Then she wrote to Arch. That correspondence directly informed the development of ProCool MediPlus® Cuff Material — a maker's field solution became a product.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">The best instruction comes from someone who already solved the problem in the field, documented it honestly, and shared it before anyone asked. Your applications and adaptations don't disappear here — they become the next generation of products.</p>
+      <div class="convergence">One maker documented her solution and passed it on. The company listened — and the solution became a product.</div>
+    </div></div>
+  </div>
+
+  <!-- BEAT 11.4 -->
+  <div class="beat" data-c="waz" data-p="waz">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2020</div>
+        <div class="title">Lori Widmar</div>
+        <div class="conv">A life given becomes material. A gift received becomes fabric. The loop doesn't close — it keeps going.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Kidney transplant recipient. Her donor: Brooklyn Bender — twenty-two years old, South Dakota, died in a car accident. When the pandemic came, Lori went to her sewing machine. One hundred masks donated to the kidney transplant program at Vanderbilt Medical Center — to the staff who had cared for her and patients whose suppressed immune systems made ordinary risk unaffordable. Thirty yards of ProCool and Zorb. News 5 Kentucky and Vanderbilt University Voice covered the story. The coverage was beside the point. <em>#becauseofbrooklyn.</em></p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">The most moving thing you make isn't always the most technically complex. Sometimes it's the one made because something had to be done and you were the person with the skill to do it. The fabric you carry carries that too.</p>
+      <div class="convergence">A life given becomes material. A gift received becomes fabric. The loop doesn't close — it keeps going.</div>
+    </div></div>
+  </div>
+
+  <!-- BEAT 11.5 -->
+  <div class="beat" data-c="waz" data-p="waz">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2020</div>
+        <div class="title">Sharon Mech</div>
+        <div class="conv">A maker who protects the people who make it possible for makers to make things — that's the loop completing itself.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Software sales professional in Columbus, Ohio. Quilter. Her mother's Pfaff sewing machine. She found Wazoodle by Googling mask fabrics. She ordered. She sewed. Then she did something almost no one did: she donated 100 masks to Wazoodle workers, UPS drivers, and everyone keeping the fabric supply chain running — the people who made it possible for makers to make things. She also sent Wazoodle sample masks using different Zorb/SILVADUR combinations for filtration testing. Field research from a personal sewing table. <em>"I am trying to be a force multiplier, doing the most good with limited time."</em></p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You are part of the supply chain too. Sharon recognized the whole loop and closed it. That's not unusual in this community — it is the actual shape of this community.</p>
+      <div class="convergence">A maker who protects the people who make it possible for makers to make things — that's the loop completing itself.</div>
+    </div></div>
+  </div>
+
+  <div class="thread-text">By 2021, the surge had passed. The next challenge arrived from inside.</div>
+
+  <!-- BEAT 11.6 -->
+  <div class="beat" data-c="waz" data-p="waz ash">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">May 6, 2021</div>
+        <div class="title">The 1.5</div>
+        <div class="conv">Some things can only be built from inside.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">A new website launched after months of outside development. It didn't work. Weeks of attempted repairs with the outside team. The problems held. Eventually the call was made: this site would never function the way twenty-four thousand makers needed it to. The same question the family had answered in 2012 arrived in a different form — can the thing be fixed with more of what broke it, or does it need to come home? It had to come home.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">You've outsourced something that turned out to need to be owned. The moment you realize the work has to come back to your own hands — that it needs someone who can't not care whether it works — is the moment the real thing can begin.</p>
+      <div class="convergence">Some things can only be built from inside.</div>
+    </div></div>
+  </div>
+
+  <!-- BEAT 11.7 -->
+  <div class="beat" data-c="ash" data-p="waz ash">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">May 2021</div>
+        <div class="title">The Phoenix, Again</div>
+        <div class="conv">The second phoenix is faster than the first.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Four days. Lukas, Sanjana, Maria, Ryan, Karina — led by Ashrey. Built entirely in-house. Every feature from the accumulated requests of the community: merged retail and wholesale, Fabric Comparison Charts, Fabric Finder by function, Back-in-Stock alerts, Wishlists, Seconds Quality, Development Trial Lots. 2012: one week from collapse to first order. 2021: four days from decision to live site. The interval compressed. The pattern held. The instrument, when it breaks, comes home.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">Four days. That's how fast it went when the people building were the people who understood the need. Your Fabric Comparison Chart, your Back-in-Stock alert, your wishlist — these weren't roadmap items. They were things the community had been asking for, built the moment the outside friction was removed.</p>
+      <div class="convergence">The second phoenix is faster than the first. That's how it works when a family learns from its own history.</div>
+      <a class="bridge" href="/family/the-doorway.html#s07">Read the full story in The Doorway</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">The circle that opened in 2009 was about to close.</div>
+
+  <!-- BEAT 12 -->
+  <div class="beat" data-c="sid" data-p="akas sid">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">2022</div>
+        <div class="title">The Full Circle</div>
+        <div class="conv">The family that refused to work for a company that poisoned the ground built a company dedicated to keeping the ground clean.</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">SupAbsorb Tech. Six product lines. Twelve industries. Sorbent mats from up to ninety percent recycled materials, bonded without chemical adhesives. The engineer who refused to work above poisoned ground now manufactures the instrument that prevents the poisoning. Same address. Same family. Same founding ethic. The refusal and the instrument are one motion in a family's life.</p>
+      <div class="mirror-label">The Mirror</div>
+      <p class="mirror-text">The same family that makes the fabric you sew with makes the mats that protect the earth's surface. Same integrity. Same commitment. If your work touches the planet, the source matters.</p>
+      <div class="convergence">The family that refused to work for a company that poisoned the ground built a company dedicated to keeping the ground clean.</div>
+      <a class="bridge" href="/family/the-creator.html#s07">Read the full story in The Creator</a>
+    </div></div>
+  </div>
+
+  <div class="thread-text">The instrument is still being played. The floor is still being walked. The phone is still being answered.</div>
+
+  <!-- BEAT 13 -->
+  <div class="beat" data-c="ash" data-p="ash shared">
+    <div class="stitch" onclick="toggle(this)">
+      <div class="dot"></div>
+      <div class="preview">
+        <div class="year">Now</div>
+        <div class="title">Where Our Story Meets Yours</div>
+        <div class="conv">Where does our story meet yours?</div>
+      </div>
+    </div>
+    <div class="expand"><div class="expand-inner">
+      <div class="story-label">The Story</div>
+      <p class="story-text">Twenty-four thousand customers across eighty-one countries. Seventy-five fabric styles. Over a million yards in stock. The Creator is silent. The Doorway is open. The fabrics are real.</p>
+      <div class="mirror-label">Where are you?</div>
+      <p class="mirror-text">Looking for a specific fabric → <strong>Fabric Finder</strong> at wazoodle.com<br>Ready to feel the material → <strong>Order swatches</strong> — we'll include extras we think you should see<br>Building a business → <strong>Wholesale account</strong> — same platform, volume pricing<br>Carrying materials where they're needed → <strong>Contact us</strong> for humanitarian pricing<br>Taking a fabric somewhere nobody imagined → <strong>Tell us</strong> — your application becomes the 198th</p>
+      <div class="convergence">Where does our story meet yours?</div>
+    </div></div>
+  </div>
+
+</div><!-- .timeline -->
+
+<div class="colophon">
+  <p class="sig">The Living Timeline</p>
+  <p>This page grows. Every new story, every new maker, every new moment becomes a beat on the thread.</p>
+  <div class="deep-links">
+    <a class="deep-link" href="/family/the-creator.html">The Creator<small>AKAS Tex · The Full Story</small></a>
+    <a class="deep-link" href="/family/the-doorway.html">The Doorway<small>Wazoodle · The Full Story</small></a>
+  </div>
+</div>
+
+<script>
+function toggle(el) {
+  const beat = el.closest('.beat');
+  beat.classList.toggle('open');
+}
+
+// Scroll reveal
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('v'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.beat, .thread-text').forEach(el => obs.observe(el));
+
+// Character filters
+document.querySelectorAll('.fbtn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const f = btn.dataset.f;
+    document.querySelectorAll('.beat').forEach(beat => {
+      if (f === 'all') {
+        beat.style.opacity = ''; beat.style.filter = '';
+      } else {
+        const tags = beat.dataset.p || '';
+        if (tags.includes(f) || tags.includes('shared')) {
+          beat.style.opacity = ''; beat.style.filter = '';
+        } else {
+          beat.style.opacity = '0.12'; beat.style.filter = 'grayscale(0.5)';
+        }
+      }
+    });
+  });
+});
+
+
+;(function(){
+  var base = 18, step = 2, s = base;
+  window.adjSize = function(d) {
+    s = Math.min(26, Math.max(base, s + d * step));
+    document.documentElement.style.fontSize = s + 'px';
+  };
+})();
+</script>
+
+
+<div class="zoom-ctrl">
+<button onclick="adjSize(-1)" aria-label="Smaller text">A&minus;</button>
+<button onclick="adjSize(1)" aria-label="Larger text">A+</button>
+</div>
+</body>
+</html>

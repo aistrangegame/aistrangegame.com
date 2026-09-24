@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>The Road Home · A Strange Game</title>
+<meta name="description" content="The Map, the Road, and the Journey — where every offering you've made across the Tree of Life gathers, and reflects you back to yourself." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500&family=Cinzel:wght@400;500&display=swap" rel="stylesheet" />
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   THE ROAD HOME · the synthesis page · aistrangegame.com/tree-of-life/
+
+   Map · Road · Journey — three registers on one page, layered.
+   Reads ~30 localStorage keys across the ecosystem and renders the
+   walker back to themselves. Hans Zimmer opening. Body-heart register.
+   ═══════════════════════════════════════════════════════════ */
+
+:root {
+  /* Atmosphere — dark warm base, cream/parchment type */
+  --void:         #100a08;
+  --void-deep:    #0a0604;
+  --stone:        #1a1410;
+  --stone-edge:   #261e18;
+  /* Opacity levels tuned for WCAG AA readability on --void.
+     text = full body (primary reading). soft = subordinate but readable.
+     whisper = labels/metadata, still legible for older eyes. */
+  --text:         rgba(240, 226, 188, 1.00);
+  --text-soft:    rgba(240, 226, 188, 0.82);
+  --text-whisper: rgba(240, 226, 188, 0.60);
+  --cream:        #f5e8c8;
+  --cream-soft:   rgba(245, 232, 200, 0.82);
+  --trace:        #d4b888;          /* warm parchment gold */
+  --trace-soft:   rgba(212, 184, 136, 0.62);
+  --gold:         #c9a84c;
+  --gold-glow:    rgba(201, 168, 76, 0.3);
+
+  /* Chakra palette */
+  --c-bindu:        #e8c568;
+  --c-muladhara:    #b83a3a;
+  --c-svadhisthana: #d47438;
+  --c-manipura:     #d4a848;
+  --c-anahata:      #6b8e4e;
+  --c-vishuddha:    #4c7ab8;
+  --c-ajna:         #5b4e8e;
+  --c-sahasrara:    #9a7ac8;
+  --c-shadow:       #2a2420;
+  --c-body:         #8b5a3c;      /* earth tone for body-tree */
+  --c-armin:        #d4b896;
+  --c-mind:         #7a8bb8;      /* cool blue for mind */
+  --c-maya:         #a8a4b0;
+  --c-closing:      #c89a9a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: var(--void);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  position: relative;
+  overscroll-behavior-y: none;
+}
+
+/* ═══ ATMOSPHERE ═══
+   Dark warm background, faint radial glow from above, Shree Yantra
+   watermark very deep beneath everything */
+.atmosphere {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.atmosphere-glow {
+  position: absolute;
+  top: -10%; left: 50%;
+  transform: translateX(-50%);
+  width: 120vw; height: 80vh;
+  background: radial-gradient(ellipse at center top, rgba(201, 168, 76, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.atmosphere-yantra {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(95vw, 820px);
+  height: min(95vw, 820px);
+  opacity: 0.035;
+  pointer-events: none;
+  color: var(--trace);
+}
+.atmosphere-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: radial-gradient(circle at 10% 20%, rgba(212,184,136,0.4) 0.5px, transparent 1px),
+                    radial-gradient(circle at 70% 80%, rgba(212,184,136,0.3) 0.5px, transparent 1px),
+                    radial-gradient(circle at 40% 50%, rgba(212,184,136,0.3) 0.5px, transparent 1px);
+  background-size: 180px 180px, 240px 240px, 140px 140px;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* ═══ PAGE SHELL ═══ */
+.page {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 28px 120px;
+}
+
+@media (max-width: 640px) {
+  .page { padding: 44px 20px 96px; }
+}
+
+/* ═══ OPENING — the title ═══ */
+.opening {
+  text-align: center;
+  margin-bottom: 72px;
+  opacity: 0;
+  animation: fadeUp 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+.opening-marker {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.38em;
+  color: var(--text-whisper);
+  text-transform: uppercase;
+  margin-bottom: 22px;
+}
+.opening-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: clamp(40px, 9vw, 68px);
+  letter-spacing: 0.12em;
+  color: var(--cream);
+  line-height: 1;
+  text-shadow: 0 0 44px rgba(245, 232, 200, 0.16);
+  margin-bottom: 18px;
+}
+.opening-subtitle {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 3vw, 20px);
+  color: var(--text-soft);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ═══ SECTION SCAFFOLD ═══ */
+.section {
+  margin-bottom: 96px;
+  opacity: 0;
+  animation: fadeUp 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.section-marker {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 32px;
+}
+.section-marker-number {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.38em;
+  color: var(--text-whisper);
+}
+.section-marker-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(20px, 3.6vw, 26px);
+  color: var(--trace);
+  letter-spacing: 0.08em;
+}
+.section-marker-line {
+  flex: 1;
+  height: 1px;
+  background: var(--trace-soft);
+  opacity: 0.55;
+}
+
+@media (max-width: 640px) {
+  .section { margin-bottom: 72px; }
+}
+
+/* ═══ THE MAP ═══
+   Vertical spine with chakra glyphs, visually grouped by cluster.
+   Walked chakras glow in their color. Unwalked are dim outlines. */
+
+.map-frame {
+  animation-delay: 0.6s;
+}
+
+.map-svg-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.map-svg {
+  width: 100%;
+  max-width: 760px;
+  height: auto;
+  overflow: visible;
+}
+
+/* Central spine */
+.map-spine {
+  stroke: var(--trace-soft);
+  stroke-width: 1.4;
+  fill: none;
+  opacity: 0.55;
+}
+
+/* Section dividers — horizontal lines that slice the spine */
+.map-section-divider {
+  stroke: var(--trace-soft);
+  stroke-width: 0.5;
+  stroke-dasharray: 2 6;
+  opacity: 0.5;
+}
+.map-section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  fill: var(--text-whisper);
+  dominant-baseline: middle;
+}
+.map-continuation {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  fill: var(--text-soft);
+  letter-spacing: 0.04em;
+}
+
+/* Chakra glyphs */
+.chakra-glyph {
+  cursor: pointer;
+  transition: transform 0.28s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+.chakra-glyph.unwalkable { cursor: default; }
+.chakra-glyph:not(.unwalkable):hover { transform: scale(1.12); }
+.chakra-glyph:not(.unwalkable):hover .glyph-outer { opacity: 0.9; }
+
+.glyph-outer {
+  stroke-width: 1.2;
+  fill: none;
+  transition: opacity 0.4s ease, stroke-width 0.4s ease;
+}
+.glyph-inner {
+  transition: fill-opacity 0.6s ease;
+}
+
+/* Unwalked — dim outline (still visible for older eyes) — kept for legacy/future */
+.chakra-glyph.unwalked .glyph-outer {
+  stroke: currentColor;
+  opacity: 0.38;
+  stroke-width: 1.6;
+}
+.chakra-glyph.unwalked .glyph-inner {
+  fill: currentColor;
+  fill-opacity: 0;
+}
+
+/* Available — next-sequential, gentle invitation glow */
+.chakra-glyph.available .glyph-outer {
+  stroke: currentColor;
+  opacity: 0.62;
+  stroke-width: 1.8;
+  animation: availableInvite 4.2s ease-in-out infinite;
+}
+.chakra-glyph.available .glyph-inner {
+  fill: currentColor;
+  fill-opacity: 0;
+}
+@keyframes availableInvite {
+  0%, 100% { opacity: 0.55; }
+  50%      { opacity: 0.78; }
+}
+
+/* Locked — beyond the sequential edge, not clickable */
+.chakra-glyph.locked .glyph-outer {
+  stroke: currentColor;
+  opacity: 0.18;
+  stroke-width: 1.2;
+}
+.chakra-glyph.locked .glyph-inner {
+  fill: currentColor;
+  fill-opacity: 0;
+}
+.chakra-glyph.locked { cursor: default; }
+.chakra-glyph.locked + .chakra-label-group .chakra-label { opacity: 0.6; }
+.chakra-glyph.locked + .chakra-label-group .chakra-sublabel { opacity: 0.55; }
+.chakra-glyph.locked + .chakra-label-group .chakra-position { opacity: 0.5; }
+
+/* Coming — not yet built */
+.chakra-glyph.coming .glyph-outer {
+  stroke: currentColor;
+  opacity: 0.2;
+  stroke-dasharray: 3 4;
+  stroke-width: 1.4;
+}
+.chakra-glyph.coming .glyph-inner {
+  fill: currentColor;
+  fill-opacity: 0;
+}
+
+/* Walked — filled */
+.chakra-glyph.walked .glyph-outer {
+  stroke: currentColor;
+  opacity: 0.92;
+  stroke-width: 1.8;
+}
+.chakra-glyph.walked .glyph-inner {
+  fill: currentColor;
+  fill-opacity: 0.82;
+}
+.chakra-glyph.walked .glyph-halo {
+  fill: currentColor;
+  opacity: 0.18;
+}
+
+/* Last-walked — pulse */
+.chakra-glyph.last .glyph-halo {
+  fill: currentColor;
+  opacity: 0.26;
+  animation: chakraPulse 4.2s ease-in-out infinite;
+}
+@keyframes chakraPulse {
+  0%, 100% { opacity: 0.22; r: 32; }
+  50%      { opacity: 0.38; r: 42; }
+}
+
+/* Thresholds — distinctive dark styling */
+.chakra-glyph.threshold .glyph-outer {
+  stroke-width: 1.5;
+}
+.chakra-glyph.threshold.walked .glyph-outer {
+  stroke: var(--cream-soft);
+  opacity: 0.7;
+}
+.chakra-glyph.threshold.walked .glyph-inner {
+  fill: var(--stone);
+  fill-opacity: 1;
+}
+
+/* Chakra labels */
+.chakra-label {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  letter-spacing: 0.14em;
+  fill: var(--text);
+  dominant-baseline: middle;
+  text-transform: uppercase;
+}
+.chakra-sublabel {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 13px;
+  fill: var(--text-soft);
+  dominant-baseline: middle;
+}
+.chakra-position {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  fill: var(--text-whisper);
+  dominant-baseline: middle;
+}
+
+.chakra-glyph.walked + .chakra-label-group .chakra-label { fill: var(--cream); }
+.chakra-glyph.walked + .chakra-label-group .chakra-sublabel { fill: var(--text-soft); }
+
+/* ═══ THE ROAD ═══
+   Adaptive prose. Speaks the walker's journey back to them. */
+.road-frame {
+  animation-delay: 1.0s;
+}
+.road-content {
+  max-width: 640px;
+  margin: 0 auto;
+  font-family: 'Lora', serif;
+  font-size: clamp(18px, 3.2vw, 22px);
+  line-height: 1.8;
+  color: var(--text);
+}
+.road-content p {
+  margin-bottom: 1.4em;
+  font-style: italic;
+}
+.road-content p:last-child { margin-bottom: 0; }
+.road-content .road-word {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.road-content .road-count {
+  color: var(--cream);
+  font-style: normal;
+  font-weight: 500;
+}
+.road-content .road-emphasis {
+  color: var(--cream);
+  font-style: italic;
+}
+
+/* ═══ THE JOURNEY ═══ */
+.journey-frame {
+  animation-delay: 1.4s;
+}
+
+/* Constellation canvas */
+.constellation-frame {
+  position: relative;
+  width: 100%;
+  max-width: 780px;
+  height: 320px;
+  margin: 0 auto 64px;
+  background: linear-gradient(180deg, var(--void-deep) 0%, var(--stone) 100%);
+  border: 1px solid var(--trace-soft);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.constellation-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.constellation-legend {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  pointer-events: none;
+}
+.constellation-empty {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: var(--text-soft);
+  text-align: center;
+  pointer-events: none;
+}
+.constellation-tooltip {
+  position: absolute;
+  padding: 10px 14px;
+  background: var(--void-deep);
+  border: 1px solid var(--trace-soft);
+  color: var(--cream);
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  font-style: italic;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  z-index: 10;
+}
+.constellation-tooltip.visible { opacity: 1; }
+.constellation-tooltip-meta {
+  font-family: 'DM Sans', sans-serif;
+  font-style: normal;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--text-soft);
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+
+/* Ledger */
+.ledger-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.ledger-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(18px, 3.2vw, 22px);
+  letter-spacing: 0.08em;
+  color: var(--trace);
+}
+.ledger-total {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-whisper);
+}
+
+.ledger-chakra-group {
+  margin-bottom: 44px;
+  border-top: 1px solid var(--trace-soft);
+  padding-top: 26px;
+}
+.ledger-chakra-group:first-child { border-top: none; padding-top: 0; }
+
+.ledger-chakra-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+.ledger-chakra-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: currentColor;
+  display: inline-block;
+}
+.ledger-chakra-dot.empty {
+  background: transparent;
+  border: 1px solid currentColor;
+  opacity: 0.55;
+}
+.ledger-chakra-name {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+}
+.ledger-chakra-group.empty .ledger-chakra-name { color: var(--text-soft); }
+.ledger-chakra-position {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--text-whisper);
+  margin-left: auto;
+}
+
+.ledger-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.ledger-row {
+  display: grid;
+  grid-template-columns: 160px 1fr auto auto;
+  gap: 20px;
+  align-items: baseline;
+  padding: 12px 0;
+  font-size: 15px;
+  border-bottom: 1px solid rgba(212, 184, 136, 0.16);
+}
+.ledger-row:last-child { border-bottom: none; }
+.ledger-kind {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.ledger-answer {
+  font-family: 'Lora', serif;
+  font-size: 16px;
+  color: var(--cream);
+}
+.ledger-answer.word { font-style: italic; }
+.ledger-answer.word::before { content: '"'; color: var(--text-whisper); margin-right: 1px; }
+.ledger-answer.word::after  { content: '"'; color: var(--text-whisper); margin-left: 1px; }
+.ledger-answer-meta {
+  display: inline-block;
+  margin-left: 12px;
+  color: var(--text-soft);
+  font-size: 13px;
+  font-style: normal;
+  letter-spacing: 0.04em;
+}
+.ledger-answer.coords {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--text-soft);
+}
+.ledger-answer.empty {
+  color: var(--text-soft);
+  font-style: italic;
+  font-size: 14px;
+}
+.ledger-date {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+.ledger-link {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--trace);
+  border: 1px solid var(--trace-soft);
+  padding: 7px 12px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.ledger-link:hover {
+  color: var(--cream);
+  border-color: var(--trace);
+  background: rgba(212, 184, 136, 0.12);
+}
+.ledger-link.disabled {
+  color: var(--text-whisper);
+  border-color: rgba(212, 184, 136, 0.18);
+  cursor: default;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .ledger-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    padding: 14px 0;
+  }
+  .ledger-kind { font-size: 11px; }
+  .ledger-answer { font-size: 17px; }
+  .ledger-date { margin-top: 4px; font-size: 13px; }
+  .ledger-link { justify-self: start; margin-top: 10px; font-size: 12px; padding: 9px 14px; }
+  .chakra-label { font-size: 15px; }
+  .chakra-sublabel { font-size: 12px; }
+  .chakra-position { font-size: 11px; }
+}
+
+/* ═══ FOOTER ═══ */
+.footer {
+  text-align: center;
+  margin-top: 120px;
+  padding-top: 48px;
+  border-top: 1px solid var(--trace-soft);
+  opacity: 0;
+  animation: fadeUp 1.6s cubic-bezier(0.16, 1, 0.3, 1) 1.8s forwards;
+}
+.footer-coda {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.8vw, 19px);
+  color: var(--text-soft);
+  max-width: 480px;
+  margin: 0 auto 24px;
+  line-height: 1.7;
+}
+.footer-name {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--text-whisper);
+}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.4s !important;
+    animation-delay: 0.1s !important;
+  }
+  .chakra-glyph.last .glyph-halo { animation: none; }
+}
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal styles ═══ */
+.essence-gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.essence-gate-overlay.visible { opacity: 1; }
+.essence-gate-bindu {
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  background: #e8c568;
+  box-shadow: 0 0 18px rgba(232, 197, 104, 0.4);
+  margin-bottom: 32px;
+  animation: egBreath 4s ease-in-out infinite;
+}
+.essence-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 22px;
+  color: rgba(240, 226, 188, 0.92);
+  text-align: center;
+  margin: 0 24px 12px;
+  max-width: 480px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-line.visible { opacity: 1; }
+.essence-gate-sub {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(240, 226, 188, 0.62);
+  margin: 0 24px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.essence-gate-sub.visible { opacity: 1; }
+@keyframes egBreath {
+  0%, 100% { opacity: 0.7; transform: scale(1.0); }
+  50%      { opacity: 1.0; transform: scale(1.08); }
+}
+
+.sequential-gate-surface {
+  position: fixed;
+  inset: 0;
+  background: #100a08;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 99998;
+  padding: 24px;
+}
+.sequential-gate-tint {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  z-index: 1;
+}
+.sequential-gate-content {
+  position: relative;
+  z-index: 2;
+  max-width: 540px;
+  text-align: center;
+}
+.sequential-gate-yantra {
+  width: min(60vw, 280px);
+  height: min(60vw, 280px);
+  margin: 0 auto 36px;
+  opacity: 0.06;
+  color: #d4b888;
+}
+.sequential-gate-line {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(22px, 4.4vw, 28px);
+  color: #f5e8c8;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+.sequential-gate-prev {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(18px, 3.8vw, 22px);
+  color: rgba(240, 226, 188, 0.82);
+  margin-bottom: 56px;
+  line-height: 1.6;
+}
+.sequential-gate-prev em {
+  color: #f5e8c8;
+  font-style: italic;
+  font-weight: 500;
+}
+.sequential-gate-button {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #d4b888;
+  background: transparent;
+  border: 1px solid #d4b888;
+  padding: 16px 36px;
+  cursor: pointer;
+  min-height: 44px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.sequential-gate-button:hover {
+  color: #f5e8c8;
+  background: rgba(212, 184, 136, 0.12);
+}
+/* ═══ END ESSENCE+SEQUENTIAL GATES ═══ */
+</style>
+</head>
+<body>
+<!-- ═══ ESSENCE+SEQUENTIAL GATES ═══ -->
+<script>
+/* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal logic ═══
+   Injected immediately after <body> opens, before page renders.
+   THIS_CHAKRA placeholder gets replaced with the actual chakra id
+   per file (or '__none__' for index.html which only does essence). */
+(function() {
+  'use strict';
+
+  var CHAKRA_SEQUENCE = ['bindu','muladhara','svadhisthana','manipura',
+                          'anahata','vishuddha','ajna','sahasrara','shadow'];
+  var CHAKRA_DISPLAY = {
+    bindu: 'Bindu', muladhara: 'Muladhara', svadhisthana: 'Svadhisthana',
+    manipura: 'Manipura', anahata: 'Anahata', vishuddha: 'Vishuddha',
+    ajna: 'Ajna', sahasrara: 'Sahasrara', shadow: 'Shadow',
+  };
+  var CHAKRA_COLORS = {
+    bindu: '#e8c568', muladhara: '#b83a3a', svadhisthana: '#d47438',
+    manipura: '#d4a848', anahata: '#6b8e4e', vishuddha: '#4c7ab8',
+    ajna: '#5b4e8e', sahasrara: '#9a7ac8', shadow: '#2a2420',
+  };
+
+  function getEssenceLocal() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function essenceCompleteLocal() {
+    var e = getEssenceLocal();
+    return !!(e && e.name && e.dateOfBirth && e.higherSelfName);
+  }
+
+  function isChakraWalked(chakraId) {
+    // Bindu writes 'bindu-point' (coords); all others write 'chakra-{id}'
+    if (chakraId === 'bindu') return !!localStorage.getItem('bindu-point');
+    return !!localStorage.getItem('chakra-' + chakraId);
+  }
+
+  function canAccessChakraLocal(chakraId) {
+    if (isChakraWalked(chakraId)) return true;
+    if (chakraId === 'bindu') return true;
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    if (idx <= 0) return true;
+    var prev = CHAKRA_SEQUENCE[idx - 1];
+    return isChakraWalked(prev);
+  }
+
+  // ── ESSENCE GATE ──
+  /* no gates (standing ruling): essence may personalise, never permit; nothing waits on earlier pages */
+
+  // ── SEQUENTIAL FIRST-WALK GATE ──
+  var THIS_CHAKRA = '__none__';
+  if (THIS_CHAKRA !== '__none__') {
+    /* sequence gate removed */
+  }
+
+  function showEssenceGate() {
+    var ov = document.createElement('div');
+    ov.className = 'essence-gate-overlay';
+    ov.innerHTML =
+      '<div class="essence-gate-bindu"></div>' +
+      '<p class="essence-gate-line">The road asks who is walking.</p>' +
+      '<p class="essence-gate-sub">One moment.</p>';
+    function inject() {
+      document.body.appendChild(ov);
+      // Hide everything else under it — set a flag that page-init can check
+      document.body.setAttribute('data-essence-gating', 'true');
+      requestAnimationFrame(function() {
+        ov.classList.add('visible');
+        setTimeout(function() { ov.querySelector('.essence-gate-line').classList.add('visible'); }, 100);
+        setTimeout(function() { ov.querySelector('.essence-gate-sub').classList.add('visible'); }, 500);
+      });
+      var ret = encodeURIComponent(window.location.pathname);
+      setTimeout(function() {
+        window.location.href = 'the-one.html?return=' + ret;
+      }, 1400);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+
+  function showSequentialGate(chakraId) {
+    var idx = CHAKRA_SEQUENCE.indexOf(chakraId);
+    var prevId = CHAKRA_SEQUENCE[idx - 1];
+    var prevDisplay = CHAKRA_DISPLAY[prevId];
+    var thisColor = CHAKRA_COLORS[chakraId];
+
+    var html =
+      '<div class="sequential-gate-surface">' +
+      '  <div class="sequential-gate-tint" style="background: radial-gradient(ellipse at center, ' + thisColor + ' 0%, transparent 70%);"></div>' +
+      '  <div class="sequential-gate-content">' +
+      '    <svg class="sequential-gate-yantra" viewBox="-100 -100 200 200">' +
+      '      <g fill="none" stroke="currentColor" stroke-width="0.5">' +
+      '        <polygon points="0,-80 70,40 -70,40" />' +
+      '        <polygon points="0,75 -68,-38 68,-38" />' +
+      '        <polygon points="0,-38 33,19 -33,19" />' +
+      '        <polygon points="0,36 -32,-18 32,-18" />' +
+      '        <circle cx="0" cy="0" r="2" fill="currentColor" />' +
+      '        <circle cx="0" cy="0" r="88" />' +
+      '      </g>' +
+      '    </svg>' +
+      '    <p class="sequential-gate-line">The road has an order, the first time through.</p>' +
+      '    <p class="sequential-gate-prev">You haven\'t walked <em>' + prevDisplay + '</em> yet.</p>' +
+      '    <a class="sequential-gate-button" href="' + prevId + '-practice.html">Walk ' + prevDisplay + ' →</a>' +
+      '  </div>' +
+      '</div>';
+
+    function inject() {
+      document.body.setAttribute('data-sequential-gating', 'true');
+      document.body.insertAdjacentHTML('afterbegin', html);
+    }
+    if (document.body) inject();
+    else document.addEventListener('DOMContentLoaded', inject);
+  }
+})();
+
+</script>
+<!-- ═══ END ESSENCE+SEQUENTIAL GATES ═══ -->
+<!-- ═══ ATMOSPHERE ═══ -->
+<div class="atmosphere" aria-hidden="true">
+  <div class="atmosphere-glow"></div>
+  <svg class="atmosphere-yantra" viewBox="-100 -100 200 200" preserveAspectRatio="xMidYMid meet">
+    <!-- Shree Yantra — 9 interlocking triangles + surrounding petals, very faint -->
+    <g fill="none" stroke="currentColor" stroke-width="0.25">
+      <!-- Upward triangles (Shiva) -->
+      <polygon points="0,-80 70,40 -70,40" />
+      <polygon points="0,-55 48,28 -48,28" />
+      <polygon points="0,-38 33,19 -33,19" />
+      <polygon points="0,-22 19,11 -19,11" />
+      <!-- Downward triangles (Shakti) -->
+      <polygon points="0,75 -68,-38 68,-38" />
+      <polygon points="0,52 -47,-26 47,-26" />
+      <polygon points="0,36 -32,-18 32,-18" />
+      <polygon points="0,20 -18,-10 18,-10" />
+      <polygon points="0,8 -8,-5 8,-5" />
+      <!-- Central Bindu -->
+      <circle cx="0" cy="0" r="1.4" fill="currentColor" />
+      <!-- Petals (outer) -->
+      <circle cx="0" cy="0" r="88" />
+      <circle cx="0" cy="0" r="90" />
+    </g>
+  </svg>
+  <div class="atmosphere-grain"></div>
+</div>
+
+<!-- ═══ PAGE ═══ -->
+<div class="page">
+
+  <!-- ═══ OPENING ═══ -->
+  <header class="opening">
+    <div class="opening-marker">A Strange Game</div>
+    <h1 class="opening-title">The Road Home</h1>
+    <p class="opening-subtitle">
+      Every word you gave. Every dance you danced. Every place your body touched a chakra on the map — gathered here. The road you've been walking is the road home.
+    </p>
+  </header>
+
+  <!-- ═══ THE MAP ═══ -->
+  <section class="section map-frame" id="map">
+    <div class="section-marker">
+      <span class="section-marker-number">I</span>
+      <span class="section-marker-title">The Map</span>
+      <span class="section-marker-line"></span>
+    </div>
+    <div class="map-svg-wrap">
+      <svg class="map-svg" id="map-svg" viewBox="0 0 760 2720" preserveAspectRatio="xMidYMid meet" aria-label="The Map — the road walked so far">
+        <!-- Map content rendered by JS -->
+      </svg>
+    </div>
+  </section>
+
+  <!-- ═══ THE ROAD ═══ -->
+  <section class="section road-frame" id="road">
+    <div class="section-marker">
+      <span class="section-marker-number">II</span>
+      <span class="section-marker-title">The Road</span>
+      <span class="section-marker-line"></span>
+    </div>
+    <div class="road-content" id="road-content">
+      <!-- Adaptive prose rendered by JS -->
+    </div>
+  </section>
+
+  <!-- ═══ THE JOURNEY ═══ -->
+  <section class="section journey-frame" id="journey">
+    <div class="section-marker">
+      <span class="section-marker-number">III</span>
+      <span class="section-marker-title">The Journey</span>
+      <span class="section-marker-line"></span>
+    </div>
+
+    <!-- Constellation -->
+    <div class="constellation-frame" id="constellation">
+      <canvas class="constellation-canvas" id="constellation-canvas"></canvas>
+      <div class="constellation-legend">
+        <span>The Sky You've Danced Under</span>
+        <span id="constellation-count">—</span>
+      </div>
+      <div class="constellation-empty" id="constellation-empty">
+        No dances yet. Your sky waits.
+      </div>
+      <div class="constellation-tooltip" id="constellation-tooltip"></div>
+    </div>
+
+    <!-- Ledger -->
+    <div class="ledger" id="ledger">
+      <div class="ledger-header">
+        <h3 class="ledger-title">The Ledger</h3>
+        <span class="ledger-total" id="ledger-total">—</span>
+      </div>
+      <div id="ledger-body">
+        <!-- Rendered by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="footer">
+    <p class="footer-coda">
+      The page remembers you. You arrived once empty. Every time you come back, you arrive more full. The page doesn't change — you do.
+    </p>
+    <div class="footer-name">A Strange Game · The Tree of Life</div>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ══════════════════════════════════════════════════════════
+  // 1 · CHAKRA ARCHITECTURE — the positions that have been built
+  // ══════════════════════════════════════════════════════════
+  const CHAKRAS = [
+    // Only what's been built appears here. As each new practice comes online,
+    // its entry is added — the page grows with the ecosystem.
+    { id: 'bindu',        name: 'Bindu',        sub: 'The Source',   position: 1, color: 'var(--c-bindu)',        url: 'bindu-practice.html',        walkable: true },
+    { id: 'muladhara',    name: 'Muladhara',    sub: 'The Root',     position: 2, color: 'var(--c-muladhara)',    url: 'muladhara-practice.html',    walkable: true },
+    { id: 'svadhisthana', name: 'Svadhisthana', sub: 'The Sacral',   position: 3, color: 'var(--c-svadhisthana)', url: 'svadhisthana-practice.html', walkable: true },
+    { id: 'manipura',     name: 'Manipura',     sub: 'The Fire',     position: 4, color: 'var(--c-manipura)',     url: 'manipura-practice.html',     walkable: true },
+    { id: 'anahata',      name: 'Anahata',      sub: 'The Heart',    position: 5, color: 'var(--c-anahata)',      url: 'anahata-practice.html',      walkable: true },
+    { id: 'vishuddha',    name: 'Vishuddha',    sub: 'The Throat',   position: 6, color: 'var(--c-vishuddha)',    url: 'vishuddha-practice.html',    walkable: true },
+    { id: 'ajna',         name: 'Ajna',         sub: 'The Third Eye',position: 7, color: 'var(--c-ajna)',         url: 'ajna-practice.html',         walkable: true },
+    { id: 'sahasrara',    name: 'Sahasrara',    sub: 'The Crown',    position: 8, color: 'var(--c-sahasrara)',    url: 'sahasrara-practice.html',    walkable: true },
+    { id: 'shadow',       name: 'Shadow',       sub: 'The Corridor', position: 9, color: 'var(--cream)',          url: 'shadow-practice.html',       walkable: true, threshold: true },
+  ];
+
+  // Visual spacing between clusters on the Map (no text labels — spacing is the only cue).
+  const CLUSTER_BOUNDARIES = new Set([2, 9]);   // extra space above Muladhara (after Bindu) and above Shadow
+
+  // Index by position and id
+  const byId  = Object.fromEntries(CHAKRAS.map(c => [c.id, c]));
+  const byPos = Object.fromEntries(CHAKRAS.map(c => [c.position, c]));
+
+  // ══════════════════════════════════════════════════════════
+  // 2 · DATA LAYER — read every localStorage key
+  // ══════════════════════════════════════════════════════════
+  function safeGet(key) {
+    try { return localStorage.getItem(key); } catch(e) { return null; }
+  }
+  function safeParse(raw) {
+    if (!raw) return null;
+    try { return JSON.parse(raw); } catch(e) { return raw; }
+  }
+
+  function readJourney() {
+    const j = { chakras: {}, constellation: [], completion: {} };
+
+    // Initialize every chakra with empty deposits
+    CHAKRAS.forEach(c => {
+      j.chakras[c.id] = {
+        id: c.id,
+        deposits: []
+      };
+    });
+
+    // ─── Practice pages (chakra-*) + bindu-point ───
+    const binduTap = safeParse(safeGet('bindu-point'));
+    if (binduTap && typeof binduTap === 'object' && 'nx' in binduTap) {
+      j.chakras.bindu.deposits.push({
+        kind: 'Practice',
+        answer: { type: 'coords', nx: binduTap.nx, ny: binduTap.ny },
+        date: null,
+        link: 'bindu-practice.html',
+        sort: 0
+      });
+    }
+
+    ['muladhara','svadhisthana','manipura','anahata','vishuddha','ajna','sahasrara','shadow'].forEach(id => {
+      const val = safeGet('chakra-' + id);
+      if (val) {
+        j.chakras[id].deposits.push({
+          kind: 'Practice',
+          answer: { type: 'word', value: String(val) },
+          date: null,
+          link: id + '-practice.html',
+          sort: 1
+        });
+      }
+    });
+
+    // ─── Tree of Life installation panels (tol-*) ───
+    const tolPanelMap = {
+      1: { chakra: 'muladhara',    hasWord: false, defaultLabel: 'safety' },
+      2: { chakra: 'svadhisthana', hasWord: true },
+      3: { chakra: 'manipura',     hasWord: false },
+      4: { chakra: 'anahata',      hasWord: true },
+      5: { chakra: 'vishuddha',    hasWord: true },
+      7: { chakra: 'sahasrara',    hasWord: true, bodyPointKey: null }, // panel 7 has word only
+    };
+    Object.entries(tolPanelMap).forEach(([n, meta]) => {
+      const body = safeParse(safeGet('tol-bodypoint-' + n));
+      const word = meta.hasWord ? safeGet('tol-word-' + n) : null;
+      if (body || word) {
+        const answerParts = [];
+        if (body && typeof body === 'object' && 'x' in body) {
+          answerParts.push({ type: 'coords', x: body.x, y: body.y, label: body.label });
+        }
+        if (word) answerParts.push({ type: 'word', value: String(word) });
+
+        j.chakras[meta.chakra].deposits.push({
+          kind: 'Tree Panel',
+          answer: answerParts.length === 1 ? answerParts[0] : { type: 'composite', parts: answerParts },
+          date: null,
+          link: null,
+          sort: 2
+        });
+      }
+    });
+
+    // tol-mirror-completed + prev-tol-word-N snapshots (prior journey)
+    const mirrorDone = safeGet('tol-mirror-completed') === 'true';
+    if (mirrorDone) {
+      j.completion.tolMirror = true;
+      ['tol-word-2','tol-word-4','tol-word-5','tol-word-7'].forEach(key => {
+        const prev = safeParse(safeGet('prev-' + key));
+        if (prev && prev.word) {
+          const n = parseInt(key.split('-').pop(), 10);
+          const ch = tolPanelMap[n] && tolPanelMap[n].chakra;
+          if (ch) {
+            j.chakras[ch].deposits.push({
+              kind: 'Prior Journey',
+              answer: { type: 'word', value: String(prev.word) },
+              date: null,
+              link: null,
+              sort: 3
+            });
+          }
+        }
+      });
+    }
+
+    // ─── Dances (per-chakra flags + words) ───
+    ['muladhara','svadhisthana','manipura','anahata','vishuddha','ajna','sahasrara'].forEach(id => {
+      const danceWord = safeGet('tol-' + id + '-dance-word');
+      const danceFlag = safeGet('tol-' + id + '-dance');
+      if (danceWord || danceFlag) {
+        j.chakras[id].deposits.push({
+          kind: 'Dance (latest)',
+          answer: danceWord ? { type: 'word', value: String(danceWord) } : { type: 'empty' },
+          date: null,
+          link: 'https://aistrangegame.com/tree-of-life/' + id + '-dance.html',
+          sort: 4
+        });
+      }
+    });
+
+    // ─── Bindu Memory — the constellation + full dance history per chakra ───
+    const binduMemoryRaw = safeParse(safeGet('bindu-memory'));
+    if (Array.isArray(binduMemoryRaw)) {
+      j.constellation = binduMemoryRaw;
+      // Append each bindu-memory entry as a 'Dance' deposit for that chakra
+      binduMemoryRaw.forEach((entry, idx) => {
+        if (entry && entry.chakra && j.chakras[entry.chakra]) {
+          const meta = [];
+          if (entry.song) meta.push(entry.song + (entry.artist ? ' · ' + entry.artist : ''));
+          if (entry.dwell != null) meta.push('paused ' + entry.dwell + 's');
+          if (entry.motion) meta.push(entry.motion);
+
+          j.chakras[entry.chakra].deposits.push({
+            kind: 'Dance',
+            answer: { type: 'word', value: String(entry.word || ''), meta: meta.join(' · ') },
+            date: entry.timestamp || null,
+            link: 'https://aistrangegame.com/tree-of-life/' + entry.chakra + '-dance.html',
+            sort: 5 + idx * 0.001    // preserves chronological order within 'Dance' category
+          });
+        }
+      });
+    }
+
+    // ─── Compute walked status + last-walked ───
+    let lastWalkedPos = 0;
+    CHAKRAS.forEach(c => {
+      const d = j.chakras[c.id].deposits;
+      const walked = d.length > 0 || (c.id === 'shadow' && j.completion.tolMirror);
+      j.chakras[c.id].walked = walked;
+      if (walked && c.position > lastWalkedPos && c.walkable) {
+        lastWalkedPos = c.position;
+      }
+    });
+    j.lastWalked = lastWalkedPos ? byPos[lastWalkedPos] : null;
+
+    // Completion counts
+    j.completion.energy = CHAKRAS.filter(c => c.position >= 2 && c.position <= 8 && j.chakras[c.id].walked).length;
+    j.completion.bindu  = j.chakras.bindu.walked ? 1 : 0;
+    j.completion.shadow = j.chakras.shadow.walked ? 1 : 0;
+    j.completion.walkableTotal = CHAKRAS.filter(c => c.walkable).length;
+    j.completion.walkedTotal   = CHAKRAS.filter(c => c.walkable && j.chakras[c.id].walked).length;
+
+    return j;
+  }
+
+  const journey = readJourney();
+
+  // Read bindu-essence for first-paragraph name insertion (Build 3 will deepen this)
+  function readEssence() {
+    try {
+      var raw = localStorage.getItem('bindu-essence');
+      return raw ? JSON.parse(raw) : null;
+    } catch(e) { return null; }
+  }
+  const essence = readEssence();
+
+  // ══════════════════════════════════════════════════════════
+  // 3 · RENDER — THE MAP (SVG)
+  // ══════════════════════════════════════════════════════════
+  function renderMap() {
+    const svg = document.getElementById('map-svg');
+    const COLUMN_X = 280;                  // spine horizontal position (label side offset)
+    const LABEL_X = 340;                   // label needs room past the larger glyph (r=20)
+    const SUBLABEL_X = 340;
+    const POSITION_X = 216;                // more room for the bigger position number
+    const TOP_PAD = 44;
+    const ROW_HEIGHT = 100;                // enlarged for breathing room
+    const CLUSTER_GAP = 44;                // proportionally bigger cluster gap
+    const GLYPH_R = 20;                    // +54% radius
+    const CONTINUATION_GAP = 100;          // room for continuation mark below last glyph
+
+    // Compute y positions. Visual spacing between clusters — no labels.
+    let y = TOP_PAD;
+    const positions = {};
+
+    CHAKRAS.forEach((c, idx) => {
+      if (idx > 0 && CLUSTER_BOUNDARIES.has(c.position)) {
+        y += CLUSTER_GAP;
+      }
+      positions[c.id] = y + ROW_HEIGHT / 2;
+      y += ROW_HEIGHT;
+    });
+
+    const lastGlyphY = y;
+    const totalHeight = y + CONTINUATION_GAP + TOP_PAD;
+    svg.setAttribute('viewBox', `0 0 760 ${totalHeight}`);
+
+    const parts = [];
+
+    // Central spine — stops at the last glyph
+    parts.push(`<line class="map-spine" x1="${COLUMN_X}" y1="${TOP_PAD}" x2="${COLUMN_X}" y2="${lastGlyphY - ROW_HEIGHT/2 + GLYPH_R + 4}" />`);
+
+    // Sequential first-walk gate — same logic as practice pages
+    const SEQUENCE = ['bindu','muladhara','svadhisthana','manipura',
+                      'anahata','vishuddha','ajna','sahasrara','shadow'];
+    function canAccessChakra(chakraId) { return true;   /* no gates: every centre is open */
+      if (journey.chakras[chakraId] && journey.chakras[chakraId].walked) return true;
+      if (chakraId === 'bindu') return true;
+      const idx = SEQUENCE.indexOf(chakraId);
+      if (idx <= 0) return true;
+      return journey.chakras[SEQUENCE[idx - 1]] && journey.chakras[SEQUENCE[idx - 1]].walked;
+    }
+
+    // Chakra glyphs + labels
+    CHAKRAS.forEach(c => {
+      const y = positions[c.id];
+      const walked = journey.chakras[c.id].walked;
+      const available = !walked && canAccessChakra(c.id);
+      const locked = !walked && !available;
+      const isLast = journey.lastWalked && journey.lastWalked.id === c.id;
+
+      const classes = ['chakra-glyph'];
+      if (c.threshold) classes.push('threshold');
+      if (walked)         classes.push('walked');
+      else if (available) classes.push('available');
+      else                classes.push('locked');
+      if (isLast) classes.push('last');
+
+      // Locked glyphs don't get an <a> wrapper — not clickable
+      const useAnchor = !locked;
+      const tagStart = useAnchor
+        ? `<a href="${c.url}" aria-label="Walk ${c.name}${c.sub ? ' — ' + c.sub : ''}">`
+        : `<g aria-label="${c.name}${c.sub ? ' — ' + c.sub : ''} (not yet walkable)">`;
+      const tagEnd = useAnchor ? '</a>' : '</g>';
+
+      const halo = walked
+        ? `<circle class="glyph-halo" cx="${COLUMN_X}" cy="${y}" r="32" fill="${c.color}" />`
+        : '';
+
+      parts.push(`${tagStart}
+        <g class="${classes.join(' ')}" style="color:${c.color}">
+          ${halo}
+          <circle class="glyph-outer" cx="${COLUMN_X}" cy="${y}" r="${GLYPH_R}" stroke="${c.color}" />
+          <circle class="glyph-inner" cx="${COLUMN_X}" cy="${y}" r="${GLYPH_R - 7}" fill="${c.color}" />
+        </g>
+        <g class="chakra-label-group">
+          <text class="chakra-label" x="${LABEL_X}" y="${y - 8}">${c.name}</text>
+          ${c.sub ? `<text class="chakra-sublabel" x="${SUBLABEL_X}" y="${y + 14}">${c.sub}</text>` : ''}
+          <text class="chakra-position" x="${POSITION_X}" y="${y}" text-anchor="end">${String(c.position).padStart(2,'0')}</text>
+        </g>${tagEnd}`);
+    });
+
+    // Continuation mark — three fading dots below the last glyph, then the line
+    const dotStartY = lastGlyphY + 26;
+    [0, 1, 2].forEach(i => {
+      const dotY = dotStartY + i * 16;
+      const opacity = 0.42 - i * 0.10;
+      parts.push(`<circle cx="${COLUMN_X}" cy="${dotY}" r="1.8" fill="var(--trace)" opacity="${opacity.toFixed(2)}" />`);
+    });
+    const textY = dotStartY + 3 * 16 + 34;
+    parts.push(`<text x="${COLUMN_X}" y="${textY}" text-anchor="middle" class="map-continuation">the road continues</text>`);
+
+    svg.innerHTML = parts.join('\n');
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 4 · RENDER — THE ROAD (adaptive prose)
+  // ══════════════════════════════════════════════════════════
+  function renderRoad() {
+    const el = document.getElementById('road-content');
+    const paras = [];
+    const walked = journey.completion.walkedTotal;
+    const total  = journey.completion.walkableTotal;
+    const last   = journey.lastWalked;
+
+    // ─── The adaptive opening ───
+    // Only speak what the walker has already walked.
+    // Never name or foreshadow what hasn't been built.
+    const shadowWalked = journey.chakras.shadow.walked;
+    const energyWalked = journey.completion.energy;
+
+    if (walked === 0) {
+      // First-time walker — the elder at the trailhead
+      const hsName = essence && essence.higherSelfName ? essence.higherSelfName : null;
+      paras.push(
+        `You begin at <span class="road-emphasis">Bindu</span>${hsName ? `, <span class="road-word">${hsName}</span>` : ''} — the place before you know what you are. Not a place. Not a body. Not a thought. Something before all of those.`
+      );
+      paras.push(
+        `You walk from there. One chakra at a time. Each one teaches what it teaches.`
+      );
+      paras.push(
+        `Start where you are.`
+      );
+    } else if (walked >= total && shadowWalked) {
+      // Walker has walked everything currently available
+      paras.push(
+        `Everything here has been walked. The road rests.`
+      );
+      paras.push(
+        `Return to the ones that are still alive. Walk them again. The ones that changed — those are the ones that landed. The ones that didn't — those are the ones that were for someone else.`
+      );
+      paras.push(
+        `More will arrive as it's ready.`
+      );
+    } else if (shadowWalked) {
+      // Shadow walked — whether or not earlier chakras are complete
+      const shadowWord = (journey.chakras.shadow.deposits.find(x => x.answer && x.answer.type === 'word') || {}).answer;
+      paras.push(
+        `You walked <span class="road-emphasis">Shadow</span>. ${shadowWord ? `The word you gave it was <span class="road-word">"${shadowWord.value}"</span>. You've been carrying it.` : `The corridor held you.`}`
+      );
+      if (energyWalked < 7) {
+        paras.push(
+          `You crossed the threshold before the earlier chakras were all walked. That's allowed. The corridor doesn't check credentials — it asks one thing, <span class="road-emphasis">can you hold what you see without flinching</span>, and you answered yes enough to pass.`
+        );
+        paras.push(
+          `The ones you haven't walked yet are still waiting. You can return to them now with Shadow in your body. They'll read differently.`
+        );
+      } else {
+        paras.push(
+          `The chakras behind you are complete within themselves. Walk them again when they call — second passes aren't repetition.`
+        );
+      }
+    } else if (energyWalked === 7) {
+      // All energy chakras walked, Shadow ahead
+      paras.push(
+        `The chakras behind you are complete within themselves. The light has arrived.`
+      );
+      paras.push(
+        `In the light, for the first time, you can see what was always underneath. Not because it was hiding — because you needed enough light to see it.`
+      );
+      paras.push(
+        `<span class="road-emphasis">Shadow is next.</span> It is not a location in the body. It is a threshold.`
+      );
+      paras.push(
+        `You are a bigger container now. Enter when you're ready.`
+      );
+    } else if (walked >= 3) {
+      // Mid-arc walker — acknowledge progress, reflect their last word
+      if (last) {
+        const d = journey.chakras[last.id].deposits.find(x => x.answer && x.answer.type === 'word');
+        const wordFragment = d ? ` The word you gave it was <span class="road-word">"${d.answer.value}"</span>.` : '';
+        paras.push(
+          `You walked <span class="road-emphasis">${last.name}</span> — ${last.sub ? last.sub.toLowerCase() : 'the teaching'}.${wordFragment}`
+        );
+      }
+      paras.push(
+        `The chakras are not separate teachings. They are one recognition renamed many times. The signatures will start to rhyme. That rhyme is what you're here to hear.`
+      );
+      paras.push(
+        `Keep walking. Each chakra holds its time.`
+      );
+    } else {
+      // Early walker (1-2 practices)
+      paras.push(
+        `You've begun. The road holds you.`
+      );
+      if (last) {
+        paras.push(
+          `The last place you walked was <span class="road-emphasis">${last.name}${last.sub ? ' — ' + last.sub : ''}</span>. The teaching doesn't arrive the first time you hear it. It arrives the third time you hear yourself say it.`
+        );
+      }
+      paras.push(
+        `Keep walking. The arc is a sequence, but sequence isn't the same as hurry. Each chakra holds its time.`
+      );
+    }
+
+    // ─── Render ───
+    el.innerHTML = paras.map(p => `<p>${p}</p>`).join('');
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 5 · RENDER — THE CONSTELLATION (canvas)
+  // ══════════════════════════════════════════════════════════
+  function wordToPosition(word, W, H) {
+    let h = 0;
+    for (let i = 0; i < word.length; i++) h = ((h << 5) - h) + word.charCodeAt(i);
+    h = Math.abs(h);
+    return {
+      x: (0.10 + (h % 820) / 1000 * 0.80) * W,
+      y: (0.15 + ((h >> 10) % 720) / 1000 * 0.70) * H
+    };
+  }
+
+  function renderConstellation() {
+    const canvas = document.getElementById('constellation-canvas');
+    const emptyEl = document.getElementById('constellation-empty');
+    const countEl = document.getElementById('constellation-count');
+    const tooltip = document.getElementById('constellation-tooltip');
+
+    if (!canvas) return;
+
+    const stars = journey.constellation || [];
+
+    // Always update the count label first — even if canvas fails, the header stays truthful
+    if (stars.length === 0) {
+      if (emptyEl) emptyEl.style.display = 'block';
+      if (countEl) countEl.textContent = 'no dances yet';
+      return;
+    }
+    if (emptyEl) emptyEl.style.display = 'none';
+    if (countEl) {
+      const unique = new Set(stars.map(s => s && s.word && s.word.toLowerCase()).filter(Boolean)).size;
+      countEl.textContent = stars.length + ' star' + (stars.length === 1 ? '' : 's') + ' · ' + unique + ' unique';
+    }
+
+    // Canvas may be unavailable (ancient browsers, certain privacy modes, jsdom tests)
+    const dpr = window.devicePixelRatio || 1;
+    const rect = canvas.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    const ctx = canvas.getContext && canvas.getContext('2d');
+    if (!ctx) {
+      // No canvas — we've already set the count label; show a gentle text fallback
+      if (emptyEl) {
+        emptyEl.textContent = stars.length + ' words · the sky is here, though this browser cannot paint it.';
+        emptyEl.style.display = 'block';
+      }
+      return;
+    }
+    ctx.scale(dpr, dpr);
+    const W = rect.width, H = rect.height;
+
+    // Count repeats per word
+    const counts = {};
+    stars.forEach(s => {
+      const w = (s.word || '').toLowerCase();
+      counts[w] = (counts[w] || 0) + 1;
+    });
+    const maxCount = Math.max(...Object.values(counts), 1);
+
+    // Render each star
+    const starPoints = [];
+    stars.forEach((s, idx) => {
+      if (!s.word) return;
+      const pos = wordToPosition(s.word, W, H);
+      const rep = counts[s.word.toLowerCase()] || 1;
+      const size = 1.2 + (rep / maxCount) * 2.4;
+      const opacity = 0.18 + (rep / maxCount) * 0.72;
+      const chakraColor = getChakraColor(s.chakra) || '#d4b888';
+
+      // Glow
+      const grad = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, size * 6);
+      grad.addColorStop(0, `${chakraColor}${toHex(opacity * 0.6)}`);
+      grad.addColorStop(1, 'transparent');
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, size * 6, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Star
+      ctx.globalAlpha = opacity;
+      ctx.fillStyle = chakraColor;
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 1;
+
+      starPoints.push({ x: pos.x, y: pos.y, size, entry: s, rep });
+    });
+
+    // Hover interactions
+    let activePoint = null;
+    canvas.addEventListener('mousemove', (e) => {
+      const r = canvas.getBoundingClientRect();
+      const mx = e.clientX - r.left;
+      const my = e.clientY - r.top;
+      let hit = null;
+      let minDist = 16;
+      starPoints.forEach(p => {
+        const d = Math.sqrt((p.x - mx) ** 2 + (p.y - my) ** 2);
+        if (d < minDist) { minDist = d; hit = p; }
+      });
+      if (hit !== activePoint) {
+        activePoint = hit;
+        if (hit) {
+          const e2 = hit.entry;
+          const dateStr = e2.timestamp ? formatDate(new Date(e2.timestamp)) : '';
+          const chakraName = (byId[e2.chakra] && byId[e2.chakra].name) || e2.chakra || '';
+          tooltip.innerHTML = `"${e2.word}"<div class="constellation-tooltip-meta">${chakraName}${dateStr ? ' · ' + dateStr : ''}${hit.rep > 1 ? ' · ' + hit.rep + '×' : ''}</div>`;
+          tooltip.style.left = (hit.x + 12) + 'px';
+          tooltip.style.top  = (hit.y - 10) + 'px';
+          tooltip.classList.add('visible');
+        } else {
+          tooltip.classList.remove('visible');
+        }
+      }
+    });
+    canvas.addEventListener('mouseleave', () => {
+      activePoint = null;
+      tooltip.classList.remove('visible');
+    });
+  }
+
+  // Helpers for constellation
+  function toHex(opacity) {
+    const v = Math.max(0, Math.min(1, opacity));
+    const h = Math.round(v * 255).toString(16).padStart(2, '0');
+    return h;
+  }
+  function getChakraColor(id) {
+    const c = byId[id];
+    if (!c) return null;
+    // Resolve CSS var to actual color
+    const cssVar = c.color.match(/var\((--[a-z-]+)\)/);
+    if (cssVar) {
+      return getComputedStyle(document.documentElement).getPropertyValue(cssVar[1]).trim() || '#d4b888';
+    }
+    return c.color;
+  }
+  function formatDate(d) {
+    if (!(d instanceof Date) || isNaN(d)) return '';
+    const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return months[d.getMonth()] + ' ' + d.getDate();
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 6 · RENDER — THE LEDGER (complete record per chakra)
+  // ══════════════════════════════════════════════════════════
+  function renderLedger() {
+    const body = document.getElementById('ledger-body');
+    const totalEl = document.getElementById('ledger-total');
+
+    const totalDeposits = CHAKRAS.reduce((s, c) => s + journey.chakras[c.id].deposits.length, 0);
+    totalEl.textContent = totalDeposits + (totalDeposits === 1 ? ' offering' : ' offerings');
+
+    const parts = [];
+    CHAKRAS.forEach(c => {
+      const deps = journey.chakras[c.id].deposits.slice().sort((a, b) => {
+        // First by sort category, then by timestamp (asc) so first appearance is first
+        if (a.sort !== b.sort) return a.sort - b.sort;
+        return (a.date || 0) - (b.date || 0);
+      });
+      const isEmpty = deps.length === 0;
+      const groupClasses = ['ledger-chakra-group'];
+      if (isEmpty) groupClasses.push('empty');
+
+      parts.push(`<div class="${groupClasses.join(' ')}" style="color:${c.color}">`);
+      parts.push(`  <div class="ledger-chakra-header">
+        <span class="ledger-chakra-dot ${isEmpty ? 'empty' : ''}"></span>
+        <span class="ledger-chakra-name">${c.name}${c.sub ? ' · ' + c.sub : ''}</span>
+        <span class="ledger-chakra-position">${String(c.position).padStart(2,'0')}</span>
+      </div>`);
+
+      if (isEmpty) {
+        // Empty row — inviting not-yet-walked
+        const rowClass = c.walkable ? '' : '';
+        const linkHtml = c.walkable
+          ? `<a class="ledger-link" href="${c.url}">Walk →</a>`
+          : `<span class="ledger-link disabled">Coming</span>`;
+        parts.push(`  <div class="ledger-rows">
+          <div class="ledger-row">
+            <span class="ledger-kind">—</span>
+            <span class="ledger-answer empty">${c.walkable ? 'not yet walked' : 'not yet built'}</span>
+            <span class="ledger-date"></span>
+            ${linkHtml}
+          </div>
+        </div>`);
+      } else {
+        parts.push('  <div class="ledger-rows">');
+        deps.forEach(dep => {
+          parts.push('    ' + renderLedgerRow(dep, c));
+        });
+        parts.push('  </div>');
+      }
+      parts.push('</div>');
+    });
+
+    body.innerHTML = parts.join('\n');
+  }
+
+  function renderLedgerRow(dep, chakra) {
+    const answerHtml = renderAnswer(dep.answer);
+    const dateHtml = dep.date ? formatDate(new Date(dep.date)) : '';
+    let linkHtml = '';
+    if (dep.link) {
+      linkHtml = `<a class="ledger-link" href="${dep.link}"${dep.link.startsWith('http') ? ' target="_blank" rel="noopener"' : ''}>Return →</a>`;
+    } else {
+      linkHtml = `<span class="ledger-link disabled">Installation</span>`;
+    }
+    return `<div class="ledger-row">
+      <span class="ledger-kind">${dep.kind}</span>
+      <span class="ledger-answer-container">${answerHtml}</span>
+      <span class="ledger-date">${dateHtml}</span>
+      ${linkHtml}
+    </div>`;
+  }
+
+  function renderAnswer(answer) {
+    if (!answer) return '<span class="ledger-answer empty">—</span>';
+    if (answer.type === 'word') {
+      const meta = answer.meta ? `<span class="ledger-answer-meta">${escapeHtml(answer.meta)}</span>` : '';
+      return `<span class="ledger-answer word">${escapeHtml(answer.value)}</span>${meta}`;
+    }
+    if (answer.type === 'coords') {
+      const pctX = Math.round((answer.x != null ? answer.x : answer.nx) * 100);
+      const pctY = Math.round((answer.y != null ? answer.y : answer.ny) * 100);
+      const label = answer.label ? ` · ${escapeHtml(answer.label)}` : '';
+      return `<span class="ledger-answer coords">tap at (${pctX}%, ${pctY}%)${label}</span>`;
+    }
+    if (answer.type === 'composite' && Array.isArray(answer.parts)) {
+      return answer.parts.map(renderAnswer).join(' <span class="ledger-answer-meta">+</span> ');
+    }
+    if (answer.type === 'empty') {
+      return '<span class="ledger-answer empty">marked, no word</span>';
+    }
+    return '<span class="ledger-answer empty">—</span>';
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+
+  // ══════════════════════════════════════════════════════════
+  // 7 · ORCHESTRATE — render everything
+  // ══════════════════════════════════════════════════════════
+  function init() {
+    // Guard each render — one failure must not cascade to the others.
+    try { renderMap(); }           catch(e) { console.error('Map render failed:', e); }
+    try { renderRoad(); }          catch(e) { console.error('Road render failed:', e); }
+    try { renderConstellation(); } catch(e) { console.error('Constellation render failed:', e); }
+    try { renderLedger(); }        catch(e) { console.error('Ledger render failed:', e); }
+
+    // Redraw constellation on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        try { renderConstellation(); } catch(e) { /* ignore */ }
+      }, 200);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>/* no gates (standing ruling): everything the page holds is shown from the start; writing still saves */
+(function(){function open(){["post-engagement","writing-reflection","story-invite"].forEach(function(id){var e=document.getElementById(id);if(e){e.classList.add("revealed");e.removeAttribute("aria-hidden")}});var p=document.getElementById("story-portal");if(p){p.dataset.unlockedOnce="1";p.classList.remove("locked");p.setAttribute("aria-disabled","false")}}open();addEventListener("DOMContentLoaded",open);addEventListener("load",open)})();</script>
+</body>
+</html>
