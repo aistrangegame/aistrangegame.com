@@ -9,6 +9,8 @@
    Only after a verified 200 does it place the depth and set one quiet mark after the
    title — a thin line under it (not the Point's light, not the Codex's rings) — that the page is carrying more. Nothing here reads
    a local flag, storage or the query: the mark can't be made to appear by anything but the door.
+   Access stands in front of the door: a stranger's ask is answered with its sign-in redirect, which this never
+   follows (redirect:'manual') — no cross-origin request, no console noise, the same quiet on every page.
    ───────────────────────────────────────────────────────────── */
 (function(){
 "use strict";
@@ -45,7 +47,7 @@ function place(list){
   if(h&&!h.classList.contains('dp-on')){h.classList.add('dp-on');
     var m=d.createElement('span');m.className='dp-sr';m.textContent=' (carrying more)';h.appendChild(m)}}
 function ask(){
-  fetch('/api/private/'+key,{credentials:'same-origin',cache:'no-store',headers:{accept:'application/json'}})
+  fetch('/api/private/'+key,{credentials:'same-origin',cache:'no-store',redirect:'manual',headers:{accept:'application/json'}})
     .then(function(r){return r.status===200?r.json():null})
     .then(function(j){if(Array.isArray(j))place(j)})
     .catch(function(){})}
