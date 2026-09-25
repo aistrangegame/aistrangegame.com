@@ -228,8 +228,11 @@ body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-ar
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
-</style></head>
-<body data-move="1" data-title="lean" class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.6561" style="--from:1;--soft:83;--wonk:0;--tw:335">
+</style>
+<meta property="og:image" content="https://aistrangegame.com/og/teachings--1-3-the-fight-flight-freeze-response.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-move="1" data-title="lean" class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.6561" style="--from:1;--soft:83;--wonk:0;--tw:335" data-seam="present" data-world="teachings" data-v="21-29" data-parent="/teachings/mind-body/" data-parent-name="Mind and body" data-same="/learning/practice/1-3-the-fight-flight-freeze-response|The Fight, Flight, Freeze Response — a practice card">
 <div class="w" id="w" aria-hidden="true"></div>
 <div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:92;--syn:84;--s0:219;--spin:0;--so:0.123"><svg viewBox="-100 -100 200 200"><circle cx="7.7" cy="-2.9" r="11.8"/><circle cx="6.8" cy="-2.6" r="23.5" class="b"/><circle cx="5.8" cy="-2.2" r="35.2"/><circle cx="4.8" cy="-1.8" r="47.0"/><circle cx="3.9" cy="-1.5" r="58.8"/><circle cx="2.9" cy="-1.1" r="70.5"/><circle cx="1.9" cy="-0.7" r="82.2"/><circle cx="1.0" cy="-0.4" r="94.0"/></svg></div></div>
 <div class="fig tide" id="tide" aria-hidden="true"><i></i></div>
@@ -361,4 +364,6 @@ if(RK){
 })();</script>
 <script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
 (function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p),z=parseFloat(cs.zoom)||1;p.style.setProperty("--fz",z);var cs2=p.querySelectorAll("a[href],button,[data-choose],[data-done],[data-jump],[role=button]");function taps(){cs2.forEach(function(b){b.style.removeProperty("min-height");if(z>=1)return;var k=getComputedStyle(b);if(k.display==="inline")return;var e=k.boxSizing==="border-box"?0:parseFloat(k.paddingTop)+parseFloat(k.paddingBottom)+parseFloat(k.borderTopWidth)+parseFloat(k.borderBottomWidth);if(b.getBoundingClientRect().height<44)b.style.minHeight=(Math.ceil(44.5/z)-e)+"px"})}taps();if(cs.overflowY!=="visible"||!s.offsetHeight)return;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z;p.style.setProperty("--fz",z);taps()}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body></html>

@@ -1,0 +1,84 @@
+/* ─────────────────────────────────────────────────────────────
+   sky.css — the Sky. The whole field, seen before it is walked: second on the page
+   since harvest round four (it used to close it).
+
+   The spine keeps its order and loses its column: one meandering curve across the
+   whole field, a sun at every vertebra, the worlds in orbit as moons. Suns and
+   moons are HTML buttons placed in CSS pixels, so every target clears 44px however
+   the sky is scaled — the two requirements don't compromise.
+   ───────────────────────────────────────────────────────────── */
+#sky{position:relative;height:auto;min-height:104svh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;gap:10px;padding:52px 14px 22px;overflow:visible;
+  background:radial-gradient(130% 90% at 50% 38%,#120F1E,#07060C 76%)}
+#sky::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(52% 34% at 22% 24%,rgba(201,168,76,.10),transparent 70%),
+    radial-gradient(48% 30% at 78% 72%,rgba(143,174,238,.09),transparent 70%);
+  animation:skyNight 46s ease-in-out infinite}
+@keyframes skyNight{0%,100%{transform:translate(0,0)}50%{transform:translate(3%,-2%) scale(1.06)}}
+
+.sky-head{display:grid;justify-items:center;gap:4px;text-align:center}
+.sky-head .kick{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;color:#C9A84C}
+.sky-head h2{font-family:'Lora',Georgia,serif;font-weight:400;font-size:clamp(19px,4vw,26px);
+  line-height:1.2;margin:0;color:#F5EFE6}
+
+/* the field the sky is drawn in */
+.sky-map{position:relative;width:min(100%,660px);align-self:center;flex:0 0 auto;
+  height:min(74svh,760px);min-height:min(560px,62svh)}
+.sky-svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sky-curve{fill:none;stroke-width:1.4;opacity:.42;stroke-linecap:round}
+.sky-thread{fill:none;stroke:rgba(201,168,76,.16);stroke-width:.8}
+.sky-star{fill:rgba(245,239,230,.5)}
+.sky-star.tw{animation:skyTw 5.5s ease-in-out infinite;animation-delay:calc(var(--i,0) * -.8s)}
+@keyframes skyTw{0%,100%{opacity:.22}50%{opacity:.85}}
+
+/* a vertebra, become a sun */
+.sky-sun{position:absolute;width:46px;height:46px;margin:-23px 0 0 -23px;border:0;padding:0;
+  background:none;cursor:pointer;display:grid;place-items:center;border-radius:50%;z-index:2}
+.sky-sun i{display:block;width:11px;height:11px;border-radius:50%;background:var(--p);
+  box-shadow:0 0 12px var(--p);transition:width .3s,height .3s,box-shadow .3s}
+/* The number belongs to its sun — but it sat at exactly the radius the inner orbit
+   sweeps, so moons passed over it by construction (17, 18, 26, 28 were covered, and 18
+   is the one number that must always be legible). --r is the orbit radius the sun already
+   carries, so the label is placed OUTSIDE the outer shell from the same geometry, and it
+   sits above the moons rather than under them. */
+.sky-sun u{position:absolute;top:calc(50% + var(--r,17px) * 0.66 + 10px);left:50%;
+  transform:translateX(-50%);z-index:4;font-size:9.5px;letter-spacing:.04em;
+  text-decoration:none;color:rgba(245,239,230,.5);font-family:'DM Sans',sans-serif;
+  transition:color .3s;text-shadow:0 0 5px #0B0910,0 0 9px #0B0910}
+.sky-sun.bare i{width:5px;height:5px;background:none;box-shadow:none;
+  border:1px dashed rgba(245,239,230,.5)}
+.sky-sun.ring i{width:0;height:0;box-shadow:none;background:none}
+.sky-sun.ring::after{content:"";position:absolute;width:19px;height:19px;border-radius:50%;
+  border:1.4px solid var(--gold-lift,#E4C979);box-shadow:0 0 12px rgba(228,201,121,.7)}
+.sky-sun.ring::before{content:"";position:absolute;width:5px;height:5px;border-radius:50%;
+  background:var(--gold-lift,#E4C979)}
+.sky-sun:hover i,.sky-sun:focus-visible i{width:16px;height:16px;box-shadow:0 0 22px var(--p)}
+.sky-sun:hover u,.sky-sun:focus-visible u{color:#F5EFE6}
+.sky-sun:focus-visible{outline:1px solid rgba(245,239,230,.5);outline-offset:-4px}
+
+
+/* a world, become a moon */
+.sky-moon{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;border:0;padding:0;
+  background:none;cursor:pointer;display:grid;place-items:center;border-radius:50%;z-index:3}
+.sky-moon i{display:block;width:9px;height:9px;border-radius:50%;background:var(--p);
+  box-shadow:0 0 9px var(--p);transition:width .3s,height .3s,box-shadow .3s}
+.sky-moon.soon i{width:5px;height:5px;background:none;box-shadow:none;
+  border:1px solid color-mix(in oklab,var(--p) 70%,#F5EFE6)}
+.sky-moon:hover i,.sky-moon:focus-visible i{width:15px;height:15px;box-shadow:0 0 20px var(--p)}
+.sky-moon:focus-visible{outline:1px solid rgba(245,239,230,.5);outline-offset:-5px}
+
+/* the name of whatever you are touching */
+.sky-read{min-height:3em;display:grid;justify-items:center;gap:2px;text-align:center;padding:0 8px}
+.sky-read b{font-family:'Lora',Georgia,serif;font-weight:400;font-size:17px;color:#F5EFE6}
+.sky-read span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(245,239,230,.72)}
+
+.sky-foot{display:grid;justify-items:center;gap:6px;text-align:center;padding:0 26px}   /* its words clear the rail (26px each side) */
+.sky-foot .q{font-family:'Lora',Georgia,serif;font-style:italic;font-size:15px;
+  color:rgba(245,239,230,.84)}
+
+@media (min-width:900px){.sky-map{width:min(100%,760px);height:min(78svh,820px)}}
+body[data-lens="witness"] .sky-star.tw,body[data-lens="witness"] #sky::before{animation:none}
+@media (prefers-reduced-motion:reduce){.sky-star.tw,#sky::before{animation:none}}
+/* on a phone the Sky's kicker sat 5px under the top bar's buttons: it starts clear of them */
+@media (max-width:899px){#sky{padding-top:72px}}

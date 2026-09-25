@@ -1,0 +1,12 @@
+/* lenses/witness.css — D · Witness. "It was already finished when you arrived."
+   Nothing animates toward you. Everything is complete on arrival; the only motion is the reader's.
+   The Point does not chase — it is already where it is going, and it leaves a mark where it rested.
+   The ring at eighteen is brighter from the first screen. */
+body[data-lens="witness"]{--inkf:none;--grain:0;--glow:0;--track:.012em;--leadmul:1.14}
+body[data-lens="witness"] .pmark{display:block}
+body[data-lens="witness"] #point{transition:none}
+body[data-lens="witness"] #rail i.ring{border-color:var(--gold-lift);width:11px;height:11px}
+body[data-lens="witness"] .seam{border-top:1px solid rgba(245,239,230,.22)}
+body[data-lens="witness"] .seam.bleed::before{opacity:0}
+/* every arriving state resolves: no entrances, no reveals */
+body[data-lens="witness"] [data-arrive]{opacity:1!important;transform:none!important}

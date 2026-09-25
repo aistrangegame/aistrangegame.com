@@ -37,7 +37,10 @@ section.reading p{margin:0 0 1.15em}
 .item:hover,.item:focus-visible{border-color:var(--el)}
 @media (prefers-reduced-motion: reduce){*{transition:none !important;animation:none !important}}
 </style><style id="taps">/* taps: nav links reach 44px without moving (engine/moves.py) */
-.top a,.nav a,.foot a{--tp:calc(13px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}nav.tabs a,.scope button{box-sizing:border-box;min-height:44px}.links a{display:inline-flex;align-items:center;box-sizing:border-box;min-height:calc(44px / var(--fz,1))}.src a{display:inline-block;--tp:calc(12px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}</style></head><body>
+.top a,.nav a,.foot a{--tp:calc(13px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}nav.tabs a,.scope button{box-sizing:border-box;min-height:44px}.links a{display:inline-flex;align-items:center;box-sizing:border-box;min-height:calc(44px / var(--fz,1))}.src a{display:inline-block;--tp:calc(12px / var(--fz,1));padding-block:var(--tp);margin-block:calc(0px - var(--tp))}</style>
+<meta property="og:image" content="https://aistrangegame.com/og/bindu--read--breath-cohere.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head><body data-seam="present" data-world="readings" data-v="2-8" data-parent="/bindu/read/" data-parent-name="The Readings">
 <div class="top"><a href="index.html">← The Reading Space</a><span>Breath</span></div>
 <main class="wrap">
   <div class="label">Bindu Field · Breath · track 109</div>
@@ -88,4 +91,7 @@ The breath is the structure; the breather activates it — and here the structur
 <script>
 (function(){const links=[...document.querySelectorAll('.tabs a')];const secs=links.map(a=>document.querySelector(a.getAttribute('href')));
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('active'));const i=secs.indexOf(e.target);if(i>-1)links[i].classList.add('active')}})},{rootMargin:'-40% 0px -55% 0px'});secs.forEach(s=>s&&io.observe(s));})();
-</script></body></html>
+</script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
+</body></html>

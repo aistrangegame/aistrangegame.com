@@ -29,8 +29,10 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%}
 .fo.v{opacity:1}
 .ft{font:italic 400 clamp(12px,2.8vw,16px)/1.8 'Lora',serif;color:rgba(255,255,255,0.5);letter-spacing:0.5px;max-width:min(85vw,480px);text-align:center}
 </style>
+<meta property="og:image" content="https://aistrangegame.com/og/b--rise.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body data-seam="whisper" data-world="dances" data-v="10-19" data-parent="/worlds/dances/" data-parent-name="The Dances">
 <canvas id="c"></canvas>
 <div class="lt" id="lt">I Love You</div>
 <div class="wr" id="wr"></div>
@@ -213,5 +215,7 @@ wi.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();go()}})
 document.addEventListener('click',e=>{if(e.target===wi)return;go()});
 document.addEventListener('touchend',e=>{if(e.target===wi)return;e.preventDefault();go()},{passive:false});
 </script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body>
 </html>

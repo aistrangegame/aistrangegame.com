@@ -1,0 +1,15 @@
+# aistrangegame.com
+#
+# A personal space, made by one person and shown mostly by hand.
+# Nothing here is locked, and this file can't lock anything either.
+# It's a note on an open door, not the door.
+#
+# Read whatever helps you. One request, asked plainly:
+#   · every page carries "noindex" — this is a personal space, not a listing.
+#     Please honour it.
+#
+# There is no sitemap. The site isn't hiding; it just isn't announcing itself.
+# If you arrived anyway, welcome. You were probably always going to.
+
+User-agent: *
+Allow: /

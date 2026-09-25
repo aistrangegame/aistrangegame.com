@@ -47,8 +47,10 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%}
 .fo .sig{font:300 0.55rem/1.4 sans-serif;color:rgba(192,80,50,0.2);letter-spacing:3px;text-transform:uppercase;text-align:center}
 
 </style>
+<meta property="og:image" content="https://aistrangegame.com/og/tree-of-life--muladhara-dance.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body data-seam="whisper" data-world="dances" data-v="2" data-parent="/worlds/dances/" data-parent-name="The Dances">
 <div class="bg-light" id="bgLight"></div>
 <canvas id="c"></canvas>
 
@@ -1135,5 +1137,7 @@ document.addEventListener('click',()=>{
 document.getElementById('wordInput').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
 
 </script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body>
 </html>

@@ -228,8 +228,11 @@ body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-ar
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
-</style></head>
-<body data-move="1" data-title="classic" class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.7052" style="--from:1;--soft:95;--wonk:0;--tw:368">
+</style>
+<meta property="og:image" content="https://aistrangegame.com/og/teachings--an-introduction-to-coping-skills.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-move="1" data-title="classic" class="dark" data-variant="mind-body" data-form="teaching" data-seed="0.7052" style="--from:1;--soft:95;--wonk:0;--tw:368" data-seam="present" data-world="teachings" data-v="21-29" data-parent="/teachings/mind-body/" data-parent-name="Mind and body" data-same="/learning/practice/an-introduction-to-coping-skills|An Introduction to Coping Skills — a practice card">
 <div class="w" id="w" aria-hidden="true"></div>
 <div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:104;--syn:50;--s0:142;--spin:0;--so:0.137"><svg viewBox="-100 -100 200 200"><circle cx="-3.3" cy="-4.1" r="13.4"/><circle cx="-2.8" cy="-3.5" r="26.9" class="b"/><circle cx="-2.3" cy="-2.9" r="40.3"/><circle cx="-1.9" cy="-2.3" r="53.7"/><circle cx="-1.4" cy="-1.8" r="67.1"/><circle cx="-0.9" cy="-1.2" r="80.6"/><circle cx="-0.5" cy="-0.6" r="94.0"/></svg></div></div>
 <div class="fig tide" id="tide" aria-hidden="true"><i></i></div>
@@ -361,4 +364,6 @@ if(RK){
 })();</script>
 <script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
 (function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p),z=parseFloat(cs.zoom)||1;p.style.setProperty("--fz",z);var cs2=p.querySelectorAll("a[href],button,[data-choose],[data-done],[data-jump],[role=button]");function taps(){cs2.forEach(function(b){b.style.removeProperty("min-height");if(z>=1)return;var k=getComputedStyle(b);if(k.display==="inline")return;var e=k.boxSizing==="border-box"?0:parseFloat(k.paddingTop)+parseFloat(k.paddingBottom)+parseFloat(k.borderTopWidth)+parseFloat(k.borderBottomWidth);if(b.getBoundingClientRect().height<44)b.style.minHeight=(Math.ceil(44.5/z)-e)+"px"})}taps();if(cs.overflowY!=="visible"||!s.offsetHeight)return;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z;p.style.setProperty("--fz",z);taps()}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body></html>

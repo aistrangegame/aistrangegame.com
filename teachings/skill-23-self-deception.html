@@ -243,8 +243,11 @@ body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-ar
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
-</style></head>
-<body data-move="1" data-title="lean" class="dark" data-variant="skill" data-form="teaching" data-seed="0.0779" style="--from:1;--soft:99;--wonk:0;--tw:378">
+</style>
+<meta property="og:image" content="https://aistrangegame.com/og/teachings--skill-23-self-deception.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-move="1" data-title="lean" class="dark" data-variant="skill" data-form="teaching" data-seed="0.0779" style="--from:1;--soft:99;--wonk:0;--tw:378" data-seam="present" data-world="teachings" data-v="21-29" data-parent="/teachings/skills/" data-parent-name="Skills" data-same="/learning/practice/skill-23-self-deception|Self-Deception — a practice card">
 <div class="w" id="w" aria-hidden="true"></div>
 <div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:10;--syn:86;--s0:120;--spin:0;--so:0.103"><svg viewBox="-100 -100 200 200"><circle cx="6.6" cy="-4.4" r="11.8"/><circle cx="5.8" cy="-3.8" r="23.5" class="b"/><circle cx="5.0" cy="-3.3" r="35.2"/><circle cx="4.1" cy="-2.7" r="47.0"/><circle cx="3.3" cy="-2.2" r="58.8"/><circle cx="2.5" cy="-1.6" r="70.5"/><circle cx="1.7" cy="-1.1" r="82.2"/><circle cx="0.8" cy="-0.5" r="94.0"/></svg></div></div>
 <div class="top"><a href="index.html">← The teachings</a><span>A skill</span></div>
@@ -384,4 +387,6 @@ if(RK){
 })();</script>
 <script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
 (function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p),z=parseFloat(cs.zoom)||1;p.style.setProperty("--fz",z);var cs2=p.querySelectorAll("a[href],button,[data-choose],[data-done],[data-jump],[role=button]");function taps(){cs2.forEach(function(b){b.style.removeProperty("min-height");if(z>=1)return;var k=getComputedStyle(b);if(k.display==="inline")return;var e=k.boxSizing==="border-box"?0:parseFloat(k.paddingTop)+parseFloat(k.paddingBottom)+parseFloat(k.borderTopWidth)+parseFloat(k.borderBottomWidth);if(b.getBoundingClientRect().height<44)b.style.minHeight=(Math.ceil(44.5/z)-e)+"px"})}taps();if(cs.overflowY!=="visible"||!s.offsetHeight)return;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z;p.style.setProperty("--fz",z);taps()}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body></html>

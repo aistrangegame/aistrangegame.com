@@ -1,0 +1,88 @@
+/* ─────────────────────────────────────────────────────────────
+   pages.css — what the Stage B pages add to the gateway's sheet (gateway.css), and nothing
+   the gateway already says. A floor, a vertebra and an enclosure are rooms one step further in:
+   the same material by movement, the same rows, the same die and return. They arrive without a
+   figure, so the head is a title band, not a full screen.
+   ───────────────────────────────────────────────────────────── */
+
+/* the head: the gateway's arrive, a room further in — the name, its line, no figure */
+.gw-arrive.pg-head{min-height:0;padding-top:clamp(72px,12svh,120px);padding-bottom:clamp(28px,5svh,48px)}
+.pg-head .gw-name{font-size:clamp(32px,7.4vw,58px)}
+.pg-head .pg-num{font-family:'Cinzel',Georgia,serif;font-size:clamp(15px,2.4vw,19px);letter-spacing:.2em;
+  color:var(--gw-acc-ink);margin:0}
+@media (min-width:900px){
+  .gw-arrive.pg-head{grid-template-columns:minmax(0,1fr)}
+  .pg-head.pg-fig{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}
+  .pg-head.pg-fig>.pg-side{grid-column:2;grid-row:1 / span 4;align-self:center}
+  .pg-sec{max-width:1100px}}
+.pg-sec{position:relative;padding:clamp(30px,6svh,56px) var(--gw-pad) clamp(22px,4svh,40px);
+  border-top:1px solid rgba(245,239,230,.14)}
+.pg-sec h2,.pg-sec .gw-bh{font-family:'Lora',Georgia,serif;font-weight:400;font-size:clamp(19px,3.2vw,24px);
+  margin:0 0 6px}
+.gw-bh{font-family:'Lora',Georgia,serif;font-weight:400;font-size:18px;margin:18px 0 8px}
+
+/* the other way down — the gateway's axis chips, as a facet */
+.pg-chips{margin:4px 0 0;flex-wrap:wrap;overflow:visible;-webkit-mask:none;mask:none;padding-bottom:4px}
+.pg-also{margin:14px 0 0;font-size:12.5px;color:rgba(245,239,230,.62)}
+.pg-also+.pg-line{margin-top:-4px}
+.pg-chips button{text-transform:none}
+
+/* a row and, beneath it, the same subject another way — a second door, never inside the first */
+.gw-rows li{position:relative;min-width:0}
+.pg-sib{display:inline-flex;align-items:center;min-height:44px;margin:-6px 0 2px 46px;font-size:12px;
+  letter-spacing:.04em;color:var(--gw-acc-ink);text-decoration:none;opacity:.86}
+.pg-sib:hover,.pg-sib:focus-visible{opacity:1;text-decoration:underline}
+.gw-rows li[hidden]{display:none}
+
+/* the care line: the Therapy lake's, once, at the foot — the same words every therapy page carries */
+.pg-care p{margin:0 auto;max-width:34em;padding-top:14px;border-top:1px solid rgba(245,239,230,.28);
+  font-size:15px;line-height:1.6;text-align:center;color:rgba(245,239,230,.9);text-wrap:pretty}
+
+/* the practice: first and largest */
+.pg-lead{display:grid;gap:10px;justify-items:start}
+.pg-lead .gw-pill{min-height:56px;font-size:16px;padding:0 22px}
+.pg-lead p{margin:0;font-size:14px;color:rgba(245,239,230,.72);max-width:48ch}
+
+/* passing through: small, on one line */
+.pg-line{margin:0;font-size:14px;line-height:2.2;color:rgba(245,239,230,.78)}
+.pg-line a,.pg-line .gw-arr{display:inline-flex;align-items:center;min-height:44px;color:var(--gw-acc-ink)}
+.pg-line .gw-arr{color:rgba(245,239,230,.5)}
+.pg-line small{margin-left:4px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}
+
+/* the passages: from the previous, to the next */
+.pg-pass{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+
+/* the spine page: thirty-three rows, the Sky's shape small beside them */
+.pg-sky{width:100%;max-width:340px;height:auto;display:block;margin:0 auto}
+.pg-sky text{font-family:'DM Sans',sans-serif}
+.pg-dots{display:inline-flex;gap:3px;flex-wrap:wrap;justify-content:flex-end;max-width:120px}
+.pg-dots i{display:block;width:7px;height:7px;border-radius:50%;background:var(--d)}
+.gw-row .e .pg-dots{vertical-align:middle}
+
+/* an enclosure: the ring, then its Shaktis — name, meaning, what she does, where she sits in the body */
+.pg-ring{display:flex;gap:3px;align-items:center;flex-wrap:wrap;margin:0}
+.pg-ring a,.pg-ring span{display:grid;place-items:center;min-width:44px;min-height:44px;font-family:'Cinzel',Georgia,serif;
+  font-size:13px;color:rgba(245,239,230,.72);text-decoration:none;border-radius:50%}
+.pg-ring [aria-current]{color:#0D0B14;background:var(--gw-acc-ink)}
+.pg-sh{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.pg-sh li{display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 12px;padding:14px 0;
+  border-bottom:1px solid rgba(245,239,230,.1)}
+.pg-sh .n{font-family:'Cinzel',Georgia,serif;font-size:12px;color:var(--gw-acc-ink);padding-top:4px}
+.pg-sh b{display:block;font-family:'Lora',Georgia,serif;font-weight:400;font-size:18px;line-height:1.3}
+.pg-sh b span{font-family:inherit;font-size:15px;color:rgba(245,239,230,.66);margin-left:8px}
+.pg-sh em{display:block;font-family:'Lora',Georgia,serif;font-size:14.5px;color:rgba(245,239,230,.84)}
+.pg-sh p{margin:3px 0 0;font-size:13.5px;line-height:1.55;color:rgba(245,239,230,.7)}
+.pg-sh p i{font-style:normal;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gw-acc-ink);
+  margin-right:6px}
+.pg-attr{margin:0;font-family:'Lora',Georgia,serif;font-style:italic;font-size:15px;color:rgba(245,239,230,.8)}
+@media (min-width:900px){.pg-sh{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}}
+
+/* the two light bands (VII, IX) never carry these pages, but the kit keeps their ink honest if one does */
+body[data-mv="VII"] .pg-care p,body[data-mv="IX"] .pg-care p{color:#241F18;border-top-color:rgba(35,29,22,.3)}
+
+/* the panel: the thumbnail beside its doors */
+.pg-pgrid{display:grid;grid-template-columns:minmax(0,104px) minmax(0,1fr);gap:18px;align-items:start}
+.pg-thumb{margin:0;width:104px}
+@media (min-width:900px){.pg-pgrid{grid-template-columns:150px minmax(0,1fr)}.pg-thumb{width:150px}
+  .pg-pgrid .gw-rows{grid-template-columns:minmax(0,1fr)}}
+.pg-pgrid .gw-row{grid-template-columns:24px minmax(0,1fr) auto;gap:8px}

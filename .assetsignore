@@ -8,3 +8,4 @@ docs
 .github
 /forms/
 STATUS-REPORT.md
+worker.js

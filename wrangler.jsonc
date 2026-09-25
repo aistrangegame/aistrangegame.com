@@ -1,10 +1,21 @@
    {
      "name": "aistrangegame-com",
      "compatibility_date": "2026-09-22",
+     // F7 · one small Worker for /api/* (the contact form). Every other request is a static asset, served first.
+     "main": "worker.js",
      "assets": {
        "directory": "./",
-       "not_found_handling": "404-page"
+       "binding": "ASSETS",
+       "not_found_handling": "404-page",
+       "run_worker_first": ["/api/*"]
      },
+     // The contact form's mail: when Cloudflare Email Routing is on and the destination is verified, add
+     //   "send_email": [{ "name": "SEND" }]
+     // here (no address in this file — the destination is the CONTACT_TO secret). See worker.js.
+     // The wall (tools/v3/wall.py): the depth behind 'open with depth' pages, read by /api/private/<key> only after a
+     // Cloudflare Access token verifies (ACCESS_TEAM, ACCESS_AUD set as variables on the Worker). The id is not a secret;
+     // the values are pushed from the private engine and are never in this repo.
+     "kv_namespaces": [{ "binding": "PRIVATE", "id": "53eb6c31e9d246cf84b374d561410304" }],
      // Worker Previews (non-production branch builds run `wrangler preview`) require this block; empty = same settings as production.
      "previews": {}
    }

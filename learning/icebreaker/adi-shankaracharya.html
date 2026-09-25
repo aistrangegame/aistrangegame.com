@@ -144,8 +144,11 @@ body[data-move] .fig.attune,body[data-move] #tune{bottom:calc(30px + env(safe-ar
 body.leaving .w::before{opacity:.55}
 body.leaving .piece{opacity:.2;transition:opacity .5s ease}
 @media (prefers-reduced-motion:reduce){body.leaving .w::before{opacity:0}}
-</style></head>
-<body data-move="1" data-title="grand" data-seed="0.3341" class="light" data-variant="any" style="--from:1;--soft:64;--wonk:0;--tw:461">
+</style>
+<meta property="og:image" content="https://aistrangegame.com/og/learning--icebreaker--adi-shankaracharya.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+<body data-move="1" data-title="grand" data-seed="0.3341" class="light" data-variant="any" style="--from:1;--soft:64;--wonk:0;--tw:461" data-seam="present" data-world="learning" data-v="21-29" data-parent="/learning/lake/learning/" data-parent-name="The Learning lake" data-same="/learning/portrait/adi-shankaracharya|Adi Shankaracharya — a portrait">
 <div class="w" id="w" aria-hidden="true"></div>
 <div class="sigil-wrap" aria-hidden="true"><div class="sigil" style="--sxn:104;--syn:50;--s0:332;--spin:51;--so:0.171"><svg viewBox="-100 -100 200 200"><line x1="90.0" y1="0.0" x2="63.6" y2="63.6"/><line x1="90.0" y1="0.0" x2="0.0" y2="90.0"/><line x1="90.0" y1="0.0" x2="-63.6" y2="63.6"/><line x1="63.6" y1="63.6" x2="0.0" y2="90.0"/><line x1="63.6" y1="63.6" x2="-63.6" y2="63.6"/><line x1="63.6" y1="63.6" x2="-90.0" y2="0.0"/><line x1="0.0" y1="90.0" x2="-63.6" y2="63.6"/><line x1="0.0" y1="90.0" x2="-90.0" y2="0.0"/><line x1="0.0" y1="90.0" x2="-63.6" y2="-63.6"/><line x1="-63.6" y1="63.6" x2="-90.0" y2="0.0"/><line x1="-63.6" y1="63.6" x2="-63.6" y2="-63.6"/><line x1="-63.6" y1="63.6" x2="-0.0" y2="-90.0"/><line x1="-90.0" y1="0.0" x2="-63.6" y2="-63.6"/><line x1="-90.0" y1="0.0" x2="-0.0" y2="-90.0"/><line x1="-90.0" y1="0.0" x2="63.6" y2="-63.6"/><line x1="-63.6" y1="-63.6" x2="-0.0" y2="-90.0"/><line x1="-63.6" y1="-63.6" x2="63.6" y2="-63.6"/><line x1="-63.6" y1="-63.6" x2="90.0" y2="0.0"/><line x1="-0.0" y1="-90.0" x2="63.6" y2="-63.6"/><line x1="-0.0" y1="-90.0" x2="90.0" y2="0.0"/><line x1="-0.0" y1="-90.0" x2="63.6" y2="63.6"/><line x1="63.6" y1="-63.6" x2="90.0" y2="0.0"/><line x1="63.6" y1="-63.6" x2="63.6" y2="63.6"/><line x1="63.6" y1="-63.6" x2="0.0" y2="90.0"/><circle r="90" class="b"/></svg></div></div>
 <div class="fig" id="fig" aria-hidden="true"></div>
@@ -228,4 +231,6 @@ document.querySelectorAll('[data-flick]').forEach(c=>{let x0=null,drag=false;
   c.classList.remove('dragging');c.style.setProperty('--dx','0px');c.style.setProperty('--tilt','0deg')})});})();</script>
 <script id="fit-rt">/* fit: every piece on one screen, measured in this browser (engine/moves.py) */
 (function(){var busy=0;function fit(){if(busy)return;busy=1;var H=innerHeight;document.querySelectorAll(".step").forEach(function(s){var p=s.querySelector(".piece");if(!p)return;p.style.removeProperty("zoom");var cs=getComputedStyle(p),z=parseFloat(cs.zoom)||1;p.style.setProperty("--fz",z);var cs2=p.querySelectorAll("a[href],button,[data-choose],[data-done],[data-jump],[role=button]");function taps(){cs2.forEach(function(b){b.style.removeProperty("min-height");if(z>=1)return;var k=getComputedStyle(b);if(k.display==="inline")return;var e=k.boxSizing==="border-box"?0:parseFloat(k.paddingTop)+parseFloat(k.paddingBottom)+parseFloat(k.borderTopWidth)+parseFloat(k.borderBottomWidth);if(b.getBoundingClientRect().height<44)b.style.minHeight=(Math.ceil(44.5/z)-e)+"px"})}taps();if(cs.overflowY!=="visible"||!s.offsetHeight)return;function bad(){var t=s.getBoundingClientRect();return t.height>H+4||p.getBoundingClientRect().bottom-t.top>H-56}while(bad()&&z>0.73){z=Math.round((z-0.02)*100)/100;p.style.zoom=z;p.style.setProperty("--fz",z);taps()}});busy=0}var t;function soon(){clearTimeout(t);t=setTimeout(fit,120)}fit();addEventListener("load",fit);document.fonts&&document.fonts.ready.then(fit);addEventListener("resize",soon);addEventListener("orientationchange",soon)})();</script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body></html>

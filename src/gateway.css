@@ -1,0 +1,504 @@
+/* ─────────────────────────────────────────────────────────────
+   gateway.css — level two. The connective tissue.
+
+   ONE grammar, four movements: Arrive · Choose · Or don't · Return.
+   What varies per world is the figure, the sort axis, the material and the
+   voice. What is shared is everything else — which is the whole point: Code
+   stamps the other forty from data/worlds.json against this same sheet.
+
+   The material comes from the movement (data-mv), exactly as on the homepage,
+   so a gateway feels like the band it came from rather than like a directory.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --gw-ink:#F5EFE6; --gw-void:#0B0910; --gw-cream:#F4EEE3;
+  --gw-acc:#C9A84C;      /* the FIGURE pigment — the 3:1 graphic floor */
+  --gw-acc-ink:#C9A84C;  /* the ACCENT AS TYPE — 4.5:1 against this band’s ground */
+  --gw-ink:#F5EFE6;      /* the BODY ink — what unstyled text is */
+  --gw-deep:#8A6A1E;
+  --gw-pad:clamp(20px,5vw,64px);
+}
+*{box-sizing:border-box}
+html{overflow-x:clip}  /* as living.css: the phone viewport never creeps sideways */
+body{margin:0;background:var(--gw-void);color:var(--gw-ink);
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;line-height:1.6;
+  overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:var(--gw-acc-ink)}
+/* a figure is drawn against the homepage's base link (living.css: inherit, no underline); on a gateway it
+   keeps that base — the Readings' words came out underlined in the gateway's accent. :where() keeps it at
+   the base's own weight, so every figure's own link style still wins. */
+:where([data-fig],.gw-home) a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* the paper the whole level two is printed on — one grain, drifting */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.05;
+  mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:gwGrain 9s steps(1) infinite}
+@keyframes gwGrain{0%{transform:translate(0,0)}25%{transform:translate(-3%,2%)}
+  50%{transform:translate(2%,-4%)}75%{transform:translate(-2%,3%)}100%{transform:translate(0,0)}}
+
+/* ═══ 1 · ARRIVE ═══════════════════════════════════════════════
+   The world's figure, pinned, its play live — the same component as the
+   homepage. Its name, one sentence, its Tuesday. Nothing else above the fold. */
+.gw-arrive{position:relative;min-height:100svh;display:grid;align-content:center;
+  gap:clamp(14px,2.6svh,26px);padding:clamp(56px,9svh,96px) var(--gw-pad) clamp(30px,6svh,56px);
+  overflow:clip}
+/* the ground each movement brings with it */
+.gw-arrive::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(74% 52% at 74% 16%,color-mix(in oklab,var(--gw-acc) 16%,transparent),
+    transparent 72%),
+    radial-gradient(60% 44% at 12% 88%,color-mix(in oklab,var(--gw-acc) 10%,transparent),
+    transparent 74%);
+  animation:gwField 38s ease-in-out infinite}
+@keyframes gwField{0%,100%{transform:translate(0,0) scale(1)}
+  34%{transform:translate(-5%,4%) scale(1.09)}67%{transform:translate(4%,-3%) scale(1.05)}}
+.gw-arrive>*{position:relative;z-index:1}
+
+.gw-eyebrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0;
+  font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gw-acc-ink)}
+.gw-eyebrow i{display:block;width:8px;height:8px;border-radius:50%;background:var(--gw-acc);
+  box-shadow:0 0 9px var(--gw-acc);flex:0 0 auto}
+.gw-eyebrow s{text-decoration:none;opacity:.62;color:var(--gw-ink)}
+.gw-eyebrow b.sep{font-weight:inherit;opacity:.62}
+.gw-name{font-family:'Lora',Georgia,serif;font-weight:400;
+  font-size:clamp(34px,8.4vw,68px);line-height:1.04;margin:0;letter-spacing:-.008em;
+  text-wrap:balance}
+.gw-one{font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:clamp(17px,2.6vw,23px);line-height:1.48;margin:0;max-width:38ch;
+  color:rgba(245,239,230,.84);text-wrap:pretty}
+.gw-tue{margin:0;max-width:44ch;font-size:14px;line-height:1.6;color:rgba(245,239,230,.66)}
+.gw-tue b{display:block;font-weight:500;font-size:10.5px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--gw-acc-ink);margin-bottom:3px}
+
+/* the figure, pinned — its play live, never a picture of a play */
+.gw-fig{position:relative;min-height:clamp(150px,26svh,280px);display:grid;place-items:center}
+.gw-fig>*{max-width:100%}
+
+/* the scroll cue, shown once and gone the moment you move */
+.gw-cue{position:absolute;left:var(--gw-pad);bottom:16px;z-index:1;font-size:10.5px;
+  letter-spacing:.24em;text-transform:uppercase;color:rgba(245,239,230,.55);opacity:0;
+  transition:opacity .9s;pointer-events:none}
+.gw-cue.on{opacity:1;animation:gwCue 3.4s ease-in-out infinite}
+@keyframes gwCue{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+
+/* ═══ 2 · CHOOSE ═══════════════════════════════════════════════
+   The world's register, sorted along the WORLD'S OWN AXIS — hue for the
+   Dances, lake for Learning, element for the Readings, position for the Walk,
+   date for the Moments. Never more than twelve rows a screen. */
+.gw-choose{position:relative;padding:clamp(40px,8svh,80px) var(--gw-pad) clamp(30px,6svh,60px);
+  border-top:1px solid rgba(245,239,230,.14)}
+.gw-h{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:0 0 6px}
+.gw-h h2{font-family:'Lora',Georgia,serif;font-weight:400;font-size:clamp(21px,3.6vw,28px);
+  margin:0}
+.gw-h .n{font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gw-acc-ink);opacity:.8}
+.gw-sub{margin:0 0 18px;font-size:13.5px;color:rgba(245,239,230,.66);max-width:52ch}
+
+/* the axis: the world's own way of being sorted, never an alphabet */
+.gw-axis{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 0 12px;
+  -webkit-overflow-scrolling:touch;
+  -webkit-mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent);
+  mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent)}
+.gw-axis::-webkit-scrollbar{display:none}
+.gw-axis button{flex:0 0 auto;min-height:44px;padding:0 14px;border:1px solid rgba(245,239,230,.28);
+  border-radius:2px;font-size:12.5px;letter-spacing:.06em;white-space:nowrap;
+  color:rgba(245,239,230,.82);transition:border-color .3s,color .3s,background .3s}
+.gw-axis button[aria-pressed="true"]{border-color:var(--gw-acc-ink);color:#0B0910;
+  background:var(--gw-acc-ink)}   /* the accents on the dark bands are light: dark type clears 4.5:1 on them */
+
+/* the rows. A row is a page; the mark on its left is the axis made visible. */
+.gw-rows{display:grid;grid-template-columns:minmax(0,1fr);gap:0;margin:0;padding:0;list-style:none}  /* one column that never outgrows the screen: an implicit auto column took the longest row's width (Dances, +13px at 360) */
+.gw-row{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:12px;
+  min-height:52px;padding:7px 0;border-bottom:1px solid rgba(245,239,230,.1);
+  color:var(--gw-ink);text-decoration:none;
+  transition:background .35s,padding-left .35s}
+.gw-row:hover,.gw-row:focus-visible{background:rgba(245,239,230,.045);padding-left:7px;outline:0}
+.gw-row .mk{display:grid;place-items:center;height:26px}
+.gw-row .mk i{display:block;width:9px;height:9px;border-radius:50%;background:var(--m,var(--gw-acc));
+  box-shadow:0 0 8px var(--m,var(--gw-acc))}
+.gw-row .mk i.hollow{background:none;border:1px solid var(--m,var(--gw-acc));box-shadow:none}
+.gw-row .t{min-width:0}
+.gw-row .t b{display:block;font-weight:400;font-family:'Lora',Georgia,serif;font-size:16px;
+  line-height:1.3}
+.gw-row .t span{display:block;font-size:12px;color:rgba(245,239,230,.58);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gw-row .e{font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(245,239,230,.5);white-space:nowrap}
+@media (max-width:560px){   /* a long right-hand label (a Dance's song) wraps in its own column, whole, never pushing the row off the screen */
+  .gw-row .e{white-space:normal;text-align:right;max-width:34vw;line-height:1.35}}
+.gw-row:hover .e,.gw-row:focus-visible .e{color:var(--gw-acc-ink)}
+/* the rows arrive — an enhancement on a resolved state, never the state itself */
+.gw-rows[data-arrive] .gw-row{opacity:0;transform:translateY(7px)}
+.gw-rows.in .gw-row{opacity:1;transform:none;
+  transition:opacity .5s,transform .55s cubic-bezier(.16,1,.3,1);
+  transition-delay:calc(var(--i,0) * 32ms)}
+body[data-lens="witness"] .gw-rows .gw-row{opacity:1!important;transform:none!important}
+/* twelve a screen — the rest on request, never a wall */
+.gw-more{margin:14px 0 0;min-height:44px;padding:0 16px;border:1px solid var(--gw-acc-ink);
+  border-radius:999px;font-size:13px;color:var(--gw-acc-ink)}
+.gw-more:hover{background:color-mix(in oklab,var(--gw-acc-ink) 16%,transparent)}
+
+/* ═══ 3 · OR DON'T ═════════════════════════════════════════════ */
+.gw-die{position:relative;display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+  padding:clamp(30px,6svh,56px) var(--gw-pad);border-top:1px solid rgba(245,239,230,.14)}
+.gw-die .ring{width:52px;height:52px;flex:0 0 auto;border:1px solid var(--gw-acc);
+  border-radius:50%;display:grid;place-items:center;position:relative}
+.gw-die .ring::after{content:"";position:absolute;inset:-6px;border-radius:50%;
+  border:1px solid color-mix(in oklab,var(--gw-acc) 40%,transparent);opacity:0;
+  transition:opacity .4s,inset .4s}
+.gw-die .ring:hover::after{opacity:1;inset:-11px}
+.gw-die .ring i{display:block;width:10px;height:10px;border-radius:50%;background:var(--gw-acc);
+  box-shadow:0 0 12px var(--gw-acc);animation:gwPip 5.5s ease-in-out infinite}
+@keyframes gwPip{0%,100%{transform:scale(.82);opacity:.78}50%{transform:scale(1.2);opacity:1}}
+.gw-die .t b{display:block;font-family:'Lora',Georgia,serif;font-weight:400;font-size:17px}
+.gw-die .ring{border-color:var(--gw-acc-ink)}
+.gw-die .t span{font-size:13px;color:rgba(245,239,230,.62)}
+
+/* ═══ 4 · RETURN — the seam owns it; this is its room ═════════ */
+.gw-return{padding:clamp(26px,5svh,48px) var(--gw-pad) 8px;border-top:1px solid
+  rgba(245,239,230,.14);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.gw-pill{min-height:44px;display:inline-flex;align-items:center;padding:0 16px;
+  border:1px solid var(--gw-acc-ink);border-radius:999px;font-size:13px;color:var(--gw-acc-ink);
+  text-decoration:none}
+.gw-pill:hover{background:color-mix(in oklab,var(--gw-acc-ink) 16%,transparent)}
+.gw-pill.quiet{border-color:rgba(245,239,230,.3);color:rgba(245,239,230,.78)}
+
+/* ═══ the sheet ═══ */
+/* A closed sheet must LEAVE THE TAB ORDER. Closed by transform alone it stayed
+   visibility:visible with a focusable × at y 548 — an invisible off-screen tab stop on every
+   gateway. `visibility` is discretely animatable, so hiding is delayed until the slide-out
+   finishes (.4s) and showing is immediate: the animation survives and the stop goes away. */
+.gw-sheet{position:fixed;left:0;right:0;bottom:0;z-index:70;transform:translateY(102%);
+  visibility:hidden;transition:transform .4s cubic-bezier(.3,0,.2,1),visibility 0s linear .4s;
+  background:#100E14;
+  border-top:1px solid var(--gw-acc);padding:15px 18px 28px;max-height:78svh;overflow:auto}
+.gw-sheet.on{transform:none;visibility:visible;
+  transition:transform .4s cubic-bezier(.3,0,.2,1),visibility 0s}
+.gw-sheet .k{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gw-acc);
+  margin-bottom:7px}   /* the sheet is always dark, so the figure pigment reads here */
+.gw-sheet h3{font-family:'Lora',Georgia,serif;font-weight:400;font-size:20px;margin:0 0 8px}
+.gw-sheet p{font-size:14px;line-height:1.6;margin:0 0 9px;color:rgba(245,239,230,.82);
+  max-width:48ch}
+.gw-sheet ul{margin:0;padding:0;list-style:none}
+.gw-sheet li a,.gw-sheet li button{display:block;width:100%;text-align:left;min-height:44px;
+  line-height:44px;font-size:14.5px;border-bottom:1px solid rgba(245,239,230,.12)}
+.gw-sheet .x{position:absolute;top:6px;right:8px;min-width:44px;min-height:44px;
+  color:rgba(245,239,230,.66);font-size:18px}
+
+/* the line under a figure: what it is saying right now. This is the ENTIRE output surface of
+   a gateway's play, so it also needs a light-band ink (see the data-mv VII/IX block below).
+   The name takes --gw-type: a TYPE pigment per state, set by the figure's own handler — the
+   figure pigment is chosen against the 3:1 GRAPHIC floor and must never be applied to type. */
+.gw-fignote{margin:12px 0 0;font-size:13px;line-height:1.5;color:rgba(245,239,230,.82);
+  max-width:44ch;min-height:2.6em;text-align:center}
+.gw-fignote b{font-weight:500;color:var(--gw-type,#F5EFE6)}
+.gw-fignote i{font-family:'Lora',Georgia,serif}
+
+/* a real control beside a drawing whose own marks cannot each carry 44px. Created by
+   src/gateway-instruments.js, so it belongs to the TEMPLATE — a copy in the review harness
+   would leave every generated gateway's chips unstyled. The <b> takes --gw-acc-ink, not
+   --gw-acc: the figure pigment is a 3:1 graphic token and must never carry type. */
+.gw-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;max-width:min(100%,420px);
+  padding:8px 0 2px;-webkit-overflow-scrolling:touch;
+  -webkit-mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent);
+  mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent)}
+.gw-chips::-webkit-scrollbar{display:none}
+.gw-chips button{flex:0 0 auto;min-height:44px;padding:0 12px;border-radius:3px;
+  border:1px solid color-mix(in oklab,var(--gw-acc,#C9A84C) 52%,#6B6358);
+  background:rgba(245,239,230,.05);color:rgba(245,239,230,.82);font-size:11.5px;
+  white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.gw-chips button b{font-weight:500;color:var(--gw-acc-ink,var(--gw-acc,#C9A84C))}
+.gw-chips button[aria-pressed="true"]{border-color:var(--gw-acc,#C9A84C);
+  background:color-mix(in oklab,var(--gw-acc,#C9A84C) 22%,transparent);color:#F5EFE6}
+
+/* ═══ the materials, by movement — the band a gateway came from ═══ */
+body[data-mv="II"]{background:#171226}
+body[data-mv="III"]{background:#0A0912}
+body[data-mv="IV"]{background:#0E0A0A}
+body[data-mv="V"]{background:#0D0B14}
+body[data-mv="VI"]{background:#0A0A0C}
+body[data-mv="VII"]{background:#F8F4EC;color:#141210}
+body[data-mv="VIII"]{background:linear-gradient(to right,#1E1811 0%,#1E1811 46%,#131A22 54%,#131A22 100%)}
+body[data-mv="IX"]{background:#EFE4D0;color:#231D16}
+/* the two light bands need their own ink */
+body[data-mv="VII"] .gw-one,body[data-mv="IX"] .gw-one{color:#332C24}
+body[data-mv="VII"] .gw-tue,body[data-mv="IX"] .gw-tue{color:#463D30}
+body[data-mv="VII"] .gw-row,body[data-mv="IX"] .gw-row{color:#141210;
+  border-bottom-color:rgba(35,29,22,.16)}
+body[data-mv="VII"] .gw-row .t span,body[data-mv="IX"] .gw-row .t span{color:#5A4E3E}
+body[data-mv="VII"] .gw-row .e,body[data-mv="IX"] .gw-row .e{color:#5A4E3E}
+body[data-mv="VII"] .gw-axis button,body[data-mv="IX"] .gw-axis button{color:#241F18;
+  border-color:rgba(35,29,22,.3)}
+body[data-mv="VII"] .gw-axis button[aria-pressed="true"],
+body[data-mv="IX"] .gw-axis button[aria-pressed="true"]{color:#FFF;background:var(--gw-deep);
+  border-color:var(--gw-deep)}
+body[data-mv="VII"] .gw-choose,body[data-mv="IX"] .gw-choose,
+body[data-mv="VII"] .gw-die,body[data-mv="IX"] .gw-die,
+body[data-mv="VII"] .gw-return,body[data-mv="IX"] .gw-return{border-top-color:rgba(35,29,22,.18)}
+body[data-mv="VII"] .gw-sub,body[data-mv="IX"] .gw-sub,
+body[data-mv="VII"] .gw-die .t span,body[data-mv="IX"] .gw-die .t span{color:#5A4E3E}
+body[data-mv="VII"] .gw-cue,body[data-mv="IX"] .gw-cue{color:#5A4E3E}
+body[data-mv="VII"] .gw-fignote,body[data-mv="IX"] .gw-fignote{color:#332C24}
+/* A 22% accent tint over cream blends to a pale wash, so the near-white pressed label measured
+   1.27:1 on every chip. The pressed chip is FILLED with the deep pigment here, exactly as
+   .gw-axis already was — the two controls do the same job and must read the same way. */
+body[data-mv="VII"] .gw-chips button,body[data-mv="IX"] .gw-chips button{
+  color:#241F18;background:rgba(255,255,255,.62);border-color:rgba(35,29,22,.3)}
+body[data-mv="VII"] .gw-chips button[aria-pressed="true"],
+body[data-mv="IX"] .gw-chips button[aria-pressed="true"]{color:#FFF;
+  background:var(--gw-deep,#141210);border-color:var(--gw-deep,#141210)}
+body[data-mv="VII"] .gw-chips button[aria-pressed="true"] b,
+body[data-mv="IX"] .gw-chips button[aria-pressed="true"] b{color:#FFF}
+body[data-mv="VII"] .gw-fignote b,body[data-mv="IX"] .gw-fignote b{
+  color:var(--gw-type,var(--gw-deep,#141210))}
+body[data-mv="VII"] .gw-eyebrow s,body[data-mv="IX"] .gw-eyebrow s{color:#241F18}
+body[data-mv="VII"] .gw-pill.quiet,body[data-mv="IX"] .gw-pill.quiet{
+  border-color:rgba(35,29,22,.3);color:#241F18}
+body[data-mv="VII"]::after,body[data-mv="IX"]::after{mix-blend-mode:multiply;opacity:.09}
+
+/* ═══ type C · image-led — the panels are the choosing ═══ */
+.gw-panels{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,124px),1fr));
+  gap:10px;margin:4px 0 0}
+.gw-panel{position:relative;aspect-ratio:2016/3744;overflow:hidden;border-radius:2px;
+  background:#1a1216;display:block;box-shadow:0 0 0 1px rgba(245,239,230,.12)}
+.gw-panel img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  transition:transform 1.1s cubic-bezier(.16,1,.3,1),filter .6s}
+.gw-panel:hover img{transform:scale(1.05)}
+.gw-panel figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 8px 7px;
+  font-family:'Cinzel',Georgia,serif;font-size:12px;letter-spacing:.14em;color:#F5EFE6;
+  background:linear-gradient(transparent,rgba(10,8,8,.86))}
+/* the cloth these were printed on, at zoom */
+.gw-panel::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px);
+  mix-blend-mode:multiply}
+
+/* ═══ type D · instrument — the build state, stated plainly ═══ */
+.gw-state{display:grid;gap:9px;margin:2px 0 0}
+.gw-state div{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 14px;
+  align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(245,239,230,.1);font-size:14px}
+.gw-sideways .gw-state span a,.gw-sideways .gw-state .gw-arr{display:inline-flex;align-items:center;justify-content:center;min-height:44px;min-width:28px}   /* the sideways doors: a 44px target each, still one line of names */
+.gw-state b{font-weight:400;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gw-acc-ink);white-space:nowrap}
+
+/* ═══ type E · person — the portrait line ═══ */
+.gw-life{position:relative;height:96px;margin:6px 0 0}
+.gw-life svg{width:100%;height:100%;overflow:visible}
+.gw-life .ln{stroke:var(--gw-acc);stroke-width:2.6;fill:none;stroke-linecap:round}
+.gw-life .pt{fill:var(--gw-acc)}
+.gw-life .yr{font-size:9px;fill:rgba(245,239,230,.5);font-family:'DM Sans',sans-serif}
+
+@media (min-width:900px){
+  .gw-arrive{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;
+    column-gap:56px}
+  .gw-arrive>.gw-fig{grid-column:2;grid-row:1 / span 5;align-self:center}
+  /* a figure several screens tall (Gaia's six-screen letter, Ashrey's long section) spread its height over
+     the words' rows and pushed the name below the fold: it reads below the words, full width, as on a phone */
+  .gw-arrive.gw-tall>.gw-fig{grid-column:1 / -1;grid-row:auto}
+  .gw-choose,.gw-die,.gw-return{max-width:1100px}
+  .gw-rows{grid-template-columns:repeat(2,minmax(0,1fr));column-gap:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001s!important;transition-duration:.001s!important}
+  .gw-rows .gw-row{opacity:1!important;transform:none!important}
+}
+
+/* a figure with more than about six targets in a row is pinned at its design width and
+   scrolls — never scaled to fit, which shrinks every target and every stroke with it */
+.gw-strip{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;
+  -webkit-overflow-scrolling:touch;
+  -webkit-mask:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 20px),transparent);
+  mask:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 20px),transparent)}
+.gw-strip::-webkit-scrollbar{display:none}
+.gw-strip:focus-visible{outline:1px solid var(--gw-acc-ink);outline-offset:3px}
+
+/* ═══ the trees viewer — a thumbnail is a door into the room (type C) ═══ */
+.gw-tv{position:fixed;inset:0;z-index:80;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:10px;padding:56px 12px 24px;opacity:0;transition:opacity .5s,background 1s;
+  background:radial-gradient(ellipse at 50% 42%,color-mix(in srgb,var(--c,#E0806F) 26%,#050405),#050405 72%);
+  touch-action:none;color:#F5EFE6}
+.gw-tv.on{opacity:1}
+.gw-tv[hidden]{display:none}
+.gw-tv .stg{position:relative;height:min(64svh,calc((100vw - 120px) * 1.857));aspect-ratio:2016/3744;
+  overflow:hidden;border-radius:2px;box-shadow:0 0 70px -14px var(--c,#E0806F);background:#0E0A0A;cursor:zoom-in}
+.gw-tv .stg img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  transition:transform .35s cubic-bezier(.16,1,.3,1);transform-origin:center}
+.gw-tv .stg img.b{pointer-events:none;opacity:0}
+.gw-tv .stg::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.4;mix-blend-mode:multiply;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px),
+    repeating-linear-gradient(0deg,rgba(0,0,0,.05) 0 1px,transparent 1px 3px)}
+.gw-tv .x{position:absolute;right:8px;top:calc(8px + env(safe-area-inset-top,0px));width:44px;height:44px;
+  font-size:24px;color:rgba(245,239,230,.8)}
+.gw-tv .ar{position:absolute;top:50%;width:48px;height:48px;margin-top:-24px;font-size:22px;
+  color:rgba(245,239,230,.8)}
+.gw-tv .ar.p{left:4px}.gw-tv .ar.n{right:4px}
+.gw-tv .cap{display:grid;justify-items:center;gap:4px;text-align:center}
+.gw-tv .po{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:rgba(245,239,230,.66)}
+.gw-tv .nm{font-family:'Cinzel',Georgia,serif;font-weight:400;font-size:20px;letter-spacing:.12em}
+.gw-tv .go{min-height:44px;display:inline-flex;align-items:center;font-size:13px;color:#F5EFE6;
+  border-bottom:1px solid var(--c,#E0806F)}
+.gw-tv .dts{display:flex}
+.gw-tv .dts button{width:30px;height:44px;display:grid;place-items:center}
+.gw-tv .dts i{display:block;width:7px;height:7px;border-radius:50%;background:var(--dc);opacity:.4}
+.gw-tv .dts button[aria-current="true"] i{opacity:1;box-shadow:0 0 10px var(--dc)}
+.gw-tv .hint{margin:0;font-size:11px;letter-spacing:.14em;color:rgba(245,239,230,.58)}
+@media (prefers-reduced-motion:reduce){.gw-tv,.gw-tv .stg img{transition:none}}
+
+/* ═══ Sid's cassette — the voice he left (type E) ═══ */
+.gw-cas{margin:0 0 26px}
+.gw-cas svg{width:100%;max-width:340px;display:block;overflow:visible}
+.gw-cas .o{fill:none;stroke:rgba(155,189,228,.72);stroke-width:1.1}
+.gw-cas .tp{fill:rgba(155,189,228,.16);stroke:rgba(155,189,228,.5);stroke-width:.8;
+  transform-box:fill-box;transform-origin:center;transition:transform .25s linear}
+.gw-cas .reel{transform-box:fill-box;transform-origin:center;animation:gwReel 6s linear infinite}
+@keyframes gwReel{to{transform:rotate(360deg)}}
+.gw-cas text{font-family:Lora,Georgia,serif;font-style:italic;font-size:11px;fill:rgba(245,239,230,.82)}
+.gw-cas .tape{position:relative;height:52px;max-width:340px;margin:8px 0 4px}
+.gw-cas .tl{position:absolute;left:0;right:0;top:20px;height:1px;background:rgba(155,189,228,.45)}
+.gw-cas .tk{position:absolute;top:12px;width:1px;height:17px;background:rgba(155,189,228,.85);
+  transition:height .3s,top .3s,background .3s,box-shadow .3s}
+.gw-cas .tk.lit{height:23px;top:9px;background:#fff;box-shadow:0 0 8px #9BBDE4}
+.gw-cas .ph{position:absolute;top:15px;left:0;width:11px;height:11px;margin-left:-5.5px;border-radius:50%;
+  background:#9BBDE4;box-shadow:0 0 12px #9BBDE4;transition:left .25s linear}
+.gw-cas .t0,.gw-cas .t1{position:absolute;top:34px;font-size:11px;letter-spacing:.14em;color:rgba(245,239,230,.7)}
+.gw-cas .t1{right:0}
+@media (prefers-reduced-motion:reduce){.gw-cas .reel{animation:none}}
+
+/* ═══ harvest round two · the ten rooms (the Walk) — April's Road Home carousel, v2's tilt ═══ */
+.gw-carw{margin:0 0 34px}
+.gw-carh{font-family:'Cinzel',Georgia,serif;font-weight:400;font-size:15px;letter-spacing:.14em;
+  color:var(--gw-acc-ink);margin:0 0 4px}
+.gw-car{position:relative;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  padding:14px 0 20px;margin:0 calc(var(--gw-pad) * -1);perspective:900px;
+  -webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.gw-car::-webkit-scrollbar{display:none}
+.gw-car:focus-visible{outline:1px solid var(--gw-acc);outline-offset:-2px}
+.gw-card{flex:none;width:208px;scroll-snap-align:center;position:relative;border-radius:14px;
+  padding:18px 16px 10px;display:flex;flex-direction:column;align-items:center;text-align:center;
+  background:radial-gradient(ellipse 90% 50% at 50% 20%,color-mix(in srgb,var(--c) 30%,transparent),transparent 70%),#100D12;
+  border:1px solid color-mix(in srgb,var(--c) 50%,rgba(245,239,230,.12));
+  transform:rotateY(var(--ry,0deg)) scale(var(--sc,1));transition:transform .15s linear}
+/* the end gutters live on the cards: a flex scroller drops its inline-end padding from the overflow */
+.gw-card:first-child{margin-inline-start:calc(50% - 104px)}
+.gw-car::after{content:"";flex:0 0 calc(50% - 104px - 14px)}
+.gw-card.maya{background:#F4EEE3;color:#1E1A16;border-color:#C0392B}
+.gw-card .gl{position:relative;width:74px;height:74px;margin:4px 0 12px}
+.gw-card .gl i{position:absolute;inset:0;border-radius:50%;border:1px dashed var(--c);animation:gwReel 40s linear infinite}
+.gw-card .gl i+i{inset:12px;border-style:solid;opacity:.6;animation-direction:reverse;animation-duration:26s}
+.gw-card .gl b{position:absolute;inset:27px;border-radius:50%;border:1.5px solid var(--c)}
+.gw-card.walked .gl b{background:var(--c);box-shadow:0 0 20px var(--c)}
+.gw-card.maya .gl i,.gw-card.maya .gl b{border-color:#C0392B}
+.gw-card .ps{font-size:11px;letter-spacing:.2em;color:rgba(245,239,230,.66)}
+.gw-card h4{font-family:Lora,Georgia,serif;font-weight:400;font-size:24px;margin:4px 0 0;line-height:1.1}
+.gw-card .sb{font-family:Lora,Georgia,serif;font-style:italic;font-size:15px;line-height:1.3;
+  color:rgba(245,239,230,.74);margin-top:3px;min-height:2.6em;text-wrap:balance}
+.gw-card.maya .ps,.gw-card.maya .sb{color:rgba(30,26,22,.7)}
+.gw-card .dv{width:36px;height:1px;background:var(--c);margin:10px 0 4px;opacity:.7}
+.gw-card .lk{align-self:stretch;display:flex;flex-direction:column}
+.gw-card .lk a{min-height:44px;display:flex;align-items:center;justify-content:space-between;
+  border-top:1px solid rgba(245,239,230,.12);text-decoration:none;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:inherit}
+.gw-card.maya .lk a{border-color:rgba(30,26,22,.14)}
+.gw-card .lk a:hover,.gw-card .lk a:focus-visible{color:var(--gw-acc-ink)}
+.gw-card.maya .lk a:hover{color:#8E2A20}
+.gw-card .wk{position:absolute;top:10px;right:12px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--gw-acc-ink)}
+.gw-card.th h4::after{content:" · threshold";font-family:'DM Sans',sans-serif;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(245,239,230,.66);vertical-align:middle}
+.gw-cardots{display:flex;justify-content:center;flex-wrap:wrap}
+.gw-cardots button{width:28px;height:44px;display:grid;place-items:center}
+.gw-cardots i{display:block;width:6px;height:6px;border-radius:50%;background:var(--c);opacity:.4;
+  transition:opacity .3s,transform .3s}
+.gw-cardots button[aria-current="true"] i{opacity:1;transform:scale(1.5)}
+body[data-lens="witness"] .gw-card{transform:none}
+body[data-lens="witness"] .gw-card .gl i{animation:none}
+
+/* ═══ harvest round two · the book (the Teachings) — tilts up on arrival; the corner lifts ═══ */
+.gw-book{position:relative;width:100%;max-width:420px;perspective:1400px;
+  animation:gwBookIn 1.2s cubic-bezier(.16,1,.3,1) .15s both}
+@keyframes gwBookIn{from{transform:rotateX(14deg) translateY(18px);opacity:0}}
+.gw-book .feat{position:relative;display:grid;gap:8px;margin:0;padding:24px 22px 20px;min-height:190px;
+  color:#1E1A16;background:linear-gradient(90deg,rgba(30,26,22,.07),transparent 7%),#FBF7EF;
+  border:1px solid rgba(30,26,22,.14);border-radius:2px 6px 6px 2px;
+  box-shadow:0 1px 0 #EDE4D3,0 2px 0 #E3D8C4,0 3px 0 #EDE4D3,0 4px 0 #DCCFB8,0 18px 30px -18px rgba(0,0,0,.6);
+  transform-origin:left center;transition:transform .8s cubic-bezier(.6,0,.2,1),opacity .8s}
+.gw-book .feat.turn{transform:rotateY(-100deg);opacity:0}
+.gw-book .feat.in{animation:gwPageIn .7s cubic-bezier(.16,1,.3,1)}
+@keyframes gwPageIn{from{transform:rotateY(18deg);opacity:.2}}
+.gw-book .rb{position:absolute;top:-4px;right:52px;width:12px;height:44px;background:var(--rb,#B9A2EC);
+  clip-path:polygon(0 0,100% 0,100% 100%,50% 80%,0 100%)}
+.gw-book .k{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(30,26,22,.66)}
+.gw-book h3{font-family:Lora,Georgia,serif;font-weight:400;font-size:clamp(22px,4.6vw,28px);line-height:1.15;
+  margin:0;max-width:17ch;text-wrap:balance}
+.gw-book p{font-family:Lora,Georgia,serif;font-style:italic;font-size:16px;line-height:1.45;margin:0;
+  color:rgba(30,26,22,.78);max-width:30ch}
+.gw-book .rd{justify-self:start;min-height:44px;display:inline-flex;align-items:center;font-size:13px;
+  color:#1E1A16;border-bottom:1px solid rgba(30,26,22,.4)}
+.gw-book .corner{position:absolute;right:0;bottom:0;width:48px;height:48px;z-index:2;display:block}
+.gw-book .corner::before{content:"";position:absolute;right:0;bottom:0;width:22px;height:22px;
+  background:linear-gradient(315deg,#F4EEE3 50%,#E3D6BF 50%,#FFFDF8 100%);box-shadow:-2px -2px 5px rgba(30,26,22,.18);
+  border-radius:0 0 6px 0;transition:width .35s,height .35s}
+.gw-book .corner:hover::before,.gw-book .corner:focus-visible::before{width:34px;height:34px}
+.gw-book .corner span{position:absolute;right:40px;bottom:14px;font-size:10.5px;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(30,26,22,.7);white-space:nowrap;opacity:0;transition:opacity .4s}
+.gw-book .corner:hover span,.gw-book .corner:focus-visible span{opacity:1}
+body[data-lens="witness"] .gw-book{animation:none}
+@media (prefers-reduced-motion:reduce){.gw-book{animation:none}.gw-card{transform:none}.gw-card .gl i{animation:none}}
+
+/* ═══ Stage A (tools/v3) — the blocks ASSEMBLY §2 adds to the template, in the kit's own values ═══
+   The arrival paragraph (D10), the sideways block (D11), content blocks, floors and hollow rows (D12).
+   No new visual language: headings take the eyebrow/Tuesday label, facts take .gw-state, doors take
+   .gw-row and .gw-pill, and "arriving" is the kit's hollow mark written out. */
+.gw-bh{margin:28px 0 8px;font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  font-weight:500;color:var(--gw-acc-ink)}
+.gw-bh:first-child{margin-top:4px}
+.gw-para{max-width:60ch;font-size:14.5px;line-height:1.62}
+.gw-arrival .gw-para{margin:0}
+.gw-lead{margin:0 0 20px;display:grid;gap:8px;justify-items:start}
+.gw-state.stack div{grid-template-columns:minmax(0,1fr);gap:3px}
+.gw-state.stack b{white-space:normal}
+.gw-row.hollow,.gw-row.static{cursor:default}
+.gw-row.hollow:hover,.gw-row.static:hover{background:none;padding-left:0}
+.gw-row.hollow .t b{opacity:.72}
+.gw-pill.hollow{border-style:dashed;opacity:.62;cursor:default}
+.gw-pill.hollow:hover{background:none}
+.gw-arr{opacity:.62}
+.gw-pill small,.gw-arr small,.gw-card .gw-arr small{margin-left:7px;font-size:9.5px;letter-spacing:.16em;
+  text-transform:uppercase;opacity:.85}
+.gw-floors{margin:0 0 6px}
+.gw-sideways .gw-state a{color:var(--gw-acc-ink);text-underline-offset:3px}
+.gw-sideways .gw-state span{line-height:1.9}
+/* the arrive column never grows past the phone: a wide figure scrolls or scales inside it */
+@media (max-width:899px){.gw-arrive{grid-template-columns:minmax(0,1fr)}}
+/* a homepage figure standing in a gateway (the generated worlds): the SAME component, minus the
+   full-screen height the homepage gives a world — here it lives in the Arrive slot */
+.gw-fig.gw-home{display:block;width:100%;min-width:0}
+.gw-home{--ac:var(--gw-acc-ink);--gold:#C9A84C;--leadmul:1}
+.gw-home>.fig,.gw-home>.world{max-width:100%;min-width:0}
+.gw-home>.world{min-height:0;padding-block:clamp(16px,3svh,28px);padding-inline:0;overflow:visible}
+.gw-home>.world>.hold{max-width:100%}
+.gw-home .note{font-size:12.5px;line-height:1.55;color:rgba(245,239,230,.64);margin:14px 0 0;max-width:44ch}
+.gw-home .row{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0 0}
+.gw-home .pill{min-height:44px;display:inline-flex;align-items:center;padding:0 15px;border:1px solid var(--ac);
+  border-radius:999px;font-size:13px;color:var(--ac);text-decoration:none}
+body[data-mv="VII"] .gw-home .note,body[data-mv="IX"] .gw-home .note{color:#463D30}
+body[data-mv="VII"] .gw-bh,body[data-mv="IX"] .gw-bh{color:var(--gw-acc-ink)}
+body[data-mv="VII"] .gw-state div,body[data-mv="IX"] .gw-state div{border-bottom-color:rgba(35,29,22,.14)}
+/* V's instruments label their own lines ("THE BEAT", "SYNTHESIS"), and a line ran straight through its
+   label. Each label carries a halo of the band's ground, drawn under its letters (paint-order), so a line
+   breaks around the word instead of striking it. */
+body[data-mv="V"] .gw-arrive svg text{paint-order:stroke fill;stroke:#0D0B14;stroke-width:4px;stroke-linejoin:round}
+/* Gaia's letter is six stages, each a full screen on the homepage; inside her gateway they size to their
+   words, or the first screen was an empty black panel with her first line at its foot */
+.gw-home .g-stage{min-height:0;padding-block:clamp(40px,7svh,72px)}
+/* Neev's ground is fixed to the foot of the screen — "below the fold at any screen height, by construction".
+   Inside his gateway it stood over every screen and its lines struck through his words: it stays fixed,
+   and the page's words stand above it. */
+body[data-gw="neev"] .n-ground{z-index:0}
+body[data-gw="neev"] main{position:relative;z-index:1}
+.gw-home>.world>.hold{position:relative;z-index:2}   /* the words above any drawing their world moves behind them (Bindu's trace, Neev's ground) */
+/* a gateway's opening words stand above its drawing: the Mirror's dots are positioned, and painted over
+   "an AI kept of building this" */
+.gw-arrive>:not(.gw-fig){position:relative;z-index:2}
+/* the Mirror's dots drift inside their own pane, not up across the gateway's opening words */
+body[data-gw="mirror"] #gwFig{overflow:hidden}

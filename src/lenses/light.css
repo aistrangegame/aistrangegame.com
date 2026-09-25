@@ -1,0 +1,11 @@
+/* lenses/light.css — B · Light. "You are inside an instrument, and it is on."
+   Nothing printed: every stroke emits, colour is light, the next world bleeds up into the seam. */
+body[data-lens="light"]{--inkf:none;--grain:.015;--glow:1;--track:.005em;--leadmul:1.02}
+body[data-lens="light"] .wh .bead,
+body[data-lens="light"] .pill{box-shadow:0 0 12px var(--ac)}
+body[data-lens="light"] .strand path{opacity:.95;stroke-width:1.4;filter:drop-shadow(0 0 5px var(--gold))}
+body[data-lens="light"] .strand path.sh{display:none}
+body[data-lens="light"] .wt{text-shadow:0 0 22px color-mix(in oklab,var(--ac) 55%,transparent)}
+body[data-lens="light"] #rail i{background:rgba(245,239,230,.18)}
+body[data-lens="light"] .world{box-shadow:inset 0 0 130px -60px var(--ac)}
+body[data-lens="light"] .seam.bleed::before{opacity:.42}

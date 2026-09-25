@@ -1,0 +1,169 @@
+/* ─────────────────────────────────────────────────────────────
+   movements/IX-moments.css — Movement IX · The Moments.
+
+   Material: daylight and photographs. Every movement after the threshold has been
+   night, stone, glass or dark cloth. These happened in daylight, to real people —
+   so the ground warms back toward the threshold's cream, and the Point rests beside
+   each moment like a pin on a calendar.
+
+   It grows by the calendar: two moments are full worlds; every other gathering
+   becomes a moment page behind the movement. The container fills from the register,
+   so nobody edits HTML to add a day.
+   ───────────────────────────────────────────────────────────── */
+.day{--ink:#231D16;--soft:#4A3F32;--c:#B4551F;
+  position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);
+  place-items:center;padding-block:clamp(44px,8svh,100px);padding-inline:26px;text-align:center;
+  overflow:clip;color:var(--ink);color-scheme:light;background:var(--st,#F2E9D8)}
+.day>.hold{max-width:min(100%,540px);display:grid;justify-items:center;position:relative;z-index:2}
+.day .who{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--soft);margin:0}
+.day .who b{font-weight:500;color:var(--c)}
+.day .mk{display:grid;place-items:center;margin:min(20px,3svh) 0;min-height:0;width:100%}
+.day .moment{font-family:'Lora',Georgia,serif;font-size:clamp(21px,3.6vw,30px);line-height:1.2;
+  margin:0;max-width:26ch;text-wrap:balance;color:#191410}
+.day .moment em{font-style:italic;color:var(--c)}
+.day .said{font-family:'Lora',Georgia,serif;font-style:italic;font-size:14.5px;line-height:1.55;
+  color:#332B22;margin:min(12px,2svh) 0 0;max-width:46ch}
+.day .hint{margin:min(13px,2.2svh) 0 0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--c)}
+.day .owed{margin:min(10px,1.6svh) 0 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:#6B5B47}
+/* the light of an afternoon, moving slowly */
+.day::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(58% 44% at 80% 6%,rgba(255,236,186,.72),transparent 72%),
+    radial-gradient(48% 38% at 10% 92%,rgba(255,214,164,.4),transparent 74%);
+  animation:dayLight 40s ease-in-out infinite}
+@keyframes dayLight{0%,100%{transform:translate(0,0)}50%{transform:translate(-5%,4%) scale(1.1)}}
+
+/* ── 46 · It Was Always Lucky — v2's split, restored: the seam is the whole world ── */
+section.world.dlw{position:relative;display:grid;min-height:100svh;padding:0;overflow:clip;
+  gap:0;row-gap:0;column-gap:0;align-items:stretch;align-content:stretch;justify-items:stretch;justify-content:stretch;
+  grid-template-columns:minmax(0,1fr);grid-template-rows:var(--sp,56%) minmax(0,1fr);background:#07060A}
+.dl-half{position:relative;min-height:0;overflow:hidden;display:flex;flex-direction:column;align-self:stretch;justify-self:stretch;margin:0}
+.dl-dark{background:radial-gradient(60% 50% at 30% 40%,rgba(217,164,65,.08),transparent 70%),#07060A;color:#F5EFE6;
+  justify-content:flex-end;padding:96px 24px 40px 52px}
+.dl-light{background:radial-gradient(70% 60% at 60% 50%,#FFFBF1,#F4EEE3 70%);color:#1E1A16;
+  justify-content:flex-start;padding:44px 24px 96px 52px}
+.dl-dark::after,.dl-light::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(40% 30% at 50% 50%,var(--g),transparent 70%);opacity:.5;animation:dlBreath 11s ease-in-out infinite}
+.dl-dark::after{--g:rgba(217,164,65,.10)}.dl-light::after{--g:rgba(217,164,65,.12);animation-delay:-5.5s}
+@keyframes dlBreath{0%,100%{transform:scale(1);opacity:.35}50%{transform:scale(1.25);opacity:.8}}
+.dl-in{position:relative;z-index:1;max-width:440px}
+.dl-k{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:#E4C979;margin:0 0 10px}
+.dl-s{font-family:'Lora',Georgia,serif;font-style:italic;font-size:17px;color:rgba(245,239,230,.78);margin:0 0 26px}
+.dl-t{font-family:'Lora',Georgia,serif;font-weight:400;font-size:clamp(34px,5.4vw,64px);line-height:1.02;margin:0 0 4px}
+.dl-w{font-family:'Lora',Georgia,serif;font-style:italic;font-size:17px;margin:0 0 14px;opacity:.78}
+.dl-r{font-family:'Lora',Georgia,serif;font-size:clamp(19px,2.4vw,26px);line-height:1.3;margin:0 0 18px;min-height:2.6em;max-width:22ch;text-wrap:balance}
+.dl-r.in{animation:dlRead .9s cubic-bezier(.16,1,.3,1)}
+@keyframes dlRead{from{opacity:0;transform:translateY(8px);filter:blur(3px)}}
+.dl-dark .dl-r{color:#EDE6DA}.dl-light .dl-r{color:#231D16}
+.dl-a{display:inline-flex;align-items:center;min-height:44px;font-size:11.5px;letter-spacing:.18em;text-transform:uppercase}
+.dl-dark .dl-a{color:#E4C979}.dl-light .dl-a{color:#7A5A14}
+.dl-a:hover{text-decoration:underline;text-underline-offset:4px}
+.dl-seam{position:absolute;left:0;right:0;top:var(--sp,56%);height:48px;margin-top:-24px;z-index:6;cursor:ns-resize;
+  touch-action:none;display:grid;place-items:center}
+.dl-seam::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;
+  background:linear-gradient(90deg,transparent,#D9B45A 30%,#D9B45A 70%,transparent);box-shadow:0 0 12px #D9B45A}
+.dl-seam b{position:relative;width:36px;height:36px;border-radius:50%;background:#07060A;border:1px solid #D9B45A;
+  display:grid;place-items:center;box-shadow:0 0 18px rgba(217,180,90,.5);animation:dlKnob 4s ease-in-out infinite}
+.dl-seam b::after{content:"";width:9px;height:9px;border-radius:50%;background:linear-gradient(#07060A 50%,#F4EEE3 50%);
+  box-shadow:0 0 0 1px #D9B45A}
+@keyframes dlKnob{0%,100%{box-shadow:0 0 14px rgba(217,180,90,.4)}50%{box-shadow:0 0 30px rgba(217,180,90,.85)}}
+.dl-seam small{position:absolute;left:calc(50% + 28px);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;
+  color:#D9B45A;white-space:nowrap;text-shadow:0 0 6px #07060A;
+  background:rgba(7,6,10,.86);padding:3px 9px;border-radius:999px}   /* it straddles the dark and the light: on the light half the halo alone left it unreadable */
+.dl-seam:focus-visible b{outline:2px solid #F2D98A;outline-offset:3px}
+.dl-lines{position:absolute;right:40px;bottom:14px;z-index:7;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.dl-lines button{min-height:44px;padding:0 13px;border:1px solid rgba(30,26,22,.3);border-radius:999px;font-size:11.5px;
+  color:#231D16;background:rgba(255,252,246,.7)}
+.dl-lines button[aria-pressed="true"]{background:#231D16;color:#F4EEE3;border-color:#231D16}
+@media (min-width:1080px){
+  section.world.dlw{grid-template-rows:minmax(0,1fr);grid-template-columns:var(--sp,50%) minmax(0,1fr)}
+  .dl-dark{justify-content:center;align-items:flex-end;padding:80px 56px 80px 92px;text-align:right}
+  .dl-dark .dl-in{display:grid;justify-items:end}
+  .dl-light{justify-content:center;padding:80px 56px}
+  .dl-seam{top:0;bottom:0;left:var(--sp,50%);right:auto;width:48px;height:auto;margin:0 0 0 -24px;cursor:ew-resize}
+  .dl-seam::before{left:50%;right:auto;top:0;bottom:0;width:1px;height:auto;
+    background:linear-gradient(transparent,#D9B45A 30%,#D9B45A 70%,transparent)}
+  .dl-seam small{left:auto;top:auto;bottom:34px}}   /* side by side, the label waits at the foot of the seam, clear of the acts' words */
+body[data-lens="witness"] .dl-half::after,body[data-lens="witness"] .dl-seam b{animation:none}
+@media (prefers-reduced-motion:reduce){.dl-half::after,.dl-seam b,.dl-r.in{animation:none}}
+
+/* ── 47 · Khelo Holi — you uncover the day by throwing colour at it ── */
+#d-holi{--st:#F6EADA;--c:#A8324E;cursor:crosshair}
+/* April's title: the day's name thrown in every colour at once, at display size.
+   Deep gulal stops, so the polychrome holds 3:1 on the cream at headline scale. */
+#d-holi .moment{font-size:clamp(22px,3.8vw,34px)}
+/* v2's title: the name at festival size, in every colour at once */
+#d-holi .holi-t{font-family:'Lora',Georgia,serif;font-weight:400;font-size:clamp(58px,13vw,136px);line-height:.98;
+  margin:6px 0 4px;letter-spacing:-.01em;
+  background:linear-gradient(92deg,#B3245C 0%,#C2511A 22%,#8E6E0E 38%,#2F7A34 54%,#1D5DAA 74%,#6A2C91 100%);
+  background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  animation:holiT 14s ease-in-out infinite alternate}
+@keyframes holiT{to{background-position:100% 0}}
+/* v2's powder: clouds of gulal drifting in the air of the whole day */
+.ho-powder{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.ho-powder i{position:absolute;width:var(--s);height:var(--s);left:var(--x);top:var(--y);
+  margin:calc(var(--s) / -2) 0 0 calc(var(--s) / -2);border-radius:50%;
+  background:radial-gradient(circle,var(--c),transparent 68%);opacity:.34;filter:blur(12px);mix-blend-mode:multiply;
+  animation:hoFloat 18s ease-in-out infinite alternate;animation-delay:var(--dl)}
+@keyframes hoFloat{0%{transform:translate(0,0) scale(1)}50%{transform:translate(4vw,-3vh) scale(1.18)}100%{transform:translate(-3vw,2vh) scale(.92)}}
+body[data-lens="witness"] .ho-powder i,body[data-lens="witness"] #d-holi .holi-t{animation:none}
+@media (prefers-reduced-motion:reduce){.ho-powder i,#d-holi .holi-t{animation:none}}
+#d-holi .moment em{background:linear-gradient(92deg,#B3245C 0%,#B04E12 26%,#2F7A34 50%,#1D5DAA 74%,#6A2C91 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  padding-bottom:.06em}
+/* April's rays: a long, near-imperceptible turn behind everything */
+.ho-rays{position:absolute;left:50%;top:44%;width:180vmax;height:180vmax;margin:-90vmax 0 0 -90vmax;
+  z-index:0;pointer-events:none;
+  background:repeating-conic-gradient(from 0deg,rgba(232,163,61,.11) 0 6deg,transparent 6deg 18deg);
+  -webkit-mask:radial-gradient(circle,#000 8%,transparent 46%);mask:radial-gradient(circle,#000 8%,transparent 46%);
+  animation:hoRays 120s linear infinite}
+@keyframes hoRays{to{transform:rotate(360deg)}}
+/* the grains in flight — over everything, taking no touch; they settle into the day below */
+.ho-fly{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none}
+body[data-lens="witness"] .ho-rays{animation:none}
+@media (prefers-reduced-motion:reduce){.ho-rays{animation:none}}
+.ho{position:relative;width:min(100%,640px);height:min(30svh,280px);overflow:hidden;
+  border:1px solid rgba(35,29,22,.22);cursor:crosshair;touch-action:pan-y}
+.ho-day{position:absolute;inset:0;
+  background:
+    radial-gradient(28% 46% at 18% 62%,#6C8F52,transparent 70%),
+    radial-gradient(24% 40% at 46% 40%,#C98A4A,transparent 72%),
+    radial-gradient(30% 50% at 76% 66%,#5E7FA8,transparent 70%),
+    radial-gradient(40% 30% at 50% 8%,#9FC2E0,transparent 76%),
+    linear-gradient(#BFD3A8,#D8C79E)}
+.ho canvas{position:absolute;inset:0;width:100%;height:100%}
+.ho-note{position:absolute;left:0;right:0;bottom:7px;text-align:center;font-size:9.5px;
+  letter-spacing:.18em;text-transform:uppercase;color:rgba(35,29,22,.72);pointer-events:none}
+
+/* ── 48 · The Moments — the rings ── */
+#d-rings{--st:#F2E9D8;--c:#7A4A16}
+.rg{width:min(80vw,33svh,270px);height:min(80vw,33svh,270px);display:block}
+.rg circle.ring{fill:none;stroke:rgba(35,29,22,.2);stroke-width:.7}
+.rg circle.ring.dec{stroke:rgba(35,29,22,.46);stroke-width:1}
+.rg line.spoke{stroke:rgba(122,74,22,.6);stroke-width:1.1;stroke-dasharray:2 4}
+.rg line.spoke.on{stroke:var(--c);stroke-width:1.6;stroke-dasharray:none}
+.rg .mark{cursor:pointer}
+/* a mark is three circles: the 38-unit touch target, the 3.6-unit dot, a 16-unit halo target. The old
+   pair (circle → fill; circle+circle → none) painted the TOUCH TARGET brown — a 67px disc across the
+   rings — and left the dot itself invisible. Only the dot is drawn. */
+.rg .mark circle{fill:transparent}
+.rg .mark circle:nth-child(2){fill:var(--c)}
+.rg text{font-family:'DM Sans',sans-serif;font-size:7px;fill:rgba(35,29,22,.62)}
+.rg .core{fill:rgba(35,29,22,.5)}
+.day-strip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;width:min(100%,540px);
+  padding:2px 0 4px;-webkit-overflow-scrolling:touch;
+  -webkit-mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent);
+  mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent)}
+.day-strip::-webkit-scrollbar{display:none}
+.day-strip button{flex:0 0 auto;min-height:44px;padding:0 13px;border:1px solid rgba(35,29,22,.3);
+  border-radius:2px;font-size:11.5px;color:var(--ink);white-space:nowrap;
+  background:rgba(255,252,246,.6)}
+.day-strip button[aria-pressed="true"]{border-color:var(--c);background:var(--c);color:#FFF8EC}
+
+@media (min-width:900px){.day{padding-inline:64px}}
+@media (prefers-reduced-motion:reduce){.day::before{animation:none}}
+
+/* Lucky ends on its four line buttons with 2px to spare: the buttons peeked out under the top bar of the world below */
+@media (max-width:1079px){#d-lucky{padding-bottom:56px;background-image:linear-gradient(to bottom,transparent calc(100% - 56px),#F4EEE3 calc(100% - 56px))}}   /* stacked: the room continues the light half (side by side it needs none) */
+/* Lucky's line buttons stand clear of the rail (they sat 14px from the edge, under it) */

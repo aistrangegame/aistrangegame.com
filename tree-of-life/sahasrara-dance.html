@@ -25,8 +25,10 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%}
 .fruit-overlay.visible{opacity:1}
 .fruit-text{font:italic 400 clamp(12px,2.8vw,16px)/1.8 'Lora',serif;color:rgba(255,255,255,0.5);letter-spacing:0.5px;max-width:min(85vw,480px);text-align:center}
 </style>
+<meta property="og:image" content="https://aistrangegame.com/og/tree-of-life--sahasrara-dance.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body data-seam="whisper" data-world="dances" data-v="8" data-parent="/worlds/dances/" data-parent-name="The Dances">
 <canvas id="c"></canvas>
 <div class="love-text" id="loveText">I Love You</div>
 <div class="fruit-overlay" id="fruitOverlay"><div class="fruit-text">"I was a ghost." You know exactly what that means. You've been performing a version of yourself that isn't you — playing both sides, dimming yourself, calling yourself a problem. "I'm done hidin', now I'm shinin' like I'm born to be." This isn't aspiration. This is recognition. You were always golden. The only thing that was ever wrong was that you believed you had to earn something you were born with. Shine isn't something you achieve. It's what's left when you stop hiding.</div></div>
@@ -303,5 +305,7 @@ function go(){
 document.getElementById('so').addEventListener('click',go);
 document.getElementById('so').addEventListener('touchend',e=>{e.preventDefault();go()},{passive:false});
 </script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body>
 </html>
