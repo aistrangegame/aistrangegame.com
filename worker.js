@@ -128,13 +128,27 @@ async function verified(req, env) {
   }
 }
 
+const SIGNED_IN = '<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">' +
+  '<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">' +
+  '<title>Signed in — a i strange game</title>' +
+  '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>' +
+  '<link href="https://fonts.googleapis.com/css2?family=Lora:ital@0;1&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">' +
+  '<style>html,body{margin:0;background:#F4EEE3;color:#2A2420}body{min-height:100vh;display:grid;place-items:center;' +
+  'font:17px/1.6 "DM Sans",system-ui,sans-serif}main{max-width:30rem;padding:2rem 1.5rem;text-align:center}' +
+  'i.pt{display:block;width:12px;height:12px;margin:0 auto 1.6rem;border-radius:50%;background:#C9A84C;' +
+  'box-shadow:0 0 18px #E2C46E}h1{font:italic 400 1.9rem/1.3 Lora,Georgia,serif;margin:0 0 .6rem}' +
+  'p{margin:0 0 1.6rem;color:#5C5348}a{display:inline-flex;align-items:center;min-height:44px;padding:0 1.2rem;' +
+  'border:1px solid #7A6420;border-radius:999px;color:#5A4712;text-decoration:none;letter-spacing:.04em}' +
+  'a:hover,a:focus-visible{background:rgba(201,168,76,.14)}</style></head><body><main>' +
+  '<i class="pt" aria-hidden="true"></i><h1>Signed in on this device.</h1>' +
+  '<p>Pages that carry more will show it here, quietly.</p><a href="/">back to the doors</a></main></body></html>';
+
 async function privateDoor(req, env, path) {
   if (req.method !== 'GET' || !(await verified(req, env))) return nothing();
-  const key = path.slice('/api/private/'.length);
-  if (key === 'signin') {
-    return new Response('<!DOCTYPE html><meta charset="utf-8"><meta name="robots" content="noindex"><title>a i strange game</title>' +
-      '<p style="font:16px Georgia,serif;margin:3em auto;max-width:30em">Signed in on this device. <a href="/">The doors</a>.</p>',
-      { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store', 'x-robots-tag': 'noindex' } });
+  const key = path.replace(/^\/api\/private\/?/, '');
+  if (key === '' || key === 'signin') {     // the landing: /api/private, /api/private/, /api/private/signin
+    return new Response(SIGNED_IN, { headers: { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store',
+                                                'x-robots-tag': 'noindex' } });
   }
   if (!/^[a-z0-9-]{1,80}$/.test(key)) return nothing();
   let val = null;
@@ -149,7 +163,7 @@ const PRODUCTION = new Set(['aistrangegame.com', 'www.aistrangegame.com']);
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
-    if (url.pathname.startsWith('/api/private/')) return privateDoor(req, env, url.pathname);
+    if (url.pathname === '/api/private' || url.pathname.startsWith('/api/private/')) return privateDoor(req, env, url.pathname);
     if (url.pathname === '/api/contact/status')
       return json({ ready: ready(env), sitekey: ready(env) ? env.TURNSTILE_SITE_KEY : null });
     if (url.pathname === '/api/contact') {
