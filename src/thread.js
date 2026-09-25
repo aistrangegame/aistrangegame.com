@@ -113,7 +113,7 @@ var W={"walk":["The Walk","all","#D9B45A","/walk/"],"chakramap":["The Chakra Map
 var BANDS={E:[2,8],B:[10,19],M:[21,29],R:[1,9,20,30,31,32,33],all:[1,33]};
 var COUNT=48;
 /* registered, not live yet — never a link (D12). Stage B turns these into pages. */
-var ARRIVING=["/arch","/ashrey","/b/abide","/b/ache","/b/arise","/b/believe","/b/crash","/b/earn","/b/ground","/b/numb","/b/play","/b/stay","/b/trace","/bindu-performances","/dark-light-descent","/dark-light-flipbook","/guide/bindu-chakras","/guide/bindu-voice","/karishma","/khelo-holi","/neev","/og/<id>.png","/shweta","/sid","/sid/sid-manu-story","/sid/sid-soul-story","/sid/sid-witness-passages","/story","/tree-of-life/aatma-wakeup","/tree-of-life/ajna-wakeup","/tree-of-life/anahata-wakeup","/tree-of-life/armin-practice","/tree-of-life/axis-practice","/tree-of-life/crow-practice","/tree-of-life/echo-practice","/tree-of-life/forge-practice","/tree-of-life/hands-practice","/tree-of-life/interlude","/tree-of-life/manipura-wakeup","/tree-of-life/maya-sleep","/tree-of-life/muladhara-wakeup","/tree-of-life/prana-practice","/tree-of-life/pulse-practice","/tree-of-life/sahasrara-wakeup","/tree-of-life/soles-practice","/tree-of-life/sonar-practice","/tree-of-life/svadhisthana-wakeup","/tree-of-life/the-call","/tree-of-life/the-call-read","/tree-of-life/the-leela","/tree-of-life/the-leela-read","/tree-of-life/the-one-speaks","/tree-of-life/trees","/tree-of-life/vishuddha-wakeup","/tree-of-life/vision-practice","/voice"];
+var ARRIVING=["/arch","/ashrey","/b/abide","/b/ache","/b/arise","/b/believe","/b/crash","/b/earn","/b/ground","/b/numb","/b/play","/b/stay","/b/trace","/bindu-performances","/dark-light-descent","/dark-light-flipbook","/guide/bindu-chakras","/guide/bindu-voice","/karishma","/khelo-holi","/neev","/og/<id>.png","/shweta","/sid","/sid/sid-manu-story","/sid/sid-soul-story","/sid/sid-witness-passages","/story","/tree-of-life/aatma-wakeup","/tree-of-life/ajna-wakeup","/tree-of-life/anahata-wakeup","/tree-of-life/armin-practice","/tree-of-life/axis-practice","/tree-of-life/crow-practice","/tree-of-life/echo-practice","/tree-of-life/forge-practice","/tree-of-life/hands-practice","/tree-of-life/interlude","/tree-of-life/manipura-wakeup","/tree-of-life/maya-sleep","/tree-of-life/muladhara-wakeup","/tree-of-life/prana-practice","/tree-of-life/pulse-practice","/tree-of-life/sahasrara-wakeup","/tree-of-life/soles-practice","/tree-of-life/sonar-practice","/tree-of-life/svadhisthana-wakeup","/tree-of-life/the-call","/tree-of-life/the-call-read","/tree-of-life/the-leela","/tree-of-life/the-leela-read","/tree-of-life/the-one-speaks","/tree-of-life/vishuddha-wakeup","/tree-of-life/vision-practice","/voice"];
 /* ═══ @end ═══ */
 
 var id=B.dataset.world||'';
@@ -247,6 +247,25 @@ var css=
 var st=d.createElement('style');
 st.id='asg-seam-style';st.textContent=css;d.head.appendChild(st);
 B.style.setProperty('--asg-acc',ACC);
+/* the back link is type, and type must read: on a light page with no ink of its own (a gateway sets
+   --gw-acc-ink), darken the accent until it holds 4.5:1 against the page's own ground — at its .86 too */
+(function(){
+  try{
+    if(getComputedStyle(B).getPropertyValue('--gw-acc-ink').trim())return;
+    var bg=null,e=B;
+    while(e&&!bg){var c=getComputedStyle(e).backgroundColor.match(/[\d.]+/g);
+      if(c&&(c.length<4||+c[3]>0))bg=c.slice(0,3).map(Number);e=e.parentElement}
+    bg=bg||[255,255,255];
+    function L(c){return c.map(function(v){v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)})
+      .reduce(function(s,v,i){return s+v*[.2126,.7152,.0722][i]},0)}
+    var lb=L(bg);if(lb<.4)return;                      /* a dark ground: the accent already reads */
+    var a=(/^#([0-9a-f]{6})$/i.exec(ACC)||[,'C9A84C'])[1],k=1,c;
+    a=[0,2,4].map(function(i){return parseInt(a.substr(i,2),16)});
+    do{c=a.map(function(v,i){return Math.round((v*k)*.86+bg[i]*.14)});k-=.04}
+    while(k>0&&(lb+.05)/(L(c)+.05)<4.6);
+    B.style.setProperty('--gw-acc-ink','rgb('+a.map(function(v){return Math.round(v*(k+.04))}).join(',')+')');
+  }catch(_){}
+})();
 if(!B.dataset.seam)B.dataset.seam='present';
 /* "never covers content" is a promise about the page, not a hope about its margins:
    the include RESERVES the two edges it occupies rather than floating over whatever

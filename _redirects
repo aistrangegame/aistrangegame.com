@@ -1,5 +1,150 @@
+# _redirects — aistrangegame.com (draft, Phase 3)
+# Canonical addresses are extensionless; the host itself answers /x.html with a redirect to /x.
+# Rules are read top to bottom; the first match wins.
+
+# ── home and existing rules (kept)
 /  /Default  200
 /learning/walk/thirty-days-with-anxiety.html  /learning/walk/a-month-with-anxiety  301
 /learning/walk/thirty-days-with-anxiety  /learning/walk/a-month-with-anxiety  301
 /temple-guide  /tree-of-life/temple-guide  301
 /tree-of-life  /tree-of-life/  301
+# REMOVED: the three rules that served the Road Home at /tree-of-life/ — the Tree's gateway lives there now
+
+# ── one address per dance: the printed codes point to /tree-of-life/
+# the nine root copies are deleted from the repo; these catch old links
+/muladhara-dance  /tree-of-life/muladhara-dance  301
+/muladhara-dance.html  /tree-of-life/muladhara-dance  301
+/svadhisthana-dance  /tree-of-life/svadhisthana-dance  301
+/svadhisthana-dance.html  /tree-of-life/svadhisthana-dance  301
+/manipura-dance  /tree-of-life/manipura-dance  301
+/manipura-dance.html  /tree-of-life/manipura-dance  301
+/anahata-dance  /tree-of-life/anahata-dance  301
+/anahata-dance.html  /tree-of-life/anahata-dance  301
+/vishuddha-dance  /tree-of-life/vishuddha-dance  301
+/vishuddha-dance.html  /tree-of-life/vishuddha-dance  301
+/ajna-dance  /tree-of-life/ajna-dance  301
+/ajna-dance.html  /tree-of-life/ajna-dance  301
+/sahasrara-dance  /tree-of-life/sahasrara-dance  301
+/sahasrara-dance.html  /tree-of-life/sahasrara-dance  301
+/aatma-dance  /tree-of-life/aatma-dance  301
+/aatma-dance.html  /tree-of-life/aatma-dance  301
+/maya-dance  /tree-of-life/maya-dance  301
+/maya-dance.html  /tree-of-life/maya-dance  301
+
+# ── It Was Always Lucky: the birthday book prints the root addresses
+# waiting on its export: /dark-light/flipbook.html  /dark-light-flipbook  301
+# waiting on its export: /dark-light/flipbook  /dark-light-flipbook  301
+# waiting on its export: /dark-light/descent.html  /dark-light-descent  301
+# waiting on its export: /dark-light/descent  /dark-light-descent  301
+/dark-light/  /worlds/it-was-always-lucky/  301
+
+# ── A Strange Story: one address; every version resolves to it
+# waiting on its export: /a-strange-story/v7.html  /story  301
+# waiting on its export: /a-strange-story/*  /story  301
+# waiting on its export: /a-strange-story-*  /story  301
+
+# ── the Tree dances' old hidden index, and the old performance folder
+/bindu-performances  /worlds/dances/  301
+/bindu-performances.html  /worlds/dances/  301
+/bindu/  /worlds/dances/  301
+
+# ── practice pages moved from /chakras/ to /tree-of-life/
+/chakras/bindu-practice.html  /tree-of-life/bindu-practice  301
+/chakras/bindu-practice  /tree-of-life/bindu-practice  301
+/chakras/muladhara-practice.html  /tree-of-life/muladhara-practice  301
+/chakras/muladhara-practice  /tree-of-life/muladhara-practice  301
+/chakras/svadhisthana-practice.html  /tree-of-life/svadhisthana-practice  301
+/chakras/svadhisthana-practice  /tree-of-life/svadhisthana-practice  301
+/chakras/manipura-practice.html  /tree-of-life/manipura-practice  301
+/chakras/manipura-practice  /tree-of-life/manipura-practice  301
+/chakras/anahata-practice.html  /tree-of-life/anahata-practice  301
+/chakras/anahata-practice  /tree-of-life/anahata-practice  301
+/chakras/vishuddha-practice.html  /tree-of-life/vishuddha-practice  301
+/chakras/vishuddha-practice  /tree-of-life/vishuddha-practice  301
+/chakras/ajna-practice.html  /tree-of-life/ajna-practice  301
+/chakras/ajna-practice  /tree-of-life/ajna-practice  301
+/chakras/sahasrara-practice.html  /tree-of-life/sahasrara-practice  301
+/chakras/sahasrara-practice  /tree-of-life/sahasrara-practice  301
+/chakras/shadow-practice.html  /tree-of-life/shadow-practice  301
+/chakras/shadow-practice  /tree-of-life/shadow-practice  301
+# waiting on its export: /chakras/soles-practice.html  /tree-of-life/soles-practice  301
+# waiting on its export: /chakras/soles-practice  /tree-of-life/soles-practice  301
+# waiting on its export: /chakras/forge-practice.html  /tree-of-life/forge-practice  301
+# waiting on its export: /chakras/forge-practice  /tree-of-life/forge-practice  301
+# waiting on its export: /chakras/prana-practice.html  /tree-of-life/prana-practice  301
+# waiting on its export: /chakras/prana-practice  /tree-of-life/prana-practice  301
+# waiting on its export: /chakras/hands-practice.html  /tree-of-life/hands-practice  301
+# waiting on its export: /chakras/hands-practice  /tree-of-life/hands-practice  301
+# waiting on its export: /chakras/pulse-practice.html  /tree-of-life/pulse-practice  301
+# waiting on its export: /chakras/pulse-practice  /tree-of-life/pulse-practice  301
+# waiting on its export: /chakras/sonar-practice.html  /tree-of-life/sonar-practice  301
+# waiting on its export: /chakras/sonar-practice  /tree-of-life/sonar-practice  301
+# waiting on its export: /chakras/echo-practice.html  /tree-of-life/echo-practice  301
+# waiting on its export: /chakras/echo-practice  /tree-of-life/echo-practice  301
+# waiting on its export: /chakras/vision-practice.html  /tree-of-life/vision-practice  301
+# waiting on its export: /chakras/vision-practice  /tree-of-life/vision-practice  301
+# waiting on its export: /chakras/axis-practice.html  /tree-of-life/axis-practice  301
+# waiting on its export: /chakras/axis-practice  /tree-of-life/axis-practice  301
+# waiting on its export: /chakras/crow-practice.html  /tree-of-life/crow-practice  301
+# waiting on its export: /chakras/crow-practice  /tree-of-life/crow-practice  301
+# waiting on its export: /chakras/armin-practice.html  /tree-of-life/armin-practice  301
+# waiting on its export: /chakras/armin-practice  /tree-of-life/armin-practice  301
+/chakras/inception-practice.html  /tree-of-life/inception-practice  301
+/chakras/inception-practice  /tree-of-life/inception-practice  301
+/chakras/intention-practice.html  /tree-of-life/intention-practice  301
+/chakras/intention-practice  /tree-of-life/intention-practice  301
+/chakras/inspiration-practice.html  /tree-of-life/inspiration-practice  301
+/chakras/inspiration-practice  /tree-of-life/inspiration-practice  301
+/chakras/insight-practice.html  /tree-of-life/insight-practice  301
+/chakras/insight-practice  /tree-of-life/insight-practice  301
+/chakras/intuition-practice.html  /tree-of-life/intuition-practice  301
+/chakras/intuition-practice  /tree-of-life/intuition-practice  301
+/chakras/invention-practice.html  /tree-of-life/invention-practice  301
+/chakras/invention-practice  /tree-of-life/invention-practice  301
+/chakras/incarnation-practice.html  /tree-of-life/incarnation-practice  301
+/chakras/incarnation-practice  /tree-of-life/incarnation-practice  301
+/chakras/innocence-practice.html  /tree-of-life/innocence-practice  301
+/chakras/innocence-practice  /tree-of-life/innocence-practice  301
+/chakras/integration-practice.html  /tree-of-life/integration-practice  301
+/chakras/integration-practice  /tree-of-life/integration-practice  301
+/chakras/maya-practice.html  /tree-of-life/maya-practice  301
+/chakras/maya-practice  /tree-of-life/maya-practice  301
+/chakras/aatma-practice.html  /tree-of-life/aatma-practice  301
+/chakras/aatma-practice  /tree-of-life/aatma-practice  301
+/chakras/ego-reveal-practice.html  /tree-of-life/ego-reveal-practice  301
+/chakras/ego-reveal-practice  /tree-of-life/ego-reveal-practice  301
+/chakras/lalita-practice.html  /tree-of-life/lalita-practice  301
+/chakras/lalita-practice  /tree-of-life/lalita-practice  301
+# waiting on its export: /chakras/interlude.html  /tree-of-life/interlude  301
+# waiting on its export: /chakras/interlude  /tree-of-life/interlude  301
+
+# ── retired: no gates, no readiness check
+/check  /  301
+/check.html  /  301
+/tree-of-life/check  /  301
+/tree-of-life/check.html  /  301
+
+# ── addresses Design's build linked to by mistake (links fixed too)
+# waiting on its export: /maya-sleep  /tree-of-life/maya-sleep  301
+# waiting on its export: /maya-sleep.html  /tree-of-life/maya-sleep  301
+# waiting on its export: /sid/chapter-:n  /sid/sid-soul-story  301
+
+# ── merged
+/voyage  /worlds/moments/  301
+/voyage.html  /worlds/moments/  301
+
+# ── placeholders, never public
+/forms/*  /worlds/forms/  301
+
+# ── LEAVING FOR AKASWISDOM — activate each line only when its new home exists.
+# The two SupAbsorb pages are ad landing pages: check the live campaigns before moving them.
+# /wazoodle/*                      https://akaswisdom.com/<home>  301
+# /supabsorb/*                     https://akaswisdom.com/<home>  301
+# /family/the-creator              https://akaswisdom.com/<home>  301
+# /family/the-doorway              https://akaswisdom.com/<home>  301
+# /family/the-living-timeline      https://akaswisdom.com/<home>  301
+# /zorb  /prosoft-pul  /procool  /proeco  /wazoodle  /joann   (old Voyager routes)  → akaswisdom  301
+
+# ── retired (Stage C): the trees viewer — the Tree's own gateway shows the trees
+/tree-of-life/trees  /tree-of-life/  301
+/tree-of-life/trees.html  /tree-of-life/  301
