@@ -144,6 +144,8 @@ async function privateDoor(req, env, path) {
                                         'x-robots-tag': 'noindex' } });
 }
 
+const PRODUCTION = new Set(['aistrangegame.com', 'www.aistrangegame.com']);
+
 export default {
   async fetch(req, env) {
     const url = new URL(req.url);
@@ -155,6 +157,10 @@ export default {
       return json({ ok: false, error: 'POST only' }, 405);
     }
     if (url.pathname.startsWith('/api/')) return nothing();
+    // the walking guide is for the preview only: on the production host it is the site's own 404, as if it weren't there
+    if (url.pathname === '/_walk' || url.pathname.startsWith('/_walk/')) {
+      if (PRODUCTION.has(url.hostname)) return env.ASSETS.fetch(new Request(new URL('/_walk-not-here_/', url), req));
+    }
     return env.ASSETS.fetch(req);
   },
 };

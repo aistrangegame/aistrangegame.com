@@ -2396,7 +2396,7 @@ body {
         <!-- Level 1: Style (W-### dropdown) -->
         <div class="selector-level">
           <div class="selector-level-label">Style</div>
-          <select class="style-select" id="styleSelect" onchange="onStyleChange(this)">
+          <select class="style-select" id="styleSelect" onchange="onStyleChange(this)" aria-label="Style">
             <optgroup label="Standard (105 GSM)">
               <option value="standard" selected>W-440 - Standard Interlock</option>
               <option value="silver">W-435 - Silver Interlock</option>
@@ -2425,7 +2425,7 @@ body {
           <div class="selector-level-label">Color</div>
           <div class="color-select-wrap">
             <div class="color-swatch-indicator" id="colorIndicator" style="background:#FAFAFA"></div>
-            <select class="color-select" id="colorSelect" onchange="onColorChange(this)">
+            <select class="color-select" id="colorSelect" onchange="onColorChange(this)" aria-label="Colour">
               <option value="white" data-color="#FAFAFA" selected>White</option>
               <option value="black" data-color="#1a1a2e">Black</option>
               <option value="navy" data-color="#2B4570">Navy</option>
@@ -2459,7 +2459,7 @@ body {
           <div class="selector-level-label" style="margin-bottom:0">Quantity</div>
           <div class="qty-stepper">
             <button class="qty-btn" onclick="adjustQty(-1)">−</button>
-            <input class="qty-value" id="qtyValue" value="1" readonly>
+            <input class="qty-value" id="qtyValue" value="1" readonly aria-label="Quantity">
             <button class="qty-btn" onclick="adjustQty(1)">+</button>
           </div>
         </div>

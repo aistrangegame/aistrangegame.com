@@ -266,6 +266,18 @@ B.style.setProperty('--asg-acc',ACC);
     B.style.setProperty('--gw-acc-ink','rgb('+a.map(function(v){return Math.round(v*(k+.04))}).join(',')+')');
   }catch(_){}
 })();
+/* a dialog hidden from a screen reader (aria-hidden) is also out of the keyboard's reach (inert), and comes back the
+   moment the page's own script opens it — the story mode and the lightbox on the practice pages toggle aria-hidden only */
+(function(){
+  try{
+    function sync(el){var h=el.getAttribute('aria-hidden')==='true';if(h!==el.hasAttribute('inert')){if(h)el.setAttribute('inert','');else el.removeAttribute('inert')}}
+    var ds=d.querySelectorAll('[role="dialog"][aria-hidden]');
+    if(!ds.length||!window.MutationObserver)return;
+    [].forEach.call(ds,sync);
+    var mo=new MutationObserver(function(ms){ms.forEach(function(m){sync(m.target)})});
+    [].forEach.call(ds,function(el){mo.observe(el,{attributes:true,attributeFilter:['aria-hidden']})});
+  }catch(_){}
+})();
 if(!B.dataset.seam)B.dataset.seam='present';
 /* "never covers content" is a promise about the page, not a hope about its margins:
    the include RESERVES the two edges it occupies rather than floating over whatever

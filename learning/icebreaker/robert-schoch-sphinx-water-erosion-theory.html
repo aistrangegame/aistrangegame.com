@@ -211,7 +211,7 @@ b.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(qs)
   b.classList.add('done')}catch(_){b.textContent='select and copy'}t.remove()}
   setTimeout(()=>{b.textContent='copy the questions';b.classList.remove('done')},2600)});
 /* each question on its own */
-document.querySelectorAll('#asklist li').forEach(li=>{li.tabIndex=0;li.setAttribute('role','button');
+document.getElementById('asklist').setAttribute('role','group');document.getElementById('asklist').setAttribute('aria-label','the questions');document.querySelectorAll('#asklist li').forEach(li=>{li.tabIndex=0;li.setAttribute('role','button');
  li.setAttribute('aria-label','copy this question: '+li.textContent.trim());
  const go=async()=>{const t=li.textContent.trim();try{await navigator.clipboard.writeText(t)}catch(e){}
   document.querySelectorAll('#asklist li').forEach(o=>o.classList.remove('handed'));

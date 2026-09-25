@@ -7,7 +7,7 @@
        "directory": "./",
        "binding": "ASSETS",
        "not_found_handling": "404-page",
-       "run_worker_first": ["/api/*"]
+       "run_worker_first": ["/api/*", "/_walk/*", "/_walk"]
      },
      // The contact form's mail: when Cloudflare Email Routing is on and the destination is verified, add
      //   "send_email": [{ "name": "SEND" }]
