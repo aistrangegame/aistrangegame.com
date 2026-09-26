@@ -4031,24 +4031,6 @@ window.ASG={boot:boot,loop:loop,arriving:arriving,watch:watch,sheet:sheet,close:
     ily.classList.add('on');setTimeout(function(){ily.classList.remove('on')},1900)},
   point:P};
 window.ASGfig=ASGfig;
-
-/* the homepage is 48 worlds and ~68,000px of live figures, and most of scrolling's cost was the browser laying out
-   and painting all of it (the Stage D profile: over half the time; the page's own script under 2%). Once the page
-   has laid out, each world is measured and keeps that exact size as its intrinsic size; then content-visibility:auto
-   lets the browser skip laying out and painting the worlds off screen. The page's height, every anchor and every
-   scroll position stay exactly where they were; a world is drawn in full as it comes near. Homepage only. */
-(function(){
-  var d=document;
-  if(!d.querySelector('section.world[data-movement]')||!window.CSS||!CSS.supports||!CSS.supports('content-visibility','auto'))return;
-  function on(){
-    var S=d.querySelectorAll('section.world[data-movement]');
-    [].forEach.call(S,function(s){var r=s.getBoundingClientRect();
-      if(r.height>0)s.style.containIntrinsicSize='auto '+r.width+'px '+r.height+'px'});   /* exact: a rounded size shifts everything below it */
-    var st=d.createElement('style');st.id='asg-cv';
-    st.textContent='html.asg-cv section.world[data-movement]{content-visibility:auto}';
-    d.head.appendChild(st);d.documentElement.classList.add('asg-cv')}
-  if(d.readyState==='complete')requestAnimationFrame(on);else addEventListener('load',function(){requestAnimationFrame(on)});
-})();
 })();
 
 /* kit */
