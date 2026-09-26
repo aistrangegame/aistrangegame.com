@@ -1,0 +1,277 @@
+/* ─────────────────────────────────────────────────────────────
+   movements/VII-ground.css — Movement VII · The Ground.
+
+   Material: CARVED STONE. Every line is incised — a lit edge and a shadow edge,
+   and the light comes from ONE fixed direction (top-left) across all six worlds.
+   That is the whole material: `.inc` puts the groove in the stone.
+
+   Ground: a true mid-grey with a warm cast — the site's only band that is neither
+   cream nor void. Six near-identical stones; only the light and the filter move.
+
+   The Point runs BENEATH the stone: dimmer, behind the content, visible in the gaps.
+   ───────────────────────────────────────────────────────────── */
+
+/* one fixed light, one groove — the site's carved-stone technique */
+.inc{filter:drop-shadow(-1px -1px 0 rgba(255,255,255,.95)) drop-shadow(1.5px 1.5px 1px rgba(40,30,20,.3))}
+.inc-t{text-shadow:-1px -1px 0 rgba(255,255,255,.95),1.5px 1.5px 1px rgba(40,30,20,.28)}
+
+.grnd{position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);
+  place-items:center;padding-block:clamp(44px,8svh,100px);padding-inline:26px;text-align:center;
+  background:var(--st,#F8F4EC);color:#141210;color-scheme:light;overflow:clip}
+.grnd>.hold{max-width:min(100%,540px);display:grid;justify-items:center;position:relative;z-index:2}
+.grnd .who{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:#4A4238;margin:0}
+.grnd .who b{font-weight:500;color:var(--ci)}
+.grnd .mk{display:grid;place-items:center;margin:min(20px,3svh) 0;min-height:0;width:100%}
+.grnd .moment{font-family:'Lora',Georgia,serif;font-weight:400;font-style:normal;
+  font-size:clamp(21px,3.6vw,30px);line-height:1.2;margin:0;max-width:26ch;text-wrap:balance;
+  color:#141210}
+.grnd .moment em{font-style:italic;color:var(--ci)}
+.grnd .said{font-family:'Lora',Georgia,serif;font-style:italic;font-size:14.5px;line-height:1.55;
+  color:#332C24;margin:min(12px,2svh) 0 0;max-width:46ch}
+.grnd .hint{margin:min(13px,2.2svh) 0 0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ci)}
+.grnd .owed{margin:min(10px,1.6svh) 0 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:#6B5B47}
+/* the stone is quarried, not printed: a faint tooled grain, no boil */
+.grnd::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(60% 46% at 88% 8%,color-mix(in oklab,var(--c) 26%,transparent),transparent 70%),
+    radial-gradient(52% 40% at 6% 96%,color-mix(in oklab,var(--c) 18%,transparent),transparent 72%)}
+.grnd::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:repeating-linear-gradient(101deg,rgba(255,255,255,.5) 0 2px,transparent 2px 7px),
+    repeating-linear-gradient(11deg,rgba(60,44,28,.045) 0 1px,transparent 1px 6px)}
+/* the top bar over stone */
+.top.on-stone{background:linear-gradient(to bottom,rgba(250,247,240,.95),rgba(250,247,240,0));
+  color:#241F18}
+/* the thread runs behind the stone, visible through the gaps */
+body[data-mv="VII"] #point{z-index:1;animation:none;opacity:.5;background:var(--ac);box-shadow:none}
+body[data-mv="VII"] .strand{z-index:1;opacity:.45;color:#8A7A5A}
+
+/* ── 37 · The Field — your actual path through the page ── */
+#g-field{--c:#E0492F;--ci:#9B2C1A;--st:#FDF2ED}
+/* Every figure sets HEIGHT and lets width follow the viewBox (width:auto). Setting both
+   width and height letterboxes the drawing inside its box — which rendered all five of
+   these at about 60% of their intended size on a short window. */
+.f-trace{height:min(25svh,190px);width:auto;max-width:100%;display:block;cursor:pointer}
+.f-trace path{fill:none;stroke:var(--c);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+.f-trace path.fill{stroke:var(--c);stroke-width:0;opacity:.5}
+.f-trace circle{fill:var(--c)}
+
+/* ── 38 · The Registers — eleven bands, twenty traditions, no centre ── */
+#g-registers{--c:#12A06E;--ci:#0A6647;--st:#ECFAF3}
+.r-grid{height:min(26svh,200px);width:auto;max-width:100%;display:block;touch-action:pan-y;cursor:ew-resize}
+.r-grid .band{stroke:var(--c);stroke-width:1.4;opacity:.55;transition:transform .35s}
+.r-grid .band.on{stroke:var(--c);stroke-width:1.6;opacity:1}
+.r-grid .nm{fill:var(--ci);opacity:.55;transition:opacity .4s,fill .4s}
+.r-grid .nm.lit{fill:var(--c);opacity:1}
+.r-grid .nm.dim{opacity:.16}
+.r-strip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;width:min(100%,540px);
+  padding:2px 0 4px;-webkit-overflow-scrolling:touch;
+  -webkit-mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent);
+  mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent)}
+.r-strip::-webkit-scrollbar{display:none}
+.r-strip button{flex:0 0 auto;min-height:44px;padding:0 13px;border:1px solid color-mix(in oklab,var(--c) 52%,#8A8070);border-radius:2px;
+  font-size:11.5px;letter-spacing:.06em;color:#241F18;white-space:nowrap;background:rgba(255,255,255,.72)}
+.r-strip button[aria-pressed="true"]{border-color:var(--ci);color:#fff;
+  background:var(--ci)}
+
+/* ── 39 · The Temporal — 3 · 5 · 8 ── */
+#g-temporal{--c:#EFA110;--ci:#8A5605;--st:#FEF6E6}
+.t-line{height:min(20svh,160px);width:auto;max-width:100%;display:block;
+  transition:transform 1.1s cubic-bezier(.3,0,.2,1)}
+.t-line.turned{transform:rotate(90deg) scale(.82)}
+.t-line .ax{stroke:#463B2A;stroke-width:1.4}
+.t-line .a5{fill:none;stroke:var(--c);stroke-width:2.4}
+.t-line .a3{fill:none;stroke:var(--ci);stroke-width:2;opacity:.9}
+.t-line .eight{fill:none;stroke:var(--ci);stroke-width:2.6}
+.t-line .yr{fill:#1F1B16;font-size:12px;letter-spacing:.02em}
+.t-line .yr.un{opacity:.45}
+.t-line .dot{fill:var(--ci)}
+.t-line .dot.un{fill:#FFF;stroke:var(--ci);stroke-width:1.6}
+
+/* ── 40 · The Codex — seed, hold, reveal ── */
+#g-codex{--c:#4A48C8;--ci:#2B2A86;--st:#F0EFFC}
+/* The seeds are laid on 44-unit cells, so this figure must render at exactly 1:1 — never
+   scaled to fit. It gets a fixed size and scrolls in a narrow column, like the Registers'
+   bands and the Chakras' braid, rather than shrinking its own tap targets. */
+#g-codex .mk{overflow-x:auto;overflow-y:hidden;scrollbar-width:none;justify-items:start;
+  -webkit-mask:linear-gradient(to right,transparent,#000 14px,#000 calc(100% - 18px),transparent);
+  mask:linear-gradient(to right,transparent,#000 14px,#000 calc(100% - 18px),transparent)}
+#g-codex .mk::-webkit-scrollbar{display:none}
+.c-field{width:528px;min-width:528px;height:132px;max-width:none;display:block}
+.c-field .sd{fill:none;stroke:var(--c);stroke-width:1.8;cursor:pointer;transition:stroke .4s}
+.c-field .sd.on{stroke:var(--ci);stroke-width:2.6}
+.c-field .pt{fill:var(--ci);transition:fill .4s}
+.c-field .sd.on+.pt,.c-field g.on .pt{fill:var(--c)}
+.c-field .hit{fill:transparent;cursor:pointer}
+
+/* ── 41 · The Reveals — the Flower of Life; every point is a centre ── */
+#g-reveals{--c:#C83BB4;--ci:#7A2070;--st:#FBEFF9}
+.v-flower{width:min(62vw,18svh,240px);height:min(62vw,18svh,240px);display:block}
+.v-strip{justify-content:flex-start}
+.v-flower circle.rg{fill:none;stroke:var(--c);stroke-width:1.8;opacity:.7;cursor:pointer;
+  transition:cx .8s cubic-bezier(.3,0,.2,1),cy .8s cubic-bezier(.3,0,.2,1),
+  stroke .5s,opacity .5s,stroke-width .5s}
+.v-flower circle.rg.mid{stroke:var(--ci);stroke-width:3;opacity:1}
+.v-flower circle.hit{fill:transparent;cursor:pointer}
+.v-flower .ctr{fill:var(--ci)}
+
+/* ── 42 · The Elements — eight objects, three scales ── */
+#g-elements{--c:#1596C9;--ci:#0A5C7E;--st:#EAF6FC}
+.e-stage{height:min(23svh,175px);width:auto;max-width:100%;display:block}
+.e-stage path,.e-stage circle,.e-stage line,.e-stage polyline{fill:none;stroke:var(--c);
+  stroke-width:var(--ew,1.3);stroke-linecap:round;stroke-linejoin:round}
+.e-stage .accent{stroke:var(--ci)}
+.e-eyes{position:relative;font-family:'Lora',Georgia,serif;font-size:clamp(22px,5.6vw,34px);
+  color:#1A1612;letter-spacing:.01em;white-space:nowrap}
+.e-eyes i{position:absolute;width:.30em;height:.19em;border-radius:50%;
+  border:1.5px solid var(--ci);background:#fff;display:block}
+.e-eyes i::after{content:"";position:absolute;left:50%;top:50%;width:.09em;height:.09em;
+  margin:-.045em 0 0 -.045em;border-radius:50%;background:var(--ci)}
+.e-eyes i.a{left:1.02em;top:.30em}
+.e-eyes i.b{left:5.62em;top:.02em}
+.e-row{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;width:min(100%,540px);
+  padding:2px 0 4px;-webkit-overflow-scrolling:touch;
+  -webkit-mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent);
+  mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent)}
+.e-row::-webkit-scrollbar{display:none}
+.e-row button{flex:0 0 auto;min-width:44px;min-height:44px;padding:0 11px;border:1px solid color-mix(in oklab,var(--c) 52%,#8A8070);
+  border-radius:2px;font-size:11px;letter-spacing:.05em;color:#241F18;white-space:nowrap;
+  background:rgba(255,250,240,.14)}
+.e-row button[aria-pressed="true"]{border-color:var(--ci);color:#fff;
+  background:var(--ci)}
+.e-scale{display:flex;align-items:center;gap:10px;width:min(100%,300px);margin:6px 0 0}
+.e-scale input{flex:1 1 auto;min-height:44px;padding:0;background:none;appearance:none;
+  -webkit-appearance:none}
+.e-scale input::-webkit-slider-runnable-track{height:3px;border-radius:2px;
+  background:color-mix(in oklab,var(--ci) 55%,#fff)}
+.e-scale input::-moz-range-track{height:3px;border-radius:2px;background:color-mix(in oklab,var(--ci) 55%,#fff)}
+.e-scale input::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:15px;height:15px;
+  margin-top:-6px;border-radius:50%;background:var(--c);box-shadow:0 0 0 1px rgba(255,252,246,.7)}
+.e-scale input::-moz-range-thumb{width:15px;height:15px;border:0;border-radius:50%;
+  background:var(--c);box-shadow:0 0 0 1px rgba(255,252,246,.7)}
+.e-scale span{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ci);
+  white-space:nowrap}
+
+/* the world's own small actions, in stone */
+.g-act{min-height:44px;padding:0 14px;border:1px solid color-mix(in oklab,var(--c) 52%,#8A8070);border-radius:2px;font-size:11.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:#241F18;background:rgba(255,255,255,.72);
+  margin:min(10px,1.6svh) 4px 0}
+.g-act:hover,.g-act:focus-visible{border-color:var(--ci);background:var(--ci);color:#fff}
+.g-acts{display:flex;flex-wrap:wrap;justify-content:center;gap:6px}
+
+@media (min-width:900px){
+  .grnd{padding-inline:64px}
+}
+@media (prefers-reduced-motion:reduce){
+  .t-line,.v-flower circle.rg,.r-grid .band{transition:none}
+}
+
+/* ── the seam into the Ground: the dark gives way to white, and the six pigments arrive ── */
+/* The copy is set in light-ground inks, so it must sit on ground that is actually pale
+   and actually still: the dark gives way in the top half, the six pigments rise and
+   dissolve there, and the title is written on the white the movement lands on. */
+.vii-seam{background:linear-gradient(to bottom,#0F0E0C 0%,#2A2620 18%,#BCB4A6 40%,#F8F4EC 52%,
+  #F8F4EC 100%);color:#241F18;overflow:clip;justify-content:flex-end;min-height:88svh}
+.vii-seam .mk{color:#6B5B47}
+.vii-seam .mt{color:#141210}
+.vii-seam .ml{color:#332C24}
+.vii-seam .mn{color:#4A4238}
+.vii-spectrum{position:absolute;left:0;right:0;top:0;height:50%;display:flex;pointer-events:none;
+  z-index:0;opacity:.72}
+.vii-spectrum i{flex:1 1 0;background:radial-gradient(72% 46% at 50% 48%,var(--p),transparent 72%)}
+.vii-seam>*:not(.vii-spectrum){position:relative;z-index:1}
+
+/* ═══ the dance of colours ═══════════════════════════════════════════════
+   The Ground is the only movement lit by one fixed source — so what moves
+   here is not the light but the PIGMENT: colour deepening and lifting in the
+   grooves as the day crosses the stone. Every animation below is an
+   enhancement on a resolved state; Witness and reduced motion get stillness.
+   ───────────────────────────────────────────────────────────────────── */
+
+/* the six pigments arriving in the seam, each on its own clock, crossing */
+@keyframes viiDrift{0%,100%{transform:translateY(-5%) scaleY(1)}
+  50%{transform:translateY(5%) scaleY(1.16)}}
+@keyframes viiGlow{0%,100%{opacity:.42}50%{opacity:1}}
+.vii-spectrum i{animation:viiDrift 13s ease-in-out infinite,viiGlow 9s ease-in-out infinite}
+.vii-spectrum i:nth-child(1){animation-duration:13s,9s;animation-delay:0s,0s}
+.vii-spectrum i:nth-child(2){animation-duration:15s,7.4s;animation-delay:-2.1s,-1.3s}
+.vii-spectrum i:nth-child(3){animation-duration:11.5s,10.2s;animation-delay:-4.6s,-3.1s}
+.vii-spectrum i:nth-child(4){animation-duration:16.5s,8.1s;animation-delay:-1.4s,-5.2s}
+.vii-spectrum i:nth-child(5){animation-duration:12.3s,11s;animation-delay:-6.2s,-2.4s}
+.vii-spectrum i:nth-child(6){animation-duration:14.2s,8.8s;animation-delay:-3.3s,-6.6s}
+
+/* the room's own light, wandering slowly across the stone */
+@keyframes viiField{0%,100%{transform:translate(0,0) scale(1)}
+  28%{transform:translate(-7%,5%) scale(1.14)}
+  55%{transform:translate(6%,-4%) scale(1.07)}
+  78%{transform:translate(-3%,-6%) scale(1.11)}}
+.grnd::before{animation:viiField 34s ease-in-out infinite;will-change:transform}
+#g-registers::before{animation-duration:29s;animation-delay:-6s}
+#g-temporal::before{animation-duration:38s;animation-delay:-13s}
+#g-codex::before{animation-duration:31s;animation-delay:-4s}
+#g-reveals::before{animation-duration:36s;animation-delay:-19s}
+#g-elements::before{animation-duration:27s;animation-delay:-9s}
+
+/* the pigment in the groove: deepening and lifting, never flashing */
+@keyframes viiPigS{0%,100%{stroke:var(--c)}50%{stroke:var(--ci)}}
+@keyframes viiPigF{0%,100%{fill:var(--ci)}50%{fill:var(--c)}}
+.f-trace path,.r-grid .band,.c-field .sd,.v-flower circle.rg,
+.e-stage path,.e-stage circle,.e-stage line,.e-stage polyline{
+  animation:viiPigS 17s ease-in-out infinite}
+.r-grid .band:nth-of-type(2n){animation-duration:21s;animation-delay:-4s}
+.v-flower circle.rg:nth-of-type(2n){animation-duration:22s;animation-delay:-7s}
+.v-flower circle.rg:nth-of-type(3n){animation-duration:19s;animation-delay:-11s}
+.c-field .pt{animation:viiPigF 17s ease-in-out infinite}
+.t-line .a5{animation:viiPigS 15s ease-in-out infinite}
+.t-line .a3{animation:viiPigS 19s ease-in-out infinite;animation-delay:-5s}
+.t-line .eight{animation:viiPigS 11s ease-in-out infinite;animation-delay:-3s}
+/* the lit band and the chosen ring hold their deep pigment — the play must stay legible */
+.r-grid .band.on,.v-flower circle.rg.mid,.c-field .sd.on{animation:none;stroke:var(--ci)}
+
+/* the previous world's pigment bleeds over the sill into the next */
+.grnd{--prev:transparent}
+.vii-bleed{content:"";position:absolute;left:0;right:0;top:0;height:30svh;z-index:0;
+  pointer-events:none;opacity:.5;
+  background:linear-gradient(to bottom,color-mix(in oklab,var(--prev) 34%,transparent),transparent);
+  animation:viiBleed 19s ease-in-out infinite}
+@keyframes viiBleed{0%,100%{opacity:.26}50%{opacity:.62}}
+
+/* what is chosen, breathing */
+@keyframes viiHeld{0%,100%{box-shadow:0 0 0 0 color-mix(in oklab,var(--c) 44%,transparent)}
+  50%{box-shadow:0 0 0 5px color-mix(in oklab,var(--c) 0%,transparent)}}
+.r-strip button[aria-pressed="true"],.e-row button[aria-pressed="true"]{
+  animation:viiHeld 3.4s ease-out infinite}
+
+/* the moment's emphasis takes the pigment as it passes — deepening, never brightening.
+   --c is chosen against the 3:1 GRAPHIC floor and must never be applied to type: on the
+   pale stone, saffron and cerulean fall to 2.0–3.0:1. The dance runs from --ci toward
+   black instead, so both ends of every cycle clear 4.5:1 by construction. */
+@keyframes viiEm{0%,100%{color:var(--ci)}
+  50%{color:color-mix(in oklab,var(--ci) 58%,#141210)}}
+.grnd .moment em{animation:viiEm 13s ease-in-out infinite}
+
+/* stillness, where stillness is the law */
+body[data-lens="witness"] .vii-spectrum i,
+body[data-lens="witness"] .grnd::before,
+body[data-lens="witness"] .grnd .moment em,
+body[data-lens="witness"] .vii-bleed,
+body[data-lens="witness"] .r-strip button,
+body[data-lens="witness"] .e-row button,
+body[data-lens="witness"] .f-trace path,
+body[data-lens="witness"] .r-grid .band,
+body[data-lens="witness"] .c-field .sd,
+body[data-lens="witness"] .c-field .pt,
+body[data-lens="witness"] .v-flower circle.rg,
+body[data-lens="witness"] .t-line .a5,
+body[data-lens="witness"] .t-line .a3,
+body[data-lens="witness"] .t-line .eight,
+body[data-lens="witness"] .e-stage path,
+body[data-lens="witness"] .e-stage circle,
+body[data-lens="witness"] .e-stage line{animation:none}
+@media (prefers-reduced-motion:reduce){
+  .vii-spectrum i,.grnd::before,.grnd .moment em,.vii-bleed,
+  .r-strip button,.e-row button,.f-trace path,.r-grid .band,.c-field .sd,.c-field .pt,
+  .v-flower circle.rg,.t-line .a5,.t-line .a3,.t-line .eight,
+  .e-stage path,.e-stage circle,.e-stage line{animation:none}
+}

@@ -1,0 +1,5 @@
+/* lenses/hand.css — A · Hand. "Someone made this, by hand, for you."
+   Paper, ink, the April hand. The line boils; the thread carries its shadow on the ground. */
+body[data-lens="hand"]{--inkf:url(#inkw);--grain:.055;--glow:0;--track:0em;--leadmul:1}
+body[data-lens="hand"] .seam.bleed::before{opacity:0}
+body[data-lens="hand"] .wt{letter-spacing:-.004em}

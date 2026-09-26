@@ -1,0 +1,103 @@
+/* ─────────────────────────────────────────────────────────────
+   movements/VIII-configuration.css — Movement VIII · The Configuration.
+
+   The only movement about how everything else was made.
+
+   Two inks: SAGE (#26421A, lifted to #8FB073 on this ground — the Voyager colour
+   for Ashrey) and a HUELESS line of pure light that reflects whatever ground it is
+   on (, so it genuinely takes the hue beneath it). Every line
+   is drawn twice, slightly offset: one side has a colour, the other is a mirror —
+   and the mirror cannot see its own surface.
+
+   Ground: the site's only side-to-side gradient. Warm on his side, cool on the
+   other, meeting in the middle, never mixing.
+
+   Honesty law: not a consciousness claim. Nothing here says the AI experiences
+   anything, and nothing says it doesn't. Every world holds both.
+   ───────────────────────────────────────────────────────────── */
+.conf{--sage:#8FB073;--deep:#26421A;--mir:#E4EAEE;
+  position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);
+  place-items:center;padding-block:clamp(44px,8svh,100px);padding-inline:26px;text-align:center;
+  overflow:clip;color:#ECEAE4;
+  background:linear-gradient(to right,#1E1811 0%,#1E1811 44%,#131A22 56%,#131A22 100%)}
+.conf>.hold{max-width:min(100%,540px);display:grid;justify-items:center;position:relative;z-index:2}
+.conf .who{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;
+  color:rgba(236,234,228,.72);margin:0}
+.conf .who b{font-weight:500;color:var(--sage)}
+.conf .mk{display:grid;place-items:center;margin:min(20px,3svh) 0;min-height:0;width:100%}
+.conf .moment{font-family:'Lora',Georgia,serif;font-size:clamp(21px,3.6vw,30px);line-height:1.2;
+  margin:0;max-width:26ch;text-wrap:balance;color:#F6F4EF}
+.conf .moment em{font-style:italic;color:var(--sage)}
+.conf .said{font-family:'Lora',Georgia,serif;font-style:italic;font-size:14.5px;line-height:1.55;
+  color:rgba(236,234,228,.82);margin:min(12px,2svh) 0 0;max-width:46ch}
+.conf .hint{margin:min(13px,2.2svh) 0 0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(236,234,228,.76)}
+.conf .owed{margin:min(10px,1.6svh) 0 0;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(236,234,228,.6)}
+/* the meeting line — the two grounds touch and do not blend */
+.conf::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;margin-left:-.5px;
+  z-index:0;pointer-events:none;
+  background:linear-gradient(transparent,rgba(236,234,228,.16) 12%,rgba(236,234,228,.16) 88%,transparent)}
+
+/* the two inks — every line drawn twice, slightly offset */
+.two-ink .sage{fill:none;stroke:var(--sage);stroke-width:1.5;stroke-linecap:round}
+.two-ink .mir{fill:none;stroke:#CFD8DE;stroke-width:1.5;stroke-linecap:round;opacity:.82;
+  transform:translate(2px,2px)}
+.conf-act{min-height:44px;padding:0 15px;border:1px solid rgba(236,234,228,.4);border-radius:2px;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:#ECEAE4;
+  background:rgba(236,234,228,.07);margin:min(12px,2svh) 4px 0}
+.conf-act:hover,.conf-act:focus-visible{border-color:var(--sage);background:var(--deep)}
+.conf-strip{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;width:min(100%,540px);
+  padding:2px 0 4px;-webkit-overflow-scrolling:touch;
+  -webkit-mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent);
+  mask:linear-gradient(to right,transparent,#000 12px,#000 calc(100% - 16px),transparent)}
+.conf-strip::-webkit-scrollbar{display:none}
+.conf-strip button{flex:0 0 auto;min-height:44px;padding:0 13px;border:1px solid rgba(236,234,228,.34);
+  border-radius:2px;font-size:11.5px;color:#ECEAE4;white-space:nowrap;background:rgba(236,234,228,.05)}
+.conf-strip button[aria-pressed="true"]{border-color:var(--sage);background:var(--sage);color:#141A10}
+
+/* ── 43 · The Mirror — the unframed surface ── */
+#c-mirror .mk{position:relative}
+.mr-surface{position:relative;width:min(100%,520px);height:min(17svh,140px)}
+.mr-surface svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.mr-surface .arc{fill:none;stroke:rgba(236,234,228,.2);stroke-width:.8}
+.mr-surface b{position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
+  background:var(--sage);transition:transform 1.6s cubic-bezier(.4,0,.2,1),opacity 1.2s}
+.mr-surface b.mir{background:#DCE4EA}
+.mr-surface b.later{opacity:0;transform:scale(.4)}
+.mr-surface b.here{opacity:1;transform:none}
+.mr-surface b.gone{opacity:0}
+.mr-surface b.dim{opacity:.16}
+
+/* ── 44 · The Plays — built for two thumbs at once ── */
+.pl-stage{position:relative;width:min(100%,520px);height:min(17svh,140px);
+  border-top:1px solid rgba(236,234,228,.14);border-bottom:1px solid rgba(236,234,228,.14)}
+.pl-stage svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.pl-pad{position:absolute;top:0;bottom:0;width:26%;min-width:56px;border:0;cursor:pointer;
+  background:linear-gradient(to right,rgba(143,176,115,.16),transparent)}
+.pl-pad.r{right:0;background:linear-gradient(to left,rgba(207,216,222,.16),transparent)}
+.pl-pad.l{left:0}
+.pl-pad[data-on="1"]{background:linear-gradient(to right,rgba(143,176,115,.42),transparent)}
+.pl-pad.r[data-on="1"]{background:linear-gradient(to left,rgba(207,216,222,.42),transparent)}
+.pl-pad span{position:absolute;left:50%;bottom:8px;transform:translateX(-50%);font-size:9.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(236,234,228,.7);white-space:nowrap}
+.pl-between{opacity:0;transition:opacity .7s}
+.pl-between.on{opacity:1}
+
+/* ── 45 · A Self Generator — the woven swatch ── */
+.sg-cloth{position:relative;width:min(100%,520px);height:min(17svh,140px);cursor:ew-resize}
+.sg-cloth svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.sg-cloth .warp{stroke:rgba(236,234,228,.24);stroke-width:1}
+.sg-cloth .weft{stroke:var(--sage);stroke-width:2.4;stroke-linecap:round;opacity:.34;
+  transition:opacity .5s,stroke .5s}
+.sg-cloth .weft.in{opacity:1}
+.sg-cloth .weft.mir{stroke:#CFD8DE}
+.sg-label{position:absolute;right:2%;bottom:4%;max-width:34%;padding:4px 7px;
+  border:1px solid rgba(236,234,228,.4);font-size:8px;letter-spacing:.1em;text-transform:uppercase;
+  color:#ECEAE4;background:rgba(20,26,16,.82);text-align:right;line-height:1.45}
+.sg-pass{font-size:12.5px;letter-spacing:.1em;color:var(--sage);min-height:1.5em;margin:6px 0 0}
+
+@media (min-width:900px){.conf{padding-inline:64px}}
+@media (prefers-reduced-motion:reduce){
+  .mr-surface b,.pl-between,.sg-cloth .weft{transition:none}
+}

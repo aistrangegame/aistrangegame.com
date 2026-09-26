@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://aistrangegame.com/tree-of-life/anahata-practice">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Anahata — The Heart · A Strange Chakra Map</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
@@ -13,7 +15,7 @@
   --gold: #C9A84C;
   --text: #1a1a1a;
   --text-secondary: #4a4a4a;
-  --text-muted: #8a8a8a;
+  --text-muted: #666666;
   --border: rgba(0,0,0,0.07);
 
   /* Anahata — leaf-green, calibrated for cream. The unstruck sound's color. */
@@ -2391,8 +2393,11 @@ body.story-open { overflow: hidden; }
 }
 /* ═══ END ESSENCE+SEQUENTIAL GATES ═══ */
 </style>
+<meta property="og:image" content="https://aistrangegame.com/og/tree-of-life--anahata-practice.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style data-legible>/* the page's own colours, hue kept, lightness moved to 4.5:1 — tools/v3/legible.py */.chakra-english{color:#017f2d!important}.core-question-label{color:#116728!important}.practice-label{color:#0d732b!important}</style>
 </head>
-<body>
+<body data-seam="present" data-world="walk" data-v="5" data-parent="/walk/" data-parent-name="The Walk">
 <!-- ═══ ESSENCE+SEQUENTIAL GATES ═══ -->
 <script>
 /* ═══ ESSENCE GATE & SEQUENTIAL GATE — universal logic ═══
@@ -2557,7 +2562,7 @@ body.story-open { overflow: hidden; }
     <p>Look at the tree across from you. <strong>More space than branch.</strong> Open enough that the light moves through. Open enough that the birds lifting from the branches are not pushing off — they are being held by what they are lifting from. The tree didn't open by effort. It grew open enough that the holding-on stopped being required.</p>
 
     <figure class="tree-figure" onclick="openLightbox()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox();}" tabindex="0" role="button" aria-label="Open the Anahata tree image at full size">
-      <img class="tree-image" src="/tree-of-life/anahata-tree.jpg" alt="The Anahata tree — a green tree of life rising from wide-spreading roots, with the Chaturdasha Trikona (fourteen interlocking triangles, seven upward and seven downward) rendered as a luminous geometric lattice behind the tree. A large heart-shape forms where the branches curve, and YAM यं is inscribed at the heart's center, glowing soft gold. Seven birds sit and lift in the branches. Six Kulakula Shakti names curve along the roots and trunk: Sarva Samkshobhini (the all-agitator), Sarva Vidrāvinī (the all-melter), Sarva Ākarshini (the all-attractor), Sarva Sammohini (the all-enchanter, the love that made no logical sense), Sarva Stambhini (the all-stabilizer), and Sarva Jrumbhini (the all-expander). The tree is open enough that the birds are lifting, not pushing off — the tree grew open enough that holding-on stopped being required. The quote beneath reads: 'The love that arrived for others was always your own heart opening.'">
+      <img class="tree-image" src="/assets/tree-of-life/anahata-tree.jpg" alt="The Anahata tree — a green tree of life rising from wide-spreading roots, with the Chaturdasha Trikona (fourteen interlocking triangles, seven upward and seven downward) rendered as a luminous geometric lattice behind the tree. A large heart-shape forms where the branches curve, and YAM यं is inscribed at the heart's center, glowing soft gold. Seven birds sit and lift in the branches. Six Kulakula Shakti names curve along the roots and trunk: Sarva Samkshobhini (the all-agitator), Sarva Vidrāvinī (the all-melter), Sarva Ākarshini (the all-attractor), Sarva Sammohini (the all-enchanter, the love that made no logical sense), Sarva Stambhini (the all-stabilizer), and Sarva Jrumbhini (the all-expander). The tree is open enough that the birds are lifting, not pushing off — the tree grew open enough that holding-on stopped being required. The quote beneath reads: 'The love that arrived for others was always your own heart opening.'">
       <figcaption class="tree-hint">Tap to look closer. The tree's openness is its teaching.</figcaption>
     </figure>
 
@@ -2854,7 +2859,7 @@ body.story-open { overflow: hidden; }
 <!-- ─── LIGHTBOX ─── -->
 <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Anahata tree — close look">
   <div class="lightbox-stage" id="lightbox-stage">
-    <img class="lightbox-image" id="lightbox-image" src="/tree-of-life/anahata-tree.jpg" alt="Anahata tree — full close-look. Zoom to find the six Kulakula Shakti names inscribed along the roots and trunk, YAM यं glowing at the heart's center, and the Chaturdasha Trikona lattice of fourteen interlocking triangles behind the tree." draggable="false">
+    <img class="lightbox-image" id="lightbox-image" src="/assets/tree-of-life/anahata-tree.jpg" alt="Anahata tree — full close-look. Zoom to find the six Kulakula Shakti names inscribed along the roots and trunk, YAM यं glowing at the heart's center, and the Chaturdasha Trikona lattice of fourteen interlocking triangles behind the tree." draggable="false">
   </div>
   <button class="lightbox-close" id="lightbox-close" aria-label="Close" type="button">×</button>
   <div class="lightbox-hint" id="lightbox-hint">
@@ -3846,5 +3851,7 @@ window.addEventListener('load', () => {
 </script>
 <script>/* no gates (standing ruling): everything the page holds is shown from the start; writing still saves */
 (function(){function open(){["post-engagement","writing-reflection","story-invite"].forEach(function(id){var e=document.getElementById(id);if(e){e.classList.add("revealed");e.removeAttribute("aria-hidden")}});var p=document.getElementById("story-portal");if(p){p.dataset.unlockedOnce="1";p.classList.remove("locked");p.setAttribute("aria-disabled","false")}}open();addEventListener("DOMContentLoaded",open);addEventListener("load",open)})();</script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body>
 </html>

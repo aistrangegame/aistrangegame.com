@@ -1,0 +1,134 @@
+/* ─────────────────────────────────────────────────────────────
+   edges.css — the rim of the site: search, the 404, about, privacy, credits, the Now page.
+   Composed from Design's Tab Page (its PAPER: cream, ink, the gold rule, Lora over DM Sans), because
+   these are pages you read, like the index at the back of a book. Nothing here is new material.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --cream:#F4EEE3; --paper:#FBF7EF; --ink:#1A1612; --ink2:#4A4238; --ink3:#6B5F50;
+  --rule:rgba(26,22,18,.14); --gold:#7D5F16; --gold-d:#8A6F1E;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:'DM Sans',system-ui,-apple-system,sans-serif;
+  overflow-x:clip;line-height:1.6}
+a{color:var(--gold)}
+button,input,textarea{font:inherit;color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.04;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* the head: the Tab Page's, without its tools */
+.ed-top{border-bottom:1px solid var(--rule);padding:18px 20px 16px}
+.ed-top>div{max-width:760px;margin:0 auto}
+.ed-kick{margin:0 0 6px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3)}
+.ed-kick a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.ed-top h1{font-family:'Lora',Georgia,serif;font-weight:400;font-size:clamp(28px,6vw,42px);line-height:1.12;margin:0;
+  text-wrap:balance}
+main{max-width:760px;margin:0 auto;padding:22px 20px 60px}
+.ed-lede{font-family:'Lora',Georgia,serif;font-style:italic;font-size:18px;line-height:1.55;color:var(--ink2);margin:0 0 22px;
+  max-width:56ch}
+
+/* prose: the Ash Voice, set to be read */
+.ed-prose{font-family:'Lora',Georgia,serif;font-size:17.5px;line-height:1.7;max-width:60ch}
+.ed-prose p{margin:0 0 1.05em}
+.ed-prose b,.ed-prose strong{font-weight:500}
+.ed-prose a{color:var(--gold);text-decoration:underline;text-decoration-color:rgba(125,95,22,.4);text-underline-offset:3px}
+.ed-prose a:hover{text-decoration-color:currentColor}
+.ed-sec{border-top:1px solid var(--rule);padding-top:22px;margin-top:30px}
+.ed-sec>h2{font-family:'Lora',Georgia,serif;font-weight:400;font-size:22px;margin:0 0 10px}
+
+/* the lists credits and the Now page keep */
+.ed-list{list-style:none;margin:0;padding:0}
+.ed-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 14px;align-items:baseline;padding:9px 0;
+  border-bottom:1px solid rgba(26,22,18,.07)}
+.ed-list b{font-family:'Lora',Georgia,serif;font-weight:400;font-size:16.5px}
+.ed-list span{font-size:13px;color:var(--ink3)}
+.ed-list a{color:inherit;text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.ed-list a:hover b{text-decoration:underline;text-decoration-color:var(--gold)}
+.ed-flow{margin:0;font-size:14.5px;line-height:2;color:var(--ink2)}
+.ed-flow a{color:var(--ink2);display:inline-flex;align-items:center;min-height:44px;text-decoration:underline;
+  text-decoration-color:rgba(26,22,18,.22);text-underline-offset:3px}
+.ed-note{font-size:13px;color:var(--ink3);margin:6px 0 0;max-width:60ch}
+
+/* the Now page: dated lines, newest first; what arrived since the last visit wears the gold */
+.now li{grid-template-columns:7.5em minmax(0,1fr)}
+.now time{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-variant-numeric:tabular-nums}
+.now .since{display:inline-block;margin-left:8px;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+
+/* search: the box, then the results grouped by world */
+.sr-box{position:relative}
+.sr-box input{width:100%;min-height:52px;padding:0 16px 0 40px;border:1px solid var(--rule);border-radius:2px;background:var(--paper);
+  font-family:'Lora',Georgia,serif;font-size:18px;color:var(--ink)}
+.sr-box input::placeholder{color:var(--ink3);font-style:italic}
+.sr-box input:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.sr-box svg{position:absolute;left:14px;top:50%;margin-top:-8px;width:16px;height:16px;color:var(--ink3);pointer-events:none}
+.sr-g{margin:26px 0 0}
+.sr-g h2{display:flex;align-items:center;gap:9px;margin:0 0 4px;padding-bottom:6px;border-bottom:1px solid var(--rule);
+  font-family:'Lora',Georgia,serif;font-weight:400;font-size:18px}
+.sr-g h2 i{width:9px;height:9px;border-radius:50%;background:var(--m)}
+.sr-g ul{list-style:none;margin:0;padding:0}
+.sr-row{display:grid;grid-template-columns:14px minmax(0,1fr) 66px;grid-template-rows:auto auto;gap:1px 11px;align-items:center;
+  min-height:52px;padding:7px 2px;border-bottom:1px solid rgba(26,22,18,.07);color:inherit;text-decoration:none}
+.sr-row:hover,.sr-row:focus-visible{background:rgba(255,255,255,.6);outline:0}
+.sr-row:focus-visible{box-shadow:inset 0 0 0 1px var(--gold)}
+.sr-row .mk{grid-row:1 / span 2;width:9px;height:9px;border-radius:50%;background:var(--m);justify-self:center}
+.sr-row .nm{font-family:'Lora',Georgia,serif;font-size:16.5px;line-height:1.3}
+.sr-row .ln{grid-column:2;font-size:12.5px;color:var(--ink3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sr-sp{grid-column:3;grid-row:1 / span 2;position:relative;height:1px;background:rgba(26,22,18,.24)}
+.sr-sp i{position:absolute;top:-3px;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:var(--m)}
+.sr-more{margin:18px 0 0;min-height:44px;padding:0 16px;border:1px solid var(--gold);border-radius:999px;background:none;
+  color:var(--gold);cursor:pointer}
+.sr-none{font-family:'Lora',Georgia,serif;font-size:18px;line-height:1.6;color:var(--ink2);margin:26px 0 0}
+.sr-none b{font-weight:400;color:var(--ink)}
+
+/* the die, on paper: the Door's ring, small */
+.ed-die{display:flex;align-items:center;gap:14px;margin:18px 0 0;flex-wrap:wrap}
+.ed-die button,.ed-die a.ring{width:52px;height:52px;border-radius:50%;border:1px solid var(--gold-d);background:none;cursor:pointer;
+  display:grid;place-items:center;flex:0 0 auto}
+.ed-die button i,.ed-die a.ring i{display:block;width:10px;height:10px;border-radius:50%;background:#C9A84C;
+  box-shadow:0 0 10px rgba(201,168,76,.8)}
+.ed-die span{font-family:'Lora',Georgia,serif;font-size:16px;color:var(--ink2)}
+.ed-die span a{color:var(--gold)}
+
+/* the pills home */
+.ed-foot{max-width:760px;margin:0 auto;padding:18px 20px 60px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;gap:8px 22px}
+.ed-foot a{min-height:44px;display:inline-flex;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--gold);text-decoration:none}
+.ed-foot a:hover{color:var(--ink)}
+
+/* the contact form (F7): a name, a way to reply, the message */
+.cf{display:grid;gap:12px;max-width:540px;margin:14px 0 0}
+.cf label{display:grid;gap:4px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3)}
+.cf input,.cf textarea{min-height:46px;padding:10px 12px;border:1px solid var(--rule);border-radius:2px;background:var(--paper);
+  font-size:16px;letter-spacing:0;text-transform:none;color:var(--ink)}
+.cf textarea{min-height:140px;resize:vertical;font-family:'Lora',Georgia,serif;line-height:1.55}
+.cf input:focus,.cf textarea:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.cf .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.cf button{justify-self:start;min-height:46px;padding:0 20px;border:1px solid var(--gold);border-radius:999px;background:var(--gold);
+  color:#FFFBF2;cursor:pointer;font-size:14px}
+.cf button[disabled]{background:none;color:var(--ink3);border-color:var(--rule);cursor:default}
+.cf-state{margin:0;padding:12px 14px;border-left:3px solid var(--gold-d);background:rgba(255,255,255,.55);font-size:14.5px;
+  line-height:1.55;color:var(--ink2)}
+.cf-state[data-s="sent"]{border-left-color:#4A7A5A}
+.cf-state[data-s="error"]{border-left-color:#B33A2E}
+
+/* the 404: the threshold's cream, warm light, the Point circling once where the page should be */
+body.lost::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(118% 78% at 50% 0%,rgba(255,244,214,.92),transparent 62%)}
+body.lost main,body.lost .ed-top,body.lost .ed-foot{position:relative;z-index:1}
+.lost-ring{position:relative;width:120px;height:120px;margin:6px 0 18px;border-radius:50%;border:1px dashed rgba(138,111,30,.45)}
+.lost-pt{position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;background:#C9A84C;
+  box-shadow:0 0 12px rgba(201,168,76,.9);transform:rotate(0deg) translateY(-60px);
+  animation:lostCircle 2.4s cubic-bezier(.45,0,.2,1) .3s 1 forwards}
+@keyframes lostCircle{to{transform:rotate(360deg) translateY(0)}}
+.lost-near{list-style:none;margin:0;padding:0}
+.lost-near .sr-row .mk{transition:box-shadow .6s}
+.lost-near li:first-child .sr-row .mk{box-shadow:0 0 0 4px rgba(201,168,76,.35)}
+@media (prefers-reduced-motion:reduce){.lost-pt{animation:none;transform:none}}
+@media (min-width:760px){main{padding-top:30px}}
+/* a link inside running prose keeps the line as it is and still gives a 44px target: its padding reaches
+   above and below the letters without moving them (inline padding never changes the line box) */
+.ed-prose a,.ed-note a,.ed-lede a{padding:11px 0}
+.ed-h3{font-family:'Lora',Georgia,serif;font-weight:400;font-style:italic;font-size:16px;margin:16px 0 4px;color:var(--ink2)}
+.ed-src li{grid-template-columns:minmax(0,1fr)}
+.ed-src span{font-size:13.5px;line-height:1.5}

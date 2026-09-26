@@ -1,0 +1,17 @@
+/* lenses/depth.css — C · Depth. "You are travelling, not reading."
+   Movements are distances. Each world is a plane: it arrives out of focus, comes to you,
+   and recedes. --d is written by lenses/lens.js, only while this lens is on. */
+body[data-lens="depth"]{--inkf:none;--grain:.02;--glow:.5;--track:0em;--leadmul:1}
+body[data-lens="depth"] main{perspective:900px;perspective-origin:50% 45%}
+body[data-lens="depth"] .world>.in,
+body[data-lens="depth"] .world>.fig,
+body[data-lens="depth"] .seam>*{
+  transform:translateZ(calc(var(--d,0) * -220px)) scale(calc(1 - var(--d,0) * .06));
+  filter:blur(calc(var(--d,0) * 1.4px));opacity:calc(1 - var(--d,0) * .5);
+  transform-origin:12% 50%;will-change:transform}
+body[data-lens="depth"] .seam .mt{font-size:clamp(28px,9vw,44px)}
+body[data-lens="depth"] #point{width:11px;height:11px}
+@media (prefers-reduced-motion:reduce){
+  body[data-lens="depth"] .world>.in,body[data-lens="depth"] .world>.fig,body[data-lens="depth"] .seam>*{
+    transform:none;filter:none;opacity:1}
+}

@@ -1,0 +1,148 @@
+/* ─────────────────────────────────────────────────────────────
+   movements/V-instruments.css — the choir, rebuilt.
+
+   Eight instruments, one screen each. One mark, one moment, one paragraph.
+   No phone-in-hand, no aisle, no bay pairings, no build-state labels, no
+   wireframe architecture, no interactive plays — all of that was the previous
+   version and all of it is gone.
+
+   Markup and this stylesheet only: Movement V carries no JavaScript, so the
+   instruments cannot be taken down by a parse error in a figures file.
+   ───────────────────────────────────────────────────────────── */
+
+/* One instrument, one screen — so the block padding and the type scale both read what the
+   screen has LEFT, not just how wide it is. A short, wide window is the common case. */
+.inst{position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:0;place-items:center;padding-block:clamp(44px,8svh,100px);padding-inline:26px;
+  text-align:center;background:#07060C}
+.inst>.hold{max-width:min(100%,420px);display:grid;justify-items:center}
+
+/* the name, small and out of the way — but still the only thing that says which instrument */
+.inst .who{font-size:10.5px;letter-spacing:.32em;text-transform:uppercase;
+  color:rgba(245,239,230,.58);margin:0 0 min(30px,4.4svh)}
+
+/* the one mark — emitted light, never an outline diagram.
+   The track is content-sized (justify-items:center), so a mark's width must be DEFINITE:
+   a percentage would resolve against its own intrinsic width, and a mark whose content is
+   only a border and an absolutely-positioned glow has none. */
+.inst .mark{margin:0 0 min(34px,5.2svh);display:grid;place-items:center;min-height:min(74px,11svh)}
+.inst .mark svg{overflow:visible}
+.inst .mark .em{stroke:var(--c);fill:none;stroke-width:1.5;stroke-linecap:round;
+  filter:drop-shadow(0 0 7px var(--c))}
+.inst .mark .fl{fill:var(--c);filter:drop-shadow(0 0 10px var(--c))}
+.inst .mark .dim{stroke:rgba(245,239,230,.34);fill:none;stroke-width:1.4;stroke-linecap:round}
+
+/* the moment */
+.inst .moment{font-family:'Lora',Georgia,serif;font-weight:400;
+  font-size:min(clamp(28px,7.4vw,52px),8.6svh);line-height:1.13;letter-spacing:-.008em;margin:0;
+  text-wrap:balance}
+.inst .moment em{font-style:italic;color:var(--c)}
+/* one paragraph, and no more */
+.inst .said{margin:min(24px,3.6svh) 0 0;max-width:100%;font-family:'Lora',Georgia,serif;
+  font-style:italic;font-size:min(15.5px,2.9svh);line-height:1.62;color:rgba(245,239,230,.74)}
+.inst .go{margin:min(30px,4.4svh) 0 0;min-height:44px;display:inline-flex;align-items:center;
+  padding:0 18px;border:1px solid var(--c);border-radius:999px;font-size:12.5px;
+  letter-spacing:.06em;color:var(--c)}
+.inst .go:hover,.inst .go:focus-visible{background:color-mix(in oklab,var(--c) 18%,transparent)}
+
+/* ── the eight marks. One breathing clock each; nothing is a diagram. ── */
+@keyframes iBreathe{0%,100%{transform:scale(.78);opacity:.72}50%{transform:scale(1.2);opacity:1}}
+@keyframes iBeat{0%,100%{transform:scale(.5);opacity:.45}50%{transform:scale(1.2);opacity:1}}
+@keyframes iFast{to{transform:rotate(360deg)}}
+@keyframes iSlow{to{transform:rotate(360deg)}}
+@keyframes iFall{0%{opacity:0;transform:translateY(-14px)}30%,100%{opacity:1;transform:none}}
+@keyframes iPulse{0%,100%{opacity:.3}12%{opacity:1}26%{opacity:.42}38%{opacity:.85}}
+@keyframes iDrift{0%,100%{transform:translateX(0)}50%{transform:translateX(7px)}}
+
+/* Feed — one dot, created once, never replaced */
+.m-dot{width:13px;height:13px;border-radius:50%;background:var(--c);
+  box-shadow:0 0 26px var(--c),0 0 70px color-mix(in oklab,var(--c) 45%,transparent);
+  animation:iBreathe 9s ease-in-out infinite}
+
+/* Learning — two clocks at once */
+.m-clocks{display:flex;gap:26px;align-items:center}
+.m-clocks svg{width:52px;height:52px}
+.m-clocks .h1{animation:iFast 2.6s linear infinite;transform-origin:26px 26px}
+.m-clocks .h2{animation:iSlow 160s linear infinite;transform-origin:26px 26px}
+
+/* Voice — the wellhead: a mouth, and one line into the ground */
+.m-well svg{width:64px;height:92px}
+.m-well .drop{stroke-dasharray:4 7;animation:iDrift 6s ease-in-out infinite}
+
+/* Field — two ears, and the third thing between them */
+.m-ears{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;width:212px}
+/* the chamber behind the ears: rings on still water, meeting between them (V-instruments.js) */
+#fieldapp .mark{position:relative;cursor:crosshair;touch-action:pan-y}
+.m-rip{position:absolute;left:50%;top:50%;width:min(340px,86vw);height:150px;transform:translate(-50%,-50%);
+  pointer-events:none;z-index:0}
+.m-ears i{flex:0 0 auto;width:34px;height:64px;border:1.4px solid rgba(245,239,230,.42);
+  border-radius:40px}
+.m-ears i.l{border-right:0}
+.m-ears i.r{border-left:0}
+.m-ears b{flex:1 1 auto;height:1px;background:rgba(245,239,230,.14);position:relative}
+.m-ears b::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;margin:-5.5px;
+  border-radius:50%;background:var(--c);box-shadow:0 0 22px var(--c);
+  animation:iBeat 2.4s ease-in-out infinite}
+
+/* Being — three walls, and the fourth side open onto the sky */
+.m-room{position:relative;width:132px;height:76px}
+.m-room span{position:absolute;background:var(--c);box-shadow:0 0 9px var(--c)}
+.m-room span.t{left:0;top:0;width:100%;height:1.5px}
+.m-room span.l{left:0;top:0;width:1.5px;height:100%}
+.m-room span.b{left:0;bottom:0;width:100%;height:1.5px}
+.m-room em{position:absolute;right:-16px;top:-6px;bottom:-6px;width:46px;
+  background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(167,157,232,.22),transparent 76%)}
+.m-room em i{position:absolute;width:2px;height:2px;border-radius:50%;background:#F5EFE6;opacity:.8;
+  box-shadow:0 0 5px #F5EFE6}
+
+/* Lalita Family — six ways to reach, all at one weight */
+.m-six{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+  width:clamp(240px,80vw,304px)}
+.m-six span{min-height:42px;display:grid;place-items:center;border:1px solid var(--c);
+  border-radius:999px;font-size:11px;letter-spacing:.02em;color:var(--c);
+  font-family:'DM Sans',sans-serif;padding:0 6px}
+
+/* Mandala — nine enclosures, and the point */
+.m-rings svg{width:104px;height:104px}
+
+/* Chakras — the heartbeat that takes the place of a voice */
+.m-beat{width:clamp(180px,58vw,260px);height:36px;position:relative;
+  border-bottom:1px solid rgba(245,239,230,.3)}
+.m-beat span{position:absolute;inset:auto 0 0 0;height:36px;
+  background:radial-gradient(ellipse 24% 100% at 50% 100%,var(--c),transparent 74%);
+  animation:iPulse 1s ease-in-out infinite}
+.m-beat::after{content:"";position:absolute;left:50%;bottom:-3px;width:7px;height:7px;
+  margin-left:-3.5px;border-radius:50%;background:var(--c);box-shadow:0 0 14px var(--c);
+  animation:iBeat 1s ease-in-out infinite}
+
+/* the east end — one mark, one line */
+.m-base{width:74px;height:74px;border-radius:50%;border:1px solid rgba(201,168,76,.45);
+  display:grid;place-items:center}
+.m-base i{width:10px;height:10px;border-radius:50%;background:#C9A84C;
+  box-shadow:0 0 22px #C9A84C;animation:iBreathe 11s ease-in-out infinite}
+
+@media (min-width:900px){
+  .inst{padding-inline:64px}
+  .inst>.hold{max-width:min(100%,540px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .inst .mark *{animation:none!important}
+}
+
+/* ── the rose window — the east end: eight instruments around one ground (ASSEMBLY §1) ──
+   The wheel is generated markup (tools/v3/home.py). Design's .m-base ring stays at the centre;
+   each spoke is a line in its instrument's own colour and a 44px door to that gateway. */
+#rose .mark{min-height:0}
+.rw-wheel{position:relative;width:min(300px,78vw);aspect-ratio:1;display:block}
+.rw-wheel .rw-lines{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.rw-wheel .rw-lines line{stroke-width:.9;opacity:.55;stroke-linecap:round}
+.rw-wheel .m-base{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.rw-sp{position:absolute;left:var(--x);top:var(--y);transform:translate(-50%,-50%);min-width:44px;min-height:44px;
+  display:grid;justify-items:center;align-content:center;gap:5px;text-decoration:none;color:rgba(245,239,230,.72)}
+.rw-sp i{display:block;width:9px;height:9px;border-radius:50%;background:var(--c);box-shadow:0 0 9px var(--c)}
+.rw-sp span{font-size:10px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+.rw-sp:hover,.rw-sp:focus-visible{color:#F5EFE6;outline:none}
+.rw-sp:hover i,.rw-sp:focus-visible i{box-shadow:0 0 0 5px color-mix(in oklab,var(--c) 30%,transparent),0 0 12px var(--c)}
+/* Bindu Field's ripples are drawn on a canvas twice the mark's height: without the room they use,
+   the rings ran through the world's label above and touched its title below */
+[data-world="fieldapp"] .mark{margin-top:40px;margin-bottom:40px}

@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://aistrangegame.com/wazoodle/wazoodle-product-experience">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AKAStiq Wide Loop — Wazoodle Fabrics</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
@@ -2401,7 +2403,7 @@ body {
         <!-- Level 1: Style -->
         <div class="selector-level">
           <div class="selector-level-label">Variant</div>
-          <select class="style-select" id="styleSelect" onchange="onStyleChange(this)">
+          <select class="style-select" id="styleSelect" onchange="onStyleChange(this)" aria-label="Style">
             <option value="stiff" selected>W-465 — Standard (Stiff-Back) · 270 GSM</option>
             <option value="soft">W-466 — Flexible (Soft-Back) · 255 GSM</option>
           </select>
@@ -2412,7 +2414,7 @@ body {
           <div class="selector-level-label">Color</div>
           <div class="color-select-wrap">
             <div class="color-swatch-indicator" id="colorIndicator" style="background:#FAFAFA"></div>
-            <select class="color-select" id="colorSelect" onchange="onColorChange(this)">
+            <select class="color-select" id="colorSelect" onchange="onColorChange(this)" aria-label="Colour">
               <option value="white" data-color="#FAFAFA" selected>White</option>
               <option value="black" data-color="#1a1a2e">Black</option>
             </select>
@@ -2440,7 +2442,7 @@ body {
           <div class="selector-level-label" style="margin-bottom:0">Quantity</div>
           <div class="qty-stepper">
             <button class="qty-btn" onclick="adjustQty(-1)">−</button>
-            <input class="qty-value" id="qtyValue" value="1" readonly>
+            <input class="qty-value" id="qtyValue" value="1" readonly aria-label="Quantity">
             <button class="qty-btn" onclick="adjustQty(1)">+</button>
           </div>
         </div>

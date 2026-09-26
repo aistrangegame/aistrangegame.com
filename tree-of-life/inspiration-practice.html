@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://aistrangegame.com/tree-of-life/inspiration-practice">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Inspiration · The Pull — A Strange Chakra Map</title>
 <meta name="description" content="The pull that is smarter than the plan.">
@@ -176,8 +178,11 @@ textarea.writing:focus{border-color:var(--chakra)}
 /* no gates — a one-tap way through every hold */
 .tap-through{display:inline-flex;align-items:center;justify-content:center;min-height:44px;margin-top:12px;padding:0 18px;background:none;border:1px solid currentColor;border-radius:999px;color:inherit;opacity:.8;font-family:var(--sans);font-size:11px;letter-spacing:.2em;text-transform:uppercase;cursor:pointer}.tap-through:focus-visible{outline:2px solid currentColor;outline-offset:3px}
 </style>
+<meta property="og:image" content="https://aistrangegame.com/og/tree-of-life--inspiration-practice.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style data-legible>/* the page's own colours, hue kept, lightness moved to 4.5:1 — tools/v3/legible.py */.practice-label{color:#7485c2!important}</style>
 </head>
-<body>
+<body data-seam="present" data-world="walk" data-v="23" data-parent="/walk/" data-parent-name="The Walk">
 <div class="progress-bar" id="progress" aria-hidden="true"></div>
 
 <section class="hero" id="top">
@@ -457,5 +462,7 @@ When you can feel the pull — tap.</div>
   addEventListener('keydown',e=>{if(!sm.classList.contains('on'))return;if(e.key==='Escape')closeStory();else if((e.key==='ArrowRight'||e.key===' ')&&!act2Launched){e.preventDefault();advance()}});
 })();
 </script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body>
 </html>

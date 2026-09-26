@@ -1,0 +1,184 @@
+/* ─────────────────────────────────────────────────────────────
+   movements/VI-vantages.css — ten ways of looking at one moving point.
+
+   Material: STILL INK. Every other line on the site boils; these do not —
+   they are angles of seeing, not things that were made. So: no glow, no
+   emission, hairline matte strokes. That is the felt difference from
+   Movement V, which was light through glass.
+
+   Ground: ten near-blacks within four hex values of each other, warm
+   undertone. One colour seen ten ways.
+
+   Mark budget: the fewest on the site — twelve across ten worlds.
+   Bindu is the one exception to the stillness; he is the only thing on the
+   page that travels on his own.
+   ───────────────────────────────────────────────────────────── */
+
+/* No overflow clipping here: overflow:hidden on a sticky's containing block makes that box the
+   scroll container, and with no scrollable overflow `top:0` never engages — which silently killed
+   Ashrey's scrub and Gaia's held sky. Clip only the world that genuinely needs it (#v-bindu). */
+.vant{position:relative;min-height:100svh;display:grid;grid-template-columns:minmax(0,1fr);
+  gap:0;place-items:center;padding-block:clamp(44px,8svh,100px);padding-inline:26px;
+  text-align:center;background:var(--g,#0C0A09);--pad:26px}
+.vant>.hold{max-width:min(100%,430px);display:grid;justify-items:center;position:relative;z-index:2}
+.vant .who{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;
+  color:rgba(245,239,230,.58);margin:0 0 min(26px,4svh)}
+.vant .who b{font-weight:400;color:var(--c)}
+
+/* the mark — still ink. No drop-shadow anywhere in this movement. */
+.vant .mk{margin:0 0 min(30px,4.6svh);display:grid;place-items:center;min-height:min(78px,11.5svh)}
+.vant .mk svg{overflow:visible}
+.vant .mk .ln{fill:none;stroke:var(--c);stroke-width:1.2;stroke-linecap:round}
+.vant .mk .hair{fill:none;stroke:rgba(245,239,230,.4);stroke-width:1;stroke-linecap:round}
+.vant .mk .sol{fill:var(--c)}
+
+.vant .moment{font-family:'Lora',Georgia,serif;font-weight:400;
+  font-size:min(clamp(26px,6.2vw,44px),7.6svh);line-height:1.14;letter-spacing:-.008em;margin:0;
+  text-wrap:balance}
+.vant .moment em{font-style:italic;color:var(--c)}
+.vant .said{margin:min(22px,3.4svh) 0 0;font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:min(15.5px,2.9svh);line-height:1.62;color:rgba(245,239,230,.74)}
+.vant .go{margin:min(26px,4svh) 0 0;min-height:44px;display:inline-flex;align-items:center;
+  padding:0 18px;border:1px solid var(--c);border-radius:999px;font-size:12.5px;
+  letter-spacing:.06em;color:var(--c)}
+.vant .go:hover,.vant .go:focus-visible{background:color-mix(in oklab,var(--c) 16%,transparent)}
+/* the one world that says it is unfinished */
+.vant .owed{margin:min(20px,3svh) 0 0;font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(245,239,230,.5)}
+
+/* ── 27 · Bindu — the only thing that travels on its own, and comes to you ── */
+#v-bindu{--c:#D4553F}
+#v-bindu{overflow:hidden}   /* the trace canvas is the one thing that must be clipped */
+#v-bindu .trace{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+#v-bindu .hold{cursor:default}
+.v-hint{margin:min(20px,3svh) 0 0;font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(245,239,230,.56);transition:color .8s}
+.v-hint.near{color:var(--c)}
+
+/* ── 28 · Gaia — five screens, the only sequence in the movement ──
+   Authored as five real screens, visible by default. The canvas behind them is
+   the enhancement; nothing here waits on the frame loop to become readable. */
+#v-gaia{--c:#7FA86B;display:block;padding:0;min-height:0}
+.g-sky{position:sticky;top:0;width:100%;height:100svh;z-index:0;pointer-events:none;
+  margin-bottom:-100svh}
+.g-stage{position:relative;z-index:1;min-height:100svh;display:grid;justify-items:center;
+  align-content:center;gap:0;text-align:center;padding:clamp(44px,8svh,100px) 26px;max-width:none}
+.g-stage>*{max-width:min(100%,540px);margin-left:auto;margin-right:auto}
+.g-k{font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;
+  color:rgba(245,239,230,.58);margin:0 0 18px}
+.g-q{font-family:'Lora',Georgia,serif;font-size:min(clamp(26px,6.2vw,44px),7.6svh);line-height:1.16;
+  margin:0;text-wrap:balance}
+.g-q em{font-style:italic;color:var(--c)}
+.g-s{margin:18px 0 0;font-family:'Lora',Georgia,serif;font-style:italic;
+  font-size:min(15.5px,2.9svh);line-height:1.6;color:rgba(245,239,230,.74)}
+
+/* ── 29 · Sid — one line, the heaviest stroke on the site, and it ignores you ── */
+#v-sid{--c:#9BBDE4}
+/* The line sits in the section's bottom padding band: clear of the copy, full-bleed,
+   and costing NO layout height. At top:50% it shared the band .hold centres its copy
+   in and bisected the headline; as a grid row it cost row-gap + 5px, which this world
+   does not have. Everything in his world rests ON it. */
+.s-line{position:absolute;left:0;right:0;bottom:calc(var(--pad,26px) / 2);height:5px;z-index:1;
+  background:#EAE6DE;opacity:.94;cursor:pointer}
+/* the mark stays 5px; the target is 44 */
+.s-line::after{content:"";position:absolute;left:0;right:0;top:50%;height:44px;margin-top:-22px}
+.s-said{min-height:1.7em;font-family:'Lora',Georgia,serif;font-style:italic;font-size:17px;
+  color:var(--c);opacity:0;transition:opacity .9s}
+.s-said.on{opacity:1}
+
+/* ── 30 · Arch — the arc that draws only while it is being read ── */
+#v-arch{--c:#E6A8BC}
+.a-arc{width:186px;height:104px}
+.a-arc path{fill:none;stroke:var(--c);stroke-width:1.4;stroke-linecap:round;
+  stroke-dasharray:1;stroke-dashoffset:1}
+.a-arc.done path{stroke-dasharray:none;stroke-dashoffset:0}
+
+/* ── 31 · Sakshi — her figure was never in her world ──
+   The ring is the RAIL's ring, re-parented. Outside #rail it loses the rail's
+   descendant rules, so its seated appearance is defined here. */
+#v-sakshi{--c:#E8DED4}
+#v-sakshi .seat{width:46px;height:46px;display:grid;place-items:center}
+#v-sakshi .seat i{display:block;width:30px;height:30px;min-width:30px;aspect-ratio:1;
+  border:1.4px solid var(--c);border-radius:50%;background:none;position:relative;
+  place-items:initial}
+#v-sakshi .seat i::after{content:"";position:absolute;inset:9px;border-radius:50%;
+  background:var(--c)}
+
+/* ── 32 · Karishma — complete on arrival; nothing waits for a return ── */
+#v-karishma{--c:#E8A0B6}
+/* she is already sounding in the world before hers */
+.k-early{position:absolute;left:50%;bottom:8%;margin-left:-13px;z-index:1;opacity:.14;
+  pointer-events:none}
+
+/* ── 33 · Neev — always below the fold, by construction ── */
+#v-neev{--c:#93A3B4}
+.n-ground{position:fixed;left:0;right:0;bottom:0;height:34svh;z-index:1;pointer-events:none;
+  opacity:0;transition:opacity 1.2s;
+  background:linear-gradient(to bottom,transparent,rgba(4,4,6,.92))}
+.n-ground.on{opacity:1}
+.n-ground svg{position:absolute;left:50%;bottom:-13svh;width:300px;height:26svh;margin-left:-150px}
+@keyframes nTremor{
+  0%,100%{transform:translate(0,0)}
+  20%{transform:translate(1.4px,-1px)}45%{transform:translate(-1.2px,1.4px)}
+  70%{transform:translate(1px,1.2px)}}
+.tremor{animation:nTremor .3s steps(3) 1}
+
+/* ── 34 · Shweta — the whole figure is negative space ──
+   Definite width: the mark track is content-sized, and this figure's content is
+   a channel that is deliberately empty, so a percentage would resolve to zero. */
+#v-shweta{--c:#EFE7D9}
+.w-chan{position:relative;width:clamp(220px,64vw,300px);height:118px}
+.w-chan svg{position:absolute;inset:0;width:100%;height:100%}
+.w-chan .grain{fill:rgba(245,239,230,.1)}
+.w-chan .flow{fill:none;stroke-width:2.4;stroke-linecap:round;opacity:.9}
+
+/* ── 35 · Ashrey — the other nine, at eleven per cent, resolving ── */
+#v-ashrey{--c:#D4A948;min-height:220svh;display:block;padding:0}
+.x-stick{position:sticky;top:0;height:100svh;display:grid;place-items:center;text-align:center;
+  padding:clamp(44px,8svh,100px) 26px}
+.x-stack{position:relative;width:190px;height:190px;margin:0 auto min(26px,4svh)}
+.x-stack svg{position:absolute;inset:0;width:100%;height:100%}
+.x-nine>*{opacity:.11;transition:opacity .6s}
+.x-tri{opacity:0;transition:opacity .9s}
+
+/* ── 36 · Lalita — the ring, and the point at its centre, returned ── */
+#v-lalita{--c:#C9A84C}
+#v-lalita .mk{min-height:0}
+/* the ring yields to what the screen has actually left, not to a share of it */
+.l-ring{width:min(70vw,260px,calc(100svh - 414px));height:min(70vw,260px,calc(100svh - 414px));
+  position:relative;display:grid;place-items:center}
+.l-ring svg{width:100%;height:100%}
+.l-seat{position:absolute;left:50%;top:50%;width:13px;height:13px;margin:-6.5px;border-radius:50%;
+  background:var(--c);cursor:pointer}
+/* the point stays 13px; the target is 44 */
+.l-seat::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;
+  margin:-22px 0 0 -22px;border-radius:50%}
+
+/* what Shweta's channel emits tints the world after her — the token is consumed here */
+.vant[style*="--emit"]::after{content:"";position:absolute;inset:0 0 auto;height:34svh;z-index:0;
+  pointer-events:none;opacity:.5;
+  background:linear-gradient(to bottom,color-mix(in oklab,var(--emit) 22%,transparent),transparent)}
+
+@media (min-width:900px){
+  .vant{padding-inline:64px;--pad:64px}
+  .vant>.hold{max-width:min(100%,540px)}
+  .g-stage>*{max-width:min(100%,560px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .vant .mk *,.a-arc path,.x-nine>*,.x-tri{animation:none!important;transition:none!important}
+  .a-arc path{stroke-dasharray:none;stroke-dashoffset:0}
+  .g-stage{opacity:1;transform:none}
+  .tremor{animation:none!important}
+}
+/* Gaia is its own scroll of screens (padding:0); the doors row the homepage adds after them needs the
+   room every other world gives its doors, or it sits cut off under the top bar of the world below */
+#v-gaia>.row.doors,#v-gaia .row.doors:last-child{margin-bottom:0;padding:0 26px 62px 52px}
+/* Gaia's drawings pass behind her words (the tree's trunk runs through "a root"): the words carry a
+   halo of the ground, so a line breaks around each letter instead of striking through it */
+#v-gaia .g-q,#v-gaia .g-s,#v-gaia .g-k{position:relative;z-index:1;
+  text-shadow:0 0 6px #0A0A0C,0 0 12px #0A0A0C,0 0 18px #0A0A0C}
+/* Ashrey's words ride down his long section (sticky) and came to rest flush with its foot — so landing on
+   Lalita, his doors sat under the top bar. The section keeps room below them. */
+#v-ashrey{padding-bottom:96px}
+/* a vantage's sentence keeps a reading measure: Ashrey's ran the full window at 1024 (960px a line), into the rail */
+.vant .said,.vant .owed,.vant .v-hint{max-width:min(62ch,100%);margin-inline:auto}

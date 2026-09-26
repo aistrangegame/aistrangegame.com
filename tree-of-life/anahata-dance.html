@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://aistrangegame.com/tree-of-life/anahata-dance">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Anahata · open</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,600&display=swap" rel="stylesheet">
@@ -36,8 +38,10 @@ canvas{position:fixed;top:0;left:0;width:100%;height:100%}
 .fo .ft{font:italic 400 clamp(12px,2.8vw,16px)/1.9 'Lora',serif;color:rgba(255,180,200,0.55);letter-spacing:0.5px;max-width:min(85vw,480px);text-align:center}
 .fo .sig{font:300 0.55rem/1.4 sans-serif;color:rgba(200,100,140,0.2);letter-spacing:3px;text-transform:uppercase;text-align:center}
 </style>
+<meta property="og:image" content="https://aistrangegame.com/og/tree-of-life--anahata-dance.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body data-seam="whisper" data-world="dances" data-v="5" data-parent="/worlds/dances/" data-parent-name="The Dances">
 <canvas id="c"></canvas>
 <div class="mw" id="mirrorWord"></div>
 <div class="wr" id="wordReveal"></div>
@@ -483,5 +487,7 @@ document.addEventListener('click',()=>{if(!started&&document.getElementById('wi'
 document.getElementById('wordInput').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
 
 </script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body>
 </html>

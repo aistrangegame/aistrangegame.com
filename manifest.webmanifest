@@ -1,0 +1,28 @@
+{
+ "name": "a i strange game",
+ "short_name": "a i strange game",
+ "description": "Forty-eight worlds standing on a thirty-three-vertebra spine. One point runs through all of it.",
+ "start_url": "/",
+ "scope": "/",
+ "display": "standalone",
+ "background_color": "#F4EEE3",
+ "theme_color": "#F4EEE3",
+ "icons": [
+  {
+   "src": "/assets/icons/point-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "/assets/icons/point-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "/assets/icons/point-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}

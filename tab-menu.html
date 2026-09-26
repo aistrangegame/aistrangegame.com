@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Every world, and what it holds — a i strange game</title>
+<meta name="description" content="Forty-eight worlds and every page the register names behind them — as a list, not a walk.">
+<link rel="canonical" href="https://aistrangegame.com/tab-menu">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="a i strange game">
+<meta property="og:title" content="Every world, and what it holds">
+<meta property="og:description" content="Forty-eight worlds and every page the register names behind them — as a list, not a walk.">
+<meta property="og:url" content="https://aistrangegame.com/tab-menu">
+<meta property="og:image" content="https://aistrangegame.com/og/tab-menu.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://aistrangegame.com/og/tab-menu.jpg">
+<meta name="theme-color" content="#F4EEE3">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/assets/icons/point-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/icons/point-180.png">
+<!-- Analytics. v1 dropped this once; it is deploy-critical.
+     Loaded only on the real host: a pending third-party fetch delays the load event, and
+     nothing about a local or preview copy should be counted as a visit. -->
+<script>
+(function(){
+  var live=/(^|\.)aistrangegame\.com$/.test(location.hostname);
+  if(!live)return;
+  window.dataLayer=window.dataLayer||[];
+  window.gtag=function(){dataLayer.push(arguments)};
+  gtag('js',new Date());gtag('config','G-JDHC0YF1GB');
+  var s=document.createElement('script');
+  s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-JDHC0YF1GB';
+  document.head.appendChild(s);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@400;500&family=Cinzel:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   The Tab Page — the site as an index.
+
+   The one surface with no ceremony: no threshold, no descent, no Point,
+   no orbits. Everything is named on arrival — the Witness lens applied to
+   a whole surface. Its material is PAPER: the printed index at the back of
+   the book, which is why it is the only top-level surface on cream.
+
+   It never duplicates the Sky (which is the spine, spatial, two-tap) and
+   never becomes a second homepage. One job: find a thing by its name.
+
+   Every row is in the served markup. JavaScript only filters and re-sorts.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --cream:#F4EEE3; --paper:#FBF7EF; --ink:#1A1612; --ink2:#4A4238; --ink3:#6B5F50;
+  --rule:rgba(26,22,18,.14); --gold:#7D5F16;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'DM Sans',system-ui,-apple-system,sans-serif;overflow-x:clip}
+a{color:inherit;text-decoration:none}
+a:hover{color:#000}
+button,input{font:inherit;color:inherit}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* the paper's own grain, faint */
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply}
+
+/* ── the head: sticky, because the filter is the page's one instrument ── */
+.top{position:sticky;top:0;z-index:20;background:linear-gradient(to bottom,var(--cream) 72%,rgba(244,238,227,.86));
+  border-bottom:1px solid var(--rule);padding:10px 20px 12px;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.top-r{display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:1060px;margin:0 auto}
+.back{min-height:44px;display:inline-flex;align-items:center;gap:7px;padding:0 10px 0 4px;
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink2)}
+.back:hover{color:var(--ink)}
+.ttl{font-family:'Lora',Georgia,serif;font-size:clamp(19px,3.4vw,25px);line-height:1;margin:0;
+  flex:1 1 auto;min-width:0}
+.ttl s{display:block;text-decoration:none;font-family:'DM Sans',sans-serif;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-top:5px;font-style:normal}
+.tools{display:flex;align-items:center;gap:8px;flex-wrap:wrap;max-width:1060px;margin:10px auto 0}
+.find{position:relative;flex:1 1 220px;min-width:0}
+.find input{width:100%;min-height:44px;padding:0 34px 0 34px;border:1px solid var(--rule);
+  border-radius:2px;background:var(--paper);font-size:15px;color:var(--ink)}
+.find input::placeholder{color:var(--ink3)}
+.find input:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.find .gl{position:absolute;left:11px;top:50%;margin-top:-7px;width:14px;height:14px;
+  pointer-events:none;color:var(--ink3)}
+.find .cl{position:absolute;right:2px;top:2px;bottom:2px;width:38px;border:0;background:none;
+  cursor:pointer;color:var(--ink3);font-size:17px;display:none}
+.find .cl.on{display:block}
+.find .cl:hover{color:var(--ink)}
+.ord{display:flex;gap:0;border:1px solid var(--rule);border-radius:2px;overflow:hidden;
+  background:var(--paper);flex:0 0 auto}
+.ord button{min-height:44px;padding:0 13px;border:0;background:none;cursor:pointer;
+  font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.ord button+button{border-left:1px solid var(--rule)}
+.ord button[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.tally{flex:0 0 auto;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+  font-variant-numeric:tabular-nums;min-height:44px;display:inline-flex;align-items:center}
+
+/* ── the body ── */
+main{max-width:1060px;margin:0 auto;padding:22px 20px 80px}
+.lede{font-family:'Lora',Georgia,serif;font-style:italic;font-size:16px;line-height:1.55;
+  color:var(--ink2);max-width:52ch;margin:0 0 26px}
+.grp{margin:0 0 30px}
+.grp.off{display:none}
+.grp-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:0 0 6px;
+  padding-bottom:7px;border-bottom:1px solid var(--rule);font-weight:400}
+.grp-h i{font-family:'Cinzel',Georgia,serif;font-style:normal;font-size:12px;letter-spacing:.2em;
+  color:var(--gold);min-width:2.6em}
+.grp-h b{font-family:'Lora',Georgia,serif;font-weight:400;font-size:19px}
+.grp-h s{text-decoration:none;font-size:12.5px;color:var(--ink3);flex:1 1 auto;min-width:0}
+.grp-h em{font-style:normal;font-size:11px;letter-spacing:.14em;color:var(--ink3);
+  font-variant-numeric:tabular-nums}
+.rows{list-style:none;margin:0;padding:0;
+  columns:1;column-gap:38px}
+.row{break-inside:avoid}
+.row.off{display:none}
+.row a{display:grid;grid-template-columns:14px minmax(0,1fr) auto;
+  grid-template-rows:auto auto;align-items:center;
+  gap:1px 11px;min-height:48px;padding:6px 2px;border-bottom:1px solid rgba(26,22,18,.07)}
+.row a:hover,.row a:focus-visible{background:rgba(255,255,255,.6);outline:0}
+.row a:focus-visible{box-shadow:inset 0 0 0 1px var(--gold)}
+.mk{grid-column:1;grid-row:1 / span 2;width:9px;height:9px;border-radius:50%;background:var(--m);
+  box-shadow:0 0 0 3px color-mix(in oklab,var(--m) 14%,transparent);justify-self:center}
+.nm{grid-column:2;grid-row:1;font-family:'Lora',Georgia,serif;font-size:16.5px;line-height:1.25}
+.wh{grid-column:2;grid-row:2;font-size:11.5px;letter-spacing:.06em;color:var(--ink3);line-height:1.3}
+.pg{grid-column:3;grid-row:1 / span 2;font-size:12px;color:var(--ink2);white-space:nowrap;
+  font-variant-numeric:tabular-nums;text-align:right;align-self:center}
+.pg s{text-decoration:none;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3)}
+.row.hit .nm{color:#000}
+.row.hit .mk{box-shadow:0 0 0 4px color-mix(in oklab,var(--m) 26%,transparent)}
+
+.none{display:none;font-family:'Lora',Georgia,serif;font-style:italic;font-size:17px;
+  color:var(--ink2);padding:24px 0}
+.none.on{display:block}
+.foot{max-width:1060px;margin:0 auto;padding:0 20px 60px;border-top:1px solid var(--rule);
+  padding-top:22px;display:flex;flex-wrap:wrap;gap:8px 26px;align-items:baseline}
+.foot p{margin:0;font-size:12.5px;line-height:1.6;color:var(--ink3);max-width:46ch}
+.foot a{min-height:44px;display:inline-flex;align-items:center;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold)}
+.foot a:hover{color:var(--ink)}
+
+@media (min-width:760px){
+  .rows{columns:2}
+  main{padding-top:28px}
+}
+@media (min-width:1080px){.rows{columns:2;column-gap:52px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* T1 · beneath each world: its floors (the big worlds) or its pages by name — an index line, not a second list */
+.row{padding-bottom:4px}
+.sub{list-style:none;margin:2px 0 8px 25px;padding:0;display:flex;flex-wrap:wrap;gap:0 2px;font-size:13px;line-height:1.3;color:var(--ink2)}
+.sub li{display:inline-flex}
+.sub li:not(:last-child)::after{content:"·";color:var(--ink3);padding:0 5px 0 5px;align-self:center}
+.sub a,.sub .hol{display:inline-flex;align-items:center;min-height:44px;border-bottom:0}
+.sub a{color:var(--ink2);text-decoration:underline;text-decoration-color:rgba(26,22,18,.22);text-underline-offset:3px}
+.sub a:hover,.sub a:focus-visible{color:#000;text-decoration-color:currentColor}
+.sub .hol{color:var(--ink3);font-style:italic}
+.sub li.off{display:none}
+.sub li.hit a{color:#000;text-decoration-color:var(--gold)}
+.row a{border-bottom:0}
+.row{border-bottom:1px solid rgba(26,22,18,.07)}
+.none a{color:var(--gold);text-decoration:underline}
+/* the rim of the site, named once at the foot */
+.foot p.rim{flex:1 0 100%;max-width:none;font-size:12.5px;color:var(--ink3)}
+.foot p.rim a{letter-spacing:.04em;text-transform:none;font-size:12.5px;color:var(--gold);text-decoration:underline;text-underline-offset:3px}
+</style>
+</head>
+<!-- GENERATED by learning-register/tools/v3/edges.py — do not edit. Sources: Design's Tab Page (design-baseline/site/tab-menu.html: its style, its script, its words), the world table, data/register.json via gateways.rows_by_world, floors.json, COPY-PASS §6 -->
+<body data-page="tab" style="--gw-acc-ink:#5A4712" data-seam="present" data-parent="/" data-parent-name="the doors" data-world-name="every world, by name">
+<header class="top">
+  <div class="top-r">
+    <h1 class="ttl">Every world, and what it holds<s>everything, by name</s></h1>
+  </div>
+  <div class="tools">
+    <div class="find" data-block="search">
+      <svg class="gl" viewBox="0 0 14 14" aria-hidden="true"><circle cx="6" cy="6" r="4.4" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M9.3 9.3 13 13" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="Type one word you’re carrying." aria-label="Type one word you’re carrying — every world and page, by name">
+      <button class="cl" id="clr" type="button" aria-label="Clear">×</button>
+    </div>
+    <div class="ord" role="group" aria-label="Order" data-block="orders">
+      <button type="button" data-o="mv" aria-pressed="true">movement</button>
+      <button type="button" data-o="v" aria-pressed="false">spine</button>
+      <button type="button" data-o="az" aria-pressed="false">a–z</button>
+    </div>
+    <span class="tally" id="tally">48 worlds</span>
+  </div>
+</header>
+<main data-block="worlds">
+  <p class="lede">Forty-eight worlds, and every page the register names behind them. Nothing here is
+  gated, nothing is in a sequence you have to follow, and the three orders below are the three the
+  site actually has: the order it is read in, the order of the body, and the order a stranger needs.</p>
+<section class="grp" data-grp="mv-II"><h2 class="grp-h"><i>II</i><b>The Field</b><s>what&#x27;s alive, and still growing</s><em>10</em></h2><ul class="rows"><li class="row" data-nm="Walk" data-mv="II" data-v="99" data-q="the walk ii the field the whole spine">
+  <a href="/walk/" style="--m:#8A6B20"><i class="mk" aria-hidden="true"></i><span class="nm">The Walk</span><span class="wh">the whole spine</span><span class="pg">22 <s>pages</s></span></a><ul class="sub" aria-label="The Walk — its pages"><li data-q="bindu"><a href="/tree-of-life/bindu-practice">Bindu</a></li><li data-q="muladhara"><a href="/tree-of-life/muladhara-practice">Muladhara</a></li><li data-q="svadhisthana"><a href="/tree-of-life/svadhisthana-practice">Svadhisthana</a></li><li data-q="manipura"><a href="/tree-of-life/manipura-practice">Manipura</a></li><li data-q="anahata"><a href="/tree-of-life/anahata-practice">Anahata</a></li><li data-q="vishuddha"><a href="/tree-of-life/vishuddha-practice">Vishuddha</a></li><li data-q="ajna"><a href="/tree-of-life/ajna-practice">Ajna</a></li><li data-q="sahasrara"><a href="/tree-of-life/sahasrara-practice">Sahasrara</a></li><li data-q="shadow"><a href="/tree-of-life/shadow-practice">Shadow</a></li><li data-q="soles"><span class="hol">Soles</span></li><li data-q="forge"><span class="hol">Forge</span></li><li data-q="prana"><span class="hol">Prana</span></li><li data-q="hands"><span class="hol">Hands</span></li><li data-q="pulse"><span class="hol">Pulse</span></li><li data-q="sonar"><span class="hol">Sonar</span></li><li data-q="echo"><span class="hol">Echo</span></li><li data-q="vision"><span class="hol">Vision</span></li><li data-q="axis"><span class="hol">Axis</span></li><li data-q="crow"><span class="hol">Crow</span></li><li data-q="armin"><span class="hol">Armin</span></li><li data-q="inception"><a href="/tree-of-life/inception-practice">Inception</a></li><li data-q="intention"><a href="/tree-of-life/intention-practice">Intention</a></li><li data-q="inspiration"><a href="/tree-of-life/inspiration-practice">Inspiration</a></li><li data-q="insight"><a href="/tree-of-life/insight-practice">Insight</a></li><li data-q="intuition"><a href="/tree-of-life/intuition-practice">Intuition</a></li><li data-q="invention"><a href="/tree-of-life/invention-practice">Invention</a></li><li data-q="incarnation"><a href="/tree-of-life/incarnation-practice">Incarnation</a></li><li data-q="innocence"><a href="/tree-of-life/innocence-practice">Innocence</a></li><li data-q="integration"><a href="/tree-of-life/integration-practice">Integration</a></li><li data-q="maya"><a href="/tree-of-life/maya-practice">Maya</a></li><li data-q="aatma"><a href="/tree-of-life/aatma-practice">Aatma</a></li><li data-q="ego reveal"><a href="/tree-of-life/ego-reveal-practice">Ego Reveal</a></li><li data-q="lalita"><a href="/tree-of-life/lalita-practice">Lalita</a></li><li data-q="the passages"><span class="hol">The passages</span></li></ul></li>
+<li class="row" data-nm="Chakra Map" data-mv="II" data-v="99" data-q="the chakra map ii the field the whole spine">
+  <a href="/worlds/chakra-map/" style="--m:#8A6B20"><i class="mk" aria-hidden="true"></i><span class="nm">The Chakra Map</span><span class="wh">the whole spine</span><span class="pg">2 <s>pages</s></span></a><ul class="sub" aria-label="The Chakra Map — its pages"><li data-q="the full chakra map"><a href="/chakras/chakra-map">The Full Chakra Map</a></li><li data-q="the thirty-three pages — what it is"><a href="/guide/chakra-map">The thirty-three pages — what it is</a></li></ul></li>
+<li class="row" data-nm="Practice Book" data-mv="II" data-v="99" data-q="the practice book ii the field the whole spine">
+  <a href="/worlds/practice-book/" style="--m:#8A6B20"><i class="mk" aria-hidden="true"></i><span class="nm">The Practice Book</span><span class="wh">the whole spine</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="The Practice Book — its pages"><li data-q="a strange chakra map — the practice book"><a href="/chakras/chakra-practice">A Strange Chakra Map — The Practice Book</a></li></ul></li>
+<li class="row" data-nm="Dances" data-mv="II" data-v="10" data-q="the dances ii the field the body chakras · 10–19 soles forge prana hands pulse sonar echo vision axis crow">
+  <a href="/worlds/dances/" style="--m:#D14720"><i class="mk" aria-hidden="true"></i><span class="nm">The Dances</span><span class="wh">the body chakras · 10–19</span><span class="pg">28 <s>pages</s></span></a><ul class="sub" aria-label="The Dances — its pages"><li data-q="howl"><a href="/b/howl">howl</a></li><li data-q="still"><a href="/b/still">still</a></li><li data-q="crash"><span class="hol">crash</span></li><li data-q="earn"><span class="hol">earn</span></li><li data-q="return"><a href="/b/return">return</a></li><li data-q="ground"><span class="hol">ground</span></li><li data-q="wild"><a href="/b/wild">wild</a></li><li data-q="remember"><a href="/b/remember">remember</a></li><li data-q="shine"><a href="/b/shine">shine</a></li><li data-q="arise"><span class="hol">arise</span></li><li data-q="believe"><span class="hol">believe</span></li><li data-q="play"><span class="hol">play</span></li><li data-q="glow"><a href="/b/glow">glow</a></li><li data-q="melt"><a href="/b/melt">melt</a></li><li data-q="lose"><a href="/b/lose">lose</a></li><li data-q="release"><a href="/b/release">release</a></li><li data-q="search"><a href="/b/search">search</a></li><li data-q="enough"><a href="/b/enough">enough</a></li><li data-q="abide"><span class="hol">abide</span></li><li data-q="light"><a href="/b/light">light</a></li><li data-q="dream"><a href="/b/dream">dream</a></li><li data-q="rise"><a href="/b/rise">rise</a></li><li data-q="numb"><span class="hol">numb</span></li><li data-q="fade"><a href="/b/fade">fade</a></li><li data-q="ache"><span class="hol">ache</span></li><li data-q="reach"><a href="/b/reach">reach</a></li><li data-q="move"><a href="/b/move">move</a></li><li data-q="trace"><span class="hol">trace</span></li><li data-q="bindus"><a href="/guide/bindu-dances">bindus</a></li><li data-q="aatma"><a href="/tree-of-life/aatma-dance">aatma</a></li><li data-q="ajna"><a href="/tree-of-life/ajna-dance">ajna</a></li><li data-q="anahata"><a href="/tree-of-life/anahata-dance">anahata</a></li><li data-q="manipura"><a href="/tree-of-life/manipura-dance">manipura</a></li><li data-q="maya"><a href="/tree-of-life/maya-dance">maya</a></li><li data-q="muladhara"><a href="/tree-of-life/muladhara-dance">muladhara</a></li><li data-q="sahasrara"><a href="/tree-of-life/sahasrara-dance">sahasrara</a></li><li data-q="svadhisthana"><a href="/tree-of-life/svadhisthana-dance">svadhisthana</a></li><li data-q="vishuddha"><a href="/tree-of-life/vishuddha-dance">vishuddha</a></li><li data-q="bindu-performances"><span class="hol">bindu-performances</span></li><li data-q="stay"><span class="hol">stay</span></li></ul></li>
+<li class="row" data-nm="Readings" data-mv="II" data-v="2" data-q="the readings ii the field the energy centres · 2–8 muladhara svadhisthana manipura anahata vishuddha ajna sahasrara">
+  <a href="/bindu/read/" style="--m:#347B8B"><i class="mk" aria-hidden="true"></i><span class="nm">The Readings</span><span class="wh">the energy centres · 2–8</span><span class="pg">44 <s>pages</s></span></a><ul class="sub" aria-label="The Readings — its pages"><li data-q="ground"><a href="/bindu/read/ground">ground</a></li><li data-q="press"><a href="/bindu/read/press">press</a></li><li data-q="remember"><a href="/bindu/read/remember">remember</a></li><li data-q="enough"><a href="/bindu/read/enough">enough</a></li><li data-q="follow"><a href="/bindu/read/follow">follow</a></li><li data-q="melt"><a href="/bindu/read/melt">melt</a></li><li data-q="numb"><a href="/bindu/read/numb">numb</a></li><li data-q="release"><a href="/bindu/read/release">release</a></li><li data-q="trace"><a href="/bindu/read/trace">trace</a></li><li data-q="build"><a href="/bindu/read/build">build</a></li><li data-q="howl"><a href="/bindu/read/howl">howl</a></li><li data-q="move"><a href="/bindu/read/move">move</a></li><li data-q="wild"><a href="/bindu/read/wild">wild</a></li><li data-q="lose"><a href="/bindu/read/lose">lose</a></li><li data-q="open"><a href="/bindu/read/open">open</a></li><li data-q="rise"><a href="/bindu/read/rise">rise</a></li><li data-q="speak"><a href="/bindu/read/speak">speak</a></li><li data-q="believe"><a href="/bindu/read/believe">believe</a></li><li data-q="glow"><a href="/bindu/read/glow">glow</a></li><li data-q="light"><a href="/bindu/read/light">light</a></li><li data-q="still"><a href="/bindu/read/still">still</a></li><li data-q="receive"><a href="/bindu/read/receive">receive</a></li><li data-q="hold"><a href="/bindu/read/hold">hold</a></li><li data-q="dissolve"><a href="/bindu/read/dissolve">dissolve</a></li><li data-q="fade"><a href="/bindu/read/fade">fade</a></li><li data-q="before"><a href="/bindu/read/before">before</a></li><li data-q="dream"><a href="/bindu/read/dream">dream</a></li><li data-q="ember"><a href="/bindu/read/ember">ember</a></li><li data-q="in shadow"><a href="/bindu/read/in-shadow">in shadow</a></li><li data-q="kingdom"><a href="/bindu/read/kingdom">kingdom</a></li><li data-q="search"><a href="/bindu/read/search">search</a></li><li data-q="breath activate"><a href="/bindu/read/breath-activate">breath activate</a></li><li data-q="breath balance"><a href="/bindu/read/breath-balance">breath balance</a></li><li data-q="breath clarify"><a href="/bindu/read/breath-clarify">breath clarify</a></li><li data-q="breath cohere"><a href="/bindu/read/breath-cohere">breath cohere</a></li><li data-q="breath dissolve"><a href="/bindu/read/breath-dissolve">breath dissolve</a></li><li data-q="breath expand"><a href="/bindu/read/breath-expand">breath expand</a></li><li data-q="breath ground"><a href="/bindu/read/breath-ground">breath ground</a></li><li data-q="breath open"><a href="/bindu/read/breath-open">breath open</a></li><li data-q="breath rest"><a href="/bindu/read/breath-rest">breath rest</a></li><li data-q="breath sleep"><a href="/bindu/read/breath-sleep">breath sleep</a></li><li data-q="breath sound"><a href="/bindu/read/breath-sound">breath sound</a></li><li data-q="shuffle"><a href="/bindu/read/shuffle">shuffle</a></li><li data-q="reading space"><a href="/guide/reading-space">reading space</a></li></ul></li>
+<li class="row" data-nm="Teachings" data-mv="II" data-v="21" data-q="the teachings ii the field the mind chakras · 21–29 inception intention inspiration insight intuition invention incarnation innocence integration">
+  <a href="/teachings/" style="--m:#8056DC"><i class="mk" aria-hidden="true"></i><span class="nm">The Teachings</span><span class="wh">the mind chakras · 21–29</span><span class="pg">198 <s>pages</s></span></a><ul class="sub" aria-label="The Teachings — its floors"><li data-q="the laws"><a href="/teachings/laws/">The laws</a></li><li data-q="mind and body"><a href="/teachings/mind-body/">Mind and body</a></li><li data-q="skills"><a href="/teachings/skills/">Skills</a></li><li data-q="relationships"><a href="/teachings/relationships/">Relationships</a></li><li data-q="more teachings"><a href="/teachings/more/">More teachings</a></li></ul></li>
+<li class="row" data-nm="Learning" data-mv="II" data-v="21" data-q="learning ii the field the mind chakras · 21–29 inception intention inspiration insight intuition invention incarnation innocence integration">
+  <a href="/learning/" style="--m:#366EE1"><i class="mk" aria-hidden="true"></i><span class="nm">Learning</span><span class="wh">the mind chakras · 21–29</span><span class="pg">498 <s>pages</s></span></a><ul class="sub" aria-label="Learning — its floors"><li data-q="the therapy lake"><a href="/learning/lake/therapy/">The Therapy lake</a></li><li data-q="the consciousness lake"><a href="/learning/lake/consciousness/">The Consciousness lake</a></li><li data-q="the learning lake"><a href="/learning/lake/learning/">The Learning lake</a></li><li data-q="calendars"><a href="/learning/calendar/">Calendars</a></li><li data-q="field guides"><a href="/learning/fieldguide/">Field guides</a></li><li data-q="icebreakers"><a href="/learning/icebreaker/">Icebreakers</a></li><li data-q="maps"><a href="/learning/map/">Maps</a></li><li data-q="portraits"><a href="/learning/portrait/">Portraits</a></li><li data-q="practice cards"><a href="/learning/practice/">Practice cards</a></li><li data-q="recipes"><a href="/learning/recipe/">Recipes</a></li><li data-q="storybooks"><a href="/learning/story/">Storybooks</a></li><li data-q="two chairs"><a href="/learning/twochairs/">Two chairs</a></li><li data-q="verses"><a href="/learning/verse/">Verses</a></li></ul></li>
+<li class="row" data-nm="Courses" data-mv="II" data-v="10" data-q="the courses ii the field the body chakras · 10–19 soles forge prana hands pulse sonar echo vision axis crow">
+  <a href="/worlds/courses/" style="--m:#366EE1"><i class="mk" aria-hidden="true"></i><span class="nm">The Courses</span><span class="wh">the body chakras · 10–19</span><span class="pg">2 <s>pages</s></span></a><ul class="sub" aria-label="The Courses — its pages"><li data-q="a month with anxiety — a walk"><a href="/learning/walk/a-month-with-anxiety">A Month With Anxiety — a walk</a></li><li data-q="thirty days of connection — a walk"><a href="/learning/walk/thirty-days-of-connection">Thirty Days of Connection — a walk</a></li></ul></li>
+<li class="row" data-nm="Guidebook" data-mv="II" data-v="1" data-q="the guidebook ii the field the recognition points">
+  <a href="/guide/" style="--m:#517C3E"><i class="mk" aria-hidden="true"></i><span class="nm">The Guidebook</span><span class="wh">the recognition points</span><span class="pg">15 <s>pages</s></span></a><ul class="sub" aria-label="The Guidebook — its pages"><li data-q="the thirty-three pages"><a href="/guide/chakra-map">The thirty-three pages</a></li><li data-q="the dances"><a href="/guide/bindu-dances">The dances</a></li><li data-q="the readings"><a href="/guide/reading-space">The readings</a></li><li data-q="a strange story"><a href="/guide/a-strange-story">A Strange Story</a></li><li data-q="a strange voice"><a href="/guide/a-strange-voice">A Strange Voice</a></li><li data-q="the tree of life"><a href="/guide/tree-of-life">The Tree of Life</a></li><li data-q="bindu feed"><a href="/guide/bindu-feed">Bindu Feed</a></li><li data-q="bindu learning"><a href="/guide/bindu-learning">Bindu Learning</a></li><li data-q="guide — bindu voice"><span class="hol">Guide — Bindu Voice</span></li><li data-q="bindu field"><a href="/guide/bindu-field">Bindu Field</a></li><li data-q="bindu being"><a href="/guide/bindu-being">Bindu Being</a></li><li data-q="lalita family"><a href="/guide/lalita-family">Lalita Family</a></li><li data-q="bindu mandala"><a href="/guide/bindu-mandala">Bindu Mandala</a></li><li data-q="guide — bindu chakras"><span class="hol">Guide — Bindu Chakras</span></li><li data-q="what all of this is"><a href="/guide/the-field">What all of this is</a></li><li data-q="it was always lucky"><a href="/guide/it-was-always-lucky">It Was Always Lucky</a></li><li data-q="the family"><a href="/guide/the-family">The Family</a></li></ul></li>
+<li class="row" data-nm="Forms" data-mv="II" data-v="26" data-q="the forms ii the field vertebra 26 · invention invention">
+  <a href="/worlds/forms/" style="--m:#517C3E"><i class="mk" aria-hidden="true"></i><span class="nm">The Forms</span><span class="wh">vertebra 26 · Invention</span><span class="pg">12 <s>pages</s></span></a><ul class="sub" aria-label="The Forms — its pages"><li data-q="icebreaker"><a href="/learning/icebreaker/7-chakras">icebreaker</a></li><li data-q="storybook"><a href="/learning/story/7-chakras">storybook</a></li><li data-q="teaching"><a href="/teachings/only-true-when-true">teaching</a></li><li data-q="practice card"><a href="/learning/practice/blue-zones">practice card</a></li><li data-q="walk"><a href="/learning/walk/a-month-with-anxiety">walk</a></li><li data-q="field guide"><a href="/learning/fieldguide/1-5-the-role-of-therapy">field guide</a></li><li data-q="portrait"><a href="/learning/portrait/adi-shankaracharya">portrait</a></li><li data-q="map"><a href="/learning/map/7-chakras">map</a></li><li data-q="two chairs"><a href="/learning/twochairs/alkaline-water">two chairs</a></li><li data-q="recipe"><a href="/learning/recipe/kombucha-scoby">recipe</a></li><li data-q="calendar"><a href="/learning/calendar/diwali">calendar</a></li><li data-q="verse"><a href="/learning/verse/gayatri-mantra">verse</a></li></ul></li></ul></section>
+<section class="grp" data-grp="mv-III"><h2 class="grp-h"><i>III</i><b>The Voices</b><s>language, and what it carries</s><em>4</em></h2><ul class="rows"><li class="row" data-nm="Strange Story" data-mv="III" data-v="27" data-q="a strange story iii the voices vertebrae 27, 28, 29 incarnation innocence integration">
+  <a href="/worlds/a-strange-story/" style="--m:#BF5326"><i class="mk" aria-hidden="true"></i><span class="nm">A Strange Story</span><span class="wh">vertebrae 27, 28, 29</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="A Strange Story — its pages"><li data-q="a strange story — what it is"><a href="/guide/a-strange-story">A Strange Story — what it is</a></li><li data-q="a strange story (v7.1)"><span class="hol">A Strange Story (V7.1)</span></li></ul></li>
+<li class="row" data-nm="Strange Voice" data-mv="III" data-v="10" data-q="a strange voice iii the voices the body chakras · 10–19 soles forge prana hands pulse sonar echo vision axis crow">
+  <a href="/worlds/a-strange-voice/" style="--m:#CE3E6B"><i class="mk" aria-hidden="true"></i><span class="nm">A Strange Voice</span><span class="wh">the body chakras · 10–19</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="A Strange Voice — its pages"><li data-q="a strange voice — what it is"><a href="/guide/a-strange-voice">A Strange Voice — what it is</a></li><li data-q="a strange voice — the frame"><span class="hol">A Strange Voice — the frame</span></li></ul></li>
+<li class="row" data-nm="Strange Game" data-mv="III" data-v="99" data-q="a strange game iii the voices the whole spine">
+  <a href="/worlds/a-strange-game/" style="--m:#866E29"><i class="mk" aria-hidden="true"></i><span class="nm">A Strange Game</span><span class="wh">the whole spine</span><span class="pg">3 <s>pages</s></span></a><ul class="sub" aria-label="A Strange Game — its pages"><li data-q="the one"><a href="/tree-of-life/the-one">The One</a></li><li data-q="the road home"><a href="/tree-of-life/the-road-home">The Road Home</a></li><li data-q="the welcome"><a href="/tree-of-life/the-welcome">The Welcome</a></li><li data-q="the call"><span class="hol">The Call</span></li><li data-q="the call — gaia&#x27;s letter"><span class="hol">The Call — Gaia&#x27;s letter</span></li><li data-q="the leela"><span class="hol">The Leela</span></li><li data-q="the leela — manifesto"><span class="hol">The Leela — manifesto</span></li><li data-q="the one speaks"><span class="hol">The One Speaks</span></li></ul></li>
+<li class="row" data-nm="Voice Library" data-mv="III" data-v="6" data-q="the voice library iii the voices vertebra 6 · vishuddha vishuddha">
+  <a href="/worlds/voice-library/" style="--m:#347B8B"><i class="mk" aria-hidden="true"></i><span class="nm">The Voice Library</span><span class="wh">vertebra 6 · Vishuddha</span><span class="pg"></span></a></li></ul></section>
+<section class="grp" data-grp="mv-IV"><h2 class="grp-h"><i>IV</i><b>The Tree</b><s>the room, walked around</s><em>4</em></h2><ul class="rows"><li class="row" data-nm="Tree of Life" data-mv="IV" data-v="2" data-q="the tree of life iv the tree vertebrae 2, 3, 4, 5, 6, 7, 8, 30, 31 muladhara svadhisthana manipura anahata vishuddha ajna sahasrara maya aatma">
+  <a href="/tree-of-life/" style="--m:#D1462D"><i class="mk" aria-hidden="true"></i><span class="nm">The Tree of Life</span><span class="wh">vertebrae 2, 3, 4, 5, 6, 7, 8, 30, 31</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="The Tree of Life — its pages"><li data-q="the tree of life — what it is"><a href="/guide/tree-of-life">The Tree of Life — what it is</a></li><li data-q="muladhara — wake-up"><span class="hol">Muladhara — wake-up</span></li><li data-q="svadhisthana — wake-up"><span class="hol">Svadhisthana — wake-up</span></li><li data-q="manipura — wake-up"><span class="hol">Manipura — wake-up</span></li><li data-q="anahata — wake-up"><span class="hol">Anahata — wake-up</span></li><li data-q="vishuddha — wake-up"><span class="hol">Vishuddha — wake-up</span></li><li data-q="ajna — wake-up"><span class="hol">Ajna — wake-up</span></li><li data-q="sahasrara — wake-up"><span class="hol">Sahasrara — wake-up</span></li><li data-q="aatma — wake-up"><span class="hol">Aatma — wake-up</span></li><li data-q="maya — sleep"><span class="hol">Maya — sleep</span></li></ul></li>
+<li class="row" data-nm="Axis" data-mv="IV" data-v="18" data-q="the axis iv the tree vertebra 18 · axis axis">
+  <a href="/worlds/axis/" style="--m:#436DD8"><i class="mk" aria-hidden="true"></i><span class="nm">The Axis</span><span class="wh">vertebra 18 · Axis</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Three Trees" data-mv="IV" data-v="99" data-q="the three trees iv the tree the whole spine">
+  <a href="/worlds/three-trees/" style="--m:#4E7C38"><i class="mk" aria-hidden="true"></i><span class="nm">The Three Trees</span><span class="wh">the whole spine</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Temple Guide" data-mv="IV" data-v="31" data-q="the temple guide iv the tree vertebra 31 · aatma aatma">
+  <a href="/worlds/temple-guide/" style="--m:#8B6A21"><i class="mk" aria-hidden="true"></i><span class="nm">The Temple Guide</span><span class="wh">vertebra 31 · Aatma</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="The Temple Guide — its pages"><li data-q="the temple"><a href="/tree-of-life/temple-guide">The Temple</a></li></ul></li></ul></section>
+<section class="grp" data-grp="mv-V"><h2 class="grp-h"><i>V</i><b>The Instruments</b><s>the choir</s><em>8</em></h2><ul class="rows"><li class="row" data-nm="Bindu Feed" data-mv="V" data-v="1" data-q="bindu feed v the instruments vertebra 1 · bindu bindu">
+  <a href="/worlds/bindu-feed/" style="--m:#866E29"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu Feed</span><span class="wh">vertebra 1 · Bindu</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="Bindu Feed — its pages"><li data-q="bindu feed — what it is"><a href="/guide/bindu-feed">Bindu Feed — what it is</a></li></ul></li>
+<li class="row" data-nm="Bindu Learning" data-mv="V" data-v="21" data-q="bindu learning v the instruments the mind chakras · 21–29 inception intention inspiration insight intuition invention incarnation innocence integration">
+  <a href="/worlds/bindu-learning/" style="--m:#366EE1"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu Learning</span><span class="wh">the mind chakras · 21–29</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="Bindu Learning — its pages"><li data-q="bindu learning — what it is"><a href="/guide/bindu-learning">Bindu Learning — what it is</a></li></ul></li>
+<li class="row" data-nm="Bindu Voice" data-mv="V" data-v="15" data-q="bindu voice v the instruments vertebra 15 · sonar sonar">
+  <a href="/worlds/bindu-voice/" style="--m:#2979A6"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu Voice</span><span class="wh">vertebra 15 · Sonar</span><span class="pg"></span></a><ul class="sub" aria-label="Bindu Voice — its pages"><li data-q="guide — bindu voice"><span class="hol">Guide — Bindu Voice</span></li></ul></li>
+<li class="row" data-nm="Bindu Field" data-mv="V" data-v="16" data-q="bindu field v the instruments vertebra 16 · echo echo">
+  <a href="/worlds/bindu-field/" style="--m:#37769D"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu Field</span><span class="wh">vertebra 16 · Echo</span><span class="pg">2 <s>pages</s></span></a><ul class="sub" aria-label="Bindu Field — its pages"><li data-q="the field"><a href="/bindu-field">The Field</a></li><li data-q="bindu field — what it is"><a href="/guide/bindu-field">Bindu Field — what it is</a></li></ul></li>
+<li class="row" data-nm="Bindu Being" data-mv="V" data-v="24" data-q="bindu being v the instruments vertebra 24 · insight insight">
+  <a href="/worlds/bindu-being/" style="--m:#7B65A3"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu Being</span><span class="wh">vertebra 24 · Insight</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="Bindu Being — its pages"><li data-q="bindu being — what it is"><a href="/guide/bindu-being">Bindu Being — what it is</a></li></ul></li>
+<li class="row" data-nm="Lalita Family" data-mv="V" data-v="33" data-q="lalita family v the instruments vertebra 33 · lalita lalita">
+  <a href="/worlds/lalita-family/" style="--m:#946618"><i class="mk" aria-hidden="true"></i><span class="nm">Lalita Family</span><span class="wh">vertebra 33 · Lalita</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="Lalita Family — its pages"><li data-q="lalita family — what it is"><a href="/guide/lalita-family">Lalita Family — what it is</a></li></ul></li>
+<li class="row" data-nm="Bindu Mandala" data-mv="V" data-v="1" data-q="bindu mandala v the instruments vertebra 1 · bindu bindu">
+  <a href="/worlds/bindu-mandala/" style="--m:#8F6C10"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu Mandala</span><span class="wh">vertebra 1 · Bindu</span><span class="pg">10 <s>pages</s></span></a><ul class="sub" aria-label="Bindu Mandala — its pages"><li data-q="bindu mandala — what it is"><a href="/guide/bindu-mandala">Bindu Mandala — what it is</a></li><li data-q="trailokyamohana chakra"><a href="/worlds/bindu-mandala/1/">Trailokyamohana Chakra</a></li><li data-q="sarvasaparipuraka chakra"><a href="/worlds/bindu-mandala/2/">Sarvasaparipuraka Chakra</a></li><li data-q="sarvasankshobhana chakra"><a href="/worlds/bindu-mandala/3/">Sarvasankshobhana Chakra</a></li><li data-q="sarvasaubhagyadayaka chakra"><a href="/worlds/bindu-mandala/4/">Sarvasaubhagyadayaka Chakra</a></li><li data-q="sarvarthasadhaka chakra"><a href="/worlds/bindu-mandala/5/">Sarvarthasadhaka Chakra</a></li><li data-q="sarvarakshakara chakra"><a href="/worlds/bindu-mandala/6/">Sarvarakshakara Chakra</a></li><li data-q="sarvarogahara chakra"><a href="/worlds/bindu-mandala/7/">Sarvarogahara Chakra</a></li><li data-q="sarvasiddhiprada chakra"><a href="/worlds/bindu-mandala/8/">Sarvasiddhiprada Chakra</a></li><li data-q="sarvanandamaya chakra"><a href="/worlds/bindu-mandala/9/">Sarvanandamaya Chakra</a></li></ul></li>
+<li class="row" data-nm="Bindu Chakras" data-mv="V" data-v="99" data-q="bindu chakras v the instruments the whole spine">
+  <a href="/worlds/bindu-chakras/" style="--m:#B1593F"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu Chakras</span><span class="wh">the whole spine</span><span class="pg"></span></a><ul class="sub" aria-label="Bindu Chakras — its pages"><li data-q="guide — bindu chakras"><span class="hol">Guide — Bindu Chakras</span></li></ul></li></ul></section>
+<section class="grp" data-grp="mv-VI"><h2 class="grp-h"><i>VI</i><b>The Vantages</b><s>ten ways of looking at one moving point</s><em>10</em></h2><ul class="rows"><li class="row" data-nm="Bindu" data-mv="VI" data-v="1" data-q="bindu vi the vantages vertebra 1 · bindu bindu">
+  <a href="/worlds/bindu/" style="--m:#D0462F"><i class="mk" aria-hidden="true"></i><span class="nm">Bindu</span><span class="wh">vertebra 1 · Bindu</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Gaia" data-mv="VI" data-v="10" data-q="gaia vi the vantages vertebra 10 · soles soles">
+  <a href="/worlds/gaia/" style="--m:#587A48"><i class="mk" aria-hidden="true"></i><span class="nm">Gaia</span><span class="wh">vertebra 10 · Soles</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Sid" data-mv="VI" data-v="11" data-q="sid vi the vantages vertebra 11 · forge forge">
+  <a href="/worlds/sid/" style="--m:#3373BD"><i class="mk" aria-hidden="true"></i><span class="nm">Sid</span><span class="wh">vertebra 11 · Forge</span><span class="pg"></span></a><ul class="sub" aria-label="Sid — its pages"><li data-q="the sid soul story"><span class="hol">The Sid Soul Story</span></li><li data-q="the witness passages"><span class="hol">The Witness Passages</span></li><li data-q="manu — the gyroscope story"><span class="hol">Manu — the Gyroscope Story</span></li><li data-q="sid — experience page"><span class="hol">Sid — experience page</span></li></ul></li>
+<li class="row" data-nm="Arch" data-mv="VI" data-v="6" data-q="arch vi the vantages vertebra 6 · vishuddha vishuddha">
+  <a href="/worlds/arch/" style="--m:#CA4570"><i class="mk" aria-hidden="true"></i><span class="nm">Arch</span><span class="wh">vertebra 6 · Vishuddha</span><span class="pg"></span></a><ul class="sub" aria-label="Arch — its pages"><li data-q="arch — experience page"><span class="hol">Arch — experience page</span></li></ul></li>
+<li class="row" data-nm="Sakshi" data-mv="VI" data-v="18" data-q="sakshi vi the vantages vertebra 18 · axis axis">
+  <a href="/worlds/sakshi/" style="--m:#886949"><i class="mk" aria-hidden="true"></i><span class="nm">Sakshi</span><span class="wh">vertebra 18 · Axis</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Karishma" data-mv="VI" data-v="28" data-q="karishma vi the vantages vertebra 28 · innocence innocence">
+  <a href="/worlds/karishma/" style="--m:#D03D6A"><i class="mk" aria-hidden="true"></i><span class="nm">Karishma</span><span class="wh">vertebra 28 · Innocence</span><span class="pg"></span></a><ul class="sub" aria-label="Karishma — its pages"><li data-q="karishma — experience page"><span class="hol">Karishma — experience page</span></li></ul></li>
+<li class="row" data-nm="Neev" data-mv="VI" data-v="2" data-q="neev vi the vantages vertebra 2 · muladhara muladhara">
+  <a href="/worlds/neev/" style="--m:#5E7288"><i class="mk" aria-hidden="true"></i><span class="nm">Neev</span><span class="wh">vertebra 2 · Muladhara</span><span class="pg"></span></a><ul class="sub" aria-label="Neev — its pages"><li data-q="neev — portrait"><span class="hol">Neev — portrait</span></li></ul></li>
+<li class="row" data-nm="Shweta" data-mv="VI" data-v="3" data-q="shweta vi the vantages vertebra 3 · svadhisthana svadhisthana">
+  <a href="/worlds/shweta/" style="--m:#866A39"><i class="mk" aria-hidden="true"></i><span class="nm">Shweta</span><span class="wh">vertebra 3 · Svadhisthana</span><span class="pg"></span></a><ul class="sub" aria-label="Shweta — its pages"><li data-q="shweta — portrait"><span class="hol">Shweta — portrait</span></li></ul></li>
+<li class="row" data-nm="Ashrey" data-mv="VI" data-v="31" data-q="ashrey vi the vantages vertebra 31 · aatma aatma">
+  <a href="/worlds/ashrey/" style="--m:#8B6A21"><i class="mk" aria-hidden="true"></i><span class="nm">Ashrey</span><span class="wh">vertebra 31 · Aatma</span><span class="pg"></span></a><ul class="sub" aria-label="Ashrey — its pages"><li data-q="ashrey — experience page"><span class="hol">Ashrey — experience page</span></li></ul></li>
+<li class="row" data-nm="Lalita" data-mv="VI" data-v="33" data-q="lalita vi the vantages vertebra 33 · lalita lalita">
+  <a href="/worlds/lalita/" style="--m:#866E29"><i class="mk" aria-hidden="true"></i><span class="nm">Lalita</span><span class="wh">vertebra 33 · Lalita</span><span class="pg"></span></a></li></ul></section>
+<section class="grp" data-grp="mv-VII"><h2 class="grp-h"><i>VII</i><b>The Ground</b><s>what everything stands on</s><em>6</em></h2><ul class="rows"><li class="row" data-nm="Field" data-mv="VII" data-v="1" data-q="the field vii the ground vertebra 1 · bindu bindu">
+  <a href="/worlds/the-field/" style="--m:#DE3D22"><i class="mk" aria-hidden="true"></i><span class="nm">The Field</span><span class="wh">vertebra 1 · Bindu</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="The Field — its pages"><li data-q="what all of this is — what it is"><a href="/guide/the-field">What all of this is — what it is</a></li></ul></li>
+<li class="row" data-nm="Registers" data-mv="VII" data-v="99" data-q="the registers vii the ground the whole spine">
+  <a href="/worlds/registers/" style="--m:#0F845B"><i class="mk" aria-hidden="true"></i><span class="nm">The Registers</span><span class="wh">the whole spine</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Temporal" data-mv="VII" data-v="28" data-q="the temporal vii the ground vertebra 28 · innocence innocence">
+  <a href="/worlds/temporal/" style="--m:#99670A"><i class="mk" aria-hidden="true"></i><span class="nm">The Temporal</span><span class="wh">vertebra 28 · Innocence</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Codex" data-mv="VII" data-v="9" data-q="the codex vii the ground vertebra 9 · shadow shadow">
+  <a href="/worlds/codex/" style="--m:#4A48C8"><i class="mk" aria-hidden="true"></i><span class="nm">The Codex</span><span class="wh">vertebra 9 · Shadow</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Reveals" data-mv="VII" data-v="32" data-q="the reveals vii the ground vertebra 32 · ego reveal ego reveal">
+  <a href="/worlds/reveals/" style="--m:#C638B2"><i class="mk" aria-hidden="true"></i><span class="nm">The Reveals</span><span class="wh">vertebra 32 · Ego Reveal</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Elements" data-mv="VII" data-v="18" data-q="the elements vii the ground vertebra 18 · axis axis">
+  <a href="/worlds/elements/" style="--m:#117AA4"><i class="mk" aria-hidden="true"></i><span class="nm">The Elements</span><span class="wh">vertebra 18 · Axis</span><span class="pg"></span></a></li></ul></section>
+<section class="grp" data-grp="mv-VIII"><h2 class="grp-h"><i>VIII</i><b>The Configuration</b><s>in · walk · out</s><em>3</em></h2><ul class="rows"><li class="row" data-nm="Mirror" data-mv="VIII" data-v="18" data-q="the mirror viii the configuration vertebra 18 · axis axis">
+  <a href="/worlds/mirror/" style="--m:#5C7944"><i class="mk" aria-hidden="true"></i><span class="nm">The Mirror</span><span class="wh">vertebra 18 · Axis</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Plays" data-mv="VIII" data-v="33" data-q="the plays viii the configuration vertebra 33 · lalita lalita">
+  <a href="/worlds/plays/" style="--m:#5A7282"><i class="mk" aria-hidden="true"></i><span class="nm">The Plays</span><span class="wh">vertebra 33 · Lalita</span><span class="pg"></span></a></li>
+<li class="row" data-nm="Self Generator" data-mv="VIII" data-v="31" data-q="a self generator viii the configuration vertebra 31 · aatma aatma">
+  <a href="/worlds/a-self-generator/" style="--m:#5C7944"><i class="mk" aria-hidden="true"></i><span class="nm">A Self Generator</span><span class="wh">vertebra 31 · Aatma</span><span class="pg"></span></a></li></ul></section>
+<section class="grp" data-grp="mv-IX"><h2 class="grp-h"><i>IX</i><b>The Moments</b><s>remembering across time</s><em>3</em></h2><ul class="rows"><li class="row" data-nm="It Was Always Lucky" data-mv="IX" data-v="11" data-q="it was always lucky ix the moments vertebra 11 · forge forge">
+  <a href="/worlds/it-was-always-lucky/" style="--m:#8A3C12"><i class="mk" aria-hidden="true"></i><span class="nm">It Was Always Lucky</span><span class="wh">vertebra 11 · Forge</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="It Was Always Lucky — its pages"><li data-q="it was always lucky — what it is"><a href="/guide/it-was-always-lucky">It Was Always Lucky — what it is</a></li><li data-q="it was always lucky — act i"><span class="hol">It Was Always Lucky — Act I</span></li><li data-q="it was always lucky — act ii"><span class="hol">It Was Always Lucky — Act II</span></li></ul></li>
+<li class="row" data-nm="Khelo Holi" data-mv="IX" data-v="13" data-q="khelo holi ix the moments vertebra 13 · hands hands">
+  <a href="/worlds/khelo-holi/" style="--m:#AE5D00"><i class="mk" aria-hidden="true"></i><span class="nm">Khelo Holi</span><span class="wh">vertebra 13 · Hands</span><span class="pg"></span></a><ul class="sub" aria-label="Khelo Holi — its pages"><li data-q="khelo holi"><span class="hol">Khelo Holi</span></li></ul></li>
+<li class="row" data-nm="Moments" data-mv="IX" data-v="99" data-q="the moments ix the moments the whole spine">
+  <a href="/worlds/moments/" style="--m:#8F6834"><i class="mk" aria-hidden="true"></i><span class="nm">The Moments</span><span class="wh">the whole spine</span><span class="pg">1 <s>pages</s></span></a><ul class="sub" aria-label="The Moments — its pages"><li data-q="it was always lucky — what it is"><a href="/guide/it-was-always-lucky">It Was Always Lucky — what it is</a></li><li data-q="it was always lucky — act i"><span class="hol">It Was Always Lucky — Act I</span></li><li data-q="it was always lucky — act ii"><span class="hol">It Was Always Lucky — Act II</span></li><li data-q="khelo holi"><span class="hol">Khelo Holi</span></li></ul></li></ul></section>
+  <p class="none" id="none">Nothing here is called that yet. <a href="/search/">Search every line</a>, or <a href="/door/">let the field choose</a>.</p>
+</main>
+<div class="foot" data-block="pull">
+  <p>The Sky is this same set seen as one body, where each vertebra is a sun and its worlds are
+  moons in orbit. This page is for when you already know what you are looking for.</p>
+  <a href="/#sky">pull out to the Sky →</a>
+  <a href="/door/">let the field choose →</a>
+  <a href="/">↑ back to the doors</a>
+  <p class="rim">the site itself: <a href="/search/">search</a> · <a href="/now/">now</a> · <a href="/about/">about</a> · <a href="/privacy/">privacy</a> · <a href="/credits/">credits</a></p>
+</div>
+<script>
+/* Design's Tab Page script (design-baseline/site/tab-menu.html), carried over. Two changes, both laws:
+   · the filter also reads each world's floors and pages, so the one box finds a page by its name (T1);
+   · it never says how many matched — count in private (EDGES §2). The tally names the site, not the result. */
+(function(){
+"use strict";
+var d=document,q=d.getElementById('q'),clr=d.getElementById('clr'),
+    none=d.getElementById('none'),
+    rows=[].slice.call(d.querySelectorAll('.row')),order='mv';
+rows.forEach(function(r,i){r._home=r.parentNode;r._i=i;r._subs=[].slice.call(r.querySelectorAll('.sub li'))});
+function groups(){return [].slice.call(d.querySelectorAll('.grp'))}
+
+function sift(){
+  var s=(q.value||'').trim().toLowerCase(),n=0;
+  rows.forEach(function(r){
+    var self=!s||r.dataset.q.indexOf(s)>=0,any=false;
+    r._subs.forEach(function(li){var on=!s||self||li.dataset.q.indexOf(s)>=0;
+      li.classList.toggle('off',!on);li.classList.toggle('hit',!!s&&!self&&on);if(s&&!self&&on)any=true});
+    var on=self||any;
+    r.classList.toggle('off',!on);
+    r.classList.toggle('hit',!!s&&self);
+    if(on)n++});
+  groups().forEach(function(g){
+    g.classList.toggle('off',!g.querySelectorAll('.row:not(.off)').length)});
+  none.classList.toggle('on',n===0);
+  clr.classList.toggle('on',!!s)}
+
+var host=d.querySelector('main'),flat=null;
+function setOrder(o){
+  order=o;
+  d.querySelectorAll('.ord button').forEach(function(b){
+    b.setAttribute('aria-pressed',b.dataset.o===o?'true':'false')});
+  if(o==='mv'){
+    rows.slice().sort(function(a,b){return a._i-b._i})
+      .forEach(function(r){r._home.appendChild(r)});
+    if(flat){flat.remove();flat=null}
+    groups().forEach(function(g){g.hidden=false});
+  }else{
+    groups().forEach(function(g){if(g!==flat)g.hidden=true});
+    if(!flat){
+      flat=d.createElement('section');flat.className='grp';
+      flat.innerHTML='<h2 class="grp-h"><i>—</i><b></b><s></s><em></em></h2><ul class="rows"></ul>';
+      host.insertBefore(flat,none)}
+    var ul=flat.querySelector('.rows'),h=flat.querySelector('.grp-h');
+    var sorted=rows.slice().sort(function(a,b){
+      if(o==='v'){var d1=+a.dataset.v-+b.dataset.v;if(d1)return d1}
+      return a.dataset.nm.localeCompare(b.dataset.nm)});
+    sorted.forEach(function(r){ul.appendChild(r)});
+    h.querySelector('b').textContent=o==='v'?'Down the spine':'By name';
+    h.querySelector('s').textContent=o==='v'
+      ?'Bindu at one, Lalita at thirty-three — and the worlds that stand on the whole spine, last'
+      :'the order a stranger needs';
+    flat.hidden=false}
+  sift()}
+
+d.querySelectorAll('.ord button').forEach(function(b){
+  b.addEventListener('click',function(){setOrder(b.dataset.o)})});
+q.addEventListener('input',sift);
+clr.addEventListener('click',function(){q.value='';q.focus();sift()});
+d.addEventListener('keydown',function(e){
+  if(e.key==='/'&&d.activeElement!==q){e.preventDefault();q.focus();q.select()}
+  else if(e.key==='Escape'&&d.activeElement===q){q.value='';sift();q.blur()}});
+/* ?q= arrives already searching (the 404 and the search page hand a word over) */
+var q0=new URLSearchParams(location.search).get('q');if(q0){q.value=q0;sift()}
+})();
+</script>
+<script src="/src/keys.js"></script>
+<script src="/src/thread.js"></script>
+<script src="/src/access.js"></script>
+<script src="/src/depth.js"></script>
+</body>
+</html>

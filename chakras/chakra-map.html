@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://aistrangegame.com/chakras/chakra-map">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0">
 <title>The Full Chakra Map — A Strange Game</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;600&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
@@ -395,8 +397,10 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
   .env-nav{right:8px;gap:14px}
 }
 </style>
+<meta property="og:image" content="https://aistrangegame.com/og/chakras--chakra-map.jpg">
+<meta name="twitter:card" content="summary_large_image">
 </head>
-<body>
+<body data-seam="whisper" data-world="chakramap" data-v="1-33" data-parent="/worlds/chakra-map/" data-parent-name="The Chakra Map">
 
 <!-- Wandering Bindu -->
 <div class="bw catchable" id="bw"></div>
@@ -404,10 +408,10 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
 
 <!-- Environment Dot Nav -->
 <nav class="env-nav" aria-label="Environment navigation">
-  <div class="env-dot" data-target="act1" aria-label="Energy" tabindex="0"></div>
-  <div class="env-dot" data-target="act2" aria-label="Body" tabindex="0"></div>
-  <div class="env-dot" data-target="act3" aria-label="Mind" tabindex="0"></div>
-  <div class="env-dot" data-target="act4" aria-label="Structure" tabindex="0"></div>
+  <div class="env-dot" data-target="act1" role="button" aria-label="Energy" tabindex="0"></div>
+  <div class="env-dot" data-target="act2" role="button" aria-label="Body" tabindex="0"></div>
+  <div class="env-dot" data-target="act3" role="button" aria-label="Mind" tabindex="0"></div>
+  <div class="env-dot" data-target="act4" role="button" aria-label="Structure" tabindex="0"></div>
 </nav>
 
 <!-- ====== ACT 0 — ENTRY ====== -->
@@ -446,7 +450,7 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
     <div class="spine-glow rising"></div>
 
     <!-- Sahasrara -->
-    <div class="en sr" id="sahasrara" tabindex="0" aria-expanded="false" data-tone="480" onclick="toggleE(this)">
+    <div class="en sr" id="sahasrara" role="button" tabindex="0" aria-expanded="false" data-tone="480" onclick="toggleE(this)">
       <div class="ed" style="background:var(--crown);box-shadow:0 0 12px rgba(139,0,255,.3)"></div>
       <div>
         <div class="en-name">Sahasrara</div>
@@ -469,7 +473,7 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
     </div>
 
     <!-- Ajna -->
-    <div class="en sr" id="ajna" tabindex="0" aria-expanded="false" data-tone="426" onclick="toggleE(this)">
+    <div class="en sr" id="ajna" role="button" tabindex="0" aria-expanded="false" data-tone="426" onclick="toggleE(this)">
       <div class="ed" style="background:var(--third-eye);box-shadow:0 0 12px rgba(75,0,130,.3)"></div>
       <div>
         <div class="en-name">Ajna</div>
@@ -492,7 +496,7 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
     </div>
 
     <!-- Vishuddha -->
-    <div class="en sr" id="vishuddha" tabindex="0" aria-expanded="false" data-tone="384" onclick="toggleE(this)">
+    <div class="en sr" id="vishuddha" role="button" tabindex="0" aria-expanded="false" data-tone="384" onclick="toggleE(this)">
       <div class="ed" style="background:var(--throat);box-shadow:0 0 12px rgba(34,68,204,.3)"></div>
       <div>
         <div class="en-name">Vishuddha</div>
@@ -515,7 +519,7 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
     </div>
 
     <!-- Anahata -->
-    <div class="en sr" id="anahata" tabindex="0" aria-expanded="false" data-tone="341" onclick="toggleE(this)">
+    <div class="en sr" id="anahata" role="button" tabindex="0" aria-expanded="false" data-tone="341" onclick="toggleE(this)">
       <div class="ed" style="background:var(--heart);box-shadow:0 0 12px rgba(34,170,68,.3)"></div>
       <div>
         <div class="en-name">Anahata</div>
@@ -538,7 +542,7 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
     </div>
 
     <!-- Manipura -->
-    <div class="en sr" id="manipura" tabindex="0" aria-expanded="false" data-tone="320" onclick="toggleE(this)">
+    <div class="en sr" id="manipura" role="button" tabindex="0" aria-expanded="false" data-tone="320" onclick="toggleE(this)">
       <div class="ed" style="background:var(--solar);box-shadow:0 0 12px rgba(221,187,0,.3)"></div>
       <div>
         <div class="en-name">Manipura</div>
@@ -561,7 +565,7 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
     </div>
 
     <!-- Svadhisthana -->
-    <div class="en sr" id="svadhisthana" tabindex="0" aria-expanded="false" data-tone="288" onclick="toggleE(this)">
+    <div class="en sr" id="svadhisthana" role="button" tabindex="0" aria-expanded="false" data-tone="288" onclick="toggleE(this)">
       <div class="ed" style="background:var(--sacral);box-shadow:0 0 12px rgba(238,136,0,.3)"></div>
       <div>
         <div class="en-name">Svadhisthana</div>
@@ -584,7 +588,7 @@ body.complete-32 .bw{opacity:.6!important;box-shadow:0 0 24px var(--gold-soft)!i
     </div>
 
     <!-- Muladhara -->
-    <div class="en sr" id="muladhara" tabindex="0" aria-expanded="false" data-tone="256" onclick="toggleE(this)">
+    <div class="en sr" id="muladhara" role="button" tabindex="0" aria-expanded="false" data-tone="256" onclick="toggleE(this)">
       <div class="ed" style="background:var(--root);box-shadow:0 0 12px rgba(221,34,34,.3)"></div>
       <div>
         <div class="en-name">Muladhara</div>
@@ -1599,5 +1603,7 @@ function adjZ(d) {
   document.documentElement.style.setProperty('--scale', scales[zl]);
 }
 </script>
+<script src="/src/thread.js" data-seam-include></script>
+<script src="/src/depth.js" data-seam-include></script>
 </body>
 </html>
