@@ -34,8 +34,17 @@ function watch(el,fn,opts){
   if(!('IntersectionObserver' in window))return null;
   var o=new IntersectionObserver(fn,opts||{threshold:[0,.45,.8]});
   o.observe(el);OBS.push(o);return o}
-function loop(el,fn,still){LOOPS.push({el:el,fn:fn,still:still,was:false});setTimeout(kick,0)}
+function loop(el,fn,still){LOOPS.push({el:el,fn:fn,still:still,was:false});if(VIO)VIO.observe(el);setTimeout(kick,0)}
 function vis(el){var r=el.getBoundingClientRect();return r.height>0&&r.bottom>-120&&r.top<innerHeight+120}
+/* the per-frame loop asks "is it on screen?" of every figure, every frame. An IntersectionObserver answers that
+   once, when it changes (the same 120px margin), so tick() reads a flag instead of forcing layout per figure per
+   frame. Only tick() uses it: it runs in the same rendering step the observer does, so the flag is never stale
+   there. pump() and the reduced-motion path keep the exact read — they must work from scroll alone (see pump). */
+var VIS=typeof WeakMap!=='undefined'?new WeakMap():null,
+    VIO=VIS&&window.IntersectionObserver?new IntersectionObserver(function(es){var woke=false;
+      es.forEach(function(e){var v=e.isIntersecting&&e.boundingClientRect.height>0;if(v&&!VIS.get(e.target))woke=true;VIS.set(e.target,v)});
+      if(woke)kick()},{rootMargin:'120px 0px'}):null;
+function visf(el){return VIO&&VIS.has(el)?VIS.get(el):vis(el)}
 function kick(){if(reduced){LOOPS.forEach(function(o){var v=vis(o.el);if(v&&!o.was&&o.still)o.still();o.was=v});return}
   /* always reschedule from scratch: holding a stale raf id here deadlocked the
      whole frame loop whenever a scheduled frame never fired (a backgrounded
@@ -44,7 +53,7 @@ function kick(){if(reduced){LOOPS.forEach(function(o){var v=vis(o.el);if(v&&!o.w
   raf=requestAnimationFrame(tick)}
 function tick(t){raf=0;var any=false;
   for(var i=0;i<LOOPS.length;i++){var o=LOOPS[i];
-    if(!document.hidden&&vis(o.el)){
+    if(!document.hidden&&visf(o.el)){
       /* one throwing step used to abort tick() for every loop on the page and
          stop the whole site until reload. A fault is now isolated to its own
          step, retired, and named on <html data-loop-fail>. */
@@ -757,6 +766,24 @@ window.ASG={boot:boot,loop:loop,arriving:arriving,watch:watch,sheet:sheet,close:
     ily.classList.add('on');setTimeout(function(){ily.classList.remove('on')},1900)},
   point:P};
 window.ASGfig=ASGfig;
+
+/* the homepage is 48 worlds and ~68,000px of live figures, and most of scrolling's cost was the browser laying out
+   and painting all of it (the Stage D profile: over half the time; the page's own script under 2%). Once the page
+   has laid out, each world is measured and keeps that exact size as its intrinsic size; then content-visibility:auto
+   lets the browser skip laying out and painting the worlds off screen. The page's height, every anchor and every
+   scroll position stay exactly where they were; a world is drawn in full as it comes near. Homepage only. */
+(function(){
+  var d=document;
+  if(!d.querySelector('section.world[data-movement]')||!window.CSS||!CSS.supports||!CSS.supports('content-visibility','auto'))return;
+  function on(){
+    var S=d.querySelectorAll('section.world[data-movement]');
+    [].forEach.call(S,function(s){var r=s.getBoundingClientRect();
+      if(r.height>0)s.style.containIntrinsicSize='auto '+r.width+'px '+r.height+'px'});   /* exact: a rounded size shifts everything below it */
+    var st=d.createElement('style');st.id='asg-cv';
+    st.textContent='html.asg-cv section.world[data-movement]{content-visibility:auto}';
+    d.head.appendChild(st);d.documentElement.classList.add('asg-cv')}
+  if(d.readyState==='complete')requestAnimationFrame(on);else addEventListener('load',function(){requestAnimationFrame(on)});
+})();
 })();
 
 /* kit */

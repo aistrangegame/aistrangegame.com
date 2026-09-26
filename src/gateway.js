@@ -693,6 +693,8 @@ function pill(h,label,quiet){h=canon(h);return arriving(h)
 function build(id){
   merge(id);
   var w=G[id];
+  /* the builder's printed arrival block (gateways.py arrive_inner), held before the static page goes */
+  var pre=d.querySelector('#gwStatic > section[data-block="arrive"]');
   var old=d.querySelector('main');if(old)old.remove();
   if(!w){d.body.innerHTML='<p style="padding:40px;font-family:sans-serif">'+
     'No such world: '+esc(id)+'</p>';return}
@@ -754,6 +756,9 @@ function build(id){
     (w.tue?'<p class="gw-tue"><b>A Tuesday</b>'+esc(w.tue)+'</p>':'')+
     '<div class="gw-fig" id="gwFig"></div>'+
     '<div class="gw-cue" id="gwCue">↓ '+esc(w.choose||'what is inside')+'</div>';
+  /* the builder printed this very block (gateways.py arrive_inner): keep that element, so the part above the fold
+     never reflows as the script arrives — the script only fills its figure. Anything different: build our own. */
+  if(pre&&pre.innerHTML===a.innerHTML)a=pre;
   main.appendChild(a);
 
   /* 2 · THE ARRIVAL PARAGRAPH (D10) — a few sentences more: what it is, and why it was made */
